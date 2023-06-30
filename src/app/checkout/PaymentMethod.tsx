@@ -1,6 +1,6 @@
 "use client";
 
-import Label from "@/components/Label/Label";
+import Label from "@/components_old/Label/Label";
 import React, { FC, useState } from "react";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import ButtonSecondary from "@/shared/Button/ButtonSecondary";

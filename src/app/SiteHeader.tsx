@@ -2,8 +2,8 @@
 
 import React from "react";
 import { usePathname } from "next/navigation";
-import HeaderLogged from "@/components/Header/HeaderLogged";
-import Header from "@/components/Header/Header";
+import HeaderLogged from "@/components_old/Header/HeaderLogged";
+import Header from "@/components_old/Header/Header";
 import { useThemeMode } from "@/hooks/useThemeMode";
 
 const SiteHeader = () => {

@@ -2,8 +2,8 @@ import React from "react";
 import SectionAds from "./SectionAds";
 import SectionMagazine5 from "./SectionMagazine5";
 import SectionLatestPosts from "./SectionLatestPosts";
-import BgGlassmorphism from "@/components/BgGlassmorphism/BgGlassmorphism";
-import SectionPromo3 from "@/components/SectionPromo3";
+import BgGlassmorphism from "@/components_old/BgGlassmorphism/BgGlassmorphism";
+import SectionPromo3 from "@/components_old/SectionPromo3";
 
 // DEMO DATA
 

@@ -4,8 +4,8 @@ import React, { FC, useEffect, useId, useState } from "react";
 import Heading from "@/components/Heading/Heading";
 // @ts-ignore
 import Glide from "@glidejs/glide/dist/glide.esm";
-import CollectionCard from "./CollectionCard";
-import CollectionCard2 from "./CollectionCard2";
+import CollectionCard from "../atoms/CollectionCard";
+import CollectionCard2 from "../atoms/CollectionCard2";
 import { DEMO_LARGE_PRODUCTS } from "./SectionSliderLargeProduct2";
 import Link from "next/link";
 

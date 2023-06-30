@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import NcImage from "@/shared/NcImage/NcImage";
 import SocialsShare from "@/shared/SocialsShare/SocialsShare";
 import { imgHigtQualitys, _getTitleRd } from "@/contains/fakeData";
-import PostCardMeta from "@/components/PostCardMeta/PostCardMeta";
+import PostCardMeta from "@/components_old/PostCardMeta/PostCardMeta";
 import Link from "next/link";
 
 export interface Card12Props {

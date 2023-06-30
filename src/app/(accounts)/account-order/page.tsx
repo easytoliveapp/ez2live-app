@@ -1,4 +1,4 @@
-import Prices from "@/components/Prices";
+import Prices from "@/components_old/Prices";
 import { PRODUCTS } from "@/data/data";
 import ButtonSecondary from "@/shared/Button/ButtonSecondary";
 import Image from "next/image";

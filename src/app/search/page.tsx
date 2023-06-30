@@ -1,12 +1,12 @@
 import React, { FC } from "react";
 import Pagination from "@/shared/Pagination/Pagination";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
-import SectionSliderCollections from "@/components/SectionSliderLargeProduct";
-import SectionPromo1 from "@/components/SectionPromo1";
-import HeaderFilterSearchPage from "@/components/HeaderFilterSearchPage";
+import SectionSliderCollections from "@/components_old/SectionSliderLargeProduct";
+import SectionPromo1 from "@/components_old/SectionPromo1";
+import HeaderFilterSearchPage from "@/components_old/HeaderFilterSearchPage";
 import Input from "@/shared/Input/Input";
 import ButtonCircle from "@/shared/Button/ButtonCircle";
-import ProductCard from "@/components/ProductCard";
+import ProductCard from "@/components_old/ProductCard";
 import { PRODUCTS } from "@/data/data";
 
 const PageSearch = ({}) => {

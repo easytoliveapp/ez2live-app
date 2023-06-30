@@ -1,9 +1,9 @@
 import React, { FC } from "react";
-import SectionSliderCollections from "@/components/SectionSliderLargeProduct";
-import SectionPromo1 from "@/components/SectionPromo1";
-import ProductCard from "@/components/ProductCard";
+import SectionSliderCollections from "@/components_old/SectionSliderLargeProduct";
+import SectionPromo1 from "@/components_old/SectionPromo1";
+import ProductCard from "@/components_old/ProductCard";
 import { PRODUCTS } from "@/data/data";
-import SidebarFilters from "@/components/SidebarFilters";
+import SidebarFilters from "@/components_old/SidebarFilters";
 
 const PageCollection2 = ({}) => {
   return (

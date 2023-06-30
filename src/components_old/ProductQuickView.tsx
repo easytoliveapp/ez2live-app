@@ -1,24 +1,24 @@
 "use client";
 import React, { FC, useState } from "react";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
-import LikeButton from "@/components/LikeButton";
+import LikeButton from "@/components_old/LikeButton";
 import { StarIcon } from "@heroicons/react/24/solid";
-import BagIcon from "@/components/BagIcon";
-import NcInputNumber from "@/components/NcInputNumber";
+import BagIcon from "@/components_old/BagIcon";
+import NcInputNumber from "@/components_old/NcInputNumber";
 import { PRODUCTS } from "@/data/data";
 import {
   NoSymbolIcon,
   ClockIcon,
   SparklesIcon,
 } from "@heroicons/react/24/outline";
-import IconDiscount from "@/components/IconDiscount";
-import Prices from "@/components/Prices";
+import IconDiscount from "@/components_old/IconDiscount";
+import Prices from "@/components_old/Prices";
 import toast from "react-hot-toast";
 import detail1JPG from "@/images/products/detail1.jpg";
 import detail2JPG from "@/images/products/detail2.jpg";
 import detail3JPG from "@/images/products/detail3.jpg";
 import NotifyAddTocart from "./NotifyAddTocart";
-import AccordionInfo from "@/components/AccordionInfo";
+import AccordionInfo from "@/components_old/AccordionInfo";
 import Image from "next/image";
 import Link from "next/link";
 
