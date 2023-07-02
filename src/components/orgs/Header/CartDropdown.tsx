@@ -1,7 +1,7 @@
 "use client";
 
 import { Popover, Transition } from "@/app/headlessui";
-import Prices from "@/components/Prices";
+import Prices from "@/components/atoms/Prices";
 import { Product, PRODUCTS } from "@/data/data";
 import { Fragment } from "react";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
