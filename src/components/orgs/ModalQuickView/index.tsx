@@ -3,8 +3,8 @@
 import { Dialog, Transition } from "@/app/headlessui";
 import React, { FC, Fragment } from "react";
 import ButtonClose from "@/shared/ButtonClose/ButtonClose";
-import ProductQuickView from "../mols/ProductQuickView/ProductQuickView";
-import ProductQuickView2 from "../mols/ProductQuickView/ProductQuickView2";
+import ProductQuickView from "../../mols/ProductQuickView/ProductQuickView";
+import ProductQuickView2 from "../../mols/ProductQuickView/ProductQuickView2";
 import { usePathname } from "next/navigation";
 
 export interface ModalQuickViewProps {

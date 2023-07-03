@@ -3,11 +3,11 @@
 import React, { FC, useState } from "react";
 import Logo from "@/shared/Logo/Logo";
 import MenuBar from "@/shared/MenuBar/MenuBar";
-import LangDropdown from "./LangDropdown";
-import AvatarDropdown from "./AvatarDropdown";
-import TemplatesDropdown from "./TemplatesDropdown";
-import DropdownCategories from "./DropdownCategories";
-import CartDropdown from "./CartDropdown";
+import LangDropdown from "../../atoms/LangDropdown";
+import AvatarDropdown from "../../atoms/AvatarDropdown";
+import TemplatesDropdown from "../../mols/TemplatesDropdown";
+import DropdownCategories from "../../atoms/DropdownCategories";
+import CartDropdown from "../../mols/CartDropdown";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { useRouter } from "next/navigation";
 
