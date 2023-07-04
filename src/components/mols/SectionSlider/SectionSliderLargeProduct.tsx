@@ -4,9 +4,9 @@ import React, { FC, useEffect, useId, useState } from "react";
 import Heading from "@/components/atoms/Heading/Heading";
 // @ts-ignore
 import Glide from "@glidejs/glide/dist/glide.esm";
-import CollectionCard from "../../atoms/CollectionCard/CollectionCard";
-import CollectionCard2 from "../../atoms/CollectionCard/CollectionCard2";
-import { DEMO_LARGE_PRODUCTS } from "./SectionSliderLargeProduct2";
+import CollectionCard from "@/components/atoms/CollectionCard/CollectionCard";
+import CollectionCard2 from "@/components/atoms/CollectionCard/CollectionCard2";
+import { DEMO_LARGE_PRODUCTS } from "@/components/mols/SectionSlider/SectionSliderLargeProduct2";
 import Link from "next/link";
 
 export interface SectionSliderLargeProductProps {

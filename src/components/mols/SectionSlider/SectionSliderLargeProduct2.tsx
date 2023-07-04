@@ -1,13 +1,13 @@
 "use client";
 
 import React, { FC, useEffect, useId, useState } from "react";
-import Heading from "@/components/Heading/Heading";
+import Heading from "@/components/atoms/Heading/Heading";
 // @ts-ignore
 import Glide from "@glidejs/glide/dist/glide.esm";
-import CollectionCard from "../atoms/CollectionCard/CollectionCard";
-import CollectionCard2 from "../atoms/CollectionCard2";
+import CollectionCard from "@/components/atoms/CollectionCard/CollectionCard";
+import CollectionCard2 from "@/components/atoms/CollectionCard/CollectionCard2";
 import Nav from "@/shared/Nav/Nav";
-import NavItem2 from "../atoms/NavItem2";
+import NavItem2 from "@/components/atoms/NavItem2";
 import Next from "@/shared/NextPrev/Next";
 import Prev from "@/shared/NextPrev/Prev";
 import full1Img from "@/images/products/full1.png";

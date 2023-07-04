@@ -3,9 +3,9 @@
 import React, { createRef, FC, useState } from "react";
 import Logo from "@/shared/Logo/Logo";
 import MenuBar from "@/shared/MenuBar/MenuBar";
-import AvatarDropdown from "../../atoms/AvatarDropdown";
+import AvatarDropdown from "@/components/atoms/AvatarDropdown";
 import Navigation from "@/shared/Navigation/Navigation";
-import CartDropdown from "../../mols/CartDropdown";
+import CartDropdown from "@/components/mols/CartDropdown";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { useRouter } from "next/navigation";
 

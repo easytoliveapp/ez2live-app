@@ -1,18 +1,18 @@
 "use client";
 
 import React, { FC, useState } from "react";
-import LikeButton from "../../atoms/LikeButton";
-import Prices from "../../atoms/Prices";
+import LikeButton from "@/components/atoms/LikeButton";
+import Prices from "@/components/atoms/Prices";
 import { ArrowsPointingOutIcon } from "@heroicons/react/24/outline";
 import { Product, PRODUCTS } from "@/data/data";
 import { StarIcon } from "@heroicons/react/24/solid";
 import ButtonPrimary from "@/shared/Button/ButtonPrimary";
 import ButtonSecondary from "@/shared/Button/ButtonSecondary";
-import BagIcon from "../../atoms/BagIcon";
+import BagIcon from "@/components//atoms/BagIcon";
 import toast from "react-hot-toast";
 import { Transition } from "@/app/headlessui";
-import ModalQuickView from "../../orgs/ModalQuickView";
-import ProductStatus from "../../atoms/ProductStatus";
+import ModalQuickView from "@/components//orgs/ModalQuickView";
+import ProductStatus from "@/components//atoms/ProductStatus";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";

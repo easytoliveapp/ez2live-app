@@ -1,11 +1,11 @@
 "use client";
 
 import React, { useEffect, useId, useState } from "react";
-import Heading from "../../atoms/Heading/Heading";
-import CardCategory3 from "../CardCategories/CardCategory3";
+import Heading from "@/components/atoms/Heading/Heading";
+import CardCategory3 from "@/components/mols/CardCategories/CardCategory3";
 // @ts-ignore
 import Glide from "@glidejs/glide/dist/glide.esm";
-import { CATS_DISCOVER } from "../CardCategories/data";
+import { CATS_DISCOVER } from "@/components/mols/CardCategories/data";
 
 const DiscoverMoreSlider = () => {
   const id = useId();

@@ -4,7 +4,7 @@ import { Popover, Tab, Transition } from "@/app/headlessui";
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
 import { GlobeAltIcon } from "@heroicons/react/24/outline";
 import { FC, Fragment } from "react";
-import { headerCurrency } from "../CurrencyDropdown";
+import { headerCurrency } from "@/components/atoms/CurrencyDropdown";
 
 export const headerLanguage = [
   {

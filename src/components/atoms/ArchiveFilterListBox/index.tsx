@@ -3,7 +3,7 @@ import React, { FC } from "react";
 import { Fragment, useState } from "react";
 import { Listbox, Transition } from "@/app/headlessui";
 import { CheckIcon } from "@heroicons/react/24/solid";
-import ButtonDropdown from "../ButtonDropDown/ButtonDropdown";
+import ButtonDropdown from "@/components/atoms/ButtonDropDown/ButtonDropdown";
 
 export interface ArchiveFilterListBoxProps {
   className?: string;

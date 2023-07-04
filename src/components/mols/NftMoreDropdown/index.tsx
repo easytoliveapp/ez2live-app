@@ -2,10 +2,10 @@
 
 import React, { FC, useState } from "react";
 import NcDropDown, { NcDropDownItem } from "@/shared/NcDropDown/NcDropDown";
-import ModalDelete from "../Modal/ModalDelete";
-import ModalEdit from "../Modal/ModalEdit";
-import ModalReportItem from "../Modal/ModalReportItem";
-import ModalTransferToken from "../Modal/ModalTransferToken";
+import ModalDelete from "@/components/mols/Modal/ModalDelete";
+import ModalEdit from "@/components/mols/Modal/ModalEdit";
+import ModalReportItem from "@/components/mols/Modal/ModalReportItem";
+import ModalTransferToken from "@/components/mols/Modal/ModalTransferToken";
 
 export interface NftMoreDropdownProps {
   containerClassName?: string;

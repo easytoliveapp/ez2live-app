@@ -1,10 +1,10 @@
 "use client";
 
 import React, { FC, useEffect, useId, useState } from "react";
-import Heading from "@/components/Heading/Heading";
+import Heading from "@/components/atoms/Heading/Heading";
 // @ts-ignore
 import Glide from "@glidejs/glide/dist/glide.esm";
-import ProductCard from "./ProductCard";
+import ProductCard from "@/components/orgs/ProductCard";
 import { Product, PRODUCTS } from "@/data/data";
 
 export interface SectionSliderProductCardProps {
