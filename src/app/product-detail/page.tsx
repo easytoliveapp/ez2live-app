@@ -1,7 +1,7 @@
 "use client";
 
 import React, { FC, useState } from "react";
-import ButtonPrimary from "@/shared/Button/ButtonPrimary";
+import ButtonPrimary from "@/components/atoms/Button/ButtonPrimary";
 import LikeButton from "@/components_old/LikeButton";
 import { StarIcon } from "@heroicons/react/24/solid";
 import BagIcon from "@/components_old/BagIcon";
@@ -21,7 +21,7 @@ import detail2JPG from "@/images/products/detail2.jpg";
 import detail3JPG from "@/images/products/detail3.jpg";
 import Policy from "./Policy";
 import ReviewItem from "@/components_old/ReviewItem";
-import ButtonSecondary from "@/shared/Button/ButtonSecondary";
+import ButtonSecondary from "@/components/atoms/Button/ButtonSecondary";
 import SectionPromo2 from "@/components_old/SectionPromo2";
 import ModalViewAllReviews from "./ModalViewAllReviews";
 import NotifyAddTocart from "@/components_old/NotifyAddTocart";

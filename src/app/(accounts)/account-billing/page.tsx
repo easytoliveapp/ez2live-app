@@ -1,5 +1,5 @@
 import React from "react";
-import ButtonPrimary from "@/shared/Button/ButtonPrimary";
+import ButtonPrimary from "@/components/atoms/Button/ButtonPrimary";
 
 const AccountBilling = () => {
   return (

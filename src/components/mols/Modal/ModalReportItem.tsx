@@ -1,10 +1,10 @@
 "use client";
 import React, { FC, useEffect, useRef, useState } from "react";
 import { RadioGroup } from "@/app/headlessui";
-import Textarea from "@/shared/Textarea/Textarea";
-import ButtonPrimary from "@/shared/Button/ButtonPrimary";
-import ButtonSecondary from "@/shared/Button/ButtonSecondary";
-import NcModal from "@/shared/NcModal/NcModal";
+import Textarea from "@/components/atoms/Textarea/Textarea";
+import ButtonPrimary from "@/components/atoms/Button/ButtonPrimary";
+import ButtonSecondary from "@/components/atoms/Button/ButtonSecondary";
+import NcModal from "@/components/atoms/NcModal/NcModal";
 
 export interface ProblemPlan {
   name: string;

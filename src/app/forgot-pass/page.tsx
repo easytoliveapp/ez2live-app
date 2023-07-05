@@ -1,6 +1,6 @@
 import React from "react";
-import Input from "@/shared/Input/Input";
-import ButtonPrimary from "@/shared/Button/ButtonPrimary";
+import Input from "@/components/atoms/Input/Input";
+import ButtonPrimary from "@/components/atoms/Button/ButtonPrimary";
 import Link from "next/link";
 
 const PageForgotPass = ({}) => {

@@ -2,7 +2,7 @@
 
 import { Dialog, Transition } from "@/app/headlessui";
 import React, { FC, Fragment } from "react";
-import ButtonClose from "@/shared/ButtonClose/ButtonClose";
+import ButtonClose from "@/components/atoms/ButtonClose/ButtonClose";
 import ProductQuickView from "./ProductQuickView";
 import ProductQuickView2 from "./ProductQuickView2";
 import { usePathname } from "next/navigation";

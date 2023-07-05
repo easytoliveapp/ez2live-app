@@ -1,8 +1,8 @@
 "use client";
 
 import React, { FC, useState } from "react";
-import Logo from "@/shared/Logo/Logo";
-import MenuBar from "@/shared/MenuBar/MenuBar";
+import Logo from "@/components/atoms/Logo/Logo";
+import MenuBar from "@/components/atoms/MenuBar/MenuBar";
 import LangDropdown from "./LangDropdown";
 import AvatarDropdown from "./AvatarDropdown";
 import TemplatesDropdown from "./TemplatesDropdown";

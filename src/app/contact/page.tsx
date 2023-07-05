@@ -1,9 +1,9 @@
 import React, { FC } from "react";
-import SocialsList from "@/shared/SocialsList/SocialsList";
+import SocialsList from "@/components/atoms/SocialsList/SocialsList";
 import Label from "@/components_old/Label/Label";
-import Input from "@/shared/Input/Input";
-import Textarea from "@/shared/Textarea/Textarea";
-import ButtonPrimary from "@/shared/Button/ButtonPrimary";
+import Input from "@/components/atoms/Input/Input";
+import Textarea from "@/components/atoms/Textarea/Textarea";
+import ButtonPrimary from "@/components/atoms/Button/ButtonPrimary";
 import BackgroundSection from "@/components_old/BackgroundSection/BackgroundSection";
 import SectionPromo1 from "@/components_old/SectionPromo1";
 

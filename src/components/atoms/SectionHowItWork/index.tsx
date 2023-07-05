@@ -1,16 +1,16 @@
 import React, { FC } from "react";
-import NcImage from "@/shared/NcImage/NcImage";
+import NcImage from "@/components/atoms/NcImage/NcImage";
 import HIW1img from "@/images/HIW1img.png";
 import HIW2img from "@/images/HIW2img.png";
 import HIW3img from "@/images/HIW3img.png";
 import HIW4img from "@/images/HIW4img.png";
 import VectorImg from "@/images/VectorHIW.svg";
-import Badge from "@/shared/Badge/Badge";
+import Badge from "@/components/atoms/Badge/Badge";
 import Image from "next/image";
 
 export interface SectionHowItWorkProps {
   className?: string;
-  data?: typeof DEMO_DATA[0][];
+  data?: (typeof DEMO_DATA)[0][];
 }
 
 const DEMO_DATA = [
@@ -56,7 +56,7 @@ const SectionHowItWork: FC<SectionHowItWorkProps> = ({
           src={VectorImg}
           alt="vector"
         />
-        {data.map((item: typeof DEMO_DATA[number], index: number) => (
+        {data.map((item: (typeof DEMO_DATA)[number], index: number) => (
           <div
             key={item.id}
             className="relative flex flex-col items-center max-w-xs mx-auto"

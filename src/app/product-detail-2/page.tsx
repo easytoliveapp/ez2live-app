@@ -6,9 +6,9 @@ import {
   ClockIcon,
   SparklesIcon,
 } from "@heroicons/react/24/outline";
-import ButtonPrimary from "@/shared/Button/ButtonPrimary";
-import ButtonSecondary from "@/shared/Button/ButtonSecondary";
-import NcImage from "@/shared/NcImage/NcImage";
+import ButtonPrimary from "@/components/atoms/Button/ButtonPrimary";
+import ButtonSecondary from "@/components/atoms/Button/ButtonSecondary";
+import NcImage from "@/components/atoms/NcImage/NcImage";
 import ReviewItem from "@/components_old/ReviewItem";
 import detail21JPG from "@/images/products/detail3-1.webp";
 import detail22JPG from "@/images/products/detail3-2.webp";

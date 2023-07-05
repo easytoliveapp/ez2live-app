@@ -1,7 +1,7 @@
 "use client";
-import Heading from "@/shared/Heading/Heading";
-import NcImage from "@/shared/NcImage/NcImage";
-import NcPlayIcon from "@/shared/NcPlayIcon/NcPlayIcon";
+import Heading from "@/components/atoms/Heading/Heading";
+import NcImage from "@/components/atoms/NcImage/NcImage";
+import NcPlayIcon from "@/components/atoms/NcPlayIcon/NcPlayIcon";
 import React, { FC, useState } from "react";
 import isSafariBrowser from "@/utils/isSafariBrowser";
 

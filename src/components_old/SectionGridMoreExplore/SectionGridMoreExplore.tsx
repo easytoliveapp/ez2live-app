@@ -5,7 +5,7 @@ import CardCategory1 from "@/components_old/CardCategories/CardCategory1";
 import CardCategory4 from "@/components_old/CardCategories/CardCategory4";
 import Heading from "@/components_old/Heading/Heading";
 import NavItem2 from "@/components_old/NavItem2";
-import Nav from "@/shared/Nav/Nav";
+import Nav from "@/components/atoms/Nav/Nav";
 import CardCategory6 from "@/components_old/CardCategories/CardCategory6";
 import { DEMO_MORE_EXPLORE_DATA, ExploreType } from "./data";
 

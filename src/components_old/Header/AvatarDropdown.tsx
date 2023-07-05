@@ -3,8 +3,8 @@
 import { Popover, Transition } from "@/app/headlessui";
 import { avatarImgs } from "@/contains/fakeData";
 import { Fragment } from "react";
-import Avatar from "@/shared/Avatar/Avatar";
-import SwitchDarkMode2 from "@/shared/SwitchDarkMode/SwitchDarkMode2";
+import Avatar from "@/components/atoms/Avatar/Avatar";
+import SwitchDarkMode2 from "@/components/atoms/SwitchDarkMode/SwitchDarkMode2";
 import Link from "next/link";
 
 export default function AvatarDropdown() {

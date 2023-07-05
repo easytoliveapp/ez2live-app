@@ -1,6 +1,6 @@
 import { _getImgRd, _getTagNameRd } from "@/contains/fakeData";
 import React, { FC } from "react";
-import NcImage from "@/shared/NcImage/NcImage";
+import NcImage from "@/components/atoms/NcImage/NcImage";
 import Link from "next/link";
 import { StaticImageData } from "next/image";
 

@@ -1,15 +1,15 @@
 "use client";
 
 import React from "react";
-import ButtonClose from "@/shared/ButtonClose/ButtonClose";
-import Logo from "@/shared/Logo/Logo";
+import ButtonClose from "@/components/atoms/ButtonClose/ButtonClose";
+import Logo from "@/components/atoms/Logo/Logo";
 import { Disclosure } from "@/app/headlessui";
 import { NavItemType } from "./NavigationItem";
 import { NAVIGATION_DEMO_2 } from "@/data/navigation";
-import ButtonPrimary from "@/shared/Button/ButtonPrimary";
-import SocialsList from "@/shared/SocialsList/SocialsList";
+import ButtonPrimary from "@/components/atoms/Button/ButtonPrimary";
+import SocialsList from "@/components/atoms/SocialsList/SocialsList";
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
-import SwitchDarkMode from "@/shared/SwitchDarkMode/SwitchDarkMode";
+import SwitchDarkMode from "@/components/atoms/SwitchDarkMode/SwitchDarkMode";
 import Link from "next/link";
 
 export interface NavMobileProps {

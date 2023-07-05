@@ -2,12 +2,12 @@
 
 import React, { Fragment, useState } from "react";
 import { Dialog, Popover, Transition } from "@/app/headlessui";
-import ButtonPrimary from "@/shared/Button/ButtonPrimary";
-import ButtonThird from "@/shared/Button/ButtonThird";
-import ButtonClose from "@/shared/ButtonClose/ButtonClose";
-import Checkbox from "@/shared/Checkbox/Checkbox";
+import ButtonPrimary from "@/components/atoms/Button/ButtonPrimary";
+import ButtonThird from "@/components/atoms/Button/ButtonThird";
+import ButtonClose from "@/components/atoms/ButtonClose/ButtonClose";
+import Checkbox from "@/components/atoms/Checkbox/Checkbox";
 import Slider from "rc-slider";
-import Radio from "@/shared/Radio/Radio";
+import Radio from "@/components/atoms/Radio/Radio";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
 import MySwitch from "@/components/atoms/MySwitch";
 

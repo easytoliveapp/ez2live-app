@@ -1,7 +1,9 @@
 "use client";
 
 import React, { FC, useState } from "react";
-import NcDropDown, { NcDropDownItem } from "@/shared/NcDropDown/NcDropDown";
+import NcDropDown, {
+  NcDropDownItem,
+} from "@/components/atoms/NcDropDown/NcDropDown";
 import ModalDelete from "@/components/mols/Modal/ModalDelete";
 import ModalEdit from "@/components/mols/Modal/ModalEdit";
 import ModalReportItem from "@/components/mols/Modal/ModalReportItem";

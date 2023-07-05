@@ -1,9 +1,9 @@
 "use client";
 
 import React, { useState } from "react";
-import Checkbox from "@/shared/Checkbox/Checkbox";
+import Checkbox from "@/components/atoms/Checkbox/Checkbox";
 import Slider from "rc-slider";
-import Radio from "@/shared/Radio/Radio";
+import Radio from "@/components/atoms/Radio/Radio";
 import MySwitch from "@/components/atoms/MySwitch";
 
 // DEMO DATA

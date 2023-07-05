@@ -1,6 +1,6 @@
 import ProductCard from "@/components_old/ProductCard";
 import { PRODUCTS } from "@/data/data";
-import ButtonSecondary from "@/shared/Button/ButtonSecondary";
+import ButtonSecondary from "@/components/atoms/Button/ButtonSecondary";
 
 const AccountSavelists = () => {
   const renderSection1 = () => {

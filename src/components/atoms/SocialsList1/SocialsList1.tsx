@@ -1,4 +1,4 @@
-import { SocialType } from "@/shared/SocialsShare/SocialsShare";
+import { SocialType } from "@/components/atoms/SocialsShare/SocialsShare";
 import React, { FC } from "react";
 import facebook from "@/images/socials/facebook.svg";
 import twitter from "@/images/socials/twitter.svg";

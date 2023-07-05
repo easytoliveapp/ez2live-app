@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import Heading from "@/components_old/Heading/Heading";
-import Pagination from "@/shared/Pagination/Pagination";
-import ButtonPrimary from "@/shared/Button/ButtonPrimary";
+import Pagination from "@/components/atoms/Pagination/Pagination";
+import ButtonPrimary from "@/components/atoms/Button/ButtonPrimary";
 import WidgetCategories from "./WidgetCategories";
 import WidgetPosts from "./WidgetPosts";
 import Card3 from "./Card3";

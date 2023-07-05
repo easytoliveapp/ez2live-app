@@ -2,9 +2,9 @@
 
 import React, { FC, useState } from "react";
 import backgroundLineSvg from "@/images/Moon.svg";
-import ButtonPrimary from "@/shared/Button/ButtonPrimary";
-import Next from "@/shared/NextPrev/Next";
-import Prev from "@/shared/NextPrev/Prev";
+import ButtonPrimary from "@/components/atoms/Button/ButtonPrimary";
+import Next from "@/components/atoms/NextPrev/Next";
+import Prev from "@/components/atoms/NextPrev/Prev";
 import useInterval from "react-use/lib/useInterval";
 import useBoolean from "react-use/lib/useBoolean";
 import Image from "next/image";

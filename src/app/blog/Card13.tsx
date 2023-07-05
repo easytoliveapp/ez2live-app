@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import NcImage from "@/shared/NcImage/NcImage";
+import NcImage from "@/components/atoms/NcImage/NcImage";
 import { _getImgRd, _getTitleRd } from "@/contains/fakeData";
 import PostCardMeta from "@/components_old/PostCardMeta/PostCardMeta";
 import Link from "next/link";

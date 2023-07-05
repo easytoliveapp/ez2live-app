@@ -1,10 +1,10 @@
 "use client";
 
 import React, { createRef, FC, useState } from "react";
-import Logo from "@/shared/Logo/Logo";
-import MenuBar from "@/shared/MenuBar/MenuBar";
+import Logo from "@/components/atoms/Logo/Logo";
+import MenuBar from "@/components/atoms/MenuBar/MenuBar";
 import AvatarDropdown from "./AvatarDropdown";
-import Navigation from "@/shared/Navigation/Navigation";
+import Navigation from "@/components/atoms/Navigation/Navigation";
 import CartDropdown from "./CartDropdown";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { useRouter } from "next/navigation";

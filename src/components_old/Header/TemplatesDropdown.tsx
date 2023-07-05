@@ -5,7 +5,7 @@ import { ChevronDownIcon } from "@heroicons/react/24/solid";
 import { Fragment } from "react";
 import { MEGAMENU_TEMPLATES } from "@/data/navigation";
 import CardCategory3 from "@/components_old/CardCategories/CardCategory3";
-import { NavItemType } from "@/shared/Navigation/NavigationItem";
+import { NavItemType } from "@/components/atoms/Navigation/NavigationItem";
 import Link from "next/link";
 
 export default function TemplatesDropdown() {

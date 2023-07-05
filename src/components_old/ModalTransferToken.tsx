@@ -1,9 +1,9 @@
 "use client";
 import React, { FC, useEffect, useRef } from "react";
-import ButtonPrimary from "@/shared/Button/ButtonPrimary";
-import ButtonSecondary from "@/shared/Button/ButtonSecondary";
-import Input from "@/shared/Input/Input";
-import NcModal from "@/shared/NcModal/NcModal";
+import ButtonPrimary from "@/components/atoms/Button/ButtonPrimary";
+import ButtonSecondary from "@/components/atoms/Button/ButtonSecondary";
+import Input from "@/components/atoms/Input/Input";
+import NcModal from "@/components/atoms/NcModal/NcModal";
 
 export interface ModalTransferTokenProps {
   show: boolean;

@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import ButtonSecondary from "@/shared/Button/ButtonSecondary";
+import ButtonSecondary from "@/components/atoms/Button/ButtonSecondary";
 import Link from "next/link";
 import Image, { StaticImageData } from "next/image";
 import { CATS_DISCOVER } from "./data";

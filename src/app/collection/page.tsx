@@ -1,6 +1,6 @@
 import React, { FC } from "react";
-import Pagination from "@/shared/Pagination/Pagination";
-import ButtonPrimary from "@/shared/Button/ButtonPrimary";
+import Pagination from "@/components/atoms/Pagination/Pagination";
+import ButtonPrimary from "@/components/atoms/Button/ButtonPrimary";
 import SectionSliderCollections from "@/components_old/SectionSliderLargeProduct";
 import SectionPromo1 from "@/components_old/SectionPromo1";
 import ProductCard from "@/components_old/ProductCard";
