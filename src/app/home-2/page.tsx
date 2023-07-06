@@ -1,15 +1,15 @@
 import React from "react";
-import SectionHowItWork from "@/components/SectionHowItWork/SectionHowItWork";
-import BackgroundSection from "@/components/BackgroundSection/BackgroundSection";
-import SectionSliderLargeProduct from "@/components/SectionSliderLargeProduct";
-import SectionSliderProductCard from "@/components/SectionSliderProductCard";
-import SectionGridMoreExplore from "@/components/SectionGridMoreExplore/SectionGridMoreExplore";
-import { DEMO_MORE_EXPLORE_DATA_2 } from "@/components/SectionGridMoreExplore/data";
-import SectionPromo2 from "@/components/SectionPromo2";
-import SectionHero3 from "@/components/SectionHero/SectionHero3";
-import SectionPromo1 from "@/components/SectionPromo1";
+import SectionHowItWork from "@/components_old/SectionHowItWork/SectionHowItWork";
+import BackgroundSection from "@/components_old/BackgroundSection/BackgroundSection";
+import SectionSliderLargeProduct from "@/components_old/SectionSliderLargeProduct";
+import SectionSliderProductCard from "@/components_old/SectionSliderProductCard";
+import SectionGridMoreExplore from "@/components_old/SectionGridMoreExplore/SectionGridMoreExplore";
+import { DEMO_MORE_EXPLORE_DATA_2 } from "@/components_old/SectionGridMoreExplore/data";
+import SectionPromo2 from "@/components_old/SectionPromo2";
+import SectionHero3 from "@/components_old/SectionHero/SectionHero3";
+import SectionPromo1 from "@/components_old/SectionPromo1";
 import { SPORT_PRODUCTS } from "@/data/data";
-import SectionGridFeatureItems from "@/components/SectionGridFeatureItems";
+import SectionGridFeatureItems from "@/components_old/SectionGridFeatureItems";
 
 function PageHome2() {
   return (

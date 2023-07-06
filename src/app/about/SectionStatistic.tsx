@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import Heading from "@/components/Heading/Heading";
+import Heading from "@/components_old/Heading/Heading";
 
 export interface Statistic {
   id: string;

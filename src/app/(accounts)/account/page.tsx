@@ -1,9 +1,9 @@
-import Label from "@/components/Label/Label";
+import Label from "@/components_old/Label/Label";
 import React, { FC } from "react";
-import ButtonPrimary from "@/shared/Button/ButtonPrimary";
-import Input from "@/shared/Input/Input";
-import Select from "@/shared/Select/Select";
-import Textarea from "@/shared/Textarea/Textarea";
+import ButtonPrimary from "@/components/atoms/Button/ButtonPrimary";
+import Input from "@/components/atoms/Input/Input";
+import Select from "@/components/atoms/Select/Select";
+import Textarea from "@/components/atoms/Textarea/Textarea";
 import { avatarImgs } from "@/contains/fakeData";
 import Image from "next/image";
 

@@ -1,12 +1,12 @@
 "use client";
 
-import Label from "@/components/Label/Label";
-import NcInputNumber from "@/components/NcInputNumber";
-import Prices from "@/components/Prices";
+import Label from "@/components_old/Label/Label";
+import NcInputNumber from "@/components_old/NcInputNumber";
+import Prices from "@/components_old/Prices";
 import { Product, PRODUCTS } from "@/data/data";
 import { useState } from "react";
-import ButtonPrimary from "@/shared/Button/ButtonPrimary";
-import Input from "@/shared/Input/Input";
+import ButtonPrimary from "@/components/atoms/Button/ButtonPrimary";
+import Input from "@/components/atoms/Input/Input";
 import ContactInfo from "./ContactInfo";
 import PaymentMethod from "./PaymentMethod";
 import ShippingAddress from "./ShippingAddress";

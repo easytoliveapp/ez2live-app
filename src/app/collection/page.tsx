@@ -1,11 +1,11 @@
 import React, { FC } from "react";
-import Pagination from "@/shared/Pagination/Pagination";
-import ButtonPrimary from "@/shared/Button/ButtonPrimary";
-import SectionSliderCollections from "@/components/SectionSliderLargeProduct";
-import SectionPromo1 from "@/components/SectionPromo1";
-import ProductCard from "@/components/ProductCard";
+import Pagination from "@/components/atoms/Pagination/Pagination";
+import ButtonPrimary from "@/components/atoms/Button/ButtonPrimary";
+import SectionSliderCollections from "@/components_old/SectionSliderLargeProduct";
+import SectionPromo1 from "@/components_old/SectionPromo1";
+import ProductCard from "@/components_old/ProductCard";
 import { PRODUCTS } from "@/data/data";
-import TabFilters from "@/components/TabFilters";
+import TabFilters from "@/components_old/TabFilters";
 
 const PageCollection = ({}) => {
   return (

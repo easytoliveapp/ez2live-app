@@ -1,5 +1,5 @@
 import React, { FC, ReactNode } from "react";
-import ButtonPrimary from "@/shared/Button/ButtonPrimary";
+import ButtonPrimary from "@/components/atoms/Button/ButtonPrimary";
 import Image, { StaticImageData } from "next/image";
 
 export interface SectionHeroProps {
