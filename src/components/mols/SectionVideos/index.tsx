@@ -1,5 +1,5 @@
 "use client";
-import Heading from "@/components/atoms/Heading/Heading";
+import Heading from "@/components/atoms/Heading/HeadingShared";
 import NcImage from "@/components/atoms/NcImage/NcImage";
 import NcPlayIcon from "@/components/atoms/NcPlayIcon/NcPlayIcon";
 import React, { FC, useState } from "react";

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { FC, useEffect, useId, useState } from "react";
-import Heading from "@/components/atoms/Heading/Heading";
+import Heading from "@/components/atoms/Heading/HeadingShared";
 // @ts-ignore
 import Glide from "@glidejs/glide/dist/glide.esm";
 import CollectionCard from "@/components/atoms/CollectionCard/CollectionCard";

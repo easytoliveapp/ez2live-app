@@ -1,19 +1,39 @@
-import NextPrev from "@/components/atoms/NextPrev/NextPrev";
 import React, { HTMLAttributes, ReactNode } from "react";
+import NextPrev from "@/components/atoms/NextPrev/NextPrev";
 
 export interface HeadingProps extends HTMLAttributes<HTMLHeadingElement> {
   fontClass?: string;
+  rightDescText?: ReactNode;
+  rightPopoverOptions?: typeof solutions;
   desc?: ReactNode;
   hasNextPrev?: boolean;
   isCenter?: boolean;
 }
 
+const solutions = [
+  {
+    name: "last 24 hours",
+    href: "##",
+  },
+  {
+    name: "last 7 days",
+    href: "##",
+  },
+  {
+    name: "last 30 days",
+    href: "##",
+  },
+];
+
 const Heading: React.FC<HeadingProps> = ({
   children,
-  desc = "Discover the most trending products in Ciseco.",
-  className = "mb-10 md:mb-12 text-neutral-900 dark:text-neutral-50",
+  desc = "",
+  className = "mb-12 lg:mb-14 text-neutral-900 dark:text-neutral-50",
   isCenter = false,
   hasNextPrev = false,
+  fontClass = "text-3xl md:text-4xl font-semibold",
+  rightDescText,
+  rightPopoverOptions = solutions,
   ...args
 }) => {
   return (
@@ -22,14 +42,27 @@ const Heading: React.FC<HeadingProps> = ({
     >
       <div
         className={
-          isCenter ? "text-center w-full max-w-2xl mx-auto mb-4" : "max-w-2xl"
+          isCenter
+            ? "flex flex-col items-center text-center w-full mx-auto"
+            : ""
         }
       >
-        <h2 className={`text-3xl md:text-4xl font-semibold`} {...args}>
+        <h2
+          className={`${isCenter ? "justify-center" : ""} ${fontClass}`}
+          {...args}
+        >
           {children || `Section Heading`}
+          {rightDescText && (
+            <>
+              <span className="">{`. `}</span>
+              <span className="text-neutral-500 dark:text-neutral-400">
+                {rightDescText}
+              </span>
+            </>
+          )}
         </h2>
-        {desc && (
-          <span className="mt-2 md:mt-4 font-normal block text-base sm:text-lg text-neutral-500 dark:text-neutral-400">
+        {!!desc && (
+          <span className="mt-2 md:mt-3 font-normal block text-base sm:text-xl text-neutral-500 dark:text-neutral-400">
             {desc}
           </span>
         )}
