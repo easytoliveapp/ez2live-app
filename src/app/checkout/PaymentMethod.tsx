@@ -1,11 +1,11 @@
 "use client";
 
-import Label from "@/components/Label/Label";
+import Label from "@/components_old/Label/Label";
 import React, { FC, useState } from "react";
-import ButtonPrimary from "@/shared/Button/ButtonPrimary";
-import ButtonSecondary from "@/shared/Button/ButtonSecondary";
-import Input from "@/shared/Input/Input";
-import Radio from "@/shared/Radio/Radio";
+import ButtonPrimary from "@/components/atoms/Button/ButtonPrimary";
+import ButtonSecondary from "@/components/atoms/Button/ButtonSecondary";
+import Input from "@/components/atoms/Input/Input";
+import Radio from "@/components/atoms/Radio/Radio";
 
 interface Props {
   isActive: boolean;
