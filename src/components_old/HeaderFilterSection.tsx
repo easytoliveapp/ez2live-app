@@ -1,7 +1,7 @@
 "use client";
 
 import React, { FC, useState } from "react";
-import Heading from "@/components/atoms/Heading/Heading";
+import Heading from "@/components/atoms/Heading/HeadingShared";
 import Nav from "@/components/atoms/Nav/Nav";
 import NavItem from "@/components/atoms/NavItem/NavItem";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";

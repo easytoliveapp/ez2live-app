@@ -3,7 +3,7 @@
 import React, { FC, useState } from "react";
 import CardCategory1 from "@/components/mols/CardCategories/CardCategory1";
 import CardCategory4 from "@/components/mols/CardCategories/CardCategory4";
-import Heading from "@/components/atoms/Heading/Heading";
+import Heading from "@/components/atoms/Heading/HeadingShared";
 import NavItem2 from "@/components/atoms/NavItem2";
 import Nav from "@/components/atoms/Nav/Nav";
 import CardCategory6 from "@/components/mols/CardCategories/CardCategory6";
