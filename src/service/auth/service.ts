@@ -1,15 +1,14 @@
-import { LogInType,  RegisterAccountType } from '@/types/auth';
+import { ILogIn,  IRegisterAccount } from '@/types/auth';
 import http from '../http.service'
 
-const UserService = {
-  Login: async (data:LogInType) => {
+ const Login = async (data:ILogIn) => {
     const response = await http.POST('auth/login', data);
     return response;
-  },
-  Register: async (data: RegisterAccountType) => {
+  };
+
+const Register = async (data: IRegisterAccount) => {
     const response = await http.POST('auth/register', data);
     return response;
-  },
-}
+  };
 
-export default UserService;
+  export default {Login, Register};

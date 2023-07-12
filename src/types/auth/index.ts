@@ -1,9 +1,9 @@
-export interface LogInType {
-  email:string;
+export interface ILogIn {
+  email: string;
   password: string;
 };
 
-export interface RegisterAccountType {
+export interface IRegisterAccount {
   email: string;
   password: string;
   name: string;
