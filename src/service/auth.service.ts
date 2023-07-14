@@ -1,7 +1,7 @@
 import { ILogIn, IRegisterAccount } from "@/types/auth";
 import { BaseService } from "./base.service";
 
-const Login = async (data: ILogIn) => {
+const login = async (data: ILogIn) => {
   return await BaseService.fetchData({
     url: "auth/login",
     method: "post",
@@ -9,7 +9,7 @@ const Login = async (data: ILogIn) => {
   });
 };
 
-const Register = async (data: IRegisterAccount) => {
+const register = async (data: IRegisterAccount) => {
   return await BaseService.fetchData({
     url: "auth/register",
     method: "post",
@@ -17,4 +17,4 @@ const Register = async (data: IRegisterAccount) => {
   });
 };
 
-export default { Login, Register };
+export default { login, register };

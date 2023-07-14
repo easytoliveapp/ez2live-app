@@ -1,12 +1,12 @@
 import config from "@/config/config";
 import axios, { AxiosRequestConfig } from "axios";
-import { TOKENS, HEADER_AUTH_KEY } from "../constants/keywords.constants";
+import { TOKENS, HEADER_AUTH_KEY, BEARER } from "../constants/keywords.constants";
 import { getItemByLocalStorage } from "../utils/localStorageHelper";
 
 const { API_URL } = config;
 
 const axiosInstance = axios.create({
-  timeout: 60000,
+  timeout: 30000,
   baseURL: API_URL,
   headers: { "Content-Type": "application/json" },
 });
@@ -19,7 +19,7 @@ const fetchData = (params: AxiosRequestConfig) => {
       if (userTokens) {
         const { accessToken, refreshToken } = userTokens;
         if (accessToken && !config.headers[HEADER_AUTH_KEY]) {
-          config.headers[HEADER_AUTH_KEY] = accessToken.token;
+          config.headers[HEADER_AUTH_KEY] = BEARER + accessToken.token;
         }
       }
       return config;
