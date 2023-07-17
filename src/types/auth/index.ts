@@ -20,3 +20,11 @@ export interface IRegisterAccount {
   supplierCategory?: string;
   isSupplier?: boolean;
 }
+
+export interface IForgotPassword {
+  email: string;
+}
+
+export interface IResetPassword {
+  password: string;
+}
