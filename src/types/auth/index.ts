@@ -15,7 +15,8 @@ export interface IRegisterAccount {
   email: string;
   password: string;
   name: string;
-  isSupplier?: boolean;
-  address: IAddress;
   document?: string;
+  address: IAddress;
+  supplierCategory?: string;
+  isSupplier?: boolean;
 }
