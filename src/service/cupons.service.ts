@@ -1,9 +1,9 @@
 import { BaseService } from "./base.service";
 import {
   ICreateCoupons,
-  IGetCouponsById,
+  IGetCouponById,
   ISupplierCouponsList,
-  IUpdateCoupon,
+  ICoupon,
 } from "@/types/coupons";
 
 const createCoupons = async (data: ICreateCoupons) => {
@@ -21,18 +21,24 @@ const getSupplierCouponsList = async (supplierID: ISupplierCouponsList) => {
   });
 };
 
-const getCouponById = async (couponId: IGetCouponsById) => {
+const getCouponById = async (couponId: IGetCouponById) => {
   return await BaseService.fetchData({
     url: `/coupons/${couponId}`,
     method: "get",
   });
 };
 
-const updateCoupon = async (couponId: IUpdateCoupon) => {
+const updateCoupon = async (data: ICoupon, couponId: IGetCouponById) => {
   return await BaseService.fetchData({
     url: `/coupons/${couponId}`,
     method: "put",
+    data,
   });
 };
 
-export default { createCoupons, getSupplierCouponsList, getCouponById, updateCoupon };
+export default {
+  createCoupons,
+  getSupplierCouponsList,
+  getCouponById,
+  updateCoupon,
+};

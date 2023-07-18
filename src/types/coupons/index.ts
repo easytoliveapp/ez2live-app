@@ -1,18 +1,18 @@
 export interface ICreateCoupons {
-  title: string,
-  discount: string,
-  supplier: string
+  title: string;
+  discount: string;
+  supplier: string;
 }
 
 export interface ISupplierCouponsList {
-  supplierId: string,
+  supplierId: string;
 }
 
-export interface IGetCouponsById {
-  couponld: string,
+export interface IGetCouponById {
+  couponld: string;
 }
 
-export interface IUpdateCoupon {
-  title: string,
-  discount: string,
+export interface ICoupon {
+  title: string;
+  discount: string;
 }
