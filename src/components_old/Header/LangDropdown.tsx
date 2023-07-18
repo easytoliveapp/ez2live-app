@@ -1,9 +1,9 @@
 "use client";
 
+import React, { FC, Fragment } from "react";
 import { Popover, Tab, Transition } from "@/app/headlessui";
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
 import { GlobeAltIcon } from "@heroicons/react/24/outline";
-import { FC, Fragment } from "react";
 import { headerCurrency } from "./CurrencyDropdown";
 
 export const headerLanguage = [

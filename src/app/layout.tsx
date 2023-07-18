@@ -1,3 +1,4 @@
+import React from "react";
 import { Poppins } from "next/font/google";
 import "./globals.css";
 import "@/fonts/line-awesome-1.3.0/css/line-awesome.css";

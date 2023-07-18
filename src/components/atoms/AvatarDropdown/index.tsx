@@ -2,7 +2,7 @@
 
 import { Popover, Transition } from "@/app/headlessui";
 import { avatarImgs } from "@/contains/fakeData";
-import { Fragment } from "react";
+import React, { Fragment } from "react";
 import Avatar from "@/components/atoms/Avatar/Avatar";
 import SwitchDarkMode2 from "@/components/atoms/SwitchDarkMode/SwitchDarkMode2";
 import Link from "next/link";

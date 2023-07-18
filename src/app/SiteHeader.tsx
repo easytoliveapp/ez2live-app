@@ -9,7 +9,7 @@ import { useThemeMode } from "@/hooks/useThemeMode";
 const SiteHeader = () => {
   useThemeMode();
 
-  let pathname = usePathname();
+  const pathname = usePathname();
 
   return pathname === "/home-2" ? <Header /> : <HeaderLogged />;
 };

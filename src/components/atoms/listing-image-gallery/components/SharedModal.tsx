@@ -7,7 +7,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { AnimatePresence, motion, MotionConfig } from "framer-motion";
 import Image from "next/image";
-import { useState } from "react";
+import React, { useState } from "react";
 import { useSwipeable } from "react-swipeable";
 import { variants } from "@/utils/animationVariants";
 import downloadPhoto from "../utils/downloadPhoto";
@@ -36,7 +36,7 @@ export default function SharedModal({
 }: SharedModalProps) {
   const [loaded, setLoaded] = useState(false);
 
-  let filteredImages = images?.filter((img: ListingGalleryImage) =>
+  const filteredImages = images?.filter((img: ListingGalleryImage) =>
     range(index - 15, index + 15).includes(img.id)
   );
 
@@ -54,7 +54,7 @@ export default function SharedModal({
     trackMouse: true,
   });
 
-  let currentImage = images ? images[index] : currentPhoto;
+  const currentImage = images ? images[index] : currentPhoto;
 
   return (
     <MotionConfig

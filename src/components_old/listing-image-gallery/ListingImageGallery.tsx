@@ -1,9 +1,8 @@
 "use client";
 
-import "./styles/index.css";
+import React, { FC, Fragment, useEffect, useRef } from "react";
 import Image from "next/image";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { FC, Fragment, useEffect, useRef } from "react";
 import Modal from "./components/Modal";
 import type { ListingGalleryImage } from "./utils/types";
 import { useLastViewedPhoto } from "./utils/useLastViewedPhoto";
@@ -12,6 +11,8 @@ import { Dialog, Transition } from "@headlessui/react";
 import LikeSaveBtns from "@/components_old/LikeSaveBtns";
 import { Route } from "next";
 
+import "./styles/index.css";
+
 export const getNewParam = ({
   paramName = "photoId",
   value,
@@ -19,7 +20,7 @@ export const getNewParam = ({
   paramName?: string;
   value: string | number;
 }) => {
-  let params = new URLSearchParams(document.location.search);
+  const params = new URLSearchParams(document.location.search);
   params.set(paramName, String(value));
   return params.toString();
 };
@@ -59,7 +60,7 @@ const ListingImageGallery: FC<Props> = ({ images, onClose, isShowModal }) => {
             onClose={() => {
               // @ts-ignore
               setLastViewedPhoto(photoId);
-              let params = new URLSearchParams(document.location.search);
+              const params = new URLSearchParams(document.location.search);
               params.delete("photoId");
               router.push(`${thisPathname}/?${params.toString()}` as Route);
             }}

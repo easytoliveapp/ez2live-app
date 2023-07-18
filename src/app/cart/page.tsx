@@ -1,3 +1,4 @@
+import React from "react";
 import { NoSymbolIcon, CheckIcon } from "@heroicons/react/24/outline";
 import NcInputNumber from "@/components_old/NcInputNumber";
 import Prices from "@/components_old/Prices";

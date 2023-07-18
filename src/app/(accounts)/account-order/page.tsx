@@ -1,3 +1,4 @@
+import React from "react";
 import Prices from "@/components_old/Prices";
 import { PRODUCTS } from "@/data/data";
 import ButtonSecondary from "@/components/atoms/Button/ButtonSecondary";

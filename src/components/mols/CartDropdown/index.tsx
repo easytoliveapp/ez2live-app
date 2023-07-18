@@ -3,7 +3,7 @@
 import { Popover, Transition } from "@/app/headlessui";
 import Prices from "@/components/atoms/Prices";
 import { Product, PRODUCTS } from "@/data/data";
-import { Fragment } from "react";
+import React, { Fragment } from "react";
 import ButtonPrimary from "@/components/atoms/Button/ButtonPrimary";
 import ButtonSecondary from "@/components/atoms/Button/ButtonSecondary";
 import Image from "next/image";

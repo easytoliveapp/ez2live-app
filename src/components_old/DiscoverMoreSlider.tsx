@@ -41,7 +41,7 @@ const DiscoverMoreSlider = () => {
       },
     };
 
-    let slider = new Glide(`.${UNIQUE_CLASS}`, OPTIONS);
+    const slider = new Glide(`.${UNIQUE_CLASS}`, OPTIONS);
     slider.mount();
     setIsShow(true);
     return () => {

@@ -1,3 +1,4 @@
+import React from "react";
 import ProductCard from "@/components_old/ProductCard";
 import { PRODUCTS } from "@/data/data";
 import ButtonSecondary from "@/components/atoms/Button/ButtonSecondary";

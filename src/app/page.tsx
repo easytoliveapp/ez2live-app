@@ -16,6 +16,7 @@ import ButtonSecondary from "@/components/atoms/Button/ButtonSecondary";
 import { PRODUCTS, SPORT_PRODUCTS } from "@/data/data";
 import SectionGridFeatureItems from "@/components_old/SectionGridFeatureItems";
 import SectionMagazine5 from "@/app/blog/SectionMagazine5";
+import Button from "@/components/atoms/Button/Button";
 
 function PageHome() {
   return (

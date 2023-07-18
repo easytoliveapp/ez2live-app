@@ -1,8 +1,8 @@
 "use client";
 
+import React, { Fragment } from "react";
 import { Popover, Transition } from "@/app/headlessui";
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
-import { Fragment } from "react";
 import { MEGAMENU_TEMPLATES } from "@/data/navigation";
 import CardCategory3 from "@/components/mols/CardCategories/CardCategory3";
 import { NavItemType } from "@/components/atoms/Navigation/NavigationItem";

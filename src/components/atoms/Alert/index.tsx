@@ -7,7 +7,7 @@ export interface AlertProps {
   children?: React.ReactNode;
 }
 
-export const Alert: React.FC<AlertProps> = ({
+const Alert: React.FC<AlertProps> = ({
   children = "Alert Text",
   containerClassName = "",
   type = "default",
@@ -43,3 +43,5 @@ export const Alert: React.FC<AlertProps> = ({
     </div>
   );
 };
+
+export default Alert;
