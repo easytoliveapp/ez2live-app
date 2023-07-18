@@ -17,9 +17,13 @@ import { PRODUCTS, SPORT_PRODUCTS } from "@/data/data";
 import SectionGridFeatureItems from "@/components_old/SectionGridFeatureItems";
 import SectionMagazine5 from "@/app/blog/SectionMagazine5";
 
+import ButtonForTest from './buttonForTest';
+
 function PageHome() {
   return (
     <div className="nc-PageHome relative overflow-hidden">
+      <ButtonForTest/>
+    
       <SectionHero2 />
 
       <div className="mt-24 lg:mt-32">
