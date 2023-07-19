@@ -6,9 +6,9 @@ import {
   ICoupon,
 } from "@/types/coupons";
 
-const createCoupon = async (accesstoken: string, data: ICreateCoupon) => {
+const createCoupon = async (accessToken: string, data: ICreateCoupon) => {
   return await BaseService.fetchData({
-    headers: { Authorization: `Bearer ${accesstoken}` },
+    headers: { Authorization: `Bearer ${accessToken}` },
     url: "/coupon",
     method: "post",
     data,
