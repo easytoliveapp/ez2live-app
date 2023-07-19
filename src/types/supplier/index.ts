@@ -6,6 +6,8 @@ export interface ISupplier {
   page?: number;
 }
 
-export interface ISupplierId {
-  supplierId: string;
+export interface IverifySupplier {
+  Id: string;
+  verificationStatus?: string;
 }
+

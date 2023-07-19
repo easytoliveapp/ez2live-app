@@ -1,25 +1,21 @@
-import { ISupplier, ISupplierId } from "@/types/supplier";
+import { ISupplier, IverifySupplier } from "@/types/supplier";
 import { BaseService } from "./base.service";
 
 const getSupplierList = async (data: ISupplier) => {
   return await BaseService.fetchData({
     url: `/supplier`,
     method: "get",
-    params: {
-      name: data.name,
-      isVerified: data.isVerified,
-      sortBy: data.sortBy,
-      limit: data.limit,
-      page: data.page,
-    },
+    params: data,
   });
 };
 
-const verifySupplier = async (data: string, supplierId: ISupplierId) => {
+const verifySupplier = async (Supplier: IverifySupplier) => {
   return await BaseService.fetchData({
-    url: `/supplier/${supplierId}/verify`,
+    url: `/supplier/${Supplier.Id}/verify`,
     method: "post",
-    data,
+    data: {
+      verificationStatus: Supplier.verificationStatus,
+    },
   });
 };
 
