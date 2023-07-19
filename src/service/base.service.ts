@@ -1,6 +1,10 @@
 import config from "@/config/config";
 import axios, { AxiosRequestConfig } from "axios";
-import { TOKENS, HEADER_AUTH_KEY, BEARER } from "../constants/keywords.constants";
+import {
+  TOKENS,
+  HEADER_AUTH_KEY,
+  BEARER,
+} from "../constants/keywords.constants";
 import { getItemByLocalStorage } from "../utils/localStorageHelper";
 
 const { API_URL } = config;

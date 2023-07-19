@@ -1,14 +1,15 @@
 import { BaseService } from "./base.service";
 import {
-  ICreateCoupons,
+  ICreateCoupon,
   IGetCouponById,
   ISupplierCouponsList,
   ICoupon,
 } from "@/types/coupons";
 
-const createCoupons = async (data: ICreateCoupons) => {
+const createCoupon = async (accesstoken: string, data: ICreateCoupon) => {
   return await BaseService.fetchData({
-    url: "/coupons",
+    headers: { Authorization: `Bearer ${accesstoken}` },
+    url: "/coupon",
     method: "post",
     data,
   });
@@ -37,7 +38,7 @@ const updateCoupon = async (data: ICoupon, couponId: IGetCouponById) => {
 };
 
 export default {
-  createCoupons,
+  createCoupon,
   getSupplierCouponsList,
   getCouponById,
   updateCoupon,

@@ -1,4 +1,4 @@
-export interface ICreateCoupons {
+export interface ICreateCoupon {
   title: string;
   discount: string;
   supplier: string;
