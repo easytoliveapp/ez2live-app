@@ -22,14 +22,19 @@ const getSupplierCouponsList = async (supplierID: ISupplierCouponsList) => {
   });
 };
 
-const getCouponById = async (couponId: IGetCouponById) => {
+const getCouponById = async (accessToken: string, couponId: IGetCouponById) => {
   return await BaseService.fetchData({
+    headers: { Authorization: `Bearer ${accessToken}` },
     url: `/coupons/${couponId}`,
     method: "get",
   });
 };
 
-const updateCoupon = async (accessToken:string, data: ICoupon, couponId: IGetCouponById) => {
+const updateCoupon = async (
+  accessToken: string,
+  data: ICoupon,
+  couponId: IGetCouponById
+) => {
   return await BaseService.fetchData({
     headers: { Authorization: `Bearer ${accessToken}` },
     url: `/coupons/${couponId}`,
