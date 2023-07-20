@@ -29,8 +29,9 @@ const getCouponById = async (couponId: IGetCouponById) => {
   });
 };
 
-const updateCoupon = async (data: ICoupon, couponId: IGetCouponById) => {
+const updateCoupon = async (accessToken:string, data: ICoupon, couponId: IGetCouponById) => {
   return await BaseService.fetchData({
+    headers: { Authorization: `Bearer ${accessToken}` },
     url: `/coupons/${couponId}`,
     method: "put",
     data,
