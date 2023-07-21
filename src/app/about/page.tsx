@@ -1,5 +1,5 @@
 import rightImg from "@/images/hero-right1.png";
-import React, { FC } from "react";
+import React from "react";
 import SectionFounder from "./SectionFounder";
 import SectionStatistic from "./SectionStatistic";
 import BgGlassmorphism from "@/components_old/BgGlassmorphism/BgGlassmorphism";
@@ -8,7 +8,7 @@ import SectionHero from "./SectionHero";
 import SectionClientSay from "@/components_old/SectionClientSay/SectionClientSay";
 import SectionPromo3 from "@/components_old/SectionPromo3";
 
-const PageAbout = ({}) => {
+const PageAbout = () => {
   return (
     <div className={`nc-PageAbout overflow-hidden relative`}>
       {/* ======== BG GLASS ======== */}

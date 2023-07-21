@@ -8,6 +8,7 @@ module.exports = {
 		"plugin:react/recommended",
 		"plugin:@typescript-eslint/recommended",
 		'plugin:@next/next/recommended',
+		"prettier"
 	],
 	"parser": "@typescript-eslint/parser",
 	"parserOptions": {
@@ -19,10 +20,12 @@ module.exports = {
 	},
 	"plugins": [
 		"react",
+		"react-hooks",
 		"@typescript-eslint"
 	],
 	"rules": {
 		"@typescript-eslint/ban-ts-comment": "off",
+		"@typescript-eslint/no-explicit-any": "off",
 		"react/no-unknown-property": [
 			2,
 			{
