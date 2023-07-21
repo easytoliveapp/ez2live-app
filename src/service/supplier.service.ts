@@ -11,14 +11,14 @@ const getSupplierList = async (data: ISupplier) => {
 
 const verifySupplier = async (
   accessToken: string,
-  Supplier: IverifySupplier
+  supplier: IverifySupplier
 ) => {
   return await BaseService.fetchData({
     headers: { Authorization: `Bearer ${accessToken}` },
-    url: `/supplier/${Supplier.Id}/verify`,
+    url: `/supplier/${supplier.Id}/verify`,
     method: "post",
     data: {
-      verificationStatus: Supplier.verificationStatus,
+      verificationStatus: supplier.verificationStatus,
     },
   });
 };
