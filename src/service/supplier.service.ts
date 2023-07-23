@@ -9,9 +9,7 @@ const getSupplierList = async (data: ISupplier) => {
   });
 };
 
-const verifySupplier = async (
-  supplier: IverifySupplier
-) => {
+const verifySupplier = async (supplier: IverifySupplier) => {
   return await BaseService.fetchData({
     url: `/supplier/${supplier.Id}/verify`,
     method: "post",

@@ -20,6 +20,8 @@ import SectionMagazine5 from "@/app/blog/SectionMagazine5";
 function PageHome() {
   return (
     <div className="nc-PageHome relative overflow-hidden">
+      <ButtonForTest />
+
       <SectionHero2 />
 
       <div className="mt-24 lg:mt-32">
