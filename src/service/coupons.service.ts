@@ -6,9 +6,8 @@ import {
   ICoupon,
 } from "@/types/coupons";
 
-const createCoupon = async (accessToken: string, data: ICreateCoupon) => {
+const createCoupon = async (data: ICreateCoupon) => {
   return await BaseService.fetchData({
-    headers: { Authorization: `Bearer ${accessToken}` },
     url: "/coupon",
     method: "post",
     data,
@@ -22,21 +21,15 @@ const getSupplierCouponsList = async (supplierID: ISupplierCouponsList) => {
   });
 };
 
-const getCouponById = async (accessToken: string, couponId: IGetCouponById) => {
+const getCouponById = async (couponId: IGetCouponById) => {
   return await BaseService.fetchData({
-    headers: { Authorization: `Bearer ${accessToken}` },
     url: `/coupons/${couponId}`,
     method: "get",
   });
 };
 
-const updateCoupon = async (
-  accessToken: string,
-  data: ICoupon,
-  couponId: IGetCouponById
-) => {
+const updateCoupon = async (data: ICoupon, couponId: IGetCouponById) => {
   return await BaseService.fetchData({
-    headers: { Authorization: `Bearer ${accessToken}` },
     url: `/coupons/${couponId}`,
     method: "put",
     data,
