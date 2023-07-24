@@ -4,7 +4,7 @@ import ButtonPrimary from "@/components/atoms/Button/ButtonPrimary";
 import SectionSliderCollections from "@/components_old/SectionSliderLargeProduct";
 import SectionPromo1 from "@/components_old/SectionPromo1";
 import HeaderFilterSearchPage from "@/components_old/HeaderFilterSearchPage";
-import Input from "@/components/atoms/Input/Input";
+import Input from "@/components/atoms/Input";
 import ButtonCircle from "@/components/atoms/Button/ButtonCircle";
 import ProductCard from "@/components_old/ProductCard";
 import { PRODUCTS } from "@/data/data";

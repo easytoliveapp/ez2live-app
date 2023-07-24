@@ -1,31 +1,30 @@
-import React, { FC } from "react";
+import React from "react";
+import Image from "next/image"
+import Link from 'next/link';
 import facebookSvg from "@/images/Facebook.svg";
 import twitterSvg from "@/images/Twitter.svg";
 import googleSvg from "@/images/Google.svg";
-import Input from "@/components/atoms/Input";
-import ButtonPrimary from "@/components/atoms/Button/ButtonPrimary";
-import Image from "next/image";
-import Link from "next/link";
+import FormComponent from './FormComponent';
 
-const loginSocials = [
-  {
-    name: "Continue with Facebook",
-    href: "#",
-    icon: facebookSvg,
-  },
-  {
-    name: "Continue with Twitter",
-    href: "#",
-    icon: twitterSvg,
-  },
-  {
-    name: "Continue with Google",
-    href: "#",
-    icon: googleSvg,
-  },
-];
+const RegisterPage = () => {
+  const loginSocials = [
+    {
+      name: "Continue with Facebook",
+      href: "#",
+      icon: facebookSvg,
+    },
+    {
+      name: "Continue with Twitter",
+      href: "#",
+      icon: twitterSvg,
+    },
+    {
+      name: "Continue with Google",
+      href: "#",
+      icon: googleSvg,
+    },
+  ];
 
-const PageSignUp = () => {
   return (
     <div className={`nc-PageSignUp `} data-nc-id="PageSignUp">
       <div className="container mb-24 lg:mb-32">
@@ -60,30 +59,11 @@ const PageSignUp = () => {
             <div className="absolute left-0 w-full top-1/2 transform -translate-y-1/2 border border-neutral-100 dark:border-neutral-800"></div>
           </div>
           {/* FORM */}
-          <form className="grid grid-cols-1 gap-6" action="#" method="post">
-            <label className="block">
-              <span className="text-neutral-800 dark:text-neutral-200">
-                Email address
-              </span>
-              <Input
-                type="email"
-                placeholder="example@example.com"
-                className="mt-1"
-              />
-            </label>
-            <label className="block">
-              <span className="flex justify-between items-center text-neutral-800 dark:text-neutral-200">
-                Password
-              </span>
-              <Input type="password" className="mt-1" />
-            </label>
-            <ButtonPrimary type="submit">Continue</ButtonPrimary>
-          </form>
-
+          <FormComponent/>
           {/* ==== */}
           <span className="block text-center text-neutral-700 dark:text-neutral-300">
             Already have an account? {` `}
-            <Link className="text-green-600" href="/login">
+            <Link className="text-green-600" href="/">
               Sign in
             </Link>
           </span>
@@ -93,4 +73,4 @@ const PageSignUp = () => {
   );
 };
 
-export default PageSignUp;
+export default RegisterPage;

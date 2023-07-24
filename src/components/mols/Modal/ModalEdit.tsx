@@ -2,7 +2,7 @@
 import React, { FC, useEffect, useRef } from "react";
 import ButtonPrimary from "@/components/atoms/Button/ButtonPrimary";
 import ButtonSecondary from "@/components/atoms/Button/ButtonSecondary";
-import Input from "@/components/atoms/Input/Input";
+import Input from "@/components/atoms/Input";
 import NcModal from "@/components/atoms/NcModal/NcModal";
 
 export interface ModalEditProps {

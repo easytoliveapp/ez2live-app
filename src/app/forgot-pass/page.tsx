@@ -1,5 +1,5 @@
 import React from "react";
-import Input from "@/components/atoms/Input/Input";
+import Input from "@/components/atoms/Input";
 import ButtonPrimary from "@/components/atoms/Button/ButtonPrimary";
 import Link from "next/link";
 

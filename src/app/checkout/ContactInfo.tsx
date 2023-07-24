@@ -3,7 +3,7 @@ import React, { FC } from "react";
 import ButtonPrimary from "@/components/atoms/Button/ButtonPrimary";
 import ButtonSecondary from "@/components/atoms/Button/ButtonSecondary";
 import Checkbox from "@/components/atoms/Checkbox/Checkbox";
-import Input from "@/components/atoms/Input/Input";
+import Input from "@/components/atoms/Input";
 
 interface Props {
   isActive: boolean;

@@ -6,7 +6,7 @@ import Prices from "@/components_old/Prices";
 import { Product, PRODUCTS } from "@/data/data";
 import { useState } from "react";
 import ButtonPrimary from "@/components/atoms/Button/ButtonPrimary";
-import Input from "@/components/atoms/Input/Input";
+import Input from "@/components/atoms/Input";
 import ContactInfo from "./ContactInfo";
 import PaymentMethod from "./PaymentMethod";
 import ShippingAddress from "./ShippingAddress";

@@ -4,7 +4,7 @@ import Label from "@/components_old/Label/Label";
 import React, { FC } from "react";
 import ButtonPrimary from "@/components/atoms/Button/ButtonPrimary";
 import ButtonSecondary from "@/components/atoms/Button/ButtonSecondary";
-import Input from "@/components/atoms/Input/Input";
+import Input from "@/components/atoms/Input";
 import Radio from "@/components/atoms/Radio/Radio";
 import Select from "@/components/atoms/Select/Select";
 

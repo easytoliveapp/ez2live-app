@@ -1,7 +1,7 @@
 import Label from "@/components_old/Label/Label";
 import React, { FC } from "react";
 import ButtonPrimary from "@/components/atoms/Button/ButtonPrimary";
-import Input from "@/components/atoms/Input/Input";
+import Input from "@/components/atoms/Input";
 import Select from "@/components/atoms/Select/Select";
 import Textarea from "@/components/atoms/Textarea/Textarea";
 import { avatarImgs } from "@/contains/fakeData";

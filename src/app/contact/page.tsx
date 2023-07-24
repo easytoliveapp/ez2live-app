@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import SocialsList from "@/components/atoms/SocialsList/SocialsList";
 import Label from "@/components_old/Label/Label";
-import Input from "@/components/atoms/Input/Input";
+import Input from "@/components/atoms/Input";
 import Textarea from "@/components/atoms/Textarea/Textarea";
 import ButtonPrimary from "@/components/atoms/Button/ButtonPrimary";
 import BackgroundSection from "@/components_old/BackgroundSection/BackgroundSection";

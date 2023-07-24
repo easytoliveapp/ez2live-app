@@ -11,12 +11,13 @@ interface IAddress {
   state: string;
   zipcode: string;
 }
-export interface IRegisterAccount {
+export interface IRegisterAccount { 
+  name: string;
   email: string;
   password: string;
-  name: string;
+  conf_password?: string;
   document?: string;
-  address: IAddress;
+  address?: IAddress;
   supplierCategory?: string;
   isSupplier?: boolean;
 }

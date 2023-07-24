@@ -1,5 +1,5 @@
 import { Popover, Transition } from "@/app/headlessui";
-import Input from "@/components/atoms/Input/Input";
+import Input from "@/components/atoms/Input";
 import React, { FC, Fragment } from "react";
 
 interface Props {
