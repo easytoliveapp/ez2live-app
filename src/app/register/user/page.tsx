@@ -1,12 +1,12 @@
 import React from "react";
-import Image from "next/image"
-import Link from 'next/link';
+import Image from "next/image";
+import Link from "next/link";
 import facebookSvg from "@/images/Facebook.svg";
 import twitterSvg from "@/images/Twitter.svg";
 import googleSvg from "@/images/Google.svg";
-import FormComponent from './FormComponent';
+import FormComponent from "./FormComponent";
 
-const RegisterPage = () => {
+const UserRegisterPage = () => {
   const loginSocials = [
     {
       name: "Continue with Facebook",
@@ -59,7 +59,7 @@ const RegisterPage = () => {
             <div className="absolute left-0 w-full top-1/2 transform -translate-y-1/2 border border-neutral-100 dark:border-neutral-800"></div>
           </div>
           {/* FORM */}
-          <FormComponent/>
+          <FormComponent />
           {/* ==== */}
           <span className="block text-center text-neutral-700 dark:text-neutral-300">
             Already have an account? {` `}
@@ -73,4 +73,4 @@ const RegisterPage = () => {
   );
 };
 
-export default RegisterPage;
+export default UserRegisterPage;

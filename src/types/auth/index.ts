@@ -3,7 +3,7 @@ export interface ILogIn {
   password: string;
 }
 
-interface IAddress {
+export interface IAddress {
   street: string;
   number: string;
   neighborhood: string;

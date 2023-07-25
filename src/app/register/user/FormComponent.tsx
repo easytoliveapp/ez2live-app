@@ -5,9 +5,10 @@ import { Formik, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { Input, ButtonPrimary } from "@/components/atoms";
 import Service from "@/service/auth.service";
+import { IRegisterAccount } from "@/types/auth";
 
 const FormComponent = () => {
-  const initialValues = {
+  const initialValues: IRegisterAccount = {
     name: "",
     email: "",
     password: "",
@@ -53,13 +54,13 @@ const FormComponent = () => {
     setLoading(true);
     try {
       const response: any = await Service.register({
-        name: user.name,
-        password: user.password,
-        email: user.email,
+        name,
+        password,
+        email,
       });
-      console.log('Usuário registrado com sucesso', response)
-    } catch (error:any) {
-      console.log(error.response.data.message)
+      console.log("Usuário registrado com sucesso", response);
+    } catch (error: any) {
+      console.log(error.response.data.message);
     }
     setLoading(false);
   };
