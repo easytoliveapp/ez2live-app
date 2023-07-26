@@ -43,7 +43,7 @@ const FormComponent = () => {
     }),
   });
 
-  const initialValues: any = {
+  const initialValues: IRegisterAccount = {
     name: "",
     document: "",
     email: "",
@@ -190,7 +190,7 @@ const FormComponent = () => {
             type="submit"
             className="w-full mt-4"
             disabled={loading}
-          />
+          >Register</ButtonPrimary>
         </Form>
       )}
     </Formik>
