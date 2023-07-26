@@ -1,40 +1,21 @@
 "use client";
 
 import React, { useState } from "react";
-import { Formik, Form, ErrorMessage } from "formik";
-import * as Yup from "yup";
+import { Formik, Form, Field, ErrorMessage } from "formik";
 import { Input, ButtonPrimary } from "@/components/atoms";
-import Service from "@/service/auth.service";
+import * as Yup from "yup";
 import { IRegisterAccount } from "@/types/auth";
+import Auth from "@/service/auth.service";
 
 const FormComponent = () => {
-  const initialValues: IRegisterAccount = {
-    name: "",
-    email: "",
-    password: "",
-    conf_password: "",
-  };
-  const [user, setUser] = useState(initialValues);
   const [loading, setLoading] = useState(false);
 
-  const { name, email, password, conf_password } = user;
-
-  const handleChange = (e: any) => {
-    const { name, value } = e.target;
-    setUser({ ...user, [name]: value });
-  };
-
-  const registerValidation = Yup.object({
+  const SignupValidationSchema = Yup.object().shape({
     name: Yup.string()
-      .matches(/[a-zA-Z]$/, "Numbers and special characters are not allowed.")
-      .required("What's your name ?")
-      .min(2, "Must be between 2 and 32 characters.")
-      .max(32, "Must be between 2 and 32 characters."),
-    email: Yup.string()
-      .required(
-        "You'll need this when you log in and if you ever need to reset your password."
-      )
-      .email("Enter a valid email address."),
+      .min(2, "Too Short!")
+      .max(50, "Too Long!")
+      .required("Required"),
+    email: Yup.string().email("Invalid email").required("Required"),
     password: Yup.string()
       .matches(
         /(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]/,
@@ -50,74 +31,77 @@ const FormComponent = () => {
       .oneOf([Yup.ref("password")], "Passwords must match."),
   });
 
-  const handleSubmit = async () => {
+  const initialValues: any = {
+    name: "",
+    email: "",
+    password: "",
+    conf_password: "",
+  };
+
+  const handleFormSubmit = async (values: IRegisterAccount) => {
     setLoading(true);
     try {
-      const response: any = await Service.register({
-        name,
-        password,
-        email,
+      const result = await Auth.register({
+        name: values.name,
+        email: values.email,
+        password: values.password,
       });
-      console.log("Usuário registrado com sucesso", response);
-    } catch (error: any) {
-      console.log(error.response.data.message);
+      //-- Toast login success --
+    } catch (error) {
+      //-- Toast Error --
+      console.log(error);
     }
     setLoading(false);
   };
 
   return (
     <Formik
-      enableReinitialize
-      initialValues={{
-        name,
-        email,
-        password,
-        conf_password,
-      }}
-      validationSchema={registerValidation}
-      onSubmit={handleSubmit}
+      initialValues={initialValues}
+      validationSchema={SignupValidationSchema}
+      onSubmit={handleFormSubmit}
     >
-      <Form className="grid grid-cols-1 gap-6">
-        <label className="block">
-          <span className="text-neutral-800 dark:text-neutral-200">
-            Your Name
-          </span>
-          <Input type="text" name="name" onChange={handleChange} />
-        </label>
-        <ErrorMessage name="name" />
-        <label className="block">
-          <span className="text-neutral-800 dark:text-neutral-200">
-            Email address
-          </span>
-          <Input
+      {({ errors, touched, handleSubmit }) => (
+        <Form onSubmit={handleSubmit} className="flex flex-col gap-3">
+          <Field
+            name="name"
             type="text"
-            name="email"
-            placeholder="example@example"
-            onChange={handleChange}
+            label="Name"
+            placeholder="Name"
+            component={Input}
           />
-        </label>
-        <ErrorMessage name="email" />
-        <label className="block">
-          <span className="text-neutral-800 dark:text-neutral-200">
-            Password
-          </span>
-          <Input type="password" name="password" onChange={handleChange} />
-        </label>
-        <ErrorMessage name="password" />
-        <label className="block">
-          <span className="text-neutral-800 dark:text-neutral-200">
-            Confirm Password
-          </span>
-          <Input type="password" name="conf_password" onChange={handleChange} />
-        </label>
-        <ErrorMessage name="conf_password" />
-        <ButtonPrimary
-          className="w-full max-w-md mx-auto space-y-6"
-          type="submit"
-        >
-          Sign Up
-        </ButtonPrimary>
-      </Form>
+          <ErrorMessage name="name" />
+          <Field
+            name="email"
+            type="email"
+            label="Email"
+            placeholder="Email"
+            component={Input}
+          />
+          <ErrorMessage name="email" />
+          <Field
+            name="password"
+            type="password"
+            label="Password"
+            placeholder="Password"
+            component={Input}
+          />
+          <ErrorMessage name="password" />
+          <Field
+            name="conf_password"
+            type="password"
+            label="Confirm Password"
+            placeholder="Confirm Password"
+            component={Input}
+          />
+          <ErrorMessage name="conf_password" />
+          <ButtonPrimary
+            title="Register"
+            type="submit"
+            className="w-full mt-4"
+            disabled={loading}
+          />
+        </Form>
+      )}
     </Formik>
   );
 };
