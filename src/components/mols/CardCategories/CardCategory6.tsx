@@ -59,7 +59,7 @@ const CardCategory6: FC<CardCategory6Props> = ({
         </div>
       </div>
 
-      <Link href={"/collection"}></Link>
+      <Link href={"/"}></Link>
     </div>
   );
 };
