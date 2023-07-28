@@ -8,7 +8,7 @@ import {
   CurrencyRupeeIcon,
   BanknotesIcon,
 } from "@heroicons/react/24/outline";
-import { Fragment } from "react";
+import React, { Fragment } from "react";
 
 export const headerCurrency = [
   {
