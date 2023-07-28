@@ -23,7 +23,7 @@ const defaultOptions: ToastOptions = {
 };
 
 
-export const UseTostify = ({ type = 'info', label, options }: ITostifyProps) =>
+export const UseToastify = ({ type = 'info', label, options }: ITostifyProps) =>
   toast[type](label, {
     ...defaultOptions,
     ...options,
