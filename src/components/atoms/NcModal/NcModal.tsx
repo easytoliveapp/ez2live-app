@@ -6,7 +6,7 @@ import Button from "@/components/atoms/Button/Button";
 
 export interface NcModalProps {
   renderContent: () => ReactNode;
-  renderTrigger?: (openModal: Function) => ReactNode;
+  renderTrigger?: (openModal: () => void) => ReactNode;
   contentExtraClass?: string;
   contentPaddingClass?: string;
   triggerText?: ReactNode;

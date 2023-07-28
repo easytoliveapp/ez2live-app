@@ -15,7 +15,7 @@ export interface MainNav2Props {
   className?: string;
 }
 
-const MainNav2: FC<MainNav2Props> = ({ className = "" }) => {
+const MainNav2: FC<MainNav2Props> = () => {
   const [showSearchForm, setShowSearchForm] = useState(false);
   const router = useRouter();
 

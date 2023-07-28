@@ -1,7 +1,7 @@
 import { avatarColors } from "@/contains/contants";
 import React, { FC } from "react";
 import { avatarImgs } from "@/contains/fakeData";
-import VerifyIcon from "@/components_old/VerifyIcon";
+import VerifyIcon from "@/components/atoms/VerifyIcon";
 import Image, { StaticImageData } from "next/image";
 
 export interface AvatarProps {

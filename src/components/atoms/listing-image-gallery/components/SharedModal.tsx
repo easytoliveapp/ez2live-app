@@ -10,7 +10,6 @@ import Image from "next/image";
 import React, { useState } from "react";
 import { useSwipeable } from "react-swipeable";
 import { variants } from "@/utils/animationVariants";
-import downloadPhoto from "../utils/downloadPhoto";
 import { range } from "../utils/range";
 import type { ListingGalleryImage } from "../utils/types";
 import Twitter from "./Icons/Twitter";
