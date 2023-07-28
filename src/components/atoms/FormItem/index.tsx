@@ -18,11 +18,15 @@ const FormItem: React.FC<formItemProps> = ({
   children,
 }) => {
   return (
-    <form>
+    <div>
       {children}
       <label htmlFor={htmlFor}>{label}</label>
-      <span className={`text-xs text-red-600 ${className}`}>{invalid}{errorMessage && invalid ? errorMessage : ''}</span>
-    </form>
+      {errorMessage && invalid ? (
+        <span className={`text-sx text-rose-500 ${className}`}>
+          {errorMessage}
+        </span>
+      ) : null}
+    </div>
   );
 };
 

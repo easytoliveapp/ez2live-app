@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form, Field } from "formik";
 import { Input, ButtonPrimary, FormItem } from "@/components/atoms";
 import * as Yup from "yup";
 import { ILogIn } from "@/types/auth";
@@ -49,8 +49,12 @@ const FormComponent = () => {
     >
       {({ errors, touched, handleSubmit }) => (
         <Form onSubmit={handleSubmit} className="flex flex-col gap-3">
-          <FormItem errorMessage={errors.email} invalid={touched.email} >
+          <FormItem
+            errorMessage={errors.email}
+            invalid={!!(errors.email && touched.email)}
+          >
             <Field
+              invalid = {!!(errors.email && touched.email)}
               name="email"
               type="email"
               label="Email"
@@ -58,8 +62,12 @@ const FormComponent = () => {
               component={Input}
             />
           </FormItem>
-          <FormItem errorMessage={errors.password} invalid={touched.password}>
+          <FormItem
+            errorMessage={errors.password}
+            invalid={!!(errors.password && touched.password)}
+          >
             <Field
+              invalid={!!(errors.password && touched.password)}
               name="password"
               type="password"
               label="Password"
