@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { Input, ButtonPrimary } from "@/components/atoms";
+import { Input, ButtonPrimary, FormItem } from "@/components/atoms";
 import * as Yup from "yup";
 import { ILogIn } from "@/types/auth";
 import Auth from "@/service/auth.service";
@@ -49,28 +49,32 @@ const FormComponent = () => {
     >
       {({ errors, touched, handleSubmit }) => (
         <Form onSubmit={handleSubmit} className="flex flex-col gap-3">
-          <Field
-            name="email"
-            type="email"
-            label="Email"
-            placeholder="Email"
-            component={Input}
-          />
-          <ErrorMessage name="email" />
-          <Field
-            name="password"
-            type="password"
-            label="Password"
-            placeholder="Password"
-            component={Input}
-          />
-          <ErrorMessage name="password" />
+          <FormItem errorMessage={errors.email} invalid={touched.email} >
+            <Field
+              name="email"
+              type="email"
+              label="Email"
+              placeholder="Email"
+              component={Input}
+            />
+          </FormItem>
+          <FormItem errorMessage={errors.password} invalid={touched.password}>
+            <Field
+              name="password"
+              type="password"
+              label="Password"
+              placeholder="Password"
+              component={Input}
+            />
+          </FormItem>
           <ButtonPrimary
             title="Register"
             type="submit"
             className="w-full mt-4"
             disabled={loading}
-          >Login</ButtonPrimary>
+          >
+            Login
+          </ButtonPrimary>
         </Form>
       )}
     </Formik>
