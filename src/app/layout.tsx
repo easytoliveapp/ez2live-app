@@ -1,3 +1,4 @@
+import React from "react";
 import { Poppins } from "next/font/google";
 import "./globals.css";
 import "@/fonts/line-awesome-1.3.0/css/line-awesome.css";
@@ -15,7 +16,6 @@ const poppins = Poppins({
 
 export default function RootLayout({
   children,
-  params,
 }: {
   children: React.ReactNode;
   params: any;

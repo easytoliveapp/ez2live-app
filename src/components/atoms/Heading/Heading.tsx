@@ -33,7 +33,7 @@ const Heading: React.FC<HeadingProps> = ({
   hasNextPrev = false,
   fontClass = "text-3xl md:text-4xl font-semibold",
   rightDescText,
-  rightPopoverOptions = solutions,
+  //rightPopoverOptions = solutions,
   ...args
 }) => {
   return (

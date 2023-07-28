@@ -17,7 +17,7 @@ const Comment: FC<CommentProps> = ({ isSmall }) => {
         <div className="relative flex items-center pr-6">
           <a
             className="flex-shrink-0 font-semibold text-neutral-800 dark:text-neutral-100"
-            href="/ncmaz/author/the-demo-author-slug"
+            href="/"
           >
             {_getPersonNameRd()}
           </a>
