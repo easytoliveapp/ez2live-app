@@ -1,4 +1,4 @@
-import Image, { StaticImageData } from "next/image";
+import { StaticImageData } from "next/image";
 import { Route } from "@/routers/types";
 import imageRightPng from "@/images/hero-right.png";
 import imageRightPng2 from "@/images/hero-right-2.png";

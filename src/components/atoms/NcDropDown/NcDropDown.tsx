@@ -81,7 +81,7 @@ const NcDropDown: FC<NcDropDownProps> = ({
                 {() =>
                   renderItem && typeof renderItem(item) !== "undefined" ? (
                     renderItem(item)
-                  ) : !!item.href ? (
+                  ) : item.href ? (
                     <Link
                       href={item.href}
                       className={

@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React from "react";
 import facebookSvg from "@/images/Facebook.svg";
 import twitterSvg from "@/images/Twitter.svg";
 import googleSvg from "@/images/Google.svg";
@@ -74,7 +74,7 @@ const PageLogin = () => {
             <label className="block">
               <span className="flex justify-between items-center text-neutral-800 dark:text-neutral-200">
                 Password
-                <Link href="/forgot-pass" className="text-sm text-green-600">
+                <Link href="/" className="text-sm text-green-600">
                   Forgot password?
                 </Link>
               </span>
@@ -86,7 +86,7 @@ const PageLogin = () => {
           {/* ==== */}
           <span className="block text-center text-neutral-700 dark:text-neutral-300">
             New user? {` `}
-            <Link className="text-green-600" href="/signup">
+            <Link className="text-green-600" href="/">
               Create an account
             </Link>
           </span>

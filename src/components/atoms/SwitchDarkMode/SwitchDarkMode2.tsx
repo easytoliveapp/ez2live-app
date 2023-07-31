@@ -5,10 +5,8 @@ import React from "react";
 export interface SwitchDarkMode2Props {
   className?: string;
 }
-const SwitchDarkMode2: React.FC<SwitchDarkMode2Props> = ({
-  className = "",
-}) => {
-  const { _toogleDarkMode, isDarkMode, toDark, toLight } = useThemeMode();
+const SwitchDarkMode2: React.FC<SwitchDarkMode2Props> = () => {
+  const { _toogleDarkMode, isDarkMode } = useThemeMode();
 
   return (
     <div className="inline-flex">
