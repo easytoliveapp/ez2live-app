@@ -38,7 +38,7 @@ const Checkbox: FC<CheckboxProps> = ({
         >
           <span
             className={`text-slate-900 dark:text-slate-100 ${labelClassName} ${
-              !!subLabel ? "-mt-0.5" : ""
+              subLabel ? "-mt-0.5" : ""
             }`}
           >
             {label}

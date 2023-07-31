@@ -2,7 +2,7 @@
 
 import { Popover, Transition } from "@/app/headlessui";
 import { avatarImgs } from "@/contains/fakeData";
-import { Fragment } from "react";
+import React, { Fragment } from "react";
 import Avatar from "@/components/atoms/Avatar/Avatar";
 import SwitchDarkMode2 from "@/components/atoms/SwitchDarkMode/SwitchDarkMode2";
 import Link from "next/link";
@@ -11,7 +11,7 @@ export default function AvatarDropdown() {
   return (
     <div className="AvatarDropdown ">
       <Popover className="relative">
-        {({ open, close }) => (
+        {({ close }) => (
           <>
             <Popover.Button
               className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 focus:outline-none flex items-center justify-center`}
@@ -63,7 +63,7 @@ export default function AvatarDropdown() {
 
                     {/* ------------------ 1 --------------------- */}
                     <Link
-                      href={"/account"}
+                      href={"/"}
                       className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-700 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
                       onClick={() => close()}
                     >
@@ -98,7 +98,7 @@ export default function AvatarDropdown() {
 
                     {/* ------------------ 2 --------------------- */}
                     <Link
-                      href={"/checkout"}
+                      href={"/"}
                       className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-700 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
                       onClick={() => close()}
                     >
@@ -150,7 +150,7 @@ export default function AvatarDropdown() {
 
                     {/* ------------------ 2 --------------------- */}
                     <Link
-                      href={"/account-savelists"}
+                      href={"/"}
                       className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-700 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
                       onClick={() => close()}
                     >
