@@ -13,7 +13,7 @@ const FormComponent = () => {
   const SignupValidationSchema = Yup.object().shape({
     name: Yup.string()
       .min(2, "Too Short!")
-      .max(50, "Too Long!")
+      .max(36, "Too Long!")
       .required("Required"),
     email: Yup.string().email("Invalid email").required("Required"),
     password: Yup.string()
@@ -31,7 +31,7 @@ const FormComponent = () => {
       .oneOf([Yup.ref("password")], "Passwords must match."),
   });
 
-  const initialValues: any = {
+  const initialValues: IRegisterAccount = {
     name: "",
     email: "",
     password: "",
@@ -99,7 +99,7 @@ const FormComponent = () => {
             type="submit"
             className="w-full mt-4"
             disabled={loading}
-          />
+          >Register</ButtonPrimary>
         </Form>
       )}
     </Formik>
