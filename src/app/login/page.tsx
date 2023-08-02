@@ -1,9 +1,7 @@
 import React from "react";
 import facebookSvg from "@/images/Facebook.svg";
-import twitterSvg from "@/images/Twitter.svg";
 import googleSvg from "@/images/Google.svg";
-import Input from "@/components/atoms/Input/Input";
-import ButtonPrimary from "@/components/atoms/Button/ButtonPrimary";
+import { Input, ButtonPrimary } from "@/components";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -12,11 +10,6 @@ const loginSocials = [
     name: "Continue with Facebook",
     href: "#",
     icon: facebookSvg,
-  },
-  {
-    name: "Continue with Twitter",
-    href: "#",
-    icon: twitterSvg,
   },
   {
     name: "Continue with Google",

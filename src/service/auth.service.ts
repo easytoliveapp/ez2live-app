@@ -14,7 +14,7 @@ const login = async (data: ILogIn) => {
   });
 };
 
-const register = async (data: IRegisterAccount) => {
+const register = async (data: Partial<IRegisterAccount>) => {
   return await BaseService.fetchData({
     url: "/auth/register",
     method: "post",

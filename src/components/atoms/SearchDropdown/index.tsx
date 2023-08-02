@@ -1,5 +1,5 @@
 import { Popover, Transition } from "@/app/headlessui";
-import Input from "@/components/atoms/Input/Input";
+import { Input } from "@/components";
 import React, { FC, Fragment } from "react";
 
 interface Props {
@@ -12,7 +12,7 @@ const SearchDropdown: FC<Props> = ({ className = "" }) => {
   return (
     <React.Fragment>
       <Popover className={`relative ${className}`}>
-        {({ open }) => {
+        {({ open }: { open: boolean }) => {
           if (open) {
             setTimeout(() => {
               inputRef.current?.focus();

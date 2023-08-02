@@ -3,7 +3,7 @@ export interface ILogIn {
   password: string;
 }
 
-interface IAddress {
+export interface IAddress {
   street: string;
   number: string;
   neighborhood: string;
@@ -11,14 +11,14 @@ interface IAddress {
   state: string;
   zipcode: string;
 }
-export interface IRegisterAccount {
+export interface IRegisterAccount { 
+  name: string;
   email: string;
   password: string;
-  name: string;
-  document?: string;
+  document: string;
   address: IAddress;
-  supplierCategory?: string;
-  isSupplier?: boolean;
+  supplierCategory: string;
+  isSupplier: boolean;
 }
 
 export interface IForgotPassword {
