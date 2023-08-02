@@ -1,8 +1,7 @@
 import React from "react";
 import facebookSvg from "@/images/Facebook.svg";
 import googleSvg from "@/images/Google.svg";
-import Input from "@/components/atoms/Input/index";
-import ButtonPrimary from "@/components/atoms/Button/ButtonPrimary";
+import { Input, ButtonPrimary } from "@/components";
 import Image from "next/image";
 import Link from "next/link";
 
