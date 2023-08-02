@@ -29,6 +29,8 @@ module.exports = {
     extend: {
       colors: {
         primary: {
+          ez2live: customColors("--c-ez2live"),
+          ez2livehold: customColors("--c-ez2livehold"),
           50: customColors("--c-primary-50"),
           100: customColors("--c-primary-100"),
           200: customColors("--c-primary-200"),
