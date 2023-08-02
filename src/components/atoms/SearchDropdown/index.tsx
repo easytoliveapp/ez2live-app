@@ -12,7 +12,7 @@ const SearchDropdown: FC<Props> = ({ className = "" }) => {
   return (
     <React.Fragment>
       <Popover className={`relative ${className}`}>
-        {({ open }) => {
+        {({ open }: { open: boolean }) => {
           if (open) {
             setTimeout(() => {
               inputRef.current?.focus();
