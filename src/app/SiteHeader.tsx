@@ -9,8 +9,8 @@ const SiteHeader = () => {
   useThemeMode();
 
   const pathname = usePathname();
-
-  return pathname === "/home-2" ? <Header /> : <HeaderLogged />;
+  
+  return pathname === "/" ?  <HeaderLogged />: <Header/>;
 };
 
 export default SiteHeader;

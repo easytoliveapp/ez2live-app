@@ -4,7 +4,6 @@ import "./globals.css";
 import "@/fonts/line-awesome-1.3.0/css/line-awesome.css";
 import "@/styles/index.scss";
 import "rc-slider/assets/index.css";
-import Footer from "@/components/atoms/Footer/Footer";
 import SiteHeader from "@/app/SiteHeader";
 import CommonClient from "./CommonClient";
 
@@ -26,7 +25,6 @@ export default function RootLayout({
         <SiteHeader />
         {children}
         <CommonClient />
-        <Footer />
       </body>
     </html>
   );
