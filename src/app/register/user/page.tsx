@@ -64,7 +64,7 @@ const UserRegisterPage = () => {
 
           <span className=" block pt-10 text-center text-sm font-medium text-black dark:text-neutral-300">
             <p> você tem um restaurante e quer se juntar a nós? </p>
-            <Link className="text-primary-ez2live text-sm font-semibold" href="/login">
+            <Link className="text-primary-ez2live text-sm font-semibold" href="/register/supplier">
               cadastre-se!
             </Link>
           </span>

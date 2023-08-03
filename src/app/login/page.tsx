@@ -21,12 +21,17 @@ const PageLogin = () => {
   return (
     <div className={`nc-PageLogin`} data-nc-id="PageLogin">
       <div className="container mb-24 lg:mb-32">
-        <h2 className="my-20 flex items-center text-3xl leading-[115%] md:text-5xl md:leading-[115%] font-semibold text-dark dark:text-neutral-100 justify-center">
+        <h2 className="my-20 flex items-center text-3xl leading-[115%] md:text-5xl md:leading-[115%] font-semibold text-black dark:text-neutral-100 justify-center">
           Entrar
         </h2>
         <div className="max-w-md mx-auto space-y-6">
           {/* FORM */}
           <FormComponent/>
+          <span className="flex justify-end  items-start text-sm">
+            <Link className="text-primary-ez2live font-semibold" href="/">
+              esqueci a senha
+            </Link>
+          </span>
           <span className="block text-center text-sm text-black font-semibold dark:text-neutral-300">
             nova conta? { }
             <Link className="text-primary-ez2live font-semibold" href="/register/user">
@@ -62,7 +67,7 @@ const PageLogin = () => {
           {/* ==== */}
           <span className=" block pt-10 text-center text-sm font-medium text-black dark:text-neutral-300">
             <p> tem um restaurante e quer se juntar a nós? </p>
-            <Link className="text-primary-ez2live text-sm font-semibold" href="/login">
+            <Link className="text-primary-ez2live text-sm font-semibold" href="/register/supplier">
               cadastre-se!
             </Link>
           </span>
