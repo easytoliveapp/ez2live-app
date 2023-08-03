@@ -30,7 +30,7 @@ const forgotPassword = async (data: IForgotPassword) => {
   });
 };
 
-const resetPassword = async (data: IResetPassword, token: string) => {
+const resetPassword = async (data: Partial<IResetPassword>, token: string) => {
   return await BaseService.fetchData({
     url: `/auth/reset-password/${token}`,
     method: "post",
