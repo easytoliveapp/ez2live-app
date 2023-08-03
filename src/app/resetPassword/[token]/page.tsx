@@ -9,11 +9,7 @@ import { useRouter } from 'next/navigation'
 import Auth from "@/service/auth.service";
 
 
-interface TokenProps {
-  token: string
-}
-
-const resetPassord = ({token}: TokenProps) => {
+const resetPassord = (token : any) => {
   const [loading, setLoading] = useState(false)
   const router = useRouter();
   const SignUpValidationSchema = Yup.object().shape({
