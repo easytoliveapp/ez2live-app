@@ -27,11 +27,6 @@ const PageLogin = () => {
         <div className="max-w-md mx-auto space-y-6">
           {/* FORM */}
           <FormComponent/>
-          <span className="flex justify-end  items-start text-sm">
-            <Link className="text-primary-ez2live font-semibold" href="/">
-              esqueci a senha
-            </Link>
-          </span>
           <span className="block text-center text-sm text-black font-semibold dark:text-neutral-300">
             nova conta? { }
             <Link className="text-primary-ez2live font-semibold" href="/register/user">

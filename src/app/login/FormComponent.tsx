@@ -7,6 +7,7 @@ import * as Yup from "yup";
 import { ILogIn } from "@/types/auth";
 import { useRouter } from 'next/navigation'
 import Auth from "@/service/auth.service";
+import Link from 'next/link';
 
 const FormComponent = () => {
   const [loading, setLoading] = useState(false)
@@ -80,6 +81,11 @@ const FormComponent = () => {
               component={Input}
             />
           </FormItem>
+          <span className="flex justify-end  items-start text-sm">
+            <Link className="text-primary-ez2live font-semibold" href="/">
+              esqueci a senha
+            </Link>
+          </span>
           <ButtonPrimary
             type="submit"
             className="w-full mt-6"
