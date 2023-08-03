@@ -14,15 +14,15 @@ const FormComponent = () => {
 
   const SignUpValidationSchema = Yup.object().shape({
     name: Yup.string()
-      .min(2, "muito curto!")
-      .max(50, "muito longo!")
-      .required("campo requerido"),
+      .min(2, "nome muito curto!")
+      .max(50, "nome muito longo!")
+      .required("campo nome é requerido"),
     document: Yup.string()
       .min(14, "muito curto!")
       .max(18, "muito longo!")
       .required("campo requerido"),
     supplierCategory: Yup.string().required('escolha a categoria da empresa'),
-    email: Yup.string().email("email inválido").required("Required"),
+    email: Yup.string().email("email inválido").required("email requerido"),
     password: Yup.string()
       .matches(
         /(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]/,

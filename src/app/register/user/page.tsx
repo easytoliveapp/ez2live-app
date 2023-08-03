@@ -23,9 +23,19 @@ const UserRegisterPage = () => {
     <div className={`nc-PageSignUp `} data-nc-id="PageSignUp">
       <div className="container mb-24 lg:mb-32">
         <h2 className="my-20 flex items-center text-3xl leading-[115%] md:text-5xl md:leading-[115%] font-semibold text-black dark:text-neutral-100 justify-center">
-          Criar conta
+          Criar conta <br/>
+          \ usuário
         </h2>
         <div className="max-w-md mx-auto space-y-6 ">
+          {/* FORM */}
+          <FormComponent />
+          {/* OR */}
+          <div className="relative text-center">
+            <span className="relative z-10 inline-block px-4 font-medium text-sm bg-white dark:text-neutral-400 dark:bg-neutral-900">
+              OU
+            </span>
+            <div className="absolute left-0 w-full top-1/2 transform -translate-y-1/2 border border-neutral-100 dark:border-neutral-800"></div>
+          </div>
           <div className="grid gap-3">
             {loginSocials.map((item, index) => (
               <a
@@ -45,15 +55,6 @@ const UserRegisterPage = () => {
               </a>
             ))}
           </div>
-          {/* OR */}
-          <div className="relative text-center">
-            <span className="relative z-10 inline-block px-4 font-medium text-sm bg-white dark:text-neutral-400 dark:bg-neutral-900">
-              OU
-            </span>
-            <div className="absolute left-0 w-full top-1/2 transform -translate-y-1/2 border border-neutral-100 dark:border-neutral-800"></div>
-          </div>
-          {/* FORM */}
-          <FormComponent />
           {/* ==== */}
           <span className="block text-center text-sm font-medium text-black dark:text-neutral-300">
             voltar para { }

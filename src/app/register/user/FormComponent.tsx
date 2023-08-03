@@ -20,13 +20,13 @@ const FormComponent = () => {
     password: Yup.string()
       .matches(
         /(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]/,
-        "Deve conter pelo menos uma letra e um número"
+        "deve conter pelo menos uma letra e um número"
       )
       .required(
-        "Coloque uma combinação de numeros, letras e sinais de pontuação (como ! e &)."
+        "coloque uma combinação de numeros, letras e sinais de pontuação (como ! e &)."
       )
-      .min(8, "Senha deve conter no mínimo 8 caracteres.")
-      .max(36, "Senha não deve contar mais de 36 caracteres"),
+      .min(8, "senha deve conter no mínimo 8 caracteres.")
+      .max(36, "senha não deve contar mais de 36 caracteres"),
   });
 
   const initialValues: Partial<IRegisterAccount> = {
