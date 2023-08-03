@@ -91,7 +91,7 @@ const SectionSliderCategories: FC<SectionSliderCategoriesProps> = ({
       },
     };
 
-    let slider = new Glide(`.${UNIQUE_CLASS}`, OPTIONS);
+    const slider = new Glide(`.${UNIQUE_CLASS}`, OPTIONS);
     slider.mount();
     setIsShow(true);
     return () => {
@@ -157,7 +157,7 @@ const SectionSliderCategories: FC<SectionSliderCategoriesProps> = ({
                   </div>
                 </div>
                 <Link
-                  href={"/collection"}
+                  href={"/"}
                   className="opacity-0 group-hover:opacity-100 absolute inset-0 bg-black bg-opacity-10 transition-opacity"
                 ></Link>
               </div>

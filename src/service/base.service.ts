@@ -21,7 +21,7 @@ const fetchData = (params: AxiosRequestConfig) => {
   axiosInstance.interceptors.request.use(
     (config) => {
       if (userTokens) {
-        const { accessToken, refreshToken } = userTokens;
+        const { accessToken } = userTokens;
         if (accessToken && !config.headers[HEADER_AUTH_KEY]) {
           config.headers[HEADER_AUTH_KEY] = BEARER + accessToken.token;
         }

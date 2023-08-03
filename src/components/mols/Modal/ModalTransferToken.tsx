@@ -2,9 +2,8 @@
 import React, { FC, useEffect, useRef } from "react";
 import ButtonPrimary from "@/components/atoms/Button/ButtonPrimary";
 import ButtonSecondary from "@/components/atoms/Button/ButtonSecondary";
-import Input from "@/components/atoms/Input";
+import { Input } from "@/components";
 import NcModal from "@/components/atoms/NcModal/NcModal";
-
 export interface ModalTransferTokenProps {
   show: boolean;
   onCloseModalTransferToken: () => void;

@@ -18,9 +18,9 @@ const FormItem: React.FC<formItemProps> = ({
   children,
 }) => {
   return (
-    <div>
+    <div className='flex flex-col gap-1 m-1'>
+      <label className=' text-sm font-medium' htmlFor={htmlFor}>{label}</label>
       {children}
-      <label htmlFor={htmlFor}>{label}</label>
       {errorMessage && invalid ? (
         <span className={`text-sx text-rose-500 ${className}`}>
           {errorMessage}

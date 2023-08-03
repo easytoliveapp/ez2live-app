@@ -15,11 +15,10 @@ export interface IRegisterAccount {
   name: string;
   email: string;
   password: string;
-  conf_password?: string;
-  document?: string;
-  address?: IAddress;
-  supplierCategory?: string;
-  isSupplier?: boolean;
+  document: string;
+  address: IAddress;
+  supplierCategory: string;
+  isSupplier: boolean;
 }
 
 export interface IForgotPassword {
