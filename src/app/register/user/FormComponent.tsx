@@ -13,20 +13,20 @@ const FormComponent = () => {
   const router = useRouter();
   const SignUpValidationSchema = Yup.object().shape({
     name: Yup.string()
-      .min(2, "muito curto!")
-      .max(36, "muito longo!")
-      .required("campo requerido"),
-    email: Yup.string().email("email inválido").required("Requerido"),
+      .min(2, "Nome muito curto!")
+      .max(36, "Nome muito longo!")
+      .required("Campo nome é requerido"),
+    email: Yup.string().email("Email inválido").required("Email requerido"),
     password: Yup.string()
       .matches(
         /(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]/,
-        "deve conter pelo menos uma letra e um número"
+        "Deve conter pelo menos uma letra e um número"
       )
       .required(
-        "coloque uma combinação de numeros, letras e sinais de pontuação (como ! e &)."
+        "Coloque uma combinação de numeros, letras e sinais de pontuação (como ! e &)."
       )
-      .min(8, "senha deve conter no mínimo 8 caracteres.")
-      .max(36, "senha não deve contar mais de 36 caracteres"),
+      .min(8, "Senha deve conter no mínimo 8 caracteres.")
+      .max(36, "Senha não deve contar mais de 36 caracteres"),
   });
 
   const initialValues: Partial<IRegisterAccount> = {
@@ -37,18 +37,18 @@ const FormComponent = () => {
 
   const handleFormSubmit = async (values: Partial<IRegisterAccount>) => {
     setLoading(true);
-    try {
-        await Auth.register({
-        name: values.name,
-        email: values.email,
-        password: values.password,
-      });
-      //handleToast login success
-      router.push('/')
-    } catch (error : any) {
-      console.log(error)
-      //handleToast error console error
-    }
+    await Auth.register({
+      name: values.name,
+      email: values.email,
+      password: values.password,
+      }).then(()=>{
+        //handleToast login success
+        router.push('/')
+      })
+      .catch((error)=> {
+        console.log(error)
+        //handleToast error in login
+      })
     setLoading(false);
   };
 

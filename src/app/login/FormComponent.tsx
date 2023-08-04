@@ -13,7 +13,7 @@ const FormComponent = () => {
   const [loading, setLoading] = useState(false)
   const router = useRouter();
   const SignUpValidationSchema = Yup.object().shape({
-    email: Yup.string().email("email inválido").required("email requerido"),
+    email: Yup.string().email("Email inválido").required("Campo email é requerido"),
     password: Yup.string()
       .matches(
         /(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]/,
@@ -33,17 +33,17 @@ const FormComponent = () => {
 
   const handleFormSubmit = async (values: ILogIn) => {
     setLoading(true);
-    try {
-        await Auth.login({
-        email: values.email,
-        password: values.password,
-      });
-      //handleToast login success
-      router.push('/')
-    } catch (error : any) {
-      console.log(error)
-      //handleToast error console error
-    }
+    await Auth.login({
+      email: values.email,
+      password: values.password,
+      }).then(()=>{
+        //handleToast login success
+        router.push('/')
+      })
+      .catch((error)=> {
+        console.log(error)
+        //handleToast error in login
+      })
     setLoading(false);
   };
 

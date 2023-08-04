@@ -14,32 +14,32 @@ const FormComponent = () => {
 
   const SignUpValidationSchema = Yup.object().shape({
     name: Yup.string()
-      .min(2, "nome muito curto!")
-      .max(50, "nome muito longo!")
-      .required("campo nome é requerido"),
+      .min(2, "Nome muito curto!")
+      .max(50, "Nome muito longo!")
+      .required("Campo nome é requerido"),
     document: Yup.string()
-      .min(14, "muito curto!")
-      .max(18, "muito longo!")
-      .required("campo requerido"),
-    supplierCategory: Yup.string().required('escolha a categoria da empresa'),
-    email: Yup.string().email("email inválido").required("email requerido"),
+      .min(14, "Muito curto!")
+      .max(18, "Muito longo!")
+      .required("Campo requerido"),
+    supplierCategory: Yup.string().required('Escolha a categoria da empresa'),
+    email: Yup.string().email("Email inválido").required("Email requerido"),
     password: Yup.string()
       .matches(
         /(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]/,
-        "deve conter pelo menos uma letra e um número"
+        "Deve conter pelo menos uma letra e um número"
       )
       .required(
-        "coloque uma combinação de numeros, letras e sinais de pontuação (como ! e &)."
+        "Coloque uma combinação de numeros, letras e sinais de pontuação (como ! e &)."
       )
-      .min(8, "senha deve conter no mínimo 8 caracteres.")
-      .max(36, "senha não deve contar mais de 36 caracteres"),
+      .min(8, "Senha deve conter no mínimo 8 caracteres.")
+      .max(36, "Senha não deve contar mais de 36 caracteres"),
     address: Yup.object().shape({
-      street: Yup.string().required("campo requerido"),
-      number: Yup.string().required("campo requerido"),
-      neighborhood: Yup.string().required("campo requerido"),
-      city: Yup.string().required("campo requerido"),
-      state: Yup.string().required("campo requerido"),
-      zipcode: Yup.string().required("campo requerido"),
+      street: Yup.string().required("Campo requerido"),
+      number: Yup.string().required("Campo requerido"),
+      neighborhood: Yup.string().required("Campo requerido"),
+      city: Yup.string().required("Campo requerido"),
+      state: Yup.string().required("Campo requerido"),
+      zipcode: Yup.string().required("Campo requerido"),
     }),
   });
 
@@ -62,7 +62,6 @@ const FormComponent = () => {
 
   const handleFormSubmit = async (values: IRegisterAccount) => {
     setLoading(true);
-    try {
       await Auth.register({
         name: values.name,
         email: values.email,
@@ -70,13 +69,14 @@ const FormComponent = () => {
         document: values.document,
         isSupplier: values.isSupplier,
         address: values.address,
-      });
-      //-- Toast login success --
-      router.push('/')
-    } catch (error) {
-      //-- Toast error --
-      console.log(error);
-    }
+      }).then(()=>{
+        //handleToast login success
+        router.push('/')
+      })
+      .catch((error)=> {
+        console.log(error)
+        //handleToast error in login
+      })
     setLoading(false);
   };
 
