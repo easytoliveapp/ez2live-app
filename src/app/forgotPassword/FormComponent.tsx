@@ -10,7 +10,7 @@ import Auth from "@/service/auth.service";
 const FormComponent = () => {
   const [loading, setLoading] = useState(false)
   const SignUpValidationSchema = Yup.object().shape({
-    email: Yup.string().email("email inválido").required("requerido"),
+    email: Yup.string().email("Email inválido").required("Campo email é requerido"),
   });
 
   const initialValues: IForgotPassword = {
@@ -19,15 +19,13 @@ const FormComponent = () => {
 
   const handleFormSubmit = async (values: IForgotPassword) => {
     setLoading(true);
-    try {
-        await Auth.forgotPassword({
-        email: values.email,
-      });
-      //handleToast success. Foi enviado email para redefinir senha foi enviado
-    } catch (error : any) {
-      console.log(error)
-      //handleToast error console error
-    }
+    await Auth.forgotPassword({email: values.email,})
+    .then(()=> {
+      //handle toast success um email para resetar senha foi enviado 
+    })
+    .catch(()=> {
+      //handle toast error
+    })
     setLoading(false);
   };
 

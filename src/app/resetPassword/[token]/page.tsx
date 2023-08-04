@@ -16,16 +16,16 @@ const resetPassord = (token : any) => {
     password: Yup.string()
       .matches(
         /(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]/,
-        "deve conter pelo menos uma letra e um número"
+        "Deve conter pelo menos uma letra e um número"
       )
       .required(
-        "coloque uma combinação de numeros, letras e sinais de pontuação (como ! e &)."
+        "Coloque uma combinação de numeros, letras e sinais de pontuação (como ! e &)."
       )
-      .min(8, "senha deve conter no mínimo 8 caracteres.")
-      .max(36, "senha não deve contar mais de 36 caracteres"),
+      .min(8, "Senha deve conter no mínimo 8 caracteres.")
+      .max(36, "Senha não deve contar mais de 36 caracteres"),
       conf_password: Yup.string()
-      .required("confirme sua senha.")
-      .oneOf([Yup.ref("password")], "senhas devem ser iguais."),
+      .required("Confirme sua senha.")
+      .oneOf([Yup.ref("password")], "Senhas devem ser iguais."),
   });
 
   const initialValues: IResetPassword = {
@@ -35,14 +35,14 @@ const resetPassord = (token : any) => {
 
   const handleFormSubmit = async (values : any) => {
     setLoading(true);
-    try {
-        await Auth.resetPassword( values.password , token);
-      //handleToast login success
-      router.push('/')
-    } catch (error : any) {
-      console.log(error)
-      //handleToast error console error
-    }
+    await Auth.resetPassword( values.password , token)
+    .then(()=>{
+      //handleToast password resetada com successo
+      router.push('/login')
+    })
+    .catch(()=>{
+      //handle toast error
+    })
     setLoading(false);
   };
 
