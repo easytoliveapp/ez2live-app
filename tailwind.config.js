@@ -31,6 +31,7 @@ module.exports = {
         primary: {
           ez2live: customColors("--c-ez2live"),
           ez2livehold: customColors("--c-ez2livehold"),
+          ez2livebg: customColors("--c-ez2livebg"),
           50: customColors("--c-primary-50"),
           100: customColors("--c-primary-100"),
           200: customColors("--c-primary-200"),
@@ -43,6 +44,8 @@ module.exports = {
           900: customColors("--c-primary-900"),
         },
         secondary: {
+          ez2live: customColors("--c-secEz2live"),
+          ez2livebg: customColors("--c-secEz2livebg"),
           50: customColors("--c-secondary-50"),
           100: customColors("--c-secondary-100"),
           200: customColors("--c-secondary-200"),
