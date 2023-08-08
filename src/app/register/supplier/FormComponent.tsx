@@ -239,7 +239,7 @@ const FormComponent = () => {
             type="submit"
             className="w-full mt-4"
             disabled={loading}
-          >Cadastrar</ButtonPrimary>
+          >Avançar</ButtonPrimary>
         </Form>
       )}
     </Formik>
