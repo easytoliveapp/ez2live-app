@@ -8,8 +8,13 @@ import { IResetPassword } from "@/types/auth";
 import { useRouter } from 'next/navigation'
 import Auth from "@/service/auth.service";
 
+interface tokenProps {
+  params: {
+    token: string
+  }
+}
 
-const resetPassord = (token : string) => {
+const resetPassord = ({ params } : tokenProps) => {
   const [loading, setLoading] = useState(false)
   const router = useRouter();
   const SignUpValidationSchema = Yup.object().shape({
@@ -35,7 +40,7 @@ const resetPassord = (token : string) => {
 
   const handleFormSubmit = async (values : IResetPassword) => {
     setLoading(true);
-    await Auth.resetPassword(  token, values.password)
+    await Auth.resetPassword(  params.token, values.password)
     .then(()=>{
       //handleToast password resetada com successo
       router.push('/login')
