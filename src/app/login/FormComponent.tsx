@@ -4,19 +4,16 @@ import React, { useState } from "react";
 import { Formik, Form, Field } from "formik";
 import { Input, ButtonPrimary, FormItem } from "@/components/atoms";
 import * as Yup from "yup";
-import { IRegisterAccount } from "@/types/auth";
+import { ILogIn } from "@/types/auth";
 import { useRouter } from 'next/navigation'
 import Auth from "@/service/auth.service";
+import Link from 'next/link';
 
 const FormComponent = () => {
   const [loading, setLoading] = useState(false)
   const router = useRouter();
   const SignUpValidationSchema = Yup.object().shape({
-    name: Yup.string()
-      .min(2, "Nome muito curto!")
-      .max(36, "Nome muito longo!")
-      .required("Campo nome é requerido"),
-    email: Yup.string().email("Email inválido").required("Email requerido"),
+    email: Yup.string().email("Email inválido").required("Campo email é requerido"),
     password: Yup.string()
       .matches(
         /(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]/,
@@ -29,16 +26,14 @@ const FormComponent = () => {
       .max(36, "Senha não deve contar mais de 36 caracteres"),
   });
 
-  const initialValues: Partial<IRegisterAccount> = {
-    name: "",
+  const initialValues: ILogIn = {
     email: "",
     password: "",
   };
 
-  const handleFormSubmit = async (values: Partial<IRegisterAccount>) => {
+  const handleFormSubmit = async (values: ILogIn) => {
     setLoading(true);
-    await Auth.register({
-      name: values.name,
+    await Auth.login({
       email: values.email,
       password: values.password,
       }).then(()=>{
@@ -60,19 +55,6 @@ const FormComponent = () => {
     >
       {({ errors, touched, handleSubmit }) => (
         <Form onSubmit={handleSubmit} className="flex flex-col gap-3">
-          <FormItem
-            label='nome'
-            errorMessage={errors.name}
-            invalid={!!(errors.name && touched.name)}
-          >
-            <Field
-              invalid = {!!(errors.name && touched.name)}
-              name="name"
-              type="text"
-              label="Name"
-              component={Input}
-            />
-          </FormItem>
           <FormItem
             label='email'
             errorMessage={errors.email}
@@ -99,11 +81,16 @@ const FormComponent = () => {
               component={Input}
             />
           </FormItem>
+          <span className="flex justify-end  items-start text-sm">
+            <Link className="text-primary-ez2live font-semibold" href="/">
+              esqueci a senha
+            </Link>
+          </span>
           <ButtonPrimary
             type="submit"
             className="w-full mt-6"
             disabled={loading}
-          >Cadastrar</ButtonPrimary>
+          >Continuar</ButtonPrimary>
         </Form>
       )}
     </Formik>
