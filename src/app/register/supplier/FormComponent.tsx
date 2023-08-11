@@ -1,16 +1,25 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Formik, Form, Field, FormikProps } from "formik";
 import { Input, ButtonPrimary, FormItem } from "@/components/atoms";
 import * as Yup from "yup";
 import { IRegisterAccount } from "@/types/auth";
 import { useRouter } from 'next/navigation'
 import Auth from "@/service/auth.service";
+import Sup from '@/service/supplier.service';
+
+type categorieProps ={
+  active: boolean,
+  title: string;
+  id: string;
+}
 
 const FormComponent = () => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const [categories, setCategories] = useState([])
+  const [firstCategory, setFirstCategory] = useState("")
   const [currentStep, setCurrentStep] = useState(0)
   const [initialValues, setInitialValues] = useState(
     {
@@ -18,7 +27,7 @@ const FormComponent = () => {
       document: "",
       email: "",
       password: "",
-      supplierCategory: "",
+      supplierCategory: firstCategory,
       isSupplier: true,
       address: {
       street: "",
@@ -29,6 +38,22 @@ const FormComponent = () => {
       zipcode: "",
     },
   })
+
+  const getSupplierCatogires = async () => {
+    const res:any = await Sup.getSupplierCategories()
+    return res
+  };
+  
+  useEffect(()=> {
+    getSupplierCatogires()
+    .then((res) => {
+      setCategories(res.data.supplierCategories.results),
+      setFirstCategory(res.data.supplierCategories.results[0].id)
+    })
+    .catch((error)=> console.log(error))
+    setInitialValues( prev => ({...prev, supplierCategory: firstCategory}))
+  }
+  ,[firstCategory]);
 
   const FirstStepValidationSchema = Yup.object().shape({
     name: Yup.string()
@@ -67,7 +92,7 @@ const FormComponent = () => {
   const handleNextStep = (newData : Partial<IRegisterAccount>) => {
     setInitialValues( prev => ({...prev, ...newData}))
     setCurrentStep(prev => prev + 1)
-  }
+  };
 
   const handleFormSubmit = async (values: IRegisterAccount) => {
     setLoading(true);
@@ -76,6 +101,7 @@ const FormComponent = () => {
       email: values.email,
       password: values.password,
       document: values.document,
+      supplierCategory: values.supplierCategory,
       isSupplier: values.isSupplier,
       address: values.address,
     }).then(()=>{
@@ -84,13 +110,14 @@ const FormComponent = () => {
     }).catch((error)=> {
         console.log(error)
         //handleToast error in login
-    })
+    });
     setLoading(false);
   };
 
-  const StepOne : any = (props : any) => {
+  const StepOne = (props : any ) => {
     const handleSubmit = (values : Partial<IRegisterAccount>) => {
       props.next(values)
+      console.log(values)
     }
 
     return  (
@@ -144,16 +171,17 @@ const FormComponent = () => {
           </FormItem>
           <FormItem
             label='categoria'
-            errorMessage={errors.supplierCategory}
-            invalid={!!(errors.supplierCategory && touched.supplierCategory)}
           >
+            {/* Component Select está dando problema com o formik para enviar o valor selecionado no option. */}
             <Field
-              invalid = {!!(errors.supplierCategory && touched.supplierCategory)}
               name="supplierCategory"
-              type="text"
-              label="Supplier Category"
-              component={Input}
-            />
+              component = "select"
+              className={`nc-Select block w-full p-3 text-sm rounded-full border-black focus:border-primary-ez2live focus:ring focus:ring-primary-ez2live focus:ring-opacity-50 bg-primary-ez2livebg dark:border-neutral-700 dark:focus:ring-primary-6000 dark:focus:ring-opacity-25 dark:bg-neutral-900`}
+              >
+                {categories.map((categorie: categorieProps, index) =>
+                < option key={index} value={categorie.id}>{categorie.title}
+                </option>)}
+            </Field>
           </FormItem>
           <FormItem
             label='senha'
@@ -285,7 +313,7 @@ const FormComponent = () => {
     <div>
       {steps[currentStep]}
     </div>
-  )
+  );
 };
 
 export default FormComponent;

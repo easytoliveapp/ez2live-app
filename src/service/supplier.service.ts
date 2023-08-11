@@ -19,4 +19,11 @@ const verifySupplier = async (supplier: IverifySupplier) => {
   });
 };
 
-export default { getSupplierList, verifySupplier };
+const getSupplierCategories = async () => {
+  return await BaseService.fetchData({
+    url: `/supplier/categories`,
+    method: "get",
+  });
+};
+
+export default { getSupplierList, verifySupplier, getSupplierCategories };
