@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { Formik, Form, Field, FormikProps } from "formik";
-import { Input, ButtonPrimary, FormItem } from "@/components/atoms";
+import { Input, ButtonPrimary, FormItem, Select } from "@/components/atoms";
 import * as Yup from "yup";
 import { IRegisterAccount } from "@/types/auth";
 import { useRouter } from 'next/navigation'
@@ -175,8 +175,7 @@ const FormComponent = () => {
             {/* Component Select está dando problema com o formik para enviar o valor selecionado no option. */}
             <Field
               name="supplierCategory"
-              component = "select"
-              className={`nc-Select block w-full p-3 text-sm rounded-full border-black focus:border-primary-ez2live focus:ring focus:ring-primary-ez2live focus:ring-opacity-50 bg-primary-ez2livebg dark:border-neutral-700 dark:focus:ring-primary-6000 dark:focus:ring-opacity-25 dark:bg-neutral-900`}
+              component = {Select}
               >
                 {categories.map((categorie: categorieProps, index) =>
                 < option key={index} value={categorie.id}>{categorie.title}
@@ -307,8 +306,7 @@ const FormComponent = () => {
     );    
   } 
   const steps = [
-  <StepOne key={0} next={handleNextStep} data={initialValues}  /> , <StepTwo key={1} data={initialValues}  />]
-
+  <StepOne key={0} next={handleNextStep} data={initialValues}  /> , <StepTwo key={1} data={initialValues} />]
   return (
     <div>
       {steps[currentStep]}
