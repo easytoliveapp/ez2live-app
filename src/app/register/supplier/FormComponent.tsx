@@ -9,10 +9,16 @@ import { useRouter } from 'next/navigation'
 import Auth from "@/service/auth.service";
 import Sup from '@/service/supplier.service';
 
-type categorieProps ={
-  active: boolean,
+interface categorieProps {
+  active: boolean;
   title: string;
   id: string;
+}
+
+interface StepProps  {
+  next: (e:any)=> void;
+  data: IRegisterAccount;
+  key: number
 }
 
 const FormComponent = () => {
@@ -52,8 +58,9 @@ const FormComponent = () => {
     })
     .catch((error)=> console.log(error))
     setInitialValues( prev => ({...prev, supplierCategory: firstCategory}))
+    console.log('oi')
   }
-  ,[firstCategory]);
+  ,[]);
 
   const FirstStepValidationSchema = Yup.object().shape({
     name: Yup.string()
@@ -64,7 +71,7 @@ const FormComponent = () => {
       .min(14, "Muito curto!")
       .max(18, "Muito longo!")
       .required("Campo requerido"),
-    supplierCategory: Yup.string().required('Escolha a categoria da empresa'),
+    supplierCategory: Yup.string().nonNullable().required('Escolha a categoria da empresa'),
     email: Yup.string().email("Email inválido").required("Email requerido"),
     password: Yup.string()
       .matches(
@@ -107,17 +114,17 @@ const FormComponent = () => {
     }).then(()=>{
         //handleToast login success
         router.push('/')
-    }).catch((error)=> {
-        console.log(error)
+    }).catch(()=> {
         //handleToast error in login
     });
     setLoading(false);
   };
 
-  const StepOne = (props : any ) => {
+
+
+  const StepOne = (props : StepProps ) => {
     const handleSubmit = (values : Partial<IRegisterAccount>) => {
       props.next(values)
-      console.log(values)
     }
 
     return  (
@@ -171,12 +178,18 @@ const FormComponent = () => {
           </FormItem>
           <FormItem
             label='categoria'
+              errorMessage={errors.supplierCategory}
+              invalid={!!(errors.supplierCategory && touched.supplierCategory)}
           >
-            {/* Component Select está dando problema com o formik para enviar o valor selecionado no option. */}
             <Field
+              invalid={!!(errors.supplierCategory && touched.supplierCategory)}
               name="supplierCategory"
               component = {Select}
+              
               >
+                <option value={undefined}>
+                selecione uma categoria
+                </option>
                 {categories.map((categorie: categorieProps, index) =>
                 < option key={index} value={categorie.id}>{categorie.title}
                 </option>)}
@@ -205,7 +218,7 @@ const FormComponent = () => {
     </Formik>
     )
   }
-  const StepTwo: any = () => {
+  const StepTwo : any = () => {
     return (
       <Formik
         initialValues={initialValues}
