@@ -117,4 +117,4 @@ const resetPassord = ({ params } : tokenProps) => {
 };
  
 
-export default resetPassord
+export default resetPassord;
