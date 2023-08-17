@@ -1,16 +1,26 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Formik, Form, Field, FormikProps } from "formik";
-import { Input, ButtonPrimary, FormItem } from "@/components/atoms";
+import { Input, ButtonPrimary, FormItem, Select } from "@/components/atoms";
 import * as Yup from "yup";
 import { IRegisterAccount } from "@/types/auth/request";
 import { useRouter } from 'next/navigation'
 import Auth from "@/service/auth.service";
+import Supplier from '@/service/supplier.service';
+import { ICategoryProps } from "@/types/supplier";
+
+interface IStepOneProps  {
+  next: (e:any)=> void;
+  data: IRegisterAccount;
+  key: number
+}
 
 const FormComponent = () => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const [categories, setCategories] = useState([])
+  const [firstCategory, setFirstCategory] = useState("")
   const [currentStep, setCurrentStep] = useState(0)
   const [initialValues, setInitialValues] = useState(
     {
@@ -18,7 +28,7 @@ const FormComponent = () => {
       document: "",
       email: "",
       password: "",
-      supplierCategory: "",
+      supplierCategory: firstCategory,
       isSupplier: true,
       address: {
       street: "",
@@ -30,6 +40,23 @@ const FormComponent = () => {
     },
   })
 
+  const getSupplierCatogires = async () => {
+    const res:any = await Supplier.getSupplierCategories()
+    return res
+  };
+  
+  useEffect(()=> {
+    getSupplierCatogires()
+    .then((res) => {
+      setCategories(res.data.supplierCategories.results),
+      setFirstCategory(res.data.supplierCategories.results[0].id)
+    })
+    .catch((error)=> console.log(error))
+    setInitialValues( prev => ({...prev, supplierCategory: firstCategory}))
+    console.log('oi')
+  }
+  ,[]);
+
   const FirstStepValidationSchema = Yup.object().shape({
     name: Yup.string()
       .min(2, "Nome muito curto!")
@@ -39,7 +66,7 @@ const FormComponent = () => {
       .min(14, "Muito curto!")
       .max(18, "Muito longo!")
       .required("Campo requerido"),
-    supplierCategory: Yup.string().required('Escolha a categoria da empresa'),
+    supplierCategory: Yup.string().nonNullable().required('Escolha a categoria da empresa'),
     email: Yup.string().email("Email inválido").required("Email requerido"),
     password: Yup.string()
       .matches(
@@ -67,7 +94,7 @@ const FormComponent = () => {
   const handleNextStep = (newData : Partial<IRegisterAccount>) => {
     setInitialValues( prev => ({...prev, ...newData}))
     setCurrentStep(prev => prev + 1)
-  }
+  };
 
   const handleFormSubmit = async (values: IRegisterAccount) => {
     setLoading(true);
@@ -76,19 +103,21 @@ const FormComponent = () => {
       email: values.email,
       password: values.password,
       document: values.document,
+      supplierCategory: values.supplierCategory,
       isSupplier: values.isSupplier,
       address: values.address,
     }).then(()=>{
         //handleToast login success
         router.push('/')
-    }).catch((error)=> {
-        console.log(error)
+    }).catch(()=> {
         //handleToast error in login
-    })
+    });
     setLoading(false);
   };
 
-  const StepOne : any = (props : any) => {
+
+
+  const StepOne = (props : IStepOneProps ) => {
     const handleSubmit = (values : Partial<IRegisterAccount>) => {
       props.next(values)
     }
@@ -144,16 +173,22 @@ const FormComponent = () => {
           </FormItem>
           <FormItem
             label='categoria'
-            errorMessage={errors.supplierCategory}
-            invalid={!!(errors.supplierCategory && touched.supplierCategory)}
+              errorMessage={errors.supplierCategory}
+              invalid={!!(errors.supplierCategory && touched.supplierCategory)}
           >
             <Field
-              invalid = {!!(errors.supplierCategory && touched.supplierCategory)}
+              invalid={!!(errors.supplierCategory && touched.supplierCategory)}
               name="supplierCategory"
-              type="text"
-              label="Supplier Category"
-              component={Input}
-            />
+              component = {Select}
+              
+              >
+                <option value={undefined}>
+                selecione uma categoria
+                </option>
+                {categories.map((categorie: ICategoryProps, index) =>
+                < option key={index} value={categorie.id}>{categorie.title}
+                </option>)}
+            </Field>
           </FormItem>
           <FormItem
             label='senha'
@@ -178,7 +213,7 @@ const FormComponent = () => {
     </Formik>
     )
   }
-  const StepTwo: any = () => {
+  const StepTwo : any = () => {
     return (
       <Formik
         initialValues={initialValues}
@@ -279,13 +314,12 @@ const FormComponent = () => {
     );    
   } 
   const steps = [
-  <StepOne key={0} next={handleNextStep} data={initialValues}  /> , <StepTwo key={1} data={initialValues}  />]
-
+  <StepOne key={0} next={handleNextStep} data={initialValues}  /> , <StepTwo key={1} data={initialValues} />]
   return (
     <div>
       {steps[currentStep]}
     </div>
-  )
+  );
 };
 
 export default FormComponent;
