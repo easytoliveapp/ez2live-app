@@ -32,6 +32,7 @@ module.exports = {
           ez2live: customColors("--c-ez2live"),
           ez2livehold: customColors("--c-ez2livehold"),
           ez2livebg: customColors("--c-ez2livebg"),
+          ez2livebg2: customColors("--c-ez2livebg2"),
           50: customColors("--c-primary-50"),
           100: customColors("--c-primary-100"),
           200: customColors("--c-primary-200"),

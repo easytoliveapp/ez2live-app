@@ -1,7 +1,7 @@
-import { ISupplier, IverifySupplier } from "@/types/supplier";
+import { ISupplierList, IverifySupplier } from "@/types/supplier";
 import { BaseService } from "./base.service";
 
-const getSupplierList = async (data: ISupplier) => {
+const getSupplierList = async (data?: Partial<ISupplierList>) => {
   return await BaseService.fetchData({
     url: `/supplier`,
     method: "get",
@@ -19,4 +19,11 @@ const verifySupplier = async (supplier: IverifySupplier) => {
   });
 };
 
-export default { getSupplierList, verifySupplier };
+const getSupplierCategories = async () => {
+  return await BaseService.fetchData({
+    url: `/supplier/categories`,
+    method: "get",
+  });
+};
+
+export default { getSupplierList, verifySupplier, getSupplierCategories };
