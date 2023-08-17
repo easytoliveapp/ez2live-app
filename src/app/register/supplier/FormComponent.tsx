@@ -8,14 +8,9 @@ import { IRegisterAccount } from "@/types/auth";
 import { useRouter } from 'next/navigation'
 import Auth from "@/service/auth.service";
 import Sup from '@/service/supplier.service';
+import { ICategoryProps } from '@/types/supplier';
 
-interface categorieProps {
-  active: boolean;
-  title: string;
-  id: string;
-}
-
-interface StepProps  {
+interface IStepOneProps  {
   next: (e:any)=> void;
   data: IRegisterAccount;
   key: number
@@ -46,7 +41,7 @@ const FormComponent = () => {
   })
 
   const getSupplierCatogires = async () => {
-    const res:any = await Sup.getSupplierCategories()
+    const res: any  = await Sup.getSupplierCategories()
     return res
   };
   
@@ -122,7 +117,7 @@ const FormComponent = () => {
 
 
 
-  const StepOne = (props : StepProps ) => {
+  const StepOne = (props : IStepOneProps ) => {
     const handleSubmit = (values : Partial<IRegisterAccount>) => {
       props.next(values)
     }
@@ -190,7 +185,7 @@ const FormComponent = () => {
                 <option value={undefined}>
                 selecione uma categoria
                 </option>
-                {categories.map((categorie: categorieProps, index) =>
+                {categories.map((categorie: ICategoryProps, index) =>
                 < option key={index} value={categorie.id}>{categorie.title}
                 </option>)}
             </Field>
