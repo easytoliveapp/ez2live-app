@@ -16,22 +16,26 @@ const axiosInstance = axios.create({
 });
 
 const fetchData = <T>(params: AxiosRequestConfig): Promise<AxiosResponse<T>> => {
-  const userTokens = getItemByLocalStorage(TOKENS);
+  if (typeof window !== "undefined") {
+    const userTokens = getItemByLocalStorage(TOKENS);
 
-  axiosInstance.interceptors.request.use(
-    (config) => {
-      if (userTokens) {
-        const { accessToken } = userTokens;
-        if (accessToken && !config.headers[HEADER_AUTH_KEY]) {
-          config.headers[HEADER_AUTH_KEY] = BEARER + accessToken.token;
+    axiosInstance.interceptors.request.use(
+      (config) => {
+        if (userTokens) {
+          const { accessToken } = userTokens;
+          if (accessToken && !config.headers[HEADER_AUTH_KEY]) {
+            config.headers[HEADER_AUTH_KEY] = BEARER + accessToken.token;
+          }
         }
+        return config;
+      },
+      (error) => {
+        return Promise.reject(error);
       }
-      return config;
-    },
-    (error) => {
-      return Promise.reject(error);
-    }
-  );
+    );
+  }
+
+
 
   return new Promise((resolve, reject) => {
     axiosInstance(params)

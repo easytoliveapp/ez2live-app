@@ -9,6 +9,7 @@ export const authOptions: NextAuthOptions = {
     signIn: '/login',
     signOut: '/logout',
   },
+  secret: process.env.NEXTAUTH_SECRET,
 
   providers: [
     CredentialsProvider({
@@ -18,7 +19,7 @@ export const authOptions: NextAuthOptions = {
         password: {}
       },
       
-      async authorize(credentials): Promise<any> {
+      async authorize(credentials, req): Promise<any> {
         try {
           const { email, password } = credentials as ILogIn
 
@@ -26,6 +27,8 @@ export const authOptions: NextAuthOptions = {
             email,
             password
           })
+
+          console.log(res)
 
           if (res.status !== 200) {
             return Promise.reject(new Error('Api Response Error Http Status: ' + res.status));
@@ -35,8 +38,9 @@ export const authOptions: NextAuthOptions = {
 
           return data.user;
         }
-        catch (error) {
-          return Promise.reject(new Error('Invalid email and password combination'));
+        catch (error: any) {
+          console.log('error.', error.response?.data)
+          return Promise.reject(new Error(JSON.stringify(error.response?.data)));
         }
       }
     })

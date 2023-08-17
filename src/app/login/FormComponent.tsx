@@ -6,9 +6,9 @@ import { Input, ButtonPrimary, FormItem } from "@/components/atoms";
 import * as Yup from "yup";
 import { ILogIn } from "@/types/auth/request";
 import { useRouter } from 'next/navigation'
-import Auth from "@/service/auth.service";
 import Link from 'next/link';
 import { useToastify } from "@/hooks/useToastify";
+import { signIn } from "next-auth/react";
 
 const FormComponent = () => {
   const [loading, setLoading] = useState(false)
@@ -34,17 +34,28 @@ const FormComponent = () => {
 
   const handleFormSubmit = async (values: ILogIn) => {
     setLoading(true);
-    await Auth.login({
+    await signIn('credentials', {
       email: values.email,
       password: values.password,
-      }).then(()=>{
-        //handleToast login success
-        router.push('/')
+      redirect: false
+      }).then((resp)=>{
+
+        console.log(resp)
+
+        //const callbackUrl = useSearchParams().get('callbackUrl') as string || '/';
+
+        if (resp && !resp?.error) {
+          router.push('/')
+        }
+
+        if(resp && resp?.error) {
+          return Promise.reject(JSON.parse(resp?.error));
+        }
       })
       .catch((error)=> {
         console.log(error)
         //handleToast error in login
-        if (error?.response?.data?.code === 401) {
+        if (error?.code === 401) {
           useToastify({ label: 'Oops! Algo deu errado com seu login. Verifique as credenciais e tente novamente', type: 'error' })
         }
       })
