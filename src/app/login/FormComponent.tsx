@@ -8,6 +8,7 @@ import { ILogIn } from "@/types/auth";
 import { useRouter } from 'next/navigation'
 import Auth from "@/service/auth.service";
 import Link from 'next/link';
+import { useToastify } from "@/hooks/useToastify";
 
 const FormComponent = () => {
   const [loading, setLoading] = useState(false)
@@ -43,6 +44,9 @@ const FormComponent = () => {
       .catch((error)=> {
         console.log(error)
         //handleToast error in login
+        if (error?.response?.data?.code === 401) {
+          useToastify({ label: 'Oops! Algo deu errado com seu login. Verifique as credenciais e tente novamente', type: 'error' })
+        }
       })
     setLoading(false);
   };
