@@ -1,7 +1,5 @@
-import 'react-toastify/dist/ReactToastify.css';
-
 import type { ToastOptions } from 'react-toastify';
-import { toast } from 'react-toastify';
+import { Slide, toast } from 'react-toastify';
 
 export type TostifyType = 'success' | 'error' | 'info' | 'warning';
 
@@ -20,10 +18,11 @@ const defaultOptions: ToastOptions = {
   pauseOnHover: true,
   draggable: true,
   progress: undefined,
+  transition: Slide,
 };
 
 
-export const UseToastify = ({ type = 'info', label, options }: ITostifyProps) =>
+export const useToastify = ({ type = 'info', label, options }: ITostifyProps) =>
   toast[type](label, {
     ...defaultOptions,
     ...options,
