@@ -1,6 +1,6 @@
 export interface ILoginResponse {
     user: IUser;
-    token: string;
+    tokens: ITokens;
 }
 
 export interface IUser {

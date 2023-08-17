@@ -28,18 +28,19 @@ export const authOptions: NextAuthOptions = {
             password
           })
 
-          console.log(res)
-
           if (res.status !== 200) {
             return Promise.reject(new Error('Api Response Error Http Status: ' + res.status));
           }
 
           const { data } = res
+          const { user, tokens } = data
 
-          return data.user;
+          return {
+            ...user,
+            ...tokens
+          };
         }
         catch (error: any) {
-          console.log('error.', error.response?.data)
           return Promise.reject(new Error(JSON.stringify(error.response?.data)));
         }
       }
