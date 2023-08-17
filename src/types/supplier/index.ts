@@ -16,9 +16,3 @@ export interface ICategoryProps {
   title: string;
   id: string;
 }
-
-export interface ISupplierCategoriesResponse {
-  data: [
-
-    ]
-}
