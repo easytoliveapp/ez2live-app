@@ -34,3 +34,8 @@ export interface IverifySupplier {
   verificationStatus?: string;
 }
 
+export interface ICategoryProps {
+  active: boolean;
+  title: string;
+  id: string;
+}

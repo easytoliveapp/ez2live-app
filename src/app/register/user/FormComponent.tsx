@@ -7,6 +7,7 @@ import * as Yup from "yup";
 import { IRegisterAccount } from "@/types/auth";
 import { useRouter } from 'next/navigation'
 import Auth from "@/service/auth.service";
+import { useToastify } from "@/hooks/useToastify";
 
 const FormComponent = () => {
   const [loading, setLoading] = useState(false)
@@ -48,6 +49,9 @@ const FormComponent = () => {
       .catch((error)=> {
         console.log(error)
         //handleToast error in login
+        if (error?.response?.data?.code === 400) {
+          useToastify({ label: 'Impossível criar sua conta pois já existe um e-mail cadastrado.', type: 'error' })
+        }
       })
     setLoading(false);
   };
