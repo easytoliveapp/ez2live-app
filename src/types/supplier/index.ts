@@ -10,6 +10,8 @@ export interface ISupplier {
   active: boolean;
   address: IAddress;
   document: string;
+  numberOfCoupons: number;
+  coupons: Array<any>;
   email: string;
   id: string;
   supplierCategory: iSupplierCategory

@@ -47,6 +47,8 @@ module.exports = {
         secondary: {
           ez2live: customColors("--c-secEz2live"),
           ez2livebg: customColors("--c-secEz2livebg"),
+          ez2livegreen: customColors("--c-secEz2livegreen"),
+          ez2livered: customColors("--c-secEz2livered"),
           50: customColors("--c-secondary-50"),
           100: customColors("--c-secondary-100"),
           200: customColors("--c-secondary-200"),

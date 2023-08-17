@@ -18,10 +18,10 @@ const SearchCategory: FC<SearchCategoryProps> = ({
   onSubmit
 })=> {
   return (
-    <div className='relative my-4 flex items-center max-w-md w-full'>
+    <div className='relative m-auto my-4 flex items-center w-full'>
     <Input
     type='search'
-    className='relative max-w-md w-full'
+    className='relative w-full h-auto'
     onSubmit={onSubmit}
     onChange={onChange}
     value={value}

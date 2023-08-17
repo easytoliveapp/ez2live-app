@@ -6,7 +6,7 @@ import Image, { StaticImageData } from 'next/image'
 import ArrowRight from '@/images/easytolive/icons/arrow-next-right.svg'
 
 interface SupplierCardProps {
-  couponsAvaible: string;
+  couponsAvaible: number;
   supplierCategory: string
   supplierImage: string | StaticImageData
   name: string
@@ -24,11 +24,11 @@ const SupplierCard: FC<SupplierCardProps> = ({
 
 })=> {
   return (
-    <div className='w-full rounded-lg p-3 grid grid-cols-5 gap-2 bg-primary-ez2livebg2'>
-      <div className='col-span-1 flex items-center justify-center w-14 h-auto'>
+    <div className='w-full h-auto rounded-lg p-3 grid grid-cols-5 gap-2 bg-primary-ez2livebg2'>
+      <div className=' col-span-1 flex items-center justify-center w-14 h-auto'>
       <Image className='rounded-full h-auto w-auto' alt="Supplier-logo" src={supplierImage}/>
       </div>
-      <div className='col-span-3 w-auto grid-rows-3 gap-3'>
+      <div className='col-span-3 max-sm:pl-5 h-auto w-auto grid-rows-3 gap-3'>
         <p className='font-medium text-base'>{name}</p>
         <p className='text-xs pb-1 font-medium text-primary-ez2live'>
           {supplierCategory}

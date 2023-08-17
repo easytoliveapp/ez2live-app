@@ -1,27 +1,26 @@
 import React, { FC } from 'react';
 import Image from 'next/image';
-import Coupon from '@/images/easytolive/icons/coupon.svg'
+import CouponGreen from '@/images/easytolive/icons/coupon.svg'
+import CouponRed from '@/images/easytolive/icons/couponred.svg'
 
 interface CouponsProps {
-  coupons?: string
+  coupons?: number
 }
 
 const CouponsOn: FC<CouponsProps> = ({coupons}) => {
   return (
-    <>
-      {coupons && (
         <span className=' flex items-center gap-1'>
           <Image
           className='w-6 h-auto'
-          src={Coupon}
+          src={coupons? CouponGreen : CouponRed}
           alt='Coupon'>
           </Image>
-          <p className='text-xs font-medium text-[#6B9618]'>
+          <p
+          className={`text-xs font-medium text
+          ${coupons? `text-secondary-ez2livegreen` : `text-secondary-ez2livered`}`}>
             {coupons} reservas disponíveis
           </p>
         </span>
-      )}
-    </>
   )
 }
 
