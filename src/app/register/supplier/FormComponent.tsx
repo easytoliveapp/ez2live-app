@@ -7,7 +7,7 @@ import * as Yup from "yup";
 import { IRegisterAccount } from "@/types/auth";
 import { useRouter } from 'next/navigation'
 import Auth from "@/service/auth.service";
-import Sup from '@/service/supplier.service';
+import Supplier from '@/service/supplier.service';
 
 type categorieProps ={
   active: boolean,
@@ -40,7 +40,7 @@ const FormComponent = () => {
   })
 
   const getSupplierCatogires = async () => {
-    const res:any = await Sup.getSupplierCategories()
+    const res:any = await Supplier.getSupplierCategories()
     return res
   };
   
