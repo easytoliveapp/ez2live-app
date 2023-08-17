@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { Formik, Form, Field } from "formik";
 import { Input, ButtonPrimary, FormItem } from "@/components/atoms";
 import * as Yup from "yup";
-import { ILogIn } from "@/types/auth";
+import { ILogIn } from "@/types/auth/request";
 import { useRouter } from 'next/navigation'
 import Auth from "@/service/auth.service";
 import Link from 'next/link';

@@ -2,11 +2,12 @@ import {
   IForgotPassword,
   ILogIn,
   IRegisterAccount,
-} from "@/types/auth";
+} from "@/types/auth/request";
 import { BaseService } from "./base.service";
+import { ILoginResponse } from "@/types/auth/response";
 
 const login = async (data: ILogIn) => {
-  return await BaseService.fetchData({
+  return await BaseService.fetchData<ILoginResponse>({
     url: "/auth/login",
     method: "post",
     data,

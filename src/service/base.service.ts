@@ -1,5 +1,5 @@
 import config from "@/config/config";
-import axios, { AxiosRequestConfig } from "axios";
+import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 import {
   TOKENS,
   HEADER_AUTH_KEY,
@@ -15,7 +15,7 @@ const axiosInstance = axios.create({
   headers: { "Content-Type": "application/json" },
 });
 
-const fetchData = (params: AxiosRequestConfig) => {
+const fetchData = <T>(params: AxiosRequestConfig): Promise<AxiosResponse<T>> => {
   const userTokens = getItemByLocalStorage(TOKENS);
 
   axiosInstance.interceptors.request.use(

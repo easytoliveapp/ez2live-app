@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { Formik, Form, Field } from "formik";
 import { Input, ButtonPrimary, FormItem } from "@/components/atoms";
 import * as Yup from "yup";
-import { IForgotPassword } from "@/types/auth";
+import { IForgotPassword } from "@/types/auth/request";
 import Auth from "@/service/auth.service";
 
 const FormComponent = () => {
