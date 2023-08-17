@@ -21,7 +21,7 @@ const verifySupplier = async (supplier: IverifySupplier) => {
 
 const getSupplierCategories = async () => {
   return await BaseService.fetchData({
-    url: `/supplier/categories`,
+    url: `/supplier-category`,
     method: "get",
   });
 };
