@@ -17,7 +17,9 @@ function PageHome() {
   const [suppliers , setSuppliers] = useState([])
   const [search, setSearch] = useState('');
   const [ value ] = useDebounce(search, 1000);
-  const [categorys, setCategorys] = useState([])
+  const [categorys, setCategorys] = useState([]);
+  const [pageFetch, setPageFetch] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
   // const [selectedCategory, setSelectedCategory] = useState('')
 
   const getAllCategorys = async () => {
@@ -29,32 +31,50 @@ function PageHome() {
     getAllCategorys()
     .then((res)=> setCategorys(res?.data?.supplierCategories?.results))
     .catch((error)=> console.log(error))
-  
   },[])
 
   function handleSetSearch(e: any) {
+    setPageFetch(1)
     setSearch(e.target.value)
   }
 
-  const getAllSuppliers = async (e?:string)=> {
-    const res: any = await Sup.getSupplierList({name: e})
+  const getAllSuppliers = async (page?: number , name?:string)=> {
+    const res: any = await Sup.getSupplierList({name: name , page: page})
+    if (res?.data?.totalPages <= pageFetch ) {
+      setHasMore(false)
+    }
+    else {
+      setHasMore(true)
+    }
     console.log('fetch')
     return res
   }
 
   useEffect(()=>{
-    if (!value) {
-      getAllSuppliers()
-      .then((res: any)=> setSuppliers(res?.data?.results))
-      .catch((error)=> console.log(error))
+    if(pageFetch == 1) {
+      if (!value) {
+        getAllSuppliers(pageFetch)
+        .then((res: any)=> setSuppliers(res?.data?.results))
+        .catch((error)=> console.log(error))
+      }
+      else {
+        getAllSuppliers(pageFetch, value)
+        .then((res: any)=> setSuppliers(res?.data?.results))
+        .catch((error)=> console.log(error))
+      }
+    } else {
+      if (!value) {
+        getAllSuppliers(pageFetch)
+        .then((res: any)=> setSuppliers(suppliers.concat(res?.data?.results)))
+        .catch((error)=> console.log(error))
+      }
+      else {
+        getAllSuppliers(pageFetch, value)
+        .then((res: any)=> setSuppliers(suppliers.concat(res?.data?.results)))
+        .catch((error)=> console.log(error))
+      }
     }
-    else {
-      getAllSuppliers(value)
-      .then((res: any)=> setSuppliers(res?.data?.results))
-      .catch((error)=> console.log(error))
-    }
-  },[value])
-
+  },[value,pageFetch])
 
   return (
     <div className="w-full m-auto p-5">
@@ -71,10 +91,10 @@ function PageHome() {
       <InfiniteScroll
       className='flex flex-col gap-3'
       dataLength={suppliers.length}
-      next={getAllCategorys}
-      hasMore={true}
-      loader={<h4 className='text-primary-ez2live'>Carregando...</h4>}
-      endMessage={<p className='text-primary-ez2live'>Todos estabelecimentos carregados!</p>}
+      next={()=> setPageFetch(pageFetch + 1)}
+      hasMore={hasMore}
+      loader={<h4 className=' m-4 text-primary-ez2live'>Carregando...</h4>}
+      endMessage={<p className='m-4 text-primary-ez2live'>Todos estabelecimentos carregados!</p>}
       >
       
       {suppliers.map((supplier:ISupplier)=> (
