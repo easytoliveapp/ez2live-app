@@ -20,13 +20,15 @@ const Categorys: FC<CategoryProps> = ({
 })=> {
   return (
     <div
-    className='bg-white border-white border-2 hover:border-secondary-ez2live rounded-lg p-1 w-24 h-16 flex flex-col gap-1 items-center '
-    onClick={onClick}>
+      className="bg-white border-white border-2 hover:border-secondary-ez2live active:shadow-sm rounded-lg p-1 w-24 h-16 flex flex-col gap-1 items-center"
+      onClick={onClick}
+    >
       <Image
-      className='w-8 h-auto'
-      src={image} 
-      alt='Category Image'/>
-      <p className='text-[10px] font-semibold'>{name}</p>
+        className="w-8 h-auto"
+        src={image} 
+        alt="Category Image"
+      />
+      <p className="text-[10px] font-semibold">{name}</p>
     </div>
   )
 }
