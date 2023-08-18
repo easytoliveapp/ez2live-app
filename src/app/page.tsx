@@ -23,11 +23,11 @@ function PageHome() {
   // const [selectedCategory, setSelectedCategory] = useState('')
 
   const getAllCategorys = async () => {
-    const res : any = await Sup.getSupplierCategories();
+    const res: any = await Sup.getSupplierCategories();
     return res;
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     getAllCategorys()
     .then((res)=> setCategorys(res?.data?.supplierCategories?.results))
     .catch((error)=> console.log(error))
@@ -77,17 +77,15 @@ function PageHome() {
   },[value,pageFetch])
 
   return (
-    <div className="w-full m-auto p-5">
-      <SearchCategory 
-      onChange={handleSetSearch}
-      />
+    <div className="md:w-[500px] w-full m-auto p-5">
+      <SearchCategory onChange={handleSetSearch} />
       <div className='flex flex-wrap my-6 w-full gap-3'>
         {
           categorys.map((category: categorieProps, index)=> (
             <CategoryCard key={index} name={category.title} image={imageCategory}/>
           ))
         }
-    </div>
+      </div>
       <InfiniteScroll
       className='flex flex-col gap-3'
       dataLength={suppliers.length}
@@ -97,14 +95,15 @@ function PageHome() {
       endMessage={<p className='m-4 text-primary-ez2live'>Todos estabelecimentos carregados!</p>}
       >
       
-      {suppliers.map((supplier:ISupplier)=> (
+      {suppliers.map((supplier :ISupplier) => (
         <SupplierCard
-        supplierCategory={supplier?.supplierCategory?.title}
-        supplierImage={SupLogo}
-        avaliation='4.6'
-        couponsAvaible={supplier.numberOfCoupons}
-        name={supplier.name}
-        key={supplier.id}/>
+          supplierCategory={supplier?.supplierCategory?.title}
+          supplierImage={SupLogo}
+          avaliation='4.6'
+          couponsAvaible={supplier.numberOfCoupons}
+          name={supplier.name}
+          key={supplier.id}
+        />
       ))}
       </InfiniteScroll>
     </div>
