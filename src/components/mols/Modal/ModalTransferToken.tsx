@@ -33,7 +33,7 @@ const ModalTransferToken: FC<ModalTransferTokenProps> = ({
   const renderContent = () => {
     return (
       <form action="#">
-        <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-200">
+        <h3 className="text-lg font-semibold text-neutral-900 ">
           Transfer token
         </h3>
         <span className="text-sm">

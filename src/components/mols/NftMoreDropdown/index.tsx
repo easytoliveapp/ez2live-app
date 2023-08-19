@@ -24,7 +24,7 @@ const actionsDefault: NftMoreDropdownProps["actions"] = [
 ];
 
 const NftMoreDropdown: FC<NftMoreDropdownProps> = ({
-  containerClassName = "py-1.5 px-3 flex rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 cursor-pointer",
+  containerClassName = "py-1.5 px-3 flex rounded-lg hover:bg-neutral-100  cursor-pointer",
   iconClass = "w-4 h-4 sm:h-5 sm:w-5",
   dropdownPositon = "down",
   actions = actionsDefault,

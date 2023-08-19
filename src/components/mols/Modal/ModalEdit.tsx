@@ -31,7 +31,7 @@ const ModalEdit: FC<ModalEditProps> = ({ show, onCloseModalEdit }) => {
   const renderContent = () => {
     return (
       <form action="#">
-        <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-200">
+        <h3 className="text-lg font-semibold text-neutral-900 ">
           Change price
         </h3>
         <span className="text-sm">Are you sure you want to change price?</span>
@@ -45,7 +45,7 @@ const ModalEdit: FC<ModalEditProps> = ({ show, onCloseModalEdit }) => {
             <select
               id="currency"
               name="currency"
-              className="focus:ring-indigo-500 focus:border-indigo-500 h-full py-0 pl-2 pr-7 border-transparent bg-transparent text-neutral-500 dark:text-neutral-300 sm:text-sm rounded-md"
+              className="focus:ring-indigo-500 focus:border-indigo-500 h-full py-0 pl-2 pr-7 border-transparent bg-transparent text-neutral-500  sm:text-sm rounded-md"
             >
               <option>ETH</option>
               <option>BC</option>

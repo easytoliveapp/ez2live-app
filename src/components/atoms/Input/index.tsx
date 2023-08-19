@@ -28,7 +28,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       <input
         ref={ref}
         type={type}
-        className={`block w-full border-black focus:border-primary-ez2live focus:ring focus:ring-primary-ez2live focus:ring-opacity-50 bg-primary-ez2livebg dark:border-neutral-700 dark:focus:ring-primary-ez2live dark:focus:ring-opacity-25 dark:bg-neutral-900 disabled:bg-neutral-200 dark:disabled:bg-neutral-800 ${rounded} ${fontClass} ${sizeClass} ${className} ${invalid? 'border-rose-500': 'border-black'}`}
+        className={`block w-full border-black focus:border-primary-ez2live focus:ring focus:ring-primary-ez2live focus:ring-opacity-50 bg-primary-ez2livebg   disabled:bg-neutral-200 0 ${rounded} ${fontClass} ${sizeClass} ${className} ${invalid? 'border-rose-500': 'border-black'}`}
         {...field}
         {...rest}
       />

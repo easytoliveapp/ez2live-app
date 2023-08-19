@@ -9,7 +9,7 @@ const SupplierRegisterPage = () => {
     <div className={`nc-PageSignUp `} data-nc-id="PageSignUp">
       <div className="container mb-24 lg:mb-32">
       <div className='mt-8 mb-16 flex items-baseline justify-between'>
-        <h2 className=" pl-6 flex items-center text-2xl leading-[115%] md:text-5xl md:leading-[115%] font-bold text-black dark:text-neutral-100 justify-center">
+        <h2 className=" pl-6 flex items-center text-2xl leading-[115%] md:text-5xl md:leading-[115%] font-bold text-black justify-center">
           Criar conta <br/>
           \ estabelecimento
         </h2>
@@ -23,7 +23,7 @@ const SupplierRegisterPage = () => {
           {/* FORM */}
           <FormComponent />
           {/* ==== */}
-          <span className="block text-center text-black font-medium dark:text-neutral-300">
+          <span className="block text-center text-black font-medium">
             voltar para { }
             <Link className="text-primary-ez2live font-semibold" href="/login">
               login
