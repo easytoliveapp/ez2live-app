@@ -25,6 +25,7 @@ export interface ISupplierList {
   name: string;
   isVerified: string;
   sortBy: string;
+  supplierCategory: string;
   limit: number;
   page: number;
 }

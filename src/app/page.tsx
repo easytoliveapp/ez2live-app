@@ -5,25 +5,25 @@ import { SupplierCard } from '@/components/mols';
 import { CategoryCard } from '@/components/atoms'
 import SupLogo from '@/images/easytolive/logo/logotipo-fundoazulroxo.svg'
 import SearchCategory from '@/app/searchCategory'
-import Sup from '@/service/supplier.service'
+import supplierService from '@/service/supplier.service'
 import imageCategory from '@/images/easytolive/icons/categorie-example.svg'
-import { ISupplier } from '@/types/supplier';
+import { ISupplier, ISupplierList } from '@/types/supplier';
 import { useDebounce } from 'use-debounce';
 import { categorieProps } from '@/components/atoms/CategoryCard';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
-
 function PageHome() {
   const [suppliers , setSuppliers] = useState([])
   const [search, setSearch] = useState('');
-  const [ value ] = useDebounce(search, 1000);
+  const [textSearched] = useDebounce(search, 1000);
   const [categorys, setCategorys] = useState([]);
-  const [pageFetch, setPageFetch] = useState(1);
+  const [pageNumber, setPageNumber] = useState(1);
   const [hasMore, setHasMore] = useState(true);
+  const [supplierCategoryFilter, setSupplierCategoryFilter] = useState('');
   // const [selectedCategory, setSelectedCategory] = useState('')
 
   const getAllCategorys = async () => {
-    const res: any = await Sup.getSupplierCategories();
+    const res: any = await supplierService.getSupplierCategories();
     return res;
   }
 
@@ -31,50 +31,44 @@ function PageHome() {
     getAllCategorys()
     .then((res)=> setCategorys(res?.data?.supplierCategories?.results))
     .catch((error)=> console.log(error))
-  },[])
+  },[]);
 
   function handleSetSearch(e: any) {
-    setPageFetch(1)
-    setSearch(e.target.value)
+    setPageNumber(1);
+    setSearch(e.target.textSearched);
   }
 
-  const getAllSuppliers = async (page?: number , name?:string)=> {
-    const res: any = await Sup.getSupplierList({name: name , page: page})
-    if (res?.data?.totalPages <= pageFetch ) {
+  const getAllSuppliers = async (data : Partial<ISupplierList> ) => {
+    const res: any = await supplierService.getSupplierList(data);
+
+    if (res?.data?.totalPages <= pageNumber ) {
       setHasMore(false)
     }
     else {
       setHasMore(true)
     }
     console.log('fetch')
-    return res
+    return res;
   }
 
-  useEffect(()=>{
-    if(pageFetch == 1) {
-      if (!value) {
-        getAllSuppliers(pageFetch)
-        .then((res: any)=> setSuppliers(res?.data?.results))
-        .catch((error)=> console.log(error))
-      }
-      else {
-        getAllSuppliers(pageFetch, value)
-        .then((res: any)=> setSuppliers(res?.data?.results))
-        .catch((error)=> console.log(error))
-      }
-    } else {
-      if (!value) {
-        getAllSuppliers(pageFetch)
-        .then((res: any)=> setSuppliers(suppliers.concat(res?.data?.results)))
-        .catch((error)=> console.log(error))
-      }
-      else {
-        getAllSuppliers(pageFetch, value)
-        .then((res: any)=> setSuppliers(suppliers.concat(res?.data?.results)))
-        .catch((error)=> console.log(error))
-      }
-    }
-  },[value,pageFetch])
+  const handleResponse = (res: any)=>
+    setSuppliers( 
+      pageNumber === 1 
+        ? res?.data?.results 
+        : suppliers.concat(res?.data?.results)
+    );
+
+  useEffect(() => {
+    const data = {
+      page: pageNumber,
+      ...(textSearched ? { name: textSearched } : {}),
+      ...(supplierCategoryFilter ? { supplierCategory: supplierCategoryFilter } : {}),
+    };
+
+     getAllSuppliers(data)
+      .then(handleResponse)
+      .catch((error)=> console.log(error))
+  }, [textSearched, pageNumber]);
 
   return (
     <div className="md:w-[500px] w-full m-auto p-5">
@@ -89,7 +83,7 @@ function PageHome() {
       <InfiniteScroll
       className='flex flex-col gap-3'
       dataLength={suppliers.length}
-      next={()=> setPageFetch(pageFetch + 1)}
+      next={()=> setPageNumber(pageNumber + 1)}
       hasMore={hasMore}
       loader={<h4 className=' m-4 text-primary-ez2live'>Carregando...</h4>}
       endMessage={<p className='m-4 text-primary-ez2live'>Todos estabelecimentos carregados!</p>}
