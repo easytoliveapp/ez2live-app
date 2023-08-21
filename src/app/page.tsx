@@ -20,7 +20,6 @@ function PageHome() {
   const [pageNumber, setPageNumber] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [supplierCategoryFilter, setSupplierCategoryFilter] = useState('');
-  // const [selectedCategory, setSelectedCategory] = useState('')
 
   const getAllCategorys = async () => {
     const res: any = await supplierService.getSupplierCategories();
@@ -34,8 +33,8 @@ function PageHome() {
   },[]);
 
   function handleSetSearch(e: any) {
+    setSearch(e.target.value)
     setPageNumber(1);
-    setSearch(e.target.textSearched);
   }
 
   const getAllSuppliers = async (data : Partial<ISupplierList> ) => {
@@ -47,7 +46,7 @@ function PageHome() {
     else {
       setHasMore(true)
     }
-    console.log('fetch')
+    console.log(data)
     return res;
   }
 
@@ -68,7 +67,7 @@ function PageHome() {
      getAllSuppliers(data)
       .then(handleResponse)
       .catch((error)=> console.log(error))
-  }, [textSearched, pageNumber]);
+  }, [textSearched, pageNumber, supplierCategoryFilter]);
 
   return (
     <div className="md:w-[500px] w-full m-auto p-5">
@@ -76,7 +75,7 @@ function PageHome() {
       <div className='flex flex-wrap my-6 w-full gap-3'>
         {
           categorys.map((category: categorieProps, index)=> (
-            <CategoryCard key={index} name={category.title} image={imageCategory}/>
+            <CategoryCard key={index} name={category.title} onClick={()=>setSupplierCategoryFilter(category.id)} image={imageCategory}/>
           ))
         }
       </div>
