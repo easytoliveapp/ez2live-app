@@ -42,7 +42,6 @@ const FormComponent = () => {
         router.push('/')
       })
       .catch((error)=> {
-        console.log(error)
         //handleToast error in login
         if (error?.response?.data?.code === 401) {
           useToastify({ label: 'Oops! Algo deu errado com seu login. Verifique as credenciais e tente novamente', type: 'error' })
