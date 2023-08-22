@@ -11,7 +11,7 @@ interface SupplierCardProps {
   supplierImage: string | StaticImageData
   name: string
   avaliation?: string
-  onClick?: (e :any)=> void
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void
 }
 
 const SupplierCard: FC<SupplierCardProps> = ({

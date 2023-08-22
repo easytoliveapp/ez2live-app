@@ -3,33 +3,41 @@
 import React, { useEffect, useState } from "react";
 import { SupplierCard } from '@/components/mols';
 import { CategoryCard } from '@/components/atoms'
-import SupLogo from '@/images/easytolive/logo/logotipo-fundoazulroxo.svg'
+import SupplierLogo from '@/images/easytolive/logo/logotipo-fundoazulroxo.svg'
 import SearchCategory from '@/app/searchCategory'
-import supplierService from '@/service/supplier.service'
+import SupplierService from '@/service/supplier.service'
 import imageCategory from '@/images/easytolive/icons/categorie-example.svg'
 import { ISupplier, ISupplierList } from '@/types/supplier';
 import { useDebounce } from 'use-debounce';
 import { categorieProps } from '@/components/atoms/CategoryCard';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import { useToastify } from "@/hooks/useToastify";
 
 function PageHome() {
   const [suppliers , setSuppliers] = useState([])
   const [search, setSearch] = useState('');
   const [textSearched] = useDebounce(search, 1000);
-  const [categorys, setCategorys] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [pageNumber, setPageNumber] = useState(1);
   const [hasMore, setHasMore] = useState(true);
-  const [supplierCategoryFilter, setSupplierCategoryFilter] = useState('');
+  const [supplierCategoriesFilter, setSupplierCategoriesFilter] = useState('');
 
   const getAllCategorys = async () => {
-    const res: any = await supplierService.getSupplierCategories();
+    const res: any = await SupplierService.getSupplierCategories();
     return res;
   }
 
   useEffect(() => {
     getAllCategorys()
-    .then((res)=> setCategorys(res?.data?.supplierCategories?.results))
-    .catch((error)=> console.log(error))
+    .then((res)=> setCategories(res?.data?.supplierCategories?.results))
+    .catch((error)=> {
+      if (error?.response?.data?.code === 401) {
+        useToastify({label: 'Não autorizado. Por favor, autentique-se', type: 'error'})
+      }
+      if(error?.response?.data?.code === 404) {
+        useToastify({label: 'Nenhuma categoria encontrada', type: 'error'})
+      }
+    })
   },[]);
 
   function handleSetSearch(e: any) {
@@ -38,7 +46,7 @@ function PageHome() {
   }
 
   const getAllSuppliers = async (data : Partial<ISupplierList> ) => {
-    const res: any = await supplierService.getSupplierList(data);
+    const res: any = await SupplierService.getSupplierList(data);
 
     if (res?.data?.totalPages <= pageNumber ) {
       setHasMore(false)
@@ -60,22 +68,22 @@ function PageHome() {
   useEffect(() => {
     const data = {
       page: pageNumber,
-      ...(textSearched ? { name: textSearched } : {}),
-      ...(supplierCategoryFilter ? { supplierCategory: supplierCategoryFilter } : {}),
+      ...(textSearched && { name: textSearched }),
+      ...(supplierCategoriesFilter && { supplierCategory: supplierCategoriesFilter }),
     };
 
      getAllSuppliers(data)
       .then(handleResponse)
       .catch((error)=> console.log(error))
-  }, [textSearched, pageNumber, supplierCategoryFilter]);
+  }, [textSearched, pageNumber, supplierCategoriesFilter]);
 
   return (
     <div className="md:w-[500px] w-full m-auto p-5">
       <SearchCategory onChange={handleSetSearch} />
       <div className='flex flex-wrap my-6 w-full gap-3'>
         {
-          categorys.map((category: categorieProps, index)=> (
-            <CategoryCard key={index} name={category.title} onClick={()=>setSupplierCategoryFilter(category.id)} image={imageCategory}/>
+          categories.map((category: categorieProps, index)=> (
+            <CategoryCard key={index} name={category.title} onClick={()=>setSupplierCategoriesFilter(category.id)} image={imageCategory}/>
           ))
         }
       </div>
@@ -91,7 +99,7 @@ function PageHome() {
       {suppliers.map((supplier :ISupplier) => (
         <SupplierCard
           supplierCategory={supplier?.supplierCategory?.title}
-          supplierImage={SupLogo}
+          supplierImage={SupplierLogo}
           avaliation='4.6'
           couponsAvaible={supplier.numberOfCoupons}
           name={supplier.name}

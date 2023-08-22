@@ -10,7 +10,7 @@ export interface categorieProps {
 export interface CategoryProps  {
   image: string | StaticImageData
   name: string;
-  onClick?: (e:any) => void
+  onClick?: (e:React.MouseEvent<HTMLDivElement>) => void
 }
 
 const Categorys: FC<CategoryProps> = ({
