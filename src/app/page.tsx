@@ -54,7 +54,6 @@ function PageHome() {
     else {
       setHasMore(true)
     }
-    console.log(data)
     return res;
   }
 
@@ -104,6 +103,7 @@ function PageHome() {
           couponsAvaible={supplier.numberOfCoupons}
           name={supplier.name}
           key={supplier.id}
+          id={supplier.id}
         />
       ))}
       </InfiniteScroll>

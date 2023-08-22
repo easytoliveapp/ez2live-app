@@ -1,4 +1,5 @@
 import { IAddress } from '../auth';
+import { ICoupon } from '../coupons';
 
 export interface iSupplierCategory {
   active: boolean;
@@ -11,7 +12,7 @@ export interface ISupplier {
   address: IAddress;
   document: string;
   numberOfCoupons: number;
-  coupons: Array<any>;
+  coupons: [ICoupon];
   email: string;
   id: string;
   supplierCategory: iSupplierCategory

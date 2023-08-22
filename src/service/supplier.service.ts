@@ -9,6 +9,13 @@ const getSupplierList = async (data?: Partial<ISupplierList>) => {
   });
 };
 
+const getSupplierById = async (id:string) => {
+  return await BaseService.fetchData({
+    url: `/supplier/${id}`,
+    method: "get",
+  });
+};
+
 const verifySupplier = async (supplier: IverifySupplier) => {
   return await BaseService.fetchData({
     url: `/supplier/${supplier.Id}/verify`,
@@ -26,4 +33,4 @@ const getSupplierCategories = async () => {
   });
 };
 
-export default { getSupplierList, verifySupplier, getSupplierCategories };
+export default { getSupplierList, verifySupplier, getSupplierCategories, getSupplierById};

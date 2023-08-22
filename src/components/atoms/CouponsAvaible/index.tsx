@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import Image from 'next/image';
-import CouponGreen from '@/images/easytolive/icons/coupon.svg'
+import CouponGreen from '@/images/easytolive/icons/coupongreen.svg'
 import CouponRed from '@/images/easytolive/icons/couponred.svg'
 
 interface CouponsProps {
