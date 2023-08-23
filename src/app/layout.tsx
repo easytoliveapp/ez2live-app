@@ -23,7 +23,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={poppins.className}>
-      <body className="bg-primary-ez2livebg text-base  text-neutral-900 ">
+      <body className=" bg-primary-ez2livebg text-base  text-black ">
         <ToastProvider>
           <SiteHeader />
           {children}
