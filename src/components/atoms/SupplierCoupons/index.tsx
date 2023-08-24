@@ -14,6 +14,7 @@ interface SupplierCouponsProps {
   unintsAmount: number;
   expirateTime: number;
   products: string;
+  onClick: (e: React.MouseEvent<HTMLDivElement>) => void
 
 }
 
@@ -21,7 +22,8 @@ const SupplierCoupons : React.FC<SupplierCouponsProps> = ({
   discount,
   unintsAmount,
   expirateTime,
-  products
+  products,
+  onClick,
 })=> {
   return (
     <div className='bg-white h-auto pl-4 rounded-full flex items-center gap-3'>
@@ -61,7 +63,7 @@ const SupplierCoupons : React.FC<SupplierCouponsProps> = ({
             />
             {products}</p>
         </div>
-       <div>
+       <div onClick={onClick}>
         <Image
         className='h-6 w-auto'
         alt='arrow right'

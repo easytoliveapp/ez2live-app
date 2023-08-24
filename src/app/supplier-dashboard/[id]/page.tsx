@@ -9,6 +9,7 @@ import {ISupplier} from '@/types/supplier'
 import SupplierLogo from '@/images/easytolive/logo/logotipo-fundoazulroxo.svg'
 import { useToastify } from '@/hooks/useToastify';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 interface tokenProps {
   params: {
@@ -18,6 +19,11 @@ interface tokenProps {
 
 const SupplierDashBoard = ({ params }: tokenProps )=> {
   const [supplier, setSupplier] = useState<ISupplier>()
+  const router = useRouter()
+
+  function handleClickRedirect(e: string) {
+    router.push(`/coupons/${e}`)
+  }
 
   const getSupplierById = async(id:string) => {
     const res: any = await SupplierService.getSupplierById(id)
@@ -72,6 +78,7 @@ const SupplierDashBoard = ({ params }: tokenProps )=> {
             products='todos os produtos'
             unintsAmount={20}
             key={key}
+            onClick={()=> handleClickRedirect(coupon.id)}
             />))
           )
         }

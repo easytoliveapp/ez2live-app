@@ -21,9 +21,9 @@ const getSupplierCouponsList = async (supplierID: ISupplierCouponsList) => {
   });
 };
 
-const getCouponById = async (couponId: IGetCouponById) => {
+const getCouponById = async (Id: string) => {
   return await BaseService.fetchData({
-    url: `/coupons/${couponId}`,
+    url: `/coupons/${Id}`,
     method: "get",
   });
 };
