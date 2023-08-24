@@ -46,9 +46,13 @@ const FormComponent = () => {
         }
       })
       .catch((error)=> {
+        console.log(error)
         //handleToast error in login
         if (error?.response?.data?.code === 401) {
           useToastify({ label: 'Oops! Algo deu errado com seu login. Verifique as credenciais e tente novamente', type: 'error' })
+        }    
+        if (error?.response?.status === 400) {
+          useToastify({ label: 'Conta não verificada, por favor verifique seu email', type: 'error' })
         }
       })
     setLoading(false);

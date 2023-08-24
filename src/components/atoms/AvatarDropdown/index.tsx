@@ -6,9 +6,10 @@ import React, { Fragment, useEffect, useState } from "react";
 import Avatar from "@/components/atoms/Avatar/Avatar";
 import Link from "next/link";
 import { getItemByLocalStorage, removeItemFromLocalStorage } from "@/utils/localStorageHelper";
+import { userLoginResponseProps } from '@/types/user';
 
 export default function AvatarDropdown() {
-  const [user, setUser] = useState('');
+  const [user, setUser] = useState<userLoginResponseProps>();
 
   const handleLogout = () => {
     removeItemFromLocalStorage('user');
