@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { Formik, Form, Field } from "formik";
 import { Input, ButtonPrimary, FormItem } from "@/components/atoms";
 import * as Yup from "yup";
-import { IResetPassword } from "@/types/auth";
+import { IResetPasswordForm } from "@/types/auth";
 import { useRouter } from 'next/navigation'
 import Auth from "@/service/auth.service";
 import { useToastify } from "@/hooks/useToastify";
@@ -12,12 +12,13 @@ import { useToastify } from "@/hooks/useToastify";
 interface tokenProps {
   params: {
     token: string
-  }
-}
+  };
+};
 
 const resetPassord = ({ params } : tokenProps) => {
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
+
   const SignUpValidationSchema = Yup.object().shape({
     password: Yup.string()
       .matches(
@@ -34,17 +35,19 @@ const resetPassord = ({ params } : tokenProps) => {
       .oneOf([Yup.ref("password")], "Senhas devem ser iguais."),
   });
 
-  const initialValues: IResetPassword = {
+  const initialValues: IResetPasswordForm = {
     password: "",
     conf_password: ""
   };
 
-  const handleFormSubmit = async (values : IResetPassword) => {
+  const handleFormSubmit = async (values : IResetPasswordForm) => {
     setLoading(true);
-    await Auth.resetPassword(params.token, values.password)
-    .then(()=>{
-      //handleToast password resetada com successo
-      router.push('/login')
+    await Auth.resetPassword({
+      token: params.token,
+      password: values.password,
+    }).then(() => {
+      useToastify({ label: 'Senha alterada com sucesso!', type: 'success' });
+      setTimeout(() => router.push('/login'), 2000);
     })
     .catch(()=>{
       useToastify({ label: 'Oops! Algo deu errado. Verifique os campos e tente novamente', type: 'error' })

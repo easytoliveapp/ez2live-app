@@ -29,13 +29,13 @@ function PageHome() {
 
   useEffect(() => {
     getAllCategorys()
-    .then((res)=> setCategories(res?.data?.supplierCategories?.results))
-    .catch((error)=> {
+    .then((res) => setCategories(res?.data?.supplierCategories?.results))
+    .catch((error) => {
       if (error?.response?.data?.code === 401) {
-        useToastify({label: 'Não autorizado. Por favor, autentique-se', type: 'error'})
+        useToastify({ label: 'Não autorizado. Por favor, autentique-se', type: 'error' });
       }
       if(error?.response?.data?.code === 404) {
-        useToastify({label: 'Nenhuma categoria encontrada', type: 'error'})
+        useToastify({ label: 'Nenhuma categoria encontrada', type: 'error' });
       }
     })
   },[]);
@@ -82,17 +82,23 @@ function PageHome() {
       <div className='flex flex-wrap my-6 w-full gap-3'>
         {
           categories.map((category: categorieProps, index)=> (
-            <CategoryCard key={index} name={category.title} onClick={()=>setSupplierCategoriesFilter(category.id)} image={imageCategory}/>
+            <CategoryCard
+              key={index}
+              name={category.title}
+              onClick={() => setSupplierCategoriesFilter(category.id)}
+              image={imageCategory}
+              isActive={category.id === supplierCategoriesFilter}
+            />
           ))
         }
       </div>
       <InfiniteScroll
-      className='flex flex-col gap-3'
-      dataLength={suppliers.length}
-      next={()=> setPageNumber(pageNumber + 1)}
-      hasMore={hasMore}
-      loader={<h4 className=' m-4 text-primary-ez2live'>Carregando...</h4>}
-      endMessage={<p className='m-4 text-primary-ez2live'>Todos estabelecimentos carregados!</p>}
+        className='flex flex-col gap-3'
+        dataLength={suppliers.length}
+        next={()=> setPageNumber(pageNumber + 1)}
+        hasMore={hasMore}
+        loader={<h4 className=' m-4 text-primary-ez2live'>Carregando...</h4>}
+        endMessage={<p className='m-4 text-primary-ez2live text-center'>...</p>}
       >
         {suppliers.map((supplier :ISupplier) => (
           <SupplierCard
