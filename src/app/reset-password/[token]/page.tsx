@@ -7,6 +7,7 @@ import * as Yup from "yup";
 import { IResetPassword } from "@/types/auth";
 import { useRouter } from 'next/navigation'
 import Auth from "@/service/auth.service";
+import { useToastify } from "@/hooks/useToastify";
 
 interface tokenProps {
   params: {
@@ -40,13 +41,13 @@ const resetPassord = ({ params } : tokenProps) => {
 
   const handleFormSubmit = async (values : IResetPassword) => {
     setLoading(true);
-    await Auth.resetPassword(  params.token, values.password)
+    await Auth.resetPassword(params.token, values.password)
     .then(()=>{
       //handleToast password resetada com successo
       router.push('/login')
     })
     .catch(()=>{
-      //handle toast error
+      useToastify({ label: 'Oops! Algo deu errado. Verifique os campos e tente novamente', type: 'error' })
     })
     setLoading(false);
   };

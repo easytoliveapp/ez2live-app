@@ -8,6 +8,7 @@ import { IRegisterAccount } from "@/types/auth";
 import { useRouter } from 'next/navigation'
 import Auth from "@/service/auth.service";
 import { useToastify } from "@/hooks/useToastify";
+import { setItemToLocalStorage } from "@/utils/localStorageHelper";
 
 const FormComponent = () => {
   const [loading, setLoading] = useState(false)
@@ -42,11 +43,15 @@ const FormComponent = () => {
       name: values.name,
       email: values.email,
       password: values.password,
-      }).then(()=>{
+      }).then((res: any) => {
         //handleToast login success
-        router.push('/')
+        
+        if (res?.data?.user) {
+          setItemToLocalStorage('user', res.data.user);
+          router.push('/');
+        }
       })
-      .catch((error)=> {
+      .catch((error) => {
         console.log(error)
         //handleToast error in login
         if (error?.response?.data?.code === 400) {

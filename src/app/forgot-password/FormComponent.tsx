@@ -6,6 +6,7 @@ import { Input, ButtonPrimary, FormItem } from "@/components/atoms";
 import * as Yup from "yup";
 import { IForgotPassword } from "@/types/auth";
 import Auth from "@/service/auth.service";
+import { useToastify } from "@/hooks/useToastify";
 
 const FormComponent = () => {
   const [loading, setLoading] = useState(false);
@@ -28,6 +29,7 @@ const FormComponent = () => {
     })
     .catch(()=> {
       //handle toast error
+      useToastify({ label: 'Oops! Algo deu errado. Verifique os campos e tente novamente', type: 'error' })
     })
     setLoading(false);
   };

@@ -9,6 +9,7 @@ import { useRouter } from 'next/navigation'
 import Auth from "@/service/auth.service";
 import Link from 'next/link';
 import { useToastify } from "@/hooks/useToastify";
+import { setItemToLocalStorage } from "@/utils/localStorageHelper";
 
 const FormComponent = () => {
   const [loading, setLoading] = useState(false)
@@ -37,9 +38,12 @@ const FormComponent = () => {
     await Auth.login({
       email: values.email,
       password: values.password,
-      }).then(()=>{
-        //handleToast login success
-        router.push('/')
+      }).then((res: any)=>{
+        //TODO: handleToast login success
+        if (res?.data?.user) {
+          setItemToLocalStorage('user', res.data.user);
+          router.push('/');
+        }
       })
       .catch((error)=> {
         //handleToast error in login

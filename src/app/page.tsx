@@ -54,7 +54,6 @@ function PageHome() {
     else {
       setHasMore(true)
     }
-    console.log(data)
     return res;
   }
 
@@ -95,17 +94,16 @@ function PageHome() {
       loader={<h4 className=' m-4 text-primary-ez2live'>Carregando...</h4>}
       endMessage={<p className='m-4 text-primary-ez2live'>Todos estabelecimentos carregados!</p>}
       >
-      
-      {suppliers.map((supplier :ISupplier) => (
-        <SupplierCard
-          supplierCategory={supplier?.supplierCategory?.title}
-          supplierImage={SupplierLogo}
-          avaliation='4.6'
-          couponsAvaible={supplier.numberOfCoupons}
-          name={supplier.name}
-          key={supplier.id}
-        />
-      ))}
+        {suppliers.map((supplier :ISupplier) => (
+          <SupplierCard
+            supplierCategory={supplier?.supplierCategory?.title}
+            supplierImage={SupplierLogo}
+            avaliation='4.6'
+            couponsAvaible={supplier.numberOfCoupons}
+            name={supplier.name}
+            key={supplier.id}
+          />
+        ))}
       </InfiniteScroll>
     </div>
   );
