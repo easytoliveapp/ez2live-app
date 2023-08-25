@@ -35,10 +35,10 @@ const SupplierDashBoard = ({ params }: tokenProps) => {
   }, []);
 
   return (
-    <div className="md:w-[500px] w-full m-auto p-5">
+    <div className="md:w-[500px] w-full m-auto">
       <div className='relative'>
         <Image
-          className='w-full max-w-md'
+          className='w-full z-10'
           alt='bg-supplier-example'
           src={BgSupplierExample}
         />

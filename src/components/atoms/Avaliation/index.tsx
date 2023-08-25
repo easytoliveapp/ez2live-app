@@ -9,7 +9,7 @@ const Avaliation : FC<AvaliationProps> = ({
   note
 })=> {
   return (
-    <div className='flex flex-wrap items-start justify-end gap-1'>
+    <div className='flex flex-wrap justify-end gap-1 items-center'>
       <Image className='w-5 h-auto' src={Star} alt='Star'/>
       {note && (
         <span className='font-semibold text-xs'>{note}</span>
