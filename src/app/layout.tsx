@@ -6,6 +6,8 @@ import "@/styles/index.scss";
 import "rc-slider/assets/index.css";
 import SiteHeader from "@/app/SiteHeader";
 import CommonClient from "./CommonClient";
+import 'react-toastify/dist/ReactToastify.css';
+import ToastProvider from "@/providers/ToastProvider";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -22,9 +24,11 @@ export default function RootLayout({
   return (
     <html lang="en" className={poppins.className}>
       <body className="bg-primary-ez2livebg text-base dark:bg-neutral-900 text-neutral-900 dark:text-neutral-200">
-        <SiteHeader />
-        {children}
-        <CommonClient />
+        <ToastProvider>
+          <SiteHeader />
+          {children}
+          <CommonClient />
+        </ToastProvider>
       </body>
     </html>
   );

@@ -1,7 +1,7 @@
 "use client"
 import React, {FC} from 'react'
 import Image from 'next/image';
-import LogoExtendida from '@/images/easytolive/logo/logocompleta-semfundoazulroxo.png'
+import LogoExtendida from '@/images/easytolive/logo/logocompleta-semfundoazulroxo.svg'
 
 interface NavBarProps {}
 
