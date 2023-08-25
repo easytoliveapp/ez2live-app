@@ -12,8 +12,13 @@ import { useDebounce } from 'use-debounce';
 import { categorieProps } from '@/components/atoms/CategoryCard';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { useToastify } from "@/hooks/useToastify";
+import { userLoginResponseProps } from "@/types/user";
+import { getItemByLocalStorage } from "@/utils/localStorageHelper";
+import { useRouter } from "next/navigation";
 
 function PageHome() {
+  const router = useRouter();
+
   const [suppliers , setSuppliers] = useState([])
   const [search, setSearch] = useState('');
   const [textSearched] = useDebounce(search, 1000);
@@ -21,24 +26,34 @@ function PageHome() {
   const [pageNumber, setPageNumber] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [supplierCategoriesFilter, setSupplierCategoriesFilter] = useState('');
+  const [user, setUser] = useState<userLoginResponseProps>();
 
-  const getAllCategorys = async () => {
+  const getAllCategories = async () => {
     const res: any = await SupplierService.getSupplierCategories();
     return res;
   }
 
+  const handleCategoryFilter = (categoryId: string) => {
+    setSupplierCategoriesFilter(prevState => prevState === categoryId ? '' : categoryId);
+  }
+
   useEffect(() => {
-    getAllCategorys()
-    .then((res) => setCategories(res?.data?.supplierCategories?.results))
-    .catch((error) => {
-      if (error?.response?.data?.code === 401) {
-        useToastify({ label: 'Não autorizado. Por favor, autentique-se', type: 'error' });
-      }
-      if(error?.response?.data?.code === 404) {
-        useToastify({ label: 'Nenhuma categoria encontrada', type: 'error' });
-      }
-    })
-  },[]);
+    const user = getItemByLocalStorage('user');
+    if (!user) return router.push('/login');
+
+    setUser(user);
+
+    getAllCategories()
+      .then((res) => setCategories(res?.data?.supplierCategories?.results))
+      .catch((error) => {
+        if (error?.response?.data?.code === 401) {
+          useToastify({ label: 'Não autorizado. Por favor, autentique-se', type: 'error' });
+        }
+        if(error?.response?.data?.code === 404) {
+          useToastify({ label: 'Nenhuma categoria encontrada', type: 'error' });
+        }
+      });
+  }, []);
 
   function handleSetSearch(e: any) {
     setSearch(e.target.value)
@@ -81,7 +96,7 @@ function PageHome() {
       })
   }, [textSearched, pageNumber, supplierCategoriesFilter]);
 
-  return (
+  return user && (
     <div className="md:w-[500px] w-full m-auto p-5">
       <SearchCategory onChange={handleSetSearch} />
       <div className='flex flex-wrap my-6 w-full gap-3'>
@@ -90,7 +105,7 @@ function PageHome() {
             <CategoryCard
               key={index}
               name={category.title}
-              onClick={() => setSupplierCategoriesFilter(category.id)}
+              onClick={() => handleCategoryFilter(category.id)}
               image={imageCategory}
               isActive={category.id === supplierCategoriesFilter}
             />

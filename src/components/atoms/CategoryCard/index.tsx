@@ -25,7 +25,7 @@ const Categorys: FC<CategoryProps> = ({
     <div
       className={
         classNames(
-          'bg-white  border-2 hover:border-secondary-ez2live active:shadow-sm rounded-lg p-1 w-24 h-16 flex flex-col gap-1 items-center cursor-pointer',
+          'bg-white border-2 hover:border-secondary-ez2live active:shadow-sm rounded-lg p-1 w-24 h-16 flex flex-col gap-1 items-center cursor-pointer',
           isActive ? 'border-secondary-ez2live' : 'border-white'
         )
       }
