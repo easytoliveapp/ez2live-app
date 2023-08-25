@@ -6,9 +6,10 @@ import { Input, ButtonPrimary, FormItem } from "@/components/atoms";
 import * as Yup from "yup";
 import { ILogIn } from "@/types/auth";
 import { useRouter } from 'next/navigation'
-import Auth from "@/service/auth.service";
+import authService from "@/service/auth.service";
 import Link from 'next/link';
 import { useToastify } from "@/hooks/useToastify";
+import { setItemToLocalStorage } from "@/utils/localStorageHelper";
 
 const FormComponent = () => {
   const [loading, setLoading] = useState(false)
@@ -27,32 +28,33 @@ const FormComponent = () => {
       .max(36, "Senha não deve contar mais de 36 caracteres"),
   });
 
-  const initialValues: ILogIn = {
-    email: "",
-    password: "",
-  };
-
   const handleFormSubmit = async (values: ILogIn) => {
     setLoading(true);
-    await Auth.login({
+
+    await authService.login({
       email: values.email,
       password: values.password,
-      }).then(()=>{
-        //handleToast login success
-        router.push('/')
-      })
-      .catch((error)=> {
-        //handleToast error in login
-        if (error?.response?.data?.code === 401) {
-          useToastify({ label: 'Oops! Algo deu errado com seu login. Verifique as credenciais e tente novamente', type: 'error' })
+    }).then((res: any) => {
+        if (res?.data?.user) {
+          setItemToLocalStorage('user', res.data.user);
+          router.push('/');
         }
-      })
+    }).catch((error)=> {
+      if (error?.response?.status === 400) {
+        return useToastify({ label: 'Conta não verificada, por favor aguarde nosso time avaliar seu cadastro ou envie uma mensagem para contato@easytolive.com.br', type: 'error', options: { autoClose: 7000 } })
+      }
+
+      useToastify({ label: 'Oops! Algo deu errado com seu login. Verifique as credenciais e tente novamente', type: 'error' });
+    })
     setLoading(false);
   };
 
   return (
     <Formik
-      initialValues={initialValues}
+      initialValues={{
+        email: '',
+        password: '',
+      }}
       validationSchema={SignUpValidationSchema}
       onSubmit={handleFormSubmit}
     >
@@ -93,7 +95,10 @@ const FormComponent = () => {
             type="submit"
             className="w-full mt-6"
             disabled={loading}
-          >Continuar</ButtonPrimary>
+            loading={loading}
+          >
+            Continuar
+          </ButtonPrimary>
         </Form>
       )}
     </Formik>
