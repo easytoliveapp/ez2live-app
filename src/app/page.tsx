@@ -69,6 +69,7 @@ function PageHome() {
       page: pageNumber,
       ...(textSearched && { name: textSearched }),
       ...(supplierCategoriesFilter && { supplierCategory: supplierCategoriesFilter }),
+      sortBy: 'coupons:desc',
     };
 
      getAllSuppliers(data)

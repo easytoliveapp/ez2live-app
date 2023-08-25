@@ -21,10 +21,9 @@ const SupplierCard: FC<SupplierCardProps> = ({
   supplierImage,
   avaliation,
   onClick,
-
 })=> {
   return (
-    <div className='w-full h-auto rounded-lg p-3 grid grid-cols-5 gap-2 bg-primary-ez2livebg2'>
+    <div className='w-full h-auto rounded-lg p-3 grid grid-cols-5 gap-2 bg-primary-ez2livebg2 cursor-pointer' onClick={onClick}>
       <div className=' col-span-1 flex items-center justify-center w-14 h-auto'>
       <Image className='rounded-full h-auto w-auto' alt="Supplier-logo" src={supplierImage}/>
       </div>
@@ -37,7 +36,7 @@ const SupplierCard: FC<SupplierCardProps> = ({
       </div>
       <div className=' col-span-1 relative'>
       <Avaliation note={avaliation} />
-      <button className='w-auto h-6 absolute right-0 bottom-2' onClick={onClick}>
+      <button className='w-auto h-6 absolute right-0 bottom-2'>
         <Image className='w-auto h-6' alt='Next Button' src={ArrowRight}/>
       </button>
       </div>
