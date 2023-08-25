@@ -49,7 +49,7 @@ const SupplierDashBoard = ({ params }: tokenProps) => {
                 {supplier?.supplierCategory.title}
               </Link>
               <p className='text-xs'>
-               / {supplier?.name}
+                 / {supplier?.name}
               </p>
             </div>
             <Avaliation note={'4.7'} />
