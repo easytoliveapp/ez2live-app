@@ -58,7 +58,7 @@ const FormComponent = () => {
             type="submit"
             className="w-full mt-6"
             disabled={loading || emailSent}
-            loading={loading || emailSent}
+            loading={loading}
           >
             {emailSent ? 'E-mail enviado ✓' : 'Recuperar senha'}
           </ButtonPrimary>

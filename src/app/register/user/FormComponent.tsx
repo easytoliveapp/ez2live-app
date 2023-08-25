@@ -54,7 +54,7 @@ const FormComponent = () => {
       useToastify({ label: 'Impossível criar sua conta. Por favor, tente novamente.', type: 'error' });
     }).catch((error) => {
       if (error?.response?.data?.code === 400) {
-        useToastify({ label: 'Impossível criar sua conta pois já existe um e-mail cadastrado.', type: 'error' })
+        return useToastify({ label: 'Impossível criar sua conta pois já existe um e-mail cadastrado.', type: 'error' });
       }
 
       useToastify({ label: 'Impossível criar sua conta. Por favor, tente novamente.', type: 'error' });
