@@ -128,6 +128,7 @@ function PageHome() {
             couponsAvaible={supplier.numberOfCoupons}
             name={supplier.name}
             key={supplier.id}
+            id={supplier.id}
           />
         ))}
       </InfiniteScroll>

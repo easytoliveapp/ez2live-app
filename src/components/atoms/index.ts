@@ -8,3 +8,4 @@ export {default as Avaliation} from './Avaliation'
 export {default as CouponsAvaible} from './CouponsAvaible'
 export {default as CategoryCard} from './CategoryCard'
 export {default as Select}  from './Select';
+export {default as SupplierCoupons} from './SupplierCoupons';

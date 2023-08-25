@@ -13,6 +13,9 @@ export interface IGetCouponById {
 }
 
 export interface ICoupon {
+  active: boolean;
   title: string;
   discount: string;
+  supplier: string;
+  id: string;
 }
