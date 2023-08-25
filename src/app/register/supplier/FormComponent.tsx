@@ -9,6 +9,7 @@ import { useRouter } from 'next/navigation'
 import Auth from "@/service/auth.service";
 import Supplier from '@/service/supplier.service';
 import { ICategoryProps } from "@/types/supplier";
+import { useToastify } from '@/hooks/useToastify';
 
 interface IStepOneProps  {
   next: (e:any)=> void;
@@ -51,9 +52,15 @@ const FormComponent = () => {
       setCategories(res.data.supplierCategories.results),
       setFirstCategory(res.data.supplierCategories.results[0].id)
     })
-    .catch((error)=> console.log(error))
+    .catch((error)=> {
+      if (error?.response?.data?.code === 401) {
+        useToastify({ label: 'Usuário não autenticado.', type: 'error' })
+      }
+      if (error?.response?.data?.code === 404) {
+        useToastify({ label: 'Não foi encontrado nenhuma categoria.', type: 'error' })
+      }
+    })
     setInitialValues( prev => ({...prev, supplierCategory: firstCategory}))
-    console.log('oi')
   }
   ,[]);
 

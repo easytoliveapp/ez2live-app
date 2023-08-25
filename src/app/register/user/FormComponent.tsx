@@ -52,7 +52,6 @@ const FormComponent = () => {
         }
       })
       .catch((error) => {
-        console.log(error)
         //handleToast error in login
         if (error?.response?.data?.code === 400) {
           useToastify({ label: 'Impossível criar sua conta pois já existe um e-mail cadastrado.', type: 'error' })

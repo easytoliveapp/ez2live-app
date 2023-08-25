@@ -73,7 +73,11 @@ function PageHome() {
 
      getAllSuppliers(data)
       .then(handleResponse)
-      .catch((error)=> console.log(error))
+      .catch((error)=> {
+        if (error?.response?.data?.code === 401) {
+          useToastify({ label: 'Usuário não autenticado', type: 'error' })
+        }
+      })
   }, [textSearched, pageNumber, supplierCategoriesFilter]);
 
   return (
