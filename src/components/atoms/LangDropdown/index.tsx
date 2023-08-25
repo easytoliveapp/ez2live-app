@@ -5,6 +5,7 @@ import { ChevronDownIcon } from "@heroicons/react/24/solid";
 import { GlobeAltIcon } from "@heroicons/react/24/outline";
 import React, { FC, Fragment } from "react";
 import { headerCurrency } from "@/components/atoms/CurrencyDropdown";
+import classNames from "@/utils/classNames";
 
 export const headerLanguage = [
   {
@@ -48,10 +49,6 @@ export const headerLanguage = [
 
 interface LangDropdownProps {
   panelClassName?: string;
-}
-
-function classNames(...classes: any) {
-  return classes.filter(Boolean).join(" ");
 }
 
 const LangDropdown: FC<LangDropdownProps> = ({ panelClassName = "" }) => {
