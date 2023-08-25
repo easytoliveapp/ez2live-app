@@ -97,7 +97,7 @@ function PageHome() {
   }, [textSearched, pageNumber, supplierCategoriesFilter]);
 
   return user && (
-    <div className="md:w-[500px] w-full m-auto">
+    <div className="md:w-[500px] w-full m-auto p-5">
       <SearchCategory onChange={handleSetSearch} />
       <div className='flex flex-wrap my-6 w-full gap-3'>
         {
