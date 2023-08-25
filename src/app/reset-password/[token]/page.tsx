@@ -6,7 +6,7 @@ import { Input, ButtonPrimary, FormItem } from "@/components/atoms";
 import * as Yup from "yup";
 import { IResetPasswordForm } from "@/types/auth";
 import { useRouter } from 'next/navigation'
-import Auth from "@/service/auth.service";
+import authService from "@/service/auth.service";
 import { useToastify } from "@/hooks/useToastify";
 
 interface tokenProps {
@@ -36,23 +36,24 @@ const resetPassord = ({ params } : tokenProps) => {
   });
 
   const initialValues: IResetPasswordForm = {
-    password: "",
-    conf_password: ""
+    password: '',
+    conf_password: ''
   };
 
   const handleFormSubmit = async (values : IResetPasswordForm) => {
     setLoading(true);
-    await Auth.resetPassword({
+
+    await authService.resetPassword({
       token: params.token,
       password: values.password,
     }).then(() => {
       useToastify({ label: 'Senha alterada com sucesso!', type: 'success' });
       setTimeout(() => router.push('/login'), 2000);
     })
-    .catch(()=>{
+    .catch(() => {
       useToastify({ label: 'Oops! Algo deu errado. Verifique os campos e tente novamente', type: 'error' })
-    })
-    setLoading(false);
+      setLoading(false);
+    });
   };
 
   return (
@@ -108,7 +109,10 @@ const resetPassord = ({ params } : tokenProps) => {
             type="submit"
             className="w-full mt-6"
             disabled={loading}
-          >Criar nova senha</ButtonPrimary>
+            loading={loading}
+          >
+            Criar nova senha
+          </ButtonPrimary>
         </Form>
       )}
     </Formik>
