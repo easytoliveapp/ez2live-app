@@ -16,7 +16,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
    const {
       className = "",
       sizeClass = "h-11 px-4 py-3",
-      fontClass = "text-base font-medium",
+      fontClass = "text-sm font-medium",
       rounded = "rounded-3xl",
       type = "text",
       field,

@@ -6,8 +6,9 @@ import { Input, ButtonPrimary, FormItem } from "@/components/atoms";
 import * as Yup from "yup";
 import { IRegisterAccount } from "@/types/auth";
 import { useRouter } from 'next/navigation'
-import Auth from "@/service/auth.service";
+import authService from "@/service/auth.service";
 import { useToastify } from "@/hooks/useToastify";
+import { setItemToLocalStorage } from "@/utils/localStorageHelper";
 
 const FormComponent = () => {
   const [loading, setLoading] = useState(false)
@@ -31,29 +32,34 @@ const FormComponent = () => {
   });
 
   const initialValues: Partial<IRegisterAccount> = {
-    name: "",
-    email: "",
-    password: "",
+    name: '',
+    email: '',
+    password: '',
   };
 
   const handleFormSubmit = async (values: Partial<IRegisterAccount>) => {
     setLoading(true);
-    await Auth.register({
+
+    await authService.register({
       name: values.name,
       email: values.email,
       password: values.password,
-      }).then(()=>{
-        //handleToast login success
-        router.push('/')
-      })
-      .catch((error)=> {
-        console.log(error)
-        //handleToast error in login
-        if (error?.response?.data?.code === 400) {
-          useToastify({ label: 'Impossível criar sua conta pois já existe um e-mail cadastrado.', type: 'error' })
-        }
-      })
-    setLoading(false);
+    }).then((res: any) => {
+      if (res?.data?.user) {
+        setItemToLocalStorage('user', res.data.user);
+        return router.push('/');
+      }
+
+      setLoading(false);
+      useToastify({ label: 'Impossível criar sua conta. Por favor, tente novamente.', type: 'error' });
+    }).catch((error) => {
+      if (error?.response?.data?.code === 400) {
+        return useToastify({ label: 'Impossível criar sua conta pois já existe um e-mail cadastrado.', type: 'error' });
+      }
+
+      useToastify({ label: 'Impossível criar sua conta. Por favor, tente novamente.', type: 'error' });
+      setLoading(false);
+    });
   };
 
   return (
@@ -107,7 +113,10 @@ const FormComponent = () => {
             type="submit"
             className="w-full mt-6"
             disabled={loading}
-          >Cadastrar</ButtonPrimary>
+            loading={loading}
+          >
+            Cadastrar
+          </ButtonPrimary>
         </Form>
       )}
     </Formik>

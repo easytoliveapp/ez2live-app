@@ -1,18 +1,21 @@
 "use client"
-import React, {FC} from 'react'
+import React, { FC } from 'react'
 import Image from 'next/image';
-import LogoExtendida from '@/images/easytolive/logo/logocompleta-semfundoazulroxo.png'
+import extendedLogoImage from '@/images/easytolive/logo/logocompleta-semfundoazulroxo.svg'
+import Link from 'next/link';
 
 interface NavBarProps {}
 
-const NavBar: FC<NavBarProps> = ()=> {
+const NavBar: FC<NavBarProps> = () => {
   return (
     <div>
-      <div className="relative w-full p-4 flex justify-center items-center">
-      <Image className='w-auto h-8' src={LogoExtendida} alt='Logo Extentida' />
+      <div className="relative w-full p-4 flex justify-center items-center bg-primary-ez2livebg z-30">
+        <Link href="/login">
+          <Image className='w-auto h-8' src={extendedLogoImage} alt='EasyToLive' />
+        </Link>
+      </div>
     </div>
-    </div>
-  )
-}
+  );
+};
 
-export default NavBar
+export default NavBar;

@@ -9,4 +9,13 @@ const getItemByLocalStorage = (key: string) => {
   }
   return;
 };
-export {setItemToLocalStorage, getItemByLocalStorage};
+
+const removeItemFromLocalStorage = (key: string) => {
+  window.localStorage.removeItem(key);
+};
+
+export {
+  setItemToLocalStorage,
+  getItemByLocalStorage,
+  removeItemFromLocalStorage,
+};
