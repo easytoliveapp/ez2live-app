@@ -2,24 +2,12 @@
 
 import { Popover, Transition } from "@/app/headlessui";
 import userImage from "@/images/easytolive/user/user_circle_1.svg"
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment } from "react";
 import Avatar from "@/components/atoms/Avatar/Avatar";
 import Link from "next/link";
-import { getItemByLocalStorage, removeItemFromLocalStorage } from "@/utils/localStorageHelper";
-import { userLoginResponseProps } from '@/types/user';
+
 
 export default function AvatarDropdown() {
-  const [user, setUser] = useState<userLoginResponseProps>();
-
-  const handleLogout = () => {
-    removeItemFromLocalStorage('user');
-    window.location.href = '/login';
-  };
-
-  useEffect(() => {
-    setUser(getItemByLocalStorage('user'))
-  }, []);
-
   return (
     <div className="AvatarDropdown ">
       <Popover className="relative">
