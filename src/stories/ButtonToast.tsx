@@ -14,7 +14,12 @@ interface ButtonProps {
 const ButtonToast: React.FC<ButtonProps> = ({ label, type }) => {
   return (
     <div>
-      <button className='p-4 w-12 bg-slate-400' onClick={() => useToastify({ label, type })}>Notify!</button>
+      <button
+        className="p-4 w-12 bg-slate-400"
+        onClick={() => useToastify({ label, type })}
+      >
+        Notify!
+      </button>
       <ToastContainer />
     </div>
   );

@@ -1,7 +1,7 @@
-import type { ToastOptions } from 'react-toastify';
-import { Slide, toast } from 'react-toastify';
+import type { ToastOptions } from "react-toastify";
+import { Slide, toast } from "react-toastify";
 
-export type TostifyType = 'success' | 'error' | 'info' | 'warning';
+export type TostifyType = "success" | "error" | "info" | "warning";
 
 export interface ITostifyProps {
   type?: TostifyType;
@@ -10,8 +10,8 @@ export interface ITostifyProps {
 }
 
 const defaultOptions: ToastOptions = {
-  position: 'top-right',
-  theme: 'light',
+  position: "top-right",
+  theme: "light",
   autoClose: 5000,
   hideProgressBar: true,
   closeOnClick: true,
@@ -21,10 +21,9 @@ const defaultOptions: ToastOptions = {
   transition: Slide,
 };
 
-
-export const useToastify = ({ type = 'info', label, options }: ITostifyProps) =>
+export const useToastify = ({ type = "info", label, options }: ITostifyProps) =>
   toast[type](label, {
     ...defaultOptions,
     ...options,
-    className: [[type], options?.className].join(' '),
+    className: [[type], options?.className].join(" "),
   });

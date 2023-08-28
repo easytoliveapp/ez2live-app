@@ -6,7 +6,7 @@ import "@/styles/index.scss";
 import "rc-slider/assets/index.css";
 import SiteHeader from "@/app/SiteHeader";
 import CommonClient from "./CommonClient";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 import ToastProvider from "@/providers/ToastProvider";
 import AuthProvider from "@/providers/SessionProvider";
 import { getServerSession } from "next-auth";
@@ -24,7 +24,6 @@ export default async function RootLayout({
   children: React.ReactNode;
   params: any;
 }) {
-
   const session = await getServerSession(authOptions);
 
   return (

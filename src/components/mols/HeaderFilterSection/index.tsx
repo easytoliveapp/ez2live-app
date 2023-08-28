@@ -36,7 +36,7 @@ const HeaderFilterSection: FC<HeaderFilterSectionProps> = ({
               >
                 {item}
               </NavItem>
-            )
+            ),
           )}
         </Nav>
         <span className="block flex-shrink-0">

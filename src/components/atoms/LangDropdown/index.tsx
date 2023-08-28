@@ -141,7 +141,7 @@ const LangDropdown: FC<LangDropdownProps> = ({ panelClassName = "" }) => {
                               "focus:outline-none focus:ring-0",
                               selected
                                 ? "bg-white shadow"
-                                : "text-gray-700 dark:text-slate-300 hover:bg-white/70 dark:hover:bg-slate-900/40"
+                                : "text-gray-700 dark:text-slate-300 hover:bg-white/70 dark:hover:bg-slate-900/40",
                             )
                           }
                         >
@@ -153,7 +153,7 @@ const LangDropdown: FC<LangDropdownProps> = ({ panelClassName = "" }) => {
                       <Tab.Panel
                         className={classNames(
                           "rounded-xl p-3",
-                          "focus:outline-none focus:ring-0"
+                          "focus:outline-none focus:ring-0",
                         )}
                       >
                         {renderLang(close)}
@@ -161,7 +161,7 @@ const LangDropdown: FC<LangDropdownProps> = ({ panelClassName = "" }) => {
                       <Tab.Panel
                         className={classNames(
                           "rounded-xl p-3",
-                          "focus:outline-none focus:ring-0"
+                          "focus:outline-none focus:ring-0",
                         )}
                       >
                         {renderCurr(close)}

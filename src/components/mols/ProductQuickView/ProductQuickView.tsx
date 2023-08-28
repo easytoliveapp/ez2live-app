@@ -45,7 +45,7 @@ const ProductQuickView: FC<ProductQuickViewProps> = ({ className = "" }) => {
           variantActive={variantActive}
         />
       ),
-      { position: "top-right", id: "nc-product-notify", duration: 3000 }
+      { position: "top-right", id: "nc-product-notify", duration: 3000 },
     );
   };
 
@@ -211,10 +211,7 @@ const ProductQuickView: FC<ProductQuickViewProps> = ({ className = "" }) => {
             <div className="h-6 border-l border-slate-300 dark:border-slate-700"></div>
 
             <div className="flex items-center">
-              <Link
-                href="/"
-                className="flex items-center text-sm font-medium"
-              >
+              <Link href="/" className="flex items-center text-sm font-medium">
                 <StarIcon className="w-5 h-5 pb-[1px] text-yellow-400" />
                 <div className="ml-1.5 flex">
                   <span>4.9</span>

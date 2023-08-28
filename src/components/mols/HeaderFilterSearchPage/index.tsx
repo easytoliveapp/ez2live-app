@@ -34,7 +34,7 @@ const HeaderFilterSearchPage: FC<HeaderFilterSearchPageProps> = ({
               >
                 {item}
               </NavItem>
-            )
+            ),
           )}
         </Nav>
         <span className="block flex-shrink-0 text-right">

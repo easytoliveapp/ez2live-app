@@ -11,7 +11,9 @@ const FormComponent = () => {
   const [loading, setLoading] = useState(false);
   const [emailSent, setEmailSent] = useState(false);
   const SignUpValidationSchema = Yup.object().shape({
-    email: Yup.string().email("Email inválido").required("Campo email é requerido"),
+    email: Yup.string()
+      .email("Email inválido")
+      .required("Campo email é requerido"),
   });
 
   const initialValues: IForgotPassword = {
@@ -21,14 +23,14 @@ const FormComponent = () => {
   const handleFormSubmit = async (values: IForgotPassword) => {
     setLoading(true);
 
-    await Auth.forgotPassword({email: values.email,})
-    .then(()=> {
-      //handle toast success um email para resetar senha foi enviado
-      setEmailSent(true);
-    })
-    .catch(()=> {
-      //handle toast error
-    })
+    await Auth.forgotPassword({ email: values.email })
+      .then(() => {
+        //handle toast success um email para resetar senha foi enviado
+        setEmailSent(true);
+      })
+      .catch(() => {
+        //handle toast error
+      });
     setLoading(false);
   };
 
@@ -41,12 +43,12 @@ const FormComponent = () => {
       {({ errors, touched, handleSubmit }) => (
         <Form onSubmit={handleSubmit} className="flex flex-col gap-3">
           <FormItem
-            label='email'
+            label="email"
             errorMessage={errors.email}
             invalid={!!(errors.email && touched.email)}
           >
             <Field
-              invalid = {!!(errors.email && touched.email)}
+              invalid={!!(errors.email && touched.email)}
               name="email"
               type="email"
               label="Email"
@@ -58,7 +60,7 @@ const FormComponent = () => {
             className="w-full mt-6"
             disabled={loading || emailSent}
           >
-            {emailSent ? 'E-mail enviado' : 'Recuperar senha'}
+            {emailSent ? "E-mail enviado" : "Recuperar senha"}
           </ButtonPrimary>
         </Form>
       )}

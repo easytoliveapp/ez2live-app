@@ -214,7 +214,7 @@ const TabFilters = () => {
                       name="All Categories"
                       label="All Categories"
                       defaultChecked={categoriesState.includes(
-                        "All Categories"
+                        "All Categories",
                       )}
                       onChange={(checked) =>
                         handleChangeCategories(checked, "All Categories")
@@ -321,7 +321,7 @@ const TabFilters = () => {
               <span className="ml-2">
                 {sortOrderStates
                   ? DATA_sortOrderRadios.filter(
-                      (i) => i.id === sortOrderStates
+                      (i) => i.id === sortOrderStates,
                     )[0].name
                   : "Sort order"}
               </span>
@@ -816,7 +816,7 @@ const TabFilters = () => {
       name: string;
       description?: string;
       defaultChecked?: boolean;
-    }[]
+    }[],
   ) => {
     const list1 = data.filter((_, i) => i < data.length / 2);
     const list2 = data.filter((_, i) => i >= data.length / 2);

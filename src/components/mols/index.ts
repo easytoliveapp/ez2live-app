@@ -1,1 +1,1 @@
-export { default as DiscoverMoreGrid } from './DiscoverMoreGrid'
+export { default as DiscoverMoreGrid } from "./DiscoverMoreGrid";

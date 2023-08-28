@@ -9,4 +9,4 @@ const getItemByLocalStorage = (key: string) => {
   }
   return;
 };
-export {setItemToLocalStorage, getItemByLocalStorage};
+export { setItemToLocalStorage, getItemByLocalStorage };

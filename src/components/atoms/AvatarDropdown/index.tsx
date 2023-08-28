@@ -1,7 +1,7 @@
 "use client";
 
 import { Popover, Transition } from "@/app/headlessui";
-import userImage from "@/images/easytolive/user/user_circle_1.svg"
+import userImage from "@/images/easytolive/user/user_circle_1.svg";
 import React, { Fragment } from "react";
 import Avatar from "@/components/atoms/Avatar/Avatar";
 import SwitchDarkMode2 from "@/components/atoms/SwitchDarkMode/SwitchDarkMode2";
@@ -16,7 +16,7 @@ export default function AvatarDropdown() {
             <Popover.Button
               className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 focus:outline-none flex items-center justify-center`}
             >
-              <Avatar imgUrl={ userImage }/>
+              <Avatar imgUrl={userImage} />
             </Popover.Button>
             <Transition
               as={Fragment}

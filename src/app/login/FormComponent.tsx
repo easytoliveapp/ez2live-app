@@ -5,23 +5,25 @@ import { Formik, Form, Field } from "formik";
 import { Input, ButtonPrimary, FormItem } from "@/components/atoms";
 import * as Yup from "yup";
 import { ILogIn } from "@/types/auth/request";
-import { useRouter } from 'next/navigation'
-import Link from 'next/link';
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { useToastify } from "@/hooks/useToastify";
 import { signIn } from "next-auth/react";
 
 const FormComponent = () => {
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
   const SignUpValidationSchema = Yup.object().shape({
-    email: Yup.string().email("Email inválido").required("Campo email é requerido"),
+    email: Yup.string()
+      .email("Email inválido")
+      .required("Campo email é requerido"),
     password: Yup.string()
       .matches(
         /(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]/,
-        "Deve conter pelo menos uma letra e um número"
+        "Deve conter pelo menos uma letra e um número",
       )
       .required(
-        "Coloque uma combinação de numeros, letras e sinais de pontuação (como ! e &)."
+        "Coloque uma combinação de numeros, letras e sinais de pontuação (como ! e &).",
       )
       .min(8, "Senha deve conter no mínimo 8 caracteres.")
       .max(36, "Senha não deve contar mais de 36 caracteres"),
@@ -34,31 +36,35 @@ const FormComponent = () => {
 
   const handleFormSubmit = async (values: ILogIn) => {
     setLoading(true);
-    await signIn('credentials', {
+    await signIn("credentials", {
       email: values.email,
       password: values.password,
-      redirect: false
-      }).then((resp)=>{
-
-        console.log(resp)
+      redirect: false,
+    })
+      .then((resp) => {
+        console.log(resp);
 
         //const callbackUrl = useSearchParams().get('callbackUrl') as string || '/';
 
         if (resp && !resp?.error) {
-          router.push('/')
+          router.push("/");
         }
 
-        if(resp && resp?.error) {
+        if (resp && resp?.error) {
           return Promise.reject(JSON.parse(resp?.error));
         }
       })
-      .catch((error)=> {
-        console.log(error)
+      .catch((error) => {
+        console.log(error);
         //handleToast error in login
         if (error?.code === 401) {
-          useToastify({ label: 'Oops! Algo deu errado com seu login. Verifique as credenciais e tente novamente', type: 'error' })
+          useToastify({
+            label:
+              "Oops! Algo deu errado com seu login. Verifique as credenciais e tente novamente",
+            type: "error",
+          });
         }
-      })
+      });
     setLoading(false);
   };
 
@@ -71,12 +77,12 @@ const FormComponent = () => {
       {({ errors, touched, handleSubmit }) => (
         <Form onSubmit={handleSubmit} className="flex flex-col gap-3">
           <FormItem
-            label='email'
+            label="email"
             errorMessage={errors.email}
             invalid={!!(errors.email && touched.email)}
           >
             <Field
-              invalid = {!!(errors.email && touched.email)}
+              invalid={!!(errors.email && touched.email)}
               name="email"
               type="email"
               label="Email"
@@ -84,7 +90,7 @@ const FormComponent = () => {
             />
           </FormItem>
           <FormItem
-            label='senha'
+            label="senha"
             errorMessage={errors.password}
             invalid={!!(errors.password && touched.password)}
           >
@@ -97,7 +103,10 @@ const FormComponent = () => {
             />
           </FormItem>
           <span className="flex justify-end  items-start text-sm">
-            <Link className="text-primary-ez2live font-semibold" href="/forgot-password">
+            <Link
+              className="text-primary-ez2live font-semibold"
+              href="/forgot-password"
+            >
               esqueci a senha
             </Link>
           </span>
@@ -105,7 +114,9 @@ const FormComponent = () => {
             type="submit"
             className="w-full mt-6"
             disabled={loading}
-          >Continuar</ButtonPrimary>
+          >
+            Continuar
+          </ButtonPrimary>
         </Form>
       )}
     </Formik>

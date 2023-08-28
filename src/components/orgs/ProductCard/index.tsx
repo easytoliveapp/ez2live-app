@@ -72,7 +72,7 @@ const ProductCard: FC<ProductCardProps> = ({
         position: "top-right",
         id: String(id) || "product-detail",
         duration: 3000,
-      }
+      },
     );
   };
 

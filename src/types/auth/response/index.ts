@@ -1,24 +1,24 @@
 export interface ILoginResponse {
-    user: IUser;
-    tokens: ITokens;
+  user: IUser;
+  tokens: ITokens;
 }
 
 export interface IUser {
-    id: string;
-    name: string;
-    email: string;
-    role: string;
-    active: boolean;
-    isSupplier: boolean;
-    isVerified: boolean;
+  id: string;
+  name: string;
+  email: string;
+  role: string;
+  active: boolean;
+  isSupplier: boolean;
+  isVerified: boolean;
 }
 
 export interface ITokens {
-    access: IToken;
-    refresh: IToken;
+  access: IToken;
+  refresh: IToken;
 }
 
 export interface IToken {
-    token: string;
-    expires: string;
+  token: string;
+  expires: string;
 }

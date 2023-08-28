@@ -15,7 +15,9 @@ const axiosInstance = axios.create({
   headers: { "Content-Type": "application/json" },
 });
 
-const fetchData = <T>(params: AxiosRequestConfig): Promise<AxiosResponse<T>> => {
+const fetchData = <T>(
+  params: AxiosRequestConfig,
+): Promise<AxiosResponse<T>> => {
   if (typeof window !== "undefined") {
     const userTokens = getItemByLocalStorage(TOKENS);
 
@@ -31,11 +33,9 @@ const fetchData = <T>(params: AxiosRequestConfig): Promise<AxiosResponse<T>> => 
       },
       (error) => {
         return Promise.reject(error);
-      }
+      },
     );
   }
-
-
 
   return new Promise((resolve, reject) => {
     axiosInstance(params)
