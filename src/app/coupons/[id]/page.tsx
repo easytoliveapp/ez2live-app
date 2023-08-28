@@ -51,7 +51,7 @@ const UserCouponPage= ({params}: couponIdProps)=> {
           40%
       </div>
       <div
-        className='absolute top-4 right-4'
+        className='absolute top-4 right-4 cursor-pointer'
         onClick={()=> handleClickRedirect()}>
           <Image
           alt='close-icon'
