@@ -206,7 +206,6 @@ export default function AvatarDropdown() {
                           <p className="text-sm font-medium ">{"Tema Dark"}</p>
                         </div>
                       </div>
-                      <SwitchDarkMode2 />
                     </div>
 
                     {/* ------------------ 2 --------------------- */}

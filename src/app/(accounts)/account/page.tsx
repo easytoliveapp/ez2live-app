@@ -1,18 +1,26 @@
 "use client"
 import { FormItem, Input, ButtonPrimary } from '@/components/atoms';
-import React from 'react';
+import { userLoginResponseProps } from '@/types/user';
+import { getItemByLocalStorage } from '@/utils/localStorageHelper';
+import React, { useEffect, useState } from 'react';
 
 const ProfilePage = ()=> {
+  const [user, setUser] = useState<userLoginResponseProps>();
+  
+  useEffect(() => {
+    setUser(getItemByLocalStorage('user'))
+  }, []);
+
   return (
     <div className='relative h-max flex flex-col mx-auto gap-4 w-full max-w-md'>
       <FormItem
         label='nome'>
-          <Input defaultValue={'Mario da Silva'} />
+          <Input defaultValue={user?.name} />
         </FormItem>
 
         <FormItem
         label='email'>
-          <Input disabled placeholder='mariodasilva@gmail.com'/>
+          <Input disabled placeholder={user?.email}/>
         </FormItem>
 
         <ButtonPrimary

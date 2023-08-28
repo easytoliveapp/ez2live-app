@@ -1,9 +1,11 @@
 "use client";
 
 import { Route } from "@/routers/types";
+import { userLoginResponseProps } from '@/types/user';
+import { getItemByLocalStorage } from '@/utils/localStorageHelper';
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import React from "react";
+import React , { useEffect, useState } from "react";
 import { FC } from "react";
 
 export interface CommonLayoutProps {
@@ -26,12 +28,17 @@ const pages: {
 
 const CommonLayout: FC<CommonLayoutProps> = ({ children }) => {
   const pathname = usePathname();
+  const [user, setUser] = useState<userLoginResponseProps>();
+
+  useEffect(() => {
+    setUser(getItemByLocalStorage('user'))
+  }, []);
 
   return (
     <div className="nc-AccountCommonLayout container">
         <div className='mt-8 mb-16 flex items-center justify-between'>
           <h2 className=" pl-6 flex flex-wrap items-center text-2xl leading-[115%] md:leading-[115%] font-bold text-black justify-center">
-          Mario da Silva
+          {user?.name}
           </h2>
         <div>
         <div className='relative rounded-full w-40 h-16 bg-gradient-to-r from-secondary-ez2live to-secondary-ez2livebg'>
