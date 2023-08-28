@@ -9,6 +9,8 @@ import { useRouter } from 'next/navigation'
 import Auth from "@/service/auth.service";
 import Supplier from '@/service/supplier.service';
 import { ICategoryProps } from "@/types/supplier";
+import { useToastify } from "@/hooks/useToastify";
+import { setItemToLocalStorage } from "@/utils/localStorageHelper";
 
 interface IStepOneProps  {
   next: (e:any)=> void;
@@ -51,9 +53,15 @@ const FormComponent = () => {
       setCategories(res.data.supplierCategories.results),
       setFirstCategory(res.data.supplierCategories.results[0].id)
     })
-    .catch((error)=> console.log(error))
+    .catch((error)=> {
+      if (error?.response?.data?.code === 401) {
+        useToastify({ label: 'Usuário não autenticado.', type: 'error' })
+      }
+      if (error?.response?.data?.code === 404) {
+        useToastify({ label: 'Não foi encontrado nenhuma categoria.', type: 'error' })
+      }
+    })
     setInitialValues( prev => ({...prev, supplierCategory: firstCategory}))
-    console.log('oi')
   }
   ,[]);
 
@@ -98,6 +106,7 @@ const FormComponent = () => {
 
   const handleFormSubmit = async (values: IRegisterAccount) => {
     setLoading(true);
+
     await Auth.register({
       name: values.name,
       email: values.email,
@@ -106,29 +115,36 @@ const FormComponent = () => {
       supplierCategory: values.supplierCategory,
       isSupplier: values.isSupplier,
       address: values.address,
-    }).then(()=>{
-        //handleToast login success
-        router.push('/')
-    }).catch(()=> {
-        //handleToast error in login
+    }).then((res: any) => {
+      if (res?.data?.user) {
+        setItemToLocalStorage('user', res.data.user);
+        return router.push('/dashboard');
+      }
+      
+      setLoading(false);
+      useToastify({ label: 'Impossível criar sua conta. Por favor, tente novamente.', type: 'error' });
+    }).catch((error) => {
+      if (error?.response?.data?.code === 400) {
+        useToastify({ label: 'Impossível criar sua conta pois já existe um e-mail cadastrado.', type: 'error' });
+      }
+
+      useToastify({ label: 'Impossível criar sua conta. Por favor, tente novamente.', type: 'error' });
+      setLoading(false);
     });
-    setLoading(false);
   };
 
-
-
-  const StepOne = (props : IStepOneProps ) => {
-    const handleSubmit = (values : Partial<IRegisterAccount>) => {
-      props.next(values)
-    }
+  const StepOne = (props : IStepOneProps) => {
+    const handleSubmit = (values: Partial<IRegisterAccount>) => {
+      props.next(values);
+    };
 
     return  (
       <Formik
-      initialValues={initialValues}
-      validationSchema={FirstStepValidationSchema}
-      onSubmit={handleSubmit}
-    >
-      {({ errors, touched, handleSubmit } : FormikProps<IRegisterAccount>) => (
+        initialValues={initialValues}
+        validationSchema={FirstStepValidationSchema}
+        onSubmit={handleSubmit}
+      >
+      {({ errors, touched, handleSubmit }: FormikProps<IRegisterAccount>) => (
         
         <Form onSubmit={handleSubmit} className="flex flex-col gap-3">
           <FormItem
@@ -207,7 +223,10 @@ const FormComponent = () => {
             type="submit"
             className="w-full mt-4"
             disabled={loading}
-          >Avançar</ButtonPrimary>
+            loading={loading}
+          >
+            Avançar
+          </ButtonPrimary>
         </Form>
       )}
     </Formik>
@@ -307,7 +326,10 @@ const FormComponent = () => {
               type="submit"
               className="w-full mt-4"
               disabled={loading}
-            >Avançar</ButtonPrimary>
+              loading={loading}
+            >
+              Avançar
+            </ButtonPrimary>
           </Form>
         )}
       </Formik>

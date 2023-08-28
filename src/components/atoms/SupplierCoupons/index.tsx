@@ -7,7 +7,7 @@ import CouponBlack from '@/images/easytolive/icons/couponblack.svg'
 import ShoppingCart from '@/images/easytolive/icons/shopping_cart.svg'
 import ClockCircle from '@/images/easytolive/icons/clock_circle.svg'
 import ArrowRight from '@/images/easytolive/icons/arrow-next-right.svg'
-
+import classNames from '@/utils/classNames';
 
 interface SupplierCouponsProps {
   discount: string;
@@ -18,7 +18,7 @@ interface SupplierCouponsProps {
 
 }
 
-const SupplierCoupons : React.FC<SupplierCouponsProps> = ({
+const SupplierCoupons: React.FC<SupplierCouponsProps> = ({
   discount,
   unintsAmount,
   expirateTime,
@@ -26,18 +26,22 @@ const SupplierCoupons : React.FC<SupplierCouponsProps> = ({
   onClick,
 })=> {
   return (
-    <div className='bg-white h-auto pl-4 rounded-full flex items-center gap-3'>
+    <div className='bg-white h-auto pl-4 rounded-full flex items-center gap-3 cursor-pointer'>
       <Image
-      className='h-10 w-auto'
-      alt='Coupons Image'
-      src={parseInt(discount) >= 30 ? CouponGreen: (parseInt(discount) >= 20)? CouponsYellow: CouponRed}/>
+        className='h-10 w-auto'
+        alt='Coupons Image'
+        src={parseInt(discount) >= 30 ? CouponGreen : (parseInt(discount) >= 20) ? CouponsYellow : CouponRed}
+      />
       <div
-    className={`rounded-full w-full py-2 px-2 gap-4 border-2
-    ${parseInt(discount) >= 30 ? 'border-secondary-ez2livegreen':
-    (parseInt(discount) >= 20)? 'border-secondary-ez2liveyellow' : 'border-secondary-ez2livered' }`}>
+        className={
+          classNames(
+            'rounded-full w-full py-2 px-2 gap-4 border-2 border-[#f2f2f2] hover:shadow-md active:border-[#d9d9d9]',
+          )
+        }
+      >
         <div className='Rounded-full flex items-center justify-evenly w-full'>
           <h2 className=' font-bold text-xl'>
-          {discount}%
+            {discount}%
           </h2>
           <span className='bg-gray-300 w-0.5 h-12'></span>
         <div className='flex flex-col gap-1.5 text-xs' >
@@ -72,8 +76,7 @@ const SupplierCoupons : React.FC<SupplierCouponsProps> = ({
       </div>
     </div>
     </div>
-    
-  )
-}
+  );
+};
 
 export default SupplierCoupons;

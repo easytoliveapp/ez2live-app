@@ -6,13 +6,13 @@ import Link from "next/link";
 import FormComponent from './FormComponent';
 const loginSocials = [
   {
-    name: "Continue with Facebook",
-    href: "#",
+    name: 'Continuar com Facebook',
+    href: '#',
     icon: facebookSvg,
   },
   {
-    name: "Continue with Google",
-    href: "#",
+    name: 'Continuar com Google',
+    href: '#',
     icon: googleSvg,
   },
 ];

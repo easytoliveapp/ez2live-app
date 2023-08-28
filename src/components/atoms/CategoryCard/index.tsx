@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import Image, { StaticImageData } from 'next/image';
+import classNames from '@/utils/classNames';
 
 export interface categorieProps {
   active: boolean;
@@ -8,19 +9,26 @@ export interface categorieProps {
 }
 
 export interface CategoryProps  {
-  image: string | StaticImageData
+  image: string | StaticImageData;
+  isActive: boolean;
   name: string;
   onClick?: (e:React.MouseEvent<HTMLDivElement>) => void
 }
 
-const Categorys: FC<CategoryProps> = ({
+const Categories: FC<CategoryProps> = ({
   image,
+  isActive,
   name,
   onClick,
 })=> {
   return (
     <div
-      className="bg-white border-white border-2 hover:border-secondary-ez2live active:shadow-sm rounded-lg p-1 w-24 h-16 flex flex-col gap-1 items-center"
+      className={
+        classNames(
+          'bg-white border-2 hover:border-secondary-ez2live active:shadow-sm rounded-lg p-1 py-2 w-24 flex flex-col gap-1 items-center cursor-pointer',
+          isActive ? 'border-secondary-ez2live' : 'border-white'
+        )
+      }
       onClick={onClick}
     >
       <Image
@@ -33,4 +41,4 @@ const Categorys: FC<CategoryProps> = ({
   )
 }
 
-export default Categorys
+export default Categories;
