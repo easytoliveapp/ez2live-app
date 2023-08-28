@@ -10,9 +10,7 @@ const SiteHeader = () => {
 
   const pathname = usePathname();
   
-
-  // Until we dont use middleware to redirect if user are not authenticated
-  return pathname === "/login" || pathname === "/register/user" || pathname === "/register/supplier" || pathname === "/forgot-password" ? <Header/> : <HeaderLogged/>;
+  return ['/', '/dashboard'].includes(pathname) ? <HeaderLogged />: <Header/>;
 };
 
 export default SiteHeader;
