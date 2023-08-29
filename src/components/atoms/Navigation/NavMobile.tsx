@@ -8,6 +8,8 @@ import { NAVIGATION_DEMO_2 } from "@/data/navigation";
 import SocialsList from "@/components/atoms/SocialsList/SocialsList";
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
+import EasyToLiveLogo from '@/images/easytolive/logo/logocompleta-semfundoazulroxo.svg' 
+import Image from 'next/image'
 
 export interface NavMobileProps {
   data?: NavItemType[];
@@ -112,68 +114,19 @@ const NavMobile: React.FC<NavMobileProps> = ({
     );
   };
 
-  const renderMagnifyingGlassIcon = () => {
-    return (
-      <svg
-        width={22}
-        height={22}
-        viewBox="0 0 24 24"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M11.5 21C16.7467 21 21 16.7467 21 11.5C21 6.25329 16.7467 2 11.5 2C6.25329 2 2 6.25329 2 11.5C2 16.7467 6.25329 21 11.5 21Z"
-          stroke="currentColor"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M22 22L20 20"
-          stroke="currentColor"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
-    );
-  };
-
-  const renderSearchForm = () => {
-    return (
-      <form
-        action=""
-        method="POST"
-        className="flex-1 text-slate-900 dark:text-slate-200"
-      >
-        <div className="bg-slate-50 dark:bg-slate-800 flex items-center space-x-1 py-2 px-4 rounded-xl h-full">
-          {renderMagnifyingGlassIcon()}
-          <input
-            type="search"
-            placeholder="Type and press enter"
-            className="border-none bg-transparent focus:outline-none focus:ring-0 w-full text-sm "
-          />
-        </div>
-        <input type="submit" hidden value="" />
-      </form>
-    );
-  };
-
   return (
     <div className="overflow-y-auto w-full h-screen py-2 transition transform shadow-lg ring-1 dark:ring-neutral-700 bg-white dark:bg-neutral-900 divide-y-2 divide-neutral-100 dark:divide-neutral-800">
-      <div className="py-6 px-5">
-        <div className="flex flex-col mt-5 text-slate-600 dark:text-slate-300 text-sm">
-          <div className="flex justify-between items-center mt-4">
+      <div className="py-6 px-5 flex flex-col justify-center items-center w-full">
+        <Image
+        className='w-36 h-auto'
+        src={EasyToLiveLogo}
+        alt='Easy to live Logo'/>
+          <div className="w-full flex items-center justify-center mt-8">
             <SocialsList itemClass="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center rounded-full text-xl" />
-            <span className="block">
-            </span>
-          </div>
         </div>
         <span className="absolute right-2 top-2 p-1">
           <ButtonClose onClick={onClickClose} />
         </span>
-
-        <div className="mt-5">{renderSearchForm()}</div>
       </div>
       <ul className="flex flex-col py-6 px-2 space-y-1">
         {data.map(_renderItem)}

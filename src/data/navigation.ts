@@ -181,36 +181,11 @@ export const NAVIGATION_DEMO_2: NavItemType[] = [
   {
     id: ncNanoId(),
     href: "/",
-    name: "Men",
+    name: "Políticas de privacidade",
   },
   {
     id: ncNanoId(),
     href: "/",
-    name: "Women",
-  },
-  {
-    id: ncNanoId(),
-    href: "/",
-    name: "Beauty",
-  },
-
-  {
-    id: ncNanoId(),
-    href: "/",
-    name: "Sport",
-  },
-  {
-    id: ncNanoId(),
-    href: "/",
-    name: "Templates",
-    type: "megaMenu",
-    children: MEGAMENU_TEMPLATES,
-  },
-  {
-    id: ncNanoId(),
-    href: "/",
-    name: "Explore",
-    type: "dropdown",
-    children: OTHER_PAGE_CHILD,
+    name: "ajuda",
   },
 ];
