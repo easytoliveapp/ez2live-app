@@ -4,7 +4,7 @@ import rightImgDemo from "@/images/promo3.png";
 import backgroundLineSvg from "@/images/BackgroundLine.svg";
 import Badge from "@/components/atoms/Badge/Badge";
 import { Input } from "@/components";
-import ButtonCircle from "@/components/atoms/Button/ButtonCircle";
+import ButtonCircle from "@/components/atoms/Button/ButtonBasic";
 import { ArrowSmallRightIcon } from "@heroicons/react/24/solid";
 import Image from "next/image";
 

@@ -7,7 +7,7 @@ const createUsers = async (data : ICreateUsers)=> {
   return await BaseService.fetchData({
     url: "/users",
     method: "post",
-    data: data
+    data,
   })
   }
 const getAllUsers = async (data: Partial<ISearchUsers>) => {
@@ -18,11 +18,11 @@ const getAllUsers = async (data: Partial<ISearchUsers>) => {
 }
 //-----------------------------------------------------
 
-const updateUser = async (id:string , data: Partial<IUpdateUser>)=> {
+const updateUser = async (id:string ,data: Partial<IUpdateUser>)=> {
   return await BaseService.fetchData({
     url: `/users/${id}`,
-    method: 'path',
-    data: data,
+    method: "patch",
+    data,
   })
 }
 
