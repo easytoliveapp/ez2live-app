@@ -1,19 +1,16 @@
 "use client";
 
 import {
-  FormItem, ButtonThird, ButtonBasic, ButtonSecondary,
-  Input, ButtonPrimary
+  FormItem, ButtonThird, ButtonBasic, ButtonSecondary
 } from '@/components/atoms';
-import * as Yup from "yup";
 import { ModalEdit } from '@/components/mols/index';
 import { useToastify } from '@/hooks/useToastify';
-import usersService from '@/service/users.service';
 import { userLoginResponseProps } from '@/types/user';
 import { getItemByLocalStorage, removeItemFromLocalStorage } from '@/utils/localStorageHelper';
-import { Field, Form, Formik } from 'formik';
 import { useRouter } from 'next/navigation';
 import React, { ReactElement, useEffect, useState } from "react";
-import { IResetPasswordForm } from '@/types/auth';
+import authService from '@/service/auth.service';
+import usersService from '@/service/users.service';
 
 const MyAccountPage = () => {
   const [user, setUser] = useState<userLoginResponseProps>();
@@ -61,103 +58,52 @@ const MyAccountPage = () => {
 
   const Security = () => {
     const [loading, setLoading] = useState(false);
-    const [handleModal, setHandleModal] = useState(false)
+    const [handleModal, setHandleModal] = useState(false);
 
-    const ResetPasswordValidationSchema = Yup.object().shape({
-      password: Yup.string()
-        .matches(
-          /(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]/,
-          "Deve conter pelo menos uma letra e um número"
-        )
-        .required(
-          "Coloque uma combinação de numeros, letras e sinais de pontuação (como ! e &)."
-        )
-        .min(8, "Senha deve conter no mínimo 8 caracteres.")
-        .max(36, "Senha não deve contar mais de 36 caracteres"),
-      conf_password: Yup.string()
-        .required("Confirme sua senha.")
-        .oneOf([Yup.ref("password")], "Senhas devem ser iguais."),
-    });
-
-    const initialValues: IResetPasswordForm = {
-      password: '',
-      conf_password: '',
+    const handleDeleteUser = async () => {
+      if (user) {
+        await usersService.deleteUser(user.id)
+          .then(() => {
+            useToastify({ label: 'Usuário deletado com sucesso', type: 'success' })
+            router.push('/login')
+          })
+          .catch(() =>
+            useToastify({ label: "Ocorreu um erro ao deletar a conta. Por favor, tente novamente mais tarde.", type: "error" })
+          )
+      };
+      setHandleModal(false)
     };
 
-    const handleFormSubmit = (values: IResetPasswordForm) => {
-      setLoading(true);
-      if (user?.id) {
-        console.log(user.id,values.password)
-        usersService.updateUser( user.id , {password: values.password})
-        .then(() => {
-            useToastify({ label: 'Senha alterada com sucesso!', type: 'success' });
-            setHandleModal(false);
+    const handleSendEmailChangePassword = async () => {
+      setLoading(true)
+      if (user) {
+        await authService.forgotPassword({ email: user?.email })
+          .then(() => { useToastify({ label: 'Foi enviado um link para redefinir a senha ao endereço de email cadastrado.', type: 'success' }) })
+          .catch(() => {
+            useToastify({ label: 'Oops! Algo deu errado. Tente novamente mais tarde', type: 'error' })
           })
-        .catch(() => {
-            useToastify({ label: 'Oops! Algo deu errado. Verifique os campos e tente novamente', type: 'error' })
-            setLoading(false);
-          });
-      };
-    }
+      }
+      setTimeout(() => {
+        setLoading(false)
+      }, 2000);
+    };
 
     return (
       <div className='relative h-max flex flex-col mx-auto gap-4 w-full max-w-md'>
-        <ModalEdit
-          show={handleModal}
-          onCloseModalEdit={() => setHandleModal(false)}>
-          {
-            <Formik
-              initialValues={initialValues}
-              validationSchema={ResetPasswordValidationSchema}
-              onSubmit={handleFormSubmit}
-            >
-              {({ errors, touched, handleSubmit }) => (
-                <Form onSubmit={handleSubmit} className="flex flex-col gap-3">
-                  <FormItem
-                    label='nova senha'
-                    errorMessage={errors.password}
-                    invalid={!!(errors.password && touched.password)}
-                  >
-                    <Field
-                      invalid={!!(errors.password && touched.password)}
-                      name="password"
-                      type="password"
-                      label="Password"
-                      component={Input}
-                    />
-                  </FormItem>
-                  <FormItem
-                    label='repetir nova senha'
-                    errorMessage={errors.conf_password}
-                    invalid={!!(errors.conf_password && touched.conf_password)}
-                  >
-                    <Field
-                      invalid={!!(errors.conf_password && touched.conf_password)}
-                      name="conf_password"
-                      type="password"
-                      label="Password"
-                      component={Input}
-                    />
-                  </FormItem>
-                  <ButtonPrimary
-                    type="submit"
-                    className="w-full mt-6"
-                    disabled={loading}
-                    loading={loading}
-                  >
-                    Criar nova senha
-                  </ButtonPrimary>
-                </Form>
-              )}
-            </Formik>
-          }
+        <ModalEdit show={handleModal} onCloseModalEdit={() => setHandleModal(false)}>
+          <h2 className='text-lg mb-2'>Excluir conta permanentemente</h2>
+          <p className='p-2'>Ao excluir a conta, todos os seus dados e reservas serão apagados permanentemente do nosso sistema!</p>
+          <ButtonThird
+            onClick={() => handleDeleteUser()}>excluir conta</ButtonThird>
         </ModalEdit>
         <ButtonSecondary
-          onClick={() => setHandleModal(true)}
+          onClick={() => handleSendEmailChangePassword()}
+          loading={loading}
           className='mt-4'>
           Trocar senha
         </ButtonSecondary>
-        <ButtonThird>
+        <ButtonThird
+          onClick={() => setHandleModal(true)}>
           excluir conta
         </ButtonThird>
       </div>
@@ -180,17 +126,22 @@ const MyAccountPage = () => {
       <div className="mt-14 sm:mt-20">
         <div className="max-w-4xl mx-auto">
           <hr className="mt-10 border-slate-200 "></hr>
-          <div className="flex mx-4 gap-4 py-4 space-x-8 md:space-x-14 overflow-x-auto hiddenScrollbar">
-            <div
-              className='font-normal text-neutral-400 hover:text-black'
-              onClick={() => setPage(<Account />)}>
-              conta
-            </div>
-            <div
-              className='font-normal text-neutral-400 hover:text-black'
-              onClick={() => setPage(<Security />)}>
-              segurança
-            </div>
+          <div className="mx-4 py-4 space-x-8 md:space-x-14 overflow-x-auto hiddenScrollbar">
+            <ul className='flex gap-6'>
+              <li
+                className='font-norma text-neutral-400 hover:text-black'
+
+                onClick={() => setPage(<Account />)}>
+                conta
+              </li>
+              <li
+                className='font-normal text-neutral-400 hover:text-black'
+                onClick={() => setPage(<Security />)}>
+                segurança
+              </li>
+            </ul>
+
+
           </div>
           <hr className="border-slate-200 dark:border-slate-700"></hr>
         </div>
