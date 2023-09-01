@@ -8,7 +8,7 @@ import { useToastify } from '@/hooks/useToastify';
 import { userLoginResponseProps } from '@/types/user';
 import { getItemByLocalStorage, removeItemFromLocalStorage } from '@/utils/localStorageHelper';
 import { useRouter } from 'next/navigation';
-import React, { ReactElement, useEffect, useState } from "react";
+import React, { ReactElement, useEffect, useState , useRef } from "react";
 import authService from '@/service/auth.service';
 import usersService from '@/service/users.service';
 
@@ -110,6 +110,22 @@ const MyAccountPage = () => {
     )
   };
 
+  const divAccount = useRef<HTMLDivElement>(null)
+  const divSecurity = useRef<HTMLDivElement>(null)
+
+  const handleChangeColorToggle = (e : React.RefObject<HTMLDivElement>)=> {
+    if (e === divAccount) {
+        e.current?.classList.replace('text-neutral-400', 'text-black')
+        divSecurity.current?.classList.replace('text-black', 'text-neutral-400')
+      setPage(<Account/>)
+    }
+    if (e === divSecurity){
+      e.current?.classList.replace('text-neutral-400', 'text-black')
+        divAccount.current?.classList.replace('text-black', 'text-neutral-400')
+      setPage(<Security/>)
+    }
+  } 
+
   return (
     <div className="nc-AccountCommonLayout container">
       <div className='mt-8 mb-16 flex items-center justify-between'>
@@ -127,19 +143,20 @@ const MyAccountPage = () => {
         <div className="max-w-4xl mx-auto">
           <hr className="mt-10 border-slate-200 "></hr>
           <div className="mx-4 py-4 space-x-8 md:space-x-14 overflow-x-auto hiddenScrollbar">
-            <ul className='flex gap-6'>
-              <li
-                className='font-norma text-neutral-400 hover:text-black'
-
-                onClick={() => setPage(<Account />)}>
+            <div className='flex gap-6'>
+              <div
+                className='font-norma text-black hover:text-black'
+                ref={divAccount}
+                onClick={() => handleChangeColorToggle(divAccount)}>
                 conta
-              </li>
-              <li
+              </div>
+              <div
                 className='font-normal text-neutral-400 hover:text-black'
-                onClick={() => setPage(<Security />)}>
+                ref={divSecurity}
+                onClick={() => handleChangeColorToggle(divSecurity)}>
                 segurança
-              </li>
-            </ul>
+              </div>
+            </div>
 
 
           </div>
