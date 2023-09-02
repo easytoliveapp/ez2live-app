@@ -3,18 +3,19 @@ import React, { FC } from 'react'
 import Image from 'next/image';
 import extendedLogoImage from '@/images/easytolive/logo/logocompleta-semfundoazulroxo.svg'
 import AvatarDropdown from "@/components/atoms/AvatarDropdown";
+import MenuBar from '../MenuBar/MenuBar';
 import Link from 'next/link';
 
 interface NavBarLoggedProps { }
 
 const NavBarLogged: FC<NavBarLoggedProps> = () => {
   return (
-    <div className="relative w-full p-2 flex justify-between items-center bg-primary-ez2livebg z-30">
-      <span className="invisible"></span>
-      <Link href="/">
-        <Image className="w-auto h-8" src={extendedLogoImage} alt="EasyToLive" />
+      <div className="relative w-full p-2 flex justify-between items-center">
+      <MenuBar/>
+      <Link href='/'>
+      <Image className='w-auto h-8' src={extendedLogoImage} alt='Logo Extentida' /> 
       </Link>
-      <AvatarDropdown />
+      <AvatarDropdown/>
     </div>
   );
 };
