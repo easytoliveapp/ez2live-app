@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 export interface InviewPortType {
   callback: () => void;
   target: HTMLElement;

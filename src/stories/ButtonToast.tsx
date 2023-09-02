@@ -16,6 +16,7 @@ const ButtonToast: React.FC<ButtonProps> = ({ label, type }) => {
     <div>
       <button
         className="p-4 w-12 bg-slate-400"
+        // eslint-disable-next-line react-hooks/rules-of-hooks
         onClick={() => useToastify({ label, type })}
       >
         Notify!

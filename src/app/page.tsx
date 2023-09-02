@@ -1,4 +1,5 @@
 import React from "react";
+import UserInfo from "@/components/atoms/UserInfo";
 
 function PageHome() {
   return (
@@ -6,6 +7,7 @@ function PageHome() {
       <div>Ez2Live</div>
       <p>Limpamos tudo!!!</p>
       <p>Foco no APP!</p>
+      <UserInfo />
     </div>
   );
 }

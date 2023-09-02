@@ -51,6 +51,7 @@ const FormComponent = () => {
         console.log(error);
         //handleToast error in login
         if (error?.response?.data?.code === 400) {
+          // eslint-disable-next-line react-hooks/rules-of-hooks
           useToastify({
             label:
               "Impossível criar sua conta pois já existe um e-mail cadastrado.",

@@ -58,6 +58,7 @@ const FormComponent = () => {
         console.log(error);
         //handleToast error in login
         if (error?.code === 401) {
+          // eslint-disable-next-line react-hooks/rules-of-hooks
           useToastify({
             label:
               "Oops! Algo deu errado com seu login. Verifique as credenciais e tente novamente",

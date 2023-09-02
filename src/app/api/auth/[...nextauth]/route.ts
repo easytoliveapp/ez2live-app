@@ -24,7 +24,7 @@ export const authOptions: NextAuthOptions = {
         password: {},
       },
 
-      async authorize(credentials, req): Promise<any> {
+      async authorize(credentials): Promise<any> {
         try {
           const { email, password } = credentials as ILogIn;
 
@@ -65,10 +65,16 @@ export const authOptions: NextAuthOptions = {
 
   callbacks: {
     async signIn({ user, account, profile }) {
-      if (account?.provider !== "credentials") {
+      /* Configurar informações do usuário disponiveis no JSON do provider aqui! */
+      console.log("signIn - user", user);
+      console.log("signIn - account", account);
+      console.log("signIn - profile", profile);
+
+      /*       if (account?.provider !== "credentials") {
         const authSocialRes = await AuthService.loginSocial({
           provider: account?.provider,
-          accessToken: account?.accessToken,
+          providerAccountId: account?.providerAccountId,
+          accessToken: account?.["access_token"],
         });
 
         if (authSocialRes.status !== 200) {
@@ -87,17 +93,38 @@ export const authOptions: NextAuthOptions = {
         }
 
         return true;
-      }
+      } */
 
       return true;
     },
 
     async session({ session, token, user }) {
       /* Configurar informações da sessão disponiveis no JSON do provider aqui! */
-      return session;
+
+      console.log("session", session);
+      console.log("token", token);
+      console.log("user", user);
+
+      session = {
+        ...token,
+        expires: session.expires,
+      };
+
+      return Promise.resolve(session);
     },
 
     async jwt({ token, user, account, profile }) {
+      /* Configurar informações do token disponiveis no JSON do provider aqui! */
+      console.log("JWT - token", token);
+      console.log("JWT - user", user);
+      console.log("JWT - account", account);
+      console.log("JWT - profile", profile);
+
+      token = {
+        ...token,
+        ...user,
+      };
+
       return token;
     },
   },

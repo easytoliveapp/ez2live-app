@@ -14,7 +14,7 @@ interface tokenProps {
   };
 }
 
-const resetPassord = ({ params }: tokenProps) => {
+const ResetPassword = ({ params }: tokenProps) => {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const SignUpValidationSchema = Yup.object().shape({
@@ -115,4 +115,4 @@ const resetPassord = ({ params }: tokenProps) => {
   );
 };
 
-export default resetPassord;
+export default ResetPassword;

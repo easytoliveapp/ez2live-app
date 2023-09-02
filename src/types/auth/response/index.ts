@@ -1,12 +1,7 @@
-export interface ILoginResponse {
-  user: IUser;
-  tokens: ITokens;
-}
-
 export interface IUser {
   id: string;
-  name: string;
-  email: string;
+  name?: string | null;
+  email?: string | null;
   role: string;
   active: boolean;
   isSupplier: boolean;
@@ -21,4 +16,8 @@ export interface ITokens {
 export interface IToken {
   token: string;
   expires: string;
+}
+export interface ILoginResponse {
+  user: IUser;
+  tokens: ITokens;
 }

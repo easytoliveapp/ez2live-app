@@ -10,7 +10,7 @@ import Auth from "@/service/auth.service";
 import Supplier from "@/service/supplier.service";
 import { ICategoryProps } from "@/types/supplier";
 
-interface IStepOneProps {
+export interface IStepOneProps {
   next: (e: any) => void;
   data: IRegisterAccount;
   key: number;
