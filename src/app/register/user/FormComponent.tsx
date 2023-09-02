@@ -6,8 +6,9 @@ import { Input, ButtonPrimary, FormItem } from "@/components/atoms";
 import * as Yup from "yup";
 import { IRegisterAccount } from "@/types/auth/request";
 import { useRouter } from "next/navigation";
-import Auth from "@/service/auth.service";
+import authService from "@/service/auth.service";
 import { useToastify } from "@/hooks/useToastify";
+import { setItemToLocalStorage } from "@/utils/localStorageHelper";
 
 const FormComponent = () => {
   const [loading, setLoading] = useState(false);
@@ -38,28 +39,40 @@ const FormComponent = () => {
 
   const handleFormSubmit = async (values: Partial<IRegisterAccount>) => {
     setLoading(true);
-    await Auth.register({
-      name: values.name,
-      email: values.email,
-      password: values.password,
-    })
-      .then(() => {
-        //handleToast login success
-        router.push("/");
+
+    await authService
+      .register({
+        name: values.name,
+        email: values.email,
+        password: values.password,
+      })
+      .then((res: any) => {
+        if (res?.data?.user) {
+          setItemToLocalStorage("user", res.data.user);
+          return router.push("/");
+        }
+
+        setLoading(false);
+        useToastify({
+          label: "Impossível criar sua conta. Por favor, tente novamente.",
+          type: "error",
+        });
       })
       .catch((error) => {
-        console.log(error);
-        //handleToast error in login
         if (error?.response?.data?.code === 400) {
-          // eslint-disable-next-line react-hooks/rules-of-hooks
-          useToastify({
+          return useToastify({
             label:
               "Impossível criar sua conta pois já existe um e-mail cadastrado.",
             type: "error",
           });
         }
+
+        useToastify({
+          label: "Impossível criar sua conta. Por favor, tente novamente.",
+          type: "error",
+        });
+        setLoading(false);
       });
-    setLoading(false);
   };
 
   return (
@@ -113,6 +126,7 @@ const FormComponent = () => {
             type="submit"
             className="w-full mt-6"
             disabled={loading}
+            loading={loading}
           >
             Cadastrar
           </ButtonPrimary>

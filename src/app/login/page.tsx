@@ -1,8 +1,8 @@
 import React from "react";
 
 import Link from "next/link";
-import FormComponent from "./FormComponent";
 import SocialLoginComponent from "./SocialLoginComponent";
+import FormComponent from "./FormComponent";
 
 const PageLogin = () => {
   return (

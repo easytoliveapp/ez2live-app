@@ -2,7 +2,6 @@ export interface ILogIn {
   email: string;
   password: string;
 }
-
 export interface IAddress {
   street: string;
   number: string;
@@ -20,12 +19,14 @@ export interface IRegisterAccount {
   supplierCategory: string;
   isSupplier: boolean;
 }
-
 export interface IForgotPassword {
   email: string;
 }
-
 export interface IResetPassword {
+  token: string;
+  password: string;
+}
+export interface IResetPasswordForm {
   password: string;
   conf_password: string;
 }

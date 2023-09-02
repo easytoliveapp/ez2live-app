@@ -10,7 +10,7 @@ const SiteHeader = () => {
 
   const pathname = usePathname();
 
-  return pathname === "/" ? <HeaderLogged /> : <Header />;
+  return ["/", "/dashboard"].includes(pathname) ? <HeaderLogged /> : <Header />;
 };
 
 export default SiteHeader;

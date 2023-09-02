@@ -8,12 +8,12 @@ import Avatar from "@/images/easytolive/user/user_circle_color_primary.svg";
 const UserRegisterPage = () => {
   const loginSocials = [
     {
-      name: "Continue with Facebook",
+      name: "Continuar com Facebook",
       href: "#",
       icon: facebookSvg,
     },
     {
-      name: "Continue with Google",
+      name: "Continuar com Google",
       href: "#",
       icon: googleSvg,
     },

@@ -9,6 +9,8 @@ import { useRouter } from "next/navigation";
 import Auth from "@/service/auth.service";
 import Supplier from "@/service/supplier.service";
 import { ICategoryProps } from "@/types/supplier";
+import { useToastify } from "@/hooks/useToastify";
+import { setItemToLocalStorage } from "@/utils/localStorageHelper";
 
 export interface IStepOneProps {
   next: (e: any) => void;
@@ -50,9 +52,18 @@ const FormComponent = () => {
         setCategories(res.data.supplierCategories.results),
           setFirstCategory(res.data.supplierCategories.results[0].id);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        if (error?.response?.data?.code === 401) {
+          useToastify({ label: "Usuário não autenticado.", type: "error" });
+        }
+        if (error?.response?.data?.code === 404) {
+          useToastify({
+            label: "Não foi encontrado nenhuma categoria.",
+            type: "error",
+          });
+        }
+      });
     setInitialValues((prev) => ({ ...prev, supplierCategory: firstCategory }));
-    console.log("oi");
   }, []);
 
   const FirstStepValidationSchema = Yup.object().shape({
@@ -98,6 +109,7 @@ const FormComponent = () => {
 
   const handleFormSubmit = async (values: IRegisterAccount) => {
     setLoading(true);
+
     await Auth.register({
       name: values.name,
       email: values.email,
@@ -107,14 +119,33 @@ const FormComponent = () => {
       isSupplier: values.isSupplier,
       address: values.address,
     })
-      .then(() => {
-        //handleToast login success
-        router.push("/");
+      .then((res: any) => {
+        if (res?.data?.user) {
+          setItemToLocalStorage("user", res.data.user);
+          return router.push("/dashboard");
+        }
+
+        setLoading(false);
+        useToastify({
+          label: "Impossível criar sua conta. Por favor, tente novamente.",
+          type: "error",
+        });
       })
-      .catch(() => {
-        //handleToast error in login
+      .catch((error) => {
+        if (error?.response?.data?.code === 400) {
+          useToastify({
+            label:
+              "Impossível criar sua conta pois já existe um e-mail cadastrado.",
+            type: "error",
+          });
+        }
+
+        useToastify({
+          label: "Impossível criar sua conta. Por favor, tente novamente.",
+          type: "error",
+        });
+        setLoading(false);
       });
-    setLoading(false);
   };
 
   const StepOne = (props: IStepOneProps) => {

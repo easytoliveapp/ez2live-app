@@ -7,7 +7,7 @@ const HeaderLogged: FC<HeaderLoggedProps> = () => {
   return (
     <>
       <NavBarLogged />
-      <div className="bg-white h-0.5 w-auto m-auto mx-4"></div>
+      <div className="bg-white h-0.5 w-auto m-auto mx-4" />
     </>
   );
 };

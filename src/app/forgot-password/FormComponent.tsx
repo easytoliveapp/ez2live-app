@@ -5,7 +5,8 @@ import { Formik, Form, Field } from "formik";
 import { Input, ButtonPrimary, FormItem } from "@/components/atoms";
 import * as Yup from "yup";
 import { IForgotPassword } from "@/types/auth/request";
-import Auth from "@/service/auth.service";
+import authService from "@/service/auth.service";
+import { useToastify } from "@/hooks/useToastify";
 
 const FormComponent = () => {
   const [loading, setLoading] = useState(false);
@@ -23,15 +24,24 @@ const FormComponent = () => {
   const handleFormSubmit = async (values: IForgotPassword) => {
     setLoading(true);
 
-    await Auth.forgotPassword({ email: values.email })
+    await authService
+      .forgotPassword({ email: values.email })
       .then(() => {
-        //handle toast success um email para resetar senha foi enviado
+        useToastify({
+          label:
+            "Se o e-mail está cadastrado em nosso app, você receberá uma mensagem em alguns minutos.",
+          type: "success",
+        });
         setEmailSent(true);
+        setLoading(false);
       })
       .catch(() => {
-        //handle toast error
+        useToastify({
+          label: "Oops! Algo deu errado. Verifique os campos e tente novamente",
+          type: "error",
+        });
+        setLoading(true);
       });
-    setLoading(false);
   };
 
   return (
@@ -59,8 +69,9 @@ const FormComponent = () => {
             type="submit"
             className="w-full mt-6"
             disabled={loading || emailSent}
+            loading={loading}
           >
-            {emailSent ? "E-mail enviado" : "Recuperar senha"}
+            {emailSent ? "E-mail enviado ✓" : "Recuperar senha"}
           </ButtonPrimary>
         </Form>
       )}

@@ -29,11 +29,6 @@ const FormComponent = () => {
       .max(36, "Senha não deve contar mais de 36 caracteres"),
   });
 
-  const initialValues: ILogIn = {
-    email: "",
-    password: "",
-  };
-
   const handleFormSubmit = async (values: ILogIn) => {
     setLoading(true);
     await signIn("credentials", {
@@ -71,7 +66,10 @@ const FormComponent = () => {
 
   return (
     <Formik
-      initialValues={initialValues}
+      initialValues={{
+        email: "",
+        password: "",
+      }}
       validationSchema={SignUpValidationSchema}
       onSubmit={handleFormSubmit}
     >
@@ -115,6 +113,7 @@ const FormComponent = () => {
             type="submit"
             className="w-full mt-6"
             disabled={loading}
+            loading={loading}
           >
             Continuar
           </ButtonPrimary>

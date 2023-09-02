@@ -4,9 +4,10 @@ import React, { useState } from "react";
 import { Formik, Form, Field } from "formik";
 import { Input, ButtonPrimary, FormItem } from "@/components/atoms";
 import * as Yup from "yup";
-import { IResetPassword } from "@/types/auth/request";
+import { IResetPasswordForm } from "@/types/auth/request";
 import { useRouter } from "next/navigation";
-import Auth from "@/service/auth.service";
+import authService from "@/service/auth.service";
+import { useToastify } from "@/hooks/useToastify";
 
 interface tokenProps {
   params: {
@@ -17,6 +18,7 @@ interface tokenProps {
 const ResetPassword = ({ params }: tokenProps) => {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+
   const SignUpValidationSchema = Yup.object().shape({
     password: Yup.string()
       .matches(
@@ -33,22 +35,30 @@ const ResetPassword = ({ params }: tokenProps) => {
       .oneOf([Yup.ref("password")], "Senhas devem ser iguais."),
   });
 
-  const initialValues: IResetPassword = {
+  const initialValues: IResetPasswordForm = {
     password: "",
     conf_password: "",
   };
 
-  const handleFormSubmit = async (values: IResetPassword) => {
+  const handleFormSubmit = async (values: IResetPasswordForm) => {
     setLoading(true);
-    await Auth.resetPassword(params.token, values.password)
+
+    await authService
+      .resetPassword({
+        token: params.token,
+        password: values.password,
+      })
       .then(() => {
-        //handleToast password resetada com successo
-        router.push("/login");
+        useToastify({ label: "Senha alterada com sucesso!", type: "success" });
+        setTimeout(() => router.push("/login"), 2000);
       })
       .catch(() => {
-        //handle toast error
+        useToastify({
+          label: "Oops! Algo deu errado. Verifique os campos e tente novamente",
+          type: "error",
+        });
+        setLoading(false);
       });
-    setLoading(false);
   };
 
   return (
@@ -103,6 +113,7 @@ const ResetPassword = ({ params }: tokenProps) => {
                   type="submit"
                   className="w-full mt-6"
                   disabled={loading}
+                  loading={loading}
                 >
                   Criar nova senha
                 </ButtonPrimary>

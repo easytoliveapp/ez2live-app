@@ -2,6 +2,7 @@ import {
   IForgotPassword,
   ILogIn,
   IRegisterAccount,
+  IResetPassword,
 } from "@/types/auth/request";
 import { BaseService } from "./base.service";
 import { ILoginResponse } from "@/types/auth/response";
@@ -38,9 +39,9 @@ const forgotPassword = async (data: IForgotPassword) => {
   });
 };
 
-const resetPassword = async (token: string, data: string) => {
+const resetPassword = async (data: IResetPassword) => {
   return await BaseService.fetchData({
-    url: `/auth/reset-password/${token}`,
+    url: `/auth/reset-password`,
     method: "post",
     data,
   });
