@@ -11,7 +11,7 @@ interface NavBarLoggedProps { }
 const NavBarLogged: FC<NavBarLoggedProps> = () => {
   return (
       <div className="relative w-full p-2 flex justify-between items-center">
-      <MenuBar></MenuBar>
+      <MenuBar/>
       <Link href='/'>
       <Image className='w-auto h-8' src={extendedLogoImage} alt='Logo Extentida' /> 
       </Link>
