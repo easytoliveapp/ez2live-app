@@ -5,12 +5,14 @@ import {
 } from '@/components/atoms';
 import { ModalEdit } from '@/components/mols/index';
 import { useToastify } from '@/hooks/useToastify';
-import { userLoginResponseProps } from '@/types/user';
+import { IDeleteUSer, userLoginResponseProps } from '@/types/user';
 import { getItemByLocalStorage, removeItemFromLocalStorage } from '@/utils/localStorageHelper';
+import * as Yup from "yup";
 import { useRouter } from 'next/navigation';
 import React, { ReactElement, useEffect, useState, useRef } from "react";
 import authService from '@/service/auth.service';
 import usersService from '@/service/users.service';
+import { Field, Form, Formik } from 'formik';
 
 const MyAccountPage = () => {
   const [user, setUser] = useState<userLoginResponseProps>();
@@ -60,12 +62,18 @@ const MyAccountPage = () => {
     const [loading, setLoading] = useState(false);
     const [handleModal, setHandleModal] = useState(false);
     const [emailSendButton, setEmailSendButton] = useState('Trocar senha')
-    const [password, setPassword] = useState('');
     const [disableButtonSendEmail, setDisableButtonSendEmail] = useState(false)
 
-    const handleDeleteUser = async () => {
+    const DeleteUserValidationSchema = Yup.object().shape({
+      password: Yup.string()
+        .required(
+          "Digite a sua senha."
+        )
+    });
+
+    const handleDeleteUser = async (values : IDeleteUSer) => {
       if (user) {
-        await usersService.eraseUser(user.id, password)
+        await usersService.eraseUser(user.id, values.password)
           .then(() => {
             useToastify({ label: 'Usuário deletado com sucesso', type: 'success' })
             router.push('/login')
@@ -95,33 +103,62 @@ const MyAccountPage = () => {
       <div className='relative h-max flex flex-col mx-auto gap-4 w-full max-w-md'>
         <ModalEdit show={handleModal} onCloseModalEdit={() => setHandleModal(false)} >
           <div className='flex flex-col h-[85vh]'>
-          <div className='mt-8 mb-16 flex items-center justify-between'>
-            <h2 className=" pl-6 flex items-center text-2xl leading-[115%] md:text-5xl md:leading-[115%] font-bold text-black justify-center">
-              Confirmar
-            </h2>
-            <div>
-              <div className='relative rounded-full w-40 h-16 bg-gradient-to-r from-secondary-ez2live to-secondary-ez2livebg'>
-                <div className='absolute top-8 right-0 rounded-full w-16 h-16 bg-gradient-to-r from-secondary-ez2live to-secondary-ez2livebg'>
+            <div className='mt-8 mb-16 flex items-center justify-between'>
+              <h2 className=" pl-6 flex items-center text-2xl leading-[115%] md:text-5xl md:leading-[115%] font-bold text-black justify-center">
+                Confirmar
+              </h2>
+              <div>
+                <div className='relative rounded-full w-40 h-16 bg-gradient-to-r from-secondary-ez2live to-secondary-ez2livebg'>
+                  <div className='absolute top-8 right-0 rounded-full w-16 h-16 bg-gradient-to-r from-secondary-ez2live to-secondary-ez2livebg'>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <p className='my-4 text-black'>Ao excluir a conta, os seus dados e reservas serão apagados do nosso sistema!</p>
-          <hr className="border-slate-200 dark:border-slate-700 mb-6"></hr>
-          <FormItem label='senha'>
-            <Input type='password' onChange={(e)=> setPassword(e.target.value)}></Input>
+            <p className='my-4 text-black'>Ao excluir a conta, os seus dados e reservas serão apagados do nosso sistema!</p>
+            <hr className="border-slate-200 dark:border-slate-700 mb-6"></hr>
+
+            <Formik
+      initialValues={{
+        password: '',
+      }}
+      validationSchema={DeleteUserValidationSchema}
+      onSubmit={handleDeleteUser}
+    >
+      {({ errors, touched, handleSubmit }) => (
+        <Form onSubmit={handleSubmit} className="flex flex-col gap-3">
+          <FormItem
+            label='senha'
+            errorMessage={errors.password}
+            invalid={!!(errors.password && touched.password)}
+          >
+            <Field
+              invalid={!!(errors.password && touched.password)}
+              name="password"
+              type="password"
+              label="Password"
+              component={Input}
+            />
           </FormItem>
+          <span className="flex justify-end  items-start text-sm">
+          </span>
           <ButtonPrimary
-            className='my-8'
-            onClick={() => handleDeleteUser()}>
-            Excluir conta
-          </ButtonPrimary>
-          <ButtonThird onClick={() => setHandleModal(false)}>
-            cancelar
-          </ButtonThird>
+              className='my-6'
+              type='submit'
+              loading={loading}
+              disabled={loading}>
+              Excluir conta
+            </ButtonPrimary>
+            <ButtonThird onClick={() => setHandleModal(false)}>
+              cancelar
+            </ButtonThird>
+        </Form>
+      )}
+    </Formik>
+
             
+
           </div>
-          
+
         </ModalEdit>
         <ButtonSecondary
           onClick={() => handleSendEmailChangePassword()}
