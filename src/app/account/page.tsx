@@ -1,7 +1,7 @@
 "use client";
 
 import {
-  FormItem, ButtonThird, ButtonBasic, ButtonSecondary
+  FormItem, ButtonThird, ButtonBasic, ButtonSecondary, ButtonPrimary, Input
 } from '@/components/atoms';
 import { ModalEdit } from '@/components/mols/index';
 import { useToastify } from '@/hooks/useToastify';
@@ -59,10 +59,13 @@ const MyAccountPage = () => {
   const Security = () => {
     const [loading, setLoading] = useState(false);
     const [handleModal, setHandleModal] = useState(false);
+    const [emailSendButton, setEmailSendButton] = useState('Trocar senha')
+    const [password, setPassword] = useState('');
+    const [disableButtonSendEmail, setDisableButtonSendEmail] = useState(false)
 
     const handleDeleteUser = async () => {
       if (user) {
-        await usersService.deleteUser(user.id)
+        await usersService.eraseUser(user.id, password)
           .then(() => {
             useToastify({ label: 'Usuário deletado com sucesso', type: 'success' })
             router.push('/login')
@@ -79,28 +82,53 @@ const MyAccountPage = () => {
       if (user) {
         await authService.forgotPassword({ email: user?.email })
           .then(() => { useToastify({ label: 'Foi enviado um link para redefinir a senha ao endereço de email cadastrado.', type: 'success' }) })
+          .then(() => setDisableButtonSendEmail(true))
           .catch(() => {
             useToastify({ label: 'Oops! Algo deu errado. Tente novamente mais tarde', type: 'error' })
           })
-      }
-      setTimeout(() => {
         setLoading(false)
-      }, 2000);
+        setEmailSendButton('Email para trocar senha enviado')
+      }
     };
 
     return (
       <div className='relative h-max flex flex-col mx-auto gap-4 w-full max-w-md'>
-        <ModalEdit show={handleModal} onCloseModalEdit={() => setHandleModal(false)}>
-          <h2 className='text-lg mb-2'>Excluir conta permanentemente</h2>
-          <p className='p-2'>Ao excluir a conta, todos os seus dados e reservas serão apagados permanentemente do nosso sistema!</p>
-          <ButtonThird
-            onClick={() => handleDeleteUser()}>excluir conta</ButtonThird>
+        <ModalEdit show={handleModal} onCloseModalEdit={() => setHandleModal(false)} >
+          <div className='flex flex-col h-[85vh]'>
+          <div className='mt-8 mb-16 flex items-center justify-between'>
+            <h2 className=" pl-6 flex items-center text-2xl leading-[115%] md:text-5xl md:leading-[115%] font-bold text-black justify-center">
+              Confirmar
+            </h2>
+            <div>
+              <div className='relative rounded-full w-40 h-16 bg-gradient-to-r from-secondary-ez2live to-secondary-ez2livebg'>
+                <div className='absolute top-8 right-0 rounded-full w-16 h-16 bg-gradient-to-r from-secondary-ez2live to-secondary-ez2livebg'>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p className='my-4 text-black'>Ao excluir a conta, os seus dados e reservas serão apagados do nosso sistema!</p>
+          <hr className="border-slate-200 dark:border-slate-700 mb-6"></hr>
+          <FormItem label='senha'>
+            <Input type='password' onChange={(e)=> setPassword(e.target.value)}></Input>
+          </FormItem>
+          <ButtonPrimary
+            className='my-8'
+            onClick={() => handleDeleteUser()}>
+            Excluir conta
+          </ButtonPrimary>
+          <ButtonThird onClick={() => setHandleModal(false)}>
+            cancelar
+          </ButtonThird>
+            
+          </div>
+          
         </ModalEdit>
         <ButtonSecondary
           onClick={() => handleSendEmailChangePassword()}
           loading={loading}
+          disabled={disableButtonSendEmail}
           className='mt-4'>
-          Trocar senha
+          {emailSendButton}
         </ButtonSecondary>
         <ButtonThird
           onClick={() => setHandleModal(true)}>

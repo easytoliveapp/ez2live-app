@@ -16,6 +16,12 @@ const getAllUsers = async (data: Partial<ISearchUsers>) => {
     method: 'get'
   })
 }
+const deleteUser = async(id:string)=> {
+  return await BaseService.fetchData({
+    url: `/users/${id}`,
+    method: 'delete',
+  })
+}
 //-----------------------------------------------------
 
 const updateUser = async (id:string ,data: Partial<IUpdateUser>)=> {
@@ -33,12 +39,13 @@ const getUser = async(id:string)=> {
   })
 }
 
-const deleteUser = async(id:string)=> {
+const eraseUser = async(userId: string, password : string)=> {
   return await BaseService.fetchData({
-    url: `/users/${id}`,
-    method: 'delete',
+    url: `/user/${userId}/erase-account`,
+    method: 'post',
+    data: password
   })
 }
 
 
-  export default { createUsers , getAllUsers , updateUser, getUser, deleteUser }
+  export default { createUsers , getAllUsers , updateUser, getUser, deleteUser, eraseUser }
