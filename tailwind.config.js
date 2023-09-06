@@ -33,6 +33,7 @@ module.exports = {
           ez2livehold: customColors("--c-ez2livehold"),
           ez2livebg: customColors("--c-ez2livebg"),
           ez2livebg2: customColors("--c-ez2livebg2"),
+          ez2lliveBlue: customColors("--c-eztoliveBlue"),
           50: customColors("--c-primary-50"),
           100: customColors("--c-primary-100"),
           200: customColors("--c-primary-200"),
@@ -75,6 +76,9 @@ module.exports = {
           800: customColors("--c-neutral-800"),
           900: customColors("--c-neutral-900"),
         },
+      alternative: {
+        darker: customColors("--c-dark")
+      }
       },
     },
   },
