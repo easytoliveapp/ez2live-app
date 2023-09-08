@@ -41,3 +41,9 @@ export interface ICategoryProps {
   title: string;
   id: string;
 }
+
+export interface ISUpplierCompleteRegister {
+  logo : string;
+  ilustration_image : string;
+  description: string;
+}

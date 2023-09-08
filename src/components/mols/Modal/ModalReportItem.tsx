@@ -1,7 +1,7 @@
 "use client";
 import React, { FC, useEffect, useRef, useState } from "react";
 import { RadioGroup } from "@/app/headlessui";
-import Textarea from "@/components/atoms/Textarea/Textarea";
+import Textarea from "@/components/atoms/Textarea";
 import ButtonPrimary from "@/components/atoms/Button/ButtonPrimary";
 import ButtonSecondary from "@/components/atoms/Button/ButtonSecondary";
 import NcModal from "@/components/atoms/NcModal/NcModal";
