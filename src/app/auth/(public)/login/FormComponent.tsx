@@ -104,7 +104,7 @@ const FormComponent = () => {
           <span className="flex justify-end  items-start text-sm">
             <Link
               className="text-primary-ez2live font-semibold"
-              href="/forgot-password"
+              href="/auth/forgot-password"
             >
               esqueci a senha
             </Link>

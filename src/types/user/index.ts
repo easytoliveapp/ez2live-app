@@ -1,4 +1,4 @@
-import { IAddress } from "../auth";
+import { IAddress } from "../auth/request";
 import { ICoupon } from "../coupons";
 
 export interface userLoginResponseProps {
