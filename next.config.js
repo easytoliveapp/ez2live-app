@@ -20,6 +20,9 @@ const nextConfig = {
       },
     ],
   },
+  env: {
+    NEXTAUTH_URL: process.env.DEPLOY_PRIME_URL,
+  },
 };
 
 module.exports = nextConfig;
