@@ -8,6 +8,8 @@ import { IResetPasswordForm } from "@/types/auth/request";
 import { useRouter } from "next/navigation";
 import authService from "@/service/auth.service";
 import { showToastify } from "@/hooks/showToastify";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { getServerSession } from "next-auth";
 
 interface tokenProps {
   params: {
@@ -127,3 +129,18 @@ const ResetPassword = ({ params }: tokenProps) => {
 };
 
 export default ResetPassword;
+
+export const getServerSideProps = async (context: any) => {
+  const session = await getServerSession(context.req, context.res, authOptions);
+
+  if (session) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
+
+  return;
+};

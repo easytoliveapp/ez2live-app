@@ -2,6 +2,8 @@ import React from "react";
 import Link from "next/link";
 
 import FormComponent from "./FormComponent";
+import { authOptions } from "../api/auth/[...nextauth]/route";
+import { getServerSession } from "next-auth";
 
 const UserForgotPasswordPage = () => {
   return (
@@ -37,3 +39,18 @@ const UserForgotPasswordPage = () => {
 };
 
 export default UserForgotPasswordPage;
+
+export const getServerSideProps = async (context: any) => {
+  const session = await getServerSession(context.req, context.res, authOptions);
+
+  if (session) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
+
+  return;
+};

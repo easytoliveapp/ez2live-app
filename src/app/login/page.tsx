@@ -3,6 +3,8 @@ import React from "react";
 import Link from "next/link";
 import SocialLoginComponent from "./SocialLoginComponent";
 import FormComponent from "./FormComponent";
+import { authOptions } from "../api/auth/[...nextauth]/route";
+import { getServerSession } from "next-auth";
 
 const PageLogin = () => {
   return (
@@ -59,3 +61,18 @@ const PageLogin = () => {
 };
 
 export default PageLogin;
+
+export const getServerSideProps = async (context: any) => {
+  const session = await getServerSession(context.req, context.res, authOptions);
+
+  if (session) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
+
+  return;
+};
