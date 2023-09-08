@@ -21,7 +21,11 @@ const defaultOptions: ToastOptions = {
   transition: Slide,
 };
 
-export const useToastify = ({ type = "info", label, options }: ITostifyProps) =>
+export const showToastify = ({
+  type = "info",
+  label,
+  options,
+}: ITostifyProps) =>
   toast[type](label, {
     ...defaultOptions,
     ...options,

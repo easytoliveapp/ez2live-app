@@ -7,7 +7,7 @@ import * as Yup from "yup";
 import { IResetPasswordForm } from "@/types/auth/request";
 import { useRouter } from "next/navigation";
 import authService from "@/service/auth.service";
-import { useToastify } from "@/hooks/useToastify";
+import { showToastify } from "@/hooks/showToastify";
 
 interface tokenProps {
   params: {
@@ -49,11 +49,11 @@ const ResetPassword = ({ params }: tokenProps) => {
         password: values.password,
       })
       .then(() => {
-        useToastify({ label: "Senha alterada com sucesso!", type: "success" });
+        showToastify({ label: "Senha alterada com sucesso!", type: "success" });
         setTimeout(() => router.push("/login"), 2000);
       })
       .catch(() => {
-        useToastify({
+        showToastify({
           label: "Oops! Algo deu errado. Verifique os campos e tente novamente",
           type: "error",
         });

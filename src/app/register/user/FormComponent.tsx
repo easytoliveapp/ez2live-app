@@ -5,14 +5,12 @@ import { Formik, Form, Field } from "formik";
 import { Input, ButtonPrimary, FormItem } from "@/components/atoms";
 import * as Yup from "yup";
 import { IRegisterAccount } from "@/types/auth/request";
-import { useRouter } from "next/navigation";
 import authService from "@/service/auth.service";
-import { useToastify } from "@/hooks/useToastify";
-import { setItemToLocalStorage } from "@/utils/localStorageHelper";
+import { showToastify } from "@/hooks/showToastify";
+import { signIn } from "next-auth/react";
 
 const FormComponent = () => {
   const [loading, setLoading] = useState(false);
-  const router = useRouter();
   const SignUpValidationSchema = Yup.object().shape({
     name: Yup.string()
       .min(2, "Nome muito curto!")
@@ -46,28 +44,42 @@ const FormComponent = () => {
         email: values.email,
         password: values.password,
       })
-      .then((res: any) => {
+      .then(async (res: any) => {
         if (res?.data?.user) {
-          setItemToLocalStorage("user", res.data.user);
-          return router.push("/");
+          await signIn("credentials", {
+            email: values.email,
+            password: values.password,
+            callbackUrl: "/",
+          })
+            .then((resp) => {
+              console.log(resp);
+            })
+            .catch((error) => {
+              showToastify({
+                label:
+                  "Impossível criar sua conta. Por favor, tente novamente. " +
+                  error,
+                type: "error",
+              });
+            });
         }
 
         setLoading(false);
-        useToastify({
+        showToastify({
           label: "Impossível criar sua conta. Por favor, tente novamente.",
           type: "error",
         });
       })
       .catch((error) => {
         if (error?.response?.data?.code === 400) {
-          return useToastify({
+          return showToastify({
             label:
               "Impossível criar sua conta pois já existe um e-mail cadastrado.",
             type: "error",
           });
         }
 
-        useToastify({
+        showToastify({
           label: "Impossível criar sua conta. Por favor, tente novamente.",
           type: "error",
         });

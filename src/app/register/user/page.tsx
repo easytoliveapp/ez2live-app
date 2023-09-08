@@ -5,20 +5,21 @@ import facebookSvg from "@/images/Facebook.svg";
 import googleSvg from "@/images/Google.svg";
 import FormComponent from "./FormComponent";
 import Avatar from "@/images/easytolive/user/user_circle_color_primary.svg";
-const UserRegisterPage = () => {
-  const loginSocials = [
-    {
-      name: "Continuar com Facebook",
-      href: "#",
-      icon: facebookSvg,
-    },
-    {
-      name: "Continuar com Google",
-      href: "#",
-      icon: googleSvg,
-    },
-  ];
 
+const loginSocials = [
+  {
+    name: "Continuar com Facebook",
+    href: "#",
+    icon: facebookSvg,
+  },
+  {
+    name: "Continuar com Google",
+    href: "#",
+    icon: googleSvg,
+  },
+];
+
+const UserRegisterPage = () => {
   return (
     <div className={`nc-PageSignUp `} data-nc-id="PageSignUp">
       <div className="container mb-8 lg:mb-32">

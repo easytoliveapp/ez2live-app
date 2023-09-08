@@ -5,22 +5,17 @@ import userImage from "@/images/easytolive/user/user_circle_1.svg";
 import React, { Fragment, useEffect, useState } from "react";
 import Avatar from "@/components/atoms/Avatar/Avatar";
 import Link from "next/link";
-import {
-  getItemByLocalStorage,
-  removeItemFromLocalStorage,
-} from "@/utils/localStorageHelper";
-import { userLoginResponseProps } from "@/types/user";
+import { useSession, signOut } from "next-auth/react";
+import { IUser } from "@/types/auth/response";
 
 export default function AvatarDropdown() {
-  const [user, setUser] = useState<userLoginResponseProps>();
+  const { data: session } = useSession();
+  const [user, setUser] = useState<IUser>();
 
-  const handleLogout = () => {
-    removeItemFromLocalStorage("user");
-    window.location.href = "/login";
-  };
+  const handleLogout = () => signOut({ redirect: true });
 
   useEffect(() => {
-    setUser(getItemByLocalStorage("user"));
+    setUser(session?.user);
   }, []);
 
   return (
@@ -31,7 +26,7 @@ export default function AvatarDropdown() {
             <Popover.Button
               className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 focus:outline-none flex items-center justify-center`}
             >
-              <Avatar imgUrl={userImage} />
+              <Avatar imgUrl={user?.image ?? userImage} />
             </Popover.Button>
             <Transition
               as={Fragment}
@@ -46,7 +41,10 @@ export default function AvatarDropdown() {
                 <div className="overflow-hidden rounded-3xl shadow-lg ring-1 ring-black ring-opacity-5">
                   <div className="relative grid grid-cols-1 gap-6 bg-white dark:bg-neutral-800 py-7 px-6">
                     <div className="flex items-center space-x-3">
-                      <Avatar imgUrl={userImage} sizeClass="w-8 h-8" />
+                      <Avatar
+                        imgUrl={user?.image ?? userImage}
+                        sizeClass="w-8 h-8"
+                      />
 
                       <div className="flex-grow">
                         <h4 className="font-semibold">{user && user.name}</h4>

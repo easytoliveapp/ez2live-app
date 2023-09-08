@@ -6,7 +6,7 @@ import { Input, ButtonPrimary, FormItem } from "@/components/atoms";
 import * as Yup from "yup";
 import { IForgotPassword } from "@/types/auth/request";
 import authService from "@/service/auth.service";
-import { useToastify } from "@/hooks/useToastify";
+import { showToastify } from "@/hooks/showToastify";
 
 const FormComponent = () => {
   const [loading, setLoading] = useState(false);
@@ -27,7 +27,7 @@ const FormComponent = () => {
     await authService
       .forgotPassword({ email: values.email })
       .then(() => {
-        useToastify({
+        showToastify({
           label:
             "Se o e-mail está cadastrado em nosso app, você receberá uma mensagem em alguns minutos.",
           type: "success",
@@ -36,7 +36,7 @@ const FormComponent = () => {
         setLoading(false);
       })
       .catch(() => {
-        useToastify({
+        showToastify({
           label: "Oops! Algo deu errado. Verifique os campos e tente novamente",
           type: "error",
         });

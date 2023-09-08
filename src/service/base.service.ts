@@ -10,7 +10,7 @@ import { getItemByLocalStorage } from "../utils/localStorageHelper";
 const { API_URL } = config;
 
 const axiosInstance = axios.create({
-  timeout: 30000,
+  timeout: 60000,
   baseURL: API_URL,
   headers: { "Content-Type": "application/json" },
 });

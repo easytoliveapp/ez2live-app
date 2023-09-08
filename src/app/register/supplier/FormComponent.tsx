@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation";
 import Auth from "@/service/auth.service";
 import Supplier from "@/service/supplier.service";
 import { ICategoryProps } from "@/types/supplier";
-import { useToastify } from "@/hooks/useToastify";
+import { showToastify } from "@/hooks/showToastify";
 import { setItemToLocalStorage } from "@/utils/localStorageHelper";
 
 export interface IStepOneProps {
@@ -54,10 +54,10 @@ const FormComponent = () => {
       })
       .catch((error) => {
         if (error?.response?.data?.code === 401) {
-          useToastify({ label: "Usuário não autenticado.", type: "error" });
+          showToastify({ label: "Usuário não autenticado.", type: "error" });
         }
         if (error?.response?.data?.code === 404) {
-          useToastify({
+          showToastify({
             label: "Não foi encontrado nenhuma categoria.",
             type: "error",
           });
@@ -126,21 +126,21 @@ const FormComponent = () => {
         }
 
         setLoading(false);
-        useToastify({
+        showToastify({
           label: "Impossível criar sua conta. Por favor, tente novamente.",
           type: "error",
         });
       })
       .catch((error) => {
         if (error?.response?.data?.code === 400) {
-          useToastify({
+          showToastify({
             label:
               "Impossível criar sua conta pois já existe um e-mail cadastrado.",
             type: "error",
           });
         }
 
-        useToastify({
+        showToastify({
           label: "Impossível criar sua conta. Por favor, tente novamente.",
           type: "error",
         });

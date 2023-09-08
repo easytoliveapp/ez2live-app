@@ -17,7 +17,7 @@ const login = async (data: ILogIn) => {
 
 const loginSocial = async (data: any) => {
   return await BaseService.fetchData<ILoginResponse>({
-    url: "/auth/social-login",
+    url: "/auth/login/social",
     method: "post",
     data,
   });
@@ -47,4 +47,19 @@ const resetPassword = async (data: IResetPassword) => {
   });
 };
 
-export default { login, loginSocial, register, forgotPassword, resetPassword };
+const refreshToken = async (data: any) => {
+  return await BaseService.fetchData({
+    url: "/auth/refresh-token",
+    data,
+    method: "post",
+  });
+};
+
+export default {
+  login,
+  loginSocial,
+  register,
+  forgotPassword,
+  resetPassword,
+  refreshToken,
+};

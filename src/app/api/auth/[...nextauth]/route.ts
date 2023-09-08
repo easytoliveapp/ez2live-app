@@ -3,6 +3,8 @@ import GoogleProvider from "next-auth/providers/google";
 import FacebookProvider from "next-auth/providers/facebook";
 import AuthService from "@/service/auth.service";
 import NextAuth, { NextAuthOptions } from "next-auth";
+import dayjs from "dayjs";
+
 import { ILogIn } from "@/types/auth/request";
 
 export const authOptions: NextAuthOptions = {
@@ -13,7 +15,7 @@ export const authOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
   session: {
     strategy: "jwt",
-    maxAge: 30 * 24 * 60 * 60, // 30 days
+    maxAge: 7 * 24 * 60 * 60, // 7 days
   },
 
   providers: [
@@ -43,8 +45,8 @@ export const authOptions: NextAuthOptions = {
           const { user, tokens } = data;
 
           return {
-            ...user,
-            ...tokens,
+            user,
+            tokens,
           };
         } catch (error: any) {
           return Promise.reject(
@@ -64,17 +66,12 @@ export const authOptions: NextAuthOptions = {
   ],
 
   callbacks: {
-    async signIn({ user, account, profile }) {
-      /* Configurar informações do usuário disponiveis no JSON do provider aqui! */
-      console.log("signIn - user", user);
-      console.log("signIn - account", account);
-      console.log("signIn - profile", profile);
-
-      /*       if (account?.provider !== "credentials") {
+    async jwt({ token, user, account }) {
+      if (account && account?.provider !== "credentials") {
         const authSocialRes = await AuthService.loginSocial({
-          provider: account?.provider,
-          providerAccountId: account?.providerAccountId,
-          accessToken: account?.["access_token"],
+          user: { name: user?.name, email: user?.email },
+          socialId: account?.providerAccountId,
+          socialProvider: account?.provider,
         });
 
         if (authSocialRes.status !== 200) {
@@ -86,46 +83,56 @@ export const authOptions: NextAuthOptions = {
         }
 
         const { data } = authSocialRes;
-        const { user } = data;
+        const { user: userData, tokens } = data;
 
-        if (!user) {
+        if (!data?.user) {
           return Promise.reject(new Error("No user found"));
         }
 
-        return true;
-      } */
+        token = {
+          user: userData,
+          tokens,
+        };
+      } else {
+        token = {
+          ...token,
+          ...user,
+        };
+      }
 
-      return true;
+      if (!user && token) {
+        // This happens when user has logged but we need refresh token
+        if (dayjs().isAfter(dayjs(token.tokens.refresh.expires))) {
+          const refreshRes = await AuthService.refreshToken({
+            refreshToken: token.tokens.refresh.token,
+          });
+
+          if (refreshRes.status !== 200) {
+            return Promise.reject(
+              new Error("Api Response Error Http Status: " + refreshRes.status),
+            );
+          }
+
+          const { data } = refreshRes;
+          const { tokens } = data as any;
+
+          token = {
+            ...token,
+            tokens,
+          };
+        }
+      }
+
+      return token;
     },
 
-    async session({ session, token, user }) {
-      /* Configurar informações da sessão disponiveis no JSON do provider aqui! */
-
-      console.log("session", session);
-      console.log("token", token);
-      console.log("user", user);
-
+    async session({ session, token }) {
       session = {
         ...token,
         expires: session.expires,
       };
 
       return Promise.resolve(session);
-    },
-
-    async jwt({ token, user, account, profile }) {
-      /* Configurar informações do token disponiveis no JSON do provider aqui! */
-      console.log("JWT - token", token);
-      console.log("JWT - user", user);
-      console.log("JWT - account", account);
-      console.log("JWT - profile", profile);
-
-      token = {
-        ...token,
-        ...user,
-      };
-
-      return token;
     },
   },
 };

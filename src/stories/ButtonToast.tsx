@@ -4,7 +4,7 @@ import React from "react";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { TostifyType, useToastify } from "../hooks/useToastify";
+import { TostifyType, showToastify } from "../hooks/showToastify";
 
 interface ButtonProps {
   label: string;
@@ -17,7 +17,7 @@ const ButtonToast: React.FC<ButtonProps> = ({ label, type }) => {
       <button
         className="p-4 w-12 bg-slate-400"
         // eslint-disable-next-line react-hooks/rules-of-hooks
-        onClick={() => useToastify({ label, type })}
+        onClick={() => showToastify({ label, type })}
       >
         Notify!
       </button>

@@ -11,14 +11,10 @@ import { ISupplier, ISupplierList } from "@/types/supplier";
 import { useDebounce } from "use-debounce";
 import { categorieProps } from "@/components/atoms/CategoryCard";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { useToastify } from "@/hooks/useToastify";
+import { showToastify } from "@/hooks/showToastify";
 import { userLoginResponseProps } from "@/types/user";
-import { getItemByLocalStorage } from "@/utils/localStorageHelper";
-import { useRouter } from "next/navigation";
 
 function PageHome() {
-  const router = useRouter();
-
   const [suppliers, setSuppliers] = useState([]);
   const [search, setSearch] = useState("");
   const [textSearched] = useDebounce(search, 1000);
@@ -40,22 +36,22 @@ function PageHome() {
   };
 
   useEffect(() => {
-    const user = getItemByLocalStorage("user");
-    if (!user) return router.push("/login");
-
     setUser(user);
 
     getAllCategories()
       .then((res) => setCategories(res?.data?.supplierCategories?.results))
       .catch((error) => {
         if (error?.response?.data?.code === 401) {
-          useToastify({
+          showToastify({
             label: "Não autorizado. Por favor, autentique-se",
             type: "error",
           });
         }
         if (error?.response?.data?.code === 404) {
-          useToastify({ label: "Nenhuma categoria encontrada", type: "error" });
+          showToastify({
+            label: "Nenhuma categoria encontrada",
+            type: "error",
+          });
         }
       });
   }, []);
@@ -97,50 +93,46 @@ function PageHome() {
       .then(handleResponse)
       .catch((error) => {
         if (error?.response?.data?.code === 401) {
-          useToastify({ label: "Usuário não autenticado", type: "error" });
+          showToastify({ label: "Usuário não autenticado", type: "error" });
         }
       });
   }, [textSearched, pageNumber, supplierCategoriesFilter]);
 
   return (
-    user && (
-      <div className="md:w-[500px] w-full m-auto p-5">
-        <SearchCategory onChange={handleSetSearch} />
-        <div className="flex flex-wrap my-6 w-full gap-3">
-          {categories.map((category: categorieProps, index) => (
-            <CategoryCard
-              key={index}
-              name={category.title}
-              onClick={() => handleCategoryFilter(category.id)}
-              image={imageCategory}
-              isActive={category.id === supplierCategoriesFilter}
-            />
-          ))}
-        </div>
-        <InfiniteScroll
-          className="flex flex-col gap-3"
-          dataLength={suppliers.length}
-          next={() => setPageNumber(pageNumber + 1)}
-          hasMore={hasMore}
-          loader={<h4 className=" m-4 text-primary-ez2live">Carregando...</h4>}
-          endMessage={
-            <p className="m-4 text-primary-ez2live text-center">...</p>
-          }
-        >
-          {suppliers.map((supplier: ISupplier) => (
-            <SupplierCard
-              supplierCategory={supplier?.supplierCategory?.title}
-              supplierImage={SupplierLogo}
-              avaliation="4.6"
-              couponsAvaible={supplier.numberOfCoupons}
-              name={supplier.name}
-              key={supplier.id}
-              id={supplier.id}
-            />
-          ))}
-        </InfiniteScroll>
+    <div className="md:w-[500px] w-full m-auto p-5">
+      <SearchCategory onChange={handleSetSearch} />
+      <div className="flex flex-wrap my-6 w-full gap-3">
+        {categories.map((category: categorieProps, index) => (
+          <CategoryCard
+            key={index}
+            name={category.title}
+            onClick={() => handleCategoryFilter(category.id)}
+            image={imageCategory}
+            isActive={category.id === supplierCategoriesFilter}
+          />
+        ))}
       </div>
-    )
+      <InfiniteScroll
+        className="flex flex-col gap-3"
+        dataLength={suppliers.length}
+        next={() => setPageNumber(pageNumber + 1)}
+        hasMore={hasMore}
+        loader={<h4 className=" m-4 text-primary-ez2live">Carregando...</h4>}
+        endMessage={<p className="m-4 text-primary-ez2live text-center">...</p>}
+      >
+        {suppliers.map((supplier: ISupplier) => (
+          <SupplierCard
+            supplierCategory={supplier?.supplierCategory?.title}
+            supplierImage={SupplierLogo}
+            avaliation="4.6"
+            couponsAvaible={supplier.numberOfCoupons}
+            name={supplier.name}
+            key={supplier.id}
+            id={supplier.id}
+          />
+        ))}
+      </InfiniteScroll>
+    </div>
   );
 }
 

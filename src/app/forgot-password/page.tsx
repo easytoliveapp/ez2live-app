@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import FormComponent from "./FormComponent";
 
-const UserRegisterPage = () => {
+const UserForgotPasswordPage = () => {
   return (
     <div className={`nc-PageSignUp `} data-nc-id="PageSignUp">
       <div className="container mb-8 lg:mb-32">
@@ -36,4 +36,4 @@ const UserRegisterPage = () => {
   );
 };
 
-export default UserRegisterPage;
+export default UserForgotPasswordPage;

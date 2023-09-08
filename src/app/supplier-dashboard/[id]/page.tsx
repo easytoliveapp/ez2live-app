@@ -7,7 +7,7 @@ import BgSupplierExample from "@/images/easytolive/supplier/example-bg-supplier-
 import SupplierService from "@/service/supplier.service";
 import { ISupplier } from "@/types/supplier";
 import SupplierLogo from "@/images/easytolive/logo/logotipo-fundoazulroxo.svg";
-import { useToastify } from "@/hooks/useToastify";
+import { showToastify } from "@/hooks/showToastify";
 import Link from "next/link";
 
 interface tokenProps {
@@ -31,7 +31,7 @@ const SupplierDashBoard = ({ params }: tokenProps) => {
       })
       .catch((error) => {
         if (error?.response?.data?.code === 400) {
-          useToastify({
+          showToastify({
             label:
               "Oops! Parece que você acessou um endereço de estabelcimento errado",
             type: "error",

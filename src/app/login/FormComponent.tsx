@@ -7,7 +7,7 @@ import * as Yup from "yup";
 import { ILogIn } from "@/types/auth/request";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { useToastify } from "@/hooks/useToastify";
+import { showToastify } from "@/hooks/showToastify";
 import { signIn } from "next-auth/react";
 
 const FormComponent = () => {
@@ -54,7 +54,7 @@ const FormComponent = () => {
         //handleToast error in login
         if (error?.code === 401) {
           // eslint-disable-next-line react-hooks/rules-of-hooks
-          useToastify({
+          showToastify({
             label:
               "Oops! Algo deu errado com seu login. Verifique as credenciais e tente novamente",
             type: "error",
