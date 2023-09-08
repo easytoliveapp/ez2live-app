@@ -3,10 +3,8 @@ import React from "react";
 import Link from "next/link";
 import SocialLoginComponent from "./SocialLoginComponent";
 import FormComponent from "./FormComponent";
-import { authOptions } from "../api/auth/[...nextauth]/route";
-import { getServerSession } from "next-auth";
 
-const PageLogin = () => {
+const PageLogin = async () => {
   return (
     <div className={`nc-PageLogin`} data-nc-id="PageLogin">
       <div className="container mb-8 lg:mb-32">
@@ -27,7 +25,7 @@ const PageLogin = () => {
             nova conta? {}
             <Link
               className="text-primary-ez2live font-semibold"
-              href="/register/user"
+              href="/auth/register/user"
             >
               criar conta
             </Link>
@@ -49,7 +47,7 @@ const PageLogin = () => {
             <p> tem um estabelecimento e quer se juntar a nós? </p>
             <Link
               className="text-primary-ez2live text-sm font-semibold"
-              href="/register/supplier"
+              href="/auth/register/supplier"
             >
               cadastre-se!
             </Link>
@@ -61,18 +59,3 @@ const PageLogin = () => {
 };
 
 export default PageLogin;
-
-export const getServerSideProps = async (context: any) => {
-  const session = await getServerSession(context.req, context.res, authOptions);
-
-  if (session) {
-    return {
-      redirect: {
-        destination: "/",
-        permanent: false,
-      },
-    };
-  }
-
-  return;
-};

@@ -8,16 +8,14 @@ import { IResetPasswordForm } from "@/types/auth/request";
 import { useRouter } from "next/navigation";
 import authService from "@/service/auth.service";
 import { showToastify } from "@/hooks/showToastify";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import { getServerSession } from "next-auth";
 
-interface tokenProps {
+interface ITokenProps {
   params: {
     token: string;
   };
 }
 
-const ResetPassword = ({ params }: tokenProps) => {
+const ResetPassword = ({ params }: ITokenProps) => {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
@@ -52,7 +50,7 @@ const ResetPassword = ({ params }: tokenProps) => {
       })
       .then(() => {
         showToastify({ label: "Senha alterada com sucesso!", type: "success" });
-        setTimeout(() => router.push("/login"), 2000);
+        setTimeout(() => router.push("/auth/login"), 2000);
       })
       .catch(() => {
         showToastify({
@@ -129,18 +127,3 @@ const ResetPassword = ({ params }: tokenProps) => {
 };
 
 export default ResetPassword;
-
-export const getServerSideProps = async (context: any) => {
-  const session = await getServerSession(context.req, context.res, authOptions);
-
-  if (session) {
-    return {
-      redirect: {
-        destination: "/",
-        permanent: false,
-      },
-    };
-  }
-
-  return;
-};

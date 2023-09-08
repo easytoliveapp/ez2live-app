@@ -3,8 +3,6 @@ import Link from "next/link";
 import Image from "next/image";
 import FormComponent from "./FormComponent";
 import Supplier from "@/images/easytolive/home/home_4.svg";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import { getServerSession } from "next-auth";
 
 const SupplierRegisterPage = () => {
   return (
@@ -30,7 +28,10 @@ const SupplierRegisterPage = () => {
           {/* ==== */}
           <span className="block text-center text-black font-medium dark:text-neutral-300">
             voltar para {}
-            <Link className="text-primary-ez2live font-semibold" href="/login">
+            <Link
+              className="text-primary-ez2live font-semibold"
+              href="/auth/login"
+            >
               login
             </Link>
           </span>
@@ -41,18 +42,3 @@ const SupplierRegisterPage = () => {
 };
 
 export default SupplierRegisterPage;
-
-export const getServerSideProps = async (context: any) => {
-  const session = await getServerSession(context.req, context.res, authOptions);
-
-  if (session) {
-    return {
-      redirect: {
-        destination: "/",
-        permanent: false,
-      },
-    };
-  }
-
-  return;
-};

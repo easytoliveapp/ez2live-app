@@ -5,8 +5,6 @@ import facebookSvg from "@/images/Facebook.svg";
 import googleSvg from "@/images/Google.svg";
 import FormComponent from "./FormComponent";
 import Avatar from "@/images/easytolive/user/user_circle_color_primary.svg";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import { getServerSession } from "next-auth";
 
 const loginSocials = [
   {
@@ -46,7 +44,7 @@ const UserRegisterPage = () => {
             voltar para {}
             <Link
               className="text-primary-ez2live text-sm font-semibold"
-              href="/login"
+              href="/auth/login"
             >
               login
             </Link>
@@ -84,7 +82,7 @@ const UserRegisterPage = () => {
             <p> tem um estabelecimento e quer se juntar a nós? </p>
             <Link
               className="text-primary-ez2live text-sm font-semibold"
-              href="/register/supplier"
+              href="/auth/register/supplier"
             >
               cadastre-se!
             </Link>
@@ -96,18 +94,3 @@ const UserRegisterPage = () => {
 };
 
 export default UserRegisterPage;
-
-export const getServerSideProps = async (context: any) => {
-  const session = await getServerSession(context.req, context.res, authOptions);
-
-  if (session) {
-    return {
-      redirect: {
-        destination: "/",
-        permanent: false,
-      },
-    };
-  }
-
-  return;
-};
