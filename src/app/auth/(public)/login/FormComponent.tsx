@@ -5,13 +5,14 @@ import { Formik, Form, Field } from "formik";
 import { Input, ButtonPrimary, FormItem } from "@/components/atoms";
 import * as Yup from "yup";
 import { ILogIn } from "@/types/auth/request";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { showToastify } from "@/hooks/showToastify";
 import { signIn } from "next-auth/react";
 
 const FormComponent = () => {
   const [loading, setLoading] = useState(false);
+  const params = useSearchParams();
   const router = useRouter();
   const SignUpValidationSchema = Yup.object().shape({
     email: Yup.string()
@@ -37,12 +38,10 @@ const FormComponent = () => {
       redirect: false,
     })
       .then((resp) => {
-        console.log(resp);
-
-        //const callbackUrl = useSearchParams().get('callbackUrl') as string || '/';
+        const callbackUrl = params.get("callbackUrl");
 
         if (resp && !resp?.error) {
-          router.push("/");
+          router.push((callbackUrl as any) ?? "/");
         }
 
         if (resp && resp?.error) {
