@@ -1,69 +1,59 @@
 import React from 'react';
 import Image from 'next/image';
-import CouponRed from '@/images/easytolive/icons/couponred.svg'
-import CouponGreen from '@/images/easytolive/icons/coupongreen.svg'
-import CouponsYellow from '@/images/easytolive/icons/couponyellow.svg'
-import CouponBlack from '@/images/easytolive/icons/couponblack.svg'
-import ShoppingCart from '@/images/easytolive/icons/shopping_cart.svg'
-import ClockCircle from '@/images/easytolive/icons/clock_circle.svg'
-import ArrowRight from '@/images/easytolive/icons/arrow-next-right.svg'
+import CouponPrimary from '@/images/easytolive/icons/couponPrimary.svg'
+import ShoppingCartGreen from '@/images/easytolive/icons/shopping_cart_green.svg'
+import ClockCircleRed from '@/images/easytolive/icons/clock_circleRed.svg'
+import ArrowRight from '@/images/easytolive/icons/arrow-next-right-primary.svg'
 import classNames from '@/utils/classNames';
 
 interface SupplierCouponsProps {
   discount: string;
   unintsAmount: number;
   expirateTime: number;
-  products: string;
 }
 
 const SupplierCoupons: React.FC<SupplierCouponsProps> = ({
   discount,
   unintsAmount,
   expirateTime,
-  products
 }) => {
   return (
-    <div className='bg-white h-auto pl-4 rounded-full flex items-center gap-3 cursor-pointer'>
-      <Image
-        className='h-10 w-auto'
-        alt='Coupons Image'
-        src={parseInt(discount) >= 30 ? CouponGreen : (parseInt(discount) >= 20) ? CouponsYellow : CouponRed}
-      />
+    <div className='bg-primary-ez2live h-auto pl-4 rounded-full flex items-center gap-3 cursor-pointer'>
+      <h2 className=' font-bold text-white text-xl'>
+        {discount}%
+      </h2>
+
       <div
         className={
           classNames(
-            'rounded-full w-full py-2 px-2 gap-4 border-2 border-[#f2f2f2] hover:shadow-md active:border-[#d9d9d9]',
+            'rounded-full bg-white w-full py-3 gap-4 -m-[1px] hover:shadow-md',
           )
         }
       >
         <div className='Rounded-full flex items-center justify-evenly w-full'>
-          <h2 className=' font-bold text-xl'>
-            {discount}%
-          </h2>
+          <Image
+            className='h-10 w-auto'
+            alt='Coupons Image'
+            src={CouponPrimary}
+          />
+
           <span className='bg-gray-300 w-0.5 h-12'></span>
           <div className='flex flex-col gap-1.5 text-xs' >
-            <p className='flex items-center'>
+            <p className='flex font-semibold items-center text-secondary-ez2livegreen'>
               <Image
                 className='h-3.5 pr-2 w-auto'
                 alt='coupon-black'
-                src={CouponBlack}
+                src={ShoppingCartGreen}
+                color='white'
               />
               faltam {unintsAmount} unidades</p>
-            <p className='flex items-center'>
+            <p className='flex font-semibold items-center text-secondary-ez2livered'>
               <Image
                 className='h-3.5 pr-2 w-auto'
                 alt='coupon-black'
-                src={ClockCircle}
+                src={ClockCircleRed}
               />
               termina em {expirateTime} dias
-            </p>
-            <p className='flex items-center'>
-              <Image
-                className='h-3.5 pr-2 w-auto'
-                alt='coupon-black'
-                src={ShoppingCart}
-              />
-              {products}
             </p>
           </div>
           <div>
