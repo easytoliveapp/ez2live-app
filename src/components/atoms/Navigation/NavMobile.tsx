@@ -2,15 +2,14 @@
 
 import React from "react";
 import ButtonClose from "@/components/atoms/ButtonClose/ButtonClose";
-import Logo from "@/components/atoms/Logo/Logo";
 import { Disclosure } from "@/app/headlessui";
 import { NavItemType } from "./NavigationItem";
 import { NAVIGATION_DEMO_2 } from "@/data/navigation";
-import ButtonPrimary from "@/components/atoms/Button/ButtonPrimary";
 import SocialsList from "@/components/atoms/SocialsList/SocialsList";
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
-import SwitchDarkMode from "@/components/atoms/SwitchDarkMode/SwitchDarkMode";
 import Link from "next/link";
+import EasyToLiveLogo from '@/images/easytolive/logo/logocompleta-semfundoazulroxo.svg' 
+import Image from 'next/image'
 
 export interface NavMobileProps {
   data?: NavItemType[];
@@ -182,17 +181,10 @@ const NavMobile: React.FC<NavMobileProps> = ({
         <span className="absolute right-2 top-2 p-1">
           <ButtonClose onClick={onClickClose} />
         </span>
-
-        <div className="mt-5">{renderSearchForm()}</div>
       </div>
       <ul className="flex flex-col py-6 px-2 space-y-1">
         {data.map(_renderItem)}
       </ul>
-      <div className="flex items-center justify-between py-6 px-5 space-x-2">
-        <ButtonPrimary href={"/"} className="!px-10">
-          Buy this template
-        </ButtonPrimary>
-      </div>
     </div>
   );
 };
