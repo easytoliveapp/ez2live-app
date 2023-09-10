@@ -4,9 +4,10 @@ import "./globals.css";
 import "@/fonts/line-awesome-1.3.0/css/line-awesome.css";
 import "@/styles/index.scss";
 import "rc-slider/assets/index.css";
+import "react-toastify/dist/ReactToastify.css";
+
 import SiteHeader from "@/app/SiteHeader";
 import CommonClient from "./CommonClient";
-import "react-toastify/dist/ReactToastify.css";
 import ToastProvider from "@/providers/ToastProvider";
 import AuthProvider from "@/providers/SessionProvider";
 import { getServerSession } from "next-auth";
