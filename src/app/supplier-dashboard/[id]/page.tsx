@@ -36,7 +36,7 @@ const SupplierDashBoard = ({ params }: tokenProps) => {
 
   return (
     <div className="relative md:w-[500px] h-full w-full mx-auto">
-      <div className='h-40 w-full bg-gradient-to-r from-primary-ez2lliveBlue to-primary-600'>
+      <div className='h-40 w-full bg-gradient-to-r from-alternative-blue to-primary-600'>
       </div>
       <Link className='absolute flex items-center justify-center rounded-full top-4 left-4 cursor-pointer h-8 w-8 bg-neutral-400 opacity-75 rotate-180'
       href={'/'}>
