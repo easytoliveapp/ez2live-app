@@ -42,14 +42,14 @@ const SupplierDashBoard = ({ params }: tokenProps) => {
           alt='bg-supplier-example'
           src={BgSupplierExample}
         />
-        <div className='absolute top-40 py-8 px-5 rounded-t-3xl bg-primary-ez2livebg w-full'>
+        <div className='absolute top-40 py-8 px-5 rounded-t-3xl bg-primary-100 w-full'>
           <div className='flex items-center justify-between'>
             <div className='flex gap-1'>
               <Link href={`/`} className='text-xs underline'>
                 {supplier?.supplierCategory.title}
               </Link>
               <p className='text-xs'>
-                 / {supplier?.name}
+                / {supplier?.name}
               </p>
             </div>
             <Avaliation note={'4.7'} />
