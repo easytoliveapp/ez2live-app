@@ -44,6 +44,7 @@
     "yup": "^1.2.0"
   },
   "devDependencies": {
+    "@netlify/plugin-nextjs": "^4.37.4",
     "@next/eslint-plugin-next": "^13.4.10",
     "@storybook/addon-essentials": "7.0.26",
     "@storybook/addon-interactions": "7.0.26",
