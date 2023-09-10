@@ -16,7 +16,7 @@ function PageDashboard() {
           </div>
         </div>
 
-        <div className="grid gap-3 md:grid-cols-3 justify-center gap-20">
+        <div className="grid md:grid-cols-3 justify-center gap-20">
           {/* cards */}
           {[
             {

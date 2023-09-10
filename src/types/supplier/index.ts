@@ -12,7 +12,7 @@ export interface ISupplier {
   address: IAddress;
   document: string;
   numberOfCoupons: number;
-  coupons: [ICoupon];
+  coupons: ICoupon[];
   email: string;
   id: string;
   supplierCategory: iSupplierCategory

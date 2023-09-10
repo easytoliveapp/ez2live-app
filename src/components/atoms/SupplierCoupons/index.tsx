@@ -1,21 +1,22 @@
 import React from 'react';
-import Image from 'next/image';
+import Image, { StaticImageData } from 'next/image';
 import CouponPrimary from '@/images/easytolive/icons/couponPrimary.svg'
 import ShoppingCartGreen from '@/images/easytolive/icons/shopping_cart_green.svg'
 import ClockCircleRed from '@/images/easytolive/icons/clock_circleRed.svg'
-import ArrowRight from '@/images/easytolive/icons/arrow-next-right-primary.svg'
 import classNames from '@/utils/classNames';
 
 interface SupplierCouponsProps {
   discount: string;
   unintsAmount: number;
   expirateTime: number;
+  icon: string | StaticImageData,
 }
 
 const SupplierCoupons: React.FC<SupplierCouponsProps> = ({
   discount,
   unintsAmount,
   expirateTime,
+  icon,
 }) => {
   return (
     <div className='bg-primary-ez2live h-auto pl-4 rounded-full flex items-center gap-3 cursor-pointer'>
@@ -60,7 +61,7 @@ const SupplierCoupons: React.FC<SupplierCouponsProps> = ({
             <Image
               className='h-6 w-auto'
               alt='arrow right'
-              src={ArrowRight}
+              src={icon}
             />
           </div>
         </div>
