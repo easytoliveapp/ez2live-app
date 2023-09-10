@@ -55,6 +55,7 @@ module.exports = {
           alertGreen: customColors("--c-secEz2livegreen"),
           alertRed: customColors("--c-secEz2livered"),
           alertYelow: customColors("--c-secEz2liveyellow"),
+          darker: customColors("--c-dark")
         }
       },
     },
