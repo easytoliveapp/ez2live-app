@@ -29,7 +29,6 @@ function PageHome() {
   const [hasMore, setHasMore] = useState(true);
   const [supplierCategoriesFilter, setSupplierCategoriesFilter] = useState('');
   const [user, setUser] = useState<userLoginResponseProps>();
-  const [controlmodalNotVerified, setControlModalNotVerified] = useState(false)
   const [ControlModalSupplierUploadRegister, setControlModalSupplierUploadRegister] = useState(true)
 
   const getAllCategories = async () => {
@@ -47,7 +46,7 @@ function PageHome() {
     setUser(localUser);
     if (user?.isSupplier) {
       if (user.isVerified === false) {
-        setControlModalNotVerified(true)
+        return router.push('/supplier-not-verified')
       }
       else {
         setControlModalSupplierUploadRegister(true)
@@ -110,18 +109,14 @@ function PageHome() {
 
   return user && (
     <div className="md:w-[500px] w-full m-auto p-5">
-      <ModalEdit show={controlmodalNotVerified} onCloseModalEdit={() => setControlModalNotVerified(false)}>
-        <h1> Bem-vindo ao Easy2Live. Seu cadastro foi enviado com sucesso e agora é só esperar a aprovação feita pelo nosso time. Bom ter você com a gente!</h1>
-        <p>Será enviado um email de aprovação, quando realizada.</p>
-      </ModalEdit>
       <ModalEdit
         show={ControlModalSupplierUploadRegister}
         onCloseModalEdit={() => setControlModalSupplierUploadRegister(false)}>
-          <div className='h-[85vh]'>
-            <CompleteSupplierRegister/>
-            <ButtonThird onClick={()=> setControlModalNotVerified(false)}>cancelar</ButtonThird>
-          </div>
-        
+        <div className='h-[85vh] flex flex-col items-center justify-around'>
+          <CompleteSupplierRegister />
+          <ButtonThird onClick={() => setControlModalSupplierUploadRegister(false)}>cancelar</ButtonThird>
+        </div>
+
       </ModalEdit>
       <SearchCategory onChange={handleSetSearch} />
       <div className='flex flex-wrap my-6 w-full gap-3'>

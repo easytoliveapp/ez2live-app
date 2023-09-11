@@ -12,3 +12,4 @@ export {default as SupplierCoupons} from './SupplierCoupons';
 export {default as ItemTypeImage} from './ItemTypeImageIcon'
 export {default as TextArea} from './Textarea'
 export { default as CompleteSupplierRegister } from './CompleteSupplierRegister'
+export {default as SupplierNotVerified} from '../../app/supplier-not-verified/page'

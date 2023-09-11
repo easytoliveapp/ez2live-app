@@ -32,7 +32,7 @@ const CompleteSupplierRegister = () => {
   const handleFormSubmit = async (values: ISupplierCompleteRegister) => {
     setloading(true)
     //criar endpoint para atualizar cadastro supplier
-    console.log(values, 'formulário enviado')
+    console.log(values)
     setloading(false)
   };
 
@@ -112,9 +112,7 @@ const CompleteSupplierRegister = () => {
               invalid={!!(errors.description && touched.description)}
             >
               <Field
-                invalid={!!(errors.description && touched.description)}
                 name="description"
-                type="text"
                 label="description"
                 component={TextArea}
                 className="h-32 bg-white text-black"
