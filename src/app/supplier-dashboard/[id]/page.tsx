@@ -72,10 +72,14 @@ const SupplierDashBoard = ({ params }: tokenProps) => {
 
           {supplier?.coupons && (supplier?.coupons.map((coupon, key) => (
             <SupplierCoupons
+              supplierCategory={supplier.supplierCategory.title}
+              supplierName={supplier.name}
+              id={coupon.id}
               discount={coupon.discount}
               expirateTime={5}
               unintsAmount={20}
               key={key}
+              supplierLogo= {SupplierLogo}
             />
           )))
           }
