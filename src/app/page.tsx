@@ -2,13 +2,12 @@
 
 import React, { useEffect, useState } from "react";
 import { SupplierCard } from '@/components/mols';
-import { ButtonPrimary, CategoryCard, FormItem, ImputImage, TextArea } from '@/components/atoms'
-import * as Yup from "yup";
+import { CategoryCard, CompleteSupplierRegister } from '@/components/atoms'
 import SupplierLogo from '@/images/easytolive/logo/logotipo-fundoazulroxo.svg'
 import SearchCategory from '@/app/searchCategory'
 import SupplierService from '@/service/supplier.service'
 import imageCategory from '@/images/easytolive/icons/categorie-example.svg'
-import { ISUpplierCompleteRegister, ISupplier, ISupplierList } from '@/types/supplier';
+import { ISupplier, ISupplierList } from '@/types/supplier';
 import { useDebounce } from 'use-debounce';
 import { categorieProps } from '@/components/atoms/CategoryCard';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -17,7 +16,6 @@ import { userLoginResponseProps } from "@/types/user";
 import { getItemByLocalStorage } from "@/utils/localStorageHelper";
 import { useRouter } from "next/navigation";
 import ModalEdit from '@/components/mols/Modal/ModalEdit';
-import { Field, Form, Formik } from 'formik';
 import ButtonThird from '@/components/atoms/Button/ButtonThird';
 
 function PageHome() {
@@ -32,14 +30,7 @@ function PageHome() {
   const [supplierCategoriesFilter, setSupplierCategoriesFilter] = useState('');
   const [user, setUser] = useState<userLoginResponseProps>();
   const [controlmodalNotVerified, setControlModalNotVerified] = useState(false)
-  const [ControlModalSupplierUploadRegister, setControlModalSupplierUploadRegister] = useState(false)
-  const [loading, setloading] = useState(false);
-
-  const CompleteSupplierRegisterSchema = Yup.object().shape({
-    logo: Yup.string().required("Logo é requerido"),
-    ilustration_image: Yup.string().required("Escolha uma imagem ilustrativa que ficará na sua página de estabelecimento."),
-    description: Yup.string().required("escolha uma descrição para seu estabelecimento")
-  });
+  const [ControlModalSupplierUploadRegister, setControlModalSupplierUploadRegister] = useState(true)
 
   const getAllCategories = async () => {
     const res: any = await SupplierService.getSupplierCategories();
@@ -75,13 +66,6 @@ function PageHome() {
         }
       });
   }, []);
-
-  const handleFormSubmit = async (values: ISUpplierCompleteRegister) => {
-    setloading(true)
-    //criar endpoint para atualizar cadastro supplier
-    console.log(values, 'formulário enviado')
-    setloading(false)
-  };
 
   function handleSetSearch(e: any) {
     setSearch(e.target.value)
@@ -131,92 +115,13 @@ function PageHome() {
         <p>Será enviado um email de aprovação, quando realizada.</p>
       </ModalEdit>
       <ModalEdit
-        show={true}
+        show={ControlModalSupplierUploadRegister}
         onCloseModalEdit={() => setControlModalSupplierUploadRegister(false)}>
-        <div className='h-[85vh] w-auto'>
-          <div className='mt-8 mb-16 flex items-center justify-between'>
-            <h2 className=" pl-6 flex items-center text-2xl leading-[115%] md:text-5xl md:leading-[115%] font-bold text-black dark:text-neutral-100 justify-center">
-              Completar <br /> cadastro
-            </h2>
-            <div>
-              <div className='relative rounded-full w-40 h-16 bg-gradient-to-r from-secondary-ez2live to-secondary-ez2livebg'>
-                <div className='absolute top-8 right-0 rounded-full w-16 h-16 bg-gradient-to-r from-secondary-ez2live to-secondary-ez2livebg'>
-                </div>
-              </div>
-            </div>
+          <div className='h-[85vh]'>
+            <CompleteSupplierRegister/>
+            <ButtonThird onClick={()=> setControlModalNotVerified(false)}>cancelar</ButtonThird>
           </div>
-
-          <Formik
-            initialValues={{
-              logo: '',
-              ilustration_image: '',
-              description: ''
-            }}
-            validationSchema={CompleteSupplierRegisterSchema}
-            onSubmit={handleFormSubmit}>
-            {({ errors, touched, handleSubmit }) => (
-              <Form
-              onSubmit={handleSubmit}
-              className="flex flex-col gap-3">
-                <FormItem
-                  label='logo'
-                  errorMessage={errors.logo}
-                  invalid={!!(errors.logo && touched.logo)}
-                >
-                  <Field
-                    invalid={!!(errors.logo && touched.logo)}
-                    name="logo"
-                    label="logo"
-                    accept= "image/*"
-                    component={ImputImage}
-                  />
-                </FormItem>
-                <FormItem
-                  label='imagem ilustrativa'
-                  errorMessage={errors.ilustration_image}
-                  invalid={!!(errors.ilustration_image && touched.ilustration_image)}
-                >
-                  <Field
-                    invalid={!!(errors.ilustration_image && touched.ilustration_image)}
-                    name="ilustration_image"
-                    label="ilustration_image"
-                    accept= "image/*"
-                    component={ImputImage}
-                  />
-                </FormItem>
-                <FormItem
-                  label='descrição'
-                  errorMessage={errors.description}
-                  invalid={!!(errors.description && touched.description)}
-
-                >
-                  <Field
-                    invalid={!!(errors.description && touched.description)}
-                    name="description"
-                    type="text"
-                    label="description"
-                    component={TextArea}
-                    className= "h-32 bg-white text-black"
-                    placeholder="escrever descrição do estabelecimento"
-                  />
-                </FormItem>
-                <ButtonPrimary
-                  type="submit"
-                  className="w-full mt-6"
-                  disabled={loading}
-                  loading={loading}
-                >
-                  Completar cadastro
-                </ButtonPrimary>
-
-                <ButtonThird onClick={() => setControlModalSupplierUploadRegister(false)}>
-                  cancelar
-                </ButtonThird>
-
-              </Form>
-            )}
-          </Formik>
-        </div>
+        
       </ModalEdit>
       <SearchCategory onChange={handleSetSearch} />
       <div className='flex flex-wrap my-6 w-full gap-3'>
