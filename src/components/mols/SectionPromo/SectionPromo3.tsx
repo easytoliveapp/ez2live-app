@@ -4,7 +4,7 @@ import rightImgDemo from "@/images/promo3.png";
 import backgroundLineSvg from "@/images/BackgroundLine.svg";
 import Badge from "@/components/atoms/Badge/Badge";
 import { Input } from "@/components";
-import ButtonCircle from "@/components/atoms/Button/ButtonCircle";
+import ButtonCircle from "@/components/atoms/Button/ButtonBasic";
 import { ArrowSmallRightIcon } from "@heroicons/react/24/solid";
 import Image from "next/image";
 
@@ -15,11 +15,11 @@ export interface SectionPromo3Props {
 const SectionPromo3: FC<SectionPromo3Props> = ({ className = "lg:pt-10" }) => {
   return (
     <div className={`nc-SectionPromo3 ${className}`}>
-      <div className="relative flex flex-col lg:flex-row bg-slate-50 dark:bg-slate-800 rounded-2xl sm:rounded-[40px] p-4 pb-0 sm:p-5 sm:pb-0 lg:p-24">
+      <div className="relative flex flex-col lg:flex-row bg-slate-50  rounded-2xl sm:rounded-[40px] p-4 pb-0 sm:p-5 sm:pb-0 lg:p-24">
         <div className="absolute inset-0">
           <Image
             fill
-            className="absolute w-full h-full object-contain object-bottom dark:opacity-5"
+            className="absolute w-full h-full object-contain object-bottom"
             src={backgroundLineSvg}
             alt="backgroundLineSvg"
           />
@@ -29,26 +29,26 @@ const SectionPromo3: FC<SectionPromo3Props> = ({ className = "lg:pt-10" }) => {
           <h2 className="font-semibold text-4xl md:text-5xl">
             {`Don't miss out on special offers`}
           </h2>
-          <span className="block mt-5 text-neutral-500 dark:text-neutral-400">
+          <span className="block mt-5 text-neutral-500 ">
             Register to receive news about the latest, savings combos, discount
             codes...
           </span>
           <ul className="space-y-4 mt-10">
             <li className="flex items-center space-x-4">
               <Badge color="purple" name="01" />
-              <span className="font-medium text-neutral-700 dark:text-neutral-300">
+              <span className="font-medium text-neutral-700 ">
                 Savings combos
               </span>
             </li>
             <li className="flex items-center space-x-4">
               <Badge name="02" />
-              <span className="font-medium text-neutral-700 dark:text-neutral-300">
+              <span className="font-medium text-neutral-700 ">
                 Freeship
               </span>
             </li>
             <li className="flex items-center space-x-4">
               <Badge color="red" name="03" />
-              <span className="font-medium text-neutral-700 dark:text-neutral-300">
+              <span className="font-medium text-neutral-700 ">
                 Premium magazines
               </span>
             </li>

@@ -69,7 +69,7 @@ const SectionGridMoreExplore: FC<SectionGridMoreExploreProps> = ({
     return (
       <div>
         <Heading
-          className="mb-12 lg:mb-14 text-neutral-900 dark:text-neutral-50"
+          className="mb-12 lg:mb-14 text-neutral-900 "
           fontClass="text-3xl md:text-4xl 2xl:text-5xl font-semibold"
           isCenter
           desc=""
@@ -77,7 +77,7 @@ const SectionGridMoreExplore: FC<SectionGridMoreExploreProps> = ({
           Start exploring.
         </Heading>
         <Nav
-          className="p-1 bg-white dark:bg-neutral-800 rounded-full shadow-lg overflow-x-auto hiddenScrollbar"
+          className="p-1 bg-white  rounded-full shadow-lg overflow-x-auto hiddenScrollbar"
           containerClassName="mb-12 lg:mb-14 relative flex justify-center w-full text-sm md:text-base"
         >
           {[
