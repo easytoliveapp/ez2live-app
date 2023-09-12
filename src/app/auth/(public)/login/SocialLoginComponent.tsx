@@ -5,15 +5,16 @@ import facebookSvg from "@/images/Facebook.svg";
 import googleSvg from "@/images/Google.svg";
 import Image from "next/image";
 import { signIn } from "next-auth/react";
+import { showToastify } from "@/hooks/showToastify";
 
 const loginSocials = [
   {
-    name: "Continue with Facebook",
+    name: "Continuar com facebook",
     provider: "facebook",
     icon: facebookSvg,
   },
   {
-    name: "Continue with Google",
+    name: "Continuar com google",
     provider: "google",
     icon: googleSvg,
   },
@@ -26,11 +27,11 @@ const SocialLoginComponent = () => {
     setLoading(true);
 
     signIn(provider, { callbackUrl: "/" })
-      .then((resp) => {
-        console.log(resp);
-      })
-      .catch((error) => {
-        console.log(error);
+      .catch(() => {
+        showToastify({
+          type: "error",
+          label: "Erro ao tentar fazer login com " + provider,
+        });
       })
       .finally(() => {
         setLoading(false);
