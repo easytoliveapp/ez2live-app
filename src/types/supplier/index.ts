@@ -41,3 +41,16 @@ export interface ICategoryProps {
   title: string;
   id: string;
 }
+
+export interface ISupplierLoginResponseProps {
+  active: boolean,
+  address: IAddress,
+  coupons: ICoupon,
+  email: string,
+  id: string,
+  isEmailVerified: boolean,
+  isSupplier: boolean,
+  isVerified: boolean,
+  name: string,
+  role: string,
+}

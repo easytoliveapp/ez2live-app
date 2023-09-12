@@ -1,13 +1,23 @@
 "use client"
 
 import CouponListPage from '@/components/orgs/CouponListPage';
+import { ISupplierLoginResponseProps } from '@/types/supplier';
 import { getItemByLocalStorage } from '@/utils/localStorageHelper';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 const SupplierProfilePage = () => {
-  const supplier = getItemByLocalStorage('user');
+  const [supplier, setSupplier] = useState<ISupplierLoginResponseProps>()
 
-  return <CouponListPage isSupplierAccount supplierId={supplier.id} />
+  useEffect(()=>{
+    const supplier = getItemByLocalStorage('user')
+    setSupplier(supplier)   
+  },[]);
+
+  return (
+    supplier && 
+    <CouponListPage isSupplierAccount supplierId={supplier.id} />
+  ) 
+
 };
 
 export default SupplierProfilePage;
