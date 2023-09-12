@@ -1,5 +1,6 @@
-import CouponListHoc from '@/hoc/CouponListHoc';
 import React from 'react';
+
+import CouponListPage from '@/components/orgs/CouponListPage';
 
 export interface ITokenProps {
   params: {
@@ -7,10 +8,6 @@ export interface ITokenProps {
   };
 };
 
-const SupplierDashBoard = ({ params }: ITokenProps) => {
-  return (
-    <CouponListHoc id={params.id} />
-  )
-};
+const SupplierDashBoard = ({ params: { id } }: ITokenProps) => <CouponListPage isSupplierAccount supplierId={id} />;
 
 export default SupplierDashBoard;

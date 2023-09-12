@@ -1,24 +1,13 @@
 "use client"
 
-import CouponListHoc from '@/hoc/CouponListHoc';
+import CouponListPage from '@/components/orgs/CouponListPage';
 import { getItemByLocalStorage } from '@/utils/localStorageHelper';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 const SupplierProfilePage = () => {
-  const [userId, setUserId] = useState('')
+  const supplier = getItemByLocalStorage('user');
 
-  useEffect(() => {
-    const user = getItemByLocalStorage('user')
-    setUserId(user.id)
-  }
-    , [])
-
-  return (
-    <div>
-      {userId && <CouponListHoc id={userId} />}
-    </div>
-
-  )
+  return <CouponListPage isSupplierAccount supplierId={supplier.id} />
 };
 
 export default SupplierProfilePage;
