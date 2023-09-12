@@ -8,6 +8,6 @@ export interface ITokenProps {
   };
 };
 
-const SupplierDashBoard = ({ params: { id } }: ITokenProps) => <CouponListPage isSupplierAccount supplierId={id} />;
+const SupplierDashBoard = ({ params: { id } }: ITokenProps) => <CouponListPage supplierId={id} />;
 
 export default SupplierDashBoard;

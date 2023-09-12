@@ -15,7 +15,7 @@ const SupplierProfilePage = () => {
 
   return (
     supplier && 
-    <CouponListPage isSupplierAccount supplierId={supplier.id} />
+    <CouponListPage supplierId={supplier.id} />
   ) 
 
 };
