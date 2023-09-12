@@ -3,20 +3,20 @@ import { BaseService } from './base.service';
 
 
 //ONLY ADMINS------------------------------------------
-const createUsers = async (data : ICreateUsers)=> {
+const createUsers = async (data: ICreateUsers) => {
   return await BaseService.fetchData({
     url: "/users",
     method: "post",
     data,
   })
-  }
+}
 const getAllUsers = async (data: Partial<ISearchUsers>) => {
   return await BaseService.fetchData({
     url: `/users/?${data}`,
     method: 'get'
   })
 }
-const deleteUser = async(id:string)=> {
+const deleteUser = async (id: string) => {
   return await BaseService.fetchData({
     url: `/users/${id}`,
     method: 'delete',
@@ -24,7 +24,7 @@ const deleteUser = async(id:string)=> {
 }
 //-----------------------------------------------------
 
-const updateUser = async (id:string ,data: Partial<IUpdateUser>)=> {
+const updateUser = async (id: string, data: Partial<IUpdateUser>) => {
   return await BaseService.fetchData({
     url: `/users/${id}`,
     method: "patch",
@@ -32,20 +32,20 @@ const updateUser = async (id:string ,data: Partial<IUpdateUser>)=> {
   })
 }
 
-const getUser = async(id:string)=> {
+const getUser = async (id: string) => {
   return await BaseService.fetchData({
     url: `/users/${id}`,
     method: 'get',
   })
 }
 
-const eraseUser = async(userId: string, password : string)=> {
+const eraseUser = async (userId: string, password: string) => {
   return await BaseService.fetchData({
-    url: `/user/${userId}/erase-account`,
+    url: `/users/${userId}/erase-account`,
     method: 'post',
-    data: password
+    data: { password }
   })
 }
 
 
-  export default { createUsers , getAllUsers , updateUser, getUser, deleteUser, eraseUser }
+export default { createUsers, getAllUsers, updateUser, getUser, deleteUser, eraseUser };
