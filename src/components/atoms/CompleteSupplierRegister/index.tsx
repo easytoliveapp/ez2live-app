@@ -31,8 +31,8 @@ const CompleteSupplierRegister = () => {
 
   const handleFormSubmit = async (values: ISupplierCompleteRegister) => {
     setloading(true)
-    //criar endpoint para atualizar cadastro supplier
-    console.log(values)
+    //TO DO -- Criar endpoint para enviar as imagens de logo e ilustração do supplier
+    return values
     setloading(false)
   };
 
