@@ -1,8 +1,6 @@
 "use client"
 
-import couponsService from '@/service/coupons.service';
-import { ICoupon } from '@/types/coupons';
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Image, { StaticImageData } from 'next/image'
 import CouponGreen from '@/images/easytolive/icons/coupongreen.svg'
 import ClockCircleRed from '@/images/easytolive/icons/clock_circleRed.svg'
@@ -19,7 +17,6 @@ interface CouponProps {
 };
 
 const CouponPage: React.FC<CouponProps> = ({
-  id,
   unintsAmount,
   couponDiscount,
   expirateTime,
@@ -27,20 +24,6 @@ const CouponPage: React.FC<CouponProps> = ({
   supplierName,
   supplierCategory
 }) => {
-  const [coupon, setCoupon] = useState<ICoupon>()
-
-  const getCoupon = async (id: string) => {
-    const res: any = await couponsService.getCouponById(id)
-    return res
-  };
-
-  useEffect(() => {
-    // getCoupon(id)
-    // .then((res)=> console.log(res))
-    // .catch((error)=> console.log(error))
-    // console.log(coupon)
-  }, [])
-
   return (
     <div className='h-[85vh] flex flex-col text-black'>
       <h1 className=' text-3xl py-4 mb-2 font-bold text-black'>Creatina</h1>
@@ -84,7 +67,7 @@ const CouponPage: React.FC<CouponProps> = ({
             <p>{expirateTime}</p>
           </div>
         </div>
-        <AccordionInfo data={[{name: "Regras de uso", content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa, dolorem. Quae debitis hic ipsum inventore assumenda laborum reprehenderit, asperiores nostrum, molestiae odio excepturi maiores possimus ad cum quia et doloremque?"}]}></AccordionInfo>
+        <AccordionInfo data={[{ name: "Regras de uso", content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa, dolorem. Quae debitis hic ipsum inventore assumenda laborum reprehenderit, asperiores nostrum, molestiae odio excepturi maiores possimus ad cum quia et doloremque?" }]}></AccordionInfo>
       </div>
     </div>
   )
