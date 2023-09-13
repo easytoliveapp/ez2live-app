@@ -37,6 +37,7 @@ const ModalEdit: FC<ModalEditProps> = ({ show, onCloseModalEdit, children }) => 
   const renderTrigger = () => {
     return null;
   };
+
   return (
     <NcModal
       isOpenProp={show}
@@ -48,4 +49,5 @@ const ModalEdit: FC<ModalEditProps> = ({ show, onCloseModalEdit, children }) => 
     />
   );
 };
+
 export default ModalEdit;
