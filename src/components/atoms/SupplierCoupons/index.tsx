@@ -41,8 +41,10 @@ const SupplierCoupons: React.FC<SupplierCouponsProps> = ({
       >
         <div className='flex flex-col h-auto items-center'>
           <Coupon id={id} couponDiscount={discount} expirateTime={5} unintsAmount={10} supplierCategory={supplierCategory} supplierLogo={supplierLogo} supplierName={supplierName} />
-          <ButtonPrimary>Eu quero!</ButtonPrimary>
-          <ButtonThird onClick={() => setShowModal(false)}>não quero mais</ButtonThird>
+          <ButtonPrimary className='w-full mx-4 max-w-md' >Eu quero!</ButtonPrimary>
+          <ButtonThird
+            className='w-full mx-4 max-w-md'
+            onClick={() => setShowModal(false)}>não quero mais</ButtonThird>
         </div>
       </ModalEdit>
 

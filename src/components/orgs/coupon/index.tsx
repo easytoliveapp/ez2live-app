@@ -1,5 +1,3 @@
-"use client"
-
 import React from 'react';
 import Image, { StaticImageData } from 'next/image'
 import CouponGreen from '@/images/easytolive/icons/coupongreen.svg'
@@ -46,8 +44,9 @@ const CouponPage: React.FC<CouponProps> = ({
             termina em {expirateTime} dias
           </p>
         </div>
-        <span className='w-32 text-xl text-white bg-primary-ez2live flex items-center justify-center p-5 rounded-full'>
-          {couponDiscount}
+        <span className='relative w-32 text-xl text-white bg-primary-ez2live flex items-center justify-center p-5 rounded-full'>
+          {couponDiscount}%
+          <span className='absolute -top-4 -left-4 w-10 h-10 rounded-full bg-gradient-to-r '></span>
         </span>
       </div>
       <hr className="border-slate-200 dark:border-slate-700 mb-6"></hr>
