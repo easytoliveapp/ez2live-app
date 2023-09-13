@@ -5,7 +5,6 @@ export interface TextareaProps
     field?: any
   }
 
-// eslint-disable-next-line react/display-name
 const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
   ({ field, className = "", children, rows = 4, ...args }, ref ) => {
     return (
@@ -22,4 +21,4 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
   }
 );
 
-export default Textarea;
+export default Textarea.displayName = 'Textarea';

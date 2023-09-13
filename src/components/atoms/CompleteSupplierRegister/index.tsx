@@ -18,12 +18,12 @@ const CompleteSupplierRegister = () => {
 
     logo: Yup.mixed()
       .nullable()
-      .required('Ensira uma logo para seu estabelecimento')
+      .required('Insira uma logo para seu estabelecimento')
       .test("FILE_SIZE", "Arquivo muito grande! Selecione um de menor tramanho", (value: any) => !value || (value && value.size <= 1024 * 1024))
       .test("FILE_FORMAT", "Arquivo com formato não suportado", (value: any) => !value || (value && ['image/png', 'image/jpeg'].includes(value.type))),
     ilustration_image: Yup.mixed()
       .nullable()
-      .required('Ensira uma logo para seu estabelecimento')
+      .required('Insira uma logo para seu estabelecimento')
       .test("FILE_SIZE", "Arquivo muito grande! Selecione um de menor tramanho", (value: any) => !value || (value && value.size <= 1024 * 1024))
       .test("FILE_FORMAT", "Arquivo com formato não suportado", (value: any) => !value || (value && ['image/png', 'image/jpeg'].includes(value.type))),
     description: Yup.string().required("escolha uma descrição para seu estabelecimento")
