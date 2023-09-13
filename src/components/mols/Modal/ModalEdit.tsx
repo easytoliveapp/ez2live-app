@@ -5,7 +5,7 @@ import NcModal from "@/components/atoms/NcModal/NcModal";
 export interface ModalEditProps {
   show: boolean;
   onCloseModalEdit: () => void;
-  children: React.ReactNode;
+  children: React.ReactNode
 }
 
 const ModalEdit: FC<ModalEditProps> = ({ show, onCloseModalEdit, children }) => {

@@ -1,3 +1,4 @@
+import { StaticImageData } from 'next/image';
 import { IAddress } from '../auth';
 import { ICoupon } from '../coupons';
 
@@ -40,4 +41,10 @@ export interface ICategoryProps {
   active: boolean;
   title: string;
   id: string;
+}
+
+export interface ISupplierCompleteRegister {
+  logo : string | StaticImageData;
+  ilustration_image : string | StaticImageData;
+  description: string;
 }

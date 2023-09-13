@@ -1,7 +1,6 @@
 "use client";
 import React, { FC, useEffect, useRef, useState } from "react";
 import { RadioGroup } from "@/app/headlessui";
-import Textarea from "@/components/atoms/Textarea/Textarea";
 import ButtonPrimary from "@/components/atoms/Button/ButtonPrimary";
 import ButtonSecondary from "@/components/atoms/Button/ButtonSecondary";
 import NcModal from "@/components/atoms/NcModal/NcModal";
@@ -116,14 +115,6 @@ const ModalReportItem: FC<ModalReportItemProps> = ({
             Please provide any additional information or context that will help
             us understand and handle the situation.
           </span>
-          <Textarea
-            placeholder="..."
-            className="mt-3"
-            ref={textareaRef}
-            required={true}
-            rows={4}
-            id="report-message"
-          />
         </div>
         <div className="mt-4 space-x-3">
           <ButtonPrimary onClick={handleClickSubmitForm} type="submit">
