@@ -23,7 +23,7 @@ const UserRegisterPage = () => {
         <div className="max-w-md mx-auto space-y-6 ">
           {/* FORM */}
           <FormComponent />
-          <span className=" block text-center text-sm font-semibold text-black dark:text-neutral-300">
+          <span className=" block text-center text-sm font-semibold text-black ">
             voltar para { }
             <Link className="text-primary-600 text-sm font-semibold" href="/login">
               login

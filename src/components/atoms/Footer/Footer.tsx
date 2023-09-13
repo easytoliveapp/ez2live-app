@@ -56,7 +56,7 @@ const Footer: React.FC = () => {
   const renderWidgetMenuItem = (menu: WidgetFooterMenu, index: number) => {
     return (
       <div key={index} className="text-sm">
-        <h2 className="font-semibold text-neutral-700 dark:text-neutral-200">
+        <h2 className="font-semibold text-neutral-700 ">
           {menu.title}
         </h2>
         <ul className="mt-5 space-y-4">
@@ -64,7 +64,7 @@ const Footer: React.FC = () => {
             <li key={index}>
               <a
                 key={index}
-                className="text-neutral-6000 dark:text-neutral-300 hover:text-black dark:hover:text-white"
+                className="text-neutral-6000  hover:text-black "
                 href={item.href}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -79,7 +79,7 @@ const Footer: React.FC = () => {
   };
 
   return (
-    <div className="nc-Footer relative py-20 lg:pt-28 lg:pb-24 border-t border-neutral-200 dark:border-neutral-700">
+    <div className="nc-Footer relative py-20 lg:pt-28 lg:pb-24 border-t border-neutral-200 ">
       <div className="container grid grid-cols-2 gap-y-10 gap-x-5 sm:gap-x-8 md:grid-cols-4 lg:grid-cols-5 lg:gap-x-10 ">
         <div className="grid grid-cols-4 gap-5 col-span-2 md:col-span-4 lg:md:col-span-1 lg:flex lg:flex-col">
           <div className="col-span-2 md:col-span-1">

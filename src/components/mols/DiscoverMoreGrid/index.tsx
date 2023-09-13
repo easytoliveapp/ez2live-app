@@ -28,7 +28,7 @@ const DiscoverMoreGrid = () => {
   return (
     <div className="nc-DiscoverMoreGrid relative">
       <Heading
-        className="mb-12 text-neutral-900 dark:text-neutral-50"
+        className="mb-12 text-neutral-900 "
         desc=""
         isCenter
         rightDescText="Good things are waiting for you"

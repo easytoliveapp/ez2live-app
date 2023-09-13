@@ -60,7 +60,7 @@ const resetPassord = ({ params }: tokenProps) => {
     <div className={`nc-PageSignUp `} data-nc-id="PageSignUp">
       <div className="container mb-8 lg:mb-32">
         <div className='mt-8 mb-16 flex items-center justify-between'>
-          <h2 className=" pl-6 flex items-center text-2xl leading-[115%] md:text-5xl md:leading-[115%] font-bold text-black dark:text-neutral-100 justify-center">
+          <h2 className=" pl-6 flex items-center text-2xl leading-[115%] md:text-5xl md:leading-[115%] font-bold text-black justify-center">
             Nova senha
           </h2>
           <div>

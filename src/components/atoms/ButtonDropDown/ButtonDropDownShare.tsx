@@ -7,7 +7,7 @@ export interface ButtonDropDownShareProps {
 }
 
 const ButtonDropDownShare: React.FC<ButtonDropDownShareProps> = ({
-  className = "py-1.5 px-3 flex rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 cursor-pointer ",
+  className = "py-1.5 px-3 flex rounded-lg hover:bg-neutral-100  cursor-pointer ",
   panelMenusClass = "",
 }) => {
   return (

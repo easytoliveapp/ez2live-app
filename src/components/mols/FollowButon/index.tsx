@@ -27,7 +27,7 @@ const FollowButton: FC<FollowButtonProps> = ({
     </ButtonPrimary>
   ) : (
     <ButtonSecondary
-      className={` border border-slate-100 dark:border-slate-700 shadow-lg ${className}`}
+      className={` border border-slate-100  shadow-lg ${className}`}
       sizeClass={sizeClass}
       fontSize={fontSize}
       onClick={() => setFollowing(false)}
