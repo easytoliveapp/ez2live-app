@@ -32,7 +32,7 @@ const Pagination: FC<PaginationProps> = ({ className = "" }) => {
       return (
         <span
           key={index}
-          className={`inline-flex w-11 h-11 items-center justify-center rounded-full bg-primary-6000 text-white ${twFocusClass()}`}
+          className={`inline-flex w-11 h-11 items-center justify-center rounded-full bg-primary-main text-white ${twFocusClass()}`}
         >
           {pag.label}
         </span>

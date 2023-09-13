@@ -52,7 +52,7 @@ export default function CartDropdown() {
             <div className="flex">
               <button
                 type="button"
-                className="font-medium text-primary-6000  "
+                className="font-medium text-primary-main  "
               >
                 Remove
               </button>

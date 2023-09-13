@@ -87,7 +87,7 @@ const FormComponent = () => {
             />
           </FormItem>
           <span className="flex justify-end  items-start text-sm">
-            <Link className="text-primary-600 font-semibold" href="/forgot-password">
+            <Link className="text-primary-main font-semibold" href="/forgot-password">
               esqueci a senha
             </Link>
           </span>

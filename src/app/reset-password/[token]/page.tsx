@@ -64,8 +64,8 @@ const resetPassord = ({ params }: tokenProps) => {
             Nova senha
           </h2>
           <div>
-            <div className='relative rounded-full w-40 h-16 bg-gradient-to-r from-secondary-500 to-secondary-200'>
-              <div className='absolute top-8 right-0 rounded-full w-16 h-16 bg-gradient-to-r from-secondary-500 to-secondary-200'>
+            <div className='relative rounded-full w-40 h-16 bg-gradient-to-r from-secondary-main to-secondary-lighter'>
+              <div className='absolute top-8 right-0 rounded-full w-16 h-16 bg-gradient-to-r from-secondary-main to-secondary-lighter'>
               </div>
             </div>
           </div>

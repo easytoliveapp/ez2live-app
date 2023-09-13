@@ -111,7 +111,7 @@ const ProductCard: FC<ProductCardProps> = ({
             <div className="flex">
               <button
                 type="button"
-                className="font-medium text-primary-6000  "
+                className="font-medium text-primary-main  "
                 onClick={(e) => {
                   e.preventDefault();
                   router.push("/");
@@ -163,11 +163,10 @@ const ProductCard: FC<ProductCardProps> = ({
             <div
               key={index}
               onClick={() => setVariantActive(index)}
-              className={`relative w-6 h-6 rounded-full overflow-hidden z-10 border cursor-pointer ${
-                variantActive === index
-                  ? getBorderClass(variant.color)
-                  : "border-transparent"
-              }`}
+              className={`relative w-6 h-6 rounded-full overflow-hidden z-10 border cursor-pointer ${variantActive === index
+                ? getBorderClass(variant.color)
+                : "border-transparent"
+                }`}
               title={variant.name}
             >
               <div
@@ -185,11 +184,10 @@ const ProductCard: FC<ProductCardProps> = ({
           <div
             key={index}
             onClick={() => setVariantActive(index)}
-            className={`relative w-11 h-6 rounded-full overflow-hidden z-10 border cursor-pointer ${
-              variantActive === index
-                ? "border-black "
-                : "border-transparent"
-            }`}
+            className={`relative w-11 h-6 rounded-full overflow-hidden z-10 border cursor-pointer ${variantActive === index
+              ? "border-black "
+              : "border-transparent"
+              }`}
             title={variant.name}
           >
             <div
@@ -199,11 +197,11 @@ const ProductCard: FC<ProductCardProps> = ({
                   // @ts-ignore
                   typeof variant.thumbnail?.src === "string"
                     ? // @ts-ignore
-                      variant.thumbnail?.src
+                    variant.thumbnail?.src
                     : typeof variant.thumbnail === "string"
-                    ? variant.thumbnail
-                    : ""
-                })`,
+                      ? variant.thumbnail
+                      : ""
+                  })`,
               }}
             ></div>
           </div>

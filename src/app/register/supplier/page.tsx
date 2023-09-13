@@ -14,7 +14,7 @@ const SupplierRegisterPage = () => {
             \ estabelecimento
           </h2>
           <div>
-            <div className='flex rounded-full mr-2 w-16 h-16 bg-gradient-to-r from-primary-600 to-primary-100'>
+            <div className='flex rounded-full mr-2 w-16 h-16 bg-gradient-to-r from-primary-main to-generic-background'>
               <Image src={Supplier} alt='avatar anonimo' className='m-auto w-8 h-auto' />
             </div>
           </div>
@@ -25,7 +25,7 @@ const SupplierRegisterPage = () => {
           {/* ==== */}
           <span className="block text-center text-black font-medium">
             voltar para { }
-            <Link className="text-primary-600 font-semibold" href="/login">
+            <Link className="text-primary-main font-semibold" href="/login">
               login
             </Link>
           </span>

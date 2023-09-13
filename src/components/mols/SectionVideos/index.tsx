@@ -41,9 +41,8 @@ const SectionVideos: FC<SectionVideosProps> = ({
       >
         {isPlay ? (
           <iframe
-            src={`https://www.youtube.com/embed/${video.id}?autoplay=1${
-              isSafariBrowser() ? "&mute=1" : ""
-            }`}
+            src={`https://www.youtube.com/embed/${video.id}?autoplay=1${isSafariBrowser() ? "&mute=1" : ""
+              }`}
             title={video.title}
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
@@ -81,7 +80,7 @@ const SectionVideos: FC<SectionVideosProps> = ({
       </Heading>
 
       <div className="flex flex-col relative sm:pr-4 sm:py-4 md:pr-6 md:py-6 xl:pr-14 xl:py-14 lg:flex-row">
-        <div className="absolute -top-4 -bottom-4 -right-4 w-2/3 rounded-3xl bg-primary-100 z-0 sm:rounded-[50px] md:top-0 md:bottom-0 md:right-0 xl:w-7/12 /80"></div>
+        <div className="absolute -top-4 -bottom-4 -right-4 w-2/3 rounded-3xl bg-generic-background z-0 sm:rounded-[50px] md:top-0 md:bottom-0 md:right-0 xl:w-7/12 /80"></div>
         <div className="flex-grow relative  ">{renderMainVideo()}</div>
       </div>
     </div>
