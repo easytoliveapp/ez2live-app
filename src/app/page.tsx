@@ -19,7 +19,7 @@ import { useRouter } from "next/navigation";
 function PageHome() {
   const router = useRouter();
 
-  const [suppliers , setSuppliers] = useState([])
+  const [suppliers, setSuppliers] = useState([])
   const [search, setSearch] = useState('');
   const [textSearched] = useDebounce(search, 1000);
   const [categories, setCategories] = useState([]);
@@ -49,7 +49,7 @@ function PageHome() {
         if (error?.response?.data?.code === 401) {
           useToastify({ label: 'Não autorizado. Por favor, autentique-se', type: 'error' });
         }
-        if(error?.response?.data?.code === 404) {
+        if (error?.response?.data?.code === 404) {
           useToastify({ label: 'Nenhuma categoria encontrada', type: 'error' });
         }
       });
@@ -60,10 +60,10 @@ function PageHome() {
     setPageNumber(1);
   }
 
-  const getAllSuppliers = async (data : Partial<ISupplierList> ) => {
+  const getAllSuppliers = async (data: Partial<ISupplierList>) => {
     const res: any = await SupplierService.getSupplierList(data);
 
-    if (res?.data?.totalPages <= pageNumber ) {
+    if (res?.data?.totalPages <= pageNumber) {
       setHasMore(false)
     }
     else {
@@ -72,10 +72,10 @@ function PageHome() {
     return res;
   }
 
-  const handleResponse = (res: any)=>
-    setSuppliers( 
-      pageNumber === 1 
-        ? res?.data?.results 
+  const handleResponse = (res: any) =>
+    setSuppliers(
+      pageNumber === 1
+        ? res?.data?.results
         : suppliers.concat(res?.data?.results)
     );
 
@@ -87,9 +87,9 @@ function PageHome() {
       sortBy: 'coupons:desc',
     };
 
-     getAllSuppliers(data)
+    getAllSuppliers(data)
       .then(handleResponse)
-      .catch((error)=> {
+      .catch((error) => {
         if (error?.response?.data?.code === 401) {
           useToastify({ label: 'Usuário não autenticado', type: 'error' })
         }
@@ -101,7 +101,7 @@ function PageHome() {
       <SearchCategory onChange={handleSetSearch} />
       <div className='flex flex-wrap my-6 w-full gap-3'>
         {
-          categories.map((category: categorieProps, index)=> (
+          categories.map((category: categorieProps, index) => (
             <CategoryCard
               key={index}
               name={category.title}
@@ -115,12 +115,12 @@ function PageHome() {
       <InfiniteScroll
         className='flex flex-col gap-3'
         dataLength={suppliers.length}
-        next={()=> setPageNumber(pageNumber + 1)}
+        next={() => setPageNumber(pageNumber + 1)}
         hasMore={hasMore}
-        loader={<h4 className=' m-4 text-primary-ez2live'>Carregando...</h4>}
-        endMessage={<p className='m-4 text-primary-ez2live text-center'>...</p>}
+        loader={<h4 className=' m-4 text-primary-600'>Carregando...</h4>}
+        endMessage={<p className='m-4 text-primary-600 text-center'>...</p>}
       >
-        {suppliers.map((supplier :ISupplier) => (
+        {suppliers.map((supplier: ISupplier) => (
           <SupplierCard
             supplierCategory={supplier?.supplierCategory?.title}
             supplierImage={SupplierLogo}

@@ -35,11 +35,11 @@ const FormComponent = () => {
       email: values.email,
       password: values.password,
     }).then((res: any) => {
-        if (res?.data?.user) {
-          setItemToLocalStorage('user', res.data.user);
-          router.push('/');
-        }
-    }).catch((error)=> {
+      if (res?.data?.user) {
+        setItemToLocalStorage('user', res.data.user);
+        router.push('/');
+      }
+    }).catch((error) => {
       if (error?.response?.status === 400) {
         return useToastify({ label: 'Conta não verificada, por favor aguarde nosso time avaliar seu cadastro ou envie uma mensagem para contato@easytolive.com.br', type: 'error', options: { autoClose: 7000 } })
       }
@@ -66,7 +66,7 @@ const FormComponent = () => {
             invalid={!!(errors.email && touched.email)}
           >
             <Field
-              invalid = {!!(errors.email && touched.email)}
+              invalid={!!(errors.email && touched.email)}
               name="email"
               type="email"
               label="Email"
@@ -87,7 +87,7 @@ const FormComponent = () => {
             />
           </FormItem>
           <span className="flex justify-end  items-start text-sm">
-            <Link className="text-primary-ez2live font-semibold" href="/forgot-password">
+            <Link className="text-primary-600 font-semibold" href="/forgot-password">
               esqueci a senha
             </Link>
           </span>

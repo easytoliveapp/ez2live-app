@@ -36,7 +36,7 @@ const SupplierDashBoard = ({ params }: tokenProps) => {
 
   return (
     <div className="relative md:w-[500px] h-full w-full mx-auto">
-      <div className='h-40 w-full bg-gradient-to-r from-primary-ez2lliveBlue to-primary-ez2live'>
+      <div className='h-40 w-full bg-gradient-to-r from-alternative-blue to-primary-600'>
       </div>
       <Link className='absolute flex items-center justify-center rounded-full top-4 left-4 cursor-pointer h-8 w-8 bg-neutral-400 opacity-75 rotate-180'
       href={'/'}>
@@ -46,7 +46,7 @@ const SupplierDashBoard = ({ params }: tokenProps) => {
         src={Arrow}/>
       </Link>
       <Image className='absolute rounded-full w-20 h-auto top-8 right-4' src={SupplierLogo} alt='Logo-restaurante' />
-      <div className='px-5 py-6 -mt-6 rounded-t-3xl bg-primary-ez2livebg w-full h-full'>
+      <div className='px-5 py-6 -mt-6 rounded-t-3xl bg-primary-100 w-full h-full'>
         <div className='flex items-center justify-between'>
           <div className='flex gap-1'>
             <Link href={`/`} className='text-xs underline'>
