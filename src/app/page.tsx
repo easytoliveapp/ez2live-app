@@ -117,8 +117,8 @@ function PageHome() {
         dataLength={suppliers.length}
         next={() => setPageNumber(pageNumber + 1)}
         hasMore={hasMore}
-        loader={<h4 className=' m-4 text-primary-600'>Carregando...</h4>}
-        endMessage={<p className='m-4 text-primary-600 text-center'>...</p>}
+        loader={<h4 className=' m-4 text-primary-main'>Carregando...</h4>}
+        endMessage={<p className='m-4 text-primary-main text-center'>...</p>}
       >
         {suppliers.map((supplier: ISupplier) => (
           <SupplierCard

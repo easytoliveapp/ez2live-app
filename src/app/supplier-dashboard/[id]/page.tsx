@@ -36,17 +36,17 @@ const SupplierDashBoard = ({ params }: tokenProps) => {
 
   return (
     <div className="relative md:w-[500px] h-full w-full mx-auto">
-      <div className='h-40 w-full bg-gradient-to-r from-alternative-blue to-primary-600'>
+      <div className='h-40 w-full bg-gradient-to-r from-generic-blue to-primary-main'>
       </div>
       <Link className='absolute flex items-center justify-center rounded-full top-4 left-4 cursor-pointer h-8 w-8 bg-neutral-400 opacity-75 rotate-180'
-      href={'/'}>
-        <Image 
-        className='w-6 h-auto' 
-        alt='arrow-left' 
-        src={Arrow}/>
+        href={'/'}>
+        <Image
+          className='w-6 h-auto'
+          alt='arrow-left'
+          src={Arrow} />
       </Link>
       <Image className='absolute rounded-full w-20 h-auto top-8 right-4' src={SupplierLogo} alt='Logo-restaurante' />
-      <div className='px-5 py-6 -mt-6 rounded-t-3xl bg-primary-100 w-full h-full'>
+      <div className='px-5 py-6 -mt-6 rounded-t-3xl bg-generic-background w-full h-full'>
         <div className='flex items-center justify-between'>
           <div className='flex gap-1'>
             <Link href={`/`} className='text-xs underline'>
@@ -82,7 +82,7 @@ const SupplierDashBoard = ({ params }: tokenProps) => {
 
         </div>
       </div>
-      <span className='md:w-[500px] fixed bottom-0 text-neutral-400 w-full flex justify-center items-center h-16 bg-alternative-darker'>
+      <span className='md:w-[500px] fixed bottom-0 text-neutral-400 w-full flex justify-center items-center h-16 bg-generic-dark'>
         Todos os direitos reservados
       </span>
     </div>

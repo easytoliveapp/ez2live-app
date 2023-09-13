@@ -2,35 +2,39 @@
 
 // THEME PALETTE 9 ==========================================
 :root {
-  --c-ez2live: 103, 34, 255;
-  --c-ez2livehold: 164, 122, 255;
-  --c-ez2livebg: 247, 249, 253;
-  --c-ez2livebg2: 239, 237, 253;
+  /* PRIMARY COLORS */
+  --primary-easytolive: 103, 34, 255;
+  --primary-easytolive-light: 113, 37, 255;
+  --primary-easytolive-lighter: 164, 122, 255;
+  --primary-easytolive-dark: 71, 0, 196;
 
-  // SECONDARY COLOR
-  --c-secEz2live: 218, 229, 0;
-  --c-secEz2livebg: 239, 255, 153;
-  --c-secEz2live-500: 218, 229, 0;
-  --c-secEz2live-600: 196, 206, 0;
+  /* SECONDARY COLORS */
+  --secondary-easytolive: 218, 229, 0;
+  --secondary-easytolive-light: 214, 235, 3;
+  --secondary-easytolive-lighter: 239, 255, 153;
+  --secondary-easytolive-dark: 196, 206, 0;
 
-  // NEUTRAL COLOR
-  --c-neutral-50: 249, 250, 251;
-  --c-neutral-100: 243, 244, 246;
-  --c-neutral-200: 229, 231, 235;
-  --c-neutral-300: 209, 213, 219;
-  --c-neutral-400: 156, 163, 175;
-  --c-neutral-500: 107, 114, 128;
-  --c-neutral-600: 75, 85, 99;
-  --c-neutral-700: 55, 65, 81;
-  --c-neutral-800: 31, 41, 55;
-  --c-neutral-900: 17, 24, 39;
-  
-  // ALTERNATIVE
-  --c-dark: 75, 75, 75;
-  --c-eztoliveBlue : 71, 29, 184;
-  --c-secEz2livegreen: 145, 176, 82;
-  --c-secEz2livered: 190, 29, 37;
-  --c-secEz2liveyellow: 255, 186, 0;
+  /* NEUTRAL COLORS */
+  --neutral-50: 249, 250, 251;
+  --neutral-100: 243, 244, 246;
+  --neutral-200: 229, 231, 235;
+  --neutral-300: 209, 213, 219;
+  --neutral-400: 156, 163, 175;
+  --neutral-500: 107, 114, 128;
+  --neutral-600: 75, 85, 99;
+  --neutral-700: 55, 65, 81;
+  --neutral-800: 31, 41, 55;
+  --neutral-900: 17, 24, 39;
+
+  /* GENERIC COLORS */
+  --generic-dark: 75, 75, 75;
+  --generic-easytolive-blue: 71, 29, 184;
+  --generic-easytolive-green: 145, 176, 82;
+  --generic-easytolive-red: 190, 29, 37;
+  --generic-easytolive-yellow: 255, 186, 0;
+  --generic-easytolive-bg: 247, 249, 253;
+  --generic-easytolive-bg-lighter: 239, 237, 253;
 }
+
 
  

@@ -69,11 +69,10 @@ const ProductQuickView: FC<ProductQuickViewProps> = ({ className = "" }) => {
             <div
               key={index}
               onClick={() => setVariantActive(index)}
-              className={`relative flex-1 max-w-[75px] h-10 rounded-full border-2 cursor-pointer ${
-                variantActive === index
-                  ? "border-primary-6000 "
-                  : "border-transparent"
-              }`}
+              className={`relative flex-1 max-w-[75px] h-10 rounded-full border-2 cursor-pointer ${variantActive === index
+                ? "border-primary-main "
+                : "border-transparent"
+                }`}
             >
               <div
                 className="absolute inset-0.5 rounded-full overflow-hidden z-0 bg-cover"
@@ -82,11 +81,11 @@ const ProductQuickView: FC<ProductQuickViewProps> = ({ className = "" }) => {
                     // @ts-ignore
                     typeof variant.thumbnail?.src === "string"
                       ? // @ts-ignore
-                        variant.thumbnail?.src
+                      variant.thumbnail?.src
                       : typeof variant.thumbnail === "string"
-                      ? variant.thumbnail
-                      : ""
-                  })`,
+                        ? variant.thumbnail
+                        : ""
+                    })`,
                 }}
               ></div>
             </div>
@@ -113,7 +112,7 @@ const ProductQuickView: FC<ProductQuickViewProps> = ({ className = "" }) => {
             target="_blank"
             rel="noopener noreferrer"
             href="##"
-            className="text-primary-6000 hover:text-primary-500"
+            className="text-primary-main hover:text-primary-500"
           >
             See sizing chart
           </a>
@@ -126,15 +125,13 @@ const ProductQuickView: FC<ProductQuickViewProps> = ({ className = "" }) => {
               <div
                 key={index}
                 className={`relative h-10 sm:h-11 rounded-2xl border flex items-center justify-center 
-                text-sm sm:text-base uppercase font-semibold select-none overflow-hidden z-0 ${
-                  sizeOutStock
+                text-sm sm:text-base uppercase font-semibold select-none overflow-hidden z-0 ${sizeOutStock
                     ? "text-opacity-20  cursor-not-allowed"
                     : "cursor-pointer"
-                } ${
-                  isActive
-                    ? "bg-primary-6000 border-primary-6000 text-white hover:bg-primary-6000"
+                  } ${isActive
+                    ? "bg-primary-main border-primary-main text-white hover:bg-primary-main"
                     : "border-slate-300  text-slate-900  hover:bg-neutral-50 "
-                }`}
+                  }`}
                 onClick={() => {
                   if (sizeOutStock) {
                     return;
@@ -197,7 +194,7 @@ const ProductQuickView: FC<ProductQuickViewProps> = ({ className = "" }) => {
       <div className="space-y-8">
         {/* ---------- 1 HEADING ----------  */}
         <div>
-          <h2 className="text-2xl font-semibold hover:text-primary-6000 transition-colors">
+          <h2 className="text-2xl font-semibold hover:text-primary-main transition-colors">
             <Link href="/">Heavy Weight Shoes</Link>
           </h2>
 

@@ -30,13 +30,13 @@ const SupplierCard: FC<SupplierCardProps> = ({
   }
 
   return (
-    <div className='w-full h-auto rounded-lg p-3 grid grid-cols-5 gap-2 bg-primary-200 cursor-pointer' onClick={() => handleClick(id)}>
+    <div className='w-full h-auto rounded-lg p-3 grid grid-cols-5 gap-2 bg-generic-backgroundLigther cursor-pointer' onClick={() => handleClick(id)}>
       <div className='col-span-1 flex items-center justify-center w-14 h-auto'>
-        <Image className='rounded-full h-auto w-auto' alt="Supplier-logo" src={supplierImage}/>
+        <Image className='rounded-full h-auto w-auto' alt="Supplier-logo" src={supplierImage} />
       </div>
       <div className='col-span-3 max-sm:pl-5 h-auto w-auto grid-rows-3 gap-3'>
         <p className='font-medium text-base'>{name}</p>
-        <p className='text-xs pb-1 font-medium text-primary-600'>
+        <p className='text-xs pb-1 font-medium text-primary-main'>
           {supplierCategory}
         </p>
         <CouponsAvaible coupons={couponsAvaible} />

@@ -26,18 +26,18 @@ const PageLogin = () => {
             Entrar
           </h2>
           <div>
-            <div className='relative rounded-full w-40 h-16 bg-gradient-to-r from-secondary-500 to-secondary-200'>
-              <div className='absolute top-8 right-0 rounded-full w-16 h-16 bg-gradient-to-r from-secondary-500 to-secondary-200'>
+            <div className='relative rounded-full w-40 h-16 bg-gradient-to-r from-secondary-main to-secondary-lighter'>
+              <div className='absolute top-8 right-0 rounded-full w-16 h-16 bg-gradient-to-r from-secondary-main to-secondary-lighter'>
               </div>
             </div>
           </div>
         </div>
         <div className="max-w-md mx-auto space-y-6">
           {/* FORM */}
-          <FormComponent/>
+          <FormComponent />
           <span className="block text-center text-sm text-black font-semibold">
             nova conta? { }
-            <Link className="text-primary-600 font-semibold" href="/register/user">
+            <Link className="text-primary-main font-semibold" href="/register/user">
               criar conta
             </Link>
           </span>
@@ -45,7 +45,7 @@ const PageLogin = () => {
           <div className="relative text-center">
             <span className="relative z-10 justify-center flex font-semibold text-sm items-center w-full">
               <div className='bg-white h-0.5 w-full mr-4'></div>
-              <p className='bg-primary-100 w-4 '>OU</p>
+              <p className='bg-generic-background w-4 '>OU</p>
               <div className='bg-white h-0.5 w-full ml-4'></div>
             </span>
           </div>
@@ -69,11 +69,11 @@ const PageLogin = () => {
             ))}
           </div>
           {/* ==== */}
-          
+
           <span className=" block pt-6 text-center text-sm font-medium text-black">
-          <div className='bg-white h-0.5 w-auto m-auto mb-4'></div>
+            <div className='bg-white h-0.5 w-auto m-auto mb-4'></div>
             <p> tem um estabelecimento e quer se juntar a nós? </p>
-            <Link className="text-primary-600 text-sm font-semibold" href="/register/supplier">
+            <Link className="text-primary-main text-sm font-semibold" href="/register/supplier">
               cadastre-se!
             </Link>
           </span>

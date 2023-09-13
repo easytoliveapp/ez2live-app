@@ -15,7 +15,7 @@ const CouponsAvaible: FC<CouponsProps> = ({ coupons }) => {
         src={coupons ? CouponGreen : CouponRed}
         alt='Coupon'
       />
-      <p className={`text-xs font-medium text ${coupons ? `text-alternative-alertGreen` : `text-alternative-alertRed`}`}>
+      <p className={`text-xs font-medium text ${coupons ? `text-generic-alertGreen` : `text-generic-alertRed`}`}>
         {coupons} reservas disponíveis
       </p>
     </span>
