@@ -9,6 +9,8 @@ export {default as CouponsAvaible} from './CouponsAvaible'
 export {default as CategoryCard} from './CategoryCard'
 export {default as Select}  from './Select';
 export {default as SupplierCoupons} from './SupplierCoupons';
+export {default as ButtonThird} from './Button/ButtonThird'
+export {default as ButtonBasic} from './Button/ButtonBasic'
 export {default as ItemTypeImage} from './ItemTypeImageIcon'
 export {default as TextArea} from './Textarea'
 export { default as CompleteSupplierRegister } from './CompleteSupplierRegister'

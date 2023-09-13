@@ -14,7 +14,7 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
 }) => {
   return (
     <div
-      className={`nc-PostCardMeta inline-flex items-center fledx-wrap text-neutral-800 dark:text-neutral-200 text-sm ${className}`}
+      className={`nc-PostCardMeta inline-flex items-center fledx-wrap text-neutral-800  text-sm ${className}`}
       data-nc-id="PostCardMeta"
     >
       <Link
@@ -24,15 +24,15 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
         {!hiddenAvatar && (
           <Avatar radius="rounded-full" sizeClass={"h-7 w-7 text-sm"} />
         )}
-        <span className="block text-neutral-6000 hover:text-black dark:text-neutral-300 dark:hover:text-white font-medium">
+        <span className="block text-neutral-6000 hover:text-black   font-medium">
           {_getPersonNameRd()}
         </span>
       </Link>
       <>
-        <span className="text-neutral-500 dark:text-neutral-400 mx-[6px] font-medium">
+        <span className="text-neutral-500  mx-[6px] font-medium">
           ·
         </span>
-        <span className="text-neutral-500 dark:text-neutral-400 font-normal line-clamp-1">
+        <span className="text-neutral-500  font-normal line-clamp-1">
           May 20, 2021
         </span>
       </>

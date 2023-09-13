@@ -69,11 +69,10 @@ const ProductQuickView: FC<ProductQuickViewProps> = ({ className = "" }) => {
             <div
               key={index}
               onClick={() => setVariantActive(index)}
-              className={`relative flex-1 max-w-[75px] h-10 rounded-full border-2 cursor-pointer ${
-                variantActive === index
-                  ? "border-primary-6000 dark:border-primary-500"
-                  : "border-transparent"
-              }`}
+              className={`relative flex-1 max-w-[75px] h-10 rounded-full border-2 cursor-pointer ${variantActive === index
+                ? "border-primary-main "
+                : "border-transparent"
+                }`}
             >
               <div
                 className="absolute inset-0.5 rounded-full overflow-hidden z-0 bg-cover"
@@ -82,11 +81,11 @@ const ProductQuickView: FC<ProductQuickViewProps> = ({ className = "" }) => {
                     // @ts-ignore
                     typeof variant.thumbnail?.src === "string"
                       ? // @ts-ignore
-                        variant.thumbnail?.src
+                      variant.thumbnail?.src
                       : typeof variant.thumbnail === "string"
-                      ? variant.thumbnail
-                      : ""
-                  })`,
+                        ? variant.thumbnail
+                        : ""
+                    })`,
                 }}
               ></div>
             </div>
@@ -113,7 +112,7 @@ const ProductQuickView: FC<ProductQuickViewProps> = ({ className = "" }) => {
             target="_blank"
             rel="noopener noreferrer"
             href="##"
-            className="text-primary-6000 hover:text-primary-500"
+            className="text-primary-main hover:text-primary-500"
           >
             See sizing chart
           </a>
@@ -126,15 +125,13 @@ const ProductQuickView: FC<ProductQuickViewProps> = ({ className = "" }) => {
               <div
                 key={index}
                 className={`relative h-10 sm:h-11 rounded-2xl border flex items-center justify-center 
-                text-sm sm:text-base uppercase font-semibold select-none overflow-hidden z-0 ${
-                  sizeOutStock
-                    ? "text-opacity-20 dark:text-opacity-20 cursor-not-allowed"
+                text-sm sm:text-base uppercase font-semibold select-none overflow-hidden z-0 ${sizeOutStock
+                    ? "text-opacity-20  cursor-not-allowed"
                     : "cursor-pointer"
-                } ${
-                  isActive
-                    ? "bg-primary-6000 border-primary-6000 text-white hover:bg-primary-6000"
-                    : "border-slate-300 dark:border-slate-600 text-slate-900 dark:text-slate-200 hover:bg-neutral-50 dark:hover:bg-neutral-700"
-                }`}
+                  } ${isActive
+                    ? "bg-primary-main border-primary-main text-white hover:bg-primary-main"
+                    : "border-slate-300  text-slate-900  hover:bg-neutral-50 "
+                  }`}
                 onClick={() => {
                   if (sizeOutStock) {
                     return;
@@ -156,7 +153,7 @@ const ProductQuickView: FC<ProductQuickViewProps> = ({ className = "" }) => {
       return null;
     }
     const CLASSES =
-      "absolute top-3 left-3 px-2.5 py-1.5 text-xs bg-white dark:bg-slate-900 nc-shadow-lg rounded-full flex items-center justify-center text-slate-700 text-slate-900 dark:text-slate-300";
+      "absolute top-3 left-3 px-2.5 py-1.5 text-xs bg-white  nc-shadow-lg rounded-full flex items-center justify-center text-slate-700 text-slate-900 ";
     if (status === "New in") {
       return (
         <div className={CLASSES}>
@@ -197,7 +194,7 @@ const ProductQuickView: FC<ProductQuickViewProps> = ({ className = "" }) => {
       <div className="space-y-8">
         {/* ---------- 1 HEADING ----------  */}
         <div>
-          <h2 className="text-2xl font-semibold hover:text-primary-6000 transition-colors">
+          <h2 className="text-2xl font-semibold hover:text-primary-main transition-colors">
             <Link href="/">Heavy Weight Shoes</Link>
           </h2>
 
@@ -208,7 +205,7 @@ const ProductQuickView: FC<ProductQuickViewProps> = ({ className = "" }) => {
               price={112}
             />
 
-            <div className="h-6 border-l border-slate-300 dark:border-slate-700"></div>
+            <div className="h-6 border-l border-slate-300 "></div>
 
             <div className="flex items-center">
               <Link
@@ -219,7 +216,7 @@ const ProductQuickView: FC<ProductQuickViewProps> = ({ className = "" }) => {
                 <div className="ml-1.5 flex">
                   <span>4.9</span>
                   <span className="block mx-2">·</span>
-                  <span className="text-slate-600 dark:text-slate-400 underline">
+                  <span className="text-slate-600  underline">
                     142 reviews
                   </span>
                 </div>
@@ -239,7 +236,7 @@ const ProductQuickView: FC<ProductQuickViewProps> = ({ className = "" }) => {
 
         {/*  ---------- 4  QTY AND ADD TO CART BUTTON */}
         <div className="flex space-x-3.5">
-          <div className="flex items-center justify-center bg-slate-100/70 dark:bg-slate-800/70 px-2 py-3 sm:p-3.5 rounded-full">
+          <div className="flex items-center justify-center bg-slate-100/70 /70 px-2 py-3 sm:p-3.5 rounded-full">
             <NcInputNumber
               defaultValue={qualitySelected}
               onChange={setQualitySelected}
@@ -255,7 +252,7 @@ const ProductQuickView: FC<ProductQuickViewProps> = ({ className = "" }) => {
         </div>
 
         {/*  */}
-        <hr className=" border-slate-200 dark:border-slate-700"></hr>
+        <hr className=" border-slate-200 "></hr>
         {/*  */}
 
         {/* ---------- 5 ----------  */}

@@ -22,30 +22,30 @@ const PageLogin = () => {
     <div className={`nc-PageLogin`} data-nc-id="PageLogin">
       <div className="container mb-8 lg:mb-32">
         <div className='mt-8 mb-16 flex items-center justify-between'>
-        <h2 className=" pl-6 flex items-center text-2xl leading-[115%] md:text-5xl md:leading-[115%] font-bold text-black dark:text-neutral-100 justify-center">
-          Entrar
-        </h2>
-        <div>
-          <div className='relative rounded-full w-40 h-16 bg-gradient-to-r from-secondary-ez2live to-secondary-ez2livebg'>
-            <div className='absolute top-8 right-0 rounded-full w-16 h-16 bg-gradient-to-r from-secondary-ez2live to-secondary-ez2livebg'>
+          <h2 className=" pl-6 flex items-center text-2xl leading-[115%] md:text-5xl md:leading-[115%] font-bold text-black dark:text-neutral-100 justify-center">
+            Entrar
+          </h2>
+          <div>
+            <div className='relative rounded-full w-40 h-16 bg-gradient-to-r from-secondary-main to-secondary-lighter'>
+              <div className='absolute top-8 right-0 rounded-full w-16 h-16 bg-gradient-to-r from-secondary-main to-secondary-lighter'>
+              </div>
             </div>
           </div>
-        </div>          
         </div>
         <div className="max-w-md mx-auto space-y-6">
           {/* FORM */}
-          <FormComponent/>
-          <span className="block text-center text-sm text-black font-semibold dark:text-neutral-300">
+          <FormComponent />
+          <span className="block text-center text-sm text-black font-semibold">
             nova conta? { }
-            <Link className="text-primary-ez2live font-semibold" href="/register/user">
+            <Link className="text-primary-main font-semibold" href="/register/user">
               criar conta
             </Link>
           </span>
           {/* OR */}
           <div className="relative text-center">
-            <span className="relative z-10 justify-center flex font-semibold text-sm items-center w-full dark:text-neutral-400 dark:bg-neutral-900">
-            <div className='bg-white h-0.5 w-full mr-4'></div>
-              <p className='bg-primary-ez2livebg w-4 '>OU</p>
+            <span className="relative z-10 justify-center flex font-semibold text-sm items-center w-full">
+              <div className='bg-white h-0.5 w-full mr-4'></div>
+              <p className='bg-generic-background w-4 '>OU</p>
               <div className='bg-white h-0.5 w-full ml-4'></div>
             </span>
           </div>
@@ -54,7 +54,7 @@ const PageLogin = () => {
               <a
                 key={index}
                 href={item.href}
-                className="flex w-full rounded-full bg-white dark:bg-neutral-800 px-4 py-3 transform transition-transform sm:px-6 hover:translate-y-[-2px]"
+                className="flex w-full rounded-full bg-white px-4 py-3 transform transition-transform sm:px-6 hover:translate-y-[-2px]"
               >
                 <Image
                   className="flex-shrink-0"
@@ -62,18 +62,18 @@ const PageLogin = () => {
                   alt={item.name}
                   sizes="40px"
                 />
-                <h3 className="flex-grow text-center text-sm font-semibold text-black dark:text-neutral-300 sm:text-sm">
+                <h3 className="flex-grow text-center text-sm font-semibold text-black sm:text-sm">
                   {item.name}
                 </h3>
               </a>
             ))}
           </div>
           {/* ==== */}
-          
-          <span className=" block pt-6 text-center text-sm font-medium text-black dark:text-neutral-300">
-          <div className='bg-white h-0.5 w-auto m-auto mb-4'></div>
+
+          <span className=" block pt-6 text-center text-sm font-medium text-black">
+            <div className='bg-white h-0.5 w-auto m-auto mb-4'></div>
             <p> tem um estabelecimento e quer se juntar a nós? </p>
-            <Link className="text-primary-ez2live text-sm font-semibold" href="/register/supplier">
+            <Link className="text-primary-main text-sm font-semibold" href="/register/supplier">
               cadastre-se!
             </Link>
           </span>
