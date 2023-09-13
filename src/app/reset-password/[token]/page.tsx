@@ -15,7 +15,7 @@ interface tokenProps {
   };
 };
 
-const resetPassord = ({ params } : tokenProps) => {
+const resetPassord = ({ params }: tokenProps) => {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
@@ -30,7 +30,7 @@ const resetPassord = ({ params } : tokenProps) => {
       )
       .min(8, "Senha deve conter no mínimo 8 caracteres.")
       .max(36, "Senha não deve contar mais de 36 caracteres"),
-      conf_password: Yup.string()
+    conf_password: Yup.string()
       .required("Confirme sua senha.")
       .oneOf([Yup.ref("password")], "Senhas devem ser iguais."),
   });
@@ -40,7 +40,7 @@ const resetPassord = ({ params } : tokenProps) => {
     conf_password: ''
   };
 
-  const handleFormSubmit = async (values : IResetPasswordForm) => {
+  const handleFormSubmit = async (values: IResetPasswordForm) => {
     setLoading(true);
 
     await authService.resetPassword({
@@ -50,79 +50,79 @@ const resetPassord = ({ params } : tokenProps) => {
       useToastify({ label: 'Senha alterada com sucesso!', type: 'success' });
       setTimeout(() => router.push('/login'), 2000);
     })
-    .catch(() => {
-      useToastify({ label: 'Oops! Algo deu errado. Verifique os campos e tente novamente', type: 'error' })
-      setLoading(false);
-    });
+      .catch(() => {
+        useToastify({ label: 'Oops! Algo deu errado. Verifique os campos e tente novamente', type: 'error' })
+        setLoading(false);
+      });
   };
 
   return (
     <div className={`nc-PageSignUp `} data-nc-id="PageSignUp">
       <div className="container mb-8 lg:mb-32">
-      <div className='mt-8 mb-16 flex items-center justify-between'>
-        <h2 className=" pl-6 flex items-center text-2xl leading-[115%] md:text-5xl md:leading-[115%] font-bold text-black dark:text-neutral-100 justify-center">
-          Nova senha
-        </h2>
-        <div>
-          <div className='relative rounded-full w-40 h-16 bg-gradient-to-r from-secondary-ez2live to-secondary-ez2livebg'>
-            <div className='absolute top-8 right-0 rounded-full w-16 h-16 bg-gradient-to-r from-secondary-ez2live to-secondary-ez2livebg'>
+        <div className='mt-8 mb-16 flex items-center justify-between'>
+          <h2 className=" pl-6 flex items-center text-2xl leading-[115%] md:text-5xl md:leading-[115%] font-bold text-black justify-center">
+            Nova senha
+          </h2>
+          <div>
+            <div className='relative rounded-full w-40 h-16 bg-gradient-to-r from-secondary-main to-secondary-lighter'>
+              <div className='absolute top-8 right-0 rounded-full w-16 h-16 bg-gradient-to-r from-secondary-main to-secondary-lighter'>
+              </div>
             </div>
           </div>
-        </div>          
         </div>
         <div className="max-w-md mx-auto space-y-6 ">
           {/* FORM */}
           <Formik
-      initialValues={initialValues}
-      validationSchema={SignUpValidationSchema}
-      onSubmit={handleFormSubmit}
-    >
-      {({ errors, touched, handleSubmit }) => (
-        <Form onSubmit={handleSubmit} className="flex flex-col gap-3">
-          <FormItem
-            label='nova senha'
-            errorMessage={errors.password}
-            invalid={!!(errors.password && touched.password)}
+            initialValues={initialValues}
+            validationSchema={SignUpValidationSchema}
+            onSubmit={handleFormSubmit}
           >
-            <Field
-              invalid={!!(errors.password && touched.password)}
-              name="password"
-              type="password"
-              label="Password"
-              component={Input}
-            />
-          </FormItem>
-          <FormItem
-            label='repetir nova senha'
-            errorMessage={errors.conf_password}
-            invalid={!!(errors.conf_password && touched.conf_password)}
-          >
-            <Field
-              invalid={!!(errors.conf_password && touched.conf_password)}
-              name="conf_password"
-              type="password"
-              label="Password"
-              component={Input}
-            />
-          </FormItem>
-          <ButtonPrimary
-            type="submit"
-            className="w-full mt-6"
-            disabled={loading}
-            loading={loading}
-          >
-            Criar nova senha
-          </ButtonPrimary>
-        </Form>
-      )}
-    </Formik>
+            {({ errors, touched, handleSubmit }) => (
+              <Form onSubmit={handleSubmit} className="flex flex-col gap-3">
+                <FormItem
+                  label='nova senha'
+                  errorMessage={errors.password}
+                  invalid={!!(errors.password && touched.password)}
+                >
+                  <Field
+                    invalid={!!(errors.password && touched.password)}
+                    name="password"
+                    type="password"
+                    label="Password"
+                    component={Input}
+                  />
+                </FormItem>
+                <FormItem
+                  label='repetir nova senha'
+                  errorMessage={errors.conf_password}
+                  invalid={!!(errors.conf_password && touched.conf_password)}
+                >
+                  <Field
+                    invalid={!!(errors.conf_password && touched.conf_password)}
+                    name="conf_password"
+                    type="password"
+                    label="Password"
+                    component={Input}
+                  />
+                </FormItem>
+                <ButtonPrimary
+                  type="submit"
+                  className="w-full mt-6"
+                  disabled={loading}
+                  loading={loading}
+                >
+                  Criar nova senha
+                </ButtonPrimary>
+              </Form>
+            )}
+          </Formik>
 
         </div>
       </div>
     </div>
-    
+
   );
 };
- 
+
 
 export default resetPassord;

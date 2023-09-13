@@ -37,9 +37,9 @@ export default function CartDropdown() {
                     {name}
                   </Link>
                 </h3>
-                <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
+                <p className="mt-1 text-sm text-slate-500 ">
                   <span>{`Natural`}</span>
-                  <span className="mx-2 border-l border-slate-200 dark:border-slate-700 h-4"></span>
+                  <span className="mx-2 border-l border-slate-200  h-4"></span>
                   <span>{"XL"}</span>
                 </p>
               </div>
@@ -47,12 +47,12 @@ export default function CartDropdown() {
             </div>
           </div>
           <div className="flex flex-1 items-end justify-between text-sm">
-            <p className="text-gray-500 dark:text-slate-400">{`Qty 1`}</p>
+            <p className="text-gray-500 ">{`Qty 1`}</p>
 
             <div className="flex">
               <button
                 type="button"
-                className="font-medium text-primary-6000 dark:text-primary-500 "
+                className="font-medium text-primary-main  "
               >
                 Remove
               </button>
@@ -70,7 +70,7 @@ export default function CartDropdown() {
           <Popover.Button
             className={`
                 ${open ? "" : "text-opacity-90"}
-                 group w-10 h-10 sm:w-12 sm:h-12 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full inline-flex items-center justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 relative`}
+                 group w-10 h-10 sm:w-12 sm:h-12 hover:bg-slate-100  rounded-full inline-flex items-center justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 relative`}
           >
             <div className="w-3.5 h-3.5 flex items-center justify-center bg-primary-500 absolute top-1.5 right-1.5 rounded-full text-[10px] leading-none text-white font-medium">
               <span className="mt-[1px]">3</span>
@@ -127,21 +127,21 @@ export default function CartDropdown() {
             leaveTo="opacity-0 translate-y-1"
           >
             <Popover.Panel className="hidden md:block absolute z-10 w-screen max-w-xs sm:max-w-md px-4 mt-3.5 -right-28 sm:right-0 sm:px-0">
-              <div className="overflow-hidden rounded-2xl shadow-lg ring-1 ring-black/5 dark:ring-white/10">
-                <div className="relative bg-white dark:bg-neutral-800">
+              <div className="overflow-hidden rounded-2xl shadow-lg ring-1 ring-black/5 /10">
+                <div className="relative bg-white ">
                   <div className="max-h-[60vh] p-5 overflow-y-auto hiddenScrollbar">
                     <h3 className="text-xl font-semibold">Shopping cart</h3>
-                    <div className="divide-y divide-slate-100 dark:divide-slate-700">
+                    <div className="divide-y divide-slate-100">
                       {[PRODUCTS[0], PRODUCTS[1], PRODUCTS[2]].map(
                         (item, index) => renderProduct(item, index, close)
                       )}
                     </div>
                   </div>
-                  <div className="bg-neutral-50 dark:bg-slate-900 p-5">
-                    <p className="flex justify-between font-semibold text-slate-900 dark:text-slate-100">
+                  <div className="bg-neutral-50  p-5">
+                    <p className="flex justify-between font-semibold text-slate-900  ">
                       <span>
                         <span>Subtotal</span>
-                        <span className="block text-sm text-slate-500 dark:text-slate-400 font-normal">
+                        <span className="block text-sm text-slate-500  font-normal">
                           Shipping and taxes calculated at checkout.
                         </span>
                       </span>
@@ -150,7 +150,7 @@ export default function CartDropdown() {
                     <div className="flex space-x-2 mt-5">
                       <ButtonSecondary
                         href="/"
-                        className="flex-1 border border-slate-200 dark:border-slate-700"
+                        className="flex-1 border border-slate-200 "
                         onClick={close}
                       >
                         View cart

@@ -97,7 +97,7 @@ export default function DropdownCategories() {
             >
               <Popover.Panel className="absolute z-40 w-80 mt-3.5 transform -translate-x-1/2 left-1/2 sm:px-0">
                 <div className="overflow-hidden rounded-2xl shadow-lg ring-1 ring-black ring-opacity-5">
-                  <div className="relative grid grid-cols-1 gap-5 bg-white dark:bg-neutral-800 p-7 ">
+                  <div className="relative grid grid-cols-1 gap-5 bg-white  p-7 ">
                     {CATEGORIES.map((item, index) => (
                       <Link
                         key={index}
@@ -113,7 +113,7 @@ export default function DropdownCategories() {
                         ></div>
                         <div className="ml-4 space-y-0.5">
                           <p className="text-sm font-medium ">{item.name}</p>
-                          <p className="text-xs text-neutral-500 dark:text-neutral-300">
+                          <p className="text-xs text-neutral-500 ">
                             {item.description}
                           </p>
                         </div>
@@ -121,7 +121,7 @@ export default function DropdownCategories() {
                     ))}
                   </div>
                   {/* FOOTER */}
-                  <div className="p-4 bg-neutral-50 dark:bg-neutral-700">
+                  <div className="p-4 bg-neutral-50 ">
                     <Link
                       href="/"
                       className="flow-root px-2 py-2 space-y-0.5 transition duration-150 ease-in-out rounded-md focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
@@ -131,7 +131,7 @@ export default function DropdownCategories() {
                           Go to our shop
                         </span>
                       </div>
-                      <span className="block text-sm text-slate-500 dark:text-neutral-400">
+                      <span className="block text-sm text-slate-500 ">
                         Look for what you need and love.
                       </span>
                     </Link>

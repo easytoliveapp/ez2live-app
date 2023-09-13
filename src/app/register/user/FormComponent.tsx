@@ -54,7 +54,8 @@ const FormComponent = () => {
       useToastify({ label: 'Impossível criar sua conta. Por favor, tente novamente.', type: 'error' });
     }).catch((error) => {
       if (error?.response?.data?.code === 400) {
-        return useToastify({ label: 'Impossível criar sua conta pois já existe um e-mail cadastrado.', type: 'error' });
+        useToastify({ label: 'Impossível criar sua conta pois já existe um e-mail cadastrado.', type: 'error' });
+        return setLoading(false);
       }
 
       useToastify({ label: 'Impossível criar sua conta. Por favor, tente novamente.', type: 'error' });
@@ -76,7 +77,7 @@ const FormComponent = () => {
             invalid={!!(errors.name && touched.name)}
           >
             <Field
-              invalid = {!!(errors.name && touched.name)}
+              invalid={!!(errors.name && touched.name)}
               name="name"
               type="text"
               label="Name"
@@ -89,7 +90,7 @@ const FormComponent = () => {
             invalid={!!(errors.email && touched.email)}
           >
             <Field
-              invalid = {!!(errors.email && touched.email)}
+              invalid={!!(errors.email && touched.email)}
               name="email"
               type="email"
               label="Email"

@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { SupplierCard } from '@/components/mols';
-import { CategoryCard } from '@/components/atoms'
+import { CategoryCard, CompleteSupplierRegister } from '@/components/atoms'
 import SupplierLogo from '@/images/easytolive/logo/logotipo-fundoazulroxo.svg'
 import SearchCategory from '@/app/searchCategory'
 import SupplierService from '@/service/supplier.service'
@@ -15,11 +15,13 @@ import { useToastify } from "@/hooks/useToastify";
 import { userLoginResponseProps } from "@/types/user";
 import { getItemByLocalStorage } from "@/utils/localStorageHelper";
 import { useRouter } from "next/navigation";
+import ModalEdit from '@/components/mols/Modal/ModalEdit';
+import ButtonThird from '@/components/atoms/Button/ButtonThird';
 
 function PageHome() {
   const router = useRouter();
 
-  const [suppliers , setSuppliers] = useState([])
+  const [suppliers, setSuppliers] = useState([])
   const [search, setSearch] = useState('');
   const [textSearched] = useDebounce(search, 1000);
   const [categories, setCategories] = useState([]);
@@ -27,21 +29,30 @@ function PageHome() {
   const [hasMore, setHasMore] = useState(true);
   const [supplierCategoriesFilter, setSupplierCategoriesFilter] = useState('');
   const [user, setUser] = useState<userLoginResponseProps>();
+  const [ControlModalSupplierUploadRegister, setControlModalSupplierUploadRegister] = useState(true)
 
   const getAllCategories = async () => {
     const res: any = await SupplierService.getSupplierCategories();
     return res;
-  }
+  };
 
   const handleCategoryFilter = (categoryId: string) => {
     setSupplierCategoriesFilter(prevState => prevState === categoryId ? '' : categoryId);
-  }
+  };
 
   useEffect(() => {
-    const user = getItemByLocalStorage('user');
-    if (!user) return router.push('/login');
+    const localUser = getItemByLocalStorage('user');
+    if (!localUser) return router.push('/login');
+    setUser(localUser);
+    if (user?.isSupplier) {
+      if (user.isVerified === false) {
+        return router.push('/supplier-not-verified')
+      }
+      else {
+        setControlModalSupplierUploadRegister(true)
+      };
+    };
 
-    setUser(user);
 
     getAllCategories()
       .then((res) => setCategories(res?.data?.supplierCategories?.results))
@@ -49,7 +60,7 @@ function PageHome() {
         if (error?.response?.data?.code === 401) {
           useToastify({ label: 'Não autorizado. Por favor, autentique-se', type: 'error' });
         }
-        if(error?.response?.data?.code === 404) {
+        if (error?.response?.data?.code === 404) {
           useToastify({ label: 'Nenhuma categoria encontrada', type: 'error' });
         }
       });
@@ -58,24 +69,24 @@ function PageHome() {
   function handleSetSearch(e: any) {
     setSearch(e.target.value)
     setPageNumber(1);
-  }
+  };
 
-  const getAllSuppliers = async (data : Partial<ISupplierList> ) => {
+  const getAllSuppliers = async (data: Partial<ISupplierList>) => {
     const res: any = await SupplierService.getSupplierList(data);
 
-    if (res?.data?.totalPages <= pageNumber ) {
+    if (res?.data?.totalPages <= pageNumber) {
       setHasMore(false)
     }
     else {
       setHasMore(true)
     }
     return res;
-  }
+  };
 
-  const handleResponse = (res: any)=>
-    setSuppliers( 
-      pageNumber === 1 
-        ? res?.data?.results 
+  const handleResponse = (res: any) =>
+    setSuppliers(
+      pageNumber === 1
+        ? res?.data?.results
         : suppliers.concat(res?.data?.results)
     );
 
@@ -87,9 +98,9 @@ function PageHome() {
       sortBy: 'coupons:desc',
     };
 
-     getAllSuppliers(data)
+    getAllSuppliers(data)
       .then(handleResponse)
-      .catch((error)=> {
+      .catch((error) => {
         if (error?.response?.data?.code === 401) {
           useToastify({ label: 'Usuário não autenticado', type: 'error' })
         }
@@ -98,10 +109,19 @@ function PageHome() {
 
   return user && (
     <div className="md:w-[500px] w-full m-auto p-5">
+      <ModalEdit
+        show={ControlModalSupplierUploadRegister}
+        onCloseModalEdit={() => setControlModalSupplierUploadRegister(false)}>
+        <div className='h-[85vh] flex flex-col items-center justify-around'>
+          <CompleteSupplierRegister />
+          <ButtonThird onClick={() => setControlModalSupplierUploadRegister(false)}>cancelar</ButtonThird>
+        </div>
+
+      </ModalEdit>
       <SearchCategory onChange={handleSetSearch} />
       <div className='flex flex-wrap my-6 w-full gap-3'>
         {
-          categories.map((category: categorieProps, index)=> (
+          categories.map((category: categorieProps, index) => (
             <CategoryCard
               key={index}
               name={category.title}
@@ -115,12 +135,12 @@ function PageHome() {
       <InfiniteScroll
         className='flex flex-col gap-3'
         dataLength={suppliers.length}
-        next={()=> setPageNumber(pageNumber + 1)}
+        next={() => setPageNumber(pageNumber + 1)}
         hasMore={hasMore}
-        loader={<h4 className=' m-4 text-primary-ez2live'>Carregando...</h4>}
-        endMessage={<p className='m-4 text-primary-ez2live text-center'>...</p>}
+        loader={<h4 className=' m-4 text-primary-main'>Carregando...</h4>}
+        endMessage={<p className='m-4 text-primary-main text-center'>...</p>}
       >
-        {suppliers.map((supplier :ISupplier) => (
+        {suppliers.map((supplier: ISupplier) => (
           <SupplierCard
             supplierCategory={supplier?.supplierCategory?.title}
             supplierImage={SupplierLogo}
@@ -134,6 +154,6 @@ function PageHome() {
       </InfiniteScroll>
     </div>
   );
-}
+};
 
 export default PageHome;

@@ -4,12 +4,12 @@ import Image from 'next/image';
 import extendedLogoImage from '@/images/easytolive/logo/logocompleta-semfundoazulroxo.svg'
 import Link from 'next/link';
 
-interface NavBarProps {}
+interface NavBarProps { }
 
 const NavBar: FC<NavBarProps> = () => {
   return (
     <div>
-      <div className="relative w-full p-4 flex justify-center items-center bg-primary-ez2livebg z-30">
+      <div className="relative w-full p-4 flex justify-center items-center bg-generic-background z-30">
         <Link href="/login">
           <Image className='w-auto h-8' src={extendedLogoImage} alt='EasyToLive' />
         </Link>

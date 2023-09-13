@@ -170,7 +170,7 @@ const SidebarFilters = () => {
           <div>
             <label
               htmlFor="minPrice"
-              className="block text-sm font-medium text-neutral-700 dark:text-neutral-300"
+              className="block text-sm font-medium text-neutral-700 "
             >
               Min price
             </label>
@@ -183,7 +183,7 @@ const SidebarFilters = () => {
                 name="minPrice"
                 disabled
                 id="minPrice"
-                className="block w-32 pr-10 pl-4 sm:text-sm border-neutral-200 dark:border-neutral-700 rounded-full bg-transparent"
+                className="block w-32 pr-10 pl-4 sm:text-sm border-neutral-200  rounded-full bg-transparent"
                 value={rangePrices[0]}
               />
             </div>
@@ -191,7 +191,7 @@ const SidebarFilters = () => {
           <div>
             <label
               htmlFor="maxPrice"
-              className="block text-sm font-medium text-neutral-700 dark:text-neutral-300"
+              className="block text-sm font-medium text-neutral-700 "
             >
               Max price
             </label>
@@ -204,7 +204,7 @@ const SidebarFilters = () => {
                 disabled
                 name="maxPrice"
                 id="maxPrice"
-                className="block w-32 pr-10 pl-4 sm:text-sm border-neutral-200 dark:border-neutral-700 rounded-full bg-transparent"
+                className="block w-32 pr-10 pl-4 sm:text-sm border-neutral-200  rounded-full bg-transparent"
                 value={rangePrices[1]}
               />
             </div>
@@ -236,7 +236,7 @@ const SidebarFilters = () => {
   };
 
   return (
-    <div className="divide-y divide-slate-200 dark:divide-slate-700">
+    <div className="divide-y divide-slate-200">
       {renderTabsCategories()}
       {renderTabsColor()}
       {renderTabsSize()}

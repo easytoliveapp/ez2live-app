@@ -8,11 +8,11 @@ export interface categorieProps {
   id: string;
 }
 
-export interface CategoryProps  {
+export interface CategoryProps {
   image: string | StaticImageData;
   isActive: boolean;
   name: string;
-  onClick?: (e:React.MouseEvent<HTMLDivElement>) => void
+  onClick?: (e: React.MouseEvent<HTMLDivElement>) => void
 }
 
 const Categories: FC<CategoryProps> = ({
@@ -20,20 +20,20 @@ const Categories: FC<CategoryProps> = ({
   isActive,
   name,
   onClick,
-})=> {
+}) => {
   return (
     <div
       className={
         classNames(
-          'bg-white border-2 hover:border-secondary-ez2live active:shadow-sm rounded-lg p-1 py-2 w-24 flex flex-col gap-1 items-center cursor-pointer',
-          isActive ? 'border-secondary-ez2live' : 'border-white'
+          'bg-white border-2 hover:border-secondary-main active:shadow-sm rounded-lg p-1 py-2 w-24 flex flex-col gap-1 items-center cursor-pointer',
+          isActive ? 'border-secondary-main' : 'border-white'
         )
       }
       onClick={onClick}
     >
       <Image
         className="w-8 h-auto"
-        src={image} 
+        src={image}
         alt="Category Image"
       />
       <p className="text-[10px] font-semibold">{name}</p>

@@ -19,7 +19,7 @@ const SupplierCoupons: React.FC<SupplierCouponsProps> = ({
   icon,
 }) => {
   return (
-    <div className='bg-primary-ez2live h-auto pl-4 rounded-full flex items-center gap-3 cursor-pointer'>
+    <div className='bg-primary-main h-auto pl-4 rounded-full flex items-center gap-3 cursor-pointer'>
       <h2 className=' font-bold text-white text-xl'>
         {discount}%
       </h2>
@@ -40,7 +40,7 @@ const SupplierCoupons: React.FC<SupplierCouponsProps> = ({
 
           <span className='bg-gray-300 w-0.5 h-12'></span>
           <div className='flex flex-col gap-1.5 text-xs' >
-            <p className='flex font-semibold items-center text-secondary-ez2livegreen'>
+            <p className='flex font-semibold items-center text-generic-alertGreen'>
               <Image
                 className='h-3.5 pr-2 w-auto'
                 alt='coupon-black'
@@ -48,7 +48,7 @@ const SupplierCoupons: React.FC<SupplierCouponsProps> = ({
                 color='white'
               />
               faltam {unintsAmount} unidades</p>
-            <p className='flex font-semibold items-center text-secondary-ez2livered'>
+            <p className='flex font-semibold items-center text-generic-alertRed'>
               <Image
                 className='h-3.5 pr-2 w-auto'
                 alt='coupon-black'
