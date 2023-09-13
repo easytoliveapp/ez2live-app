@@ -1,3 +1,4 @@
+import { StaticImageData } from 'next/image';
 import { IAddress } from '../auth';
 import { ICoupon } from '../coupons';
 
@@ -12,7 +13,7 @@ export interface ISupplier {
   address: IAddress;
   document: string;
   numberOfCoupons: number;
-  coupons: [ICoupon];
+  coupons: ICoupon[];
   email: string;
   id: string;
   supplierCategory: iSupplierCategory
@@ -40,4 +41,23 @@ export interface ICategoryProps {
   active: boolean;
   title: string;
   id: string;
+}
+
+export interface ISupplierCompleteRegister {
+  logo : string | StaticImageData;
+  ilustration_image : string | StaticImageData;
+  description: string;
+}
+
+export interface ISupplierLoginResponseProps {
+  active: boolean,
+  address: IAddress,
+  coupons: ICoupon,
+  email: string,
+  id: string,
+  isEmailVerified: boolean,
+  isSupplier: boolean,
+  isVerified: boolean,
+  name: string,
+  role: string,
 }

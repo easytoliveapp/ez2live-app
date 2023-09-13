@@ -53,7 +53,7 @@ const ProductCard: FC<ProductCardProps> = ({
         <Transition
           appear
           show={t.visible}
-          className="p-4 max-w-md w-full bg-white dark:bg-slate-800 shadow-lg rounded-2xl pointer-events-auto ring-1 ring-black/5 dark:ring-white/10 text-slate-900 dark:text-slate-200"
+          className="p-4 max-w-md w-full bg-white  shadow-lg rounded-2xl pointer-events-auto ring-1 ring-black/5 /10 text-slate-900 "
           enter="transition-all duration-150"
           enterFrom="opacity-0 translate-x-20"
           enterTo="opacity-100 translate-x-0"
@@ -64,7 +64,7 @@ const ProductCard: FC<ProductCardProps> = ({
           <p className="block text-base font-semibold leading-none">
             Added to cart!
           </p>
-          <div className="border-t border-slate-200 dark:border-slate-700 my-4" />
+          <div className="border-t border-slate-200  my-4" />
           {renderProductCartOnNotify({ size })}
         </Transition>
       ),
@@ -94,11 +94,11 @@ const ProductCard: FC<ProductCardProps> = ({
             <div className="flex justify-between ">
               <div>
                 <h3 className="text-base font-medium ">{name}</h3>
-                <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
+                <p className="mt-1 text-sm text-slate-500 ">
                   <span>
                     {variants ? variants[variantActive].name : `Natural`}
                   </span>
-                  <span className="mx-2 border-l border-slate-200 dark:border-slate-700 h-4"></span>
+                  <span className="mx-2 border-l border-slate-200  h-4"></span>
                   <span>{size || "XL"}</span>
                 </p>
               </div>
@@ -106,12 +106,12 @@ const ProductCard: FC<ProductCardProps> = ({
             </div>
           </div>
           <div className="flex flex-1 items-end justify-between text-sm">
-            <p className="text-gray-500 dark:text-slate-400">Qty 1</p>
+            <p className="text-gray-500 ">Qty 1</p>
 
             <div className="flex">
               <button
                 type="button"
-                className="font-medium text-primary-6000 dark:text-primary-500 "
+                className="font-medium text-primary-main  "
                 onClick={(e) => {
                   e.preventDefault();
                   router.push("/");
@@ -163,11 +163,10 @@ const ProductCard: FC<ProductCardProps> = ({
             <div
               key={index}
               onClick={() => setVariantActive(index)}
-              className={`relative w-6 h-6 rounded-full overflow-hidden z-10 border cursor-pointer ${
-                variantActive === index
-                  ? getBorderClass(variant.color)
-                  : "border-transparent"
-              }`}
+              className={`relative w-6 h-6 rounded-full overflow-hidden z-10 border cursor-pointer ${variantActive === index
+                ? getBorderClass(variant.color)
+                : "border-transparent"
+                }`}
               title={variant.name}
             >
               <div
@@ -185,11 +184,10 @@ const ProductCard: FC<ProductCardProps> = ({
           <div
             key={index}
             onClick={() => setVariantActive(index)}
-            className={`relative w-11 h-6 rounded-full overflow-hidden z-10 border cursor-pointer ${
-              variantActive === index
-                ? "border-black dark:border-slate-300"
-                : "border-transparent"
-            }`}
+            className={`relative w-11 h-6 rounded-full overflow-hidden z-10 border cursor-pointer ${variantActive === index
+              ? "border-black "
+              : "border-transparent"
+              }`}
             title={variant.name}
           >
             <div
@@ -199,11 +197,11 @@ const ProductCard: FC<ProductCardProps> = ({
                   // @ts-ignore
                   typeof variant.thumbnail?.src === "string"
                     ? // @ts-ignore
-                      variant.thumbnail?.src
+                    variant.thumbnail?.src
                     : typeof variant.thumbnail === "string"
-                    ? variant.thumbnail
-                    : ""
-                })`,
+                      ? variant.thumbnail
+                      : ""
+                  })`,
               }}
             ></div>
           </div>
@@ -266,7 +264,7 @@ const ProductCard: FC<ProductCardProps> = ({
       >
         <Link href={"/"} className="absolute inset-0"></Link>
 
-        <div className="relative flex-shrink-0 bg-slate-50 dark:bg-slate-300 rounded-3xl overflow-hidden z-1 group">
+        <div className="relative flex-shrink-0 bg-slate-50 rounded-3xl overflow-hidden z-1 group">
           <Link href={"/"} className="block">
             <NcImage
               containerClassName="flex aspect-w-11 aspect-h-12 w-full h-0"
@@ -288,7 +286,7 @@ const ProductCard: FC<ProductCardProps> = ({
             <h2 className="nc-ProductCard__title text-base font-semibold transition-colors">
               {name}
             </h2>
-            <p className={`text-sm text-slate-500 dark:text-slate-400 mt-1 `}>
+            <p className={`text-sm text-slate-500  mt-1 `}>
               {description}
             </p>
           </div>
@@ -297,7 +295,7 @@ const ProductCard: FC<ProductCardProps> = ({
             <Prices price={price} />
             <div className="flex items-center mb-0.5">
               <StarIcon className="w-5 h-5 pb-[1px] text-amber-400" />
-              <span className="text-sm ml-1 text-slate-500 dark:text-slate-400">
+              <span className="text-sm ml-1 text-slate-500 ">
                 {rating || ""} ({numberOfReviews || 0} reviews)
               </span>
             </div>

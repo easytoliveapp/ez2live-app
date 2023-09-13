@@ -12,7 +12,7 @@ const RemainingTimeNftCard: FC<Props> = ({
   return (
     <div className={className}>
       <svg
-        className="text-white dark:text-neutral-900 w-44 md:w-[195px]"
+        className="text-white  w-44 md:w-[195px]"
         viewBox="0 0 196 55"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -24,7 +24,7 @@ const RemainingTimeNftCard: FC<Props> = ({
       </svg>
 
       <div className={`absolute ${contentClassName}`}>
-        <span className="block text-xs text-neutral-500 dark:text-neutral-400 tracking-wide">
+        <span className="block text-xs text-neutral-500  tracking-wide">
           Remaining time
         </span>
         <span className="block md:text-lg font-semibold">3h : 15m : 20s</span>

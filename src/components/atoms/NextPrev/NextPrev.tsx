@@ -24,7 +24,7 @@ const NextPrev: FC<NextPrevProps> = ({
 
   return (
     <div
-      className={`nc-NextPrev relative flex items-center text-slate-500 dark:text-slate-400 ${className}`}
+      className={`nc-NextPrev relative flex items-center text-slate-500  ${className}`}
       data-nc-id="NextPrev"
       data-glide-el="controls"
     >
@@ -32,7 +32,7 @@ const NextPrev: FC<NextPrevProps> = ({
         <button
           className={`${btnClassName} ${
             !onlyPrev ? "mr-2" : ""
-          } border-slate-200 dark:border-slate-600 rounded-full flex items-center justify-center ${
+          } border-slate-200  rounded-full flex items-center justify-center ${
             focus === "left" ? "border-2" : ""
           }`}
           onClick={(e) => {
@@ -65,7 +65,7 @@ const NextPrev: FC<NextPrevProps> = ({
       )}
       {!onlyPrev && (
         <button
-          className={`${btnClassName}  border-slate-200 dark:border-slate-600 rounded-full flex items-center justify-center ${
+          className={`${btnClassName}  border-slate-200  rounded-full flex items-center justify-center ${
             focus === "right" ? "border-2" : ""
           }`}
           onClick={(e) => {

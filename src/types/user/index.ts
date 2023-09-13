@@ -13,3 +13,6 @@ export interface userLoginResponseProps {
   name: string,
   role: string,
 }
+export interface IDeleteUSer {
+  password: string
+}

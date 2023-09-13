@@ -5,7 +5,6 @@ import Image, { StaticImageData } from 'next/image';
 import CouponPrimary from '@/images/easytolive/icons/couponPrimary.svg'
 import ShoppingCartGreen from '@/images/easytolive/icons/shopping_cart_green.svg'
 import ClockCircleRed from '@/images/easytolive/icons/clock_circleRed.svg'
-import ArrowRight from '@/images/easytolive/icons/arrow-next-right-primary.svg'
 import classNames from '@/utils/classNames';
 import { Coupon } from '@/components/orgs/index';
 import { ModalEdit } from '@/components/mols/index';
@@ -19,6 +18,7 @@ interface SupplierCouponsProps {
   supplierLogo: string | StaticImageData
   supplierCategory: string
   supplierName: string
+  icon: string | StaticImageData,
 }
 
 const SupplierCoupons: React.FC<SupplierCouponsProps> = ({
@@ -28,13 +28,13 @@ const SupplierCoupons: React.FC<SupplierCouponsProps> = ({
   expirateTime,
   supplierCategory,
   id,
-  supplierName
-
+  supplierName,
+  icon
 }) => {
   const [showModal, setShowModal] = useState(false);
 
   return (
-    <div className='bg-primary-ez2live h-auto pl-4 max-h-14 rounded-full flex items-center gap-3'>
+    <div className='bg-primary-main h-auto pl-4 max-h-14 rounded-full flex items-center gap-3'>
       <ModalEdit
         show={showModal}
         onCloseModalEdit={() => setShowModal(false)}
@@ -69,7 +69,7 @@ const SupplierCoupons: React.FC<SupplierCouponsProps> = ({
 
           <span className='bg-gray-300 w-0.5 h-12'></span>
           <div className='flex flex-col gap-1.5 text-xs' >
-            <p className='flex font-semibold items-center text-secondary-ez2livegreen'>
+            <p className='flex font-semibold items-center text-generic-alertGreen'>
               <Image
                 className='h-3.5 pr-2 w-auto'
                 alt='coupon-black'
@@ -77,7 +77,7 @@ const SupplierCoupons: React.FC<SupplierCouponsProps> = ({
                 color='white'
               />
               faltam {unintsAmount} unidades</p>
-            <p className='flex font-semibold items-center text-secondary-ez2livered'>
+            <p className='flex font-semibold items-center text-generic-alertRed'>
               <Image
                 className='h-3.5 pr-2 w-auto'
                 alt='coupon-black'
@@ -90,7 +90,7 @@ const SupplierCoupons: React.FC<SupplierCouponsProps> = ({
             <Image
               className='h-6 w-auto'
               alt='arrow right'
-              src={ArrowRight}
+              src={icon}
             />
           </div>
         </div>
