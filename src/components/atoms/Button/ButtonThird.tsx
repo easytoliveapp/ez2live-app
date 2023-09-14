@@ -3,9 +3,9 @@ import React from "react";
 export interface ButtonThirdProps extends ButtonProps {}
 
 const ButtonThird: React.FC<ButtonThirdProps> = ({
-  className = "text-secondary-ez2livered ",
+  className = "text-generic-alertRed",
   ...args
 }) => {
-  return <Button className={`ttnc-ButtonThird ${className}`} {...args} />;
+  return <Button className={`ttnc-ButtonThird !text-generic-alertRed font-semibold ${className}`} {...args} />;
 };
 export default ButtonThird;

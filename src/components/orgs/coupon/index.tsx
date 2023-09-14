@@ -3,11 +3,13 @@ import Image, { StaticImageData } from 'next/image'
 import CouponGreen from '@/images/easytolive/icons/coupongreen.svg'
 import ClockCircleRed from '@/images/easytolive/icons/clock_circleRed.svg'
 import { AccordionInfo } from '@/components/atoms';
+import useDateDiffInDays from '@/hooks/useDateDifferenceInDays';
+import useDateFormater from '@/hooks/useDateFormater';
 
 interface CouponProps {
   id: string
   unintsAmount: number
-  expirateTime: number
+  expirateTime: string
   supplierLogo: string | StaticImageData
   supplierName: string
   couponDiscount: string
@@ -25,9 +27,9 @@ const CouponPage: React.FC<CouponProps> = ({
   return (
     <div className='h-[85vh] flex flex-col text-black'>
       <h1 className=' text-3xl py-4 mb-2 font-bold text-black'>Creatina</h1>
-      <div className='flex mb-8 justify-around'>
+      <div className='flex mb-8 gap-4 justify-around'>
         <div className='flex flex-col gap-1.5 text-sm' >
-          <p className='flex font-semibold items-center text-secondary-ez2livegreen'>
+          <p className='flex font-semibold items-center text-generic-alertGreen'>
             <Image
               className='h-4 pr-2 w-auto'
               alt='coupon-green'
@@ -35,21 +37,21 @@ const CouponPage: React.FC<CouponProps> = ({
               color='white'
             />
             faltam {unintsAmount} unidades</p>
-          <p className='flex font-semibold items-center text-secondary-ez2livered'>
+          <p className='flex font-semibold items-center text-generic-alertRed'>
             <Image
               className='h-3.5 pr-2 w-auto'
               alt='coupon-black'
               src={ClockCircleRed}
             />
-            termina em {expirateTime} dias
+            termina em {useDateDiffInDays(expirateTime)} dias
           </p>
         </div>
-        <span className='relative w-32 text-xl text-white bg-primary-ez2live flex items-center justify-center p-5 rounded-full'>
+        <span className='relative text-3xl w-32 text-white bg-primary-main flex items-center justify-center px-6 py-3 rounded-full'>
           {couponDiscount}%
-          <span className='absolute -top-4 -left-4 w-10 h-10 rounded-full bg-gradient-to-r '></span>
+          <span className='absolute -top-5 -left-5 w-12 h-12 rounded-full bg-gradient-to-r from-secondary-dark to-secondary-lighter'></span>
         </span>
       </div>
-      <hr className="border-slate-200 dark:border-slate-700 mb-6"></hr>
+      <hr className="border-slate-200 mb-6"></hr>
       <div className='flex flex-col mt-5 h-auto'>
         <div className='flex item-center'>
           <Image className='w-20 h-20 rounded-full' src={supplierLogo} alt='supplier-logo' />
@@ -63,7 +65,7 @@ const CouponPage: React.FC<CouponProps> = ({
             <p className='font-semibold'>categoria</p>
             <p>{supplierCategory}</p>
             <p className='font-semibold'>validade</p>
-            <p>{expirateTime}</p>
+            <p>{useDateFormater(expirateTime)}</p>
           </div>
         </div>
         <AccordionInfo data={[{ name: "Regras de uso", content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa, dolorem. Quae debitis hic ipsum inventore assumenda laborum reprehenderit, asperiores nostrum, molestiae odio excepturi maiores possimus ad cum quia et doloremque?" }]}></AccordionInfo>

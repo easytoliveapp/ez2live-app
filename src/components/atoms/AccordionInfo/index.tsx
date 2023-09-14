@@ -30,7 +30,7 @@ const AccordionInfo: FC<Props> = ({
             {({ open }) => (
               <>
                 <Disclosure.Button className="flex items-center justify-between w-full px-4 py-2 font-medium text-left bg-slate-100/80 hover:bg-slate-200/60 rounded-lg focus:outline-none focus-visible:ring focus-visible:ring-slate-500 focus-visible:ring-opacity-75 ">
-                  <span>{item.name}</span>
+                  <span className=' font-semibold'>{item.name}</span>
                   {!open ? (
                     <PlusIcon className="w-4 h-4 text-slate-600 " />
                   ) : (

@@ -9,11 +9,12 @@ import classNames from '@/utils/classNames';
 import { Coupon } from '@/components/orgs/index';
 import { ModalEdit } from '@/components/mols/index';
 import { ButtonPrimary, ButtonThird } from '@/components/atoms/index'
+import useDateDiffInDays from '@/hooks/useDateDifferenceInDays';
 
 interface SupplierCouponsProps {
   discount: string;
   unintsAmount: number;
-  expirateTime: number;
+  expirateTime: string;
   id: string;
   supplierLogo: string | StaticImageData
   supplierCategory: string
@@ -40,7 +41,7 @@ const SupplierCoupons: React.FC<SupplierCouponsProps> = ({
         onCloseModalEdit={() => setShowModal(false)}
       >
         <div className='flex flex-col h-auto items-center'>
-          <Coupon id={id} couponDiscount={discount} expirateTime={5} unintsAmount={10} supplierCategory={supplierCategory} supplierLogo={supplierLogo} supplierName={supplierName} />
+          <Coupon id={id} couponDiscount={discount} expirateTime={expirateTime} unintsAmount={10} supplierCategory={supplierCategory} supplierLogo={supplierLogo} supplierName={supplierName} />
           <ButtonPrimary className='w-full mx-4 max-w-md' >Eu quero!</ButtonPrimary>
           <ButtonThird
             className='w-full mx-4 max-w-md'
@@ -55,7 +56,7 @@ const SupplierCoupons: React.FC<SupplierCouponsProps> = ({
       <div
         className={
           classNames(
-            'rounded-full bg-white w-full py-3 gap-4 -m-[1px] hover:shadow-md cursor-pointer',
+            'rounded-full bg-white w-full py-2 gap-4 -m-[1px] hover:shadow-md cursor-pointer',
           )
         }
         onClick={() => setShowModal(true)}
@@ -83,7 +84,7 @@ const SupplierCoupons: React.FC<SupplierCouponsProps> = ({
                 alt='coupon-black'
                 src={ClockCircleRed}
               />
-              termina em {expirateTime} dias
+              termina em {useDateDiffInDays(expirateTime)} dias
             </p>
           </div>
           <div onClick={() => setShowModal(true)}>

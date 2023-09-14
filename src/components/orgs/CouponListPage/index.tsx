@@ -48,7 +48,7 @@ const CouponListPage: React.FC<ICouponListPageProps> = ({
 
   return (
     <div className="relative md:w-[500px] h-full w-full mx-auto">
-      <div className='h-40 w-full bg-gradient-to-r from-primary-ez2lliveBlue to-primary-ez2live'>
+      <div className='h-40 w-full bg-gradient-to-r from-primary-dark to-primary-main'>
       </div>
       <Link className='absolute flex items-center justify-center rounded-full top-4 left-4 cursor-pointer h-8 w-8 bg-neutral-400 opacity-75 rotate-180'
         href={'/'}>
@@ -58,7 +58,7 @@ const CouponListPage: React.FC<ICouponListPageProps> = ({
           src={ArrowLeft} />
       </Link>
       <Image className='absolute rounded-full w-20 h-auto top-8 right-4' src={LogoImage} alt='Logo-restaurante' />
-      <div className='px-5 py-6 -mt-6 rounded-t-3xl bg-primary-ez2livebg w-full h-full'>
+      <div className='px-5 py-6 -mt-6 rounded-t-3xl bg-generic-background w-full h-full'>
         <div className='flex items-center justify-between'>
           <div className='flex gap-1'>
             <Link href={`/`} className='text-xs underline'>
@@ -86,8 +86,12 @@ const CouponListPage: React.FC<ICouponListPageProps> = ({
             ? (supplier?.coupons.map((coupon, key) => (
               <SupplierCoupons
                 icon={supplier.id == user?.id ? Edit : Arrow}
+                id={supplier.id}
+                supplierCategory={supplier.supplierCategory.title}
+                supplierLogo={LogoImage}
+                supplierName={supplier.name}
                 discount={coupon.discount}
-                expirateTime={5}
+                expirateTime={'2023/10/14'}
                 unintsAmount={20}
                 key={key}
               />
@@ -98,7 +102,7 @@ const CouponListPage: React.FC<ICouponListPageProps> = ({
 
         </div>
       </div>
-      <span className='md:w-[500px] fixed bottom-0 text-neutral-400 w-full flex justify-center items-center h-16 bg-alternative-darker'>
+      <span className='md:w-[500px] fixed bottom-0 text-neutral-400 w-full flex justify-center items-center h-16 bg-generic-dark'>
         Todos os direitos reservados
       </span>
     </div>
