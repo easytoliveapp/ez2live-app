@@ -41,7 +41,12 @@ const SupplierCoupons: React.FC<SupplierCouponsProps> = ({
         onCloseModalEdit={() => setShowModal(false)}
       >
         <div className='flex flex-col h-auto items-center'>
-          <Coupon id={id} couponDiscount={discount} expirateTime={expirateTime} unintsAmount={10} supplierCategory={supplierCategory} supplierLogo={supplierLogo} supplierName={supplierName} />
+          <Coupon id={id}
+          couponDiscount={discount}
+          expirateTime={expirateTime}
+          unintsAmount={10}
+          supplierCategory={supplierCategory} supplierLogo={supplierLogo}
+          supplierName={supplierName} />
           <ButtonPrimary className='w-full mx-4 max-w-md' >Eu quero!</ButtonPrimary>
           <ButtonThird
             className='w-full mx-4 max-w-md'

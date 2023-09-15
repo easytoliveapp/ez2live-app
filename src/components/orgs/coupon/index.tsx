@@ -25,7 +25,7 @@ const CouponPage: React.FC<CouponProps> = ({
   supplierCategory
 }) => {
   return (
-    <div className='h-[85vh] flex flex-col text-black'>
+    <div className='h-[85vh] flex flex-col w-full text-black'>
       <h1 className=' text-3xl py-4 mb-2 font-bold text-black'>Creatina</h1>
       <div className='flex mb-8 gap-4 justify-around'>
         <div className='flex flex-col gap-1.5 text-sm' >
