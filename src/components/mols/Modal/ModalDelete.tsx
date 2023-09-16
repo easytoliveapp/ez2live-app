@@ -16,9 +16,7 @@ const ModalDelete: FC<ModalDeleteProps> = ({ show, onCloseModalDelete }) => {
   const renderContent = () => {
     return (
       <form action="#">
-        <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-200">
-          Delete NFT
-        </h3>
+        <h3 className="text-lg font-semibold text-neutral-900 ">Delete NFT</h3>
         <span className="text-sm">
           Are you sure you want to delete this NFT? You cannot undo this action.
         </span>

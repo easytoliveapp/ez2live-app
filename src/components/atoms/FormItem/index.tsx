@@ -1,7 +1,7 @@
 import React from "react";
 
 export interface formItemProps {
-  errorMessage?: string;
+  errorMessage?: any;
   label?: string;
   invalid?: boolean;
   children: React.ReactNode;

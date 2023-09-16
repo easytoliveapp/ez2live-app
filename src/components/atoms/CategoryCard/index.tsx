@@ -19,8 +19,8 @@ const Categories: FC<CategoryProps> = ({ image, isActive, name, onClick }) => {
   return (
     <div
       className={classNames(
-        "bg-white border-2 hover:border-secondary-ez2live active:shadow-sm rounded-lg p-1 py-2 w-24 flex flex-col gap-1 items-center cursor-pointer",
-        isActive ? "border-secondary-ez2live" : "border-white",
+        "bg-white border-2 hover:border-secondary-main active:shadow-sm rounded-lg p-1 py-2 w-24 flex flex-col gap-1 items-center cursor-pointer",
+        isActive ? "border-secondary-main" : "border-white",
       )}
       onClick={onClick}
     >

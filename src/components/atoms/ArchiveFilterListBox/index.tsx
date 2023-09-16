@@ -37,15 +37,13 @@ const ArchiveFilterListBox: FC<ArchiveFilterListBoxProps> = ({
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <Listbox.Options className="absolute right-0 z-20 w-52 py-1 mt-2 overflow-auto text-sm text-neutral-900 dark:text-neutral-200 bg-white rounded-2xl shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-neutral-900 dark:ring-neutral-700">
+            <Listbox.Options className="absolute right-0 z-20 w-52 py-1 mt-2 overflow-auto text-sm text-neutral-900  bg-white rounded-2xl shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none  ">
               {lists.map((item, index: number) => (
                 <Listbox.Option
                   key={index}
                   className={({ active }) =>
                     `${
-                      active
-                        ? "text-primary-700 dark:text-neutral-200 bg-primary-50 dark:bg-neutral-700"
-                        : ""
+                      active ? "text-primary-700  bg-primary-50 " : ""
                     } cursor-default select-none relative py-2 pl-10 pr-4`
                   }
                   value={item}
@@ -60,7 +58,7 @@ const ArchiveFilterListBox: FC<ArchiveFilterListBoxProps> = ({
                         {item.name}
                       </span>
                       {selected ? (
-                        <span className="text-primary-700 absolute inset-y-0 left-0 flex items-center pl-3 dark:text-neutral-200">
+                        <span className="text-primary-700 absolute inset-y-0 left-0 flex items-center pl-3 ">
                           <CheckIcon className="w-5 h-5" aria-hidden="true" />
                         </span>
                       ) : null}

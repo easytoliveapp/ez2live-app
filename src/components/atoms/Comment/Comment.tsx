@@ -13,27 +13,24 @@ const Comment: FC<CommentProps> = ({ isSmall }) => {
       <div className="pt-1">
         <Avatar sizeClass={`w-6 h-6 ${!isSmall ? "sm:h-8 sm:w-8 " : ""}`} />
       </div>
-      <div className="flex-grow flex flex-col p-4 ml-2 text-sm border border-neutral-200 rounded-xl sm:ml-3 sm:text-base dark:border-neutral-700">
+      <div className="flex-grow flex flex-col p-4 ml-2 text-sm border border-neutral-200 rounded-xl sm:ml-3 sm:text-base ">
         <div className="relative flex items-center pr-6">
-          <a
-            className="flex-shrink-0 font-semibold text-neutral-800 dark:text-neutral-100"
-            href="/"
-          >
+          <a className="flex-shrink-0 font-semibold text-neutral-800" href="/">
             {_getPersonNameRd()}
           </a>
           <span className="mx-2">·</span>
-          <span className="text-neutral-500 dark:text-neutral-400 text-xs line-clamp-1 sm:text-sm">
+          <span className="text-neutral-500  text-xs line-clamp-1 sm:text-sm">
             May 20, 2021
           </span>
         </div>
-        <span className="block text-neutral-700 mt-2 mb-3 sm:mt-3 sm:mb-4 dark:text-neutral-300">
+        <span className="block text-neutral-700 mt-2 mb-3 sm:mt-3 sm:mb-4 ">
           In sagittis dui vel nisl. Duis ac nibh. Fusce lacus purus, aliquet at,
           feugiat non, pretium quis, lectus. Suspendisse potenti. In eleifend
           quam a odio. In hac habitasse platea dictumst.
         </span>
         <div>
           <button
-            className="inline-flex items-center min-w-[68px] rounded-full text-neutral-6000 bg-neutral-100 dark:text-neutral-200 dark:bg-neutral-800 px-3 h-8 hover:bg-teal-50 hover:text-teal-600 dark:hover:text-teal-500 focus:outline-none "
+            className="inline-flex items-center min-w-[68px] rounded-full text-neutral-6000 bg-neutral-100   px-3 h-8 hover:bg-teal-50 hover:text-teal-600 focus:outline-none "
             title="Reply"
           >
             <svg
@@ -50,7 +47,7 @@ const Comment: FC<CommentProps> = ({ isSmall }) => {
                 d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6"
               ></path>
             </svg>
-            <span className="text-xs leading-none text-neutral-900 dark:text-neutral-200">
+            <span className="text-xs leading-none text-neutral-900 ">
               Reply
             </span>
           </button>

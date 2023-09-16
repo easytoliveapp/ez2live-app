@@ -20,17 +20,14 @@ const SectionPromo1: FC<SectionPromo1Props> = ({ className = "" }) => {
         <h2 className="font-semibold text-3xl sm:text-4xl xl:text-5xl 2xl:text-6xl mt-6 sm:mt-10 !leading-[1.2] tracking-tight">
           Earn free money <br /> with Ciseco
         </h2>
-        <span className="block mt-6 text-slate-500 dark:text-slate-400 ">
+        <span className="block mt-6 text-slate-500  ">
           With Ciseco you will get freeship & savings combo...
         </span>
         <div className="flex space-x-2 sm:space-x-5 mt-6 sm:mt-12">
           <ButtonPrimary href="/" className="">
             Savings combo
           </ButtonPrimary>
-          <ButtonSecondary
-            href="/"
-            className="border border-slate-100 dark:border-slate-700"
-          >
+          <ButtonSecondary href="/" className="border border-slate-100 ">
             Discover more
           </ButtonSecondary>
         </div>
@@ -38,14 +35,14 @@ const SectionPromo1: FC<SectionPromo1Props> = ({ className = "" }) => {
       <div className="relative flex-1 max-w-xl lg:max-w-none">
         <NcImage
           alt=""
-          containerClassName="block dark:hidden"
+          containerClassName="block "
           src={rightImgDemo}
           sizes="(max-width: 768px) 100vw, 50vw"
           className=""
         />
         <NcImage
           alt=""
-          containerClassName="hidden dark:block"
+          containerClassName="hidden "
           src={rightLargeImgDark}
           sizes="(max-width: 768px) 100vw, 50vw"
           className=""

@@ -1,7 +1,6 @@
 "use client";
 import React, { FC, useEffect, useRef, useState } from "react";
 import { RadioGroup } from "@/app/headlessui";
-import Textarea from "@/components/atoms/Textarea/Textarea";
 import ButtonPrimary from "@/components/atoms/Button/ButtonPrimary";
 import ButtonSecondary from "@/components/atoms/Button/ButtonSecondary";
 import NcModal from "@/components/atoms/NcModal/NcModal";
@@ -76,8 +75,8 @@ const ModalReportItem: FC<ModalReportItemProps> = ({
                 className={({ checked }) => {
                   return `${
                     checked
-                      ? "bg-primary-6000 text-white dark:bg-primary-700"
-                      : "bg-white dark:bg-black/20 border-t dark:border-0 border-neutral-50 "
+                      ? "bg-primary-main text-white "
+                      : "bg-white  border-t  border-neutral-50 "
                   } relative shadow-lg rounded-lg px-3 py-3 cursor-pointer flex sm:px-5 sm:py-4 focus:outline-none `;
                 }}
               >
@@ -88,9 +87,7 @@ const ModalReportItem: FC<ModalReportItemProps> = ({
                         <RadioGroup.Label
                           as="p"
                           className={`font-medium line-clamp-1 ${
-                            checked
-                              ? "text-white"
-                              : "text-neutral-900 dark:text-white"
+                            checked ? "text-white" : "text-neutral-900 "
                           }`}
                         >
                           {plan.label}
@@ -111,21 +108,11 @@ const ModalReportItem: FC<ModalReportItemProps> = ({
 
         {/* TEXAREA MESSAGER */}
         <div className="mt-4">
-          <h4 className="text-lg font-semibold text-neutral-700 dark:text-neutral-200">
-            Message
-          </h4>
-          <span className="text-sm text-neutral-6000 dark:text-neutral-400">
+          <h4 className="text-lg font-semibold text-neutral-700 ">Message</h4>
+          <span className="text-sm text-neutral-6000 ">
             Please provide any additional information or context that will help
             us understand and handle the situation.
           </span>
-          <Textarea
-            placeholder="..."
-            className="mt-3"
-            ref={textareaRef}
-            required={true}
-            rows={4}
-            id="report-message"
-          />
         </div>
         <div className="mt-4 space-x-3">
           <ButtonPrimary onClick={handleClickSubmitForm} type="submit">

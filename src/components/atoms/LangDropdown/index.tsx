@@ -60,15 +60,13 @@ const LangDropdown: FC<LangDropdownProps> = ({ panelClassName = "" }) => {
             key={index}
             href={item.href}
             onClick={() => close()}
-            className={`flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50 ${
-              item.active ? "bg-gray-100 dark:bg-gray-700" : "opacity-80"
+            className={`flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-gray-100  focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50 ${
+              item.active ? "bg-gray-100 " : "opacity-80"
             }`}
           >
             <div className="">
               <p className="text-sm font-medium ">{item.name}</p>
-              <p className="text-xs text-gray-500 dark:text-gray-400">
-                {item.description}
-              </p>
+              <p className="text-xs text-gray-500 ">{item.description}</p>
             </div>
           </a>
         ))}
@@ -84,8 +82,8 @@ const LangDropdown: FC<LangDropdownProps> = ({ panelClassName = "" }) => {
             key={index}
             href={item.href}
             onClick={() => close()}
-            className={`flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50 ${
-              item.active ? "bg-gray-100 dark:bg-gray-700" : "opacity-80"
+            className={`flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-gray-100  focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50 ${
+              item.active ? "bg-gray-100 " : "opacity-80"
             }`}
           >
             <item.icon className="w-[18px] h-[18px] " />
@@ -104,7 +102,7 @@ const LangDropdown: FC<LangDropdownProps> = ({ panelClassName = "" }) => {
             <Popover.Button
               className={`
                 ${open ? "" : "text-opacity-80"}
-             group h-10 sm:h-12 px-3 py-1.5 inline-flex items-center text-sm text-gray-800 dark:text-neutral-200 font-medium hover:text-opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75`}
+             group h-10 sm:h-12 px-3 py-1.5 inline-flex items-center text-sm text-gray-800  font-medium hover:text-opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75`}
             >
               <GlobeAltIcon className="w-[18px] h-[18px] opacity-80" />
               <span className="ml-2">Language</span>
@@ -126,9 +124,9 @@ const LangDropdown: FC<LangDropdownProps> = ({ panelClassName = "" }) => {
               <Popover.Panel
                 className={`absolute z-20 w-96 mt-3.5 right-0 ${panelClassName}`}
               >
-                <div className="p-6 rounded-2xl bg-white dark:bg-neutral-800 shadow-lg ring-1 ring-black ring-opacity-5">
+                <div className="p-6 rounded-2xl bg-white  shadow-lg ring-1 ring-black ring-opacity-5">
                   <Tab.Group>
-                    <Tab.List className="flex space-x-1 rounded-full bg-gray-100 dark:bg-slate-700 p-1">
+                    <Tab.List className="flex space-x-1 rounded-full bg-gray-100  p-1">
                       {["Language", "Currency"].map((category) => (
                         <Tab
                           key={category}
@@ -138,7 +136,7 @@ const LangDropdown: FC<LangDropdownProps> = ({ panelClassName = "" }) => {
                               "focus:outline-none focus:ring-0",
                               selected
                                 ? "bg-white shadow"
-                                : "text-gray-700 dark:text-slate-300 hover:bg-white/70 dark:hover:bg-slate-900/40",
+                                : "text-gray-700  hover:bg-white/70 ",
                             )
                           }
                         >

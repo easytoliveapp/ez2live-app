@@ -96,7 +96,7 @@ const HeaderFilterSearchPage: FC<HeaderFilterSearchPageProps> = ({
         leaveFrom="opacity-100"
         leaveTo="opacity-0"
       >
-        <div className="w-full border-b border-neutral-200/70 dark:border-neutral-700 my-8"></div>
+        <div className="w-full border-b border-neutral-200/70  my-8"></div>
         <TabFilters />
       </Transition>
     </div>

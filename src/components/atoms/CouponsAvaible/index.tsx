@@ -17,7 +17,7 @@ const CouponsAvaible: FC<CouponsProps> = ({ coupons }) => {
       />
       <p
         className={`text-xs font-medium text ${
-          coupons ? `text-secondary-ez2livegreen` : `text-secondary-ez2livered`
+          coupons ? `text-generic-alertGreen` : `text-generic-alertRed`
         }`}
       >
         {coupons} reservas disponíveis

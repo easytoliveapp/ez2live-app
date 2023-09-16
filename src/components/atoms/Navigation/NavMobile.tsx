@@ -8,8 +8,6 @@ import { NAVIGATION_DEMO_2 } from "@/data/navigation";
 import SocialsList from "@/components/atoms/SocialsList/SocialsList";
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
-import EasyToLiveLogo from "@/images/easytolive/logo/logocompleta-semfundoazulroxo.svg";
-import Image from "next/image";
 
 export interface NavMobileProps {
   data?: NavItemType[];
@@ -22,7 +20,7 @@ const NavMobile: React.FC<NavMobileProps> = ({
 }) => {
   const _renderMenuChild = (
     item: NavItemType,
-    itemClass = " pl-3 text-neutral-900 dark:text-neutral-200 font-medium ",
+    itemClass = " pl-3 text-neutral-900  font-medium ",
   ) => {
     return (
       <ul className="nav-mobile-sub-menu pl-6 pb-1 text-base">
@@ -32,7 +30,7 @@ const NavMobile: React.FC<NavMobileProps> = ({
               href={{
                 pathname: i.href || undefined,
               }}
-              className={`flex text-sm rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 mt-0.5 pr-4 ${itemClass}`}
+              className={`flex text-sm rounded-lg hover:bg-neutral-100  mt-0.5 pr-4 ${itemClass}`}
             >
               <span
                 className={`py-2.5 ${!i.children ? "block w-full" : ""}`}
@@ -59,10 +57,7 @@ const NavMobile: React.FC<NavMobileProps> = ({
             </Link>
             {i.children && (
               <Disclosure.Panel>
-                {_renderMenuChild(
-                  i,
-                  "pl-3 text-slate-600 dark:text-slate-400 ",
-                )}
+                {_renderMenuChild(i, "pl-3 text-slate-600  ")}
               </Disclosure.Panel>
             )}
           </Disclosure>
@@ -73,13 +68,9 @@ const NavMobile: React.FC<NavMobileProps> = ({
 
   const _renderItem = (item: NavItemType, index: number) => {
     return (
-      <Disclosure
-        key={index}
-        as="li"
-        className="text-slate-900 dark:text-white"
-      >
+      <Disclosure key={index} as="li" className="text-slate-900 ">
         <Link
-          className="flex w-full items-center py-2.5 px-4 font-medium uppercase tracking-wide text-sm hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg"
+          className="flex w-full items-center py-2.5 px-4 font-medium uppercase tracking-wide text-sm hover:bg-slate-100  rounded-lg"
           href={{
             pathname: item.href || undefined,
           }}
@@ -115,15 +106,17 @@ const NavMobile: React.FC<NavMobileProps> = ({
   };
 
   return (
-    <div className="overflow-y-auto w-full h-screen py-2 transition transform shadow-lg ring-1 dark:ring-neutral-700 bg-white dark:bg-neutral-900 divide-y-2 divide-neutral-100 dark:divide-neutral-800">
-      <div className="py-6 px-5 flex flex-col justify-center items-center w-full">
-        <Image
-          className="w-36 h-auto"
-          src={EasyToLiveLogo}
-          alt="Easy to live Logo"
-        />
-        <div className="w-full flex items-center justify-center mt-8">
-          <SocialsList itemClass="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center rounded-full text-xl" />
+    <div className="overflow-y-auto w-full h-screen py-2 transition transform shadow-lg ring-1  bg-white  divide-y-2 divide-neutral-100 ">
+      <div className="py-6 px-5">
+        <div className="flex flex-col mt-5 text-slate-600  text-sm">
+          <span>
+            Discover the most outstanding articles on all topics of life. Write
+            your stories and share them
+          </span>
+
+          <div className="flex justify-between items-center mt-4">
+            <SocialsList itemClass="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center rounded-full text-xl" />
+          </div>
         </div>
         <span className="absolute right-2 top-2 p-1">
           <ButtonClose onClick={onClickClose} />

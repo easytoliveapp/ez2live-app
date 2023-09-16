@@ -12,7 +12,11 @@ import { useDebounce } from "use-debounce";
 import { categorieProps } from "@/components/atoms/CategoryCard";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { showToastify } from "@/hooks/showToastify";
-import { userLoginResponseProps } from "@/types/user";
+import ModalEdit from "@/components/mols/Modal/ModalEdit";
+import CompleteSupplierRegister from "@/components/atoms/CompleteSupplierRegister";
+import ButtonThird from "@/components/atoms/Button/ButtonThird";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 function PageHome() {
   const [suppliers, setSuppliers] = useState([]);
@@ -22,7 +26,12 @@ function PageHome() {
   const [pageNumber, setPageNumber] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [supplierCategoriesFilter, setSupplierCategoriesFilter] = useState("");
-  const [user, setUser] = useState<userLoginResponseProps>();
+  const [
+    ControlModalSupplierUploadRegister,
+    setControlModalSupplierUploadRegister,
+  ] = useState(false);
+  const { data: session } = useSession();
+  const router = useRouter();
 
   const getAllCategories = async () => {
     const res: any = await SupplierService.getSupplierCategories();
@@ -36,7 +45,13 @@ function PageHome() {
   };
 
   useEffect(() => {
-    setUser(user);
+    if (session?.user?.isSupplier) {
+      if (!session?.user?.isVerified) {
+        router.push("/supplier-not-verified");
+      } else {
+        setControlModalSupplierUploadRegister(true);
+      }
+    }
 
     getAllCategories()
       .then((res) => setCategories(res?.data?.supplierCategories?.results))
@@ -100,6 +115,19 @@ function PageHome() {
 
   return (
     <div className="md:w-[500px] w-full m-auto p-5">
+      <ModalEdit
+        show={ControlModalSupplierUploadRegister}
+        onCloseModalEdit={() => setControlModalSupplierUploadRegister(false)}
+      >
+        <div className="h-[85vh] flex flex-col items-center justify-around">
+          <CompleteSupplierRegister />
+          <ButtonThird
+            onClick={() => setControlModalSupplierUploadRegister(false)}
+          >
+            cancelar
+          </ButtonThird>
+        </div>
+      </ModalEdit>
       <SearchCategory onChange={handleSetSearch} />
       <div className="flex flex-wrap my-6 w-full gap-3">
         {categories.map((category: categorieProps, index) => (
@@ -117,8 +145,8 @@ function PageHome() {
         dataLength={suppliers.length}
         next={() => setPageNumber(pageNumber + 1)}
         hasMore={hasMore}
-        loader={<h4 className=" m-4 text-primary-ez2live">Carregando...</h4>}
-        endMessage={<p className="m-4 text-primary-ez2live text-center">...</p>}
+        loader={<h4 className=" m-4 text-primary-main">Carregando...</h4>}
+        endMessage={<p className="m-4 text-primary-main text-center">...</p>}
       >
         {suppliers.map((supplier: ISupplier) => (
           <SupplierCard
