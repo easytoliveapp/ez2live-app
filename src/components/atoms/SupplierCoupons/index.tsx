@@ -6,7 +6,7 @@ import CouponPrimary from '@/images/easytolive/icons/couponPrimary.svg'
 import ShoppingCartGreen from '@/images/easytolive/icons/shopping_cart_green.svg'
 import ClockCircleRed from '@/images/easytolive/icons/clock_circleRed.svg'
 import classNames from '@/utils/classNames';
-import { Coupon } from '@/components/orgs/index';
+import { Coupon, CouponActivated } from '@/components/orgs/index';
 import { ModalEdit } from '@/components/mols/index';
 import { ButtonPrimary, ButtonThird } from '@/components/atoms/index'
 import useDateDiffInDays from '@/hooks/useDateDifferenceInDays';
@@ -33,6 +33,7 @@ const SupplierCoupons: React.FC<SupplierCouponsProps> = ({
   icon
 }) => {
   const [showModal, setShowModal] = useState(false);
+  const [couponActivated, setCouponActivated] = useState(false)
 
   return (
     <div className='bg-primary-main h-auto pl-4 max-h-14 rounded-full flex items-center gap-3'>
@@ -41,11 +42,33 @@ const SupplierCoupons: React.FC<SupplierCouponsProps> = ({
         onCloseModalEdit={() => setShowModal(false)}
       >
         <div className='flex flex-col h-auto items-center'>
-          <Coupon id={id} couponDiscount={discount} expirateTime={expirateTime} unintsAmount={10} supplierCategory={supplierCategory} supplierLogo={supplierLogo} supplierName={supplierName} />
-          <ButtonPrimary className='w-full mx-4 max-w-md' >Eu quero!</ButtonPrimary>
+          {
+            !couponActivated ?
+            <Coupon
+            id={id}
+            couponDiscount={discount}
+            expirateTime={expirateTime}
+            unintsAmount={10}
+            supplierCategory={supplierCategory} supplierLogo={supplierLogo}
+            supplierName={supplierName} />
+            :
+            <CouponActivated
+            id={id}
+            couponDiscount={discount}
+            expirateTime={expirateTime}
+            supplierCategory={supplierCategory} supplierLogo={supplierLogo}
+            supplierName={supplierName} />
+          }
+          
+          <ButtonPrimary
+            className='w-full m-4 max-w-md'
+            onClick={() => setCouponActivated(true)}>
+            Eu quero!
+          </ButtonPrimary>
           <ButtonThird
             className='w-full mx-4 max-w-md'
-            onClick={() => setShowModal(false)}>não quero mais</ButtonThird>
+            onClick={() => setShowModal(false)}>não quero mais
+          </ButtonThird>
         </div>
       </ModalEdit>
 
