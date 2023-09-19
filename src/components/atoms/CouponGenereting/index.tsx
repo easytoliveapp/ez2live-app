@@ -14,15 +14,15 @@ const CouponGenerating = () => {
             animate={{
               rotate: 360,
             }}
-            transition={{ duration: 2, repeat: Infinity }}
+            transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
           >
           </motion.div>
           <motion.div
-            className='absolute flex items-center -left-14 top-8 opacity-100'
+            className='absolute flex items-center -left-24 top-8 opacity-100'
             animate={{
-              translateX: 200,
+              translateX: 240,
             }}
-            transition={{ duration: 2, repeat: Infinity }}
+            transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
           >
             <Image className='w-24 opacity-100 h-auto' alt='coupon-yellow-image' src={CouponYellow}></Image>
           </motion.div>
