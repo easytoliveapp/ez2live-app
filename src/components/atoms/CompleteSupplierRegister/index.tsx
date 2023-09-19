@@ -1,4 +1,4 @@
-/* "use client";
+"use client";
 
 import { Field, Form, Formik } from "formik";
 import React, { useState } from "react";
@@ -159,4 +159,3 @@ const CompleteSupplierRegister: React.FC = () => {
 };
 
 export default CompleteSupplierRegister;
- */

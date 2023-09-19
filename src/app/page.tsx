@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { SupplierCard } from "@/components/mols";
-import { CategoryCard } from "@/components/atoms";
+import { CategoryCard, CompleteSupplierRegister } from "@/components/atoms";
 import SupplierLogo from "@/images/easytolive/logo/logotipo-fundoazulroxo.svg";
 import SearchCategory from "@/app/searchCategory";
 import SupplierService from "@/service/supplier.service";
@@ -119,7 +119,7 @@ function PageHome() {
         onCloseModalEdit={() => setControlModalSupplierUploadRegister(false)}
       >
         <div className="h-[85vh] flex flex-col items-center justify-around">
-          {/* <CompleteSupplierRegister /> */}
+          <CompleteSupplierRegister />
           <ButtonThird
             onClick={() => setControlModalSupplierUploadRegister(false)}
           >
