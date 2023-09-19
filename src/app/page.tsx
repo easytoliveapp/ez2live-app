@@ -13,7 +13,6 @@ import { categorieProps } from "@/components/atoms/CategoryCard";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { showToastify } from "@/hooks/showToastify";
 import ModalEdit from "@/components/mols/Modal/ModalEdit";
-import CompleteSupplierRegister from "@/components/atoms/CompleteSupplierRegister";
 import ButtonThird from "@/components/atoms/Button/ButtonThird";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -120,7 +119,7 @@ function PageHome() {
         onCloseModalEdit={() => setControlModalSupplierUploadRegister(false)}
       >
         <div className="h-[85vh] flex flex-col items-center justify-around">
-          <CompleteSupplierRegister />
+          {/* <CompleteSupplierRegister /> */}
           <ButtonThird
             onClick={() => setControlModalSupplierUploadRegister(false)}
           >
