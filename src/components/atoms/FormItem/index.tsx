@@ -2,7 +2,7 @@ import React from "react";
 
 export interface formItemProps {
   errorMessage?: any;
-  label?: string;
+  label?: string | number;
   invalid?: boolean;
   children: React.ReactNode;
   className?: string;
@@ -19,10 +19,10 @@ const FormItem: React.FC<formItemProps> = ({
 }) => {
   return (
     <div className='flex flex-col gap-1 m-1'>
-      <label className=' text-sm font-semibold' htmlFor={htmlFor}>{label}</label>
+      <label className= {`text-sm font-semibold ${className}`} htmlFor={htmlFor}>{label}</label>
       {children}
       {errorMessage && invalid ? (
-        <span className={`text-sx text-rose-500 ${className}`}>
+        <span className={`text-sx text-rose-500`}>
           {errorMessage}
         </span>
       ) : null}

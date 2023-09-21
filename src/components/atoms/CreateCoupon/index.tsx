@@ -9,27 +9,27 @@ import ToggleButton from '../toggleButton';
 
 const CreateCoupon = () => {
   const [loading, setLoading] = useState(false)
-  const [discount, setDiscount] = useState(40);
   const [couponsIlimited, setCouponsIlimited] = useState(false);
-  const [ilimitedByUser, setIlimitedByUser] = useState(true);
+  const [ilimitedByUser, setIlimitedByUser] = useState(false);
 
   const CreateCouponValidationSchema = Yup.object().shape({
     title: Yup.string().required("Título requerido."),
     discount: Yup.number().required(
       "Selecione um desconto de 5% até 100%."
     ),
-    coupon_limit: Yup.number().required(
+    coupon_limit: Yup.string().required(
       "Limite de cupons que podem ser utilizados."
     ),
-    user_limit: Yup.number().required(
+    user_limit: Yup.string().required(
       "Limite de cupons por usuário."
     ),
     expiration_date: Yup.date().required(
       "Data de validade para geração do cupom."
-    ),
+    )
+    .min(new Date() , 'Selecione uma data maior que a atual'),
     validation_date: Yup.date().required(
       "Data limite para utilização do cupom."
-    ),
+    ).min(new Date() , 'Selecione uma data maior que a atual'),
   });
 
   const handleFormSubmit = async (values: ICreateCoupon) => {
@@ -56,7 +56,7 @@ const CreateCoupon = () => {
       <Formik
         initialValues={{
           title: '',
-          discount: discount,
+          discount: 20,
           coupon_limit: '',
           user_limit: '',
           expiration_date: '',
@@ -65,19 +65,25 @@ const CreateCoupon = () => {
         validationSchema={CreateCouponValidationSchema}
         onSubmit={handleFormSubmit}
       >
-        {({ errors, touched, handleSubmit }) => (
+        {({ values, errors, touched, handleSubmit }) => (
           <Form onSubmit={handleSubmit} className="flex flex-col gap-3">
-            <span className='w-32 text-3xl py-4 flex items-center justify-center font-semibold rounded-full border-[1px] border-black'>
-              {discount}%
-            </span>
-            <Input
-              type="range"
-              min="5"
-              max="100"
-              step="5"
-              name='discount'
-              onChange={(e: any) => setDiscount(e.target.value)}>
-            </Input>
+            <FormItem
+              className='w-32 !text-3xl py-4 flex items-center justify-center font-semibold rounded-full border-[1px] border-black'
+              label={values.discount + '%'}
+              errorMessage={errors.discount}
+              invalid={!!(errors.discount && touched.discount)}
+            >
+              <Field
+                invalid={!!(errors.discount && touched.discount)}
+                name="discount"
+                min="5"
+                max="100"
+                step="5"
+                type="range"
+                label="discount"
+                component={Input}
+              />
+            </FormItem>
             <FormItem
               label='título do cupom'
               errorMessage={errors.title}
@@ -98,8 +104,10 @@ const CreateCoupon = () => {
                 invalid={!!(errors.coupon_limit && touched.coupon_limit)}
               >
                 <Field
+                  disabled= {couponsIlimited}
                   invalid={!!(errors.coupon_limit && touched.coupon_limit)}
                   name="coupon_limit"
+                  value={couponsIlimited? values.coupon_limit = 'ilimitado' : values.coupon_limit == 'ilimitado'? values.coupon_limit = '' : values.coupon_limit}
                   type="text"
                   label="coupon_limit"
                   component={Input}
@@ -111,8 +119,10 @@ const CreateCoupon = () => {
                 invalid={!!(errors.user_limit && touched.user_limit)}
               >
                 <Field
+                  disabled= {ilimitedByUser}
                   invalid={!!(errors.user_limit && touched.user_limit)}
                   name="user_limit"
+                  value= {ilimitedByUser? values.user_limit = 'ilimitado' : values.user_limit == 'ilimitado'? values.user_limit = '' : values.user_limit}
                   type="text"
                   label="user_limit"
                   component={Input}
