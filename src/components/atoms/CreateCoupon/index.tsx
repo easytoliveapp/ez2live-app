@@ -6,6 +6,8 @@ import { Input, ButtonSecondary, FormItem } from "@/components/atoms";
 import * as Yup from "yup";
 import { ICreateCoupon } from '@/types/coupons';
 import ToggleButton from '../toggleButton';
+import couponService from '@/service/coupons.service';
+import { useToastify } from '@/hooks/useToastify';
 
 const CreateCoupon = () => {
   const [loading, setLoading] = useState(false)
@@ -32,14 +34,27 @@ const CreateCoupon = () => {
     ).min(new Date() , 'Selecione uma data maior que a atual'),
   });
 
+  
+
   const handleFormSubmit = async (values: ICreateCoupon) => {
     setLoading(true)
-    console.log(values)
+    //-----------TO DO-------------
+    //  WAITING BACK-END RECIVE VALUES LIKE EXPIRATION DATE, USER LIMIT AND ETC...
+    // await couponService.createCoupon(values)
+    // .then()
+    // .catch((error)=> {
+    //   if(error?.response?.data?.code === 400){
+    //     useToastify({ label: 'Ocorreu um erro ao criar cupom. Por favor verificar os campos.', type: 'error' });
+    //   }
+    //   if(error?.response?.data?.code === 401){
+    //     useToastify({ label: 'Você não tem permisão para criar cupom.', type: 'error' });
+    //   }
+    // })
     setLoading(false)
   };
 
   return (
-    <div className=' m-2'>
+    <div className='m-2'>
       <div className='mt-8 mb-16 flex items-center justify-between'>
         <h2 className=" pl-6 flex items-center text-2xl leading-[115%] md:text-5xl md:leading-[115%] font-bold text-black dark:text-neutral-100 justify-center">
           Novo <br />
@@ -75,6 +90,7 @@ const CreateCoupon = () => {
             >
               <Field
                 invalid={!!(errors.discount && touched.discount)}
+                className="accent-primary-main !focus:border-none !hover:border-none focus:ring-0"
                 name="discount"
                 min="5"
                 max="100"
@@ -85,7 +101,7 @@ const CreateCoupon = () => {
               />
             </FormItem>
             <FormItem
-              label='título do cupom'
+              label='Título do cupom'
               errorMessage={errors.title}
               invalid={!!(errors.title && touched.title)}
             >
@@ -95,11 +111,12 @@ const CreateCoupon = () => {
                 type="text"
                 label="title"
                 component={Input}
+                className='bg-white'
               />
             </FormItem>
             <div className='grid grid-cols-2 w-full'>
               <FormItem
-                label='limite de cupons'
+                label='Limite de cupons'
                 errorMessage={errors.coupon_limit}
                 invalid={!!(errors.coupon_limit && touched.coupon_limit)}
               >
@@ -111,10 +128,11 @@ const CreateCoupon = () => {
                   type="text"
                   label="coupon_limit"
                   component={Input}
+                  className='bg-white'
                 />
               </FormItem>
               <FormItem
-                label='limite por usuário'
+                label='Limite por usuário'
                 errorMessage={errors.user_limit}
                 invalid={!!(errors.user_limit && touched.user_limit)}
               >
@@ -126,6 +144,7 @@ const CreateCoupon = () => {
                   type="text"
                   label="user_limit"
                   component={Input}
+                  className='bg-white'
                 />
               </FormItem>
               <ToggleButton
@@ -148,6 +167,7 @@ const CreateCoupon = () => {
                 type="date"
                 label="expiration_date"
                 component={Input}
+                className='bg-white'
               />
             </FormItem>
             <FormItem
@@ -161,6 +181,7 @@ const CreateCoupon = () => {
                 type="date"
                 label="validation_date"
                 component={Input}
+                className='bg-white'
               />
             </FormItem>
             <ButtonSecondary
