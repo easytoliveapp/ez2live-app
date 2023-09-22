@@ -6,8 +6,8 @@ import { Input, ButtonSecondary, FormItem } from "@/components/atoms";
 import * as Yup from "yup";
 import { ICreateCoupon } from '@/types/coupons';
 import ToggleButton from '../toggleButton';
-import couponService from '@/service/coupons.service';
-import { useToastify } from '@/hooks/useToastify';
+// import couponService from '@/service/coupons.service';
+// import { useToastify } from '@/hooks/useToastify';
 
 const CreateCoupon = () => {
   const [loading, setLoading] = useState(false)
@@ -38,6 +38,7 @@ const CreateCoupon = () => {
 
   const handleFormSubmit = async (values: ICreateCoupon) => {
     setLoading(true)
+    console.log(values)
     //-----------TO DO-------------
     //  WAITING BACK-END RECIVE VALUES LIKE EXPIRATION DATE, USER LIMIT AND ETC...
     // await couponService.createCoupon(values)
