@@ -55,13 +55,13 @@ const CreateCoupon = () => {
   };
 
   return (
-    <div className='m-2'>
-      <div className='mt-8 mb-16 flex items-center justify-between'>
-        <h2 className=" pl-6 flex items-center text-2xl leading-[115%] md:text-5xl md:leading-[115%] font-bold text-black dark:text-neutral-100 justify-center">
+    <div className='w-full'>
+      <div className='mb-6 mt-4 flex justify-between'>
+        <h2 className="pl-2 flex items-center text-3xl leading-[115%] md:leading-[115%] font-bold text-black dark:text-neutral-100 justify-center">
           Novo <br />
           cupom
         </h2>
-        <div>
+        <div className='pr-2'>
           <div className='relative rounded-full w-40 h-16 bg-gradient-to-r from-secondary-main to-secondary-lighter'>
             <div className='absolute top-8 right-0 rounded-full w-16 h-16 bg-gradient-to-r from-secondary-main to-secondary-lighter'>
             </div>
@@ -84,7 +84,7 @@ const CreateCoupon = () => {
         {({ values, errors, touched, handleSubmit }) => (
           <Form onSubmit={handleSubmit} className="flex flex-col gap-3">
             <FormItem
-              className='w-32 !text-3xl py-4 flex items-center justify-center font-semibold rounded-full border-[1px] border-black'
+              className='w-32 !text-3xl py-3 flex items-center justify-center font-semibold rounded-full border-[1px] border-black'
               label={values.discount + '%'}
               errorMessage={errors.discount}
               invalid={!!(errors.discount && touched.discount)}
@@ -94,7 +94,7 @@ const CreateCoupon = () => {
                 className="accent-primary-main !focus:border-none !hover:border-none focus:ring-0"
                 name="discount"
                 min="5"
-                max="100"
+                max="95"
                 step="5"
                 type="range"
                 label="discount"
@@ -187,7 +187,7 @@ const CreateCoupon = () => {
             </FormItem>
             <ButtonSecondary
               type="submit"
-              className="w-full mt-6"
+              className="w-full mt-20"
               disabled={loading}
               loading={loading}
             >

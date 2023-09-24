@@ -53,7 +53,7 @@ const CouponListPage: React.FC<ICouponListPageProps> = ({
       <ModalEdit
         show={modalCreateCoupon}
         onCloseModalEdit={() => setModalCreateCoupon(false)}>
-        <div className='flex flex-col items-center'>
+        <div className='flex flex-col items-center w-full'>
           <CreateCoupon />
           <ButtonThird
             className='text-generic-alertRed'
