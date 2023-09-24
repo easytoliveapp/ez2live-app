@@ -1,6 +1,6 @@
-import { NextRequest } from "next/server";
+import { MiddlewareRequest } from "@netlify/next";
 
-export default function isAuthenticated(request: NextRequest): boolean {
+export default function isAuthenticated(request: MiddlewareRequest): boolean {
   const hasActiveSession = request.cookies.get("next-auth.session-token");
 
   if (!hasActiveSession) {
