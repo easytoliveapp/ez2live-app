@@ -10,7 +10,7 @@ import Auth from "@/service/auth.service";
 import Supplier from "@/service/supplier.service";
 import { ICategoryProps } from "@/types/supplier";
 import { showToastify } from "@/hooks/showToastify";
-import { setItemToLocalStorage } from "@/utils/localStorageHelper";
+import { signIn } from "next-auth/react";
 
 export interface IStepOneProps {
   next: (e: any) => void;
@@ -119,10 +119,34 @@ const FormComponent = () => {
       isSupplier: values.isSupplier,
       address: values.address,
     })
-      .then((res: any) => {
+      .then(async (res: any) => {
         if (res?.data?.user) {
-          setItemToLocalStorage("user", res.data.user);
-          return router.push("/dashboard");
+          await signIn("credentials", {
+            email: values.email,
+            password: values.password,
+            callbackUrl: "/",
+          })
+            .then((resp) => {
+              if (!resp?.error) {
+                showToastify({
+                  label: "Bem vindo ao Easy2Live!",
+                  type: "success",
+                });
+
+                router.push("/");
+              }
+            })
+            .catch((error) => {
+              showToastify({
+                label: "Impossível autenticar " + error,
+                type: "error",
+              });
+
+              router.push("/auth/login");
+            })
+            .finally(() => {
+              setLoading(false);
+            });
         }
 
         setLoading(false);
@@ -133,7 +157,7 @@ const FormComponent = () => {
       })
       .catch((error) => {
         if (error?.response?.data?.code === 400) {
-          showToastify({
+          return showToastify({
             label:
               "Impossível criar sua conta pois já existe um e-mail cadastrado.",
             type: "error",
@@ -144,6 +168,8 @@ const FormComponent = () => {
           label: "Impossível criar sua conta. Por favor, tente novamente.",
           type: "error",
         });
+      })
+      .finally(() => {
         setLoading(false);
       });
   };

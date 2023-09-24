@@ -13,8 +13,7 @@ import { showToastify } from "@/hooks/showToastify";
 import Arrow from "@/images/easytolive/icons/arrow-next-right-primary.svg";
 import Edit from "@/images/easytolive/icons/edit.svg";
 import LogoImage from "@/images/easytolive/logo/logotipo-fundoazulroxo.svg";
-import { getItemByLocalStorage } from "@/utils/localStorageHelper";
-import { userLoginResponseProps } from "@/types/user";
+import { useSession } from "next-auth/react";
 
 interface ICouponListPageProps {
   supplierId: string;
@@ -22,7 +21,7 @@ interface ICouponListPageProps {
 
 const CouponListPage: React.FC<ICouponListPageProps> = ({ supplierId }) => {
   const [supplier, setSupplier] = useState<ISupplier>();
-  const [user, setUser] = useState<userLoginResponseProps>();
+  const { data: session } = useSession();
 
   const getSupplierById = async (id: string) => {
     const res: any = await supplierService.getSupplierById(id);
@@ -30,9 +29,6 @@ const CouponListPage: React.FC<ICouponListPageProps> = ({ supplierId }) => {
   };
 
   useEffect(() => {
-    const user = getItemByLocalStorage("user");
-    if (user) setUser(user);
-
     getSupplierById(supplierId)
       .then((res) => {
         setSupplier(res?.data?.supplier);
@@ -91,7 +87,7 @@ const CouponListPage: React.FC<ICouponListPageProps> = ({ supplierId }) => {
           supplier.coupons.length > 0 ? (
             supplier?.coupons.map((coupon, key) => (
               <SupplierCoupons
-                icon={supplier.id == user?.id ? Edit : Arrow}
+                icon={supplier.id == session?.user?.id ? Edit : Arrow}
                 discount={coupon.discount}
                 expirateTime={5}
                 unintsAmount={20}

@@ -1,19 +1,13 @@
 "use client";
 
 import CouponListPage from "@/components/orgs/CouponListPage";
-import { ISupplierLoginResponseProps } from "@/types/supplier";
-import { getItemByLocalStorage } from "@/utils/localStorageHelper";
-import React, { useEffect, useState } from "react";
+import { useSession } from "next-auth/react";
+import React from "react";
 
 const SupplierProfilePage = () => {
-  const [supplier, setSupplier] = useState<ISupplierLoginResponseProps>();
+  const { data: session } = useSession();
 
-  useEffect(() => {
-    const supplier = getItemByLocalStorage("user");
-    setSupplier(supplier);
-  }, []);
-
-  return supplier && <CouponListPage supplierId={supplier.id} />;
+  return session?.user && <CouponListPage supplierId={session?.user?.id} />;
 };
 
 export default SupplierProfilePage;

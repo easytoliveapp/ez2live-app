@@ -113,7 +113,41 @@ function PageHome() {
   }, [textSearched, pageNumber, supplierCategoriesFilter]);
 
   return (
-    <div className="md:w-[500px] w-full m-auto p-5">
+    <>
+      <div className="md:w-[500px] w-full m-auto p-5">
+        <SearchCategory onChange={handleSetSearch} />
+        <div className="flex flex-wrap my-6 w-full gap-3">
+          {categories.map((category: categorieProps, index) => (
+            <CategoryCard
+              key={index}
+              name={category.title}
+              onClick={() => handleCategoryFilter(category.id)}
+              image={imageCategory}
+              isActive={category.id === supplierCategoriesFilter}
+            />
+          ))}
+        </div>
+        <InfiniteScroll
+          className="flex flex-col gap-3"
+          dataLength={suppliers.length}
+          next={() => setPageNumber(pageNumber + 1)}
+          hasMore={hasMore}
+          loader={<h4 className=" m-4 text-primary-main">Carregando...</h4>}
+          endMessage={<p className="m-4 text-primary-main text-center">...</p>}
+        >
+          {suppliers.map((supplier: ISupplier, index) => (
+            <SupplierCard
+              supplierCategory={supplier?.supplierCategory?.title}
+              supplierImage={SupplierLogo}
+              avaliation="4.6"
+              couponsAvaible={supplier.numberOfCoupons}
+              name={supplier.name}
+              key={supplier.id + index}
+              id={supplier.id}
+            />
+          ))}
+        </InfiniteScroll>
+      </div>
       <ModalEdit
         show={ControlModalSupplierUploadRegister}
         onCloseModalEdit={() => setControlModalSupplierUploadRegister(false)}
@@ -127,39 +161,7 @@ function PageHome() {
           </ButtonThird>
         </div>
       </ModalEdit>
-      <SearchCategory onChange={handleSetSearch} />
-      <div className="flex flex-wrap my-6 w-full gap-3">
-        {categories.map((category: categorieProps, index) => (
-          <CategoryCard
-            key={index}
-            name={category.title}
-            onClick={() => handleCategoryFilter(category.id)}
-            image={imageCategory}
-            isActive={category.id === supplierCategoriesFilter}
-          />
-        ))}
-      </div>
-      <InfiniteScroll
-        className="flex flex-col gap-3"
-        dataLength={suppliers.length}
-        next={() => setPageNumber(pageNumber + 1)}
-        hasMore={hasMore}
-        loader={<h4 className=" m-4 text-primary-main">Carregando...</h4>}
-        endMessage={<p className="m-4 text-primary-main text-center">...</p>}
-      >
-        {suppliers.map((supplier: ISupplier) => (
-          <SupplierCard
-            supplierCategory={supplier?.supplierCategory?.title}
-            supplierImage={SupplierLogo}
-            avaliation="4.6"
-            couponsAvaible={supplier.numberOfCoupons}
-            name={supplier.name}
-            key={supplier.id}
-            id={supplier.id}
-          />
-        ))}
-      </InfiniteScroll>
-    </div>
+    </>
   );
 }
 

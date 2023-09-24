@@ -3,15 +3,15 @@
 import { ButtonPrimary } from "@/components";
 import React from "react";
 import { useRouter } from "next/navigation";
-import { removeItemFromLocalStorage } from "@/utils/localStorageHelper";
 import Image from "next/image";
 import EmailIcon from "@/images/easytolive/icons/email-primary.svg";
+import { signOut } from "next-auth/react";
 
 const SupplierNotVerified = () => {
   const router = useRouter();
 
   const handleClick = () => {
-    removeItemFromLocalStorage("user");
+    signOut();
     router.push("/");
   };
 

@@ -3,13 +3,11 @@
 import { Field, Form, Formik } from "formik";
 import React, { useState } from "react";
 import * as Yup from "yup";
-import ButtonPrimary from "../Button/ButtonPrimary";
-import FormItem from "../FormItem";
 import { ISupplierCompleteRegister } from "@/types/supplier";
-import { ItemTypeImage, TextArea } from "@/components";
+import { ItemTypeImage, TextArea, ButtonPrimary, FormItem } from "@/components";
 
 const CompleteSupplierRegister: React.FC = () => {
-  const [loading, setloading] = useState(false);
+  const [loading, setloading] = useState(true);
   const [logoPlaceHolder, setLogoPlaceHolder] = useState("...carregar");
   const [ilustrationImagePlaceHolder, SetIlustrationImagePlaceHolder] =
     useState("...carregar");
@@ -52,7 +50,6 @@ const CompleteSupplierRegister: React.FC = () => {
     setloading(true);
     //TO DO -- Criar endpoint para enviar as imagens de logo e ilustração do supplier
     return values;
-    setloading(false);
   };
 
   return (
@@ -130,6 +127,7 @@ const CompleteSupplierRegister: React.FC = () => {
                 />
               </label>
             </FormItem>
+
             <FormItem
               label="descrição"
               errorMessage={errors.description}
@@ -143,6 +141,7 @@ const CompleteSupplierRegister: React.FC = () => {
                 placeholder="escrever descrição do estabelecimento"
               />
             </FormItem>
+
             <ButtonPrimary
               type="submit"
               className="w-full mt-6"
