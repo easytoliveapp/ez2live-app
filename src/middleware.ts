@@ -1,17 +1,19 @@
 import { NextRequest, NextResponse } from "next/server";
 import isAuthenticated from "@/utils/isAuthenticated";
+import { MiddlewareRequest } from "@netlify/next";
 
 // Limit the middleware to paths starting with `/api/`
 export const config = {
   matcher: [
     "/dashboard",
-    "/supplier-dashboard",
     "/supplier-dashboard/:path*",
     "/supplier-not-verified",
   ],
 };
 
-export function middleware(request: NextRequest) {
+export function middleware(nextRequest: NextRequest) {
+  const request = new MiddlewareRequest(nextRequest as any);
+
   // Call our authentication function to check the request
   if (!isAuthenticated(request)) {
     // Respond with JSON indicating an error message
