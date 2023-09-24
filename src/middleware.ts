@@ -5,6 +5,7 @@ import isAuthenticated from "@/utils/isAuthenticated";
 export const config = {
   matcher: [
     "/dashboard",
+    "/supplier-dashboard",
     "/supplier-dashboard/:path*",
     "/supplier-not-verified",
   ],
