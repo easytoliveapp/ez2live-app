@@ -19,7 +19,7 @@ const NcModal: FC<NcModalProps> = ({
   renderTrigger,
   renderContent,
   contentExtraClass = "max-w-screen-xl",
-  contentPaddingClass = "px-3",
+  contentPaddingClass = "px-3 pb-4",
   triggerText = "Open Modal",
   modalTitle = "Modal title",
   isOpenProp,
