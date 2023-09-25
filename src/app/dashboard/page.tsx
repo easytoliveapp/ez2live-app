@@ -2,7 +2,6 @@ import { ButtonSecondary } from "@/components";
 import React from "react";
 import { ArchiveBoxIcon } from "@heroicons/react/24/outline";
 
-
 function PageDashboard() {
   return (
     <div className="nc-PageHome relative overflow-hidden flex flex-col justify-center items-center w-full gap-3 p-5">
@@ -20,23 +19,29 @@ function PageDashboard() {
           {/* cards */}
           {[
             {
-              backgroundColor: 'bg-lime-200',
-              title: 'Cupons Gerados',
-              subtitle: '252 na última semana',
+              backgroundColor: "bg-lime-200",
+              title: "Cupons Gerados",
+              subtitle: "252 na última semana",
             },
             {
-              backgroundColor: 'bg-sky-200',
-              title: 'Cupons Ativados',
-              subtitle: '129 na última semana',
+              backgroundColor: "bg-sky-200",
+              title: "Cupons Ativados",
+              subtitle: "129 na última semana",
             },
             {
-              backgroundColor: 'bg-red-200',
-              title: 'Faturamento Mês',
-              subtitle: 'R$ 125,00 em Maio',
-            }
+              backgroundColor: "bg-red-200",
+              title: "Faturamento Mês",
+              subtitle: "R$ 125,00 em Maio",
+            },
           ].map((card, idx) => (
-            <div className={`${card.backgroundColor} md:w-full p-5 p-x-7 rounded-md w-full`} key={idx}>
-              <h3 className="font-bold text-lg"><ArchiveBoxIcon className="w-5 h-5" />{card.title}</h3>
+            <div
+              className={`${card.backgroundColor} md:w-full p-5 p-x-7 rounded-md w-full`}
+              key={idx}
+            >
+              <h3 className="font-bold text-lg">
+                <ArchiveBoxIcon className="w-5 h-5" />
+                {card.title}
+              </h3>
               <p className="text-md font-weight">{card.subtitle}</p>
             </div>
           ))}

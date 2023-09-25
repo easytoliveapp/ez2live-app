@@ -29,9 +29,7 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
         </span>
       </Link>
       <>
-        <span className="text-neutral-500  mx-[6px] font-medium">
-          ·
-        </span>
+        <span className="text-neutral-500  mx-[6px] font-medium">·</span>
         <span className="text-neutral-500  font-normal line-clamp-1">
           May 20, 2021
         </span>

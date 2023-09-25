@@ -21,11 +21,7 @@ export default function CartDropdown() {
             alt={name}
             className="h-full w-full object-contain object-center"
           />
-          <Link
-            onClick={close}
-            className="absolute inset-0"
-            href={"/"}
-          />
+          <Link onClick={close} className="absolute inset-0" href={"/"} />
         </div>
 
         <div className="ml-4 flex flex-1 flex-col">
@@ -50,10 +46,7 @@ export default function CartDropdown() {
             <p className="text-gray-500 ">{`Qty 1`}</p>
 
             <div className="flex">
-              <button
-                type="button"
-                className="font-medium text-primary-main  "
-              >
+              <button type="button" className="font-medium text-primary-main  ">
                 Remove
               </button>
             </div>
@@ -133,7 +126,7 @@ export default function CartDropdown() {
                     <h3 className="text-xl font-semibold">Shopping cart</h3>
                     <div className="divide-y divide-slate-100">
                       {[PRODUCTS[0], PRODUCTS[1], PRODUCTS[2]].map(
-                        (item, index) => renderProduct(item, index, close)
+                        (item, index) => renderProduct(item, index, close),
                       )}
                     </div>
                   </div>

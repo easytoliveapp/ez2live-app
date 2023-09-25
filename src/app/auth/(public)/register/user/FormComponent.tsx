@@ -4,15 +4,13 @@ import React, { useState } from "react";
 import { Formik, Form, Field } from "formik";
 import { Input, ButtonPrimary, FormItem } from "@/components/atoms";
 import * as Yup from "yup";
-import { IRegisterAccount } from "@/types/auth";
-import { useRouter } from 'next/navigation'
+import { IRegisterAccount } from "@/types/auth/request";
 import authService from "@/service/auth.service";
-import { useToastify } from "@/hooks/useToastify";
-import { setItemToLocalStorage } from "@/utils/localStorageHelper";
+import { showToastify } from "@/hooks/showToastify";
+import { signIn } from "next-auth/react";
 
 const FormComponent = () => {
-  const [loading, setLoading] = useState(false)
-  const router = useRouter();
+  const [loading, setLoading] = useState(false);
   const SignUpValidationSchema = Yup.object().shape({
     name: Yup.string()
       .min(2, "Nome muito curto!")
@@ -22,45 +20,71 @@ const FormComponent = () => {
     password: Yup.string()
       .matches(
         /(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]/,
-        "Deve conter pelo menos uma letra e um número"
+        "Deve conter pelo menos uma letra e um número",
       )
       .required(
-        "Coloque uma combinação de numeros, letras e sinais de pontuação (como ! e &)."
+        "Coloque uma combinação de numeros, letras e sinais de pontuação (como ! e &).",
       )
       .min(8, "Senha deve conter no mínimo 8 caracteres.")
       .max(36, "Senha não deve contar mais de 36 caracteres"),
   });
 
   const initialValues: Partial<IRegisterAccount> = {
-    name: '',
-    email: '',
-    password: '',
+    name: "",
+    email: "",
+    password: "",
   };
 
   const handleFormSubmit = async (values: Partial<IRegisterAccount>) => {
     setLoading(true);
 
-    await authService.register({
-      name: values.name,
-      email: values.email,
-      password: values.password,
-    }).then((res: any) => {
-      if (res?.data?.user) {
-        setItemToLocalStorage('user', res.data.user);
-        return router.push('/');
-      }
+    await authService
+      .register({
+        name: values.name,
+        email: values.email,
+        password: values.password,
+      })
+      .then(async (res: any) => {
+        if (res?.data?.user) {
+          await signIn("credentials", {
+            email: values.email,
+            password: values.password,
+            callbackUrl: "/",
+          })
+            .then((resp) => {
+              console.log(resp);
+            })
+            .catch((error) => {
+              showToastify({
+                label:
+                  "Impossível criar sua conta. Por favor, tente novamente. " +
+                  error,
+                type: "error",
+              });
+            });
+        }
 
-      setLoading(false);
-      useToastify({ label: 'Impossível criar sua conta. Por favor, tente novamente.', type: 'error' });
-    }).catch((error) => {
-      if (error?.response?.data?.code === 400) {
-        useToastify({ label: 'Impossível criar sua conta pois já existe um e-mail cadastrado.', type: 'error' });
-        return setLoading(false);
-      }
+        setLoading(false);
+        showToastify({
+          label: "Impossível criar sua conta. Por favor, tente novamente.",
+          type: "error",
+        });
+      })
+      .catch((error) => {
+        if (error?.response?.data?.code === 400) {
+          return showToastify({
+            label:
+              "Impossível criar sua conta pois já existe um e-mail cadastrado.",
+            type: "error",
+          });
+        }
 
-      useToastify({ label: 'Impossível criar sua conta. Por favor, tente novamente.', type: 'error' });
-      setLoading(false);
-    });
+        showToastify({
+          label: "Impossível criar sua conta. Por favor, tente novamente.",
+          type: "error",
+        });
+        setLoading(false);
+      });
   };
 
   return (
@@ -72,7 +96,7 @@ const FormComponent = () => {
       {({ errors, touched, handleSubmit }) => (
         <Form onSubmit={handleSubmit} className="flex flex-col gap-3">
           <FormItem
-            label='nome'
+            label="nome"
             errorMessage={errors.name}
             invalid={!!(errors.name && touched.name)}
           >
@@ -85,7 +109,7 @@ const FormComponent = () => {
             />
           </FormItem>
           <FormItem
-            label='email'
+            label="email"
             errorMessage={errors.email}
             invalid={!!(errors.email && touched.email)}
           >
@@ -98,7 +122,7 @@ const FormComponent = () => {
             />
           </FormItem>
           <FormItem
-            label='senha'
+            label="senha"
             errorMessage={errors.password}
             invalid={!!(errors.password && touched.password)}
           >
