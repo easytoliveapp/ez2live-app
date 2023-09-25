@@ -20,7 +20,7 @@ const NavMobile: React.FC<NavMobileProps> = ({
 }) => {
   const _renderMenuChild = (
     item: NavItemType,
-    itemClass = " pl-3 text-neutral-900  font-medium "
+    itemClass = " pl-3 text-neutral-900  font-medium ",
   ) => {
     return (
       <ul className="nav-mobile-sub-menu pl-6 pb-1 text-base">
@@ -57,10 +57,7 @@ const NavMobile: React.FC<NavMobileProps> = ({
             </Link>
             {i.children && (
               <Disclosure.Panel>
-                {_renderMenuChild(
-                  i,
-                  "pl-3 text-slate-600  "
-                )}
+                {_renderMenuChild(i, "pl-3 text-slate-600  ")}
               </Disclosure.Panel>
             )}
           </Disclosure>
@@ -71,11 +68,7 @@ const NavMobile: React.FC<NavMobileProps> = ({
 
   const _renderItem = (item: NavItemType, index: number) => {
     return (
-      <Disclosure
-        key={index}
-        as="li"
-        className="text-slate-900 "
-      >
+      <Disclosure key={index} as="li" className="text-slate-900 ">
         <Link
           className="flex w-full items-center py-2.5 px-4 font-medium uppercase tracking-wide text-sm hover:bg-slate-100  rounded-lg"
           href={{
@@ -111,7 +104,6 @@ const NavMobile: React.FC<NavMobileProps> = ({
       </Disclosure>
     );
   };
-
 
   return (
     <div className="overflow-y-auto w-full h-screen py-2 transition transform shadow-lg ring-1  bg-white  divide-y-2 divide-neutral-100 ">

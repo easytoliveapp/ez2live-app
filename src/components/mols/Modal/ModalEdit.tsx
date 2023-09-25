@@ -5,10 +5,14 @@ import NcModal from "@/components/atoms/NcModal/NcModal";
 export interface ModalEditProps {
   show: boolean;
   onCloseModalEdit: () => void;
-  children: React.ReactNode
+  children: React.ReactNode;
 }
 
-const ModalEdit: FC<ModalEditProps> = ({ show, onCloseModalEdit, children }) => {
+const ModalEdit: FC<ModalEditProps> = ({
+  show,
+  onCloseModalEdit,
+  children,
+}) => {
   const textareaRef = useRef(null);
 
   useEffect(() => {
@@ -19,7 +23,7 @@ const ModalEdit: FC<ModalEditProps> = ({ show, onCloseModalEdit, children }) => 
           (element as HTMLTextAreaElement).focus();
           (element as HTMLTextAreaElement).setSelectionRange(
             (element as HTMLTextAreaElement).value.length,
-            (element as HTMLTextAreaElement).value.length
+            (element as HTMLTextAreaElement).value.length,
           );
         }
       }, 400);
@@ -27,11 +31,7 @@ const ModalEdit: FC<ModalEditProps> = ({ show, onCloseModalEdit, children }) => 
   }, [show]);
 
   const renderContent = () => {
-    return (
-      <div>
-        {children}
-      </div>
-    );
+    return <div>{children}</div>;
   };
 
   const renderTrigger = () => {

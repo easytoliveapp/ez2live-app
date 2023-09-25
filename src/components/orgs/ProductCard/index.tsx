@@ -72,7 +72,7 @@ const ProductCard: FC<ProductCardProps> = ({
         position: "top-right",
         id: String(id) || "product-detail",
         duration: 3000,
-      }
+      },
     );
   };
 
@@ -163,10 +163,11 @@ const ProductCard: FC<ProductCardProps> = ({
             <div
               key={index}
               onClick={() => setVariantActive(index)}
-              className={`relative w-6 h-6 rounded-full overflow-hidden z-10 border cursor-pointer ${variantActive === index
-                ? getBorderClass(variant.color)
-                : "border-transparent"
-                }`}
+              className={`relative w-6 h-6 rounded-full overflow-hidden z-10 border cursor-pointer ${
+                variantActive === index
+                  ? getBorderClass(variant.color)
+                  : "border-transparent"
+              }`}
               title={variant.name}
             >
               <div
@@ -184,10 +185,9 @@ const ProductCard: FC<ProductCardProps> = ({
           <div
             key={index}
             onClick={() => setVariantActive(index)}
-            className={`relative w-11 h-6 rounded-full overflow-hidden z-10 border cursor-pointer ${variantActive === index
-              ? "border-black "
-              : "border-transparent"
-              }`}
+            className={`relative w-11 h-6 rounded-full overflow-hidden z-10 border cursor-pointer ${
+              variantActive === index ? "border-black " : "border-transparent"
+            }`}
             title={variant.name}
           >
             <div
@@ -197,11 +197,11 @@ const ProductCard: FC<ProductCardProps> = ({
                   // @ts-ignore
                   typeof variant.thumbnail?.src === "string"
                     ? // @ts-ignore
-                    variant.thumbnail?.src
+                      variant.thumbnail?.src
                     : typeof variant.thumbnail === "string"
-                      ? variant.thumbnail
-                      : ""
-                  })`,
+                    ? variant.thumbnail
+                    : ""
+                })`,
               }}
             ></div>
           </div>
@@ -286,9 +286,7 @@ const ProductCard: FC<ProductCardProps> = ({
             <h2 className="nc-ProductCard__title text-base font-semibold transition-colors">
               {name}
             </h2>
-            <p className={`text-sm text-slate-500  mt-1 `}>
-              {description}
-            </p>
+            <p className={`text-sm text-slate-500  mt-1 `}>{description}</p>
           </div>
 
           <div className="flex justify-between items-end ">

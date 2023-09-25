@@ -10,7 +10,7 @@ export interface IAddress {
   state: string;
   zipcode: string;
 }
-export interface IRegisterAccount { 
+export interface IRegisterAccount {
   name: string;
   email: string;
   password: string;

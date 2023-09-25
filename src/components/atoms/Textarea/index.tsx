@@ -2,11 +2,11 @@ import React, { TextareaHTMLAttributes } from "react";
 
 export interface TextareaProps
   extends TextareaHTMLAttributes<HTMLTextAreaElement> {
-    field?: any
-  }
+  field?: any;
+}
 
 const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
-  ({ field, className = "", children, rows = 4, ...args }, ref ) => {
+  ({ field, className = "", children, rows = 4, ...args }, ref) => {
     return (
       <textarea
         ref={ref}
@@ -18,7 +18,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
         {children}
       </textarea>
     );
-  }
+  },
 );
 
-export default Textarea.displayName = 'Textarea';
+export default Textarea.displayName = "Textarea";

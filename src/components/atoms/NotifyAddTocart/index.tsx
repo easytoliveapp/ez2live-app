@@ -54,10 +54,7 @@ const NotifyAddTocart: FC<Props> = ({
             <p className="text-gray-500 ">{`Qty ${qualitySelected}`}</p>
 
             <div className="flex">
-              <button
-                type="button"
-                className="font-medium text-primary-main  "
-              >
+              <button type="button" className="font-medium text-primary-main  ">
                 View cart
               </button>
             </div>

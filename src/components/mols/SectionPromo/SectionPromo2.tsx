@@ -34,11 +34,7 @@ const SectionPromo2: FC<SectionPromo2Props> = ({ className = "lg:pt-10" }) => {
             period and place.
           </span>
           <div className="flex space-x-2 sm:space-x-5 mt-6 sm:mt-12">
-            <ButtonPrimary
-              href="/"
-            >
-              Discover more
-            </ButtonPrimary>
+            <ButtonPrimary href="/">Discover more</ButtonPrimary>
           </div>
         </div>
 

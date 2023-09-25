@@ -15,10 +15,7 @@ const Comment: FC<CommentProps> = ({ isSmall }) => {
       </div>
       <div className="flex-grow flex flex-col p-4 ml-2 text-sm border border-neutral-200 rounded-xl sm:ml-3 sm:text-base ">
         <div className="relative flex items-center pr-6">
-          <a
-            className="flex-shrink-0 font-semibold text-neutral-800"
-            href="/"
-          >
+          <a className="flex-shrink-0 font-semibold text-neutral-800" href="/">
             {_getPersonNameRd()}
           </a>
           <span className="mx-2">·</span>

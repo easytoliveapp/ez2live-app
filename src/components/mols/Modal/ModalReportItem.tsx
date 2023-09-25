@@ -44,7 +44,7 @@ const ModalReportItem: FC<ModalReportItemProps> = ({
     }
   }, [show]);
 
-  const handleClickSubmitForm = () => { };
+  const handleClickSubmitForm = () => {};
 
   const renderCheckIcon = () => {
     return (
@@ -73,10 +73,11 @@ const ModalReportItem: FC<ModalReportItemProps> = ({
                 key={plan.name}
                 value={plan}
                 className={({ checked }) => {
-                  return `${checked
-                    ? "bg-primary-main text-white "
-                    : "bg-white  border-t  border-neutral-50 "
-                    } relative shadow-lg rounded-lg px-3 py-3 cursor-pointer flex sm:px-5 sm:py-4 focus:outline-none `;
+                  return `${
+                    checked
+                      ? "bg-primary-main text-white "
+                      : "bg-white  border-t  border-neutral-50 "
+                  } relative shadow-lg rounded-lg px-3 py-3 cursor-pointer flex sm:px-5 sm:py-4 focus:outline-none `;
                 }}
               >
                 {({ checked }) => (
@@ -85,10 +86,9 @@ const ModalReportItem: FC<ModalReportItemProps> = ({
                       <div className="text-sm">
                         <RadioGroup.Label
                           as="p"
-                          className={`font-medium line-clamp-1 ${checked
-                            ? "text-white"
-                            : "text-neutral-900 "
-                            }`}
+                          className={`font-medium line-clamp-1 ${
+                            checked ? "text-white" : "text-neutral-900 "
+                          }`}
                         >
                           {plan.label}
                         </RadioGroup.Label>
@@ -108,9 +108,7 @@ const ModalReportItem: FC<ModalReportItemProps> = ({
 
         {/* TEXAREA MESSAGER */}
         <div className="mt-4">
-          <h4 className="text-lg font-semibold text-neutral-700 ">
-            Message
-          </h4>
+          <h4 className="text-lg font-semibold text-neutral-700 ">Message</h4>
           <span className="text-sm text-neutral-6000 ">
             Please provide any additional information or context that will help
             us understand and handle the situation.

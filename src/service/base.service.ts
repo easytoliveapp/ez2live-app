@@ -1,5 +1,5 @@
 import config from "@/config/config";
-import axios, { AxiosRequestConfig } from "axios";
+import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 import {
   TOKENS,
   HEADER_AUTH_KEY,
@@ -10,28 +10,32 @@ import { getItemByLocalStorage } from "../utils/localStorageHelper";
 const { API_URL } = config;
 
 const axiosInstance = axios.create({
-  timeout: 30000,
+  timeout: 60000,
   baseURL: API_URL,
   headers: { "Content-Type": "application/json" },
 });
 
-const fetchData = (params: AxiosRequestConfig) => {
-  const userTokens = getItemByLocalStorage(TOKENS);
+const fetchData = <T>(
+  params: AxiosRequestConfig,
+): Promise<AxiosResponse<T>> => {
+  if (typeof window !== "undefined") {
+    const userTokens = getItemByLocalStorage(TOKENS);
 
-  axiosInstance.interceptors.request.use(
-    (config) => {
-      if (userTokens) {
-        const { accessToken } = userTokens;
-        if (accessToken && !config.headers[HEADER_AUTH_KEY]) {
-          config.headers[HEADER_AUTH_KEY] = BEARER + accessToken.token;
+    axiosInstance.interceptors.request.use(
+      (config) => {
+        if (userTokens) {
+          const { accessToken } = userTokens;
+          if (accessToken && !config.headers[HEADER_AUTH_KEY]) {
+            config.headers[HEADER_AUTH_KEY] = BEARER + accessToken.token;
+          }
         }
-      }
-      return config;
-    },
-    (error) => {
-      return Promise.reject(error);
-    }
-  );
+        return config;
+      },
+      (error) => {
+        return Promise.reject(error);
+      },
+    );
+  }
 
   return new Promise((resolve, reject) => {
     axiosInstance(params)
