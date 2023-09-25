@@ -25,13 +25,13 @@ const CouponPage: React.FC<CouponProps> = ({
   supplierCategory
 }) => {
   return (
-    <div className='h-[85vh] flex flex-col w-full text-black'>
-      <h1 className=' text-3xl py-4 mb-2 font-bold text-black'>Creatina</h1>
-      <div className='flex mb-8 gap-4 justify-around'>
+    <div className='min-h-[80vh] flex flex-col w-full text-black'>
+      <h1 className=' text-3xl py-4 mb-6 font-bold text-black'>Creatina</h1>
+      <div className='flex mb-8 gap-4 justify-between'>
         <div className='flex flex-col gap-1.5 text-sm' >
           <p className='flex font-semibold items-center text-generic-alertGreen'>
             <Image
-              className='h-4 pr-2 w-auto'
+              className='h-5 pr-2 w-auto'
               alt='coupon-green'
               src={CouponGreen}
               color='white'
@@ -39,31 +39,31 @@ const CouponPage: React.FC<CouponProps> = ({
             faltam {unintsAmount} unidades</p>
           <p className='flex font-semibold items-center text-generic-alertRed'>
             <Image
-              className='h-3.5 pr-2 w-auto'
+              className='h-4 pr-2 w-auto'
               alt='coupon-black'
               src={ClockCircleRed}
             />
             termina em {useDateDiffInDays(expirateTime)} dias
           </p>
         </div>
-        <span className='relative text-3xl w-32 text-white bg-primary-main flex items-center justify-center px-6 py-3 rounded-full'>
+        <span className='relative text-3xl font-medium w-32 h-16 text-white bg-primary-main flex items-center justify-center px-6 rounded-full'>
           {couponDiscount}%
-          <span className='absolute -top-5 -left-5 w-12 h-12 rounded-full bg-gradient-to-r from-secondary-dark to-secondary-lighter'></span>
+          <span className='absolute z-50 -top-7 -left-7 w-14 h-14 rounded-full bg-gradient-to-r from-secondary-dark to-secondary-lighter'></span>
         </span>
       </div>
-      <hr className="border-slate-200 mb-6"></hr>
-      <div className='flex flex-col mt-5 h-auto'>
-        <div className='flex item-center'>
-          <Image className='w-20 h-20 rounded-full' src={supplierLogo} alt='supplier-logo' />
-          <div className='m-4 px-1'>
+      <hr className="border-neutral-100 border-[1.5px] mb-6"></hr>
+      <div className='flex flex-col h-auto'>
+        <div className='flex gap-3 item-center'>
+          <Image className='w-14 h-14 rounded-full' src={supplierLogo} alt='supplier-logo' />
+          <div className='m-1 px-1'>
             <p className=' font-semibold'>estabelecimento</p>
             <p className=' text-lg'>{supplierName}</p>
           </div>
         </div>
-        <div className='flex flex-col gap-5 m-3'>
-          <div className='flex flex-col gap-3'>
+        <div className='flex flex-col gap-5 my-3'>
+          <div className='flex flex-col'>
             <p className='font-semibold'>categoria</p>
-            <p>{supplierCategory}</p>
+            <p className='mb-4'>{supplierCategory}</p>
             <p className='font-semibold'>validade</p>
             <p>{useDateFormater(expirateTime)}</p>
           </div>
