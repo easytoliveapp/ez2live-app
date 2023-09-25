@@ -9,12 +9,12 @@ import { showToastify } from "@/hooks/showToastify";
 
 const loginSocials = [
   {
-    name: "Continuar com facebook",
+    name: "Continuar com Facebook",
     provider: "facebook",
     icon: facebookSvg,
   },
   {
-    name: "Continuar com google",
+    name: "Continuar com Google",
     provider: "google",
     icon: googleSvg,
   },

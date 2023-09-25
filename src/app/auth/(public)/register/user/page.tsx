@@ -1,23 +1,9 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import facebookSvg from "@/images/Facebook.svg";
-import googleSvg from "@/images/Google.svg";
 import FormComponent from "./FormComponent";
 import Avatar from "@/images/easytolive/user/user_circle_color_primary.svg";
-
-const loginSocials = [
-  {
-    name: "Continuar com Facebook",
-    href: "#",
-    icon: facebookSvg,
-  },
-  {
-    name: "Continuar com Google",
-    href: "#",
-    icon: googleSvg,
-  },
-];
+import SocialLoginComponent from "../../login/SocialLoginComponent";
 
 const UserRegisterPage = () => {
   return (
@@ -58,23 +44,7 @@ const UserRegisterPage = () => {
             </span>
           </div>
           <div className="pt-2 grid gap-3">
-            {loginSocials.map((item, index) => (
-              <a
-                key={index}
-                href={item.href}
-                className=" flex w-full rounded-full bg-white px-4 py-3 transform transition-transform sm:px-6 hover:translate-y-[-2px]"
-              >
-                <Image
-                  sizes="40px"
-                  className="flex-shrink-0"
-                  src={item.icon}
-                  alt={item.name}
-                />
-                <h3 className="flex-grow text-center text-sm font-medium text-black sm:text-sm">
-                  {item.name}
-                </h3>
-              </a>
-            ))}
+            <SocialLoginComponent />
           </div>
           {/* ==== */}
           <span className=" block text-center text-sm font-medium text-black">
