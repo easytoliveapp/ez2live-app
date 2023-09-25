@@ -50,7 +50,7 @@ export default function AvatarDropdown() {
                       <Avatar imgUrl={userImage} sizeClass="w-12 h-12" />
 
                       <div className="flex-grow">
-                        <h4 className="font-semibold">{user?.name}</h4>
+                        <h4 className="font-medium">{user?.name}</h4>
                       </div>
                     </div>
 
@@ -87,7 +87,7 @@ export default function AvatarDropdown() {
                         </svg>
                       </div>
                       <div className="ml-4">
-                        <p className="text-sm font-semibold ">{"Minha Conta"}</p>
+                        <p className="text-sm font-medium ">{"Minha Conta"}</p>
                       </div>
                     </Link>
 
@@ -96,7 +96,6 @@ export default function AvatarDropdown() {
                     <Link
                       href={"/"}
                       className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-700 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
-                      onClick={() => handleSignOut }
                     >
                       <div className="flex items-center justify-center flex-shrink-0 text-neutral-500 dark:text-neutral-300">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -110,14 +109,14 @@ export default function AvatarDropdown() {
                         </svg>
                       </div>
                       <div className="ml-4">
-                        <p className="text-sm font-semibold ">{"Meus Cupons"}</p>
+                        <p className="text-sm font-medium ">{"Meus Cupons"}</p>
                       </div>
                     </Link>
                     {/* ------------------ 2 --------------------- */}
                     <Link
                       href={"/login"}
                       className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-700 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
-                      onClick={() => close()}
+                      onClick={() => handleSignOut}
                     >
                       <div className="flex items-center justify-center flex-shrink-0 text-neutral-500 ">
                         <svg
@@ -151,7 +150,7 @@ export default function AvatarDropdown() {
                         </svg>
                       </div>
                       <div className="ml-4">
-                        <p className="text-sm font-semibold ">{"Desconectar"}</p>
+                        <p className="text-sm font-medium">{"Desconectar"}</p>
                       </div>
                     </Link>
                   </div>
