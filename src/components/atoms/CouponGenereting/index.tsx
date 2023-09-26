@@ -3,7 +3,12 @@ import Image from 'next/image'
 import CouponYellow from '@/images/easytolive/icons/couponyellow.svg'
 import { motion } from "framer-motion"
 
-const CouponGenerating = () => {
+interface CouponGeneratingProps {
+  title: string;
+  subTitle?: string;
+}
+
+const CouponGenerating: React.FC<CouponGeneratingProps> = ({ title, subTitle }) => {
   return (
     <div className='min-h-[75vh] bg-white flex flex-col justify-around'>
       <span></span>
@@ -27,8 +32,8 @@ const CouponGenerating = () => {
             <Image className='w-24 opacity-100 h-auto' alt='coupon-yellow-image' src={CouponYellow}></Image>
           </motion.div>
         </div>
-        <h1 className=' text-lg font-bold mt-12 mb-3'>Gerando cupom de desconto...</h1>
-        <p className='text-xs text-neutral-400'>esse processo pode levar alguns segundos!</p>
+        <h1 className=' text-lg font-bold mt-10 mb-3'>{title}</h1>
+        <p className='text-xs text-neutral-400'>{subTitle}</p>
       </div>
       <span>
       </span>
