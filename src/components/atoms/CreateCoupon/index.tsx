@@ -38,7 +38,6 @@ const CreateCoupon = () => {
 
   const handleFormSubmit = async (values: ICreateCoupon) => {
     setLoading(true)
-    console.log(values)
     //-----------TO DO-------------
     //  WAITING BACK-END RECIVE VALUES LIKE EXPIRATION DATE, USER LIMIT AND ETC...
     // await couponService.createCoupon(values)
@@ -52,6 +51,7 @@ const CreateCoupon = () => {
     //   }
     // })
     setLoading(false)
+    return values
   };
 
   return (
