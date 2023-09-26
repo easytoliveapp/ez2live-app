@@ -9,8 +9,9 @@ export interface ToggleButtonProps {
 const ToggleButton: React.FC<ToggleButtonProps> = ({ toggle, onClick, label}) => {
 
   return (
-    <div className="inline-flex m-2" onClick={onClick}>
+    <div className="inline-flex m-2">
       <Switch
+        onClick={onClick}
         checked={toggle}
         className={`${toggle ? "bg-primary-main" : "bg-white"}
           relative inline-flex h-4 w-8 shrink-0 cursor-pointer rounded-full p-[3px] border-[1px] border-primary-main transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2  focus-visible:ring-white focus-visible:ring-opacity-75`}

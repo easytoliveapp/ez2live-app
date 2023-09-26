@@ -1,11 +1,10 @@
 "use client";
 
 import React, { useState } from "react";
-import { Formik, Form, Field } from "formik";
-import { Input, ButtonSecondary, FormItem } from "@/components/atoms";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Input, ButtonSecondary, FormItem, ToggleButton } from "@/components/atoms";
 import * as Yup from "yup";
 import { ICreateCoupon } from '@/types/coupons';
-import ToggleButton from '../toggleButton';
 // import couponService from '@/service/coupons.service';
 // import { useToastify } from '@/hooks/useToastify';
 
@@ -28,13 +27,13 @@ const CreateCoupon = () => {
     expiration_date: Yup.date().required(
       "Data de validade para geração do cupom."
     )
-    .min(new Date() , 'Selecione uma data maior que a atual'),
+      .min(new Date(), 'Selecione uma data maior que a atual'),
     validation_date: Yup.date().required(
       "Data limite para utilização do cupom."
-    ).min(new Date() , 'Selecione uma data maior que a atual'),
+    ).min(new Date(), 'Selecione uma data maior que a atual'),
   });
 
-  
+
 
   const handleFormSubmit = async (values: ICreateCoupon) => {
     setLoading(true)
@@ -70,6 +69,7 @@ const CreateCoupon = () => {
       </div>
 
       <Formik
+        validateOnBlur={false}
         initialValues={{
           title: '',
           discount: 20,
@@ -81,7 +81,7 @@ const CreateCoupon = () => {
         validationSchema={CreateCouponValidationSchema}
         onSubmit={handleFormSubmit}
       >
-        {({ values, errors, touched, handleSubmit }) => (
+        {({ values, errors, touched, isValidating, handleSubmit }) => (
           <Form onSubmit={handleSubmit} className="flex flex-col gap-3">
             <FormItem
               className='w-32 !text-3xl py-3 flex items-center justify-center font-semibold rounded-full border-[1px] border-black'
@@ -106,6 +106,7 @@ const CreateCoupon = () => {
               errorMessage={errors.title}
               invalid={!!(errors.title && touched.title)}
             >
+              {!!isValidating && <ErrorMessage name='title' />}
               <Field
                 invalid={!!(errors.title && touched.title)}
                 name="title"
@@ -122,10 +123,10 @@ const CreateCoupon = () => {
                 invalid={!!(errors.coupon_limit && touched.coupon_limit)}
               >
                 <Field
-                  disabled= {couponsIlimited}
+                  disabled={couponsIlimited}
                   invalid={!!(errors.coupon_limit && touched.coupon_limit)}
                   name="coupon_limit"
-                  value={couponsIlimited? values.coupon_limit = 'ilimitado' : values.coupon_limit == 'ilimitado'? values.coupon_limit = '' : values.coupon_limit}
+                  value={couponsIlimited ? values.coupon_limit = 'ilimitado' : values.coupon_limit == 'ilimitado' ? values.coupon_limit = '' : values.coupon_limit}
                   type="text"
                   label="coupon_limit"
                   component={Input}
@@ -138,10 +139,10 @@ const CreateCoupon = () => {
                 invalid={!!(errors.user_limit && touched.user_limit)}
               >
                 <Field
-                  disabled= {ilimitedByUser}
+                  disabled={ilimitedByUser}
                   invalid={!!(errors.user_limit && touched.user_limit)}
                   name="user_limit"
-                  value= {ilimitedByUser? values.user_limit = 'ilimitado' : values.user_limit == 'ilimitado'? values.user_limit = '' : values.user_limit}
+                  value={ilimitedByUser ? values.user_limit = 'ilimitado' : values.user_limit == 'ilimitado' ? values.user_limit = '' : values.user_limit}
                   type="text"
                   label="user_limit"
                   component={Input}
@@ -168,7 +169,7 @@ const CreateCoupon = () => {
                 type="date"
                 label="expiration_date"
                 component={Input}
-                className='bg-white'
+                className='bg-white cursor-pointer'
               />
             </FormItem>
             <FormItem
@@ -182,7 +183,7 @@ const CreateCoupon = () => {
                 type="date"
                 label="validation_date"
                 component={Input}
-                className='bg-white'
+                className='bg-white cursor-pointer'
               />
             </FormItem>
             <ButtonSecondary

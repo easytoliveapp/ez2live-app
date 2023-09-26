@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 
-import { Avaliation, SupplierCoupons, ButtonSecondary, CreateCoupon, ButtonThird } from '@/components/atoms';
+import { Avaliation, SupplierCoupons, ButtonSecondary, ButtonThird } from '@/components/atoms';
 import { ISupplier } from '@/types/supplier';
 import ArrowLeft from '@/images/easytolive/icons/arrow-next-right-white.svg'
 import supplierService from '@/service/supplier.service';
@@ -15,7 +15,7 @@ import Edit from '@/images/easytolive/icons/edit.svg';
 import LogoImage from '@/images/easytolive/logo/logotipo-fundoazulroxo.svg';
 import { getItemByLocalStorage } from '@/utils/localStorageHelper';
 import { userLoginResponseProps } from '@/types/user';
-import { ModalEdit } from '@/components/mols';
+import { ModalEdit, CreateCoupon } from '@/components/mols';
 
 interface ICouponListPageProps {
   supplierId: string,
