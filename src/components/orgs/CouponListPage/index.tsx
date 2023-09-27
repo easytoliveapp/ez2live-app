@@ -54,6 +54,7 @@ const CouponListPage: React.FC<ICouponListPageProps> = ({ supplierId }) => {
   return (
     <div className="relative md:w-[500px] h-full w-full mx-auto">
       <ModalEdit
+        closeOnBlur={false}
         show={modalCreateCoupon}
         onCloseModalEdit={() => setModalCreateCoupon(false)}
       >
