@@ -41,11 +41,7 @@ const CardCategory6: FC<CardCategory6Props> = ({
           </div>
 
           <div className="text-center">
-            <span
-              className={`block mb-1 text-sm text-slate-500 `}
-            >
-              {desc}
-            </span>
+            <span className={`block mb-1 text-sm text-slate-500 `}>{desc}</span>
             <h2 className={`text-lg sm:text-xl font-semibold`}>{name}</h2>
           </div>
 

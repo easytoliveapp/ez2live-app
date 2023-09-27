@@ -27,10 +27,7 @@ const SectionPromo1: FC<SectionPromo1Props> = ({ className = "" }) => {
           <ButtonPrimary href="/" className="">
             Savings combo
           </ButtonPrimary>
-          <ButtonSecondary
-            href="/"
-            className="border border-slate-100 "
-          >
+          <ButtonSecondary href="/" className="border border-slate-100 ">
             Discover more
           </ButtonSecondary>
         </div>

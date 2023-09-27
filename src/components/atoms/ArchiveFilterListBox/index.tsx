@@ -43,9 +43,7 @@ const ArchiveFilterListBox: FC<ArchiveFilterListBoxProps> = ({
                   key={index}
                   className={({ active }) =>
                     `${
-                      active
-                        ? "text-primary-700  bg-primary-50 "
-                        : ""
+                      active ? "text-primary-700  bg-primary-50 " : ""
                     } cursor-default select-none relative py-2 pl-10 pr-4`
                   }
                   value={item}
