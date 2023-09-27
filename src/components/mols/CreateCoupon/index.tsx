@@ -95,7 +95,7 @@ const CreateCoupon = () => {
                 name="discount"
                 min="5"
                 max="95"
-                step="5"
+                step="1"
                 type="range"
                 label="discount"
                 component={Input}
@@ -119,34 +119,34 @@ const CreateCoupon = () => {
             <div className='grid grid-cols-2 w-full'>
               <FormItem
                 label='Limite de cupons'
-                errorMessage={errors.coupon_limit}
-                invalid={!!(errors.coupon_limit && touched.coupon_limit)}
+                errorMessage={(!couponsIlimited && errors.coupon_limit)}
+                invalid={!couponsIlimited && !!(errors.coupon_limit && touched.coupon_limit)}
               >
                 <Field
                   disabled={couponsIlimited}
-                  invalid={!!(errors.coupon_limit && touched.coupon_limit)}
+                  invalid={!couponsIlimited && !!(errors.coupon_limit && touched.coupon_limit)}
                   name="coupon_limit"
                   value={couponsIlimited ? values.coupon_limit = 'ilimitado' : values.coupon_limit == 'ilimitado' ? values.coupon_limit = '' : values.coupon_limit}
                   type="text"
                   label="coupon_limit"
                   component={Input}
-                  className='bg-white'
+                  className='bg-white disabled:bg-white'
                 />
               </FormItem>
               <FormItem
                 label='Limite por usuário'
-                errorMessage={errors.user_limit}
-                invalid={!!(errors.user_limit && touched.user_limit)}
+                errorMessage={(!ilimitedByUser  && errors.user_limit)}
+                invalid={!ilimitedByUser && !!(errors.user_limit && touched.user_limit)}
               >
                 <Field
                   disabled={ilimitedByUser}
-                  invalid={!!(errors.user_limit && touched.user_limit)}
+                  invalid={!ilimitedByUser && !!(errors.user_limit && touched.user_limit)}
                   name="user_limit"
                   value={ilimitedByUser ? values.user_limit = 'ilimitado' : values.user_limit == 'ilimitado' ? values.user_limit = '' : values.user_limit}
                   type="text"
                   label="user_limit"
                   component={Input}
-                  className='bg-white'
+                  className='bg-white disabled:bg-white'
                 />
               </FormItem>
               <ToggleButton
