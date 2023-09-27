@@ -46,7 +46,7 @@ function PageHome() {
   useEffect(() => {
     if (session?.user?.isSupplier) {
       if (!session?.user?.isVerified) {
-        router.push("/supplier-notverified");
+        router.push("/supplier-not-verified");
       } else {
         setControlModalSupplierUploadRegister(true);
       }
