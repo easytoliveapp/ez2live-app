@@ -1,6 +1,6 @@
-import { StaticImageData } from 'next/image';
-import { IAddress } from '../auth';
-import { ICoupon } from '../coupons';
+import { StaticImageData } from "next/image";
+import { IAddress } from "../auth/request";
+import { ICoupon } from "../coupons";
 
 export interface iSupplierCategory {
   active: boolean;
@@ -8,7 +8,7 @@ export interface iSupplierCategory {
   id: string;
 }
 
-export interface ISupplier { 
+export interface ISupplier {
   active: boolean;
   address: IAddress;
   document: string;
@@ -16,7 +16,7 @@ export interface ISupplier {
   coupons: ICoupon[];
   email: string;
   id: string;
-  supplierCategory: iSupplierCategory
+  supplierCategory: iSupplierCategory;
   isSupplier: boolean;
   isVerified: boolean;
   name: string;
@@ -44,20 +44,20 @@ export interface ICategoryProps {
 }
 
 export interface ISupplierCompleteRegister {
-  logo : string | StaticImageData;
-  ilustration_image : string | StaticImageData;
+  logo: string | StaticImageData;
+  ilustration_image: string | StaticImageData;
   description: string;
 }
 
 export interface ISupplierLoginResponseProps {
-  active: boolean,
-  address: IAddress,
-  coupons: ICoupon,
-  email: string,
-  id: string,
-  isEmailVerified: boolean,
-  isSupplier: boolean,
-  isVerified: boolean,
-  name: string,
-  role: string,
+  active: boolean;
+  address: IAddress;
+  coupons: ICoupon;
+  email: string;
+  id: string;
+  isEmailVerified: boolean;
+  isSupplier: boolean;
+  isVerified: boolean;
+  name: string;
+  role: string;
 }

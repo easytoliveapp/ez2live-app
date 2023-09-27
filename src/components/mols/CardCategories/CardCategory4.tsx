@@ -48,11 +48,7 @@ const CardCategory4: FC<CardCategory4Props> = ({
           </div>
 
           <div className="">
-            <span
-              className={`block mb-2 text-sm text-slate-500 `}
-            >
-              {desc}
-            </span>
+            <span className={`block mb-2 text-sm text-slate-500 `}>{desc}</span>
             <h2 className={`text-2xl sm:text-3xl font-semibold`}>{name}</h2>
           </div>
 

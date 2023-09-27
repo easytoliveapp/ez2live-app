@@ -1,13 +1,17 @@
 "use client";
 
 import { Popover, Transition } from "@/app/headlessui";
-import userImage from "@/images/easytolive/user/user_circle_1.svg"
+import userImage from "@/images/easytolive/user/user_circle_1.svg";
 import React, { Fragment } from "react";
 import Avatar from "@/components/atoms/Avatar/Avatar";
 import Link from "next/link";
-
+import { useSession } from "next-auth/react";
+import { signOut } from "next-auth/react";
 
 export default function AvatarDropdown() {
+  const { data: session } = useSession();
+  const user = session?.user;
+
   return (
     <div className="AvatarDropdown ">
       <Popover className="relative">
@@ -16,7 +20,7 @@ export default function AvatarDropdown() {
             <Popover.Button
               className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full hover:bg-slate-100 focus:outline-none flex items-center justify-center`}
             >
-              <Avatar imgUrl={userImage} />
+              <Avatar imgUrl={user?.image ?? userImage} />
             </Popover.Button>
             <Transition
               as={Fragment}
@@ -28,14 +32,18 @@ export default function AvatarDropdown() {
               leaveTo="opacity-0 translate-y-1"
             >
               <Popover.Panel className="absolute z-10 w-screen max-w-[260px] px-4 mt-3.5 sm:right-0 sm:px-0">
-
                 <div className="overflow-hidden rounded-3xl shadow-lg ring-1 ring-black ring-opacity-5">
                   <div className="relative grid grid-cols-1 gap-6 bg-white dark:bg-neutral-800 py-7 px-6">
                     <div className="flex items-center space-x-3">
-                      <Avatar imgUrl={userImage} sizeClass="w-12 h-12" />
+                      <Avatar
+                        imgUrl={user?.image ?? userImage}
+                        sizeClass="w-8 h-8"
+                      />
 
                       <div className="flex-grow">
-                        <h4 className="font-semibold">Easy To Live</h4>
+                        <h4 className="font-semibold">
+                          {user?.name ?? "Usuário desconhecido"}
+                        </h4>
                       </div>
                     </div>
 
@@ -84,18 +92,36 @@ export default function AvatarDropdown() {
                       onClick={() => close()}
                     >
                       <div className="flex items-center justify-center flex-shrink-0 text-neutral-500 dark:text-neutral-300">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-
+                        <svg
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
                           <g id="SVGRepo_bgCarrier" strokeWidth="0" />
 
-                          <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round" />
+                          <g
+                            id="SVGRepo_tracerCarrier"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
 
-                          <g id="SVGRepo_iconCarrier"> <path fillRule="evenodd" clipRule="evenodd" d="M3.75 6.75L4.5 6H20.25L21 6.75V10.7812H20.25C19.5769 10.7812 19.0312 11.3269 19.0312 12C19.0312 12.6731 19.5769 13.2188 20.25 13.2188H21V17.25L20.25 18L4.5 18L3.75 17.25V13.2188H4.5C5.1731 13.2188 5.71875 12.6731 5.71875 12C5.71875 11.3269 5.1731 10.7812 4.5 10.7812H3.75V6.75ZM5.25 7.5V9.38602C6.38677 9.71157 7.21875 10.7586 7.21875 12C7.21875 13.2414 6.38677 14.2884 5.25 14.614V16.5L9 16.5L9 7.5H5.25ZM10.5 7.5V16.5L19.5 16.5V14.614C18.3632 14.2884 17.5312 13.2414 17.5312 12C17.5312 10.7586 18.3632 9.71157 19.5 9.38602V7.5H10.5Z" fill="black" /> </g>
-
+                          <g id="SVGRepo_iconCarrier">
+                            {" "}
+                            <path
+                              fillRule="evenodd"
+                              clipRule="evenodd"
+                              d="M3.75 6.75L4.5 6H20.25L21 6.75V10.7812H20.25C19.5769 10.7812 19.0312 11.3269 19.0312 12C19.0312 12.6731 19.5769 13.2188 20.25 13.2188H21V17.25L20.25 18L4.5 18L3.75 17.25V13.2188H4.5C5.1731 13.2188 5.71875 12.6731 5.71875 12C5.71875 11.3269 5.1731 10.7812 4.5 10.7812H3.75V6.75ZM5.25 7.5V9.38602C6.38677 9.71157 7.21875 10.7586 7.21875 12C7.21875 13.2414 6.38677 14.2884 5.25 14.614V16.5L9 16.5L9 7.5H5.25ZM10.5 7.5V16.5L19.5 16.5V14.614C18.3632 14.2884 17.5312 13.2414 17.5312 12C17.5312 10.7586 18.3632 9.71157 19.5 9.38602V7.5H10.5Z"
+                              fill="black"
+                            />{" "}
+                          </g>
                         </svg>
                       </div>
                       <div className="ml-4">
-                        <p className="text-sm font-medium ">{"Minhas Reservas"}</p>
+                        <p className="text-sm font-medium ">
+                          {"Minhas Reservas"}
+                        </p>
                       </div>
                     </Link>
                     {/* ------------------ 2 --------------------- */}
@@ -286,7 +312,7 @@ export default function AvatarDropdown() {
                     <Link
                       href={"/#"}
                       className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-700 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
-                      onClick={() => close()}
+                      onClick={() => signOut({ redirect: true })}
                     >
                       <div className="flex items-center justify-center flex-shrink-0 text-neutral-500 ">
                         <svg
@@ -320,7 +346,7 @@ export default function AvatarDropdown() {
                         </svg>
                       </div>
                       <div className="ml-4">
-                        <p className="text-sm font-bold ">{"desconectar"}</p>
+                        <p className="text-sm font-bold ">desconectar</p>
                       </div>
                     </Link>
                   </div>
@@ -332,4 +358,4 @@ export default function AvatarDropdown() {
       </Popover>
     </div>
   );
-};
+}
