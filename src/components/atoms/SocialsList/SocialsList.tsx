@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import facebook from "@/images/socials/facebook.svg";
-import instagram from "@/images/socials/instagram.svg"
+import instagram from "@/images/socials/instagram.svg";
 import Image from "next/image";
 
 export interface SocialsListProps {

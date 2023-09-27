@@ -1,35 +1,36 @@
-"use client"
+"use client";
 
 import React, { useEffect, useState } from "react";
-import { SupplierCard } from '@/components/mols';
-import { CategoryCard, CompleteSupplierRegister } from '@/components/atoms'
-import SupplierLogo from '@/images/easytolive/logo/logotipo-fundoazulroxo.svg'
-import SearchCategory from '@/app/searchCategory'
-import SupplierService from '@/service/supplier.service'
-import imageCategory from '@/images/easytolive/icons/categorie-example.svg'
-import { ISupplier, ISupplierList } from '@/types/supplier';
-import { useDebounce } from 'use-debounce';
-import { categorieProps } from '@/components/atoms/CategoryCard';
-import InfiniteScroll from 'react-infinite-scroll-component';
-import { useToastify } from "@/hooks/useToastify";
-import { userLoginResponseProps } from "@/types/user";
-import { getItemByLocalStorage } from "@/utils/localStorageHelper";
+import { SupplierCard } from "@/components/mols";
+import { CategoryCard, CompleteSupplierRegister } from "@/components/atoms";
+import SupplierLogo from "@/images/easytolive/logo/logotipo-fundoazulroxo.svg";
+import SearchCategory from "@/app/searchCategory";
+import SupplierService from "@/service/supplier.service";
+import imageCategory from "@/images/easytolive/icons/categorie-example.svg";
+import { ISupplier, ISupplierList } from "@/types/supplier";
+import { useDebounce } from "use-debounce";
+import { categorieProps } from "@/components/atoms/CategoryCard";
+import InfiniteScroll from "react-infinite-scroll-component";
+import { showToastify } from "@/hooks/showToastify";
+import ModalEdit from "@/components/mols/Modal/ModalEdit";
+import ButtonThird from "@/components/atoms/Button/ButtonThird";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import ModalEdit from '@/components/mols/Modal/ModalEdit';
-import ButtonThird from '@/components/atoms/Button/ButtonThird';
 
 function PageHome() {
-  const router = useRouter();
-
-  const [suppliers, setSuppliers] = useState([])
-  const [search, setSearch] = useState('');
+  const [suppliers, setSuppliers] = useState([]);
+  const [search, setSearch] = useState("");
   const [textSearched] = useDebounce(search, 1000);
   const [categories, setCategories] = useState([]);
   const [pageNumber, setPageNumber] = useState(1);
   const [hasMore, setHasMore] = useState(true);
-  const [supplierCategoriesFilter, setSupplierCategoriesFilter] = useState('');
-  const [user, setUser] = useState<userLoginResponseProps>();
-  const [ControlModalSupplierUploadRegister, setControlModalSupplierUploadRegister] = useState(true)
+  const [supplierCategoriesFilter, setSupplierCategoriesFilter] = useState("");
+  const [
+    ControlModalSupplierUploadRegister,
+    setControlModalSupplierUploadRegister,
+  ] = useState(false);
+  const { data: session } = useSession();
+  const router = useRouter();
 
   const getAllCategories = async () => {
     const res: any = await SupplierService.getSupplierCategories();
@@ -37,48 +38,50 @@ function PageHome() {
   };
 
   const handleCategoryFilter = (categoryId: string) => {
-    setSupplierCategoriesFilter(prevState => prevState === categoryId ? '' : categoryId);
+    setSupplierCategoriesFilter((prevState) =>
+      prevState === categoryId ? "" : categoryId,
+    );
   };
 
   useEffect(() => {
-    const localUser = getItemByLocalStorage('user');
-    if (!localUser) return router.push('/login');
-    setUser(localUser);
-    if (user?.isSupplier) {
-      if (user.isVerified === false) {
-        return router.push('/supplier-not-verified')
+    if (session?.user?.isSupplier) {
+      if (!session?.user?.isVerified) {
+        router.push("/supplier-not-verified");
+      } else {
+        setControlModalSupplierUploadRegister(true);
       }
-      else {
-        setControlModalSupplierUploadRegister(true)
-      };
-    };
-
+    }
 
     getAllCategories()
       .then((res) => setCategories(res?.data?.supplierCategories?.results))
       .catch((error) => {
         if (error?.response?.data?.code === 401) {
-          useToastify({ label: 'Não autorizado. Por favor, autentique-se', type: 'error' });
+          showToastify({
+            label: "Não autorizado. Por favor, autentique-se",
+            type: "error",
+          });
         }
         if (error?.response?.data?.code === 404) {
-          useToastify({ label: 'Nenhuma categoria encontrada', type: 'error' });
+          showToastify({
+            label: "Nenhuma categoria encontrada",
+            type: "error",
+          });
         }
       });
   }, []);
 
   function handleSetSearch(e: any) {
-    setSearch(e.target.value)
+    setSearch(e.target.value);
     setPageNumber(1);
-  };
+  }
 
   const getAllSuppliers = async (data: Partial<ISupplierList>) => {
     const res: any = await SupplierService.getSupplierList(data);
 
     if (res?.data?.totalPages <= pageNumber) {
-      setHasMore(false)
-    }
-    else {
-      setHasMore(true)
+      setHasMore(false);
+    } else {
+      setHasMore(true);
     }
     return res;
   };
@@ -87,41 +90,34 @@ function PageHome() {
     setSuppliers(
       pageNumber === 1
         ? res?.data?.results
-        : suppliers.concat(res?.data?.results)
+        : suppliers.concat(res?.data?.results),
     );
 
   useEffect(() => {
     const data = {
       page: pageNumber,
       ...(textSearched && { name: textSearched }),
-      ...(supplierCategoriesFilter && { supplierCategory: supplierCategoriesFilter }),
-      sortBy: 'coupons:desc',
+      ...(supplierCategoriesFilter && {
+        supplierCategory: supplierCategoriesFilter,
+      }),
+      sortBy: "coupons:desc",
     };
 
     getAllSuppliers(data)
       .then(handleResponse)
       .catch((error) => {
         if (error?.response?.data?.code === 401) {
-          useToastify({ label: 'Usuário não autenticado', type: 'error' })
+          showToastify({ label: "Usuário não autenticado", type: "error" });
         }
-      })
+      });
   }, [textSearched, pageNumber, supplierCategoriesFilter]);
 
-  return user && (
-    <div className="md:w-[500px] w-full m-auto p-5">
-      <ModalEdit
-        show={ControlModalSupplierUploadRegister}
-        onCloseModalEdit={() => setControlModalSupplierUploadRegister(false)}>
-        <div className='h-[85vh] flex flex-col items-center justify-around'>
-          <CompleteSupplierRegister />
-          <ButtonThird onClick={() => setControlModalSupplierUploadRegister(false)}>cancelar</ButtonThird>
-        </div>
-
-      </ModalEdit>
-      <SearchCategory onChange={handleSetSearch} />
-      <div className='flex flex-wrap my-6 w-full gap-3'>
-        {
-          categories.map((category: categorieProps, index) => (
+  return (
+    <>
+      <div className="md:w-[500px] w-full m-auto p-5">
+        <SearchCategory onChange={handleSetSearch} />
+        <div className="flex flex-wrap my-6 w-full gap-3">
+          {categories.map((category: categorieProps, index) => (
             <CategoryCard
               key={index}
               name={category.title}
@@ -129,31 +125,44 @@ function PageHome() {
               image={imageCategory}
               isActive={category.id === supplierCategoriesFilter}
             />
-          ))
-        }
+          ))}
+        </div>
+        <InfiniteScroll
+          className="flex flex-col gap-3"
+          dataLength={suppliers.length}
+          next={() => setPageNumber(pageNumber + 1)}
+          hasMore={hasMore}
+          loader={<h4 className=" m-4 text-primary-main">Carregando...</h4>}
+          endMessage={<p className="m-4 text-primary-main text-center">...</p>}
+        >
+          {suppliers.map((supplier: ISupplier, index) => (
+            <SupplierCard
+              supplierCategory={supplier?.supplierCategory?.title}
+              supplierImage={SupplierLogo}
+              avaliation="4.6"
+              couponsAvaible={supplier.numberOfCoupons}
+              name={supplier.name}
+              key={supplier.id + index}
+              id={supplier.id}
+            />
+          ))}
+        </InfiniteScroll>
       </div>
-      <InfiniteScroll
-        className='flex flex-col gap-3'
-        dataLength={suppliers.length}
-        next={() => setPageNumber(pageNumber + 1)}
-        hasMore={hasMore}
-        loader={<h4 className=' m-4 text-primary-main'>Carregando...</h4>}
-        endMessage={<p className='m-4 text-primary-main text-center'>...</p>}
+      <ModalEdit
+        show={ControlModalSupplierUploadRegister}
+        onCloseModalEdit={() => setControlModalSupplierUploadRegister(false)}
       >
-        {suppliers.map((supplier: ISupplier) => (
-          <SupplierCard
-            supplierCategory={supplier?.supplierCategory?.title}
-            supplierImage={SupplierLogo}
-            avaliation='4.6'
-            couponsAvaible={supplier.numberOfCoupons}
-            name={supplier.name}
-            key={supplier.id}
-            id={supplier.id}
-          />
-        ))}
-      </InfiniteScroll>
-    </div>
+        <div className="h-[85vh] flex flex-col items-center justify-around">
+          <CompleteSupplierRegister />
+          <ButtonThird
+            onClick={() => setControlModalSupplierUploadRegister(false)}
+          >
+            cancelar
+          </ButtonThird>
+        </div>
+      </ModalEdit>
+    </>
   );
-};
+}
 
 export default PageHome;

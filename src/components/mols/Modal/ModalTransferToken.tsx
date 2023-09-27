@@ -23,7 +23,7 @@ const ModalTransferToken: FC<ModalTransferTokenProps> = ({
           (element as HTMLTextAreaElement).focus();
           (element as HTMLTextAreaElement).setSelectionRange(
             (element as HTMLTextAreaElement).value.length,
-            (element as HTMLTextAreaElement).value.length
+            (element as HTMLTextAreaElement).value.length,
           );
         }
       }, 400);

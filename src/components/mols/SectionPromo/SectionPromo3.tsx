@@ -42,9 +42,7 @@ const SectionPromo3: FC<SectionPromo3Props> = ({ className = "lg:pt-10" }) => {
             </li>
             <li className="flex items-center space-x-4">
               <Badge name="02" />
-              <span className="font-medium text-neutral-700 ">
-                Freeship
-              </span>
+              <span className="font-medium text-neutral-700 ">Freeship</span>
             </li>
             <li className="flex items-center space-x-4">
               <Badge color="red" name="03" />

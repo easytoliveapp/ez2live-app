@@ -4,18 +4,18 @@ import React, { useState } from "react";
 import { Formik, Form, Field } from "formik";
 import { Input, ButtonPrimary, FormItem } from "@/components/atoms";
 import * as Yup from "yup";
-import { IResetPasswordForm } from "@/types/auth";
-import { useRouter } from 'next/navigation'
+import { IResetPasswordForm } from "@/types/auth/request";
+import { useRouter } from "next/navigation";
 import authService from "@/service/auth.service";
-import { useToastify } from "@/hooks/useToastify";
+import { showToastify } from "@/hooks/showToastify";
 
-interface tokenProps {
+interface ITokenProps {
   params: {
-    token: string
+    token: string;
   };
-};
+}
 
-const resetPassord = ({ params }: tokenProps) => {
+const ResetPassword = ({ params }: ITokenProps) => {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
@@ -23,10 +23,10 @@ const resetPassord = ({ params }: tokenProps) => {
     password: Yup.string()
       .matches(
         /(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]/,
-        "Deve conter pelo menos uma letra e um número"
+        "Deve conter pelo menos uma letra e um número",
       )
       .required(
-        "Coloque uma combinação de numeros, letras e sinais de pontuação (como ! e &)."
+        "Coloque uma combinação de numeros, letras e sinais de pontuação (como ! e &).",
       )
       .min(8, "Senha deve conter no mínimo 8 caracteres.")
       .max(36, "Senha não deve contar mais de 36 caracteres"),
@@ -36,22 +36,27 @@ const resetPassord = ({ params }: tokenProps) => {
   });
 
   const initialValues: IResetPasswordForm = {
-    password: '',
-    conf_password: ''
+    password: "",
+    conf_password: "",
   };
 
   const handleFormSubmit = async (values: IResetPasswordForm) => {
     setLoading(true);
 
-    await authService.resetPassword({
-      token: params.token,
-      password: values.password,
-    }).then(() => {
-      useToastify({ label: 'Senha alterada com sucesso!', type: 'success' });
-      setTimeout(() => router.push('/login'), 2000);
-    })
+    await authService
+      .resetPassword({
+        token: params.token,
+        password: values.password,
+      })
+      .then(() => {
+        showToastify({ label: "Senha alterada com sucesso!", type: "success" });
+        setTimeout(() => router.push("/auth/login"), 2000);
+      })
       .catch(() => {
-        useToastify({ label: 'Oops! Algo deu errado. Verifique os campos e tente novamente', type: 'error' })
+        showToastify({
+          label: "Oops! Algo deu errado. Verifique os campos e tente novamente",
+          type: "error",
+        });
         setLoading(false);
       });
   };
@@ -59,14 +64,13 @@ const resetPassord = ({ params }: tokenProps) => {
   return (
     <div className={`nc-PageSignUp `} data-nc-id="PageSignUp">
       <div className="container mb-8 lg:mb-32">
-        <div className='mt-8 mb-16 flex items-center justify-between'>
-          <h2 className=" pl-6 flex items-center text-2xl leading-[115%] md:text-5xl md:leading-[115%] font-bold text-black justify-center">
+        <div className="mt-8 mb-16 flex items-center justify-between">
+          <h2 className=" pl-6 flex items-center text-2xl leading-[115%] md:text-5xl md:leading-[115%] font-bold text-black dark:text-neutral-100 justify-center">
             Nova senha
           </h2>
           <div>
-            <div className='relative rounded-full w-40 h-16 bg-gradient-to-r from-secondary-main to-secondary-lighter'>
-              <div className='absolute top-8 right-0 rounded-full w-16 h-16 bg-gradient-to-r from-secondary-main to-secondary-lighter'>
-              </div>
+            <div className="relative rounded-full w-40 h-16 bg-gradient-to-r from-secondary-ez2live to-secondary-ez2livebg">
+              <div className="absolute top-8 right-0 rounded-full w-16 h-16 bg-gradient-to-r from-secondary-ez2live to-secondary-ez2livebg"></div>
             </div>
           </div>
         </div>
@@ -80,7 +84,7 @@ const resetPassord = ({ params }: tokenProps) => {
             {({ errors, touched, handleSubmit }) => (
               <Form onSubmit={handleSubmit} className="flex flex-col gap-3">
                 <FormItem
-                  label='nova senha'
+                  label="nova senha"
                   errorMessage={errors.password}
                   invalid={!!(errors.password && touched.password)}
                 >
@@ -93,7 +97,7 @@ const resetPassord = ({ params }: tokenProps) => {
                   />
                 </FormItem>
                 <FormItem
-                  label='repetir nova senha'
+                  label="repetir nova senha"
                   errorMessage={errors.conf_password}
                   invalid={!!(errors.conf_password && touched.conf_password)}
                 >
@@ -116,13 +120,10 @@ const resetPassord = ({ params }: tokenProps) => {
               </Form>
             )}
           </Formik>
-
         </div>
       </div>
     </div>
-
   );
 };
 
-
-export default resetPassord;
+export default ResetPassword;
