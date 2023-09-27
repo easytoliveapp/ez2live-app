@@ -6,8 +6,11 @@ export interface ToggleButtonProps {
   onClick: (e: any) => void;
   label?: string;
 }
-const ToggleButton: React.FC<ToggleButtonProps> = ({ toggle, onClick, label}) => {
-
+const ToggleButton: React.FC<ToggleButtonProps> = ({
+  toggle,
+  onClick,
+  label,
+}) => {
   return (
     <div className="inline-flex m-2">
       <Switch
@@ -18,11 +21,15 @@ const ToggleButton: React.FC<ToggleButtonProps> = ({ toggle, onClick, label}) =>
       >
         <span
           aria-hidden="true"
-          className={`${toggle ? "translate-x-4 bg-white" : "translate-x-0 bg-primary-main"}
-            pointer-events-none inline-block h-2 w-2 transform rounded-full shadow-lg ring-0 transition duration-200 ease-in-out`}
+          className={`${
+            toggle ? "translate-x-4 bg-white" : "translate-x-0 bg-primary-main"
+          }
+          pointer-events-none inline-block h-2 w-2 transform rounded-full shadow-lg ring-0 transition duration-200 ease-in-out`}
         />
       </Switch>
-      <span className=" flex items-center ml-2 text-xs font-semibold">{label}</span>
+      <span className=" flex items-center ml-2 text-xs font-semibold">
+        {label}
+      </span>
     </div>
   );
 };
