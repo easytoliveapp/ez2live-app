@@ -1,13 +1,13 @@
-"use client"
+"use client";
 
-import React from 'react'
-import { LoadingComponent } from '@/components';
-const LoadPage = ()=> {
-  return(
+import React from "react";
+import { LoadingComponent } from "@/components/atoms/index";
+const LoadPage = () => {
+  return (
     <div>
-      <LoadingComponent/>
+      <LoadingComponent />
     </div>
-  )
+  );
 };
 
 export default LoadPage;
