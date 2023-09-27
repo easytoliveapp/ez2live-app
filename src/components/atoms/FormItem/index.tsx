@@ -18,13 +18,16 @@ const FormItem: React.FC<formItemProps> = ({
   children,
 }) => {
   return (
-    <div className='flex flex-col gap-1 m-1'>
-      <label className= {`text-sm text-black font-semibold ${className}`} htmlFor={htmlFor}>{label}</label>
+    <div className="flex flex-col gap-1 m-1">
+      <label
+        className={`text-sm text-black font-semibold ${className}`}
+        htmlFor={htmlFor}
+      >
+        {label}
+      </label>
       {children}
       {errorMessage && invalid ? (
-        <span className={`text-sx text-rose-500`}>
-          {errorMessage}
-        </span>
+        <span className={`text-sx text-rose-500`}>{errorMessage}</span>
       ) : null}
     </div>
   );

@@ -4,10 +4,7 @@ import Button, { ButtonProps } from "@/components/atoms/Button/Button";
 
 export interface ButtonDropdownProps extends ButtonProps {}
 
-const ButtonDropdown: FC<ButtonDropdownProps> = ({
-  children,
-  ...args
-}) => {
+const ButtonDropdown: FC<ButtonDropdownProps> = ({ children, ...args }) => {
   return (
     <Button
       className="text-neutral-700 border border-neutral-200  "

@@ -85,9 +85,7 @@ export default function NotifyDropdown() {
                           <p className="text-xs sm:text-sm text-gray-500 ">
                             {item.description}
                           </p>
-                          <p className="text-xs text-gray-400 ">
-                            {item.time}
-                          </p>
+                          <p className="text-xs text-gray-400 ">{item.time}</p>
                         </div>
                         <span className="absolute right-1 top-1/2 transform -translate-y-1/2 w-2 h-2 rounded-full bg-blue-500"></span>
                       </a>
