@@ -14,7 +14,6 @@ import { ISupplier } from "@/types/supplier";
 import ArrowLeft from "@/images/easytolive/icons/arrow-next-right-white.svg";
 import supplierService from "@/service/supplier.service";
 import { showToastify } from "@/hooks/showToastify";
-
 import Arrow from "@/images/easytolive/icons/arrow-next-right-primary.svg";
 import CouponPrimary from "@/images/easytolive/icons/couponPrimary.svg";
 import Edit from "@/images/easytolive/icons/edit.svg";
@@ -124,7 +123,7 @@ const CouponListPage: React.FC<ICouponListPageProps> = ({ supplierId }) => {
           supplier.coupons.length > 0 ? (
             supplier?.coupons.map((coupon, key) => (
               <SupplierCoupons
-                icon={supplier.id == session?.user?.id ? Edit : Arrow}
+                icon={supplier.id == session?.user.id ? Edit : Arrow}
                 discount={coupon.discount}
                 expirateTime={5}
                 unintsAmount={20}

@@ -13,6 +13,7 @@ export interface NcModalProps {
   modalTitle?: ReactNode;
   isOpenProp?: boolean;
   onCloseModal?: () => void;
+  closeOnBlur?: boolean;
 }
 
 const NcModal: FC<NcModalProps> = ({
@@ -24,6 +25,7 @@ const NcModal: FC<NcModalProps> = ({
   modalTitle = "Modal title",
   isOpenProp,
   onCloseModal,
+  closeOnBlur = true,
 }) => {
   const [isOpen, setIsOpen] = useState(!!isOpenProp);
 
@@ -56,7 +58,7 @@ const NcModal: FC<NcModalProps> = ({
         <Dialog
           as="div"
           className="fixed inset-0 x-100 z-50 overflow-y-auto"
-          onClose={()=>''}
+          onClose={closeOnBlur ? () => closeModal : () => ""}
         >
           <div className="min-h-screen px-3 text-center md:px-3">
             <Transition.Child
