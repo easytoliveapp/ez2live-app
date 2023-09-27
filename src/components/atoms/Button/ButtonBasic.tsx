@@ -3,10 +3,7 @@ import React from "react";
 
 export interface ButtonBasic extends ButtonProps {}
 
-const ButtonBasic: React.FC<ButtonBasic> = ({
-  className = "",
-  ...args
-}) => {
+const ButtonBasic: React.FC<ButtonBasic> = ({ className = "", ...args }) => {
   return (
     <Button
       className={`!text-sm !font-semibold  text-black ${className}`}

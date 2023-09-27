@@ -3,12 +3,21 @@ import {
   ILogIn,
   IRegisterAccount,
   IResetPassword,
-} from "@/types/auth";
+} from "@/types/auth/request";
 import { BaseService } from "./base.service";
+import { ILoginResponse } from "@/types/auth/response";
 
 const login = async (data: ILogIn) => {
-  return await BaseService.fetchData({
+  return await BaseService.fetchData<ILoginResponse>({
     url: "/auth/login",
+    method: "post",
+    data,
+  });
+};
+
+const loginSocial = async (data: any) => {
+  return await BaseService.fetchData<ILoginResponse>({
+    url: "/auth/login/social",
     method: "post",
     data,
   });
@@ -38,4 +47,19 @@ const resetPassword = async (data: IResetPassword) => {
   });
 };
 
-export default { login, register, forgotPassword, resetPassword };
+const refreshToken = async (data: any) => {
+  return await BaseService.fetchData({
+    url: "/auth/refresh-token",
+    data,
+    method: "post",
+  });
+};
+
+export default {
+  login,
+  loginSocial,
+  register,
+  forgotPassword,
+  resetPassword,
+  refreshToken,
+};

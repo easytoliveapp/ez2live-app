@@ -55,9 +55,7 @@ const Heading: React.FC<HeadingProps> = ({
           {rightDescText && (
             <>
               <span className="">{`. `}</span>
-              <span className="text-neutral-500 ">
-                {rightDescText}
-              </span>
+              <span className="text-neutral-500 ">{rightDescText}</span>
             </>
           )}
         </h2>

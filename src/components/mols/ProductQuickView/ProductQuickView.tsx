@@ -45,7 +45,7 @@ const ProductQuickView: FC<ProductQuickViewProps> = ({ className = "" }) => {
           variantActive={variantActive}
         />
       ),
-      { position: "top-right", id: "nc-product-notify", duration: 3000 }
+      { position: "top-right", id: "nc-product-notify", duration: 3000 },
     );
   };
 
@@ -69,10 +69,11 @@ const ProductQuickView: FC<ProductQuickViewProps> = ({ className = "" }) => {
             <div
               key={index}
               onClick={() => setVariantActive(index)}
-              className={`relative flex-1 max-w-[75px] h-10 rounded-full border-2 cursor-pointer ${variantActive === index
-                ? "border-primary-main "
-                : "border-transparent"
-                }`}
+              className={`relative flex-1 max-w-[75px] h-10 rounded-full border-2 cursor-pointer ${
+                variantActive === index
+                  ? "border-primary-main "
+                  : "border-transparent"
+              }`}
             >
               <div
                 className="absolute inset-0.5 rounded-full overflow-hidden z-0 bg-cover"
@@ -81,11 +82,11 @@ const ProductQuickView: FC<ProductQuickViewProps> = ({ className = "" }) => {
                     // @ts-ignore
                     typeof variant.thumbnail?.src === "string"
                       ? // @ts-ignore
-                      variant.thumbnail?.src
+                        variant.thumbnail?.src
                       : typeof variant.thumbnail === "string"
-                        ? variant.thumbnail
-                        : ""
-                    })`,
+                      ? variant.thumbnail
+                      : ""
+                  })`,
                 }}
               ></div>
             </div>
@@ -125,13 +126,15 @@ const ProductQuickView: FC<ProductQuickViewProps> = ({ className = "" }) => {
               <div
                 key={index}
                 className={`relative h-10 sm:h-11 rounded-2xl border flex items-center justify-center 
-                text-sm sm:text-base uppercase font-semibold select-none overflow-hidden z-0 ${sizeOutStock
+                text-sm sm:text-base uppercase font-semibold select-none overflow-hidden z-0 ${
+                  sizeOutStock
                     ? "text-opacity-20  cursor-not-allowed"
                     : "cursor-pointer"
-                  } ${isActive
+                } ${
+                  isActive
                     ? "bg-primary-main border-primary-main text-white hover:bg-primary-main"
                     : "border-slate-300  text-slate-900  hover:bg-neutral-50 "
-                  }`}
+                }`}
                 onClick={() => {
                   if (sizeOutStock) {
                     return;
@@ -208,17 +211,12 @@ const ProductQuickView: FC<ProductQuickViewProps> = ({ className = "" }) => {
             <div className="h-6 border-l border-slate-300 "></div>
 
             <div className="flex items-center">
-              <Link
-                href="/"
-                className="flex items-center text-sm font-medium"
-              >
+              <Link href="/" className="flex items-center text-sm font-medium">
                 <StarIcon className="w-5 h-5 pb-[1px] text-yellow-400" />
                 <div className="ml-1.5 flex">
                   <span>4.9</span>
                   <span className="block mx-2">·</span>
-                  <span className="text-slate-600  underline">
-                    142 reviews
-                  </span>
+                  <span className="text-slate-600  underline">142 reviews</span>
                 </div>
               </Link>
               <span className="hidden sm:block mx-2.5">·</span>

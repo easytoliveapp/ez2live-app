@@ -27,7 +27,7 @@ const Avatar: FC<AvatarProps> = ({
   const name = userName || "John Doe";
   const _setBgColor = (name: string) => {
     const backgroundIndex = Math.floor(
-      name.charCodeAt(0) % avatarColors.length
+      name.charCodeAt(0) % avatarColors.length,
     );
     return avatarColors[backgroundIndex];
   };
