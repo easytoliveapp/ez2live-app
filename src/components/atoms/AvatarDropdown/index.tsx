@@ -80,7 +80,7 @@ export default function AvatarDropdown() {
                         </svg>
                       </div>
                       <div className="ml-4">
-                        <p className="text-sm font-medium ">{"Minha Conta"}</p>
+                        <p className="text-sm font-medium ">Minha Conta</p>
                       </div>
                     </Link>
 
@@ -118,14 +118,14 @@ export default function AvatarDropdown() {
                         </svg>
                       </div>
                       <div className="ml-4">
-                        <p className="text-sm font-medium ">{"Meus Cupons"}</p>
+                        <p className="text-sm font-medium ">Meus Cupons</p>
                       </div>
                     </Link>
                     {/* ------------------ 2 --------------------- */}
                     <Link
                       href={"/auth/login"}
                       className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-700 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
-                      onClick={() => signOut()}
+                      onClick={() => signOut({ redirect: true })}
                     >
                       <div className="flex items-center justify-center flex-shrink-0 text-neutral-500 ">
                         <svg
@@ -159,7 +159,7 @@ export default function AvatarDropdown() {
                         </svg>
                       </div>
                       <div className="ml-4">
-                        <p className="text-sm font-medium">{"Desconectar"}</p>
+                        <p className="text-sm font-medium">Desconectar</p>
                       </div>
                     </Link>
                   </div>
