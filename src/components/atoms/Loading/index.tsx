@@ -15,7 +15,7 @@ const LoadingComponent = () => {
           animate={{
             rotate: 360,
           }}
-          transition={{ duration: 2, repeat: Infinity }}
+          transition={{ duration: 1, repeat: Infinity }}
         ></motion.div>
         <Image
           className="w-24 rounded-full h-auto absolute left-8 top-8"
