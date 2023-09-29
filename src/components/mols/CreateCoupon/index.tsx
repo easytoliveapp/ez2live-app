@@ -38,7 +38,7 @@ const CreateCoupon = () => {
     await couponService
       .createCoupon({
         title: values.title,
-        discount: values.discount,
+        discount: String(values.discount),
         maxPerUser:
           values.maxPerUser == "ilimitado" ? -1 : Number(values.maxPerUser),
         maxTotal: values.maxTotal == "ilimitado" ? -1 : Number(values.maxTotal),
@@ -191,6 +191,8 @@ const CreateCoupon = () => {
                   toggle={couponsIlimited}
                   label="ilimitado"
                 />
+              </div>
+              <div>
                 <ToggleButton
                   onClick={() => setIlimitedByUser(!ilimitedByUser)}
                   toggle={ilimitedByUser}
