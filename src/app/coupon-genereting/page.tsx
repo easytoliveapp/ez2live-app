@@ -1,11 +1,14 @@
 "use client";
 
 import React from "react";
-import { CouponGenerating } from "@/components/atoms/index";
-const CouponGeneretingPage = () => {
+import { CouponLoading } from "@/components/atoms/index";
+const CouponLoadingPage = () => {
   return (
     <div>
-      <CouponGenerating
+      <CouponLoading
+        backGround="secondary"
+        couponColor="primary"
+        couponAnimation={true}
         title="Gerando cupom de desconto..."
         subTitle="esse processo pode levar alguns segundos!"
       />
@@ -13,4 +16,4 @@ const CouponGeneretingPage = () => {
   );
 };
 
-export default CouponGeneretingPage;
+export default CouponLoadingPage;
