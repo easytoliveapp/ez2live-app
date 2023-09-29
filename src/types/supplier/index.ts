@@ -10,15 +10,17 @@ export interface iSupplierCategory {
 
 export interface ISupplier {
   active: boolean;
-  address: IAddress;
   document: string;
   numberOfCoupons: number;
-  coupons: ICoupon[];
   email: string;
   id: string;
-  supplierCategory: iSupplierCategory;
-  isSupplier: boolean;
-  isVerified: boolean;
+  supplierInfo: {
+    coupons: ICoupon[];
+    supplierCategory: iSupplierCategory;
+    address: IAddress;
+    isSupplier: boolean;
+    isVerified: boolean;
+  };
   name: string;
   role: string;
 }

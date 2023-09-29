@@ -84,7 +84,7 @@ const CouponListPage: React.FC<ICouponListPageProps> = ({ supplierId }) => {
         <div className="flex items-center justify-between">
           <div className="flex gap-1">
             <Link href={`/`} className="text-xs underline">
-              {supplier?.supplierCategory.title}
+              {supplier?.supplierInfo?.supplierCategory.title}
             </Link>
             <p className="text-xs">/ {supplier?.name}</p>
           </div>
@@ -120,9 +120,9 @@ const CouponListPage: React.FC<ICouponListPageProps> = ({ supplierId }) => {
         </p>
         <div className="mt-6 pb-16 flex flex-col gap-4">
           {supplier &&
-          Array.isArray(supplier?.coupons) &&
-          supplier.coupons.length > 0 ? (
-            supplier?.coupons.map((coupon, key) => (
+          Array.isArray(supplier?.supplierInfo?.coupons) &&
+          supplier.supplierInfo?.coupons.length > 0 ? (
+            supplier?.supplierInfo.coupons.map((coupon, key) => (
               <SupplierCoupons
                 icon={supplier.id == session?.user.id ? Edit : Arrow}
                 discount={coupon.discount}

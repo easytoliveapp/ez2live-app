@@ -7,11 +7,11 @@ export interface IGetCouponById {
 }
 export interface ICreateCoupon {
   title: string;
-  discount: number;
-  coupon_limit: string;
-  user_limit: string;
-  expiration_date: string;
-  validation_date: string;
+  discount: string;
+  maxTotal: number | string;
+  maxPerUser: number | string;
+  expirationGenerationDate: number;
+  expirationUseDate: number;
 }
 
 export interface ICoupon {

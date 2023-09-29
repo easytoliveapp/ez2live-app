@@ -10,8 +10,8 @@ import {
 } from "@/components/atoms";
 import * as Yup from "yup";
 import { ICreateCoupon } from "@/types/coupons";
-// import couponService from '@/service/coupons.service';
-// import { useToastify } from '@/hooks/useToastify';
+import couponService from "@/service/coupons.service";
+import { showToastify } from "@/hooks/showToastify";
 
 const CreateCoupon = () => {
   const [loading, setLoading] = useState(false);
@@ -20,33 +20,51 @@ const CreateCoupon = () => {
 
   const CreateCouponValidationSchema = Yup.object().shape({
     title: Yup.string().required("Título requerido."),
-    discount: Yup.number().required("Selecione um desconto de 5% até 100%."),
-    coupon_limit: Yup.string().required(
+    discount: Yup.string().required("Selecione um desconto de 5% até 100%."),
+    maxTotal: Yup.string().required(
       "Limite de cupons que podem ser utilizados.",
     ),
-    user_limit: Yup.string().required("Limite de cupons por usuário."),
-    expiration_date: Yup.date()
+    maxPerUser: Yup.string().required("Limite de cupons por usuário."),
+    expirationGenerationDate: Yup.date()
       .required("Data de validade para geração do cupom.")
       .min(new Date(), "Selecione uma data maior que a atual"),
-    validation_date: Yup.date()
+    expirationUseDate: Yup.date()
       .required("Data limite para utilização do cupom.")
       .min(new Date(), "Selecione uma data maior que a atual"),
   });
 
   const handleFormSubmit = async (values: ICreateCoupon) => {
     setLoading(true);
-    //-----------TO DO-------------
-    //  WAITING BACK-END RECIVE VALUES LIKE EXPIRATION DATE, USER LIMIT AND ETC...
-    // await couponService.createCoupon(values)
-    // .then()
-    // .catch((error)=> {
-    //   if(error?.response?.data?.code === 400){
-    //     useToastify({ label: 'Ocorreu um erro ao criar cupom. Por favor verificar os campos.', type: 'error' });
-    //   }
-    //   if(error?.response?.data?.code === 401){
-    //     useToastify({ label: 'Você não tem permisão para criar cupom.', type: 'error' });
-    //   }
-    // })
+    await couponService
+      .createCoupon({
+        title: values.title,
+        discount: values.discount,
+        maxPerUser:
+          values.maxPerUser == "ilimitado" ? -1 : Number(values.maxPerUser),
+        maxTotal: values.maxTotal == "ilimitado" ? -1 : Number(values.maxTotal),
+        expirationGenerationDate: new Date(
+          values.expirationGenerationDate,
+        ).getTime(),
+        expirationUseDate: new Date(values.expirationUseDate).getTime(),
+      })
+      .then(() =>
+        showToastify({ label: "cupom gerado com sucesso", type: "success" }),
+      )
+      .catch((error) => {
+        if (error?.response?.data?.code === 400) {
+          showToastify({
+            label:
+              "Ocorreu um erro ao criar cupom. Por favor verificar os campos.",
+            type: "error",
+          });
+        }
+        if (error?.response?.data?.code === 401) {
+          showToastify({
+            label: "Você não tem permisão para criar cupom.",
+            type: "error",
+          });
+        }
+      });
     setLoading(false);
     return values;
   };
@@ -69,11 +87,11 @@ const CreateCoupon = () => {
         validateOnBlur={false}
         initialValues={{
           title: "",
-          discount: 20,
-          coupon_limit: "",
-          user_limit: "",
-          expiration_date: "",
-          validation_date: "",
+          discount: "20",
+          maxTotal: "",
+          maxPerUser: "",
+          expirationGenerationDate: 0,
+          expirationUseDate: 0,
         }}
         validationSchema={CreateCouponValidationSchema}
         onSubmit={handleFormSubmit}
@@ -116,94 +134,108 @@ const CreateCoupon = () => {
             <div className="grid grid-cols-2 w-full">
               <FormItem
                 label="Limite de cupons"
-                errorMessage={!couponsIlimited && errors.coupon_limit}
+                errorMessage={!couponsIlimited && errors.maxTotal}
                 invalid={
-                  !couponsIlimited &&
-                  !!(errors.coupon_limit && touched.coupon_limit)
+                  !couponsIlimited && !!(errors.maxTotal && touched.maxTotal)
                 }
               >
                 <Field
                   disabled={couponsIlimited}
                   invalid={
-                    !couponsIlimited &&
-                    !!(errors.coupon_limit && touched.coupon_limit)
+                    !couponsIlimited && !!(errors.maxTotal && touched.maxTotal)
                   }
-                  name="coupon_limit"
+                  name="maxTotal"
                   value={
                     couponsIlimited
-                      ? (values.coupon_limit = "ilimitado")
-                      : values.coupon_limit == "ilimitado"
-                      ? (values.coupon_limit = "")
-                      : values.coupon_limit
+                      ? (values.maxTotal = "ilimitado")
+                      : values.maxTotal == "ilimitado"
+                      ? (values.maxTotal = "")
+                      : values.maxTotal
                   }
                   type="text"
-                  label="coupon_limit"
+                  label="maxTotal"
                   component={Input}
                   className="bg-white disabled:bg-white"
                 />
               </FormItem>
               <FormItem
                 label="Limite por usuário"
-                errorMessage={!ilimitedByUser && errors.user_limit}
+                errorMessage={!ilimitedByUser && errors.maxPerUser}
                 invalid={
-                  !ilimitedByUser && !!(errors.user_limit && touched.user_limit)
+                  !ilimitedByUser && !!(errors.maxPerUser && touched.maxPerUser)
                 }
               >
                 <Field
                   disabled={ilimitedByUser}
                   invalid={
                     !ilimitedByUser &&
-                    !!(errors.user_limit && touched.user_limit)
+                    !!(errors.maxPerUser && touched.maxPerUser)
                   }
-                  name="user_limit"
+                  name="maxPerUser"
                   value={
                     ilimitedByUser
-                      ? (values.user_limit = "ilimitado")
-                      : values.user_limit == "ilimitado"
-                      ? (values.user_limit = "")
-                      : values.user_limit
+                      ? (values.maxPerUser = "ilimitado")
+                      : values.maxPerUser == "ilimitado"
+                      ? (values.maxPerUser = "")
+                      : values.maxPerUser
                   }
                   type="text"
-                  label="user_limit"
+                  label="maxPerUser"
                   component={Input}
                   className="bg-white disabled:bg-white"
                 />
               </FormItem>
-              <ToggleButton
-                onClick={() => setCouponsIlimited(!couponsIlimited)}
-                toggle={couponsIlimited}
-                label="ilimitado"
-              />
-              <ToggleButton
-                onClick={() => setIlimitedByUser(!ilimitedByUser)}
-                toggle={ilimitedByUser}
-                label="ilimitado"
-              />
+              <div>
+                <ToggleButton
+                  onClick={() => setCouponsIlimited(!couponsIlimited)}
+                  toggle={couponsIlimited}
+                  label="ilimitado"
+                />
+                <ToggleButton
+                  onClick={() => setIlimitedByUser(!ilimitedByUser)}
+                  toggle={ilimitedByUser}
+                  label="ilimitado"
+                />
+              </div>
             </div>
             <FormItem
               label="Cupom ativo até..."
-              errorMessage={errors.expiration_date}
-              invalid={!!(errors.expiration_date && touched.expiration_date)}
+              errorMessage={errors.expirationGenerationDate}
+              invalid={
+                !!(
+                  errors.expirationGenerationDate &&
+                  touched.expirationGenerationDate
+                )
+              }
             >
               <Field
-                invalid={!!(errors.expiration_date && touched.expiration_date)}
-                name="expiration_date"
+                invalid={
+                  !!(
+                    errors.expirationGenerationDate &&
+                    touched.expirationGenerationDate
+                  )
+                }
+                name="expirationGenerationDate"
                 type="date"
-                label="expiration_date"
+                label="expirationGenerationDate"
                 component={Input}
                 className="bg-white cursor-pointer"
               />
             </FormItem>
             <FormItem
               label="Validade para o uso"
-              errorMessage={errors.validation_date}
-              invalid={!!(errors.validation_date && touched.validation_date)}
+              errorMessage={errors.expirationUseDate}
+              invalid={
+                !!(errors.expirationUseDate && touched.expirationUseDate)
+              }
             >
               <Field
-                invalid={!!(errors.validation_date && touched.validation_date)}
-                name="validation_date"
+                invalid={
+                  !!(errors.expirationUseDate && touched.expirationUseDate)
+                }
+                name="expirationUseDate"
                 type="date"
-                label="validation_date"
+                label="expirationUseDate"
                 component={Input}
                 className="bg-white cursor-pointer"
               />

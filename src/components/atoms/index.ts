@@ -15,4 +15,4 @@ export { default as ItemTypeImage } from "./ItemTypeImageIcon";
 export { default as TextArea } from "./Textarea";
 export { default as SupplierNotVerified } from "../../app/supplier-not-verified/page";
 export { default as CompleteSupplierRegister } from "./CompleteSupplierRegister";
-export { default as ToggleButton } from "./toggleButton";
+export { default as ToggleButton } from "./ToggleButton";

@@ -4,13 +4,13 @@ import twFocusClass from "@/utils/twFocusClass";
 
 export interface ButtonCloseProps {
   className?: string;
-  IconclassName?: string;
+  iconClassName?: string;
   onClick?: () => void;
 }
 
 const ButtonClose: React.FC<ButtonCloseProps> = ({
   className = "",
-  IconclassName = "w-6 h-6",
+  iconClassName = "w-6 h-6",
   onClick = () => {},
 }) => {
   return (
@@ -22,7 +22,7 @@ const ButtonClose: React.FC<ButtonCloseProps> = ({
       onClick={onClick}
     >
       <span className="sr-only">Close</span>
-      <XMarkIcon className={IconclassName} />
+      <XMarkIcon className={iconClassName} />
     </button>
   );
 };

@@ -1,6 +1,6 @@
 import React from "react";
 
-export interface formItemProps {
+export interface IFormItemProps {
   errorMessage?: any;
   label?: string | number;
   invalid?: boolean;
@@ -9,7 +9,7 @@ export interface formItemProps {
   htmlFor?: string;
 }
 
-const FormItem: React.FC<formItemProps> = ({
+const FormItem: React.FC<IFormItemProps> = ({
   label,
   invalid,
   htmlFor,

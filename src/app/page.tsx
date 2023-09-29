@@ -137,7 +137,7 @@ function PageHome() {
         >
           {suppliers.map((supplier: ISupplier, index) => (
             <SupplierCard
-              supplierCategory={supplier?.supplierCategory?.title}
+              supplierCategory={supplier?.supplierInfo?.supplierCategory?.title}
               supplierImage={SupplierLogo}
               avaliation="4.6"
               couponsAvaible={supplier.numberOfCoupons}
