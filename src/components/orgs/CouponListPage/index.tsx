@@ -20,6 +20,7 @@ import Edit from "@/images/easytolive/icons/edit.svg";
 import LogoImage from "@/images/easytolive/logo/logotipo-fundoazulroxo.svg";
 import { useSession } from "next-auth/react";
 import { CreateCoupon, ModalEdit } from "@/components/mols";
+import { ICoupon } from "@/types/coupons";
 
 interface ICouponListPageProps {
   supplierId: string;
@@ -38,7 +39,7 @@ const CouponListPage: React.FC<ICouponListPageProps> = ({ supplierId }) => {
   useEffect(() => {
     getSupplierById(supplierId)
       .then((res) => {
-        setSupplier(res?.data?.supplier);
+        setSupplier(res?.data);
       })
       .catch((error) => {
         if (error?.response?.data?.code === 400) {
@@ -84,7 +85,7 @@ const CouponListPage: React.FC<ICouponListPageProps> = ({ supplierId }) => {
         <div className="flex items-center justify-between">
           <div className="flex gap-1">
             <Link href={`/`} className="text-xs underline">
-              {supplier?.supplierInfo?.supplierCategory.title}
+              {supplier?.supplierInfo?.supplierCategory?.title}
             </Link>
             <p className="text-xs">/ {supplier?.name}</p>
           </div>
@@ -120,14 +121,14 @@ const CouponListPage: React.FC<ICouponListPageProps> = ({ supplierId }) => {
         </p>
         <div className="mt-6 pb-16 flex flex-col gap-4">
           {supplier &&
-          Array.isArray(supplier?.supplierInfo?.coupons) &&
-          supplier.supplierInfo?.coupons.length > 0 ? (
-            supplier?.supplierInfo.coupons.map((coupon, key) => (
+          Array.isArray(supplier?.coupons) &&
+          supplier?.coupons.length > 0 ? (
+            supplier?.coupons.map((coupon: ICoupon, key) => (
               <SupplierCoupons
                 icon={supplier.id == session?.user.id ? Edit : Arrow}
                 discount={coupon.discount}
                 expirateTime={5}
-                unintsAmount={20}
+                unintsAmount={coupon?.maxTotal}
                 key={key}
               />
             ))

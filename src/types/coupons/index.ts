@@ -15,9 +15,12 @@ export interface ICreateCoupon {
 }
 
 export interface ICoupon {
-  active: boolean;
   title: string;
   discount: string;
+  maxTotal: number;
+  maxPerUser: number;
+  expirationGenerationDate: number;
+  expirationUseDate: number;
   supplier: string;
   id: string;
 }

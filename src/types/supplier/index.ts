@@ -15,12 +15,12 @@ export interface ISupplier {
   email: string;
   id: string;
   supplierInfo: {
-    coupons: ICoupon[];
     supplierCategory: iSupplierCategory;
     address: IAddress;
     isSupplier: boolean;
     isVerified: boolean;
   };
+  coupons: ICoupon[];
   name: string;
   role: string;
 }
