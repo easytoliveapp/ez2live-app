@@ -9,20 +9,42 @@ export interface iSupplierCategory {
 }
 
 export interface ISupplier {
+  supplier: {
+    name: string;
+    active: boolean;
+    document: string;
+    numberOfCoupons: number;
+    email: string;
+    id: string;
+    supplierInfo: {
+      coupons: [];
+      supplierCategory: iSupplierCategory;
+      address: IAddress;
+      isSupplier: boolean;
+      isVerified: boolean;
+    };
+  };
+  coupons: ICoupon[];
+  name: string;
+  role: string;
+}
+
+export interface ISuppliers {
+  name: string;
   active: boolean;
+  role: string;
   document: string;
   numberOfCoupons: number;
   email: string;
   id: string;
   supplierInfo: {
+    id: string;
+    coupons: [];
     supplierCategory: iSupplierCategory;
     address: IAddress;
     isSupplier: boolean;
     isVerified: boolean;
   };
-  coupons: ICoupon[];
-  name: string;
-  role: string;
 }
 
 export interface ISupplierList {
@@ -62,4 +84,13 @@ export interface ISupplierLoginResponseProps {
   isVerified: boolean;
   name: string;
   role: string;
+}
+
+export interface IDataResponse {
+  page: number;
+  name: string;
+  sortBy: string;
+  supplierInfo: {
+    supplierCategory: string;
+  };
 }

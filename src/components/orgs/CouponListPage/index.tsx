@@ -85,9 +85,9 @@ const CouponListPage: React.FC<ICouponListPageProps> = ({ supplierId }) => {
         <div className="flex items-center justify-between">
           <div className="flex gap-1">
             <Link href={`/`} className="text-xs underline">
-              {supplier?.supplierInfo?.supplierCategory?.title}
+              {supplier?.supplier?.supplierInfo?.supplierCategory?.title}
             </Link>
-            <p className="text-xs">/ {supplier?.name}</p>
+            <p className="text-xs">/ {supplier?.supplier?.name}</p>
           </div>
           <div className="flex flex-col">
             <Avaliation note={"4.7"} />
@@ -100,7 +100,7 @@ const CouponListPage: React.FC<ICouponListPageProps> = ({ supplierId }) => {
             src={LogoImage}
           />
           <div>
-            {supplier?.id == session?.user?.id && (
+            {supplier?.supplier?.id == session?.user?.id && (
               <ButtonSecondary onClick={() => setModalCreateCoupon(true)}>
                 <Image
                   src={CouponPrimary}
@@ -125,7 +125,7 @@ const CouponListPage: React.FC<ICouponListPageProps> = ({ supplierId }) => {
           supplier?.coupons.length > 0 ? (
             supplier?.coupons.map((coupon: ICoupon, key) => (
               <SupplierCoupons
-                icon={supplier.id == session?.user.id ? Edit : Arrow}
+                icon={supplier.supplier?.id == session?.user.id ? Edit : Arrow}
                 discount={coupon.discount}
                 expirateTime={5}
                 unintsAmount={coupon?.maxTotal}
@@ -137,7 +137,7 @@ const CouponListPage: React.FC<ICouponListPageProps> = ({ supplierId }) => {
           )}
         </div>
       </div>
-      <span className="md:w-[500px] fixed bottom-0 text-neutral-400 w-full flex justify-center items-center h-16 bg-alternative-darker">
+      <span className="md:w-[500px] fixed bottom-0 text-neutral-400 w-full flex justify-center items-center h-16 bg-generic-dark">
         Todos os direitos reservados
       </span>
     </div>
