@@ -16,3 +16,6 @@ export { default as TextArea } from "./Textarea";
 export { default as SupplierNotVerified } from "../../app/supplier-not-verified/page";
 export { default as CompleteSupplierRegister } from "./CompleteSupplierRegister";
 export { default as ToggleButton } from "./toggleButton";
+export { default as CouponLoading } from "./CouponLoading";
+export { default as LoadingComponent } from "./Loading";
+export { default as FloatButtonNav } from "./FloatButtonNav";
