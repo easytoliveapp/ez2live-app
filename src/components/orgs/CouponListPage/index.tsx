@@ -126,10 +126,9 @@ const CouponListPage: React.FC<ICouponListPageProps> = ({ supplierId }) => {
             supplier?.coupons.map((coupon: ICoupon, key) => (
               <SupplierCoupons
                 title={coupon.title}
-                icon={supplier.id == session?.user?.id ? Edit : Arrow}
                 icon={supplier.supplier?.id == session?.user.id ? Edit : Arrow}
                 discount={coupon.discount}
-                expirateTime={5}
+                expirateTime={"5"}
                 unintsAmount={coupon?.maxTotal}
                 key={key}
               />
