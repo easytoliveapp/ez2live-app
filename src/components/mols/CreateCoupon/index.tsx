@@ -12,11 +12,17 @@ import * as Yup from "yup";
 import { ICreateCoupon } from "@/types/coupons";
 import couponService from "@/service/coupons.service";
 import { showToastify } from "@/hooks/showToastify";
+import { useRouter } from "next/navigation";
 
-const CreateCoupon = () => {
+interface ICreateCouponProps {
+  supplierId: string;
+}
+
+const CreateCoupon: React.FC<ICreateCouponProps> = ({ supplierId }) => {
   const [loading, setLoading] = useState(false);
   const [couponsIlimited, setCouponsIlimited] = useState(false);
   const [ilimitedByUser, setIlimitedByUser] = useState(false);
+  const router = useRouter();
 
   const CreateCouponValidationSchema = Yup.object().shape({
     title: Yup.string().required("Título requerido."),
@@ -33,6 +39,14 @@ const CreateCoupon = () => {
       .min(new Date(), "Selecione uma data maior que a atual"),
   });
 
+  const couponSuccessRedirect = () => {
+    showToastify({ label: "cupom gerado com sucesso", type: "success" });
+    setTimeout(() => {
+      setLoading(false);
+      window.location.reload();
+    }, 2000);
+  };
+
   const handleFormSubmit = async (values: ICreateCoupon) => {
     setLoading(true);
     await couponService
@@ -45,9 +59,7 @@ const CreateCoupon = () => {
         expirationGenerationDate: new Date(values.expirationGenerationDate),
         expirationUseDate: new Date(values.expirationUseDate),
       })
-      .then(() =>
-        showToastify({ label: "cupom gerado com sucesso", type: "success" }),
-      )
+      .then(() => couponSuccessRedirect())
       .catch((error) => {
         if (error?.response?.data?.code === 400) {
           showToastify({
@@ -63,7 +75,6 @@ const CreateCoupon = () => {
           });
         }
       });
-    setLoading(false);
     return values;
   };
 
@@ -147,8 +158,8 @@ const CreateCoupon = () => {
                     couponsIlimited
                       ? (values.maxTotal = "ilimitado")
                       : values.maxTotal == "ilimitado"
-                      ? (values.maxTotal = "")
-                      : values.maxTotal
+                        ? (values.maxTotal = "")
+                        : values.maxTotal
                   }
                   type="text"
                   label="maxTotal"
@@ -174,8 +185,8 @@ const CreateCoupon = () => {
                     ilimitedByUser
                       ? (values.maxPerUser = "ilimitado")
                       : values.maxPerUser == "ilimitado"
-                      ? (values.maxPerUser = "")
-                      : values.maxPerUser
+                        ? (values.maxPerUser = "")
+                        : values.maxPerUser
                   }
                   type="text"
                   label="maxPerUser"
