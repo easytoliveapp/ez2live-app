@@ -42,10 +42,8 @@ const CreateCoupon = () => {
         maxPerUser:
           values.maxPerUser == "ilimitado" ? -1 : Number(values.maxPerUser),
         maxTotal: values.maxTotal == "ilimitado" ? -1 : Number(values.maxTotal),
-        expirationGenerationDate: new Date(
-          values.expirationGenerationDate,
-        ).getTime(),
-        expirationUseDate: new Date(values.expirationUseDate).getTime(),
+        expirationGenerationDate: values.expirationGenerationDate,
+        expirationUseDate: values.expirationUseDate,
       })
       .then(() =>
         showToastify({ label: "cupom gerado com sucesso", type: "success" }),
