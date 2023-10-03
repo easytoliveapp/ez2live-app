@@ -19,3 +19,15 @@ export interface ICoupon {
   supplier: string;
   id: string;
 }
+
+export interface ICouponsByUser {
+  id: string;
+  status: string;
+  usageDate: string;
+  title: string;
+  discount: string;
+  maxTotal: number;
+  maxPerUser: number;
+  expirationGenerationDate: string;
+  expirationUseDate: string;
+}
