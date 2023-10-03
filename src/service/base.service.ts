@@ -1,11 +1,9 @@
 import config from "@/config/config";
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
-import {
-  TOKENS,
-  HEADER_AUTH_KEY,
-  BEARER,
-} from "../constants/keywords.constants";
-import { getItemByLocalStorage } from "../utils/localStorageHelper";
+import { HEADER_AUTH_KEY, BEARER } from "../constants/keywords.constants";
+import { getSession } from "next-auth/react";
+import { Session } from "next-auth";
+import dayjs from "dayjs";
 
 const { API_URL } = config;
 
@@ -15,27 +13,32 @@ const axiosInstance = axios.create({
   headers: { "Content-Type": "application/json" },
 });
 
-const fetchData = <T>(
+let lastSession: Session | null = null;
+
+const fetchData = async <T>(
   params: AxiosRequestConfig,
 ): Promise<AxiosResponse<T>> => {
-  if (typeof window !== "undefined") {
-    const userTokens = getItemByLocalStorage(TOKENS);
-
-    axiosInstance.interceptors.request.use(
-      (config) => {
-        if (userTokens) {
-          const { accessToken } = userTokens;
-          if (accessToken && !config.headers[HEADER_AUTH_KEY]) {
-            config.headers[HEADER_AUTH_KEY] = BEARER + accessToken.token;
-          }
-        }
-        return config;
-      },
-      (error) => {
-        return Promise.reject(error);
-      },
-    );
+  if (
+    !lastSession ||
+    dayjs().isAfter(dayjs(lastSession.tokens?.access?.expires))
+  ) {
+    lastSession = await getSession();
   }
+
+  axiosInstance.interceptors.request.use(
+    (config) => {
+      if (lastSession) {
+        const { access } = lastSession?.tokens;
+        if (access && !config.headers[HEADER_AUTH_KEY]) {
+          config.headers[HEADER_AUTH_KEY] = BEARER + access.token;
+        }
+      }
+      return config;
+    },
+    (error) => {
+      return Promise.reject(error);
+    },
+  );
 
   return new Promise((resolve, reject) => {
     axiosInstance(params)

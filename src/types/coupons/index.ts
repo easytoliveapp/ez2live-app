@@ -1,9 +1,3 @@
-export interface ICreateCoupon {
-  title: string;
-  discount: string;
-  supplier: string;
-}
-
 export interface ISupplierCouponsList {
   supplierId: string;
 }
@@ -11,11 +5,22 @@ export interface ISupplierCouponsList {
 export interface IGetCouponById {
   couponld: string;
 }
-
-export interface ICoupon {
-  active: boolean;
+export interface ICreateCoupon {
   title: string;
   discount: string;
+  maxTotal: number | string;
+  maxPerUser: number | string;
+  expirationGenerationDate: Date;
+  expirationUseDate: Date;
+}
+
+export interface ICoupon {
+  title: string;
+  discount: string;
+  maxTotal: number;
+  maxPerUser: number;
+  expirationGenerationDate: string;
+  expirationUseDate: string;
   supplier: string;
   id: string;
 }
