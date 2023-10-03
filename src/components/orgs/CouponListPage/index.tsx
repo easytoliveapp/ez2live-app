@@ -90,7 +90,7 @@ const CouponListPage: React.FC<ICouponListPageProps> = ({ supplierId }) => {
                 title={coupon.title}
                 icon={supplier.id == session?.user?.id ? Edit : Arrow}
                 discount={coupon.discount}
-                expirateTime={5}
+                expirateTime="5"
                 unintsAmount={20}
                 key={key}
               />

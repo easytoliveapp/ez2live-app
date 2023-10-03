@@ -22,7 +22,7 @@ export interface ICoupon {
 
 export interface ICouponsByUser {
   id: string;
-  status: string;
+  status: "active" | "used" | "expired";
   usageDate: string;
   title: string;
   discount: string;

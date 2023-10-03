@@ -98,7 +98,7 @@ const ArrayCoupons = [
 const MyCouponsPage = () => {
   const { data: session } = useSession();
   const [couponsFilter, setCouponsFilter] = useState("actived");
-  const [coupons, setCoupons] = useState([]);
+  const [coupons, setCoupons] = useState<ICouponsByUser>();
 
   const handleGetCouponsByUser = async () => {
     //TODO - API request to Get user coupons
@@ -169,7 +169,7 @@ const MyCouponsPage = () => {
           <em className="text-sm">nenhum cupom encontrado...</em>
         )}
       </div>
-      <span className="fixed ring-0 bottom-0 text-neutral-400 w-full flex justify-center items-center h-16 bg-generic-dark">
+      <span className="fixed ring-0 bottom-0 text-neutral-400 w-full max-w-[500px] flex justify-center items-center h-16 bg-generic-dark">
         Todos os direitos reservados
       </span>
     </div>
