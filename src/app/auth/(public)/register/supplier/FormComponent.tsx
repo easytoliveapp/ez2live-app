@@ -29,15 +29,16 @@ const FormComponent = () => {
     document: "",
     email: "",
     password: "",
-    supplierCategory: firstCategory,
-    isSupplier: true,
-    address: {
-      street: "",
-      number: "",
-      neighborhood: "",
-      city: "",
-      state: "",
-      zipcode: "",
+    supplierInfo: {
+      supplierCategory: firstCategory,
+      address: {
+        street: "",
+        number: "",
+        neighborhood: "",
+        city: "",
+        state: "",
+        zipcode: "",
+      },
     },
   });
 
@@ -75,9 +76,11 @@ const FormComponent = () => {
       .min(14, "Muito curto!")
       .max(18, "Muito longo!")
       .required("Campo requerido"),
-    supplierCategory: Yup.string()
-      .nonNullable()
-      .required("Escolha a categoria da empresa"),
+    supplierInfo: Yup.object().shape({
+      supplierCategory: Yup.string()
+        .nonNullable()
+        .required("Escolha a categoria da empresa"),
+    }),
     email: Yup.string().email("Email inválido").required("Email requerido"),
     password: Yup.string()
       .matches(
@@ -92,13 +95,15 @@ const FormComponent = () => {
   });
 
   const SecondStepValidationSchema = Yup.object().shape({
-    address: Yup.object().shape({
-      street: Yup.string().required("Campo requerido"),
-      number: Yup.string().required("Campo requerido"),
-      neighborhood: Yup.string().required("Campo requerido"),
-      city: Yup.string().required("Campo requerido"),
-      state: Yup.string().required("Campo requerido"),
-      zipcode: Yup.string().required("Campo requerido"),
+    supplierInfo: Yup.object().shape({
+      address: Yup.object().shape({
+        street: Yup.string().required("Campo requerido"),
+        number: Yup.string().required("Campo requerido"),
+        neighborhood: Yup.string().required("Campo requerido"),
+        city: Yup.string().required("Campo requerido"),
+        state: Yup.string().required("Campo requerido"),
+        zipcode: Yup.string().required("Campo requerido"),
+      }),
     }),
   });
 
@@ -109,15 +114,15 @@ const FormComponent = () => {
 
   const handleFormSubmit = async (values: IRegisterAccount) => {
     setLoading(true);
-
     await Auth.register({
       name: values.name,
       email: values.email,
       password: values.password,
       document: values.document,
-      supplierCategory: values.supplierCategory,
-      isSupplier: values.isSupplier,
-      address: values.address,
+      supplierInfo: {
+        address: values.supplierInfo.address,
+        supplierCategory: values.supplierInfo.supplierCategory,
+      },
     })
       .then(async (res: any) => {
         if (res?.data?.user) {
@@ -181,6 +186,7 @@ const FormComponent = () => {
 
     return (
       <Formik
+        validateOnBlur={false}
         initialValues={initialValues}
         validationSchema={FirstStepValidationSchema}
         onSubmit={handleSubmit}
@@ -228,14 +234,22 @@ const FormComponent = () => {
             </FormItem>
             <FormItem
               label="categoria"
-              errorMessage={errors.supplierCategory}
-              invalid={!!(errors.supplierCategory && touched.supplierCategory)}
+              errorMessage={errors.supplierInfo?.supplierCategory}
+              invalid={
+                !!(
+                  errors.supplierInfo?.supplierCategory &&
+                  touched.supplierInfo?.supplierCategory
+                )
+              }
             >
               <Field
                 invalid={
-                  !!(errors.supplierCategory && touched.supplierCategory)
+                  !!(
+                    errors.supplierInfo?.supplierCategory &&
+                    touched.supplierInfo?.supplierCategory
+                  )
                 }
-                name="supplierCategory"
+                name="supplierInfo.supplierCategory"
                 component={Select}
               >
                 <option value={undefined}>selecione uma categoria</option>
@@ -281,15 +295,23 @@ const FormComponent = () => {
         {({ errors, touched, handleSubmit }: FormikProps<IRegisterAccount>) => (
           <Form onSubmit={handleSubmit} className="flex flex-col gap-3">
             <FormItem
-              errorMessage={errors.address?.zipcode}
-              invalid={!!(errors.address?.zipcode && touched.address?.zipcode)}
+              errorMessage={errors.supplierInfo?.address?.zipcode}
+              invalid={
+                !!(
+                  errors.supplierInfo?.address?.zipcode &&
+                  touched.supplierInfo?.address?.zipcode
+                )
+              }
               label="CEP"
             >
               <Field
                 invalid={
-                  !!(errors.address?.zipcode && touched.address?.zipcode)
+                  !!(
+                    errors.supplierInfo?.address?.zipcode &&
+                    touched.supplierInfo?.address?.zipcode
+                  )
                 }
-                name="address.zipcode"
+                name="supplierInfo.address.zipcode"
                 type="text"
                 label="CEP"
                 component={Input}
@@ -298,12 +320,22 @@ const FormComponent = () => {
 
             <FormItem
               label="endereço"
-              errorMessage={errors.address?.street}
-              invalid={!!(errors.address?.street && touched.address?.street)}
+              errorMessage={errors.supplierInfo?.address?.street}
+              invalid={
+                !!(
+                  errors.supplierInfo?.address?.street &&
+                  touched.supplierInfo?.address?.street
+                )
+              }
             >
               <Field
-                invalid={!!(errors.address?.street && touched.address?.street)}
-                name="address.street"
+                invalid={
+                  !!(
+                    errors.supplierInfo?.address?.street &&
+                    touched.supplierInfo?.address?.street
+                  )
+                }
+                name="supplierInfo.address.street"
                 type="text"
                 label="street"
                 component={Input}
@@ -312,12 +344,22 @@ const FormComponent = () => {
 
             <FormItem
               label="numero"
-              errorMessage={errors.address?.number}
-              invalid={!!(errors.address?.number && touched.address?.number)}
+              errorMessage={errors.supplierInfo?.address?.number}
+              invalid={
+                !!(
+                  errors.supplierInfo?.address?.number &&
+                  touched.supplierInfo?.address?.number
+                )
+              }
             >
               <Field
-                invalid={!!(errors.address?.number && touched.address?.number)}
-                name="address.number"
+                invalid={
+                  !!(
+                    errors.supplierInfo?.address?.number &&
+                    touched.supplierInfo?.address?.number
+                  )
+                }
+                name="supplierInfo.address.number"
                 type="text"
                 label="number"
                 component={Input}
@@ -325,21 +367,22 @@ const FormComponent = () => {
             </FormItem>
             <FormItem
               label="bairro"
-              errorMessage={errors.address?.neighborhood}
+              errorMessage={errors.supplierInfo?.address?.neighborhood}
               invalid={
                 !!(
-                  errors.address?.neighborhood && touched.address?.neighborhood
+                  errors.supplierInfo?.address?.neighborhood &&
+                  touched.supplierInfo?.address?.neighborhood
                 )
               }
             >
               <Field
                 invalid={
                   !!(
-                    errors.address?.neighborhood &&
-                    touched.address?.neighborhood
+                    errors.supplierInfo?.address?.neighborhood &&
+                    touched.supplierInfo?.address?.neighborhood
                   )
                 }
-                name="address.neighborhood"
+                name="supplierInfo.address.neighborhood"
                 type="text"
                 label="Bairro"
                 component={Input}
@@ -347,12 +390,22 @@ const FormComponent = () => {
             </FormItem>
             <FormItem
               label="cidade"
-              errorMessage={errors.address?.city}
-              invalid={!!(errors.address?.city && touched.address?.city)}
+              errorMessage={errors.supplierInfo?.address?.city}
+              invalid={
+                !!(
+                  errors.supplierInfo?.address?.city &&
+                  touched.supplierInfo?.address?.city
+                )
+              }
             >
               <Field
-                invalid={!!(errors.address?.city && touched.address?.city)}
-                name="address.city"
+                invalid={
+                  !!(
+                    errors.supplierInfo?.address?.city &&
+                    touched.supplierInfo?.address?.city
+                  )
+                }
+                name="supplierInfo.address.city"
                 type="text"
                 label="Cidade"
                 component={Input}
@@ -360,12 +413,22 @@ const FormComponent = () => {
             </FormItem>
             <FormItem
               label="estado"
-              errorMessage={errors.address?.state}
-              invalid={!!(errors.address?.state && touched.address?.state)}
+              errorMessage={errors.supplierInfo?.address?.state}
+              invalid={
+                !!(
+                  errors.supplierInfo?.address?.state &&
+                  touched.supplierInfo?.address?.state
+                )
+              }
             >
               <Field
-                invalid={!!(errors.address?.state && touched.address?.state)}
-                name="address.state"
+                invalid={
+                  !!(
+                    errors.supplierInfo?.address?.state &&
+                    touched.supplierInfo?.address?.state
+                  )
+                }
+                name="supplierInfo.address.state"
                 type="text"
                 label="Estado"
                 component={Input}
