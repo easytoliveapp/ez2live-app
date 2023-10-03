@@ -87,6 +87,7 @@ const CouponListPage: React.FC<ICouponListPageProps> = ({ supplierId }) => {
           supplier.coupons.length > 0 ? (
             supplier?.coupons.map((coupon, key) => (
               <SupplierCoupons
+                title={coupon.title}
                 icon={supplier.id == session?.user?.id ? Edit : Arrow}
                 discount={coupon.discount}
                 expirateTime={5}
