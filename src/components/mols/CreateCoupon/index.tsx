@@ -15,8 +15,8 @@ import { showToastify } from "@/hooks/showToastify";
 
 const CreateCoupon = () => {
   const [loading, setLoading] = useState(false);
-  const [couponsIlimited, setCouponsIlimited] = useState(false);
-  const [ilimitedByUser, setIlimitedByUser] = useState(false);
+  const [couponsUnlimited, setCouponsUnlimited] = useState(true);
+  const [unlimitedByUser, setUnlimitedByUser] = useState(true);
 
   const CreateCouponValidationSchema = Yup.object().shape({
     title: Yup.string().required("Título requerido."),
@@ -43,16 +43,16 @@ const CreateCoupon = () => {
 
   const handleFormSubmit = async (values: ICreateCoupon) => {
     setLoading(true);
+    const data = {
+      title: values.title,
+      discount: String(values.discount),
+      maxPerUser: unlimitedByUser ? -1 : Number(values.maxPerUser),
+      maxTotal: couponsUnlimited ? -1 : Number(values.maxTotal),
+      expirationGenerationDate: new Date(values.expirationGenerationDate),
+      expirationUseDate: new Date(values.expirationUseDate),
+    };
     await couponService
-      .createCoupon({
-        title: values.title,
-        discount: String(values.discount),
-        maxPerUser:
-          values.maxPerUser == "ilimitado" ? -1 : Number(values.maxPerUser),
-        maxTotal: values.maxTotal == "ilimitado" ? -1 : Number(values.maxTotal),
-        expirationGenerationDate: new Date(values.expirationGenerationDate),
-        expirationUseDate: new Date(values.expirationUseDate),
-      })
+      .createCoupon(data)
       .then(() => couponSuccessRedirect())
       .catch((error) => {
         if (error?.response?.data?.code === 400) {
@@ -91,8 +91,8 @@ const CreateCoupon = () => {
         initialValues={{
           title: "",
           discount: "20",
-          maxTotal: "",
-          maxPerUser: "",
+          maxTotal: -1,
+          maxPerUser: -1,
           expirationGenerationDate: new Date("2022-01-01"),
           expirationUseDate: new Date("2022-01-01"),
         }}
@@ -137,24 +137,18 @@ const CreateCoupon = () => {
             <div className="grid grid-cols-2 w-full">
               <FormItem
                 label="Limite de cupons"
-                errorMessage={!couponsIlimited && errors.maxTotal}
+                errorMessage={!couponsUnlimited && errors.maxTotal}
                 invalid={
-                  !couponsIlimited && !!(errors.maxTotal && touched.maxTotal)
+                  !couponsUnlimited && !!(errors.maxTotal && touched.maxTotal)
                 }
               >
                 <Field
-                  disabled={couponsIlimited}
+                  disabled={couponsUnlimited}
                   invalid={
-                    !couponsIlimited && !!(errors.maxTotal && touched.maxTotal)
+                    !couponsUnlimited && !!(errors.maxTotal && touched.maxTotal)
                   }
                   name="maxTotal"
-                  value={
-                    couponsIlimited
-                      ? (values.maxTotal = "ilimitado")
-                      : values.maxTotal == "ilimitado"
-                      ? (values.maxTotal = "")
-                      : values.maxTotal
-                  }
+                  value={couponsUnlimited ? "ilimitado" : values.maxTotal}
                   type="text"
                   label="maxTotal"
                   component={Input}
@@ -163,25 +157,20 @@ const CreateCoupon = () => {
               </FormItem>
               <FormItem
                 label="Limite por usuário"
-                errorMessage={!ilimitedByUser && errors.maxPerUser}
+                errorMessage={!unlimitedByUser && errors.maxPerUser}
                 invalid={
-                  !ilimitedByUser && !!(errors.maxPerUser && touched.maxPerUser)
+                  !unlimitedByUser &&
+                  !!(errors.maxPerUser && touched.maxPerUser)
                 }
               >
                 <Field
-                  disabled={ilimitedByUser}
+                  disabled={unlimitedByUser}
                   invalid={
-                    !ilimitedByUser &&
+                    !unlimitedByUser &&
                     !!(errors.maxPerUser && touched.maxPerUser)
                   }
                   name="maxPerUser"
-                  value={
-                    ilimitedByUser
-                      ? (values.maxPerUser = "ilimitado")
-                      : values.maxPerUser == "ilimitado"
-                      ? (values.maxPerUser = "")
-                      : values.maxPerUser
-                  }
+                  value={unlimitedByUser ? "ilimitado" : values.maxPerUser}
                   type="text"
                   label="maxPerUser"
                   component={Input}
@@ -190,15 +179,15 @@ const CreateCoupon = () => {
               </FormItem>
               <div>
                 <ToggleButton
-                  onClick={() => setCouponsIlimited(!couponsIlimited)}
-                  toggle={couponsIlimited}
+                  onClick={() => setCouponsUnlimited(!couponsUnlimited)}
+                  toggle={couponsUnlimited}
                   label="ilimitado"
                 />
               </div>
               <div>
                 <ToggleButton
-                  onClick={() => setIlimitedByUser(!ilimitedByUser)}
-                  toggle={ilimitedByUser}
+                  onClick={() => setUnlimitedByUser(!unlimitedByUser)}
+                  toggle={unlimitedByUser}
                   label="ilimitado"
                 />
               </div>
