@@ -30,7 +30,7 @@ const SupplierCoupons: React.FC<SupplierCouponsProps> = ({
     used: (
       <div>
         <p className="text-xs pb-2 font-semibold text-black">{title}</p>
-        <div className="flex flex-col gap-1.5 text-xs">
+        <div className="flex flex-col gap-0.5 text-xs">
           <p className="flex font-semibold items-center text-generic-alertGreen">
             <Image
               className="h-auto pr-2 w-7"
@@ -46,7 +46,7 @@ const SupplierCoupons: React.FC<SupplierCouponsProps> = ({
     expired: (
       <div>
         <p className="text-xs pb-2 font-semibold text-black">{title}</p>
-        <div className="flex flex-col gap-1.5 text-xs">
+        <div className="flex flex-col gap-1 text-xs">
           <p className="flex font-semibold items-center text-generic-alertRed">
             <Image
               className="h-auto pr-2 w-7"
@@ -61,7 +61,7 @@ const SupplierCoupons: React.FC<SupplierCouponsProps> = ({
     ),
     active: (
       <div className="flex items-center justify-between gap-4">
-        <div className="flex flex-col gap-1.5 text-xs">
+        <div className="flex flex-col gap-0.5 text-xs">
           <p className="text-xs font-semibold text-black">{title}</p>
           <p className="flex font-semibold items-center text-generic-alertGreen">
             <Image
