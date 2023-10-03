@@ -13,17 +13,19 @@ export interface NcModalProps {
   modalTitle?: ReactNode;
   isOpenProp?: boolean;
   onCloseModal?: () => void;
+  closeOnBlur?: boolean;
 }
 
 const NcModal: FC<NcModalProps> = ({
   renderTrigger,
   renderContent,
   contentExtraClass = "max-w-screen-xl",
-  contentPaddingClass = "py-4 px-6 md:py-5",
+  contentPaddingClass = "px-3 pb-4",
   triggerText = "Open Modal",
   modalTitle = "Modal title",
   isOpenProp,
   onCloseModal,
+  closeOnBlur = true,
 }) => {
   const [isOpen, setIsOpen] = useState(!!isOpenProp);
 
@@ -55,10 +57,10 @@ const NcModal: FC<NcModalProps> = ({
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog
           as="div"
-          className="fixed inset-0 z-50 overflow-y-auto"
-          onClose={closeModal}
+          className="fixed inset-0 x-100 z-50 overflow-y-auto"
+          onClose={closeOnBlur ? () => closeModal : () => ""}
         >
-          <div className="min-h-screen px-1 text-center md:px-4">
+          <div className="min-h-screen px-3 text-center md:px-3">
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-75"
@@ -88,12 +90,12 @@ const NcModal: FC<NcModalProps> = ({
               leaveTo="opacity-0 scale-95"
             >
               <div
-                className={`inline-block w-full my-5 overflow-hidden text-left align-middle transition-all transform bg-white border border-black border-opacity-5 shadow-xl rounded-2xl sm:my-8   text-neutral-900  ${contentExtraClass}`}
+                className={`inline-block w-full my-5 overflow-hidden text-left align-middle transition-all transform bg-white border border-black border-opacity-5 shadow-xl rounded-2xl sm:my-8 text-neutral-900  ${contentExtraClass}`}
               >
-                <div className="py-4 px-6 text-center relative border-b border-neutral-100  md:py-5">
+                <div className="py-3 mt-4 px-6 text-center relative md:py-6">
                   <ButtonClose
                     onClick={closeModal}
-                    className="absolute left-2 top-1/2 transform -translate-y-1/2 sm:left-4"
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2 sm:right-4"
                   />
                   {modalTitle && (
                     <Dialog.Title

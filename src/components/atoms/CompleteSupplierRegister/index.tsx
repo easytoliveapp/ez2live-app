@@ -54,13 +54,13 @@ const CompleteSupplierRegister: React.FC = () => {
 
   return (
     <div>
-      <div className="mt-8 mb-16 flex items-center justify-between">
-        <h2 className=" pl-6 flex items-center text-2xl leading-[115%] md:text-5xl md:leading-[115%] font-bold text-black dark:text-neutral-100 justify-center">
+      <div className="mt-8 mb-16 w-full gap-4 flex items-center justify-between">
+        <h2 className=" pl-6 flex items-center text-lg leading-[115%] md:text-3xl md:leading-[115%] font-bold text-black dark:text-neutral-100 justify-center">
           Completar <br /> cadastro
         </h2>
         <div>
-          <div className="relative rounded-full w-40 h-16 bg-gradient-to-r from-secondary-ez2live to-secondary-ez2livebg">
-            <div className="absolute top-8 right-0 rounded-full w-16 h-16 bg-gradient-to-r from-secondary-ez2live to-secondary-ez2livebg"></div>
+          <div className="relative rounded-full w-40 h-16 bg-gradient-to-r from-secondary-main to-secondary-lighter">
+            <div className="absolute top-8 right-0 rounded-full w-16 h-16 bg-gradient-to-r from-secondary-main to-secondary-lighter"></div>
           </div>
         </div>
       </div>
