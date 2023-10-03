@@ -2,8 +2,13 @@
 
 import React, { useEffect, useState } from "react";
 import { SupplierCard } from "@/components/mols";
-import { CategoryCard, CompleteSupplierRegister } from "@/components/atoms";
+import {
+  CategoryCard,
+  CompleteSupplierRegister,
+  FloatButtonNav,
+} from "@/components/atoms";
 import SupplierLogo from "@/images/easytolive/logo/logotipo-fundoazulroxo.svg";
+import CouponPrimary from "@/images/easytolive/icons/couponPrimary.svg";
 import SearchCategory from "@/app/searchCategory";
 import SupplierService from "@/service/supplier.service";
 import imageCategory from "@/images/easytolive/icons/categorie-example.svg";
@@ -113,41 +118,8 @@ function PageHome() {
   }, [textSearched, pageNumber, supplierCategoriesFilter]);
 
   return (
-    <>
-      <div className="md:w-[500px] w-full m-auto p-5">
-        <SearchCategory onChange={handleSetSearch} />
-        <div className="flex flex-wrap my-6 w-full gap-3">
-          {categories.map((category: categorieProps, index) => (
-            <CategoryCard
-              key={index}
-              name={category.title}
-              onClick={() => handleCategoryFilter(category.id)}
-              image={imageCategory}
-              isActive={category.id === supplierCategoriesFilter}
-            />
-          ))}
-        </div>
-        <InfiniteScroll
-          className="flex flex-col gap-3"
-          dataLength={suppliers.length}
-          next={() => setPageNumber(pageNumber + 1)}
-          hasMore={hasMore}
-          loader={<h4 className=" m-4 text-primary-main">Carregando...</h4>}
-          endMessage={<p className="m-4 text-primary-main text-center">...</p>}
-        >
-          {suppliers.map((supplier: ISupplier, index) => (
-            <SupplierCard
-              supplierCategory={supplier?.supplierCategory?.title}
-              supplierImage={SupplierLogo}
-              avaliation="4.6"
-              couponsAvaible={supplier.numberOfCoupons}
-              name={supplier.name}
-              key={supplier.id + index}
-              id={supplier.id}
-            />
-          ))}
-        </InfiniteScroll>
-      </div>
+    <div className="md:w-[500px] w-full m-auto p-5 relative">
+      <FloatButtonNav backGround="secondary" icon={CouponPrimary} href="/" />
       <ModalEdit
         show={ControlModalSupplierUploadRegister}
         onCloseModalEdit={() => setControlModalSupplierUploadRegister(false)}
@@ -161,7 +133,39 @@ function PageHome() {
           </ButtonThird>
         </div>
       </ModalEdit>
-    </>
+      <SearchCategory onChange={handleSetSearch} />
+      <div className="flex flex-wrap my-6 w-full gap-3">
+        {categories.map((category: categorieProps, index) => (
+          <CategoryCard
+            key={index}
+            name={category.title}
+            onClick={() => handleCategoryFilter(category.id)}
+            image={imageCategory}
+            isActive={category.id === supplierCategoriesFilter}
+          />
+        ))}
+      </div>
+      <InfiniteScroll
+        className="flex flex-col gap-3"
+        dataLength={suppliers.length}
+        next={() => setPageNumber(pageNumber + 1)}
+        hasMore={hasMore}
+        loader={<h4 className=" m-4 text-primary-main">Carregando...</h4>}
+        endMessage={<p className="m-4 text-primary-main text-center">...</p>}
+      >
+        {suppliers.map((supplier: ISupplier, index) => (
+          <SupplierCard
+            supplierCategory={supplier?.supplierCategory?.title}
+            supplierImage={SupplierLogo}
+            avaliation="4.6"
+            couponsAvaible={supplier.numberOfCoupons}
+            name={supplier.name}
+            key={supplier.id + index}
+            id={supplier.id}
+          />
+        ))}
+      </InfiniteScroll>
+    </div>
   );
 }
 
