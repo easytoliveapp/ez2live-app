@@ -10,8 +10,8 @@ export interface ICreateCoupon {
   discount: string;
   maxTotal: number | string;
   maxPerUser: number | string;
-  expirationGenerationDate: number;
-  expirationUseDate: number;
+  expirationGenerationDate: Date;
+  expirationUseDate: Date;
 }
 
 export interface ICoupon {
@@ -19,8 +19,8 @@ export interface ICoupon {
   discount: string;
   maxTotal: number;
   maxPerUser: number;
-  expirationGenerationDate: number;
-  expirationUseDate: number;
+  expirationGenerationDate: string;
+  expirationUseDate: string;
   supplier: string;
   id: string;
 }

@@ -42,8 +42,8 @@ const CreateCoupon = () => {
         maxPerUser:
           values.maxPerUser == "ilimitado" ? -1 : Number(values.maxPerUser),
         maxTotal: values.maxTotal == "ilimitado" ? -1 : Number(values.maxTotal),
-        expirationGenerationDate: values.expirationGenerationDate,
-        expirationUseDate: values.expirationUseDate,
+        expirationGenerationDate: new Date(values.expirationGenerationDate),
+        expirationUseDate: new Date(values.expirationUseDate),
       })
       .then(() =>
         showToastify({ label: "cupom gerado com sucesso", type: "success" }),
@@ -88,8 +88,8 @@ const CreateCoupon = () => {
           discount: "20",
           maxTotal: "",
           maxPerUser: "",
-          expirationGenerationDate: 0,
-          expirationUseDate: 0,
+          expirationGenerationDate: new Date("2022-01-01"),
+          expirationUseDate: new Date("2022-01-01"),
         }}
         validationSchema={CreateCouponValidationSchema}
         onSubmit={handleFormSubmit}
