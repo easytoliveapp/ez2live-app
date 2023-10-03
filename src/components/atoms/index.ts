@@ -16,3 +16,4 @@ export { default as TextArea } from "./Textarea";
 export { default as CompleteSupplierRegister } from "./CompleteSupplierRegister";
 export { default as CouponLoading } from "./CouponLoading";
 export { default as LoadingComponent } from "./Loading";
+export { default as FloatButtonNav } from "./FloatButtonNav";
