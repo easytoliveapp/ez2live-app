@@ -12,17 +12,11 @@ import * as Yup from "yup";
 import { ICreateCoupon } from "@/types/coupons";
 import couponService from "@/service/coupons.service";
 import { showToastify } from "@/hooks/showToastify";
-import { useRouter } from "next/navigation";
 
-interface ICreateCouponProps {
-  supplierId: string;
-}
-
-const CreateCoupon: React.FC<ICreateCouponProps> = ({ supplierId }) => {
+const CreateCoupon = () => {
   const [loading, setLoading] = useState(false);
   const [couponsIlimited, setCouponsIlimited] = useState(false);
   const [ilimitedByUser, setIlimitedByUser] = useState(false);
-  const router = useRouter();
 
   const CreateCouponValidationSchema = Yup.object().shape({
     title: Yup.string().required("Título requerido."),
@@ -158,8 +152,8 @@ const CreateCoupon: React.FC<ICreateCouponProps> = ({ supplierId }) => {
                     couponsIlimited
                       ? (values.maxTotal = "ilimitado")
                       : values.maxTotal == "ilimitado"
-                        ? (values.maxTotal = "")
-                        : values.maxTotal
+                      ? (values.maxTotal = "")
+                      : values.maxTotal
                   }
                   type="text"
                   label="maxTotal"
@@ -185,8 +179,8 @@ const CreateCoupon: React.FC<ICreateCouponProps> = ({ supplierId }) => {
                     ilimitedByUser
                       ? (values.maxPerUser = "ilimitado")
                       : values.maxPerUser == "ilimitado"
-                        ? (values.maxPerUser = "")
-                        : values.maxPerUser
+                      ? (values.maxPerUser = "")
+                      : values.maxPerUser
                   }
                   type="text"
                   label="maxPerUser"
