@@ -6,17 +6,23 @@ import Arrow from "@/images/easytolive/icons/arrow-next-right-primary.svg";
 import { ICouponsByUser } from "@/types/coupons";
 import { showToastify } from "@/hooks/showToastify";
 import { SupplierCoupons } from "@/components/atoms";
-import CouponPrimary from "@/images/easytolive/icons/couponPrimary.svg";
+import CouponGreen from "@/images/easytolive/icons/coupongreen.svg";
 import CouponBlack from "@/images/easytolive/icons/couponblack.svg";
 import CouponRed from "@/images/easytolive/icons/couponred.svg";
 import CurrencyDropdown from "@/components/atoms/CurrencyDropdown";
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
+
+interface filterOptions {
+  id: string;
+  name: string;
+  icon: StaticImageData;
+}
 
 const filterOptions = [
   {
-    id: "actived",
+    id: "active",
     name: "cupons ativos",
-    icon: CouponPrimary,
+    icon: CouponGreen,
   },
   {
     id: "used",
@@ -97,7 +103,9 @@ const ArrayCoupons = [
 
 const MyCouponsPage = () => {
   const { data: session } = useSession();
-  const [couponsFilter, setCouponsFilter] = useState("actived");
+  const [couponsFilter, setCouponsFilter] = useState<filterOptions>(
+    filterOptions[0],
+  );
   const [coupons, setCoupons] = useState<ICouponsByUser>();
 
   const handleGetCouponsByUser = async () => {
@@ -127,11 +135,21 @@ const MyCouponsPage = () => {
         </div>
       </div>
       <div className="flex justify-end items-center w-full gap-4">
-        <p className="text-lg font-semibold">{couponsFilter}</p>
+        <div
+          className={`${
+            couponsFilter?.id === "used"
+              ? "text-black"
+              : couponsFilter?.id === "expired"
+              ? "text-generic-alertRed"
+              : "text-generic-alertGreen"
+          } text-lg font-semibold`}
+        >
+          {couponsFilter?.name}
+        </div>
         <CurrencyDropdown>
           {filterOptions.map((option, key) => (
             <div
-              onClick={() => setCouponsFilter(option.id)}
+              onClick={() => setCouponsFilter(option)}
               key={key}
               className={`${
                 option.id == "used"
@@ -169,7 +187,7 @@ const MyCouponsPage = () => {
           <em className="text-sm">nenhum cupom encontrado...</em>
         )}
       </div>
-      <span className="fixed ring-0 bottom-0 text-neutral-400 w-full max-w-[500px] flex justify-center items-center h-16 bg-generic-dark">
+      <span className="fixed ring-0 bottom-0 text-neutral-400 w-full md:max-w-[500px] flex justify-center items-center h-16 bg-generic-dark">
         Todos os direitos reservados
       </span>
     </div>
