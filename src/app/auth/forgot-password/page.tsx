@@ -13,8 +13,8 @@ const UserForgotPasswordPage = () => {
             senha
           </h2>
           <div>
-            <div className="relative rounded-full w-40 h-16 bg-gradient-to-r from-secondary-ez2live to-secondary-ez2livebg">
-              <div className="absolute top-8 right-0 rounded-full w-16 h-16 bg-gradient-to-r from-secondary-ez2live to-secondary-ez2livebg"></div>
+            <div className="relative rounded-full w-40 h-16 bg-gradient-to-r from-secondary-main to-secondary-ligther">
+              <div className="absolute top-8 right-0 rounded-full w-16 h-16 bg-gradient-to-r from-secondary-main to-secondary-ligther"></div>
             </div>
           </div>
         </div>
@@ -22,7 +22,7 @@ const UserForgotPasswordPage = () => {
           {/* FORM */}
           <FormComponent />
           <span className=" block text-center text-sm font-semibold text-black dark:text-neutral-300">
-            voltar para {}
+            voltar para
             <Link
               className="text-primary-ez2live text-sm font-semibold"
               href="/auth/login"

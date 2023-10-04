@@ -6,9 +6,16 @@ import NcModal from "@/components/atoms/NcModal/NcModal";
 export interface ModalDeleteProps {
   show: boolean;
   onCloseModalDelete: () => void;
+  closeOnBlur?: boolean;
+  noCloseButton?: boolean;
 }
 
-const ModalDelete: FC<ModalDeleteProps> = ({ show, onCloseModalDelete }) => {
+const ModalDelete: FC<ModalDeleteProps> = ({
+  show,
+  onCloseModalDelete,
+  closeOnBlur = true,
+  noCloseButton = false,
+}) => {
   const handleClickSubmitForm = () => {
     console.log({ 1: "1" });
   };
@@ -38,6 +45,8 @@ const ModalDelete: FC<ModalDeleteProps> = ({ show, onCloseModalDelete }) => {
 
   return (
     <NcModal
+      noCloseButton={noCloseButton}
+      closeOnBlur={closeOnBlur}
       isOpenProp={show}
       onCloseModal={onCloseModalDelete}
       contentExtraClass="max-w-screen-sm"

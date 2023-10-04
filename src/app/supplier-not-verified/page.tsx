@@ -19,7 +19,7 @@ const SupplierNotVerified = () => {
     <div className="bg-primary-ez2livebg h-[80vh] flex flex-col items-center justify-between">
       <span></span>
       <div className="flex flex-col items-center text-center text-sm font-bold max-w-xs">
-        <span className="w-24 h-24 flex items-center justify-center rounded-full bg-gradient-to-r from-secondary-ez2live_600 to-white mb-10">
+        <span className="w-24 h-24 flex items-center justify-center rounded-full bg-gradient-to-r from-secondary-main_600 to-white mb-10">
           <Image className="w-12 h-auto" alt="email-image" src={EmailIcon} />
         </span>
         <p>Obrigado pelo seu cadastro, é muito bom ter você com a gente!</p>

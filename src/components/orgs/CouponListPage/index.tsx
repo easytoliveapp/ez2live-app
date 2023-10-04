@@ -4,12 +4,8 @@ import Link from "next/link";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 
-import {
-  Avaliation,
-  ButtonSecondary,
-  ButtonThird,
-  SupplierCoupons,
-} from "@/components/atoms";
+import { Avaliation, ButtonSecondary, ButtonThird } from "@/components/atoms";
+import { SupplierCoupons } from "@/components/orgs/index";
 import { ISupplier } from "@/types/supplier";
 import ArrowLeft from "@/images/easytolive/icons/arrow-next-right-white.svg";
 import supplierService from "@/service/supplier.service";
@@ -126,14 +122,14 @@ const CouponListPage: React.FC<ICouponListPageProps> = ({ supplierId }) => {
             supplier?.coupons.map((coupon: ICoupon, key) => (
               <SupplierCoupons
                 icon={supplier.supplier.id == session?.user.id ? Edit : Arrow}
-                id={supplier.supplier.id}
+                id={coupon.id}
                 supplierCategory={
                   supplier.supplier.supplierInfo.supplierCategory.title
                 }
                 supplierLogo={LogoImage}
                 supplierName={supplier.supplier.name}
                 discount={coupon.discount}
-                expirateTime={"2023/10/14"}
+                expirateTime={coupon.expirationGenerationDate}
                 unintsAmount={20}
                 key={key}
               />

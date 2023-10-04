@@ -25,7 +25,7 @@ const CouponPage: React.FC<CouponProps> = ({
   supplierCategory,
 }) => {
   return (
-    <div className="min-h-[80vh] flex flex-col w-full text-black">
+    <div className="flex flex-col p-1 w-full pb-20 text-black">
       <h1 className=" text-3xl py-4 mb-6 font-bold text-black">Creatina</h1>
       <div className="flex mb-8 gap-4 justify-between">
         <div className="flex flex-col gap-1.5 text-sm">
@@ -53,7 +53,7 @@ const CouponPage: React.FC<CouponProps> = ({
         </span>
       </div>
       <hr className="border-neutral-100 border-[1.5px] mb-6"></hr>
-      <div className="flex flex-col h-auto">
+      <div className="flex flex-col m-1 h-auto">
         <div className="flex gap-3 item-center">
           <Image
             className="w-14 h-14 rounded-full"
@@ -65,7 +65,7 @@ const CouponPage: React.FC<CouponProps> = ({
             <p className=" text-lg">{supplierName}</p>
           </div>
         </div>
-        <div className="flex flex-col gap-5 my-3">
+        <div className="flex flex-col mx-2 gap-5 my-3">
           <div className="flex flex-col">
             <p className="font-semibold">categoria</p>
             <p className="mb-4">{supplierCategory}</p>
