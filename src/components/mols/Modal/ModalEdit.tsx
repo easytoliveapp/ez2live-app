@@ -6,12 +6,14 @@ export interface ModalEditProps {
   show: boolean;
   onCloseModalEdit: () => void;
   children: React.ReactNode;
+  closeOnBlur?: boolean;
 }
 
 const ModalEdit: FC<ModalEditProps> = ({
   show,
   onCloseModalEdit,
   children,
+  closeOnBlur,
 }) => {
   const textareaRef = useRef(null);
 
@@ -40,6 +42,7 @@ const ModalEdit: FC<ModalEditProps> = ({
 
   return (
     <NcModal
+      closeOnBlur={closeOnBlur}
       isOpenProp={show}
       onCloseModal={onCloseModalEdit}
       contentExtraClass="max-w-lg"

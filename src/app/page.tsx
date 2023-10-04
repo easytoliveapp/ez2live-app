@@ -12,7 +12,7 @@ import CouponPrimary from "@/images/easytolive/icons/couponPrimary.svg";
 import SearchCategory from "@/app/searchCategory";
 import SupplierService from "@/service/supplier.service";
 import imageCategory from "@/images/easytolive/icons/categorie-example.svg";
-import { ISupplier, ISupplierList } from "@/types/supplier";
+import { ISuppliers, ISupplierList } from "@/types/supplier";
 import { useDebounce } from "use-debounce";
 import { categorieProps } from "@/components/atoms/CategoryCard";
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -103,7 +103,7 @@ function PageHome() {
       page: pageNumber,
       ...(textSearched && { name: textSearched }),
       ...(supplierCategoriesFilter && {
-        supplierCategory: supplierCategoriesFilter,
+        "supplierInfo.supplierCategory": supplierCategoriesFilter,
       }),
       sortBy: "coupons:desc",
     };
@@ -153,12 +153,12 @@ function PageHome() {
         loader={<h4 className=" m-4 text-primary-main">Carregando...</h4>}
         endMessage={<p className="m-4 text-primary-main text-center">...</p>}
       >
-        {suppliers.map((supplier: ISupplier, index) => (
+        {suppliers.map((supplier: ISuppliers, index) => (
           <SupplierCard
-            supplierCategory={supplier?.supplierCategory?.title}
+            supplierCategory={supplier?.supplierInfo?.supplierCategory?.title}
             supplierImage={SupplierLogo}
             avaliation="4.6"
-            couponsAvaible={supplier.numberOfCoupons}
+            couponsAvaible={supplier.supplierInfo.coupons.length}
             name={supplier.name}
             key={supplier.id + index}
             id={supplier.id}

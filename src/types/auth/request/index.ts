@@ -15,9 +15,10 @@ export interface IRegisterAccount {
   email: string;
   password: string;
   document: string;
-  address: IAddress;
-  supplierCategory: string;
-  isSupplier: boolean;
+  supplierInfo: {
+    supplierCategory: string;
+    address: IAddress;
+  };
 }
 export interface IForgotPassword {
   email: string;

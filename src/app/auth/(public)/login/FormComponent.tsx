@@ -65,6 +65,7 @@ const FormComponent = () => {
 
   return (
     <Formik
+      validateOnBlur={false}
       initialValues={{
         email: "",
         password: "",

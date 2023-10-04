@@ -24,9 +24,12 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>((props, ref) => {
     <input
       ref={ref}
       type={type}
-      className={`block w-full border-black focus:border-primary-main focus:ring focus:ring-primary-main focus:ring-opacity-50 bg-generic-background disabled:bg-neutral-200 ${rounded} ${fontClass} ${sizeClass} ${className} ${
-        invalid ? "border-rose-500" : "border-black"
-      }`}
+      className={` inputRangeThumb block w-full border-black focus:border-primary-main focus:ring focus:ring-primary-main focus:ring-opacity-50 bg-generic-background disabled:bg-neutral-200
+      ${rounded}
+      ${fontClass}
+      ${sizeClass}
+      ${className}
+      ${invalid ? "border-rose-500" : "border-black"}`}
       {...field}
       {...rest}
     />
