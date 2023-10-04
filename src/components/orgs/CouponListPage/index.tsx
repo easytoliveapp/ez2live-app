@@ -130,6 +130,7 @@ const CouponListPage: React.FC<ICouponListPageProps> = ({ supplierId }) => {
                 supplierName={supplier.supplier.name}
                 discount={coupon.discount}
                 expirateTime={coupon.expirationGenerationDate}
+                expirationUseDate={coupon.expirationUseDate}
                 unintsAmount={20}
                 key={key}
               />

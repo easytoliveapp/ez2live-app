@@ -6,8 +6,7 @@ import CouponPrimary from "@/images/easytolive/icons/couponPrimary.svg";
 import ShoppingCartGreen from "@/images/easytolive/icons/shopping_cart_green.svg";
 import ClockCircleRed from "@/images/easytolive/icons/clock_circleRed.svg";
 import classNames from "@/utils/classNames";
-import { Coupon } from "@/components/orgs/index";
-import { ModalEdit } from "@/components/mols/index";
+import { ModalEdit, Coupon, CouponActived } from "@/components/mols/index";
 import { ButtonPrimary, ButtonThird } from "@/components/atoms/index";
 import useDateDiffInDays from "@/hooks/useDateDifferenceInDays";
 import CouponGenerating from "@/components/atoms/CouponLoading";
@@ -18,6 +17,7 @@ interface SupplierCouponsProps {
   discount: string;
   unintsAmount: number;
   expirateTime: string;
+  expirationUseDate: string;
   id: string;
   supplierLogo: string | StaticImageData;
   supplierCategory: string;
@@ -30,11 +30,15 @@ const SupplierCoupons: React.FC<SupplierCouponsProps> = ({
   unintsAmount,
   supplierLogo,
   expirateTime,
+  expirationUseDate,
   supplierCategory,
   id,
   supplierName,
   icon,
 }) => {
+  const [couponCode, setCouponCode] = useState("");
+  const [showCouponModal, setShowCouponModal] = useState(false);
+
   const COUPON_STEPS = {
     primary: (
       <div className="flex flex-col h-auto items-center">
@@ -79,18 +83,36 @@ const SupplierCoupons: React.FC<SupplierCouponsProps> = ({
         couponColor="primary"
       />
     ),
+    couponActived: (
+      <CouponActived
+        couponDiscount={discount}
+        expirateTime={expirationUseDate}
+        couponActivateCode={couponCode}
+        supplierCategory={supplierCategory}
+        supplierLogo={supplierLogo}
+        supplierName={supplierName}
+      />
+    ),
   };
-  const [showCouponModal, setShowCouponModal] = useState(false);
-  const [couponSteps, setCouponSteps] = useState(COUPON_STEPS.primary);
 
+  const ActiveCounpon = async () => {
+    const res: any = await await couponsService.generateCouponCode(id);
+    return res;
+  };
+
+  const [couponSteps, setCouponSteps] = useState(COUPON_STEPS.primary);
   const handleActiveCoupon = async () => {
     setCouponSteps(COUPON_STEPS.loading);
-
-    return await couponsService
-      .generateCouponCode(id)
-      .then(() => {
+    ActiveCounpon()
+      .then((res) => {
+        setCouponCode(res?.data?.coupon?.code);
         setTimeout(() => {
           setCouponSteps(COUPON_STEPS.loadComplete);
+          setTimeout(() => {
+            if (couponCode) {
+              setCouponSteps(COUPON_STEPS.couponActived);
+            }
+          }, 1500);
         }, 3000);
       })
       .catch((error) => {
@@ -128,7 +150,6 @@ const SupplierCoupons: React.FC<SupplierCouponsProps> = ({
       </ModalEdit>
 
       <h2 className=" fon t-bold text-white text-xl">{discount}%</h2>
-
       <div
         className={classNames(
           "rounded-full bg-white w-full py-2 gap-4 -m-[1px] hover:shadow-md cursor-pointer",
