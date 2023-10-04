@@ -33,8 +33,8 @@ const FloatButtonNav: React.FC<IFloatButtonNavProps & LinkProps<any>> = ({
           <motion.div
             className="flex items-center justify-center ml-2 w-5 h-5 rounded-full bg-generic-alertGreenLigther"
             initial={{ opacity: 0 }}
-            animate={{ opacity: 10 }}
-            transition={{ duration: 1.5, ease: "linear", repeat: Infinity }}
+            animate={{ opacity: [0, 20, 40, 20, 0, 0] }}
+            transition={{ duration: 2.5, ease: "linear", repeat: Infinity }}
           >
             <div className="flex items-center justify-center w-3 h-3 rounded-full bg-generic-alertGreenLight"></div>
           </motion.div>
