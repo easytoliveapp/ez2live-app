@@ -11,8 +11,11 @@ import {
   Coupon,
   CouponActivatedPage,
 } from "@/components/mols/index";
-import { ButtonPrimary, ButtonThird } from "@/components/atoms/index";
-import useDateDiffInDays from "@/hooks/useDateDifferenceInDays";
+import {
+  ButtonPrimary,
+  ButtonThird,
+  DateDifferenceInDays,
+} from "@/components/atoms/index";
 import CouponGenerating from "@/components/atoms/CouponLoading";
 import couponsService from "@/service/coupons.service";
 import { showToastify } from "@/hooks/showToastify";
@@ -29,7 +32,7 @@ interface SupplierCouponsProps {
   supplierCategory: string;
   supplierName: string;
   icon: string | StaticImageData;
-};
+}
 
 const STEPS = {
   SHOWING_COUPON: 0,
@@ -174,7 +177,7 @@ const SupplierCoupons: React.FC<SupplierCouponsProps> = ({
       default:
         return <StepOne />;
     }
-  }
+  };
 
   const activateCoupon = async () => {
     const res: AxiosResponse = await couponsService.generateCouponCode(id);
@@ -265,7 +268,7 @@ const SupplierCoupons: React.FC<SupplierCouponsProps> = ({
                 alt="coupon-black"
                 src={ClockCircleRed}
               />
-              termina em {useDateDiffInDays(expirateTime)} dias
+              termina em {DateDifferenceInDays(expirateTime)} dias
             </p>
           </div>
           <div onClick={() => setShowCouponModal(true)}>

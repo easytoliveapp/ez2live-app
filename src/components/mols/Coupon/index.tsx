@@ -3,7 +3,7 @@ import Image, { StaticImageData } from "next/image";
 import CouponGreen from "@/images/easytolive/icons/coupongreen.svg";
 import ClockCircleRed from "@/images/easytolive/icons/clock_circleRed.svg";
 import { AccordionInfo } from "@/components/atoms";
-import useDateDiffInDays from "@/hooks/useDateDifferenceInDays";
+import useDateDiffInDays from "@/components/atoms/DateDifferenceInDays";
 import useDateFormater from "@/hooks/useDateFormater";
 
 interface CouponProps {
