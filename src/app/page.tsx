@@ -119,7 +119,12 @@ function PageHome() {
 
   return (
     <div className="md:w-[500px] w-full m-auto p-5 relative">
-      <FloatButtonNav backGround="secondary" icon={CouponPrimary} href="/" />
+      <FloatButtonNav
+        couponActive={true}
+        backGround="secondary"
+        icon={CouponPrimary}
+        href="/"
+      />
       <ModalEdit
         show={ControlModalSupplierUploadRegister}
         onCloseModalEdit={() => setControlModalSupplierUploadRegister(false)}
