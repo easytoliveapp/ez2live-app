@@ -7,14 +7,14 @@ export interface ModalDeleteProps {
   show: boolean;
   onCloseModalDelete: () => void;
   closeOnBlur?: boolean;
-  noCloseButton?: boolean;
+  hasCloseButton?: boolean;
 }
 
 const ModalDelete: FC<ModalDeleteProps> = ({
   show,
   onCloseModalDelete,
   closeOnBlur = true,
-  noCloseButton = false,
+  hasCloseButton = true,
 }) => {
   const handleClickSubmitForm = () => {
     console.log({ 1: "1" });
@@ -45,7 +45,7 @@ const ModalDelete: FC<ModalDeleteProps> = ({
 
   return (
     <NcModal
-      noCloseButton={noCloseButton}
+      hasCloseButton={hasCloseButton}
       closeOnBlur={closeOnBlur}
       isOpenProp={show}
       onCloseModal={onCloseModalDelete}

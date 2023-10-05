@@ -85,7 +85,7 @@ const CouponPage: React.FC<CouponProps> = ({
                 "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa, dolorem. Quae debitis hic ipsum inventore assumenda laborum reprehenderit, asperiores nostrum, molestiae odio excepturi maiores possimus ad cum quia et doloremque?",
             },
           ]}
-        ></AccordionInfo>
+        />
       </div>
     </div>
   );

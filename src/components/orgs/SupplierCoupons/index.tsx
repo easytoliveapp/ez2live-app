@@ -6,12 +6,17 @@ import CouponPrimary from "@/images/easytolive/icons/couponPrimary.svg";
 import ShoppingCartGreen from "@/images/easytolive/icons/shopping_cart_green.svg";
 import ClockCircleRed from "@/images/easytolive/icons/clock_circleRed.svg";
 import classNames from "@/utils/classNames";
-import { ModalEdit, Coupon, CouponActived } from "@/components/mols/index";
+import {
+  ModalEdit,
+  Coupon,
+  CouponActivatedPage,
+} from "@/components/mols/index";
 import { ButtonPrimary, ButtonThird } from "@/components/atoms/index";
 import useDateDiffInDays from "@/hooks/useDateDifferenceInDays";
 import CouponGenerating from "@/components/atoms/CouponLoading";
 import couponsService from "@/service/coupons.service";
 import { showToastify } from "@/hooks/showToastify";
+import { AxiosResponse } from "axios";
 
 interface SupplierCouponsProps {
   couponTitle: string;
@@ -42,9 +47,7 @@ const SupplierCoupons: React.FC<SupplierCouponsProps> = ({
   const [showCouponModal, setShowCouponModal] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
 
-  const handleNextStep = () => {
-    setCurrentStep((prev) => prev + 1);
-  };
+  const handleNextStep = (step: number) => setCurrentStep(step);
 
   const StepOne = () => {
     return (
@@ -104,7 +107,7 @@ const SupplierCoupons: React.FC<SupplierCouponsProps> = ({
   const StepFour: React.FC<StepFour> = ({ couponCode }) => {
     return (
       <div className="flex flex-col h-auto items-center">
-        <CouponActived
+        <CouponActivatedPage
           couponTitle={couponTitle}
           couponDiscount={discount}
           expirateTime={expirationUseDate}
@@ -129,25 +132,25 @@ const SupplierCoupons: React.FC<SupplierCouponsProps> = ({
     );
   };
 
-  const ActiveCounpon = async () => {
-    const res: any = await await couponsService.generateCouponCode(id);
+  const ActiveCoupon = async () => {
+    const res: AxiosResponse =
+      await await couponsService.generateCouponCode(id);
     return res;
   };
   const handleActiveCoupon = async () => {
-    handleNextStep();
-    ActiveCounpon()
+    handleNextStep(1);
+    ActiveCoupon()
       .then((res) => {
         setCouponCode(res?.data?.coupon?.code);
         setTimeout(() => {
-          handleNextStep();
+          handleNextStep(2);
           setTimeout(() => {
-            handleNextStep();
+            handleNextStep(3);
           }, 1500);
         }, 3000);
       })
-      .then()
       .catch((error) => {
-        setCurrentStep(0);
+        handleNextStep(0);
         if (error?.response?.data?.code === 400) {
           showToastify({
             label:

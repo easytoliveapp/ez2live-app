@@ -5,7 +5,7 @@ import ButtonClose from "@/components/atoms/ButtonClose/ButtonClose";
 import Button from "@/components/atoms/Button/Button";
 
 export interface NcModalProps {
-  noCloseButton: boolean;
+  hasCloseButton: boolean;
   renderContent: () => ReactNode;
   renderTrigger?: (openModal: () => void) => ReactNode;
   contentExtraClass?: string;
@@ -26,7 +26,7 @@ const NcModal: FC<NcModalProps> = ({
   modalTitle = "Modal title",
   isOpenProp,
   onCloseModal,
-  noCloseButton = false,
+  hasCloseButton = true,
   closeOnBlur = true,
 }) => {
   const [isOpen, setIsOpen] = useState(!!isOpenProp);
@@ -60,7 +60,7 @@ const NcModal: FC<NcModalProps> = ({
         <Dialog
           as="div"
           className="fixed inset-0 x-100 z-50 overflow-y-auto"
-          onClose={() => (closeOnBlur ? closeModal() : () => "")}
+          onClose={() => closeOnBlur && closeModal()}
         >
           <div className="min-h-screen px-3 text-center md:px-3">
             <Transition.Child
@@ -95,7 +95,7 @@ const NcModal: FC<NcModalProps> = ({
                 className={`inline-block w-full my-5 overflow-hidden text-left align-middle transition-all transform bg-white border border-black border-opacity-5 shadow-xl rounded-2xl sm:my-8 text-neutral-900  ${contentExtraClass}`}
               >
                 <div className="py-3 mt-4 px-6 text-center relative md:py-6">
-                  {!noCloseButton && (
+                  {hasCloseButton && (
                     <ButtonClose
                       onClick={closeModal}
                       className="absolute right-3 top-1/2 transform -translate-y-1/2 sm:right-4"

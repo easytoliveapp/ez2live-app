@@ -16,7 +16,7 @@ interface CouponProps {
   supplierCategory: string;
 }
 
-const CouponActivedPage: React.FC<CouponProps> = ({
+const CouponActivatedPage: React.FC<CouponProps> = ({
   couponDiscount,
   expirateTime,
   supplierLogo,
@@ -83,10 +83,10 @@ const CouponActivedPage: React.FC<CouponProps> = ({
                 "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa,",
             },
           ]}
-        ></AccordionInfo>
+        />
       </div>
     </div>
   );
 };
 
-export default CouponActivedPage;
+export default CouponActivatedPage;

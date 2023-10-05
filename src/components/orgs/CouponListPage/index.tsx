@@ -96,7 +96,7 @@ const CouponListPage: React.FC<ICouponListPageProps> = ({ supplierId }) => {
             src={LogoImage}
           />
           <div>
-            {supplier?.supplier?.id == session?.user?.id && (
+            {supplier?.supplier?.id === session?.user?.id && (
               <ButtonSecondary onClick={() => setModalCreateCoupon(true)}>
                 <Image
                   src={CouponPrimary}
@@ -122,7 +122,7 @@ const CouponListPage: React.FC<ICouponListPageProps> = ({ supplierId }) => {
             supplier?.coupons.map((coupon: ICoupon, key) => (
               <SupplierCoupons
                 couponTitle={coupon.title}
-                icon={supplier.supplier.id == session?.user.id ? Edit : Arrow}
+                icon={supplier.supplier.id === session?.user.id ? Edit : Arrow}
                 id={coupon.id}
                 supplierCategory={
                   supplier.supplier.supplierInfo.supplierCategory.title
