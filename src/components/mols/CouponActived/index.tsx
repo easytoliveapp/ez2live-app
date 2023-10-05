@@ -24,7 +24,7 @@ const CouponPage: React.FC<CouponProps> = ({
   couponActivateCode,
 }) => {
   return (
-    <div className="min-h-[75vh] w-full flex flex-col text-black">
+    <div className="pb-2 m-1 w-full flex flex-col text-black">
       <h1 className=" text-3xl py-4 mb-2 font-bold text-black">Creatina</h1>
       <div className="flex justify-end mb-8 gap-4">
         <span className="relative text-3xl w-32 text-white bg-primary-main flex items-center justify-center px-6 py-3 rounded-full">

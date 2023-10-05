@@ -38,9 +38,14 @@ const SupplierCoupons: React.FC<SupplierCouponsProps> = ({
 }) => {
   const [couponCode, setCouponCode] = useState("");
   const [showCouponModal, setShowCouponModal] = useState(false);
+  const [currentStep, setCurrentStep] = useState(0);
 
-  const COUPON_STEPS = {
-    primary: (
+  const handleNextStep = () => {
+    setCurrentStep((prev) => prev + 1);
+  };
+
+  const StepOne = () => {
+    return (
       <div className="flex flex-col h-auto items-center">
         <Coupon
           id={id}
@@ -64,8 +69,11 @@ const SupplierCoupons: React.FC<SupplierCouponsProps> = ({
           não quero mais
         </ButtonThird>
       </div>
-    ),
-    loading: (
+    );
+  };
+
+  const StepTwo = () => {
+    return (
       <CouponGenerating
         title="Gerando cupom de desconto"
         subTitle="esse processo pode levar alguns segundos!"
@@ -73,8 +81,10 @@ const SupplierCoupons: React.FC<SupplierCouponsProps> = ({
         couponAnimation={true}
         couponColor="secondary"
       />
-    ),
-    loadComplete: (
+    );
+  };
+  const StepThree = () => {
+    return (
       <CouponGenerating
         title="Cupom ativo"
         subTitle="aproveite esse desconto incrível!"
@@ -82,41 +92,58 @@ const SupplierCoupons: React.FC<SupplierCouponsProps> = ({
         couponAnimation={false}
         couponColor="primary"
       />
-    ),
-    couponActived: (
-      <CouponActived
-        couponDiscount={discount}
-        expirateTime={expirationUseDate}
-        couponActivateCode={couponCode}
-        supplierCategory={supplierCategory}
-        supplierLogo={supplierLogo}
-        supplierName={supplierName}
-      />
-    ),
+    );
+  };
+
+  interface StepFour {
+    couponCode: string;
+  }
+  const StepFour: React.FC<StepFour> = ({ couponCode }) => {
+    return (
+      <div className="flex flex-col h-auto items-center">
+        <CouponActived
+          couponDiscount={discount}
+          expirateTime={expirationUseDate}
+          couponActivateCode={couponCode}
+          supplierCategory={supplierCategory}
+          supplierLogo={supplierLogo}
+          supplierName={supplierName}
+        />
+        <ButtonPrimary
+          onClick={() => setShowCouponModal(false)}
+          className="w-full mx-4 max-w-md"
+        >
+          Ok, entendi!
+        </ButtonPrimary>
+        <ButtonPrimary
+          className="w-full mx-4 max-w-md !bg-white"
+          onClick={() => setShowCouponModal(false)}
+        >
+          voltar
+        </ButtonPrimary>
+      </div>
+    );
   };
 
   const ActiveCounpon = async () => {
     const res: any = await await couponsService.generateCouponCode(id);
     return res;
   };
-
-  const [couponSteps, setCouponSteps] = useState(COUPON_STEPS.primary);
   const handleActiveCoupon = async () => {
-    setCouponSteps(COUPON_STEPS.loading);
+    handleNextStep();
     ActiveCounpon()
       .then((res) => {
         setCouponCode(res?.data?.coupon?.code);
         setTimeout(() => {
-          setCouponSteps(COUPON_STEPS.loadComplete);
+          handleNextStep();
           setTimeout(() => {
-            if (couponCode) {
-              setCouponSteps(COUPON_STEPS.couponActived);
-            }
+            handleNextStep();
           }, 1500);
         }, 3000);
       })
+      .then()
       .catch((error) => {
-        setCouponSteps(COUPON_STEPS.primary);
+        setCurrentStep(0);
         if (error?.response?.data?.code === 400) {
           showToastify({
             label:
@@ -139,6 +166,13 @@ const SupplierCoupons: React.FC<SupplierCouponsProps> = ({
       });
   };
 
+  const steps = [
+    <StepOne key={0} />,
+    <StepTwo key={1} />,
+    <StepThree key={2} />,
+    <StepFour couponCode={couponCode} key={3} />,
+  ];
+
   return (
     <div className="bg-primary-main h-auto pl-4 max-h-14 rounded-full flex items-center gap-3">
       <ModalEdit
@@ -146,7 +180,7 @@ const SupplierCoupons: React.FC<SupplierCouponsProps> = ({
         show={showCouponModal}
         onCloseModalEdit={() => setShowCouponModal(false)}
       >
-        {couponSteps}
+        {steps[currentStep]}
       </ModalEdit>
 
       <h2 className=" fon t-bold text-white text-xl">{discount}%</h2>
