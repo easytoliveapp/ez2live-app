@@ -80,10 +80,13 @@ const CouponListPage: React.FC<ICouponListPageProps> = ({ supplierId }) => {
       <div className="px-5 py-6 -mt-6 rounded-t-3xl bg-generic-background w-full h-full">
         <div className="flex items-center justify-between">
           <div className="flex gap-1">
-            <Link href={`/`} className="text-xs underline font-semibold">
+            <Link
+              href={`/`}
+              className="text-xs underline font-bold text-generic-dark"
+            >
               {supplier?.supplier?.supplierInfo?.supplierCategory?.title}
             </Link>
-            <p className="text-xs font-semibold">
+            <p className="text-xs font-bold text-generic-dark">
               / {supplier?.supplier?.name}
             </p>
           </div>
@@ -119,8 +122,8 @@ const CouponListPage: React.FC<ICouponListPageProps> = ({ supplierId }) => {
         </p>
         <div className="mt-6 pb-16 flex flex-col gap-4">
           {supplier &&
-          Array.isArray(supplier?.coupons) &&
-          supplier?.coupons.length > 0 ? (
+            Array.isArray(supplier?.coupons) &&
+            supplier?.coupons.length > 0 ? (
             supplier?.coupons.map((coupon: ICoupon, key) => (
               <SupplierCoupons
                 couponTitle={coupon.title}
