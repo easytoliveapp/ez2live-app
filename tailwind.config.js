@@ -54,13 +54,15 @@ module.exports = {
         },
         generic: {
           alertGreen: customColors("--generic-easytolive-green"),
+          alertGreenLight: customColors("--generic-easytolive-green-light"),
+          alertGreenLigther: customColors("--generic-easytolive-green-lighter"),
           alertRed: customColors("--generic-easytolive-red"),
           alertYellow: customColors("--generic-easytolive-yellow"),
           dark: customColors("--generic-dark"),
           blue: customColors("--generic-easytolive-blue"),
           background: customColors("--generic-easytolive-bg"),
           backgroundLighter: customColors("--generic-easytolive-bg-lighter"),
-        }
+        },
       },
     },
   },
