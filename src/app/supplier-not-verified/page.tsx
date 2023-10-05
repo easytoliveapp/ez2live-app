@@ -16,7 +16,7 @@ const SupplierNotVerified = () => {
   };
 
   return (
-    <div className="bg-primary-lighter h-[80vh] flex flex-col items-center justify-between">
+    <div className="bg-generic-background h-[80vh] flex flex-col items-center justify-between">
       <span></span>
       <div className="flex flex-col items-center text-center text-sm font-bold max-w-xs">
         <span className="w-24 h-24 flex items-center justify-center rounded-full bg-gradient-to-r from-secondary-main_600 to-white mb-10">

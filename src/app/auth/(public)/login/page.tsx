@@ -22,7 +22,7 @@ const PageLogin = async () => {
           {/* FORM */}
           <FormComponent />
           <span className="block text-center text-sm text-black font-semibold dark:text-neutral-300">
-            nova conta?
+            nova conta?{" "}
             <Link
               className="text-primary-main font-semibold"
               href="/auth/register/user"
@@ -34,7 +34,7 @@ const PageLogin = async () => {
           <div className="relative text-center">
             <span className="relative z-10 justify-center flex font-semibold text-sm items-center w-full dark:text-neutral-400 dark:bg-neutral-900">
               <div className="bg-white h-0.5 w-full mr-4"></div>
-              <p className="bg-primary-light w-4 ">OU</p>
+              <p className="w-4 ">OU</p>
               <div className="bg-white h-0.5 w-full ml-4"></div>
             </span>
           </div>

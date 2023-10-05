@@ -27,7 +27,7 @@ const SupplierRegisterPage = () => {
           <FormComponent />
           {/* ==== */}
           <span className="block text-center text-black font-medium dark:text-neutral-300">
-            voltar para {}
+            voltar para{" "}
             <Link
               className="text-primary-main font-semibold"
               href="/auth/login"

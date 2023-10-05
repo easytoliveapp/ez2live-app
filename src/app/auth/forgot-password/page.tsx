@@ -22,7 +22,7 @@ const UserForgotPasswordPage = () => {
           {/* FORM */}
           <FormComponent />
           <span className=" block text-center text-sm font-semibold text-black dark:text-neutral-300">
-            voltar para
+            voltar para{" "}
             <Link
               className="text-primary-main text-sm font-semibold"
               href="/auth/login"
