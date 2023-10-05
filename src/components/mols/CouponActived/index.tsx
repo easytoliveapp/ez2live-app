@@ -8,6 +8,7 @@ import QRCode from "react-qr-code";
 
 interface CouponProps {
   couponActivateCode: string;
+  couponTitle: string;
   expirateTime: string;
   supplierLogo: string | StaticImageData;
   supplierName: string;
@@ -15,41 +16,44 @@ interface CouponProps {
   supplierCategory: string;
 }
 
-const CouponPage: React.FC<CouponProps> = ({
+const CouponActivedPage: React.FC<CouponProps> = ({
   couponDiscount,
   expirateTime,
   supplierLogo,
   supplierName,
+  couponTitle,
   supplierCategory,
   couponActivateCode,
 }) => {
   return (
-    <div className="pb-2 m-1 w-full flex flex-col text-black">
-      <h1 className=" text-3xl py-4 mb-2 font-bold text-black">Creatina</h1>
+    <div className="pb-4 p-2 w-full flex flex-col text-black">
+      <h1 className=" text-3xl py-1 px-3 mb-2 font-bold text-black">
+        {couponTitle}
+      </h1>
       <div className="flex justify-end mb-8 gap-4">
-        <span className="relative text-3xl w-32 text-white bg-primary-main flex items-center justify-center px-6 py-3 rounded-full">
+        <span className="relative text-xl w-32 text-white bg-primary-main flex items-center justify-center px-6 py-3 rounded-full">
           {couponDiscount}%
           <span className="absolute -top-5 -left-5 w-12 h-12 rounded-full bg-gradient-to-r from-secondary-dark to-secondary-lighter"></span>
         </span>
       </div>
       <div className="flex flex-col gap-4 mb-4 items-center">
         <QRCode
-          style={{ height: "120px", width: "120px" }}
+          style={{ height: "140px", width: "140px" }}
           value={couponActivateCode}
         ></QRCode>
-        <p className="rounded-full uppercase text-white text-2xl font-semibold px-4 py-2 bg-generic-dark">
+        <p className="rounded-full uppercase text-white text-2xl font-semibold px-12 py-2 bg-generic-dark">
           {couponActivateCode}
         </p>
       </div>
       <div className="flex items-center justify-between mb-2 gap-3">
-        <hr className="border-slate-200 w-full"></hr>
+        <hr className="border-neutral-100 rounded-full border-[1px] w-full"></hr>
         <p
-          className="w-full text-generic-alertGreen font-semibold text-base
+          className=" flex items-center justify-center w-full text-generic-alertGreen font-semibold text-xl
       "
         >
           Cupom ativo
         </p>
-        <hr className="border-slate-200 w-full"></hr>
+        <hr className="border-neutral-100 rounded-full border-[1px] w-full"></hr>
       </div>
       <div className="flex flex-col h-auto">
         <div className="flex item-center">
@@ -85,4 +89,4 @@ const CouponPage: React.FC<CouponProps> = ({
   );
 };
 
-export default CouponPage;
+export default CouponActivedPage;

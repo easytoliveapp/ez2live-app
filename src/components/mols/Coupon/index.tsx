@@ -8,6 +8,7 @@ import useDateFormater from "@/hooks/useDateFormater";
 
 interface CouponProps {
   id: string;
+  couponTitle: string;
   unintsAmount: number;
   expirateTime: string;
   supplierLogo: string | StaticImageData;
@@ -23,10 +24,13 @@ const CouponPage: React.FC<CouponProps> = ({
   supplierLogo,
   supplierName,
   supplierCategory,
+  couponTitle,
 }) => {
   return (
-    <div className="flex flex-col p-1 w-full pb-20 text-black">
-      <h1 className=" text-3xl py-4 mb-6 font-bold text-black">Creatina</h1>
+    <div className="flex flex-col p-2 w-full pb-20 text-black">
+      <h1 className=" text-2xl py-1 px-3 mb-6 font-bold text-black">
+        {couponTitle}
+      </h1>
       <div className="flex mb-8 gap-4 justify-between">
         <div className="flex flex-col gap-1.5 text-sm">
           <p className="flex font-semibold items-center text-generic-alertGreen">

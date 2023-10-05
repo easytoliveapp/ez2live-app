@@ -121,6 +121,7 @@ const CouponListPage: React.FC<ICouponListPageProps> = ({ supplierId }) => {
           supplier?.coupons.length > 0 ? (
             supplier?.coupons.map((coupon: ICoupon, key) => (
               <SupplierCoupons
+                couponTitle={coupon.title}
                 icon={supplier.supplier.id == session?.user.id ? Edit : Arrow}
                 id={coupon.id}
                 supplierCategory={

@@ -14,6 +14,7 @@ import couponsService from "@/service/coupons.service";
 import { showToastify } from "@/hooks/showToastify";
 
 interface SupplierCouponsProps {
+  couponTitle: string;
   discount: string;
   unintsAmount: number;
   expirateTime: string;
@@ -35,6 +36,7 @@ const SupplierCoupons: React.FC<SupplierCouponsProps> = ({
   id,
   supplierName,
   icon,
+  couponTitle,
 }) => {
   const [couponCode, setCouponCode] = useState("");
   const [showCouponModal, setShowCouponModal] = useState(false);
@@ -49,6 +51,7 @@ const SupplierCoupons: React.FC<SupplierCouponsProps> = ({
       <div className="flex flex-col h-auto items-center">
         <Coupon
           id={id}
+          couponTitle={couponTitle}
           couponDiscount={discount}
           expirateTime={expirateTime}
           unintsAmount={10}
@@ -102,6 +105,7 @@ const SupplierCoupons: React.FC<SupplierCouponsProps> = ({
     return (
       <div className="flex flex-col h-auto items-center">
         <CouponActived
+          couponTitle={couponTitle}
           couponDiscount={discount}
           expirateTime={expirationUseDate}
           couponActivateCode={couponCode}
@@ -116,7 +120,7 @@ const SupplierCoupons: React.FC<SupplierCouponsProps> = ({
           Ok, entendi!
         </ButtonPrimary>
         <ButtonPrimary
-          className="w-full mx-4 max-w-md !bg-white"
+          className="w-full mx-4 max-w-md !bg-white !text-primary-main !shadow-none"
           onClick={() => setShowCouponModal(false)}
         >
           voltar
