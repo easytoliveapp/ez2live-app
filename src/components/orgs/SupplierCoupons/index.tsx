@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image, { StaticImageData } from "next/image";
 import CouponPrimary from "@/images/easytolive/icons/couponPrimary.svg";
 import ShoppingCartGreen from "@/images/easytolive/icons/shopping_cart_green.svg";
@@ -29,7 +29,14 @@ interface SupplierCouponsProps {
   supplierCategory: string;
   supplierName: string;
   icon: string | StaticImageData;
-}
+};
+
+const STEPS = {
+  SHOWING_COUPON: 0,
+  LOADING_COUPON: 1,
+  COUPON_ACTIVE: 2,
+  SHOWING_COUPON_CODE: 3,
+};
 
 const SupplierCoupons: React.FC<SupplierCouponsProps> = ({
   discount,
@@ -45,9 +52,29 @@ const SupplierCoupons: React.FC<SupplierCouponsProps> = ({
 }) => {
   const [couponCode, setCouponCode] = useState("");
   const [showCouponModal, setShowCouponModal] = useState(false);
-  const [currentStep, setCurrentStep] = useState(0);
+  const [currentStep, setCurrentStep] = useState<number>(STEPS.SHOWING_COUPON);
 
   const handleNextStep = (step: number) => setCurrentStep(step);
+
+  useEffect(() => {
+    if (couponCode) {
+      handleNextStep(STEPS.COUPON_ACTIVE);
+    }
+  }, [couponCode]);
+
+  useEffect(() => {
+    if (showCouponModal) {
+      handleNextStep(STEPS.SHOWING_COUPON);
+    }
+  }, [showCouponModal]);
+
+  useEffect(() => {
+    if (currentStep === STEPS.COUPON_ACTIVE) {
+      setTimeout(() => {
+        handleNextStep(STEPS.SHOWING_COUPON_CODE);
+      }, 1500);
+    }
+  }, [currentStep]);
 
   const StepOne = () => {
     return (
@@ -89,6 +116,7 @@ const SupplierCoupons: React.FC<SupplierCouponsProps> = ({
       />
     );
   };
+
   const StepThree = () => {
     return (
       <CouponGenerating
@@ -104,6 +132,7 @@ const SupplierCoupons: React.FC<SupplierCouponsProps> = ({
   interface StepFour {
     couponCode: string;
   }
+
   const StepFour: React.FC<StepFour> = ({ couponCode }) => {
     return (
       <div className="flex flex-col h-auto items-center">
@@ -132,25 +161,45 @@ const SupplierCoupons: React.FC<SupplierCouponsProps> = ({
     );
   };
 
-  const ActiveCoupon = async () => {
-    const res: AxiosResponse =
-      await await couponsService.generateCouponCode(id);
+  const renderStep = (step: number) => {
+    switch (step) {
+      case STEPS.SHOWING_COUPON:
+        return <StepOne />;
+      case STEPS.LOADING_COUPON:
+        return <StepTwo />;
+      case STEPS.COUPON_ACTIVE:
+        return <StepThree />;
+      case STEPS.SHOWING_COUPON_CODE:
+        return <StepFour couponCode={couponCode} />;
+      default:
+        return <StepOne />;
+    }
+  }
+
+  const activateCoupon = async () => {
+    const res: AxiosResponse = await couponsService.generateCouponCode(id);
     return res;
   };
+
   const handleActiveCoupon = async () => {
-    handleNextStep(1);
-    ActiveCoupon()
+    handleNextStep(STEPS.LOADING_COUPON);
+
+    activateCoupon()
       .then((res) => {
-        setCouponCode(res?.data?.coupon?.code);
-        setTimeout(() => {
-          handleNextStep(2);
-          setTimeout(() => {
-            handleNextStep(3);
-          }, 1500);
-        }, 3000);
+        if (res?.data?.coupon?.code) {
+          return setTimeout(() => {
+            setCouponCode(res?.data?.coupon?.code);
+          }, 2500);
+        }
+
+        setCurrentStep(STEPS.SHOWING_COUPON);
+        showToastify({
+          label: "Ocorreu um erro interno. Por favor, tente novamente.",
+          type: "error",
+        });
       })
       .catch((error) => {
-        handleNextStep(0);
+        setCurrentStep(STEPS.SHOWING_COUPON);
         if (error?.response?.data?.code === 400) {
           showToastify({
             label:
@@ -173,22 +222,17 @@ const SupplierCoupons: React.FC<SupplierCouponsProps> = ({
       });
   };
 
-  const steps = [
-    <StepOne key={0} />,
-    <StepTwo key={1} />,
-    <StepThree key={2} />,
-    <StepFour couponCode={couponCode} key={3} />,
-  ];
-
   return (
     <div className="bg-primary-main h-auto pl-4 max-h-14 rounded-full flex items-center gap-3">
-      <ModalEdit
-        closeOnBlur={true}
-        show={showCouponModal}
-        onCloseModalEdit={() => setShowCouponModal(false)}
-      >
-        {steps[currentStep]}
-      </ModalEdit>
+      {showCouponModal && (
+        <ModalEdit
+          show
+          closeOnBlur={true}
+          onCloseModalEdit={() => setShowCouponModal(false)}
+        >
+          {renderStep(currentStep)}
+        </ModalEdit>
+      )}
 
       <h2 className=" fon t-bold text-white text-xl">{discount}%</h2>
       <div
