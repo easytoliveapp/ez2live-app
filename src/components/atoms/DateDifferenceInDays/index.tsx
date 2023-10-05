@@ -1,6 +1,6 @@
 import React from "react";
 
-const useDateDiffInDays = (date: string) => {
+const DateDiffInDays = (date: string) => {
   const newDate = new Date();
   const validity = new Date(date);
 
@@ -11,4 +11,4 @@ const useDateDiffInDays = (date: string) => {
   return <div className="mx-1">{DiffInDays}</div>;
 };
 
-export default useDateDiffInDays;
+export default DateDiffInDays;
