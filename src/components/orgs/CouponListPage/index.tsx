@@ -80,10 +80,12 @@ const CouponListPage: React.FC<ICouponListPageProps> = ({ supplierId }) => {
       <div className="px-5 py-6 -mt-6 rounded-t-3xl bg-generic-background w-full h-full">
         <div className="flex items-center justify-between">
           <div className="flex gap-1">
-            <Link href={`/`} className="text-xs underline">
+            <Link href={`/`} className="text-xs underline font-semibold">
               {supplier?.supplier?.supplierInfo?.supplierCategory?.title}
             </Link>
-            <p className="text-xs">/ {supplier?.supplier?.name}</p>
+            <p className="text-xs font-semibold">
+              / {supplier?.supplier?.name}
+            </p>
           </div>
           <div className="flex flex-col">
             <Avaliation note={"4.7"} />
@@ -108,7 +110,7 @@ const CouponListPage: React.FC<ICouponListPageProps> = ({ supplierId }) => {
             )}
           </div>
         </div>
-        <h2 className=" text-xl font-semibold">{supplier?.name}</h2>
+        <h2 className=" text-xl font-semibold">{supplier?.supplier?.name}</h2>
         <p className="pt-2 text-xs text-gray-400">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi
           vero velit quam repellendus facere ea recusandae, sapiente repudiandae
