@@ -120,8 +120,8 @@ function PageHome() {
   return (
     <div className="md:w-[500px] w-full m-auto p-5 relative">
       <FloatButtonNav
-        couponActive={true}
-        backGround="secondary"
+        hasCouponActive={true}
+        backgroundStyle="secondary"
         icon={CouponPrimary}
         href="/"
       />

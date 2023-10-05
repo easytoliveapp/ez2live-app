@@ -9,28 +9,28 @@ import { motion } from "framer-motion";
 
 interface IFloatButtonNavProps {
   icon: StaticImageData;
-  backGround: "main" | "secondary";
+  backgroundStyle: "main" | "secondary";
   href: UrlObject | string;
-  couponActive?: boolean;
+  hasCouponActive?: boolean;
 }
 
 const FloatButtonNav: React.FC<IFloatButtonNavProps & LinkProps<any>> = ({
   href,
-  backGround,
+  backgroundStyle,
   icon,
-  couponActive = false,
+  hasCouponActive = false,
 }) => {
   return (
     <NextLink
       href={href}
       className={`${
-        backGround == "main"
+        backgroundStyle == "main"
           ? "from-primary-main to-white"
           : "from-secondary-main to-secondary-lighter"
       } flex items-center bg-gradient-to-r rounded-l-full pl-4 py-4 pr-5 fixed bottom-28 right-0 z-50 min-h-8 p-3`}
     >
       <Image className="w-9 h-auto" alt="icon-image" src={icon}></Image>
-      {couponActive && (
+      {hasCouponActive && (
         <div className="w-9 h-9 rouded-full flex items-center relative">
           <motion.div
             className="flex items-center justify-center ml-2 w-5 h-5 rounded-full bg-generic-alertGreenLigther"
