@@ -84,7 +84,7 @@ const CompleteSupplierRegister: React.FC = () => {
               <label
                 onChange={() => setLogoPlaceHolder("carregado")}
                 htmlFor="logo"
-                className="flex justify-between cursor-pointer focus:border-primary-ez2live items-center w-full border-black border-[1px] rounded-3xl h-11 px-4 py-3 text-sm font-medium"
+                className="flex justify-between cursor-pointer focus:border-primary-main items-center w-full border-black border-[1px] rounded-3xl h-11 px-4 py-3 text-sm font-medium"
               >
                 <p>{logoPlaceHolder}</p>
                 <span>
@@ -111,7 +111,7 @@ const CompleteSupplierRegister: React.FC = () => {
               <label
                 onChange={() => SetIlustrationImagePlaceHolder("carregado")}
                 htmlFor="ilustration_image"
-                className="flex justify-between cursor-pointer focus:border-primary-ez2live items-center w-full border-black border-[1px] rounded-3xl h-11 px-4 py-3 text-sm font-medium"
+                className="flex justify-between cursor-pointer focus:border-primary-main items-center w-full border-black border-[1px] rounded-3xl h-11 px-4 py-3 text-sm font-medium"
               >
                 <p>{ilustrationImagePlaceHolder}</p>
                 <span>

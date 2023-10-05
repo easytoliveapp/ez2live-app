@@ -24,7 +24,7 @@ const UserForgotPasswordPage = () => {
           <span className=" block text-center text-sm font-semibold text-black dark:text-neutral-300">
             voltar para
             <Link
-              className="text-primary-ez2live text-sm font-semibold"
+              className="text-primary-main text-sm font-semibold"
               href="/auth/login"
             >
               login

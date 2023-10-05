@@ -9,7 +9,7 @@ interface NavBarProps {}
 const NavBar: FC<NavBarProps> = () => {
   return (
     <div>
-      <div className="relative w-full p-4 flex justify-center items-center bg-primary-ez2livebg z-30">
+      <div className="relative w-full p-4 flex justify-center items-center bg-primary-lighter z-30">
         <Link href="/auth/login">
           <Image
             className="w-auto h-8"
