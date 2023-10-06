@@ -11,15 +11,12 @@ import {
   Coupon,
   CouponActivatedPage,
 } from "@/components/mols/index";
-import {
-  ButtonPrimary,
-  ButtonThird,
-  DateDifferenceInDays,
-} from "@/components/atoms/index";
+import { ButtonPrimary, ButtonThird } from "@/components/atoms/index";
 import CouponGenerating from "@/components/atoms/CouponLoading";
 import couponsService from "@/service/coupons.service";
 import { showToastify } from "@/hooks/showToastify";
 import { AxiosResponse } from "axios";
+import DateDifferenceInDays from "@/components/atoms/DateDifferenceInDays";
 
 interface SupplierCouponsProps {
   couponTitle: string;

@@ -1,14 +1,13 @@
 import React from "react";
+import dayjs from "dayjs";
 
-const DateDiffInDays = (date: string) => {
-  const newDate = new Date();
-  const validity = new Date(date);
+const DateDifferenceInDays = (date: string) => {
+  const today = dayjs();
+  const validity = dayjs(date);
 
-  const DiffInMilliseconds = Math.abs(validity.getTime() - newDate.getTime());
+  const DateDiff = validity.diff(today, "day");
 
-  const DiffInDays = Math.ceil(DiffInMilliseconds / (1000 * 60 * 60 * 24));
-
-  return <div className="mx-1">{DiffInDays}</div>;
+  return <div className="mx-1">{DateDiff + 1}</div>;
 };
 
-export default DateDiffInDays;
+export default DateDifferenceInDays;
