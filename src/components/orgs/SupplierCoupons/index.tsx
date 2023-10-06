@@ -16,7 +16,7 @@ import CouponGenerating from "@/components/atoms/CouponLoading";
 import couponsService from "@/service/coupons.service";
 import { showToastify } from "@/hooks/showToastify";
 import { AxiosResponse } from "axios";
-import DateDifferenceInDays from "@/components/atoms/DateDifferenceInDays";
+import getDateDiffInDays from "@/components/atoms/DateDifferenceInDays";
 
 interface SupplierCouponsProps {
   couponTitle: string;
@@ -265,7 +265,7 @@ const SupplierCoupons: React.FC<SupplierCouponsProps> = ({
                 alt="coupon-black"
                 src={ClockCircleRed}
               />
-              termina em {DateDifferenceInDays(expirateTime)} dias
+              termina em {getDateDiffInDays(expirateTime)} dias
             </p>
           </div>
           <div onClick={() => setShowCouponModal(true)}>
