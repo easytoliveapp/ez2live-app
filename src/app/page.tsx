@@ -91,10 +91,6 @@ function PageHome() {
     return res;
   };
 
-  useEffect(() => {
-    console.log(suppliers);
-  }, [suppliers]);
-
   const handleResponse = (res: any) =>
     setSuppliers(res.data.results ? res.data.results : res.data);
 
