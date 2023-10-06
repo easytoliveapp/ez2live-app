@@ -4,12 +4,8 @@ import Link from "next/link";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 
-import {
-  Avaliation,
-  ButtonSecondary,
-  ButtonThird,
-  SupplierCoupons,
-} from "@/components/atoms";
+import { Avaliation, ButtonSecondary, ButtonThird } from "@/components/atoms";
+import { SupplierCoupons } from "@/components/orgs/index";
 import { ISupplier } from "@/types/supplier";
 import ArrowLeft from "@/images/easytolive/icons/arrow-next-right-white.svg";
 import supplierService from "@/service/supplier.service";
@@ -84,10 +80,15 @@ const CouponListPage: React.FC<ICouponListPageProps> = ({ supplierId }) => {
       <div className="px-5 py-6 -mt-6 rounded-t-3xl bg-generic-background w-full h-full">
         <div className="flex items-center justify-between">
           <div className="flex gap-1">
-            <Link href={`/`} className="text-xs underline">
+            <Link
+              href={`/`}
+              className="text-xs underline font-bold text-generic-dark"
+            >
               {supplier?.supplier?.supplierInfo?.supplierCategory?.title}
             </Link>
-            <p className="text-xs">/ {supplier?.supplier?.name}</p>
+            <p className="text-xs font-bold text-generic-dark">
+              / {supplier?.supplier?.name}
+            </p>
           </div>
           <div className="flex flex-col">
             <Avaliation note={"4.7"} />
@@ -100,7 +101,7 @@ const CouponListPage: React.FC<ICouponListPageProps> = ({ supplierId }) => {
             src={LogoImage}
           />
           <div>
-            {supplier?.supplier?.id == session?.user?.id && (
+            {supplier?.supplier?.id === session?.user?.id && (
               <ButtonSecondary onClick={() => setModalCreateCoupon(true)}>
                 <Image
                   src={CouponPrimary}
@@ -112,7 +113,7 @@ const CouponListPage: React.FC<ICouponListPageProps> = ({ supplierId }) => {
             )}
           </div>
         </div>
-        <h2 className=" text-xl font-semibold">{supplier?.name}</h2>
+        <h2 className=" text-xl font-semibold">{supplier?.supplier?.name}</h2>
         <p className="pt-2 text-xs text-gray-400">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi
           vero velit quam repellendus facere ea recusandae, sapiente repudiandae
@@ -125,10 +126,18 @@ const CouponListPage: React.FC<ICouponListPageProps> = ({ supplierId }) => {
           supplier?.coupons.length > 0 ? (
             supplier?.coupons.map((coupon: ICoupon, key) => (
               <SupplierCoupons
-                icon={supplier.supplier?.id == session?.user.id ? Edit : Arrow}
+                couponTitle={coupon.title}
+                icon={supplier.supplier.id === session?.user.id ? Edit : Arrow}
+                id={coupon.id}
+                supplierCategory={
+                  supplier?.supplier?.supplierInfo?.supplierCategory?.title
+                }
+                supplierLogo={LogoImage}
+                supplierName={supplier.supplier.name}
                 discount={coupon.discount}
-                expirateTime={5}
-                unintsAmount={coupon?.maxTotal}
+                expirateTime={coupon.expirationGenerationDate}
+                expirationUseDate={coupon.expirationUseDate}
+                unintsAmount={20}
                 key={key}
               />
             ))

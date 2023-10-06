@@ -13,7 +13,7 @@ const SupplierRegisterPage = () => {
             Criar conta <br />\ estabelecimento
           </h2>
           <div>
-            <div className="flex rounded-full mr-2 w-16 h-16 bg-gradient-to-r from-primary-ez2live to-primary-ez2livebg">
+            <div className="flex rounded-full mr-2 w-16 h-16 bg-gradient-to-r from-primary-main to-primary-lighter">
               <Image
                 src={Supplier}
                 alt="avatar anonimo"
@@ -27,9 +27,9 @@ const SupplierRegisterPage = () => {
           <FormComponent />
           {/* ==== */}
           <span className="block text-center text-black font-medium dark:text-neutral-300">
-            voltar para {}
+            voltar para{" "}
             <Link
-              className="text-primary-ez2live font-semibold"
+              className="text-primary-main font-semibold"
               href="/auth/login"
             >
               login
