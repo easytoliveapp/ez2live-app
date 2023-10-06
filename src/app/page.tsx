@@ -95,17 +95,8 @@ function PageHome() {
     console.log(suppliers);
   }, [suppliers]);
 
-  const handleResponse = (res: any) => {
-    if (res.data.results) {
-      setSuppliers(
-        pageNumber === 1
-          ? res?.data?.results
-          : suppliers.concat(res?.data?.results),
-      );
-    } else {
-      setSuppliers(pageNumber === 1 ? res?.data : suppliers.concat(res?.data));
-    }
-  };
+  const handleResponse = (res: any) =>
+    setSuppliers(res.data.results ? res.data.results : res.data);
 
   useEffect(() => {
     const data = {
