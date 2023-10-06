@@ -21,9 +21,9 @@ const getSupplierCouponsList = async (supplierID: ISupplierCouponsList) => {
   });
 };
 
-const getCouponById = async (couponId: IGetCouponById) => {
+const getCouponById = async (couponId: string) => {
   return await BaseService.fetchData({
-    url: `/coupons/${couponId}`,
+    url: `/coupon/${couponId}`,
     method: "get",
   });
 };
@@ -36,9 +36,17 @@ const updateCoupon = async (data: ICoupon, couponId: IGetCouponById) => {
   });
 };
 
+const generateCouponCode = async (couponId: string) => {
+  return await BaseService.fetchData({
+    url: `/coupon/${couponId}/generate`,
+    method: "post",
+  });
+};
+
 export default {
   createCoupon,
   getSupplierCouponsList,
   getCouponById,
   updateCoupon,
+  generateCouponCode,
 };

@@ -13,8 +13,8 @@ const PageLogin = async () => {
             Entrar
           </h2>
           <div>
-            <div className="relative rounded-full w-40 h-16 bg-gradient-to-r from-secondary-ez2live to-secondary-ez2livebg">
-              <div className="absolute top-8 right-0 rounded-full w-16 h-16 bg-gradient-to-r from-secondary-ez2live to-secondary-ez2livebg"></div>
+            <div className="relative rounded-full w-40 h-16 bg-gradient-to-r from-secondary-main to-secondary-ligther">
+              <div className="absolute top-8 right-0 rounded-full w-16 h-16 bg-gradient-to-r from-secondary-main to-secondary-ligther"></div>
             </div>
           </div>
         </div>
@@ -22,9 +22,9 @@ const PageLogin = async () => {
           {/* FORM */}
           <FormComponent />
           <span className="block text-center text-sm text-black font-semibold dark:text-neutral-300">
-            nova conta? {}
+            nova conta?{" "}
             <Link
-              className="text-primary-ez2live font-semibold"
+              className="text-primary-main font-semibold"
               href="/auth/register/user"
             >
               criar conta
@@ -34,7 +34,7 @@ const PageLogin = async () => {
           <div className="relative text-center">
             <span className="relative z-10 justify-center flex font-semibold text-sm items-center w-full dark:text-neutral-400 dark:bg-neutral-900">
               <div className="bg-white h-0.5 w-full mr-4"></div>
-              <p className="bg-primary-ez2livebg w-4 ">OU</p>
+              <p className="w-4 ">OU</p>
               <div className="bg-white h-0.5 w-full ml-4"></div>
             </span>
           </div>
@@ -46,7 +46,7 @@ const PageLogin = async () => {
             <div className="bg-white h-0.5 w-auto m-auto mb-4"></div>
             <p> tem um estabelecimento e quer se juntar a nós? </p>
             <Link
-              className="text-primary-ez2live text-sm font-semibold"
+              className="text-primary-main text-sm font-semibold"
               href="/auth/register/supplier"
             >
               cadastre-se!

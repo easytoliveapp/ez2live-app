@@ -7,6 +7,7 @@ export interface ModalEditProps {
   onCloseModalEdit: () => void;
   children: React.ReactNode;
   closeOnBlur?: boolean;
+  hasCloseButton?: boolean;
 }
 
 const ModalEdit: FC<ModalEditProps> = ({
@@ -14,6 +15,7 @@ const ModalEdit: FC<ModalEditProps> = ({
   onCloseModalEdit,
   children,
   closeOnBlur,
+  hasCloseButton = true,
 }) => {
   const textareaRef = useRef(null);
 
@@ -42,6 +44,7 @@ const ModalEdit: FC<ModalEditProps> = ({
 
   return (
     <NcModal
+      hasCloseButton={hasCloseButton}
       closeOnBlur={closeOnBlur}
       isOpenProp={show}
       onCloseModal={onCloseModalEdit}

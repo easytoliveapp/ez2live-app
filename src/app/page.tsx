@@ -51,7 +51,7 @@ function PageHome() {
   useEffect(() => {
     if (session?.user?.isSupplier) {
       if (!session?.user?.isVerified) {
-        router.push("/supplier-not-verified");
+        router.push("/");
       } else {
         setControlModalSupplierUploadRegister(true);
       }
@@ -92,18 +92,14 @@ function PageHome() {
   };
 
   const handleResponse = (res: any) =>
-    setSuppliers(
-      pageNumber === 1
-        ? res?.data?.results
-        : suppliers.concat(res?.data?.results),
-    );
+    setSuppliers(res.data.results ? res.data.results : res.data);
 
   useEffect(() => {
     const data = {
       page: pageNumber,
       ...(textSearched && { name: textSearched }),
       ...(supplierCategoriesFilter && {
-        "supplierInfo.supplierCategory": supplierCategoriesFilter,
+        supplierCategory: supplierCategoriesFilter,
       }),
       sortBy: "coupons:desc",
     };
