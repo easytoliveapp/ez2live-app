@@ -127,8 +127,8 @@ const CouponListPage: React.FC<ICouponListPageProps> = ({ supplierId }) => {
         </p>
         <div className="mt-6 pb-16 flex flex-col gap-4">
           {supplier &&
-            Array.isArray(supplier?.coupons) &&
-            supplier?.coupons.length > 0 ? (
+          Array.isArray(supplier?.coupons) &&
+          supplier?.coupons.length > 0 ? (
             supplier?.coupons.map((coupon: ICoupon, key) => (
               <SupplierCoupons
                 couponTitle={coupon.title}
