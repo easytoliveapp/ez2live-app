@@ -41,7 +41,7 @@ const MyAccountPage = () => {
         </FormItem>
 
         <ButtonBasic onClick={() => signOut({ redirect: true })}>
-          deconectar
+          desconectar
         </ButtonBasic>
       </div>
     );

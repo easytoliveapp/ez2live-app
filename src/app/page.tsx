@@ -2,11 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { SupplierCard } from "@/components/mols";
-import {
-  CategoryCard,
-  CompleteSupplierRegister,
-  FloatButtonNav,
-} from "@/components/atoms";
+import { CategoryCard, FloatButtonNav } from "@/components/atoms";
 import SupplierLogo from "@/images/easytolive/logo/logotipo-fundoazulroxo.svg";
 import CouponPrimary from "@/images/easytolive/icons/couponPrimary.svg";
 import SearchCategory from "@/app/searchCategory";
@@ -17,12 +13,13 @@ import { useDebounce } from "use-debounce";
 import { categorieProps } from "@/components/atoms/CategoryCard";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { showToastify } from "@/hooks/showToastify";
-import ModalEdit from "@/components/mols/Modal/ModalEdit";
-import ButtonThird from "@/components/atoms/Button/ButtonThird";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 function PageHome() {
+  const { data: session } = useSession();
+  const router = useRouter();
+
   const [suppliers, setSuppliers] = useState([]);
   const [search, setSearch] = useState("");
   const [textSearched] = useDebounce(search, 1000);
@@ -30,12 +27,6 @@ function PageHome() {
   const [pageNumber, setPageNumber] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [supplierCategoriesFilter, setSupplierCategoriesFilter] = useState("");
-  const [
-    ControlModalSupplierUploadRegister,
-    setControlModalSupplierUploadRegister,
-  ] = useState(false);
-  const { data: session } = useSession();
-  const router = useRouter();
 
   const getAllCategories = async () => {
     const res: any = await SupplierService.getSupplierCategories();
@@ -53,7 +44,7 @@ function PageHome() {
       if (!session?.user?.isVerified) {
         router.push("/");
       } else {
-        setControlModalSupplierUploadRegister(true);
+        router.push("/dashboard");
       }
     }
 
@@ -73,28 +64,28 @@ function PageHome() {
           });
         }
       });
-  }, []);
+  }, [session, router]);
 
   function handleSetSearch(e: any) {
     setSearch(e.target.value);
     setPageNumber(1);
   }
 
-  const getAllSuppliers = async (data: Partial<ISupplierList>) => {
-    const res: any = await SupplierService.getSupplierList(data);
-
-    if (res?.data?.totalPages <= pageNumber) {
-      setHasMore(false);
-    } else {
-      setHasMore(true);
-    }
-    return res;
-  };
-
   const handleResponse = (res: any) =>
     setSuppliers(res.data.results ? res.data.results : res.data);
 
   useEffect(() => {
+    const getAllSuppliers = async (data: Partial<ISupplierList>) => {
+      const res: any = await SupplierService.getSupplierList(data);
+
+      if (res?.data?.totalPages <= pageNumber) {
+        setHasMore(false);
+      } else {
+        setHasMore(true);
+      }
+      return res;
+    };
+
     const data = {
       page: pageNumber,
       ...(textSearched && { name: textSearched }),
@@ -121,19 +112,6 @@ function PageHome() {
         icon={CouponPrimary}
         href="/"
       />
-      <ModalEdit
-        show={ControlModalSupplierUploadRegister}
-        onCloseModalEdit={() => setControlModalSupplierUploadRegister(false)}
-      >
-        <div className="h-[85vh] flex flex-col items-center justify-around">
-          <CompleteSupplierRegister />
-          <ButtonThird
-            onClick={() => setControlModalSupplierUploadRegister(false)}
-          >
-            cancelar
-          </ButtonThird>
-        </div>
-      </ModalEdit>
       <SearchCategory onChange={handleSetSearch} />
       <div className="flex flex-wrap my-6 w-full gap-3">
         {categories.map((category: categorieProps, index) => (
