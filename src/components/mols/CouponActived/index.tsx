@@ -48,7 +48,7 @@ const CouponActivatedPage: React.FC<CouponProps> = ({
       <div className="flex items-center justify-between mb-2 gap-3">
         <hr className="border-neutral-100 rounded-full border-[1px] w-full"></hr>
         <p
-          className=" flex items-center justify-center w-full text-generic-alertGreen font-semibold text-xl
+          className=" flex items-center justify-center w-full text-generic-alertGreen font-semibold text-xl min-w-[200px]
       "
         >
           Cupom ativo

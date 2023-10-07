@@ -15,7 +15,12 @@ export interface CategoryProps {
   onClick?: (e: React.MouseEvent<HTMLDivElement>) => void;
 }
 
-const Categories: FC<CategoryProps> = ({ image, isActive, name, onClick }) => {
+const CategoryCard: FC<CategoryProps> = ({
+  image,
+  isActive,
+  name,
+  onClick,
+}) => {
   return (
     <div
       className={classNames(
@@ -30,4 +35,4 @@ const Categories: FC<CategoryProps> = ({ image, isActive, name, onClick }) => {
   );
 };
 
-export default Categories;
+export default CategoryCard;

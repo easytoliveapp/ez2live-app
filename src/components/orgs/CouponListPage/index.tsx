@@ -4,7 +4,12 @@ import Link from "next/link";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 
-import { Avaliation, ButtonSecondary, ButtonThird } from "@/components/atoms";
+import {
+  Avaliation,
+  ButtonSecondary,
+  ButtonThird,
+  LoadingComponent,
+} from "@/components/atoms";
 import { SupplierCoupons } from "@/components/orgs/index";
 import { ISupplier } from "@/types/supplier";
 import ArrowLeft from "@/images/easytolive/icons/arrow-next-right-white.svg";
@@ -46,9 +51,9 @@ const CouponListPage: React.FC<ICouponListPageProps> = ({ supplierId }) => {
           });
         }
       });
-  }, []);
+  }, [supplierId]);
 
-  return (
+  return supplier ? (
     <div className="relative md:w-[500px] h-full w-full mx-auto">
       <ModalEdit
         closeOnBlur={false}
@@ -122,8 +127,8 @@ const CouponListPage: React.FC<ICouponListPageProps> = ({ supplierId }) => {
         </p>
         <div className="mt-6 pb-16 flex flex-col gap-4">
           {supplier &&
-          Array.isArray(supplier?.coupons) &&
-          supplier?.coupons.length > 0 ? (
+            Array.isArray(supplier?.coupons) &&
+            supplier?.coupons.length > 0 ? (
             supplier?.coupons.map((coupon: ICoupon, key) => (
               <SupplierCoupons
                 couponTitle={coupon.title}
@@ -150,6 +155,8 @@ const CouponListPage: React.FC<ICouponListPageProps> = ({ supplierId }) => {
         Todos os direitos reservados
       </span>
     </div>
+  ) : (
+    <LoadingComponent />
   );
 };
 
