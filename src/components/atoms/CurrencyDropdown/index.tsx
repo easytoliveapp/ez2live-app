@@ -13,7 +13,7 @@ const CurrencyDropdown: React.FC<CurrencyDropdownProps> = ({ children }) => {
           <>
             <Popover.Button
               className={`
-                ${open ? "" : "text-opacity-100"}
+                ${!open && "text-opacity-100"}
                 group px-3 py-1.5  border-neutral-300 hover:border-neutral-400  rounded-full inline-flex items-center text-sm text-black  font-medium hover:text-opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75`}
             >
               <span className=" text-2xl rotate-90">...</span>

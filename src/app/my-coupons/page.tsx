@@ -15,10 +15,11 @@ import CurrencyDropdown from "@/components/atoms/CurrencyDropdown";
 import Image, { StaticImageData } from "next/image";
 import couponsService from "@/service/coupons.service";
 
-interface filterOptions {
+interface IfilterOptions {
   id: string;
   name: string;
   icon: StaticImageData;
+  textColor: string;
 }
 
 const filterOptions = [
@@ -26,22 +27,25 @@ const filterOptions = [
     id: "ACTIVE",
     name: "cupons ativos",
     icon: CouponGreen,
+    textColor: "text-generic-alertGreen",
   },
   {
     id: "USED",
     name: "cupons utilizados",
     icon: CouponBlack,
+    textColor: "text-black",
   },
   {
     id: "EXPIRED",
     name: "cupons expirados",
     icon: CouponRed,
+    textColor: "text-generic-alertRed",
   },
 ];
 
 const MyCouponsPage = () => {
   const { data: session } = useSession();
-  const [couponsFilter, setCouponsFilter] = useState<filterOptions>(
+  const [couponsFilter, setCouponsFilter] = useState<IfilterOptions>(
     filterOptions[0],
   );
   const [coupons, setCoupons] = useState(Array<ICouponsByUser>);
@@ -81,15 +85,7 @@ const MyCouponsPage = () => {
         </div>
       </div>
       <div className="flex justify-end items-center w-full gap-4">
-        <div
-          className={`${
-            couponsFilter?.id === "USED"
-              ? "text-black"
-              : couponsFilter?.id === "EXPIRED"
-              ? "text-generic-alertRed"
-              : "text-generic-alertGreen"
-          } text-lg font-semibold`}
-        >
+        <div className={`${couponsFilter.textColor} text-lg font-semibold`}>
           {couponsFilter?.name}
         </div>
         <CurrencyDropdown>
@@ -97,13 +93,7 @@ const MyCouponsPage = () => {
             <div
               onClick={() => setCouponsFilter(option)}
               key={key}
-              className={`${
-                option.id == "USED"
-                  ? "text-black"
-                  : option.id == "ACTIVE"
-                  ? "text-generic-alertGreen"
-                  : "text-generic-alertRed"
-              } flex gap-2 cursor-pointer`}
+              className={`${option.textColor} flex gap-2 cursor-pointer`}
             >
               <Image
                 className="w-8 h-auto"
