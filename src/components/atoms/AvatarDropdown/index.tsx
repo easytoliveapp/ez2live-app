@@ -2,7 +2,7 @@
 
 import { Popover, Transition } from "@/app/headlessui";
 import userImage from "@/images/easytolive/user/user_circle_1.svg";
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import Avatar from "@/components/atoms/Avatar/Avatar";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
@@ -11,6 +11,12 @@ import { signOut } from "next-auth/react";
 export default function AvatarDropdown() {
   const { data: session } = useSession();
   const user = session?.user;
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleLogout = async () => {
+    setIsLoading(true);
+    signOut({ redirect: true });
+  };
 
   return (
     <div className="AvatarDropdown ">
@@ -125,7 +131,7 @@ export default function AvatarDropdown() {
                     <Link
                       href={"/auth/login"}
                       className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-700 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
-                      onClick={() => signOut({ redirect: true })}
+                      onClick={() => handleLogout()}
                     >
                       <div className="flex items-center justify-center flex-shrink-0 text-neutral-500 ">
                         <svg
@@ -159,7 +165,9 @@ export default function AvatarDropdown() {
                         </svg>
                       </div>
                       <div className="ml-4">
-                        <p className="text-sm font-medium">Desconectar</p>
+                        <p className="text-sm font-medium">
+                          {isLoading ? "Desconectando..." : "Desconectar"}
+                        </p>
                       </div>
                     </Link>
                   </div>

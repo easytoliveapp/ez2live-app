@@ -18,4 +18,3 @@ export { default as ToggleButton } from "./toggleButton";
 export { default as CouponLoading } from "./CouponLoading";
 export { default as LoadingComponent } from "./Loading";
 export { default as FloatButtonNav } from "./FloatButtonNav";
-export { default as getDateDiffInDays } from "./DateDifferenceInDays";
