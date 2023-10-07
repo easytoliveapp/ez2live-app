@@ -87,7 +87,12 @@ const UserCoupons: React.FC<UserCouponsProps> = ({ couponCodeData }) => {
         </Modal>
       )}
 
-      <CouponCard icon={Arrow} discount={discount} {...propsByStatus[status]} />
+      <CouponCard
+        icon={Arrow}
+        discount={discount}
+        setShowCouponModal={setShowCouponModal}
+        {...propsByStatus[status]}
+      />
     </div>
   );
 };

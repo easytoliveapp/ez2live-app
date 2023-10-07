@@ -231,6 +231,7 @@ const SupplierCoupons: React.FC<SupplierCouponsProps> = ({
         discount={discount}
         maxUnitsTotal={maxUnitsTotal}
         expirationUseDate={expirationUseDate}
+        setShowCouponModal={setShowCouponModal}
         icon={icon}
       />
     </div>
