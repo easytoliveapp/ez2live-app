@@ -249,7 +249,8 @@ const SupplierCoupons: React.FC<SupplierCouponsProps> = ({
           />
 
           <span className="bg-gray-300 w-0.5 h-12"></span>
-          <div className="flex flex-col gap-1.5 text-xs">
+          <div className="flex flex-col text-xs">
+            <p className="text-xs font-semibold text-black">{couponTitle}</p>
             <p className="flex font-semibold items-center text-generic-alertGreen">
               <Image
                 className="h-3.5 pr-2 w-auto"
