@@ -5,13 +5,15 @@ import { useSession } from "next-auth/react";
 import Arrow from "@/images/easytolive/icons/arrow-next-right-primary.svg";
 import { ICouponsByUser } from "@/types/coupons";
 import { showToastify } from "@/hooks/showToastify";
-import { SupplierCoupons, FloatButtonNav } from "@/components/atoms/index";
+import { FloatButtonNav } from "@/components/atoms/index";
+import { UserCoupons } from "@/components/mols/index";
 import CouponGreen from "@/images/easytolive/icons/coupongreen.svg";
 import CouponBlack from "@/images/easytolive/icons/couponblack.svg";
 import CouponRed from "@/images/easytolive/icons/couponred.svg";
 import CouponPrimary from "@/images/easytolive/icons/couponPrimary.svg";
 import CurrencyDropdown from "@/components/atoms/CurrencyDropdown";
 import Image, { StaticImageData } from "next/image";
+import couponsService from "@/service/coupons.service";
 
 interface filterOptions {
   id: string;
@@ -21,84 +23,19 @@ interface filterOptions {
 
 const filterOptions = [
   {
-    id: "active",
+    id: "ACTIVE",
     name: "cupons ativos",
     icon: CouponGreen,
   },
   {
-    id: "used",
+    id: "USED",
     name: "cupons utilizados",
     icon: CouponBlack,
   },
   {
-    id: "expired",
+    id: "EXPIRED",
     name: "cupons expirados",
     icon: CouponRed,
-  },
-];
-
-const ArrayCoupons = [
-  {
-    id: 12312312312,
-    status: "active",
-    title: "Creatina 40%",
-    discount: 40,
-    maxTotal: 20,
-    maxPerUser: 5,
-    expirationGenerationDate: "2024-01-01",
-    expirationUseDate: "2024-02-02",
-  },
-  {
-    id: 12312312312,
-    status: "active",
-    title: "Whey 20%",
-    discount: 20,
-    maxTotal: 20,
-    maxPerUser: 5,
-    expirationGenerationDate: "2024-01-01",
-    expirationUseDate: "2024-02-02",
-  },
-  {
-    id: 2312312,
-    status: "used",
-    usageDate: "2023-10-02",
-    title: "Creatina 40%",
-    discount: 40,
-    maxTotal: 20,
-    maxPerUser: 5,
-    expirationGenerationDate: "2024-01-01",
-    expirationUseDate: "2024-02-02",
-  },
-  {
-    id: 1231234124312,
-    status: "used",
-    usageDate: "2023-10-02",
-    title: "Whey 20%",
-    discount: 20,
-    maxTotal: 20,
-    maxPerUser: 5,
-    expirationGenerationDate: "2024-01-01",
-    expirationUseDate: "2024-02-02",
-  },
-  {
-    id: 223124123412312,
-    status: "expired",
-    title: "Creatina 40%",
-    discount: 40,
-    maxTotal: 20,
-    maxPerUser: 5,
-    expirationGenerationDate: "2024-01-01",
-    expirationUseDate: "2024-02-02",
-  },
-  {
-    id: 123141123124312,
-    status: "expired",
-    title: "Whey 20%",
-    discount: 20,
-    maxTotal: 20,
-    maxPerUser: 5,
-    expirationGenerationDate: "2024-01-01",
-    expirationUseDate: "2024-02-02",
   },
 ];
 
@@ -107,17 +44,20 @@ const MyCouponsPage = () => {
   const [couponsFilter, setCouponsFilter] = useState<filterOptions>(
     filterOptions[0],
   );
-  const [coupons, setCoupons] = useState<ICouponsByUser>();
+  const [coupons, setCoupons] = useState(Array<ICouponsByUser>);
 
   const handleGetCouponsByUser = async () => {
-    //TODO - API request to Get user coupons
-    const res: any = await ArrayCoupons;
+    const res: any = await couponsService.getCouponCodesByUser();
     return res;
   };
 
   useEffect(() => {
+    console.log(coupons);
+  }, [coupons]);
+
+  useEffect(() => {
     handleGetCouponsByUser()
-      .then((res) => setCoupons(res))
+      .then((res) => setCoupons(res.data.coupons))
       .catch((error) =>
         showToastify({ type: "error", label: `Ocorreu um erro: ${error}` }),
       );
@@ -143,9 +83,9 @@ const MyCouponsPage = () => {
       <div className="flex justify-end items-center w-full gap-4">
         <div
           className={`${
-            couponsFilter?.id === "used"
+            couponsFilter?.id === "USED"
               ? "text-black"
-              : couponsFilter?.id === "expired"
+              : couponsFilter?.id === "EXPIRED"
               ? "text-generic-alertRed"
               : "text-generic-alertGreen"
           } text-lg font-semibold`}
@@ -158,12 +98,12 @@ const MyCouponsPage = () => {
               onClick={() => setCouponsFilter(option)}
               key={key}
               className={`${
-                option.id == "used"
+                option.id == "USED"
                   ? "text-black"
-                  : option.id == "active"
+                  : option.id == "ACTIVE"
                   ? "text-generic-alertGreen"
                   : "text-generic-alertRed"
-              } flex gap-2`}
+              } flex gap-2 cursor-pointer`}
             >
               <Image
                 className="w-8 h-auto"
@@ -177,18 +117,25 @@ const MyCouponsPage = () => {
       </div>
       <div className="mt-6 pb-16 m-4 flex flex-col gap-4">
         {coupons && Array.isArray(coupons) && coupons.length > 0 ? (
-          coupons.map((coupon: ICouponsByUser, key) => (
-            <SupplierCoupons
-              title={coupon.title}
-              usageDate={coupon.usageDate}
-              status={coupon.status}
-              icon={Arrow}
-              discount={coupon.discount}
-              expirateTime={coupon.expirationUseDate}
-              unintsAmount={coupon.maxTotal}
-              key={key}
-            />
-          ))
+          coupons.map(
+            (coupon: ICouponsByUser, key) =>
+              coupon.status === couponsFilter.id && (
+                <UserCoupons
+                  supplierName={coupon.coupon.supplier.name}
+                  supplierCategory={
+                    coupon.coupon.supplier.supplierInfo.supplierCategory.title
+                  }
+                  couponTittle={coupon.coupon.title}
+                  couponActivateCode={coupon.code}
+                  expirationUseDate={coupon.coupon.expirationUseDate}
+                  status={coupon.status}
+                  icon={Arrow}
+                  discount={coupon.coupon.discount}
+                  unintsAmount={coupon.coupon.maxTotal}
+                  key={key}
+                />
+              ),
+          )
         ) : (
           <em className="text-sm">nenhum cupom encontrado...</em>
         )}

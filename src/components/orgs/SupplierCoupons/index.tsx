@@ -226,7 +226,7 @@ const SupplierCoupons: React.FC<SupplierCouponsProps> = ({
     <div className="bg-primary-main h-auto pl-4 max-h-14 rounded-full flex items-center gap-3">
       {showCouponModal && (
         <ModalEdit
-          show
+          show={showCouponModal}
           closeOnBlur={true}
           onCloseModalEdit={() => setShowCouponModal(false)}
         >

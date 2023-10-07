@@ -119,7 +119,7 @@ function PageHome() {
         hasCouponActive={true}
         backgroundStyle="secondary"
         icon={CouponPrimary}
-        href="/"
+        href="/my-coupons"
       />
       <ModalEdit
         show={ControlModalSupplierUploadRegister}
