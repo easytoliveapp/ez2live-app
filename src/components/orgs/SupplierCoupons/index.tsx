@@ -13,7 +13,7 @@ import CouponCard from "@/components/mols/CouponCard";
 interface SupplierCouponsProps {
   couponTitle: string;
   discount: string;
-  maxUnitsTotal: string;
+  maxUnitsTotal: number;
   expirateTime: string;
   expirationUseDate: string;
   id: string;

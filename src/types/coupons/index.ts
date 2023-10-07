@@ -30,6 +30,7 @@ export interface ICoupon {
 
 export interface ICouponCodesByUser {
   active: boolean;
+  activationDate?: string;
   id: string;
   code: string;
   coupon: {

@@ -2,8 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
-import Arrow from "@/images/easytolive/icons/arrow-next-right-primary.svg";
-import { ICouponCodesByUser, ICouponsByUser } from "@/types/coupons";
+import { ICouponCodesByUser } from "@/types/coupons";
 import { showToastify } from "@/hooks/showToastify";
 import { FloatButtonNav } from "@/components/atoms/index";
 import { UserCoupons } from "@/components/mols/index";
@@ -14,6 +13,7 @@ import CouponPrimary from "@/images/easytolive/icons/couponPrimary.svg";
 import CurrencyDropdown from "@/components/atoms/CurrencyDropdown";
 import Image, { StaticImageData } from "next/image";
 import couponsService from "@/service/coupons.service";
+import Arrow from "@/images/easytolive/icons/arrow-next-right-primary.svg";
 
 interface IfilterOptions {
   id: string;
@@ -109,7 +109,11 @@ const MyCouponsPage = () => {
           couponCodes.map(
             (couponCode: ICouponCodesByUser, key) =>
               couponCode.status === couponsFilter.id && (
-                <UserCoupons couponCodeData={couponCode} key={key} />
+                <UserCoupons
+                  icon={Arrow}
+                  couponCodeData={couponCode}
+                  key={key}
+                />
               ),
           )
         ) : (

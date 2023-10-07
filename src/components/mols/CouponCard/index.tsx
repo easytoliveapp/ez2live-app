@@ -13,7 +13,7 @@ import getDateDiffInDays from "@/utils/getDiffInDays";
 interface ICouponCardProps {
   discount: string;
   couponTitle: string;
-  maxUnitsTotal?: string;
+  maxUnitsTotal?: number;
   activationDate?: string;
   expirationUseDate?: string;
   mainImage?: string | StaticImageData;
