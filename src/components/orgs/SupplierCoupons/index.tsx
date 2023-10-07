@@ -223,7 +223,7 @@ const SupplierCoupons: React.FC<SupplierCouponsProps> = ({
   };
 
   return (
-    <div className="bg-primary-main h-auto pl-4 max-h-14 rounded-full flex items-center gap-3">
+    <div>
       {showCouponModal && (
         <ModalEdit
           show={showCouponModal}
@@ -233,44 +233,50 @@ const SupplierCoupons: React.FC<SupplierCouponsProps> = ({
           {renderStep(currentStep)}
         </ModalEdit>
       )}
-
-      <h2 className=" fon t-bold text-white text-xl">{discount}%</h2>
       <div
-        className={classNames(
-          "rounded-full bg-white w-full py-2 gap-4 -m-[1px] hover:shadow-md cursor-pointer",
-        )}
         onClick={() => setShowCouponModal(true)}
+        className={`bg-primary-main h-auto pl-5 rounded-full flex items-center gap-2 cursor-pointer`}
       >
-        <div className="Rounded-full flex items-center justify-evenly w-full">
-          <Image
-            className="h-10 w-auto"
-            alt="Coupons Image"
-            src={CouponPrimary}
-          />
-
-          <span className="bg-gray-300 w-0.5 h-12"></span>
-          <div className="flex flex-col gap-1 text-xs">
-            <p className="text-xs font-semibold text-black">{couponTitle}</p>
-            <p className="flex font-semibold items-center text-generic-alertGreen">
-              <Image
-                className="h-3.5 pr-2 w-auto"
-                alt="coupon-black"
-                src={ShoppingCartGreen}
-                color="white"
-              />
-              faltam {unintsAmount} unidades
-            </p>
-            <p className="flex font-semibold items-center text-generic-alertRed">
-              <Image
-                className="h-3.5 pr-2 w-auto"
-                alt="coupon-black"
-                src={ClockCircleRed}
-              />
-              termina em {getDateDiffInDays(expirateTime)} dias
-            </p>
-          </div>
-          <div onClick={() => setShowCouponModal(true)}>
-            <Image className="h-6 w-auto" alt="arrow right" src={icon} />
+        <h2 className={`text-white font-semibold text-xl`}>{discount}%</h2>
+        <div
+          className={classNames(
+            "rounded-full bg-white w-full py-3 gap-2 -m-[1px] hover:shadow-md",
+          )}
+        >
+          <div className="Rounded-full flex items-center gap-6 pr-3 pl-6 w-full">
+            <Image
+              className="h-10 w-auto"
+              alt="Coupons Image"
+              src={CouponPrimary}
+            />
+            <span className="bg-gray-300 w-[1px] h-14"></span>
+            <div className="flex-auto">
+              <div className="flex items-center justify-between gap-4">
+                <div className="flex flex-col gap-0.5 text-xs">
+                  <p className="text-xs font-semibold text-black">
+                    {couponTitle}
+                  </p>
+                  <p className="flex font-semibold items-center text-generic-alertGreen">
+                    <Image
+                      className="h-3.5 pr-2 w-auto"
+                      alt="coupon-black"
+                      src={ShoppingCartGreen}
+                      color="white"
+                    />
+                    faltam {unintsAmount} unidades
+                  </p>
+                  <p className="flex font-semibold items-center text-generic-alertRed">
+                    <Image
+                      className="h-3.5 pr-2 w-auto"
+                      alt="coupon-black"
+                      src={ClockCircleRed}
+                    />
+                    termina em {getDateDiffInDays(expirationUseDate)} dias
+                  </p>
+                </div>
+                <Image className="h-6 w-auto" alt="arrow right" src={icon} />
+              </div>
+            </div>
           </div>
         </div>
       </div>

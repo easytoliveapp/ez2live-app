@@ -13,7 +13,7 @@ import LogoImage from "@/images/easytolive/logo/logotipo-fundoazulroxo.svg";
 import { getDateDiffInDays } from "../../atoms/index";
 
 interface UserCouponsProps {
-  couponTittle: string;
+  couponTitle: string;
   discount: string;
   unintsAmount: number;
   icon: string | StaticImageData;

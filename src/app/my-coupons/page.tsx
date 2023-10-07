@@ -115,7 +115,7 @@ const MyCouponsPage = () => {
                   supplierCategory={
                     coupon.coupon.supplier.supplierInfo.supplierCategory.title
                   }
-                  couponTittle={coupon.coupon.title}
+                  couponTitle={coupon.coupon.title}
                   couponActivateCode={coupon.code}
                   expirationUseDate={coupon.coupon.expirationUseDate}
                   status={coupon.status}
