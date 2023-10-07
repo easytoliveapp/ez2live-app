@@ -25,7 +25,7 @@ interface UserCouponsProps {
 }
 
 const UserCoupons: React.FC<UserCouponsProps> = ({
-  couponTittle,
+  couponTitle,
   discount,
   unintsAmount,
   icon,
@@ -39,7 +39,7 @@ const UserCoupons: React.FC<UserCouponsProps> = ({
   const STATUS_COMPONENTS = {
     USED: (
       <div>
-        <p className="text-xs pb-2 font-semibold text-black">{couponTittle}</p>
+        <p className="text-xs pb-2 font-semibold text-black">{couponTitle}</p>
         <div className="flex flex-col gap-0.5 text-xs">
           <p className="flex font-semibold items-center text-generic-alertGreen">
             <Image
@@ -55,7 +55,7 @@ const UserCoupons: React.FC<UserCouponsProps> = ({
     ),
     EXPIRED: (
       <div>
-        <p className="text-xs pb-2 font-semibold text-black">{couponTittle}</p>
+        <p className="text-xs pb-2 font-semibold text-black">{couponTitle}</p>
         <div className="flex flex-col gap-1 text-xs">
           <p className="flex font-semibold items-center text-generic-alertRed">
             <Image
@@ -72,7 +72,7 @@ const UserCoupons: React.FC<UserCouponsProps> = ({
     ACTIVE: (
       <div className="flex items-center justify-between gap-4">
         <div className="flex flex-col gap-0.5 text-xs">
-          <p className="text-xs font-semibold text-black">{couponTittle}</p>
+          <p className="text-xs font-semibold text-black">{couponTitle}</p>
           <p className="flex font-semibold items-center text-generic-alertGreen">
             <Image
               className="h-3.5 pr-2 w-auto"
@@ -107,7 +107,7 @@ const UserCoupons: React.FC<UserCouponsProps> = ({
           <CouponActived
             couponActivateCode={couponActivateCode}
             couponDiscount={discount}
-            couponTitle={couponTittle}
+            couponTitle={couponTitle}
             expirateTime={expirationUseDate}
             supplierCategory={supplierCategory}
             supplierLogo={LogoImage}
