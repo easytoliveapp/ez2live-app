@@ -89,7 +89,7 @@ const MyCouponsPage = () => {
             <div
               onClick={() => setCouponsFilter(option)}
               key={key}
-              className={`${option.textColor} flex gap-2 cursor-pointer`}
+              className={`${option.textColor} flex gap-2 cursor-pointer items-center hover:font-regular`}
             >
               <Image
                 className="w-8 h-auto"
