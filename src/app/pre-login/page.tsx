@@ -9,16 +9,14 @@ import Logo from "@/images/easytolive/logo/logocompleta-semfundoazulroxo.svg";
 
 const PreLoginPage = () => {
   return (
-    <div className="p-4 m-auto md:max-w-[600px] relative">
+    <div className="p-4 m-auto relative bg-gradient-to-b from-generic-gray to-[#DFE1E3]">
       <Image
-        className="md:max-w-[600px] m-auto"
+        className="md:max-w-[500px] absolute right-0"
         alt="pre login back-ground"
         src={PreLoginImage}
         objectFit="cover"
-        objectPosition="center"
-        layout="fill"
       />
-      <div className="flex min-h-[90vh] flex-col w-full justify-between pb-4">
+      <div className="flex min-h-[90vh] m-auto md:max-w-[600px] flex-col w-full justify-between pb-4">
         <Image
           className="z-50 mx-auto pt-12"
           alt="easy to live logo"
