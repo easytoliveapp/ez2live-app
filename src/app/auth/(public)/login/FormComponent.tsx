@@ -8,7 +8,7 @@ import { ILogIn } from "@/types/auth/request";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { showToastify } from "@/hooks/showToastify";
-import { signIn } from "next-auth/react";
+import { getSession, signIn } from "next-auth/react";
 
 const FormComponent = () => {
   const [loading, setLoading] = useState(false);
@@ -37,11 +37,17 @@ const FormComponent = () => {
       password: values.password,
       redirect: false,
     })
-      .then((resp) => {
+      .then(async (resp) => {
         const callbackUrl = params.get("callbackUrl");
 
         if (resp && !resp?.error) {
-          router.push((callbackUrl as any) ?? "/");
+          const session = await getSession();
+
+          router.push(
+            (callbackUrl as any) ?? session?.user?.isSupplier
+              ? "/dashboard"
+              : "/",
+          );
         }
 
         if (resp && resp?.error) {

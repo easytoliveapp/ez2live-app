@@ -8,7 +8,7 @@ import {
   ButtonPrimary,
   Input,
 } from "@/components/atoms";
-import { ModalEdit } from "@/components/mols/index";
+import { Modal } from "@/components/mols/index";
 import { showToastify } from "@/hooks/showToastify";
 import { type IDeleteUSer } from "@/types/user";
 
@@ -109,9 +109,9 @@ const MyAccountPage = () => {
 
     return (
       <div className="relative h-max flex flex-col mx-auto gap-4 w-full max-w-md">
-        <ModalEdit
+        <Modal
           show={handleModal}
-          onCloseModalEdit={() => {
+          onCloseModal={() => {
             setHandleModal(false);
           }}
         >
@@ -175,7 +175,7 @@ const MyAccountPage = () => {
               )}
             </Formik>
           </div>
-        </ModalEdit>
+        </Modal>
         <ButtonSecondary
           onClick={async () => {
             await handleSendEmailChangePassword();

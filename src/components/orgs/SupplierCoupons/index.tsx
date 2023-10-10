@@ -1,27 +1,19 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import Image, { StaticImageData } from "next/image";
-import CouponPrimary from "@/images/easytolive/icons/couponPrimary.svg";
-import ShoppingCartGreen from "@/images/easytolive/icons/shopping_cart_green.svg";
-import ClockCircleRed from "@/images/easytolive/icons/clock_circleRed.svg";
-import classNames from "@/utils/classNames";
-import {
-  ModalEdit,
-  Coupon,
-  CouponActivatedPage,
-} from "@/components/mols/index";
+import { StaticImageData } from "next/image";
+import { Modal, Coupon, CouponActivatedPage } from "@/components/mols/index";
 import { ButtonPrimary, ButtonThird } from "@/components/atoms/index";
 import CouponGenerating from "@/components/atoms/CouponLoading";
 import couponsService from "@/service/coupons.service";
 import { showToastify } from "@/hooks/showToastify";
 import { AxiosResponse } from "axios";
-import getDateDiffInDays from "@/components/atoms/DateDifferenceInDays";
+import CouponCard from "@/components/mols/CouponCard";
 
 interface SupplierCouponsProps {
   couponTitle: string;
   discount: string;
-  unintsAmount: number;
+  maxUnitsTotal: number;
   expirateTime: string;
   expirationUseDate: string;
   id: string;
@@ -40,7 +32,7 @@ const STEPS = {
 
 const SupplierCoupons: React.FC<SupplierCouponsProps> = ({
   discount,
-  unintsAmount,
+  maxUnitsTotal,
   supplierLogo,
   expirateTime,
   expirationUseDate,
@@ -225,61 +217,23 @@ const SupplierCoupons: React.FC<SupplierCouponsProps> = ({
   return (
     <div>
       {showCouponModal && (
-        <ModalEdit
+        <Modal
           show={showCouponModal}
           closeOnBlur={true}
-          onCloseModalEdit={() => setShowCouponModal(false)}
+          onCloseModal={() => setShowCouponModal(false)}
         >
           {renderStep(currentStep)}
-        </ModalEdit>
+        </Modal>
       )}
-      <div
-        onClick={() => setShowCouponModal(true)}
-        className={`bg-primary-main h-auto pl-5 rounded-full flex items-center gap-2 cursor-pointer`}
-      >
-        <h2 className={`text-white font-semibold text-xl`}>{discount}%</h2>
-        <div
-          className={classNames(
-            "rounded-full bg-white w-full py-3 gap-2 -m-[1px] hover:shadow-md",
-          )}
-        >
-          <div className="Rounded-full flex items-center gap-6 pr-3 pl-6 w-full">
-            <Image
-              className="h-10 w-auto"
-              alt="Coupons Image"
-              src={CouponPrimary}
-            />
-            <span className="bg-gray-300 w-[1px] h-14"></span>
-            <div className="flex-auto">
-              <div className="flex items-center justify-between gap-4">
-                <div className="flex flex-col gap-0.5 text-xs">
-                  <p className="text-xs font-semibold text-black">
-                    {couponTitle}
-                  </p>
-                  <p className="flex font-semibold items-center text-generic-alertGreen">
-                    <Image
-                      className="h-3.5 pr-2 w-auto"
-                      alt="coupon-black"
-                      src={ShoppingCartGreen}
-                      color="white"
-                    />
-                    faltam {unintsAmount} unidades
-                  </p>
-                  <p className="flex font-semibold items-center text-generic-alertRed">
-                    <Image
-                      className="h-3.5 pr-2 w-auto"
-                      alt="coupon-black"
-                      src={ClockCircleRed}
-                    />
-                    termina em {getDateDiffInDays(expirationUseDate)} dias
-                  </p>
-                </div>
-                <Image className="h-6 w-auto" alt="arrow right" src={icon} />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+
+      <CouponCard
+        couponTitle={couponTitle}
+        discount={discount}
+        maxUnitsTotal={maxUnitsTotal}
+        expirationUseDate={expirationUseDate}
+        setShowCouponModal={setShowCouponModal}
+        icon={icon}
+      />
     </div>
   );
 };

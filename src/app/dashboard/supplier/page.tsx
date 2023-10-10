@@ -4,7 +4,7 @@ import {
   ButtonSecondary,
   ButtonThird,
   CompleteSupplierRegister,
-  ModalEdit,
+  Modal,
 } from "@/components";
 import React, { useEffect, useState } from "react";
 import { ArchiveBoxIcon } from "@heroicons/react/24/outline";
@@ -64,9 +64,9 @@ function PageDashboard() {
         </div>
       </div>
       {isShowingComplementSignUpModal && (
-        <ModalEdit
+        <Modal
           show
-          onCloseModalEdit={() => setIShowingComplementSignUpModal(false)}
+          onCloseModal={() => setIShowingComplementSignUpModal(false)}
         >
           <div className="h-[85vh] flex flex-col items-center justify-around">
             <CompleteSupplierRegister />
@@ -76,7 +76,7 @@ function PageDashboard() {
               cancelar
             </ButtonThird>
           </div>
-        </ModalEdit>
+        </Modal>
       )}
     </>
   );

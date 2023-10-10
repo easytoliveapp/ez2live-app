@@ -20,7 +20,7 @@ import CouponPrimary from "@/images/easytolive/icons/couponPrimary.svg";
 import Edit from "@/images/easytolive/icons/edit.svg";
 import LogoImage from "@/images/easytolive/logo/logotipo-fundoazulroxo.svg";
 import { useSession } from "next-auth/react";
-import { CreateCoupon, ModalEdit } from "@/components/mols";
+import { CreateCoupon, Modal } from "@/components/mols";
 import { ICoupon } from "@/types/coupons";
 
 interface ICouponListPageProps {
@@ -55,10 +55,10 @@ const CouponListPage: React.FC<ICouponListPageProps> = ({ supplierId }) => {
 
   return supplier ? (
     <div className="relative md:w-[500px] h-full w-full mx-auto">
-      <ModalEdit
+      <Modal
         closeOnBlur={false}
         show={modalCreateCoupon}
-        onCloseModalEdit={() => setModalCreateCoupon(false)}
+        onCloseModal={() => setModalCreateCoupon(false)}
       >
         <div className="flex flex-col items-center w-full">
           <CreateCoupon />
@@ -69,7 +69,7 @@ const CouponListPage: React.FC<ICouponListPageProps> = ({ supplierId }) => {
             cancelar
           </ButtonThird>
         </div>
-      </ModalEdit>
+      </Modal>
       <div className="h-40 w-full bg-gradient-to-r from-primary-lighter to-primary-main"></div>
       <Link
         className="absolute flex items-center justify-center rounded-full top-4 left-4 cursor-pointer h-8 w-8 bg-neutral-400 opacity-75 rotate-180"
@@ -142,7 +142,7 @@ const CouponListPage: React.FC<ICouponListPageProps> = ({ supplierId }) => {
                 discount={coupon.discount}
                 expirateTime={coupon.expirationGenerationDate}
                 expirationUseDate={coupon.expirationUseDate}
-                unintsAmount={20}
+                maxUnitsTotal={20}
                 key={key}
               />
             ))

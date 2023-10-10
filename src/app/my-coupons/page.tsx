@@ -2,8 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
-import Arrow from "@/images/easytolive/icons/arrow-next-right-primary.svg";
-import { ICouponsByUser } from "@/types/coupons";
+import { ICouponCodesByUser } from "@/types/coupons";
 import { showToastify } from "@/hooks/showToastify";
 import { FloatButtonNav } from "@/components/atoms/index";
 import { UserCoupons } from "@/components/mols/index";
@@ -14,6 +13,7 @@ import CouponPrimary from "@/images/easytolive/icons/couponPrimary.svg";
 import CurrencyDropdown from "@/components/atoms/CurrencyDropdown";
 import Image, { StaticImageData } from "next/image";
 import couponsService from "@/service/coupons.service";
+import Arrow from "@/images/easytolive/icons/arrow-next-right-primary.svg";
 
 interface IfilterOptions {
   id: string;
@@ -48,24 +48,20 @@ const MyCouponsPage = () => {
   const [couponsFilter, setCouponsFilter] = useState<IfilterOptions>(
     filterOptions[0],
   );
-  const [coupons, setCoupons] = useState(Array<ICouponsByUser>);
+  const [couponCodes, setCouponCodes] = useState(Array<ICouponCodesByUser>);
 
-  const handleGetCouponsByUser = async () => {
+  const handleGetCouponCodesByUser = async () => {
     const res: any = await couponsService.getCouponCodesByUser();
     return res;
   };
 
   useEffect(() => {
-    console.log(coupons);
-  }, [coupons]);
-
-  useEffect(() => {
-    handleGetCouponsByUser()
-      .then((res) => setCoupons(res.data.coupons))
+    handleGetCouponCodesByUser()
+      .then((res) => setCouponCodes(res.data.coupons))
       .catch((error) =>
         showToastify({ type: "error", label: `Ocorreu um erro: ${error}` }),
       );
-  }, [couponsFilter]);
+  }, []);
 
   return (
     <div className="relative md:w-[500px] h-full w-full mx-auto">
@@ -93,7 +89,7 @@ const MyCouponsPage = () => {
             <div
               onClick={() => setCouponsFilter(option)}
               key={key}
-              className={`${option.textColor} flex gap-2 cursor-pointer`}
+              className={`${option.textColor} flex gap-2 cursor-pointer items-center hover:font-regular`}
             >
               <Image
                 className="w-8 h-auto"
@@ -106,22 +102,16 @@ const MyCouponsPage = () => {
         </CurrencyDropdown>
       </div>
       <div className="mt-6 pb-16 m-4 flex flex-col gap-4">
-        {coupons && Array.isArray(coupons) && coupons.length > 0 ? (
-          coupons.map(
-            (coupon: ICouponsByUser, key) =>
-              coupon.status === couponsFilter.id && (
+        {couponCodes &&
+        Array.isArray(couponCodes) &&
+        couponCodes.length > 0 &&
+        couponCodes.filter((t) => t.status === couponsFilter.id).length > 0 ? (
+          couponCodes.map(
+            (couponCode: ICouponCodesByUser, key) =>
+              couponCode.status === couponsFilter.id && (
                 <UserCoupons
-                  supplierName={coupon.coupon.supplier.name}
-                  supplierCategory={
-                    coupon.coupon.supplier.supplierInfo.supplierCategory.title
-                  }
-                  couponTitle={coupon.coupon.title}
-                  couponActivateCode={coupon.code}
-                  expirationUseDate={coupon.coupon.expirationUseDate}
-                  status={coupon.status}
                   icon={Arrow}
-                  discount={coupon.coupon.discount}
-                  unintsAmount={coupon.coupon.maxTotal}
+                  couponCodeData={couponCode}
                   key={key}
                 />
               ),

@@ -28,8 +28,9 @@ export interface ICoupon {
   id: string;
 }
 
-export interface ICouponsByUser {
+export interface ICouponCodesByUser {
   active: boolean;
+  activationDate?: string;
   id: string;
   code: string;
   coupon: {
