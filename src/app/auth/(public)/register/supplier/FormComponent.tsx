@@ -65,7 +65,7 @@ const FormComponent = () => {
         }
       });
     setInitialValues((prev) => ({ ...prev, supplierCategory: firstCategory }));
-  }, []);
+  }, [firstCategory]);
 
   const FirstStepValidationSchema = Yup.object().shape({
     name: Yup.string()
@@ -194,7 +194,7 @@ const FormComponent = () => {
         {({ errors, touched, handleSubmit }: FormikProps<IRegisterAccount>) => (
           <Form onSubmit={handleSubmit} className="flex flex-col gap-3">
             <FormItem
-              label="nome da empresa"
+              label="Nome da empresa"
               errorMessage={errors.name}
               invalid={!!(errors.name && touched.name)}
             >
@@ -207,7 +207,7 @@ const FormComponent = () => {
               />
             </FormItem>
             <FormItem
-              label="email"
+              label="Email"
               errorMessage={errors.email}
               invalid={!!(errors.email && touched.email)}
             >
@@ -226,14 +226,14 @@ const FormComponent = () => {
             >
               <Field
                 invalid={!!(errors.document && touched.document)}
-                name="document"
+                name="Document"
                 type="text"
                 label="document"
                 component={Input}
               />
             </FormItem>
             <FormItem
-              label="categoria"
+              label="Categoria"
               errorMessage={errors.supplierInfo?.supplierCategory}
               invalid={
                 !!(
@@ -261,7 +261,7 @@ const FormComponent = () => {
               </Field>
             </FormItem>
             <FormItem
-              label="senha"
+              label="Senha"
               errorMessage={errors.password}
               invalid={!!(errors.password && touched.password)}
             >
