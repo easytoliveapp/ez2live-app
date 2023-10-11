@@ -2,8 +2,9 @@ import React from "react";
 import Image, { StaticImageData } from "next/image";
 import CouponGreen from "@/images/easytolive/icons/coupongreen.svg";
 import ClockCircleRed from "@/images/easytolive/icons/clock_circleRed.svg";
-import { AccordionInfo, getDateDiffInDays } from "@/components/atoms";
+import { AccordionInfo } from "@/components/atoms";
 import useDateFormater from "@/hooks/useDateFormater";
+import getDateDiffInDays from "@/utils/getDiffInDays";
 
 interface CouponProps {
   id: string;
@@ -16,7 +17,7 @@ interface CouponProps {
   supplierCategory: string;
 }
 
-const CouponPage: React.FC<CouponProps> = ({
+const CouponContent: React.FC<CouponProps> = ({
   unintsAmount,
   couponDiscount,
   expirateTime,
@@ -90,4 +91,4 @@ const CouponPage: React.FC<CouponProps> = ({
   );
 };
 
-export default CouponPage;
+export default CouponContent;

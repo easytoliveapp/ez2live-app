@@ -2,17 +2,17 @@
 import React, { FC, useEffect, useRef } from "react";
 import NcModal from "@/components/atoms/NcModal/NcModal";
 
-export interface ModalEditProps {
+export interface ModalProps {
   show: boolean;
-  onCloseModalEdit: () => void;
+  onCloseModal: () => void;
   children: React.ReactNode;
   closeOnBlur?: boolean;
   hasCloseButton?: boolean;
 }
 
-const ModalEdit: FC<ModalEditProps> = ({
+const Modal: FC<ModalProps> = ({
   show,
-  onCloseModalEdit,
+  onCloseModal,
   children,
   closeOnBlur,
   hasCloseButton = true,
@@ -47,7 +47,7 @@ const ModalEdit: FC<ModalEditProps> = ({
       hasCloseButton={hasCloseButton}
       closeOnBlur={closeOnBlur}
       isOpenProp={show}
-      onCloseModal={onCloseModalEdit}
+      onCloseModal={onCloseModal}
       contentExtraClass="max-w-lg"
       renderContent={renderContent}
       renderTrigger={renderTrigger}
@@ -56,4 +56,4 @@ const ModalEdit: FC<ModalEditProps> = ({
   );
 };
 
-export default ModalEdit;
+export default Modal;

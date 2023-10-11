@@ -110,7 +110,7 @@ function PageHome() {
         hasCouponActive={true}
         backgroundStyle="secondary"
         icon={CouponPrimary}
-        href="/"
+        href="/my-coupons"
       />
       <SearchCategory onChange={handleSetSearch} />
       <div className="flex flex-wrap my-6 w-full gap-3">
