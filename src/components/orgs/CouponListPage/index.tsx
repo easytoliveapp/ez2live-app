@@ -54,7 +54,7 @@ const CouponListPage: React.FC<ICouponListPageProps> = ({ supplierId }) => {
   }, [supplierId]);
 
   return supplier ? (
-    <div className="relative md:w-[500px] h-full w-full mx-auto">
+    <div className="relative min-h-[800px] md:w-[500px] h-full w-full mx-auto">
       <Modal
         closeOnBlur={false}
         show={modalCreateCoupon}
