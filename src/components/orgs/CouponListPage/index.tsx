@@ -20,7 +20,7 @@ import CouponPrimary from "@/images/easytolive/icons/couponPrimary.svg";
 import Edit from "@/images/easytolive/icons/edit.svg";
 import LogoImage from "@/images/easytolive/logo/logotipo-fundoazulroxo.svg";
 import { useSession } from "next-auth/react";
-import { CreateCoupon, Modal } from "@/components/mols";
+import { CreateAndUpdateCoupon, Modal } from "@/components/mols";
 import { ICoupon } from "@/types/coupons";
 
 interface ICouponListPageProps {
@@ -61,7 +61,7 @@ const CouponListPage: React.FC<ICouponListPageProps> = ({ supplierId }) => {
         onCloseModal={() => setModalCreateCoupon(false)}
       >
         <div className="flex flex-col items-center w-full">
-          <CreateCoupon />
+          <CreateAndUpdateCoupon />
           <ButtonThird
             className="text-generic-alertRed"
             onClick={() => setModalCreateCoupon(false)}
@@ -131,9 +131,12 @@ const CouponListPage: React.FC<ICouponListPageProps> = ({ supplierId }) => {
           supplier?.coupons.length > 0 ? (
             supplier?.coupons.map((coupon: ICoupon, key) => (
               <SupplierCoupons
+                isOwnSupplier={
+                  supplier.supplier.id === session?.user.id ? true : false
+                }
                 couponTitle={coupon.title}
                 icon={supplier.supplier.id === session?.user.id ? Edit : Arrow}
-                id={coupon.id}
+                CouponId={coupon.id}
                 supplierCategory={
                   supplier?.supplier?.supplierInfo?.supplierCategory?.title
                 }

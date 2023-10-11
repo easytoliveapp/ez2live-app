@@ -2,12 +2,18 @@
 
 import React, { useEffect, useState } from "react";
 import { StaticImageData } from "next/image";
-import { Modal, Coupon, CouponActivatedPage } from "@/components/mols/index";
+import {
+  Modal,
+  Coupon,
+  CouponActivatedPage,
+  CreateAndUpdateCoupon,
+} from "@/components/mols/index";
 import { ButtonPrimary, ButtonThird } from "@/components/atoms/index";
 import CouponGenerating from "@/components/atoms/CouponLoading";
 import couponsService from "@/service/coupons.service";
 import { showToastify } from "@/hooks/showToastify";
 import { AxiosResponse } from "axios";
+
 import CouponCard from "@/components/mols/CouponCard";
 
 interface SupplierCouponsProps {
@@ -16,11 +22,12 @@ interface SupplierCouponsProps {
   maxUnitsTotal: number;
   expirateTime: string;
   expirationUseDate: string;
-  id: string;
+  CouponId: string;
   supplierLogo: string | StaticImageData;
   supplierCategory: string;
   supplierName: string;
   icon: string | StaticImageData;
+  isOwnSupplier: boolean;
 }
 
 const STEPS = {
@@ -31,13 +38,14 @@ const STEPS = {
 };
 
 const SupplierCoupons: React.FC<SupplierCouponsProps> = ({
+  isOwnSupplier = false,
   discount,
   maxUnitsTotal,
   supplierLogo,
   expirateTime,
   expirationUseDate,
   supplierCategory,
-  id,
+  CouponId,
   supplierName,
   icon,
   couponTitle,
@@ -72,7 +80,7 @@ const SupplierCoupons: React.FC<SupplierCouponsProps> = ({
     return (
       <div className="flex flex-col h-auto items-center">
         <Coupon
-          id={id}
+          id={CouponId}
           couponTitle={couponTitle}
           couponDiscount={discount}
           expirateTime={expirateTime}
@@ -169,7 +177,8 @@ const SupplierCoupons: React.FC<SupplierCouponsProps> = ({
   };
 
   const activateCoupon = async () => {
-    const res: AxiosResponse = await couponsService.generateCouponCode(id);
+    const res: AxiosResponse =
+      await couponsService.generateCouponCode(CouponId);
     return res;
   };
 
@@ -222,7 +231,11 @@ const SupplierCoupons: React.FC<SupplierCouponsProps> = ({
           closeOnBlur={true}
           onCloseModal={() => setShowCouponModal(false)}
         >
-          {renderStep(currentStep)}
+          {isOwnSupplier ? (
+            <CreateAndUpdateCoupon IsUpdate={true} couponId={CouponId} />
+          ) : (
+            renderStep(currentStep)
+          )}
         </Modal>
       )}
 
