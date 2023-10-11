@@ -68,7 +68,8 @@ const CreateCoupon = () => {
             type: "error",
           });
         }
-      });
+      })
+      .finally(() => setLoading(false));
     return values;
   };
 
