@@ -43,10 +43,18 @@ const generateCouponCode = async (couponId: string) => {
   });
 };
 
+const getCouponCodesByUser = async () => {
+  return await BaseService.fetchData({
+    url: "coupon/code",
+    method: "get",
+  });
+};
+
 export default {
   createCoupon,
   getSupplierCouponsList,
   getCouponById,
   updateCoupon,
   generateCouponCode,
+  getCouponCodesByUser,
 };
