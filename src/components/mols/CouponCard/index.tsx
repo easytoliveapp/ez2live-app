@@ -63,7 +63,9 @@ const CouponCard: React.FC<ICouponCardProps> = ({
                       src={ShoppingCartGreen}
                       color="white"
                     />
-                    faltam {maxUnitsTotal} unidades
+                    {maxUnitsTotal === -1
+                      ? "quantidade ilimitada"
+                      : `faltam ${maxUnitsTotal} unidades`}
                   </p>
                 )}
                 {activationDate && (
