@@ -1,6 +1,7 @@
-import { ButtonSecondary } from "@/components";
+import { ButtonSecondary, FloatButtonNav } from "@/components";
 import React from "react";
 import { ArchiveBoxIcon } from "@heroicons/react/24/outline";
+import UserIcon from "@/images/easytolive/user/user_circle_color_primary.svg";
 
 function PageDashboard() {
   return (
@@ -8,6 +9,11 @@ function PageDashboard() {
       <div className="md:w-screen-xl md:max-w-screen-xl sm:mx-auto mx-2 w-full">
         {/* validate coupon */}
         <div className="mb-10">
+          <FloatButtonNav
+            icon={UserIcon}
+            backgroundStyle={"secondary"}
+            href={"/dashboard/supplier/profile"}
+          />
           <div className="h-10 w-full relative mb-2">
             <div className="absolute right-0 top-0">
               <ButtonSecondary>Ativar cupom</ButtonSecondary>
