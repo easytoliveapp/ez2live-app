@@ -151,7 +151,7 @@ const CouponListPage: React.FC<ICouponListPageProps> = ({ supplierId }) => {
           )}
         </div>
       </div>
-      <span className="md:w-[500px] fixed bottom-0 text-neutral-400 w-full flex justify-center items-center h-16 bg-generic-dark">
+      <span className="md:w-[500px] absolute bottom-0 text-neutral-400 w-full flex justify-center items-center h-16 bg-generic-dark">
         Todos os direitos reservados
       </span>
     </div>

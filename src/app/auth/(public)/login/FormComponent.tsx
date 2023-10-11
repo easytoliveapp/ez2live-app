@@ -82,7 +82,7 @@ const FormComponent = () => {
       {({ errors, touched, handleSubmit }) => (
         <Form onSubmit={handleSubmit} className="flex flex-col gap-3">
           <FormItem
-            label="email"
+            label="Email"
             errorMessage={errors.email}
             invalid={!!(errors.email && touched.email)}
           >
@@ -95,7 +95,7 @@ const FormComponent = () => {
             />
           </FormItem>
           <FormItem
-            label="senha"
+            label="Senha"
             errorMessage={errors.password}
             invalid={!!(errors.password && touched.password)}
           >
