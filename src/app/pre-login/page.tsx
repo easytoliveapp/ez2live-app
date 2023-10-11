@@ -16,26 +16,26 @@ const PreLoginPage = () => {
         src={PreLoginImage}
         objectFit="cover"
       />
-      <div className="flex min-h-[90vh] m-auto md:max-w-[600px] flex-col w-full justify-between pb-4">
+      <div className="flex min-h-[90vh] md:max-w-[600px] flex-col w-full justify-between px-3 pb-6">
         <Image
-          className="z-50 mx-auto pt-12"
+          className="z-50 w-36 h-auto pt-12"
           alt="easy to live logo"
           src={Logo}
         />
         <div className="z-50 max-w-xs flex mb-30 flex-col gap-2 ">
-          <p className="font-semibold text-black text-xl">
+          <p className="font-semibold text-black text-2xl">
             Falta pouco para você aproveitar o seu desconto...
           </p>
           <p className="font-semibold text-xs text-black">
-            Preencha seus dados ou crie sua conta
+            preencha seus dados ou crie sua conta
           </p>
         </div>
         <span></span>
         <span></span>
-        <div className="flex w-full flex-col gap-3">
+        <div className="flex w-full items-center flex-col gap-3">
           <SocialLoginComponent />
           <ButtonPrimary className="!p-3">Já tenho uma conta</ButtonPrimary>
-          <ButtonThird className="!text-primary-main !p-0 m-1">
+          <ButtonThird className="!text-black !p-0 m-1">
             Cadastrar nova conta
           </ButtonThird>
         </div>
