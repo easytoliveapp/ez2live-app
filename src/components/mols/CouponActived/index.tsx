@@ -3,7 +3,7 @@
 import React from "react";
 import Image, { StaticImageData } from "next/image";
 import { AccordionInfo } from "@/components/atoms";
-import useDateFormater from "@/hooks/useDateFormater";
+import useDateFormater from "@/utils/getDateFormater";
 import QRCode from "react-qr-code";
 
 interface CouponProps {

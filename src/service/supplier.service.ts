@@ -16,13 +16,10 @@ const getSupplierById = async (id: string) => {
   });
 };
 
-const verifySupplier = async (supplier: IverifySupplier) => {
+const verifySupplier = async (supplierId: string) => {
   return await BaseService.fetchData({
-    url: `/supplier/${supplier.Id}/verify`,
+    url: `/supplier/${supplierId}/verify`,
     method: "post",
-    data: {
-      verificationStatus: supplier.verificationStatus,
-    },
   });
 };
 

@@ -101,6 +101,7 @@ function PageHome() {
       ...(supplierCategoriesFilter && {
         supplierCategory: supplierCategoriesFilter,
       }),
+      isVerified: true,
       sortBy: "coupons:desc",
     };
 

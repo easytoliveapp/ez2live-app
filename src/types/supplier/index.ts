@@ -49,7 +49,7 @@ export interface ISuppliers {
 
 export interface ISupplierList {
   name: string;
-  isVerified: string;
+  isVerified: boolean;
   sortBy: string;
   supplierCategory: string;
   limit: number;
@@ -57,8 +57,7 @@ export interface ISupplierList {
 }
 
 export interface IverifySupplier {
-  Id: string;
-  verificationStatus?: string;
+  id: string;
 }
 
 export interface ICategoryProps {
