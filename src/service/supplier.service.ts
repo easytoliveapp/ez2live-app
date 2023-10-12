@@ -1,4 +1,4 @@
-import { ISupplierList, IverifySupplier } from "@/types/supplier";
+import { ISupplierList } from "@/types/supplier";
 import { BaseService } from "./base.service";
 
 const getSupplierList = async (data?: Partial<ISupplierList>) => {

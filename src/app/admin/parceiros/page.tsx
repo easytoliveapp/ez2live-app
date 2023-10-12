@@ -2,14 +2,11 @@
 
 import { useState, useEffect } from "react";
 import { useDebounce } from "use-debounce";
-import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
 import supplierService from "@/service/supplier.service";
 import { ISupplierList } from "@/types/supplier";
 import { showToastify } from "@/hooks/showToastify";
 import {
   AccordionInfo,
-  ButtonPrimary,
   ButtonSecondary,
   LoadingComponent,
   SupplierCard,
@@ -24,7 +21,7 @@ interface Supplier {
   email: string;
   isVerified: boolean;
   createdAt: string;
-  supplierInfo: {};
+  supplierInfo: any;
 }
 
 function SupplierPage() {
@@ -33,8 +30,6 @@ function SupplierPage() {
   const [textSearched] = useDebounce(search, 1000);
   const [pageNumber, setPageNumber] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
-  const { data: session } = useSession();
-  const router = useRouter();
 
   const handleResponse = (res: any) =>
     setSuppliers(res.data.results ? res.data.results : res.data);
