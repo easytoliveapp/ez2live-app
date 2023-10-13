@@ -40,8 +40,15 @@ const generateCouponCode = async (couponId: string) => {
 
 const getCouponCodesByUser = async () => {
   return await BaseService.fetchData({
-    url: "coupon/code",
+    url: "/coupon/code",
     method: "get",
+  });
+};
+
+const deleteCoupon = async (id: string) => {
+  return await BaseService.fetchData({
+    url: `/coupon/${id}`,
+    method: "delete",
   });
 };
 
@@ -52,4 +59,5 @@ export default {
   updateCoupon,
   generateCouponCode,
   getCouponCodesByUser,
+  deleteCoupon,
 };

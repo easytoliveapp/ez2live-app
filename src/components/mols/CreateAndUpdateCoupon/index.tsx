@@ -7,12 +7,15 @@ import {
   ButtonSecondary,
   FormItem,
   ToggleButton,
+  ButtonThird,
 } from "@/components/atoms";
 import * as Yup from "yup";
 import { ICreateCoupon, IGetCouponInfo } from "@/types/coupons";
 import couponService from "@/service/coupons.service";
 import { showToastify } from "@/hooks/showToastify";
 import DateFormater from "@/utils/DateFormater";
+import { Modal } from "@/components";
+import couponsService from "@/service/coupons.service";
 
 interface CreateOrUpdateCoupon {
   IsUpdate?: boolean;
@@ -27,6 +30,34 @@ const CreateOrUpdateCoupon: React.FC<CreateOrUpdateCoupon> = ({
   const [couponsUnlimited, setCouponsUnlimited] = useState(true);
   const [unlimitedByUser, setUnlimitedByUser] = useState(true);
   const [coupon, setCoupon] = useState<IGetCouponInfo>();
+  const [deleteModal, setDeleteModal] = useState(false);
+
+  const handleDeleteModal = async () => {
+    if (couponId) {
+      return await couponsService
+        .deleteCoupon(couponId)
+        .then(() =>
+          showToastify({
+            label: "cupom deletado com sucesso",
+            type: "success",
+          }),
+        )
+        .catch((error) => {
+          if (error?.response?.data?.code === 204) {
+            showToastify({
+              label:
+                "Ocorreu um erro ao deletar cupom. Tente novamente em instantes.",
+              type: "error",
+            });
+          }
+        })
+        .finally(() =>
+          setTimeout(() => {
+            window.location.reload();
+          }, 2000),
+        );
+    }
+  };
 
   useEffect(() => {
     if (IsUpdate && couponId) {
@@ -304,6 +335,9 @@ const CreateOrUpdateCoupon: React.FC<CreateOrUpdateCoupon> = ({
             >
               Salvar cupom
             </ButtonSecondary>
+            <ButtonThird onClick={() => setDeleteModal(true)}>
+              deletar Cupom
+            </ButtonThird>
           </Form>
         )}
       </Formik>
@@ -312,6 +346,18 @@ const CreateOrUpdateCoupon: React.FC<CreateOrUpdateCoupon> = ({
 
   return (
     <div className="w-full">
+      <Modal show={deleteModal} onCloseModal={() => setDeleteModal(false)}>
+        <div>
+          <p>Deseja deletar permanentemente o modal?</p>
+          <p>
+            Os cupons gerados pelos usuários ainda podem usar pelos mesmos
+            enquanto ainda estiverem na validade.
+          </p>
+          <ButtonThird onClick={() => handleDeleteModal()}>
+            deletar cupom
+          </ButtonThird>
+        </div>
+      </Modal>
       <div className="mb-6 mt-4 flex justify-between">
         <h2 className="pl-2 flex items-center text-3xl leading-[115%] md:leading-[115%] font-bold text-black dark:text-neutral-100 justify-center">
           {IsUpdate ? "Atualizar Cupom" : "Novo Coupon"}
@@ -321,6 +367,7 @@ const CreateOrUpdateCoupon: React.FC<CreateOrUpdateCoupon> = ({
             <div className="absolute top-8 right-0 rounded-full w-16 h-16 bg-gradient-to-r from-secondary-main to-secondary-lighter"></div>
           </div>
         </div>
+        dM
       </div>
       {<FormikComponent />}
     </div>
