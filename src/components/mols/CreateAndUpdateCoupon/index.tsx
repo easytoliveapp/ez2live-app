@@ -9,9 +9,10 @@ import {
   ToggleButton,
 } from "@/components/atoms";
 import * as Yup from "yup";
-import { ICreateCoupon } from "@/types/coupons";
+import { ICreateCoupon, IGetCouponInfo } from "@/types/coupons";
 import couponService from "@/service/coupons.service";
 import { showToastify } from "@/hooks/showToastify";
+import DateFormater from "@/utils/DateFormater";
 
 interface CreateOrUpdateCoupon {
   IsUpdate?: boolean;
@@ -25,16 +26,16 @@ const CreateOrUpdateCoupon: React.FC<CreateOrUpdateCoupon> = ({
   const [loading, setLoading] = useState(false);
   const [couponsUnlimited, setCouponsUnlimited] = useState(true);
   const [unlimitedByUser, setUnlimitedByUser] = useState(true);
-  const [coupon, setCoupon] = useState<ICreateCoupon>();
+  const [coupon, setCoupon] = useState<IGetCouponInfo>();
 
   useEffect(() => {
     if (IsUpdate && couponId) {
       couponService
         .getCouponById(couponId)
         .then((res: any) => setCoupon(res.data.coupon))
-        .catch(() =>
+        .catch((error) =>
           showToastify({
-            label: "ocorreu um erro ao carregar dados do cupom",
+            label: `ocorreu um erro ao carregar dados do cupom: ${error}`,
             type: "error",
           }),
         )
@@ -43,15 +44,17 @@ const CreateOrUpdateCoupon: React.FC<CreateOrUpdateCoupon> = ({
   }, [IsUpdate, couponId]);
 
   useEffect(() => {
-    if (coupon?.maxPerUser != -1) {
-      setUnlimitedByUser(false);
-    } else {
-      setUnlimitedByUser(true);
-    }
-    if (coupon?.maxTotal != -1) {
-      setCouponsUnlimited(false);
-    } else {
-      setCouponsUnlimited(true);
+    if (!!coupon) {
+      if (Number(coupon?.maxPerUser) === -1) {
+        setUnlimitedByUser(true);
+      } else {
+        setUnlimitedByUser(false);
+      }
+      if (Number(coupon?.maxTotal) === -1) {
+        setCouponsUnlimited(true);
+      } else {
+        setCouponsUnlimited(false);
+      }
     }
   }, [coupon]);
 
@@ -97,7 +100,10 @@ const CreateOrUpdateCoupon: React.FC<CreateOrUpdateCoupon> = ({
         .updateCoupon(data, couponId)
         .then(() => couponSuccessRedirect())
         .catch((error) => {
-          showToastify({ label: `ocorreu um erro: ${error}`, type: "error" });
+          showToastify({
+            label: `ocorreu um erro ao atualizar cupom: ${error}`,
+            type: "error",
+          });
         })
         .finally(() => setLoading(false));
     } else {
@@ -124,6 +130,185 @@ const CreateOrUpdateCoupon: React.FC<CreateOrUpdateCoupon> = ({
 
     return values;
   };
+  const FormikComponent = () => {
+    return (
+      <Formik
+        validateOnBlur={false}
+        initialValues={{
+          title: coupon ? coupon.title : "",
+          discount: coupon ? coupon.discount : "20",
+          maxTotal: coupon ? coupon.maxTotal : 0,
+          maxPerUser: coupon ? coupon.maxPerUser : 0,
+          expirationGenerationDate: coupon
+            ? new Date(coupon.expirationGenerationDate)
+            : new Date("2022-01-01"),
+          expirationUseDate: coupon
+            ? new Date(coupon.expirationUseDate)
+            : new Date("2022-01-01"),
+        }}
+        validationSchema={CreateCouponValidationSchema}
+        onSubmit={handleFormSubmit}
+      >
+        {({ values, errors, touched, isValidating, handleSubmit }) => (
+          <Form onSubmit={handleSubmit} className="flex flex-col gap-3">
+            <FormItem
+              className="w-32 !text-3xl py-3 flex items-center justify-center font-semibold rounded-full border-[1px] border-black"
+              label={values.discount + "%"}
+              errorMessage={errors.discount}
+              invalid={!!(errors.discount && touched.discount)}
+            >
+              <Field
+                invalid={!!(errors.discount && touched.discount)}
+                className="accent-primary-main !focus:border-none !hover:border-none focus:ring-0"
+                name="discount"
+                min="5"
+                max="95"
+                step="1"
+                type="range"
+                label="discount"
+                component={Input}
+              />
+            </FormItem>
+            <FormItem
+              label="Título do cupom"
+              errorMessage={errors.title}
+              invalid={!!(errors.title && touched.title)}
+            >
+              {!!isValidating && <ErrorMessage name="title" />}
+              <Field
+                invalid={!!(errors.title && touched.title)}
+                name="title"
+                type="text"
+                label="title"
+                component={Input}
+                className="bg-white"
+              />
+            </FormItem>
+            <div className="grid grid-cols-2 w-full">
+              <FormItem
+                label="Limite de cupons"
+                errorMessage={!couponsUnlimited && errors.maxTotal}
+                invalid={
+                  !couponsUnlimited && !!(errors.maxTotal && touched.maxTotal)
+                }
+              >
+                <Field
+                  disabled={couponsUnlimited}
+                  invalid={
+                    !couponsUnlimited && !!(errors.maxTotal && touched.maxTotal)
+                  }
+                  name="maxTotal"
+                  value={couponsUnlimited ? "ilimitado" : values.maxTotal}
+                  type="text"
+                  label="maxTotal"
+                  component={Input}
+                  className="bg-white disabled:bg-white"
+                />
+              </FormItem>
+              <FormItem
+                label="Limite por usuário"
+                errorMessage={!unlimitedByUser && errors.maxPerUser}
+                invalid={
+                  !unlimitedByUser &&
+                  !!(errors.maxPerUser && touched.maxPerUser)
+                }
+              >
+                <Field
+                  disabled={unlimitedByUser}
+                  invalid={
+                    !unlimitedByUser &&
+                    !!(errors.maxPerUser && touched.maxPerUser)
+                  }
+                  name="maxPerUser"
+                  value={unlimitedByUser ? "ilimitado" : values.maxPerUser}
+                  type="text"
+                  label="maxPerUser"
+                  component={Input}
+                  className="bg-white disabled:bg-white"
+                />
+              </FormItem>
+              <div>
+                <ToggleButton
+                  onClick={() => setCouponsUnlimited(!couponsUnlimited)}
+                  toggle={couponsUnlimited}
+                  label="ilimitado"
+                />
+              </div>
+              <div>
+                <ToggleButton
+                  onClick={() => setUnlimitedByUser(!unlimitedByUser)}
+                  toggle={unlimitedByUser}
+                  label="ilimitado"
+                />
+              </div>
+            </div>
+            <FormItem
+              label="Cupom ativo até..."
+              errorMessage={errors.expirationGenerationDate}
+              invalid={
+                !!(
+                  errors.expirationGenerationDate &&
+                  touched.expirationGenerationDate
+                )
+              }
+            >
+              <Field
+                invalid={
+                  !!(
+                    errors.expirationGenerationDate &&
+                    touched.expirationGenerationDate
+                  )
+                }
+                name="expirationGenerationDate"
+                type="date"
+                label="expirationGenerationDate"
+                component={Input}
+                className="bg-white cursor-pointer"
+              />
+              {coupon && IsUpdate && (
+                <p>
+                  validade de geração atual:{" "}
+                  {DateFormater(coupon?.expirationGenerationDate)}{" "}
+                </p>
+              )}
+            </FormItem>
+            <FormItem
+              label="Validade para o uso"
+              errorMessage={errors.expirationUseDate}
+              invalid={
+                !!(errors.expirationUseDate && touched.expirationUseDate)
+              }
+            >
+              <Field
+                invalid={
+                  !!(errors.expirationUseDate && touched.expirationUseDate)
+                }
+                name="expirationUseDate"
+                type="date"
+                label="expirationUseDate"
+                component={Input}
+                className="bg-white cursor-pointer"
+              />
+              {coupon && IsUpdate && (
+                <p>
+                  validade de uso atual:{" "}
+                  {DateFormater(coupon?.expirationUseDate)}
+                </p>
+              )}
+            </FormItem>
+            <ButtonSecondary
+              type="submit"
+              className="w-full mt-20"
+              disabled={loading}
+              loading={loading}
+            >
+              Salvar cupom
+            </ButtonSecondary>
+          </Form>
+        )}
+      </Formik>
+    );
+  };
 
   return (
     <div className="w-full">
@@ -137,174 +322,7 @@ const CreateOrUpdateCoupon: React.FC<CreateOrUpdateCoupon> = ({
           </div>
         </div>
       </div>
-      {!!coupon ? (
-        <Formik
-          validateOnBlur={false}
-          initialValues={{
-            title: coupon ? coupon.title : "",
-            discount: coupon ? coupon.discount : "20",
-            maxTotal: coupon ? coupon.maxTotal : -1,
-            maxPerUser: coupon ? coupon.maxPerUser : -1,
-            expirationGenerationDate: coupon
-              ? new Date(coupon.expirationGenerationDate)
-              : new Date("2022-01-01"),
-            expirationUseDate: coupon
-              ? new Date(coupon.expirationUseDate)
-              : new Date("2022-01-01"),
-          }}
-          validationSchema={CreateCouponValidationSchema}
-          onSubmit={handleFormSubmit}
-        >
-          {({ values, errors, touched, isValidating, handleSubmit }) => (
-            <Form onSubmit={handleSubmit} className="flex flex-col gap-3">
-              <FormItem
-                className="w-32 !text-3xl py-3 flex items-center justify-center font-semibold rounded-full border-[1px] border-black"
-                label={values.discount + "%"}
-                errorMessage={errors.discount}
-                invalid={!!(errors.discount && touched.discount)}
-              >
-                <Field
-                  invalid={!!(errors.discount && touched.discount)}
-                  className="accent-primary-main !focus:border-none !hover:border-none focus:ring-0"
-                  name="discount"
-                  min="5"
-                  max="95"
-                  step="1"
-                  type="range"
-                  label="discount"
-                  component={Input}
-                />
-              </FormItem>
-              <FormItem
-                label="Título do cupom"
-                errorMessage={errors.title}
-                invalid={!!(errors.title && touched.title)}
-              >
-                {!!isValidating && <ErrorMessage name="title" />}
-                <Field
-                  invalid={!!(errors.title && touched.title)}
-                  name="title"
-                  type="text"
-                  label="title"
-                  component={Input}
-                  className="bg-white"
-                />
-              </FormItem>
-              <div className="grid grid-cols-2 w-full">
-                <FormItem
-                  label="Limite de cupons"
-                  errorMessage={!couponsUnlimited && errors.maxTotal}
-                  invalid={
-                    !couponsUnlimited && !!(errors.maxTotal && touched.maxTotal)
-                  }
-                >
-                  <Field
-                    disabled={couponsUnlimited}
-                    invalid={
-                      !couponsUnlimited &&
-                      !!(errors.maxTotal && touched.maxTotal)
-                    }
-                    name="maxTotal"
-                    value={couponsUnlimited ? "ilimitado" : values.maxTotal}
-                    type="text"
-                    label="maxTotal"
-                    component={Input}
-                    className="bg-white disabled:bg-white"
-                  />
-                </FormItem>
-                <FormItem
-                  label="Limite por usuário"
-                  errorMessage={!unlimitedByUser && errors.maxPerUser}
-                  invalid={
-                    !unlimitedByUser &&
-                    !!(errors.maxPerUser && touched.maxPerUser)
-                  }
-                >
-                  <Field
-                    disabled={unlimitedByUser}
-                    invalid={
-                      !unlimitedByUser &&
-                      !!(errors.maxPerUser && touched.maxPerUser)
-                    }
-                    name="maxPerUser"
-                    value={unlimitedByUser ? "ilimitado" : values.maxPerUser}
-                    type="text"
-                    label="maxPerUser"
-                    component={Input}
-                    className="bg-white disabled:bg-white"
-                  />
-                </FormItem>
-                <div>
-                  <ToggleButton
-                    onClick={() => setCouponsUnlimited(!couponsUnlimited)}
-                    toggle={couponsUnlimited}
-                    label="ilimitado"
-                  />
-                </div>
-                <div>
-                  <ToggleButton
-                    onClick={() => setUnlimitedByUser(!unlimitedByUser)}
-                    toggle={unlimitedByUser}
-                    label="ilimitado"
-                  />
-                </div>
-              </div>
-              <FormItem
-                label="Cupom ativo até..."
-                errorMessage={errors.expirationGenerationDate}
-                invalid={
-                  !!(
-                    errors.expirationGenerationDate &&
-                    touched.expirationGenerationDate
-                  )
-                }
-              >
-                <Field
-                  invalid={
-                    !!(
-                      errors.expirationGenerationDate &&
-                      touched.expirationGenerationDate
-                    )
-                  }
-                  name="expirationGenerationDate"
-                  type="date"
-                  label="expirationGenerationDate"
-                  component={Input}
-                  className="bg-white cursor-pointer"
-                />
-              </FormItem>
-              <FormItem
-                label="Validade para o uso"
-                errorMessage={errors.expirationUseDate}
-                invalid={
-                  !!(errors.expirationUseDate && touched.expirationUseDate)
-                }
-              >
-                <Field
-                  invalid={
-                    !!(errors.expirationUseDate && touched.expirationUseDate)
-                  }
-                  name="expirationUseDate"
-                  type="date"
-                  label="expirationUseDate"
-                  component={Input}
-                  className="bg-white cursor-pointer"
-                />
-              </FormItem>
-              <ButtonSecondary
-                type="submit"
-                className="w-full mt-20"
-                disabled={loading}
-                loading={loading}
-              >
-                Salvar cupom
-              </ButtonSecondary>
-            </Form>
-          )}
-        </Formik>
-      ) : (
-        "Loading...."
-      )}
+      {<FormikComponent />}
     </div>
   );
 };

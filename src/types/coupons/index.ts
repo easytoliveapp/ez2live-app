@@ -16,6 +16,14 @@ export interface ICreateCoupon {
   expirationGenerationDate: Date;
   expirationUseDate: Date;
 }
+export interface IGetCouponInfo {
+  title: string;
+  discount: string;
+  maxTotal: string;
+  maxPerUser: string;
+  expirationGenerationDate: string;
+  expirationUseDate: string;
+}
 
 export interface ICoupon {
   title: string;
