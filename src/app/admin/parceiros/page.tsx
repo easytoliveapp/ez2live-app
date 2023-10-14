@@ -26,7 +26,8 @@ interface ISupplier {
 }
 
 function SupplierPage() {
-  const [suppliers, setSuppliers] = useState<Supplier[]>([]);
+  const [suppliers, setSuppliers] = useState<ISupplier[]>([]);
+
   const [search, setSearch] = useState("");
   const [textSearched] = useDebounce(search, 1000);
   const [pageNumber, setPageNumber] = useState(1);
