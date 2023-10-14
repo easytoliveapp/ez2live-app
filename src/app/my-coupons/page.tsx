@@ -9,7 +9,7 @@ import { UserCoupons } from "@/components/mols/index";
 import CouponGreen from "@/images/easytolive/icons/coupongreen.svg";
 import CouponBlack from "@/images/easytolive/icons/couponblack.svg";
 import CouponRed from "@/images/easytolive/icons/couponred.svg";
-import CouponPrimary from "@/images/easytolive/icons/couponPrimary.svg";
+import Shop from "@/images/easytolive/icons/shop.svg";
 import CurrencyDropdown from "@/components/atoms/CurrencyDropdown";
 import Image, { StaticImageData } from "next/image";
 import couponsService from "@/service/coupons.service";
@@ -65,11 +65,7 @@ const MyCouponsPage = () => {
 
   return (
     <div className="relative md:w-[500px] h-full w-full mx-auto">
-      <FloatButtonNav
-        href="/"
-        icon={CouponPrimary}
-        backgroundStyle="secondary"
-      />
+      <FloatButtonNav href="/" icon={Shop} backgroundStyle="main" />
       <div className="mt-8 mb-16 flex items-center justify-between">
         <h2 className=" pl-6 flex items-center text-2xl leading-[115%] md:leading-[115%] font-bold text-black dark:text-neutral-100 justify-center">
           {session?.user.name}

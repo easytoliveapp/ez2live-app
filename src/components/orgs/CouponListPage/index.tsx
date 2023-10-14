@@ -8,6 +8,7 @@ import {
   Avaliation,
   ButtonSecondary,
   ButtonThird,
+  FloatButtonNav,
   LoadingComponent,
 } from "@/components/atoms";
 import { SupplierCoupons } from "@/components/orgs/index";
@@ -22,6 +23,7 @@ import LogoImage from "@/images/easytolive/logo/logotipo-fundoazulroxo.svg";
 import { useSession } from "next-auth/react";
 import { CreateCoupon, Modal } from "@/components/mols";
 import { ICoupon } from "@/types/coupons";
+import HomeIcon from "@/images/easytolive/home/home_4.svg";
 
 interface ICouponListPageProps {
   supplierId: string;
@@ -55,6 +57,13 @@ const CouponListPage: React.FC<ICouponListPageProps> = ({ supplierId }) => {
 
   return supplier ? (
     <div className="relative min-h-[800px] md:w-[500px] h-full w-full mx-auto">
+      {supplier?.supplier?.id === session?.user?.id && (
+        <FloatButtonNav
+          icon={HomeIcon}
+          backgroundStyle={"main"}
+          href={"/dashboard"}
+        />
+      )}
       <Modal
         closeOnBlur={false}
         show={modalCreateCoupon}
