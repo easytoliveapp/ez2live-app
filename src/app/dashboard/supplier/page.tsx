@@ -60,7 +60,6 @@ function PageDashboard() {
               </div>
             ))}
           </div>
-          F
         </div>
       </div>
       {isShowingComplementSignUpModal && (
