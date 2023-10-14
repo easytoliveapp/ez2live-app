@@ -6,8 +6,6 @@ import { Result } from "@zxing/library";
 
 import React from "react";
 import ActiveCouponCode from "@/components/mols/ActiveCouponCode";
-import CouponsService from "@/service/coupons.service";
-import { showToastify } from "@/hooks/showToastify";
 
 const ActiveCouponPage = () => {
   const [showCodeValidationModal, setShowCodeValidationModal] =

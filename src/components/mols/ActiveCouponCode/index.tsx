@@ -24,10 +24,12 @@ const ActiveCouponValidationScheema = Yup.object().shape({
 
 const ActiveCouponCode: React.FC<IActiveCouponCodeProps> = ({ code }) => {
   const [couponInfo, setCouponInfo] = React.useState<any>();
+  const [couponValidationLoading, setCouponValidationLoading] =
+    React.useState(false);
   const [couponInfoLoading, setCouponInfoLoading] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
 
-  /*   const getCouponCodeByCode = async (code: string) => {
+  const getCouponCodeByCode = async (code: string) => {
     const codeActive = await CouponsService.getCouponCodesByCode(code);
 
     if (codeActive) {
@@ -38,12 +40,50 @@ const ActiveCouponCode: React.FC<IActiveCouponCodeProps> = ({ code }) => {
       type: "error",
       label: "Código inválido",
     });
-  }; */
+  };
 
-  /* 
-  const handleActiveCouponCode = async (code: string) => {
+  const validateCouponCode = async (code: string) => {
     return await CouponsService.activeCouponCode(code);
-  }; */
+  };
+
+  const handleClickButton = async (values: { couponCode: string }) => {
+    const { couponCode } = values;
+    setLoading(true);
+
+    if (couponInfo) {
+      setCouponValidationLoading(true);
+      await validateCouponCode(couponCode)
+        .then((res) => {
+          console.log(res?.data?.coupon);
+          setCouponInfo(res?.data?.coupon);
+        })
+        .catch(() => {
+          showToastify({
+            type: "error",
+            label: "Código inválido",
+          });
+        })
+        .finally(() => {
+          setCouponValidationLoading(false);
+          setLoading(false);
+        });
+      return;
+    }
+
+    if (!couponInfo) {
+      setCouponInfoLoading(true);
+      await getCouponCodeByCode(couponCode)
+        .then((res) => {
+          console.log(res?.data?.coupon);
+          setCouponInfo(res?.data?.coupon);
+        })
+        .finally(() => {
+          setLoading(false);
+          setCouponInfoLoading(false);
+        });
+      return;
+    }
+  };
 
   useEffect(() => {
     if (code) {
@@ -84,7 +124,7 @@ const ActiveCouponCode: React.FC<IActiveCouponCodeProps> = ({ code }) => {
           couponCode: code ?? "",
         }}
         validationSchema={ActiveCouponValidationScheema}
-        onSubmit={(values) => console.log(values)}
+        onSubmit={(values) => handleClickButton(values)}
       >
         {({ errors, touched, isValidating, handleSubmit }) => (
           <>
@@ -167,6 +207,8 @@ const ActiveCouponCode: React.FC<IActiveCouponCodeProps> = ({ code }) => {
                 <p className="text-lg font-semibold">Carregando...</p>
               </div>
             )}
+
+            {couponValidationLoading && <></>}
 
             <div className="flex flex-col justify-center items-center">
               {!couponInfo && (
