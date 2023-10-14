@@ -1,13 +1,34 @@
 "use client";
 
-import { ButtonPrimary, ButtonThird, HeaderLogged } from "@/components";
-import React from "react";
+import { ButtonPrimary, ButtonThird } from "@/components";
+import React, { useState } from "react";
 import PreLoginImage from "@/images/easytolive/home/fast-login-background.jpeg";
 import Image from "next/image";
 import Logo from "@/images/easytolive/logo/logocompleta-semfundoazulroxo.svg";
 import SocialLoginComponent from "@/app/auth/(public)/login/SocialLoginComponent";
+import { useRouter } from "next/navigation";
+import { motion } from "framer-motion";
 
 const FastLoginPage = () => {
+  const [loadingLogin, setLoadingLogin] = useState(false);
+  const [loadingRegister, setLoadingRegister] = useState(false);
+  const router = useRouter();
+
+  const handleRedirectToLogin = async () => {
+    setLoadingLogin(true);
+    router.push("/auth/login");
+    setTimeout(() => {
+      setLoadingLogin(false);
+    }, 1500);
+  };
+  const handleRedirectToRegister = async () => {
+    setLoadingRegister(true);
+    router.push("/auth/register/user");
+    setTimeout(() => {
+      setLoadingRegister(false);
+    }, 1500);
+  };
+
   return (
     <div className="m-auto">
       <Image
@@ -19,10 +40,11 @@ const FastLoginPage = () => {
         fill={true}
       />
       <div className="absolute -mt-[66px] w-full opacity-50 h-full bg-neutral-200"></div>
-      <div className="absolute top-1 z-50 w-full">
-        <HeaderLogged hasLogoImage={false} />
-      </div>
-      <div className="flex min-h-[90vh] flex-col w-full justify-between px-4 pb-6 pt-48 md:pt-28 md:pb-16 md:px-36 xl:px-60">
+      <motion.div
+        className="flex min-h-[90vh] flex-col w-full justify-between px-4 pb-6 pt-48 md:pt-28 md:pb-16 md:px-36 xl:px-60"
+        animate={{ opacity: [0, 25, 50, 75, 100] }}
+        transition={{ ease: "easeIn", duration: 2 }}
+      >
         <div className="z-50">
           <Image
             className="w-60 h-auto pt-12"
@@ -40,17 +62,22 @@ const FastLoginPage = () => {
         </div>
         <div className="flex flex-col gap-3 md:max-w-xs">
           <SocialLoginComponent />
-          <ButtonPrimary href="/auth/login" className="!p-3">
+          <ButtonPrimary
+            onClick={() => handleRedirectToLogin()}
+            loading={loadingLogin}
+            className="!p-3 hover:translate-y-[-2px]"
+          >
             Já tenho uma conta
           </ButtonPrimary>
           <ButtonThird
-            className="!p-0 m-1 !text-neutral-950"
-            href="/auth/register/user"
+            onClick={() => handleRedirectToRegister()}
+            loading={loadingRegister}
+            className="!p-0 m-1 !text-neutral-950 hover:translate-y-[-2px]"
           >
             Cadastrar nova conta
           </ButtonThird>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 };
