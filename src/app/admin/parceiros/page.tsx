@@ -15,7 +15,8 @@ import SupplierLogo from "@/images/easytolive/logo/logotipo-fundoazulroxo.svg";
 import SearchCategory from "@/app/searchCategory";
 import getDateFormater from "@/utils/getDateFormater";
 
-interface Supplier {
+interface ISupplier {
+
   id: string;
   name: string;
   email: string;
