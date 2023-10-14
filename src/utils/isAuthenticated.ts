@@ -1,6 +1,7 @@
 import { NextRequest } from "next/server";
+import { getToken } from "next-auth/jwt";
 
-export default function isAuthenticated(request: NextRequest): boolean {
+export default async function isAuthenticated(request: NextRequest) {
   const tokenKey =
     process.env.NODE_ENV === "production"
       ? "__Secure-next-auth.session-token"
@@ -12,5 +13,7 @@ export default function isAuthenticated(request: NextRequest): boolean {
     return false;
   }
 
-  return true;
+  const token = await getToken({ req: request });
+
+  return token;
 }

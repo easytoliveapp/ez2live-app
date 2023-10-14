@@ -1,9 +1,14 @@
+"use client";
+
 import { ButtonSecondary, FloatButtonNav } from "@/components";
 import React from "react";
 import { ArchiveBoxIcon } from "@heroicons/react/24/outline";
 import UserIcon from "@/images/easytolive/user/user_circle_color_primary.svg";
+import { useRouter } from "next/navigation";
 
 function PageDashboard() {
+  const router = useRouter();
+
   return (
     <div className="nc-PageHome relative overflow-hidden flex flex-col justify-center items-center w-full gap-3 p-5">
       <div className="md:w-screen-xl md:max-w-screen-xl sm:mx-auto mx-2 w-full">
@@ -16,7 +21,11 @@ function PageDashboard() {
           />
           <div className="h-10 w-full relative mb-2">
             <div className="absolute right-0 top-0">
-              <ButtonSecondary>Ativar cupom</ButtonSecondary>
+              <ButtonSecondary
+                onClick={() => router.push("/dashboard/supplier/active-coupon")}
+              >
+                Ativar cupom
+              </ButtonSecondary>
             </div>
           </div>
         </div>

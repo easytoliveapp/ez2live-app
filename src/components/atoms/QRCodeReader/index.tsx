@@ -3,23 +3,33 @@ import { QrReader } from "react-qr-reader";
 import QRCodeReaderMask from "../QRCodeReaderMask";
 
 export interface IQRCodeReaderProps {
-  onResultCallback: (result: string) => void;
-  onErrorCallback?: (error: string) => void;
+  onResultCallback: (result: any) => void;
+  onErrorCallback?: (error: any) => void;
+  onClose?: () => void;
+  scanDelay?: number;
+  textOverlay?: string;
+  aditionalElements?: React.ReactNode;
 }
 
-const QRCodeReader: React.FC<any> = ({ onResultCallback, onErrorCallback }) => {
+const QRCodeReader: React.FC<IQRCodeReaderProps> = ({
+  onResultCallback,
+  onErrorCallback,
+  onClose,
+  scanDelay = 3000,
+  textOverlay,
+  aditionalElements,
+}) => {
   const [isSuccess, setIsSuccess] = React.useState<boolean>(false);
 
   return (
     <QrReader
-      scanDelay={3000}
+      scanDelay={scanDelay}
       onResult={(result, error) => {
         if (!!error && onErrorCallback) {
           return onErrorCallback(error);
         }
 
         if (!!result) {
-          console.log("result");
           setIsSuccess(true);
           return onResultCallback(result);
         }
@@ -40,8 +50,10 @@ const QRCodeReader: React.FC<any> = ({ onResultCallback, onErrorCallback }) => {
 
         return (
           <QRCodeReaderMask
-            onClose={() => console.log("Lorem ipsum")}
+            onClose={onClose}
             success={isSuccess}
+            textOverlay={textOverlay}
+            aditionalElements={aditionalElements}
           />
         );
       }}
