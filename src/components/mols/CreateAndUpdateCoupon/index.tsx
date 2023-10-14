@@ -367,7 +367,6 @@ const CreateOrUpdateCoupon: React.FC<CreateOrUpdateCoupon> = ({
             <div className="absolute top-8 right-0 rounded-full w-16 h-16 bg-gradient-to-r from-secondary-main to-secondary-lighter"></div>
           </div>
         </div>
-        dM
       </div>
       {<FormikComponent />}
     </div>
