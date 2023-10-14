@@ -4,6 +4,7 @@ import React from "react";
 import Image from "next/image";
 import CouponYellow from "@/images/easytolive/icons/couponyellow.svg";
 import CouponPrimary from "@/images/easytolive/icons/couponPrimary.svg";
+import cx from "classnames";
 import { motion } from "framer-motion";
 
 interface CouponGeneratingProps {
@@ -12,6 +13,7 @@ interface CouponGeneratingProps {
   couponColor: "primary" | "secondary";
   couponAnimation?: boolean;
   backGround: "primary" | "secondary";
+  containerClassnames?: string;
 }
 
 const CouponGenerating: React.FC<CouponGeneratingProps> = ({
@@ -20,9 +22,15 @@ const CouponGenerating: React.FC<CouponGeneratingProps> = ({
   couponColor,
   couponAnimation = false,
   backGround,
+  containerClassnames = "bg-white",
 }) => {
   return (
-    <div className="min-h-[75vh] bg-white flex flex-col justify-around">
+    <div
+      className={cx(
+        containerClassnames,
+        "min-h-[75vh] flex flex-col justify-around",
+      )}
+    >
       <span></span>
       <div className="flex flex-col items-center ">
         <div className="relative rounded-full overflow-hidden w-40 h-40">

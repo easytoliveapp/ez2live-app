@@ -6,8 +6,8 @@ const CouponLoadingPage = () => {
   return (
     <div>
       <CouponLoading
-        backGround="secondary"
-        couponColor="primary"
+        backGround="primary"
+        couponColor="secondary"
         couponAnimation={true}
         title="Gerando cupom de desconto..."
         subTitle="esse processo pode levar alguns segundos!"

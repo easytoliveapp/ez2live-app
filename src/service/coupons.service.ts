@@ -60,7 +60,7 @@ const getCouponCodesByCode = async (couponCode: string) => {
 const activeCouponCode = async (couponCode: string) => {
   return await BaseService.fetchData({
     url: `/coupon/code/${couponCode}/activate`,
-    method: "put",
+    method: "post",
   });
 };
 
