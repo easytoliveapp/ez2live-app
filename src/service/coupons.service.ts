@@ -1,5 +1,9 @@
 import { BaseService } from "./base.service";
-import { ICreateCoupon, ISupplierCouponsList } from "@/types/coupons";
+import {
+  ICreateCoupon,
+  ISupplierCouponsList,
+  IUpdateCoupon,
+} from "@/types/coupons";
 
 const createCoupon = async (data: ICreateCoupon) => {
   return await BaseService.fetchData({
@@ -23,7 +27,7 @@ const getCouponById = async (couponId: string) => {
   });
 };
 
-const updateCoupon = async (data: ICreateCoupon, couponId: string) => {
+const updateCoupon = async (data: IUpdateCoupon, couponId: string) => {
   return await BaseService.fetchData({
     url: `/coupon/${couponId}`,
     method: "put",

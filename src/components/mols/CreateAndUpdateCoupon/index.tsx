@@ -13,7 +13,6 @@ import * as Yup from "yup";
 import { ICreateCoupon, IGetCouponInfo } from "@/types/coupons";
 import couponService from "@/service/coupons.service";
 import { showToastify } from "@/hooks/showToastify";
-import DateFormater from "@/utils/DateFormater";
 import { Modal } from "@/components";
 import couponsService from "@/service/coupons.service";
 
@@ -31,7 +30,6 @@ const CreateOrUpdateCoupon: React.FC<CreateOrUpdateCoupon> = ({
   const [unlimitedByUser, setUnlimitedByUser] = useState(true);
   const [coupon, setCoupon] = useState<IGetCouponInfo>();
   const [deleteModal, setDeleteModal] = useState(false);
-
   const handleDeleteModal = async () => {
     if (couponId) {
       return await couponsService
@@ -117,7 +115,8 @@ const CreateOrUpdateCoupon: React.FC<CreateOrUpdateCoupon> = ({
 
   const handleFormSubmit = async (values: ICreateCoupon) => {
     setLoading(true);
-    const data = {
+
+    const createData = {
       title: values.title,
       discount: String(values.discount),
       maxPerUser: unlimitedByUser ? -1 : Number(values.maxPerUser),
@@ -125,10 +124,16 @@ const CreateOrUpdateCoupon: React.FC<CreateOrUpdateCoupon> = ({
       expirationGenerationDate: new Date(values.expirationGenerationDate),
       expirationUseDate: new Date(values.expirationUseDate),
     };
+    const updateData = {
+      title: values.title,
+      discount: String(values.discount),
+      maxPerUser: unlimitedByUser ? -1 : Number(values.maxPerUser),
+      maxTotal: couponsUnlimited ? -1 : Number(values.maxTotal),
+    };
 
     if (IsUpdate && couponId) {
       await couponService
-        .updateCoupon(data, couponId)
+        .updateCoupon(updateData, couponId)
         .then(() => couponSuccessRedirect())
         .catch((error) => {
           showToastify({
@@ -139,7 +144,7 @@ const CreateOrUpdateCoupon: React.FC<CreateOrUpdateCoupon> = ({
         .finally(() => setLoading(false));
     } else {
       await couponService
-        .createCoupon(data)
+        .createCoupon(createData)
         .then(() => couponSuccessRedirect())
         .catch((error) => {
           if (error?.response?.data?.code === 400) {
@@ -171,11 +176,9 @@ const CreateOrUpdateCoupon: React.FC<CreateOrUpdateCoupon> = ({
           maxTotal: coupon ? coupon.maxTotal : 0,
           maxPerUser: coupon ? coupon.maxPerUser : 0,
           expirationGenerationDate: coupon
-            ? new Date(coupon.expirationGenerationDate)
+            ? new Date()
             : new Date("2022-01-01"),
-          expirationUseDate: coupon
-            ? new Date(coupon.expirationUseDate)
-            : new Date("2022-01-01"),
+          expirationUseDate: coupon ? new Date() : new Date("2022-01-01"),
         }}
         validationSchema={CreateCouponValidationSchema}
         onSubmit={handleFormSubmit}
@@ -273,60 +276,52 @@ const CreateOrUpdateCoupon: React.FC<CreateOrUpdateCoupon> = ({
                 />
               </div>
             </div>
-            <FormItem
-              label="Cupom ativo até..."
-              errorMessage={errors.expirationGenerationDate}
-              invalid={
-                !!(
-                  errors.expirationGenerationDate &&
-                  touched.expirationGenerationDate
-                )
-              }
-            >
-              <Field
-                invalid={
-                  !!(
-                    errors.expirationGenerationDate &&
-                    touched.expirationGenerationDate
-                  )
-                }
-                name="expirationGenerationDate"
-                type="date"
-                label="expirationGenerationDate"
-                component={Input}
-                className="bg-white cursor-pointer"
-              />
-              {coupon && IsUpdate && (
-                <p>
-                  validade de geração atual:{" "}
-                  {DateFormater(coupon?.expirationGenerationDate)}{" "}
-                </p>
-              )}
-            </FormItem>
-            <FormItem
-              label="Validade para o uso"
-              errorMessage={errors.expirationUseDate}
-              invalid={
-                !!(errors.expirationUseDate && touched.expirationUseDate)
-              }
-            >
-              <Field
-                invalid={
-                  !!(errors.expirationUseDate && touched.expirationUseDate)
-                }
-                name="expirationUseDate"
-                type="date"
-                label="expirationUseDate"
-                component={Input}
-                className="bg-white cursor-pointer"
-              />
-              {coupon && IsUpdate && (
-                <p>
-                  validade de uso atual:{" "}
-                  {DateFormater(coupon?.expirationUseDate)}
-                </p>
-              )}
-            </FormItem>
+            {!IsUpdate && (
+              <>
+                <FormItem
+                  label="Cupom ativo até..."
+                  errorMessage={errors.expirationGenerationDate}
+                  invalid={
+                    !!(
+                      errors.expirationGenerationDate &&
+                      touched.expirationGenerationDate
+                    )
+                  }
+                >
+                  <Field
+                    invalid={
+                      !!(
+                        errors.expirationGenerationDate &&
+                        touched.expirationGenerationDate
+                      )
+                    }
+                    name="expirationGenerationDate"
+                    type="date"
+                    label="expirationGenerationDate"
+                    component={Input}
+                    className="bg-white cursor-pointer"
+                  />
+                </FormItem>
+                <FormItem
+                  label="Validade para o uso"
+                  errorMessage={errors.expirationUseDate}
+                  invalid={
+                    !!(errors.expirationUseDate && touched.expirationUseDate)
+                  }
+                >
+                  <Field
+                    invalid={
+                      !!(errors.expirationUseDate && touched.expirationUseDate)
+                    }
+                    name="expirationUseDate"
+                    type="date"
+                    label="expirationUseDate"
+                    component={Input}
+                    className="bg-white cursor-pointer"
+                  />
+                </FormItem>
+              </>
+            )}
             <ButtonSecondary
               type="submit"
               className="w-full mt-20"
@@ -347,15 +342,25 @@ const CreateOrUpdateCoupon: React.FC<CreateOrUpdateCoupon> = ({
   return (
     <div className="w-full">
       <Modal show={deleteModal} onCloseModal={() => setDeleteModal(false)}>
-        <div>
-          <p>Deseja deletar permanentemente o modal?</p>
-          <p>
-            Os cupons gerados pelos usuários ainda podem usar pelos mesmos
+        <div className="w-full flex flex-col">
+          <h2 className="font-bold text-xl w-full text-center pb-1 text-black">
+            DELETAR CUPOM
+          </h2>
+          <p className="p-1 text-center">
+            Deseja deletar permanentemente o cupom?
+          </p>
+          <div className="w-full m-auto">
+            <ButtonThird
+              className="w-full cursor-pointer"
+              onClick={() => handleDeleteModal()}
+            >
+              deletar cupom
+            </ButtonThird>
+          </div>
+          <p className="text-xs p-2 text-center">
+            Obs: Os cupons gerados pelos usuários ainda podem usar pelos mesmos
             enquanto ainda estiverem na validade.
           </p>
-          <ButtonThird onClick={() => handleDeleteModal()}>
-            deletar cupom
-          </ButtonThird>
         </div>
       </Modal>
       <div className="mb-6 mt-4 flex justify-between">
