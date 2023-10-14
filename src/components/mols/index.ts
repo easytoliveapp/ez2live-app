@@ -6,3 +6,4 @@ export { default as Coupon } from "./CouponContent";
 export { default as CouponActivatedPage } from "./CouponActived";
 export { default as CouponActived } from "./CouponActived";
 export { default as UserCoupons } from "./UserCoupons";
+export { default as FastLoginPage } from "./FastLoginPage";
