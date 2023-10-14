@@ -15,8 +15,10 @@ const ActiveCouponPage = () => {
 
   const router = useRouter();
 
-  const handleWithCodeValidation = () =>
+  const handleWithCodeValidation = () => {
+    setCouponCode("");
     setShowCodeValidationModal(!showCodeValidationModal);
+  };
 
   return (
     <>
@@ -50,7 +52,10 @@ const ActiveCouponPage = () => {
       {showCodeValidationModal && (
         <div className="flex justify-center">
           <div className="flex flex-col items-center md:w-[500px] w-full p-2">
-            <ActiveCouponCode code={couponCode} />
+            <ActiveCouponCode
+              code={couponCode}
+              onCancelClick={handleWithCodeValidation}
+            />
           </div>
         </div>
       )}

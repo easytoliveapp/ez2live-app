@@ -14,19 +14,26 @@ import LogoImage from "@/images/easytolive/logo/logotipo-fundoazulroxo.svg";
 import Image from "next/image";
 import { showToastify } from "@/hooks/showToastify";
 import CouponsService from "@/service/coupons.service";
+import cx from "classnames";
 
 export interface IActiveCouponCodeProps {
   code?: string;
+  onCancelClick?: () => void;
 }
 
 const ActiveCouponValidationScheema = Yup.object().shape({
   couponCode: Yup.string().required("Código de validação obrigatório"),
 });
 
-const ActiveCouponCode: React.FC<IActiveCouponCodeProps> = ({ code }) => {
+const ActiveCouponCode: React.FC<IActiveCouponCodeProps> = ({
+  code,
+  onCancelClick,
+}) => {
   const [couponInfo, setCouponInfo] = React.useState<any>();
   const [couponValidationLoading, setCouponValidationLoading] =
     React.useState(false);
+  const [couponValidationError, setCouponValidationError] =
+    React.useState<boolean>(false);
   const [couponIsValidation, setCouponIsValidation] = React.useState(false);
   const [couponInfoLoading, setCouponInfoLoading] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
@@ -48,6 +55,15 @@ const ActiveCouponCode: React.FC<IActiveCouponCodeProps> = ({ code }) => {
     return await CouponsService.activeCouponCode(code);
   };
 
+  const resetComponentState = () => {
+    setCouponInfo("");
+    setCouponValidationLoading(false);
+    setCouponValidationError(false);
+    setCouponIsValidation(false);
+    setCouponInfoLoading(false);
+    setLoading(false);
+  };
+
   const handleClickButton = async (values: { couponCode: string }) => {
     const { couponCode } = values;
     setLoading(true);
@@ -56,11 +72,13 @@ const ActiveCouponCode: React.FC<IActiveCouponCodeProps> = ({ code }) => {
       setCouponIsValidation(true);
       setCouponValidationLoading(true);
       await validateCouponCode(couponCode)
-        .then((res) => {
+        .then((res: any) => {
           console.log(res?.data?.coupon);
           setCouponInfo(res?.data?.coupon);
         })
         .catch(() => {
+          setCouponIsValidation(false);
+          setCouponValidationError(true);
           showToastify({
             type: "error",
             label: "Código inválido",
@@ -76,9 +94,16 @@ const ActiveCouponCode: React.FC<IActiveCouponCodeProps> = ({ code }) => {
     if (!couponInfo) {
       setCouponInfoLoading(true);
       await getCouponCodeByCode(couponCode)
-        .then((res) => {
-          console.log(res?.data?.coupon);
+        .then((res: any) => {
           setCouponInfo(res?.data?.coupon);
+          setCouponValidationError(false);
+        })
+        .catch(() => {
+          setCouponValidationError(true);
+          showToastify({
+            type: "error",
+            label: "Código inválido",
+          });
         })
         .finally(() => {
           setLoading(false);
@@ -92,7 +117,7 @@ const ActiveCouponCode: React.FC<IActiveCouponCodeProps> = ({ code }) => {
     if (code) {
       setCouponInfoLoading(true);
       CouponsService.getCouponCodesByCode(code)
-        .then((res) => {
+        .then((res: any) => {
           setCouponInfo(res?.data?.coupon);
         })
         .catch(() => {
@@ -110,22 +135,37 @@ const ActiveCouponCode: React.FC<IActiveCouponCodeProps> = ({ code }) => {
   return (
     <div className="w-full h-full">
       {couponIsValidation && (
-        <CouponLoading
-          backGround={couponValidationLoading ? "primary" : "secondary"}
-          couponColor={couponValidationLoading ? "secondary" : "primary"}
-          couponAnimation={couponValidationLoading}
-          containerClassnames="bg-transparent"
-          title={
-            couponValidationLoading
-              ? "Validando cupom de desconto..."
-              : "Cupom validado!"
-          }
-          subTitle={
-            couponValidationLoading
-              ? "esse processo pode levar alguns segundos!"
-              : ""
-          }
-        />
+        <>
+          <CouponLoading
+            backGround={couponValidationLoading ? "primary" : "secondary"}
+            couponColor={couponValidationLoading ? "secondary" : "primary"}
+            couponAnimation={couponValidationLoading}
+            containerClassnames="bg-transparent"
+            title={
+              couponValidationLoading
+                ? "Validando cupom de desconto..."
+                : "Cupom validado!"
+            }
+            subTitle={
+              couponValidationLoading
+                ? "esse processo pode levar alguns segundos!"
+                : ""
+            }
+          />
+
+          {!couponValidationLoading && (
+            <div className="flex flex-col justify-center items-center">
+              <ButtonSecondary
+                onClick={() => resetComponentState()}
+                className="w-full mt-4"
+                disabled={loading}
+                loading={loading}
+              >
+                Validar outro cupom
+              </ButtonSecondary>
+            </div>
+          )}
+        </>
       )}
 
       {!couponIsValidation && (
@@ -165,7 +205,9 @@ const ActiveCouponCode: React.FC<IActiveCouponCodeProps> = ({ code }) => {
                       type="text"
                       label="couponCode"
                       component={Input}
-                      className="bg-white"
+                      className={cx("bg-white", {
+                        "border-generic-alertRed": couponValidationError,
+                      })}
                       placeholder="Digite o código"
                     />
                   </FormItem>
@@ -178,8 +220,19 @@ const ActiveCouponCode: React.FC<IActiveCouponCodeProps> = ({ code }) => {
                       <div>
                         <div className="flex items-center justify-between gap-3 py-3">
                           <hr className="border-neutral-100 rounded-full border-[1px] w-full"></hr>
-                          <p className="flex items-center justify-center w-full text-generic-alertGreen font-semibold text-xl min-w-[200px]">
-                            Cupom ativo
+                          <p
+                            className={cx(
+                              "flex items-center justify-center w-full font-semibold text-xl min-w-[200px]",
+                              {
+                                "text-generic-alertRed": couponValidationError,
+                                "text-generic-alertGreen":
+                                  !couponValidationError,
+                              },
+                            )}
+                          >
+                            {!couponValidationError
+                              ? "Cupom ativo"
+                              : "Cupom inválido"}
                           </p>
                           <hr className="border-neutral-100 rounded-full border-[1px] w-full"></hr>
                         </div>
@@ -258,7 +311,7 @@ const ActiveCouponCode: React.FC<IActiveCouponCodeProps> = ({ code }) => {
 
                   <ButtonThird
                     className="text-generic-alertRed"
-                    onClick={() => console.log("validationSchema")}
+                    onClick={onCancelClick}
                   >
                     cancelar
                   </ButtonThird>
