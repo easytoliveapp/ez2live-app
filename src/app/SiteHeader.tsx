@@ -13,11 +13,9 @@ const SiteHeader: React.FC<SiteHeaderProps> = ({ hasLogoImage }) => {
   const { data: session } = useSession();
   useThemeMode();
 
-  return session?.user ? (
-    <HeaderLogged hasLogoImage={hasLogoImage} />
-  ) : (
-    <Header hasLogoImage={hasLogoImage} />
-  );
+  const HeaderComponent = session?.user ? HeaderLogged : Header;
+
+  return <HeaderComponent hasLogoImage={hasLogoImage} />;
 };
 
 export default SiteHeader;
