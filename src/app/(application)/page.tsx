@@ -5,7 +5,7 @@ import { SupplierCard } from "@/components/mols";
 import { CategoryCard, FloatButtonNav } from "@/components/atoms";
 import SupplierLogo from "@/images/easytolive/logo/logotipo-fundoazulroxo.svg";
 import CouponPrimary from "@/images/easytolive/icons/couponPrimary.svg";
-import SearchCategory from "@/app/searchCategory";
+import SearchCategory from "@/app/(application)/searchCategory";
 import SupplierService from "@/service/supplier.service";
 import imageCategory from "@/images/easytolive/icons/categorie-example.svg";
 import { ISuppliers, ISupplierList } from "@/types/supplier";
