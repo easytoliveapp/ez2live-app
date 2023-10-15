@@ -17,12 +17,12 @@ import { showToastify } from "@/hooks/showToastify";
 import { Modal } from "@/components";
 import couponsService from "@/service/coupons.service";
 
-interface CreateOrUpdateCoupon {
+interface ICreateOrUpdateCoupon {
   IsUpdate?: boolean;
   couponId?: string;
 }
 
-const CreateOrUpdateCoupon: React.FC<CreateOrUpdateCoupon> = ({
+const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
   IsUpdate,
   couponId,
 }) => {
@@ -388,7 +388,7 @@ const CreateOrUpdateCoupon: React.FC<CreateOrUpdateCoupon> = ({
                   Salvar cupom
                 </ButtonSecondary>
                 <ButtonThird onClick={() => setDeleteModal(true)}>
-                  deletar Cupom
+                  deletar cupom
                 </ButtonThird>
               </Form>
             )}

@@ -1,7 +1,6 @@
 import dayjs from "dayjs";
 
-const DateFormater = (date?: string) => {
+export const getDateFormater = (date?: string) => {
   const dataFormated = dayjs(date).format("DD/MM/YYYY");
   return dataFormated;
 };
-export default DateFormater;
