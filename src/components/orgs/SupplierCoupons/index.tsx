@@ -47,7 +47,7 @@ const SupplierCoupons: React.FC<SupplierCouponsProps> = ({
   const [showCouponModal, setShowCouponModal] = useState(false);
   const [currentStep, setCurrentStep] = useState<number>(STEPS.SHOWING_COUPON);
   const searchParams = useSearchParams();
-  const params = searchParams.get("coupon");
+  const couponIdParam = searchParams.get("coupon");
 
   const handleNextStep = (step: number) => setCurrentStep(step);
 
@@ -72,10 +72,10 @@ const SupplierCoupons: React.FC<SupplierCouponsProps> = ({
   }, [currentStep]);
 
   useEffect(() => {
-    if (id === params) {
+    if (id === couponIdParam) {
       setShowCouponModal(true);
     }
-  }, [id, params]);
+  }, [id, couponIdParam]);
 
   const StepOne = () => {
     return (
