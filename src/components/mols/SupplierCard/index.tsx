@@ -6,7 +6,7 @@ import Image, { StaticImageData } from "next/image";
 import ArrowRight from "@/images/easytolive/icons/arrow-next-right-black.svg";
 import { useRouter } from "next/navigation";
 
-interface SupplierCardProps {
+interface ISupplierCardProps {
   couponsAvaible?: number;
   supplierCategory: string;
   supplierImage: string | StaticImageData;
@@ -17,7 +17,7 @@ interface SupplierCardProps {
   showArrow?: boolean;
 }
 
-const SupplierCard: FC<SupplierCardProps> = ({
+const SupplierCard: FC<ISupplierCardProps> = ({
   couponsAvaible,
   supplierCategory,
   name,

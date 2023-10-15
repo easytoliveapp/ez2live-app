@@ -10,7 +10,7 @@ type DataProps = {
   content: string | ReactNode;
 };
 
-interface Props {
+interface IAccordionInfoProps {
   panelClassName?: string;
   data?: DataProps[];
 }
@@ -22,7 +22,7 @@ const DEMO_DATA = [
   },
 ];
 
-const AccordionInfo: FC<Props> = ({
+const AccordionInfo: FC<IAccordionInfoProps> = ({
   panelClassName = "p-4 pt-3 last:pb-0 text-slate-600 text-sm  leading-6",
   data = DEMO_DATA,
 }) => {

@@ -16,7 +16,6 @@ import SearchCategory from "@/app/searchCategory";
 import getDateFormater from "@/utils/getDateFormater";
 
 interface ISupplier {
-
   id: string;
   name: string;
   email: string;
@@ -88,7 +87,7 @@ function SupplierPage() {
     setPageNumber(1);
   };
 
-  const renderSupplierContent = (supplier: Supplier) => {
+  const renderSupplierContent = (supplier: ISupplier) => {
     const { createdAt, email, isVerified } = supplier;
     return (
       <>
@@ -112,7 +111,7 @@ function SupplierPage() {
     );
   };
 
-  const renderSupplierName = (supplier: Supplier, idx: number) => {
+  const renderSupplierName = (supplier: ISupplier, idx: number) => {
     return (
       <SupplierCard
         supplierCategory={"test"}
