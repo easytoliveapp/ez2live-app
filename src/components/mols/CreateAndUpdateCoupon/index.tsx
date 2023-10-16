@@ -16,6 +16,7 @@ import couponService from "@/service/coupons.service";
 import { showToastify } from "@/hooks/showToastify";
 import { Modal } from "@/components";
 import couponsService from "@/service/coupons.service";
+import { title } from "process";
 
 interface ICreateOrUpdateCoupon {
   IsUpdate?: boolean;
@@ -45,7 +46,7 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
         .deleteCoupon(couponId)
         .then(() =>
           showToastify({
-            label: "cupom deletado com sucesso",
+            label: "cupom excluído com sucesso",
             type: "success",
           }),
         )
@@ -53,16 +54,15 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
           if (error?.response?.data?.code === 204) {
             showToastify({
               label:
-                "Ocorreu um erro ao deletar cupom. Tente novamente em instantes.",
+                "Ocorreu um erro ao excluir cupom. Tente novamente em instantes.",
               type: "error",
             });
           }
         })
-        .finally(() =>
-          setTimeout(() => {
-            window.location.reload();
-          }, 2000),
-        );
+        .finally(() => {
+          setDeleteModal(false);
+          setLoading(false);
+        });
     }
   };
 
@@ -96,13 +96,14 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
       setInitialValues({
         title: coupon.title,
         discount: coupon.discount,
-        maxPerUser: unlimitedByUser ? 0 : Number(coupon.maxPerUser),
-        maxTotal: couponsUnlimited ? 0 : Number(coupon.maxTotal),
+        maxPerUser:
+          Number(coupon.maxPerUser) === -1 ? 0 : Number(coupon.maxPerUser),
+        maxTotal: Number(coupon.maxTotal) === -1 ? 0 : Number(coupon.maxTotal),
         expirationGenerationDate: new Date(coupon.expirationGenerationDate),
         expirationUseDate: new Date(coupon.expirationUseDate),
       });
     }
-  }, [coupon, unlimitedByUser, couponsUnlimited]);
+  }, [coupon]);
 
   const CreateCouponValidationSchema = Yup.object().shape({
     title: Yup.string().required("Título requerido."),
@@ -126,7 +127,6 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
     });
     setTimeout(() => {
       setLoading(false);
-      window.location.reload();
     }, 2000);
   };
 
@@ -187,7 +187,7 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
   return (
     <div className="w-full">
       <Modal show={deleteModal} onCloseModal={() => setDeleteModal(false)}>
-        <div className="w-full flex flex-col">
+        <div className="w-full flex flex-col gap-3">
           <h2 className="font-bold text-xl w-full text-center pb-1 text-black">
             DELETAR CUPOM
           </h2>
@@ -195,12 +195,12 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
             Deseja deletar permanentemente o cupom?
           </p>
           <div className="w-full m-auto">
-            <ButtonThird
-              className="w-full cursor-pointer"
+            <ButtonSecondary
+              className="w-full !text-white !bg-generic-alertRed cursor-pointer"
               onClick={() => handleDeleteModal()}
             >
               deletar cupom
-            </ButtonThird>
+            </ButtonSecondary>
           </div>
           <p className="text-xs p-2 text-center">
             Obs: Os cupons gerados pelos usuários ainda podem usar pelos mesmos
@@ -387,12 +387,17 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
                 >
                   Salvar cupom
                 </ButtonSecondary>
-                <ButtonThird onClick={() => setDeleteModal(true)}>
-                  deletar cupom
-                </ButtonThird>
               </Form>
             )}
           </Formik>
+          {IsUpdate && (
+            <ButtonThird
+              className="m-auto w-full !hover:border-none"
+              onClick={() => setDeleteModal(true)}
+            >
+              deletar cupom
+            </ButtonThird>
+          )}
         </div>
       )}
     </div>
