@@ -16,7 +16,6 @@ import couponService from "@/service/coupons.service";
 import { showToastify } from "@/hooks/showToastify";
 import { Modal } from "@/components";
 import couponsService from "@/service/coupons.service";
-import { title } from "process";
 
 interface ICreateOrUpdateCoupon {
   IsUpdate?: boolean;
@@ -142,10 +141,16 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
       expirationUseDate: new Date(values.expirationUseDate),
     };
     const updateData = {
-      title: values.title,
-      discount: String(values.discount),
-      maxPerUser: unlimitedByUser ? -1 : Number(values.maxPerUser),
-      maxTotal: couponsUnlimited ? -1 : Number(values.maxTotal),
+      ...(coupon?.title != values.title && { title: values.title }),
+      ...(coupon?.discount != values.discount && {
+        discount: values.discount,
+      }),
+      ...(coupon?.maxPerUser != values?.maxPerUser && {
+        maxPerUser: unlimitedByUser ? -1 : values.maxPerUser,
+      }),
+      ...(coupon?.maxTotal != values?.maxTotal && {
+        maxTotal: couponsUnlimited ? -1 : values.maxTotal,
+      }),
     };
 
     if (IsUpdate && couponId) {

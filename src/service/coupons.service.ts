@@ -27,7 +27,7 @@ const getCouponById = async (couponId: string) => {
   });
 };
 
-const updateCoupon = async (data: IUpdateCoupon, couponId: string) => {
+const updateCoupon = async (data: Partial<IUpdateCoupon>, couponId: string) => {
   return await BaseService.fetchData({
     url: `/coupon/${couponId}`,
     method: "put",
