@@ -1,13 +1,12 @@
 "use client";
 
-import { ButtonPrimary, ButtonThird } from "@/components";
+import { ButtonPrimary, ButtonThird, SocialLoginComponent } from "@/components";
 import React, { useState } from "react";
 import PreLoginImage from "@/images/easytolive/home/fast-login-background.jpeg";
 import Image from "next/image";
 import Logo from "@/images/easytolive/logo/logocompleta-semfundoazulroxo.svg";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import SocialLoginComponent from "@/app/(application)/auth/(public)/login/SocialLoginComponent";
 
 const FastLoginPage = () => {
   const [loadingLogin, setLoadingLogin] = useState(false);
