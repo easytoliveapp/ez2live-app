@@ -5,9 +5,9 @@ import React, { useState } from "react";
 import PreLoginImage from "@/images/easytolive/home/fast-login-background.jpeg";
 import Image from "next/image";
 import Logo from "@/images/easytolive/logo/logocompleta-semfundoazulroxo.svg";
-import SocialLoginComponent from "@/app/auth/(public)/login/SocialLoginComponent";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
+import SocialLoginComponent from "@/app/(application)/auth/(public)/login/SocialLoginComponent";
 
 const FastLoginPage = () => {
   const [loadingLogin, setLoadingLogin] = useState(false);
@@ -39,9 +39,10 @@ const FastLoginPage = () => {
         objectPosition="center"
         fill={true}
       />
-      <div className="absolute -mt-[66px] w-full opacity-50 h-full bg-neutral-200"></div>
+      <div className="absolute w-full opacity-50 h-full bg-neutral-200"></div>
       <motion.div
         className="flex min-h-[90vh] flex-col w-full justify-between px-4 pb-6 pt-48 md:pt-28 md:pb-16 md:px-36 xl:px-60"
+        initial={{ opacity: 0 }}
         animate={{ opacity: [0, 25, 50, 75, 100] }}
         transition={{ ease: "easeIn", duration: 2 }}
       >
