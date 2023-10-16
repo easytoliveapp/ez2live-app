@@ -30,10 +30,5 @@ export async function middleware(request: NextRequest) {
 
 // Limit the middleware to paths starting with `/api/`
 export const config = {
-  matcher: [
-    "/",
-    "/dashboard",
-    "/dashboard/supplier/:path*",
-    "/supplier-not-verified",
-  ],
+  matcher: ["/", "/dashboard", "/supplier-not-verified"],
 };
