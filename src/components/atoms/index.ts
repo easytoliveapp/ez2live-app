@@ -12,7 +12,7 @@ export { default as ButtonThird } from "./Button/ButtonThird";
 export { default as ButtonBasic } from "./Button/ButtonBasic";
 export { default as ItemTypeImage } from "./ItemTypeImageIcon";
 export { default as TextArea } from "./Textarea";
-export { default as SupplierNotVerified } from "../../app/(application)/supplier-not-verified/page";
+export { default as SupplierNotVerified } from "./SupplierNotVirified";
 export { default as CompleteSupplierRegister } from "./CompleteSupplierRegister";
 export { default as ToggleButton } from "./toggleButton";
 export { default as CouponLoading } from "./CouponLoading";
