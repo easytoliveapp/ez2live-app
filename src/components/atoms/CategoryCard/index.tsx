@@ -2,20 +2,20 @@ import React, { FC } from "react";
 import Image, { StaticImageData } from "next/image";
 import classNames from "@/utils/classNames";
 
-export interface categorieProps {
+export interface ICategorieProps {
   active: boolean;
   title: string;
   id: string;
 }
 
-export interface CategoryProps {
+export interface ICategoryProps {
   image: string | StaticImageData;
   isActive: boolean;
   name: string;
   onClick?: (e: React.MouseEvent<HTMLDivElement>) => void;
 }
 
-const CategoryCard: FC<CategoryProps> = ({
+const CategoryCard: FC<ICategoryProps> = ({
   image,
   isActive,
   name,

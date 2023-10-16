@@ -6,12 +6,12 @@ import "@/styles/index.scss";
 import "rc-slider/assets/index.css";
 import "react-toastify/dist/ReactToastify.css";
 
-import SiteHeader from "@/app/SiteHeader";
+import SiteHeader from "@/app/(application)/SiteHeader";
 import CommonClient from "./CommonClient";
 import ToastProvider from "@/providers/ToastProvider";
 import AuthProvider from "@/providers/SessionProvider";
 import { getServerSession } from "next-auth";
-import { authOptions } from "./api/auth/[...nextauth]/route";
+import { authOptions } from "../api/auth/[...nextauth]/route";
 
 const poppins = Poppins({
   subsets: ["latin"],
