@@ -141,14 +141,14 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
       expirationUseDate: new Date(values.expirationUseDate),
     };
     const updateData = {
-      ...(coupon?.title != values.title && { title: values.title }),
-      ...(coupon?.discount != values.discount && {
-        discount: values.discount,
+      ...(coupon?.title !== values.title && { title: values.title }),
+      ...(coupon?.discount !== values.discount && {
+        discount: String(values.discount),
       }),
-      ...(coupon?.maxPerUser != values?.maxPerUser && {
+      ...(coupon?.maxPerUser !== values?.maxPerUser && {
         maxPerUser: unlimitedByUser ? -1 : values.maxPerUser,
       }),
-      ...(coupon?.maxTotal != values?.maxTotal && {
+      ...(coupon?.maxTotal !== values?.maxTotal && {
         maxTotal: couponsUnlimited ? -1 : values.maxTotal,
       }),
     };
