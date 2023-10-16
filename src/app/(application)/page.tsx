@@ -2,15 +2,18 @@
 
 import React, { useEffect, useState } from "react";
 import { SupplierCard } from "@/components/mols";
-import { CategoryCard, FloatButtonNav } from "@/components/atoms";
+import {
+  CategoryCard,
+  FloatButtonNav,
+  SearchCategory,
+} from "@/components/atoms";
 import SupplierLogo from "@/images/easytolive/logo/logotipo-fundoazulroxo.svg";
 import CouponPrimary from "@/images/easytolive/icons/couponPrimary.svg";
-import SearchCategory from "@/app/searchCategory";
 import SupplierService from "@/service/supplier.service";
 import imageCategory from "@/images/easytolive/icons/categorie-example.svg";
 import { ISuppliers, ISupplierList } from "@/types/supplier";
 import { useDebounce } from "use-debounce";
-import { categorieProps } from "@/components/atoms/CategoryCard";
+import { ICategorieProps } from "@/components/atoms/CategoryCard";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { showToastify } from "@/hooks/showToastify";
 import { useSession } from "next-auth/react";
@@ -114,7 +117,7 @@ function PageHome() {
       />
       <SearchCategory onChange={handleSetSearch} />
       <div className="flex flex-wrap my-6 w-full gap-3">
-        {categories.map((category: categorieProps, index) => (
+        {categories.map((category: ICategorieProps, index) => (
           <CategoryCard
             key={index}
             name={category.title}

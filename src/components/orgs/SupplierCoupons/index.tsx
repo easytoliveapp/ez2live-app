@@ -9,6 +9,7 @@ import couponsService from "@/service/coupons.service";
 import { showToastify } from "@/hooks/showToastify";
 import { AxiosResponse } from "axios";
 import CouponCard from "@/components/mols/CouponCard";
+import { useSearchParams } from "next/navigation";
 
 interface SupplierCouponsProps {
   couponTitle: string;
@@ -45,6 +46,8 @@ const SupplierCoupons: React.FC<SupplierCouponsProps> = ({
   const [couponCode, setCouponCode] = useState("");
   const [showCouponModal, setShowCouponModal] = useState(false);
   const [currentStep, setCurrentStep] = useState<number>(STEPS.SHOWING_COUPON);
+  const searchParams = useSearchParams();
+  const couponIdParam = searchParams.get("coupon");
 
   const handleNextStep = (step: number) => setCurrentStep(step);
 
@@ -67,6 +70,12 @@ const SupplierCoupons: React.FC<SupplierCouponsProps> = ({
       }, 1500);
     }
   }, [currentStep]);
+
+  useEffect(() => {
+    if (id === couponIdParam) {
+      setShowCouponModal(true);
+    }
+  }, [id, couponIdParam]);
 
   const StepOne = () => {
     return (
