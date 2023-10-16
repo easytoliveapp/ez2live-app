@@ -96,13 +96,13 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
       setInitialValues({
         title: coupon.title,
         discount: coupon.discount,
-        maxPerUser: 0,
-        maxTotal: 0,
+        maxPerUser: unlimitedByUser ? 0 : Number(coupon.maxPerUser),
+        maxTotal: couponsUnlimited ? 0 : Number(coupon.maxTotal),
         expirationGenerationDate: new Date(coupon.expirationGenerationDate),
         expirationUseDate: new Date(coupon.expirationUseDate),
       });
     }
-  }, [coupon]);
+  }, [coupon, unlimitedByUser, couponsUnlimited]);
 
   const CreateCouponValidationSchema = Yup.object().shape({
     title: Yup.string().required("Título requerido."),
