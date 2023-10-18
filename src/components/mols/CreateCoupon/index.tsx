@@ -7,6 +7,7 @@ import {
   ButtonSecondary,
   FormItem,
   ToggleButton,
+  ModalHeader,
 } from "@/components/atoms";
 import * as Yup from "yup";
 import { ICreateCoupon } from "@/types/coupons";
@@ -75,18 +76,7 @@ const CreateCoupon = () => {
 
   return (
     <div className="w-full">
-      <div className="mb-6 mt-4 flex justify-between">
-        <h2 className="pl-2 flex items-center text-3xl leading-[115%] md:leading-[115%] font-bold text-black dark:text-neutral-100 justify-center">
-          Novo <br />
-          cupom
-        </h2>
-        <div className="pr-2">
-          <div className="relative rounded-full w-40 h-16 bg-gradient-to-r from-secondary-main to-secondary-lighter">
-            <div className="absolute top-8 right-0 rounded-full w-16 h-16 bg-gradient-to-r from-secondary-main to-secondary-lighter"></div>
-          </div>
-        </div>
-      </div>
-
+      <ModalHeader label="Criar Cupom" />
       <Formik
         validateOnBlur={false}
         initialValues={{
