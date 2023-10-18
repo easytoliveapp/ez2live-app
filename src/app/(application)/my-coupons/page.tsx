@@ -58,6 +58,7 @@ const MyCouponsPage = () => {
   useEffect(() => {
     handleGetCouponCodesByUser()
       .then((res) => setCouponCodes(res.data.coupons))
+
       .catch((error) =>
         showToastify({ type: "error", label: `Ocorreu um erro: ${error}` }),
       );
@@ -104,7 +105,10 @@ const MyCouponsPage = () => {
         couponCodes.filter((t) => t.status === couponsFilter.id).length > 0 ? (
           couponCodes.map(
             (couponCode: ICouponCodesByUser, key) =>
-              couponCode.status === couponsFilter.id && (
+              couponCode.status === couponsFilter.id &&
+              couponCode.coupon.supplier?.name &&
+              couponCode.coupon.supplier.supplierInfo?.supplierCategory
+                ?.title && (
                 <UserCoupons
                   icon={Arrow}
                   couponCodeData={couponCode}
