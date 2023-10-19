@@ -11,8 +11,8 @@ export interface IGetCouponById {
 export interface ICreateCoupon {
   title: string;
   discount: string;
-  maxTotal: number | string;
-  maxPerUser: number | string;
+  maxTotal: number;
+  maxPerUser: number;
   expirationGenerationDate: Date;
   expirationUseDate: Date;
 }
@@ -20,15 +20,15 @@ export interface ICreateCoupon {
 export interface IUpdateCoupon {
   title: string;
   discount: string;
-  maxTotal: number | string;
-  maxPerUser: number | string;
+  maxTotal: number;
+  maxPerUser: number;
 }
 
 export interface IGetCouponInfo {
   title: string;
   discount: string;
-  maxTotal: string;
-  maxPerUser: string;
+  maxTotal: number;
+  maxPerUser: number;
   expirationGenerationDate: string;
   expirationUseDate: string;
 }

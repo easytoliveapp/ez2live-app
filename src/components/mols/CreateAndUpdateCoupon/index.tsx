@@ -107,10 +107,12 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
   const CreateCouponValidationSchema = Yup.object().shape({
     title: Yup.string().required("Título requerido."),
     discount: Yup.string().required("Selecione um desconto de 5% até 100%."),
-    maxTotal: Yup.string().required(
-      "Limite de cupons que podem ser utilizados.",
-    ),
-    maxPerUser: Yup.string().required("Limite de cupons por usuário."),
+    maxTotal: Yup.number()
+      .typeError("Escolha um numero")
+      .required("Escolha um numero limite de cupons que podem ser utilizados."),
+    maxPerUser: Yup.number()
+      .typeError("Escolha um numero")
+      .required("Escolha um numero imite de cupons por usuário."),
     expirationGenerationDate: Yup.date()
       .required("Data de validade para geração do cupom.")
       .min(new Date(), "Selecione uma data maior que a atual"),
@@ -145,10 +147,10 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
       ...(coupon?.discount !== values.discount && {
         discount: String(values.discount),
       }),
-      ...(coupon?.maxPerUser !== values?.maxPerUser && {
+      ...(values?.maxPerUser && {
         maxPerUser: unlimitedByUser ? -1 : values.maxPerUser,
       }),
-      ...(coupon?.maxTotal !== values?.maxTotal && {
+      ...(values?.maxTotal && {
         maxTotal: couponsUnlimited ? -1 : values.maxTotal,
       }),
     };
