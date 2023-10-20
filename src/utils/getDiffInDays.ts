@@ -1,8 +1,10 @@
 import dayjs from "dayjs";
+import "dayjs/locale/pt-br";
 
 const getDateDiffInDays = (date: string) => {
-  const today = dayjs();
-  const validity = dayjs(date);
+  const today = dayjs().locale("pt-br");
+  const validity = dayjs(date).locale("pt-br").add(3, "hours");
+  console.log(today, validity);
 
   const dateDiff = validity.diff(today, "day");
   if (dateDiff > 0) {
