@@ -20,11 +20,13 @@ import couponsService from "@/service/coupons.service";
 interface ICreateOrUpdateCoupon {
   IsUpdate?: boolean;
   couponId?: string;
+  modalClose?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
   IsUpdate,
   couponId,
+  modalClose,
 }) => {
   const [loading, setLoading] = useState(false);
   const [couponsUnlimited, setCouponsUnlimited] = useState(true);
@@ -127,6 +129,9 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
     });
     setTimeout(() => {
       setLoading(false);
+      if (modalClose) {
+        modalClose(false);
+      }
     }, 2000);
   };
 
@@ -163,8 +168,10 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
             label: `ocorreu um erro ao atualizar cupom: ${error}`,
             type: "error",
           });
-        })
-        .finally(() => setLoading(false));
+          setTimeout(() => {
+            setLoading(false);
+          }, 2000);
+        });
     } else {
       await couponService
         .createCoupon(createData)
@@ -183,8 +190,8 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
               type: "error",
             });
           }
-        })
-        .finally(() => setLoading(false));
+          setLoading(false);
+        });
     }
 
     return values;

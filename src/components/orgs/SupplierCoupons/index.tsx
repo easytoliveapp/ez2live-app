@@ -232,7 +232,11 @@ const SupplierCoupons: React.FC<SupplierCouponsProps> = ({
           onCloseModal={() => setShowCouponModal(false)}
         >
           {isOwnSupplier ? (
-            <CreateAndUpdateCoupon IsUpdate={true} couponId={CouponId} />
+            <CreateAndUpdateCoupon
+              modalClose={setShowCouponModal}
+              IsUpdate={true}
+              couponId={CouponId}
+            />
           ) : (
             renderStep(currentStep)
           )}

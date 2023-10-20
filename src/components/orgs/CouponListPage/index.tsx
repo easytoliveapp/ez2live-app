@@ -61,7 +61,7 @@ const CouponListPage: React.FC<ICouponListPageProps> = ({ supplierId }) => {
         onCloseModal={() => setModalCreateCoupon(false)}
       >
         <div className="flex flex-col items-center w-full">
-          <CreateAndUpdateCoupon />
+          <CreateAndUpdateCoupon modalClose={setModalCreateCoupon} />
           <ButtonThird
             className="text-generic-alertRed"
             onClick={() => setModalCreateCoupon(false)}
