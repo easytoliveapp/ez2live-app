@@ -15,11 +15,13 @@ import { showToastify } from "@/hooks/showToastify";
 import { AxiosResponse } from "axios";
 
 import CouponCard from "@/components/mols/CouponCard";
+import { ICoupon } from "@/types/coupons";
 
 interface SupplierCouponsProps {
   couponTitle: string;
   discount: string;
   maxUnitsTotal: number;
+  maxPerUser: number;
   expirateTime: string;
   expirationUseDate: string;
   CouponId: string;
@@ -28,6 +30,7 @@ interface SupplierCouponsProps {
   supplierName: string;
   icon: string | StaticImageData;
   isOwnSupplier: boolean;
+  supplierId: string;
 }
 
 const STEPS = {
@@ -53,6 +56,7 @@ const SupplierCoupons: React.FC<SupplierCouponsProps> = ({
   const [couponCode, setCouponCode] = useState("");
   const [showCouponModal, setShowCouponModal] = useState(false);
   const [currentStep, setCurrentStep] = useState<number>(STEPS.SHOWING_COUPON);
+  const [couponProps, setCouponProps] = useState<Partial<ICoupon>>({});
 
   const handleNextStep = (step: number) => setCurrentStep(step);
 
@@ -79,16 +83,19 @@ const SupplierCoupons: React.FC<SupplierCouponsProps> = ({
   const StepOne = () => {
     return (
       <div className="flex flex-col h-auto items-center">
-        <Coupon
-          id={CouponId}
-          couponTitle={couponTitle}
-          couponDiscount={discount}
-          expirateTime={expirateTime}
-          unintsAmount={10}
-          supplierCategory={supplierCategory}
-          supplierLogo={supplierLogo}
-          supplierName={supplierName}
-        />
+        {couponProps && (
+          <Coupon
+            id={CouponId}
+            couponTitle={couponTitle}
+            couponDiscount={discount}
+            expirateTime={expirateTime}
+            unintsAmount={maxUnitsTotal}
+            supplierCategory={supplierCategory}
+            supplierLogo={supplierLogo}
+            supplierName={supplierName}
+          />
+        )}
+
         <ButtonPrimary
           onClick={() => handleActiveCoupon()}
           className="w-full mx-4 max-w-md"
@@ -236,6 +243,7 @@ const SupplierCoupons: React.FC<SupplierCouponsProps> = ({
               modalClose={setShowCouponModal}
               IsUpdate={true}
               couponId={CouponId}
+              updateCoupon={setCouponProps}
             />
           ) : (
             renderStep(currentStep)
@@ -244,10 +252,16 @@ const SupplierCoupons: React.FC<SupplierCouponsProps> = ({
       )}
 
       <CouponCard
-        couponTitle={couponTitle}
-        discount={discount}
-        maxUnitsTotal={maxUnitsTotal}
-        expirationUseDate={expirationUseDate}
+        couponTitle={couponProps.title ? couponProps.title : couponTitle}
+        discount={couponProps.discount ? couponProps.discount : discount}
+        maxUnitsTotal={
+          couponProps.maxTotal ? couponProps.maxTotal : maxUnitsTotal
+        }
+        expirationUseDate={
+          couponProps.expirationUseDate
+            ? couponProps.expirationUseDate
+            : expirationUseDate
+        }
         setShowCouponModal={setShowCouponModal}
         icon={icon}
       />

@@ -11,7 +11,7 @@ import {
   CouponLoading,
 } from "@/components/atoms";
 import * as Yup from "yup";
-import { ICreateCoupon, IGetCouponInfo } from "@/types/coupons";
+import { ICoupon, ICreateCoupon, IGetCouponInfo } from "@/types/coupons";
 import couponService from "@/service/coupons.service";
 import { showToastify } from "@/hooks/showToastify";
 import { Modal } from "@/components";
@@ -21,12 +21,14 @@ interface ICreateOrUpdateCoupon {
   IsUpdate?: boolean;
   couponId?: string;
   modalClose?: React.Dispatch<React.SetStateAction<boolean>>;
+  updateCoupon?: React.Dispatch<React.SetStateAction<Partial<ICoupon>>>;
 }
 
 const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
   IsUpdate,
   couponId,
   modalClose,
+  updateCoupon,
 }) => {
   const [loading, setLoading] = useState(false);
   const [couponsUnlimited, setCouponsUnlimited] = useState(true);
@@ -163,6 +165,18 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
       await couponService
         .updateCoupon(updateData, couponId)
         .then(() => couponSuccessRedirect())
+        .then(() => {
+          if (updateCoupon) {
+            updateCoupon({
+              ...(updateData.discount && { discount: updateData.discount }),
+              ...(updateData.maxPerUser && {
+                maxPerUser: updateData.maxPerUser,
+              }),
+              ...(updateData.maxTotal && { maxTotal: updateData.maxTotal }),
+              ...(updateData.title && { title: updateData.title }),
+            });
+          }
+        })
         .catch((error) => {
           showToastify({
             label: `ocorreu um erro ao atualizar cupom: ${error}`,
