@@ -87,12 +87,12 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
 
   useEffect(() => {
     if (!!coupon) {
-      if (Number(coupon?.maxPerUser) === -1) {
+      if (coupon?.maxPerUser === -1) {
         setUnlimitedByUser(true);
       } else {
         setUnlimitedByUser(false);
       }
-      if (Number(coupon?.maxTotal) === -1) {
+      if (coupon?.maxTotal === -1) {
         setCouponsUnlimited(true);
       } else {
         setCouponsUnlimited(false);
@@ -100,9 +100,8 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
       setInitialValues({
         title: coupon.title,
         discount: coupon.discount,
-        maxPerUser:
-          Number(coupon.maxPerUser) === -1 ? 0 : Number(coupon.maxPerUser),
-        maxTotal: Number(coupon.maxTotal) === -1 ? 0 : Number(coupon.maxTotal),
+        maxPerUser: coupon.maxPerUser === -1 ? 0 : coupon.maxPerUser,
+        maxTotal: coupon.maxTotal === -1 ? 0 : coupon.maxTotal,
         expirationGenerationDate: new Date(coupon.expirationGenerationDate),
         expirationUseDate: new Date(coupon.expirationUseDate),
       });
@@ -161,10 +160,10 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
       ...(coupon?.discount !== values.discount && {
         discount: String(values.discount),
       }),
-      ...(coupon?.maxPerUser !== values?.maxPerUser && {
+      ...(values?.maxPerUser && {
         maxPerUser: unlimitedByUser ? -1 : values.maxPerUser,
       }),
-      ...(coupon?.maxTotal !== values?.maxTotal && {
+      ...(values?.maxTotal && {
         maxTotal: couponsUnlimited ? -1 : values.maxTotal,
       }),
     };
@@ -178,8 +177,10 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
             label: `ocorreu um erro ao atualizar cupom: ${error}`,
             type: "error",
           });
-        })
-        .finally(() => setLoading(false));
+          setTimeout(() => {
+            setLoading(false);
+          }, 2000);
+        });
     } else {
       await couponService
         .createCoupon(createData)
@@ -198,8 +199,8 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
               type: "error",
             });
           }
-        })
-        .finally(() => setLoading(false));
+          setLoading(false);
+        });
     }
 
     return values;
