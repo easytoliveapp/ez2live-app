@@ -1,6 +1,5 @@
 import React from "react";
-
-import CouponListPage from "@/components/orgs/CouponListPage";
+import CouponList from "@/components/orgs/Coupon/List";
 
 export interface ITokenProps {
   params: {
@@ -9,7 +8,7 @@ export interface ITokenProps {
 }
 
 const SupplierDashBoard = ({ params: { id } }: ITokenProps) => (
-  <CouponListPage supplierId={id} />
+  <CouponList supplierId={id} />
 );
 
 export default SupplierDashBoard;

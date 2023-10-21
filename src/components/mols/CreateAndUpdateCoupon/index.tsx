@@ -18,17 +18,18 @@ import { Modal } from "@/components";
 import couponsService from "@/service/coupons.service";
 
 interface ICreateOrUpdateCoupon {
-  IsUpdate?: boolean;
+  isUpdatingCoupon?: boolean;
   couponId?: string;
-  modalClose?: React.Dispatch<React.SetStateAction<boolean>>;
-  updateCoupon?: React.Dispatch<React.SetStateAction<Partial<ICoupon>>>;
+  handleCouponUpdate: (
+    updatedCoupon: ICoupon,
+    action: "CREATE" | "UPDATE" | "DELETE",
+  ) => void;
 }
 
 const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
-  IsUpdate,
+  isUpdatingCoupon,
   couponId,
-  modalClose,
-  updateCoupon,
+  handleCouponUpdate,
 }) => {
   const [loading, setLoading] = useState(false);
   const [couponsUnlimited, setCouponsUnlimited] = useState(true);
@@ -70,7 +71,7 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
   };
 
   useEffect(() => {
-    if (IsUpdate && couponId) {
+    if (isUpdatingCoupon && couponId) {
       couponService
         .getCouponById(couponId)
         .then((res: any) => setCoupon(res.data.coupon))
@@ -82,7 +83,7 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
         )
         .finally();
     }
-  }, [IsUpdate, couponId]);
+  }, [isUpdatingCoupon, couponId]);
 
   useEffect(() => {
     if (!!coupon) {
@@ -108,14 +109,12 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
   }, [coupon]);
 
   const CreateCouponValidationSchema = Yup.object().shape({
-    title: Yup.string().required("Título requerido."),
-    discount: Yup.string().required("Selecione um desconto de 5% até 100%."),
-    maxTotal: Yup.number()
-      .typeError("Escolha um numero")
-      .required("Escolha um numero limite de cupons que podem ser utilizados."),
-    maxPerUser: Yup.number()
-      .typeError("Escolha um numero")
-      .required("Escolha um numero imite de cupons por usuário."),
+    title: Yup.string().required("Título é obrigatório"),
+    discount: Yup.string().required("Selecione um desconto de 5% até 100%"),
+    maxTotal: Yup.string().required(
+      "Limite de cupons que podem ser utilizados.",
+    ),
+    maxPerUser: Yup.string().required("Limite de cupons por usuário."),
     expirationGenerationDate: Yup.date()
       .required("Data de validade para geração do cupom.")
       .min(new Date(), "Selecione uma data maior que a atual"),
@@ -124,17 +123,25 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
       .min(new Date(), "Selecione uma data maior que a atual"),
   });
 
-  const couponSuccessRedirect = () => {
+  const UpdateCouponValidationSchema = Yup.object().shape({
+    title: Yup.string(),
+    discount: Yup.string(),
+    maxTotal: Yup.string(),
+    maxPerUser: Yup.string(),
+  });
+
+  const handleSuccessUpdate = (res: any, action: any) => {
+    const message = {
+      update: "Cupom atualizado com sucesso.",
+      create: "Cupom gerado com sucesso",
+    };
+
     showToastify({
-      label: `cupom${IsUpdate ? " atualizado " : " gerado "}com sucesso`,
+      label: isUpdatingCoupon ? message.update : message.create,
       type: "success",
     });
-    setTimeout(() => {
-      setLoading(false);
-      if (modalClose) {
-        modalClose(false);
-      }
-    }, 2000);
+
+    handleCouponUpdate && handleCouponUpdate(res.data?.coupon, action);
   };
 
   const handleFormSubmit = async (values: ICreateCoupon) => {
@@ -161,22 +168,10 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
       }),
     };
 
-    if (IsUpdate && couponId) {
+    if (isUpdatingCoupon && couponId) {
       await couponService
         .updateCoupon(updateData, couponId)
-        .then(() => couponSuccessRedirect())
-        .then(() => {
-          if (updateCoupon) {
-            updateCoupon({
-              ...(updateData.discount && { discount: updateData.discount }),
-              ...(updateData.maxPerUser && {
-                maxPerUser: updateData.maxPerUser,
-              }),
-              ...(updateData.maxTotal && { maxTotal: updateData.maxTotal }),
-              ...(updateData.title && { title: updateData.title }),
-            });
-          }
-        })
+        .then((res) => handleSuccessUpdate(res, "UPDATE"))
         .catch((error) => {
           showToastify({
             label: `ocorreu um erro ao atualizar cupom: ${error}`,
@@ -189,7 +184,7 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
     } else {
       await couponService
         .createCoupon(createData)
-        .then(() => couponSuccessRedirect())
+        .then((res) => handleSuccessUpdate(res, "CREATE"))
         .catch((error) => {
           if (error?.response?.data?.code === 400) {
             showToastify({
@@ -235,7 +230,7 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
           </p>
         </div>
       </Modal>
-      {IsUpdate && !coupon ? (
+      {isUpdatingCoupon && !coupon ? (
         <CouponLoading
           title={"carregando dados do cupom"}
           couponColor={"primary"}
@@ -245,7 +240,7 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
         <div>
           <div className="mb-6 mt-4 flex justify-between">
             <h2 className="pl-2 flex items-center text-3xl leading-[115%] md:leading-[115%] font-bold text-black dark:text-neutral-100 justify-center">
-              {IsUpdate ? "Atualizar Cupom" : "Novo Coupon"}
+              {isUpdatingCoupon ? "Atualizar Cupom" : "Novo Coupon"}
             </h2>
             <div className="pr-2">
               <div className="relative rounded-full w-40 h-16 bg-gradient-to-r from-secondary-main to-secondary-lighter">
@@ -257,7 +252,11 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
             enableReinitialize={true}
             validateOnBlur={false}
             initialValues={initalValues}
-            validationSchema={CreateCouponValidationSchema}
+            validationSchema={
+              isUpdatingCoupon
+                ? UpdateCouponValidationSchema
+                : CreateCouponValidationSchema
+            }
             onSubmit={handleFormSubmit}
           >
             {({ values, errors, touched, isValidating, handleSubmit }) => (
@@ -355,7 +354,7 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
                     />
                   </div>
                 </div>
-                {!IsUpdate && (
+                {!isUpdatingCoupon && (
                   <>
                     <FormItem
                       label="Cupom ativo até..."
@@ -417,7 +416,7 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
               </Form>
             )}
           </Formik>
-          {IsUpdate && (
+          {isUpdatingCoupon && (
             <ButtonThird
               className="m-auto w-full !hover:border-none"
               onClick={() => setDeleteModal(true)}

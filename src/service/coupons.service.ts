@@ -56,7 +56,7 @@ const deleteCoupon = async (id: string) => {
   });
 };
 
-export default {
+const couponsService = {
   createCoupon,
   getSupplierCouponsList,
   getCouponById,
@@ -65,3 +65,5 @@ export default {
   getCouponCodesByUser,
   deleteCoupon,
 };
+
+export default couponsService;
