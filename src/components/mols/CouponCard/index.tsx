@@ -85,7 +85,7 @@ const CouponCard: React.FC<ICouponCardProps> = ({
                       alt="coupon-black"
                       src={ClockCircleRed}
                     />
-                    termina em {getDateDiffInDays(expirationUseDate)} dias
+                    termina em {getDateDiffInDays(expirationUseDate)}
                   </p>
                 )}
               </div>
