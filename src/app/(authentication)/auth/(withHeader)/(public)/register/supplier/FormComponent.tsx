@@ -226,7 +226,7 @@ const FormComponent = () => {
             >
               <Field
                 invalid={!!(errors.document && touched.document)}
-                name="Document"
+                name="document"
                 type="text"
                 label="document"
                 component={Input}

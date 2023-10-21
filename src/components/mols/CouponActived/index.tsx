@@ -3,7 +3,7 @@
 import React from "react";
 import Image, { StaticImageData } from "next/image";
 import { AccordionInfo } from "@/components/atoms";
-import useDateFormater from "@/hooks/useDateFormater";
+import { getDateFormater } from "@/utils/getDateFormater";
 import QRCode from "react-qr-code";
 
 interface CouponProps {
@@ -72,7 +72,7 @@ const CouponActivatedPage: React.FC<CouponProps> = ({
             <p className="font-semibold">categoria</p>
             <p>{supplierCategory}</p>
             <p className="font-semibold">validade</p>
-            <p>{useDateFormater(expirateTime)}</p>
+            <p>{getDateFormater(expirateTime)}</p>
           </div>
         </div>
         <AccordionInfo

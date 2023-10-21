@@ -3,7 +3,7 @@ import Image, { StaticImageData } from "next/image";
 import CouponGreen from "@/images/easytolive/icons/coupongreen.svg";
 import ClockCircleRed from "@/images/easytolive/icons/clock_circleRed.svg";
 import { AccordionInfo } from "@/components/atoms";
-import useDateFormater from "@/hooks/useDateFormater";
+import { getDateFormater } from "@/utils/getDateFormater";
 import getDateDiffInDays from "@/utils/getDiffInDays";
 
 interface CouponProps {
@@ -74,7 +74,7 @@ const CouponContent: React.FC<CouponProps> = ({
             <p className="font-semibold">categoria</p>
             <p className="mb-4">{supplierCategory}</p>
             <p className="font-semibold">validade</p>
-            <p>{useDateFormater(expirateTime)}</p>
+            <p>{getDateFormater(expirateTime)}</p>
           </div>
         </div>
         <AccordionInfo
