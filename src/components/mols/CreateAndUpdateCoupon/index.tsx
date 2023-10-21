@@ -124,6 +124,13 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
       .min(new Date(), "Selecione uma data maior que a atual"),
   });
 
+  const UpdateCouponValidationSchema = Yup.object().shape({
+    title: Yup.string(),
+    discount: Yup.string(),
+    maxTotal: Yup.string(),
+    maxPerUser: Yup.string(),
+  });
+
   const handleSuccessUpdate = (res: any, action: any) => {
     const message = {
       update: "Cupom atualizado com sucesso.",
@@ -135,7 +142,7 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
       type: "success",
     });
 
-    handleCouponUpdate && handleCouponUpdate(res.data, action);
+    handleCouponUpdate && handleCouponUpdate(res.data?.coupon, action);
   };
 
   const handleFormSubmit = async (values: ICreateCoupon) => {
@@ -165,7 +172,7 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
     if (isUpdatingCoupon && couponId) {
       await couponService
         .updateCoupon(updateData, couponId)
-        .then(() => handleSuccessUpdate(couponId, "UPDATE"))
+        .then((res) => handleSuccessUpdate(res, "UPDATE"))
         .catch((error) => {
           showToastify({
             label: `ocorreu um erro ao atualizar cupom: ${error}`,
@@ -244,7 +251,11 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
             enableReinitialize={true}
             validateOnBlur={false}
             initialValues={initalValues}
-            validationSchema={CreateCouponValidationSchema}
+            validationSchema={
+              isUpdatingCoupon
+                ? UpdateCouponValidationSchema
+                : CreateCouponValidationSchema
+            }
             onSubmit={handleFormSubmit}
           >
             {({ values, errors, touched, isValidating, handleSubmit }) => (
