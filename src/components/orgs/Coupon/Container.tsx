@@ -13,8 +13,9 @@ import CouponGenerating from "@/components/atoms/CouponLoading";
 import couponsService from "@/service/coupons.service";
 import { showToastify } from "@/hooks/showToastify";
 import { AxiosResponse } from "axios";
-
 import CouponCard from "@/components/mols/CouponCard";
+import { useSearchParams } from "next/navigation";
+
 import { ICoupon } from "@/types/coupons";
 
 interface CouponContainerProps {
@@ -59,6 +60,8 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
   const [couponCode, setCouponCode] = useState("");
   const [showCouponModal, setShowCouponModal] = useState(false);
   const [currentStep, setCurrentStep] = useState<number>(STEPS.SHOWING_COUPON);
+  const searchParams = useSearchParams();
+  const couponIdParam = searchParams.get("coupon");
 
   const handleNextStep = (step: number) => setCurrentStep(step);
 
@@ -81,6 +84,12 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
       }, 1500);
     }
   }, [currentStep]);
+
+  useEffect(() => {
+    if (CouponId === couponIdParam) {
+      setShowCouponModal(true);
+    }
+  }, [CouponId, couponIdParam]);
 
   const StepOne = () => {
     return (

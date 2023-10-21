@@ -180,6 +180,9 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
           setTimeout(() => {
             setLoading(false);
           }, 2000);
+        })
+        .finally(() => {
+          setLoading(false);
         });
     } else {
       await couponService
