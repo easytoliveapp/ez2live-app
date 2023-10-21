@@ -171,8 +171,8 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
         </p>
         <div className="mt-6 pb-16 flex flex-col gap-4">
           {supplier &&
-            Array.isArray(supplier?.coupons) &&
-            supplier?.coupons.length > 0 ? (
+          Array.isArray(supplier?.coupons) &&
+          supplier?.coupons.length > 0 ? (
             supplier?.coupons.map((coupon: ICoupon, key) => (
               <CouponContainer
                 isOwnSupplier={supplier.supplier.id === session?.user.id}
