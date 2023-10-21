@@ -30,9 +30,11 @@ const getSupplierCategories = async () => {
   });
 };
 
-export default {
+const supplierService = {
   getSupplierList,
   verifySupplier,
   getSupplierCategories,
   getSupplierById,
 };
+
+export default supplierService;

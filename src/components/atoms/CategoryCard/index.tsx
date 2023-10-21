@@ -2,20 +2,25 @@ import React, { FC } from "react";
 import Image, { StaticImageData } from "next/image";
 import classNames from "@/utils/classNames";
 
-export interface categorieProps {
+export interface ICategorieProps {
   active: boolean;
   title: string;
   id: string;
 }
 
-export interface CategoryProps {
+export interface ICategoryProps {
   image: string | StaticImageData;
   isActive: boolean;
   name: string;
   onClick?: (e: React.MouseEvent<HTMLDivElement>) => void;
 }
 
-const Categories: FC<CategoryProps> = ({ image, isActive, name, onClick }) => {
+const CategoryCard: FC<ICategoryProps> = ({
+  image,
+  isActive,
+  name,
+  onClick,
+}) => {
   return (
     <div
       className={classNames(
@@ -30,4 +35,4 @@ const Categories: FC<CategoryProps> = ({ image, isActive, name, onClick }) => {
   );
 };
 
-export default Categories;
+export default CategoryCard;

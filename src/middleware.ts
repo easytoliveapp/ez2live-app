@@ -17,7 +17,7 @@ export const config = {
   matcher: [
     "/",
     "/dashboard",
-    "/supplier-dashboard/:path*",
+    "/dashboard/supplier/:path*",
     "/supplier-not-verified",
   ],
 };

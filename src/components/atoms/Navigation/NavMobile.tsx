@@ -8,6 +8,8 @@ import { NAVIGATION_DEMO_2 } from "@/data/navigation";
 import SocialsList from "@/components/atoms/SocialsList/SocialsList";
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
+import Image from "next/image";
+import extendedLogoImage from "@/images/easytolive/logo/logocompleta-semfundoazulroxo.svg";
 
 export interface NavMobileProps {
   data?: NavItemType[];
@@ -108,11 +110,9 @@ const NavMobile: React.FC<NavMobileProps> = ({
   return (
     <div className="overflow-y-auto w-full h-screen py-2 transition transform shadow-lg ring-1  bg-white  divide-y-2 divide-neutral-100 ">
       <div className="py-6 px-5">
-        <div className="flex flex-col mt-5 text-slate-600  text-sm">
-          <span>
-            Discover the most outstanding articles on all topics of life. Write
-            your stories and share them
-          </span>
+        <div className="flex flex-col mt-5 text-slate-600 text-sm">
+          <Image className="w-1/2" src={extendedLogoImage} alt="EasyToLive" />
+          <span></span>
 
           <div className="flex justify-between items-center mt-4">
             <SocialsList itemClass="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center rounded-full text-xl" />
