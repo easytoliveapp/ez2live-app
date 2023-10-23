@@ -413,7 +413,7 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
                 )}
                 <ButtonSecondary
                   type="submit"
-                  className="w-full mt-20"
+                  className="w-full mt-4"
                   disabled={loading}
                   loading={loading}
                 >
