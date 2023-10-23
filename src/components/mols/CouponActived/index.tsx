@@ -41,7 +41,7 @@ const CouponActivatedPage: React.FC<CouponProps> = ({
           style={{ height: "140px", width: "140px" }}
           value={couponActivateCode}
         ></QRCode>
-        <p className="rounded-full uppercase text-white text-2xl font-semibold px-12 py-2 bg-generic-dark">
+        <p className="rounded-full text-white text-2xl font-semibold px-12 py-2 bg-generic-dark">
           {couponActivateCode}
         </p>
       </div>
