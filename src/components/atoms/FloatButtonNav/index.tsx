@@ -27,9 +27,11 @@ const FloatButtonNav: React.FC<IFloatButtonNavProps & LinkProps<any>> = ({
         backgroundStyle == "main"
           ? "from-primary-main to-white"
           : "from-secondary-main to-secondary-lighter"
-      } flex items-center bg-gradient-to-r rounded-l-full pl-4 py-4 pr-8 fixed bottom-28 right-0 z-50 min-h-8 p-3`}
+      } ${
+        hasCouponActive ? "pr-1" : "pr-8"
+      } flex items-center bg-gradient-to-r rounded-l-full pl-4 py-4 fixed bottom-28 right-0 z-50 min-h-8 p-3`}
     >
-      <Image className="w-9 h-auto" alt="icon-image" src={icon}></Image>
+      <Image className="w-auto h-9" alt="icon-image" src={icon}></Image>
       {hasCouponActive && (
         <div className="w-9 h-9 rouded-full flex items-center relative">
           <motion.div
