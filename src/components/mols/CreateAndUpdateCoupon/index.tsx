@@ -48,6 +48,9 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
     if (couponId) {
       return await couponsService
         .deleteCoupon(couponId)
+        .then((res) => {
+          handleSuccessUpdate(res, "DELETE");
+        })
         .then(() =>
           showToastify({
             label: "cupom excluído com sucesso",
