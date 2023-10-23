@@ -39,8 +39,8 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
   const [initalValues, setInitialValues] = useState({
     title: "",
     discount: "20",
-    maxTotal: 0,
-    maxPerUser: 0,
+    maxTotal: 100,
+    maxPerUser: 1,
     expirationGenerationDate: new Date("2022-01-01"),
     expirationUseDate: new Date("2022-01-01"),
   });
@@ -103,8 +103,8 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
       setInitialValues({
         title: coupon.title,
         discount: coupon.discount,
-        maxPerUser: coupon.maxPerUser === -1 ? 0 : coupon.maxPerUser,
-        maxTotal: coupon.maxTotal === -1 ? 0 : coupon.maxTotal,
+        maxPerUser: coupon.maxPerUser === -1 ? 1 : coupon.maxPerUser,
+        maxTotal: coupon.maxTotal === -1 ? 100 : coupon.maxTotal,
         expirationGenerationDate: new Date(coupon.expirationGenerationDate),
         expirationUseDate: new Date(coupon.expirationUseDate),
       });
