@@ -15,6 +15,7 @@ import { showToastify } from "@/hooks/showToastify";
 import { AxiosResponse } from "axios";
 import CouponCard from "@/components/mols/CouponCard";
 import { useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 import { ICoupon } from "@/types/coupons";
 
@@ -62,6 +63,7 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
   const [currentStep, setCurrentStep] = useState<number>(STEPS.SHOWING_COUPON);
   const searchParams = useSearchParams();
   const couponIdParam = searchParams.get("coupon");
+  const router = useRouter();
 
   const handleNextStep = (step: number) => setCurrentStep(step);
 
@@ -161,7 +163,7 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
           supplierName={supplierName}
         />
         <ButtonPrimary
-          onClick={() => setShowCouponModal(false)}
+          onClick={() => router.push("/my-coupons")}
           className="w-full mx-4 max-w-md"
         >
           Ok, entendi!
