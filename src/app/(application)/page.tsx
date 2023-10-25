@@ -116,7 +116,7 @@ function PageHome() {
         href="/my-coupons"
       />
       <SearchCategory onChange={handleSetSearch} />
-      <div className="flex flex-wrap my-6 w-full gap-3">
+      <div className="flex overflow-x-scroll justify-start my-4 w-full gap-2">
         {categories.map((category: ICategorieProps, index) => (
           <CategoryCard
             key={index}
