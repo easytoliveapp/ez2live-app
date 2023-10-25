@@ -37,6 +37,7 @@ function PageHome() {
   };
 
   const handleCategoryFilter = (categoryId: string) => {
+    setPageNumber(1);
     setSupplierCategoriesFilter((prevState) =>
       prevState === categoryId ? "" : categoryId,
     );
@@ -116,17 +117,19 @@ function PageHome() {
         href="/my-coupons"
       />
       <SearchCategory onChange={handleSetSearch} />
-      <div className="flex overflow-x-scroll justify-start my-4 w-full gap-2">
-        {categories.map((category: ICategorieProps, index) => (
-          <CategoryCard
-            key={index}
-            name={category.title}
-            onClick={() => handleCategoryFilter(category.id)}
-            image={imageCategory}
-            isActive={category.id === supplierCategoriesFilter}
-          />
-        ))}
-      </div>
+      {categories && (
+        <div className="flex overflow-x-scroll justify-start my-4 w-full gap-2">
+          {categories.map((category: ICategorieProps, index) => (
+            <CategoryCard
+              key={index}
+              name={category.title}
+              onClick={() => handleCategoryFilter(category.id)}
+              image={imageCategory}
+              isActive={category.id === supplierCategoriesFilter}
+            />
+          ))}
+        </div>
+      )}
       <InfiniteScroll
         className="flex flex-col gap-3"
         dataLength={suppliers.length}
@@ -135,17 +138,21 @@ function PageHome() {
         loader={<h4 className=" m-4 text-primary-main">Carregando...</h4>}
         endMessage={<p className="m-4 text-primary-main text-center">...</p>}
       >
-        {suppliers.map((supplier: ISuppliers, index) => (
-          <SupplierCard
-            supplierCategory={supplier?.supplierInfo?.supplierCategory?.title}
-            supplierImage={SupplierLogo}
-            avaliation="4.6"
-            couponsAvaible={supplier.supplierInfo.coupons.length}
-            name={supplier.name}
-            key={supplier.id + index}
-            id={supplier.id}
-          />
-        ))}
+        {!!suppliers ? (
+          suppliers.map((supplier: ISuppliers, index) => (
+            <SupplierCard
+              supplierCategory={supplier?.supplierInfo?.supplierCategory?.title}
+              supplierImage={SupplierLogo}
+              avaliation="4.6"
+              couponsAvaible={supplier.supplierInfo.coupons.length}
+              name={supplier.name}
+              key={supplier.id + index}
+              id={supplier.id}
+            />
+          ))
+        ) : (
+          <div>Carregando estabelecimentos</div>
+        )}
       </InfiniteScroll>
     </div>
   );

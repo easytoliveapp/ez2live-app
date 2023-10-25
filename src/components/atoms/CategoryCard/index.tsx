@@ -24,8 +24,8 @@ const CategoryCard: FC<ICategoryProps> = ({
   return (
     <div
       className={classNames(
-        "bg-white border-2 hover:border-secondary-main active:shadow-sm rounded-lg p-1 py-2 w-20 flex flex-col gap-1 items-center cursor-pointer",
-        isActive ? "border-secondary-main" : "border-white",
+        "bg-white border-2 focus:border-secondary-main active:shadow-sm rounded-lg p-1 py-2 w-20 flex flex-col gap-1 items-center cursor-pointer",
+        isActive ? "border-secondary-main" : "border-transparent",
       )}
       onClick={onClick}
     >
