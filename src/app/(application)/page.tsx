@@ -88,14 +88,18 @@ function PageHome() {
 
   const handleResponse = (res: any) => {
     setLoadingSuppliers(false);
-    setSuppliers(res.data.results ? res.data.results : res.data);
+    setSuppliers(
+      pageNumber === 1
+        ? res.data.results
+        : suppliers.concat(res?.data?.results),
+    );
   };
 
   useEffect(() => {
     const getAllSuppliers = async (data: Partial<ISupplierList>) => {
       const res: any = await SupplierService.getSupplierList(data);
 
-      if (res?.data?.totalPages <= pageNumber) {
+      if (res?.data?.totalPages === pageNumber) {
         setHasMore(false);
       } else {
         setHasMore(true);
@@ -109,7 +113,6 @@ function PageHome() {
       ...(supplierCategoriesFilter && {
         supplierCategory: supplierCategoriesFilter,
       }),
-      sortBy: "coupons:desc",
     };
 
     getAllSuppliers(data)
@@ -154,7 +157,7 @@ function PageHome() {
           loader={<h4 className=" m-4 text-primary-main">Carregando...</h4>}
           endMessage={<p className="m-4 text-primary-main text-center">...</p>}
         >
-          {!!suppliers ? (
+          {!!suppliers &&
             suppliers.map((supplier: ISuppliers, index) => (
               <SupplierCard
                 supplierCategory={
@@ -167,10 +170,7 @@ function PageHome() {
                 key={supplier.id + index}
                 id={supplier.id}
               />
-            ))
-          ) : (
-            <div>Carregando estabelecimentos</div>
-          )}
+            ))}
         </InfiniteScroll>
       )}
     </div>
