@@ -18,6 +18,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { showToastify } from "@/hooks/showToastify";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { setLocale } from 'yup';
 
 function PageHome() {
   const { data: session } = useSession();
@@ -28,6 +29,7 @@ function PageHome() {
   const [textSearched] = useDebounce(search, 1000);
   const [categories, setCategories] = useState([]);
   const [pageNumber, setPageNumber] = useState(1);
+  const [loadingSuppliers, setLoadingSuppliers] = useState(true);
   const [hasMore, setHasMore] = useState(true);
   const [supplierCategoriesFilter, setSupplierCategoriesFilter] = useState("");
 
@@ -37,6 +39,7 @@ function PageHome() {
   };
 
   const handleCategoryFilter = (categoryId: string) => {
+    setLoadingSuppliers(true);
     setPageNumber(1);
     setSupplierCategoriesFilter((prevState) =>
       prevState === categoryId ? "" : categoryId,
@@ -71,12 +74,15 @@ function PageHome() {
   }, [session, router]);
 
   function handleSetSearch(e: any) {
+    setLoadingSuppliers(true);
     setSearch(e.target.value);
     setPageNumber(1);
   }
 
-  const handleResponse = (res: any) =>
+  const handleResponse = (res: any) => {
+    setLoadingSuppliers(false);
     setSuppliers(res.data.results ? res.data.results : res.data);
+  };
 
   useEffect(() => {
     const getAllSuppliers = async (data: Partial<ISupplierList>) => {
@@ -130,30 +136,36 @@ function PageHome() {
           ))}
         </div>
       )}
-      <InfiniteScroll
-        className="flex flex-col gap-3"
-        dataLength={suppliers.length}
-        next={() => setPageNumber(pageNumber + 1)}
-        hasMore={hasMore}
-        loader={<h4 className=" m-4 text-primary-main">Carregando...</h4>}
-        endMessage={<p className="m-4 text-primary-main text-center">...</p>}
-      >
-        {!!suppliers ? (
-          suppliers.map((supplier: ISuppliers, index) => (
-            <SupplierCard
-              supplierCategory={supplier?.supplierInfo?.supplierCategory?.title}
-              supplierImage={SupplierLogo}
-              avaliation="4.6"
-              couponsAvaible={supplier.supplierInfo.coupons.length}
-              name={supplier.name}
-              key={supplier.id + index}
-              id={supplier.id}
-            />
-          ))
-        ) : (
-          <div>Carregando estabelecimentos</div>
-        )}
-      </InfiniteScroll>
+      {loadingSuppliers ? (
+        <em>Carregando...</em>
+      ) : (
+        <InfiniteScroll
+          className="flex flex-col gap-3"
+          dataLength={suppliers.length}
+          next={() => setPageNumber(pageNumber + 1)}
+          hasMore={hasMore}
+          loader={<h4 className=" m-4 text-primary-main">Carregando...</h4>}
+          endMessage={<p className="m-4 text-primary-main text-center">...</p>}
+        >
+          {!!suppliers ? (
+            suppliers.map((supplier: ISuppliers, index) => (
+              <SupplierCard
+                supplierCategory={
+                  supplier?.supplierInfo?.supplierCategory?.title
+                }
+                supplierImage={SupplierLogo}
+                avaliation="4.6"
+                couponsAvaible={supplier.supplierInfo.coupons.length}
+                name={supplier.name}
+                key={supplier.id + index}
+                id={supplier.id}
+              />
+            ))
+          ) : (
+            <div>Carregando estabelecimentos</div>
+          )}
+        </InfiniteScroll>
+      )}
     </div>
   );
 }
