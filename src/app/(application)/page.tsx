@@ -17,8 +17,7 @@ import { ICategorieProps } from "@/components/atoms/CategoryCard";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { showToastify } from "@/hooks/showToastify";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
-import { setLocale } from 'yup';
+import { useRouter, useSearchParams } from "next/navigation";
 
 function PageHome() {
   const { data: session } = useSession();
@@ -32,6 +31,14 @@ function PageHome() {
   const [loadingSuppliers, setLoadingSuppliers] = useState(true);
   const [hasMore, setHasMore] = useState(true);
   const [supplierCategoriesFilter, setSupplierCategoriesFilter] = useState("");
+  const searchParams = useSearchParams();
+  const queryCategoryFilter = searchParams.get("supplierCategory");
+
+  useEffect(() => {
+    if (queryCategoryFilter) {
+      setSupplierCategoriesFilter(queryCategoryFilter);
+    }
+  }, [queryCategoryFilter]);
 
   const getAllCategories = async () => {
     const res: any = await SupplierService.getSupplierCategories();
