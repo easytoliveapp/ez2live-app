@@ -125,7 +125,7 @@ function PageHome() {
   }, [textSearched, pageNumber, supplierCategoriesFilter]);
 
   return (
-    <div className="md:w-[500px] w-full m-auto p-5 relative">
+    <div className="md:w-[600px] w-full m-auto p-5 relative">
       <FloatButtonNav
         hasCouponActive={true}
         backgroundStyle="secondary"
@@ -134,7 +134,7 @@ function PageHome() {
       />
       <SearchCategory onChange={handleSetSearch} />
       {categories && (
-        <div className="flex overflow-x-scroll justify-start my-4 w-full gap-2">
+        <div className="flex overflow-x-auto justify-start my-4 w-full gap-2">
           {categories.map((category: ICategorieProps, index) => (
             <CategoryCard
               key={index}
