@@ -4,7 +4,7 @@ import CouponGreen from "@/images/easytolive/icons/coupongreen.svg";
 import ClockCircleRed from "@/images/easytolive/icons/clock_circleRed.svg";
 import { AccordionInfo } from "@/components/atoms";
 import { getDateFormater } from "@/utils/getDateFormater";
-import getDateDiffInDays from "@/utils/getDiffInDays";
+import getExpirateTime from "@/utils/getExpirateTime";
 
 interface CouponProps {
   id: string;
@@ -48,7 +48,7 @@ const CouponContent: React.FC<CouponProps> = ({
               alt="coupon-black"
               src={ClockCircleRed}
             />
-            termina em {getDateDiffInDays(expirateTime)} dias
+            {getExpirateTime(expirateTime)}
           </p>
         </div>
         <span className="relative text-3xl font-medium w-32 h-16 text-white bg-primary-main flex items-center justify-center px-6 rounded-full">

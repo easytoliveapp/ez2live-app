@@ -101,7 +101,7 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
           couponTitle={couponTitle}
           couponDiscount={discount}
           expirateTime={expirateTime}
-          unintsAmount={10}
+          unintsAmount={maxUnitsTotal}
           supplierCategory={supplierCategory}
           supplierLogo={supplierLogo}
           supplierName={supplierName}
@@ -264,7 +264,7 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
         couponTitle={couponTitle}
         discount={discount}
         maxUnitsTotal={maxUnitsTotal}
-        expirationUseDate={expirationUseDate}
+        expirationUseDate={expirateTime}
         setShowCouponModal={setShowCouponModal}
         icon={icon}
       />
