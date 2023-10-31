@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import FormComponent from "./FormComponent";
 import Avatar from "@/images/easytolive/user/user_circle_color_primary.svg";
-import SocialLoginComponent from "../../login/SocialLoginComponent";
+import SocialLoginComponent from "../../../../../../../components/mols/SocialLoginComponent";
 
 const UserRegisterPage = () => {
   return (
