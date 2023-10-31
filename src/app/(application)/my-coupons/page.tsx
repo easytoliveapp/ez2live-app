@@ -59,10 +59,10 @@ const MyCouponsPage = () => {
   useEffect(() => {
     handleGetCouponCodesByUser()
       .then((res) => setCouponCodes(res.data.coupons))
-      .then(() => setLoadingCoupons(false))
       .catch((error) =>
         showToastify({ type: "error", label: `Ocorreu um erro: ${error}` }),
-      );
+      )
+      .finally(() => setLoadingCoupons(false));
   }, []);
 
   return (
@@ -102,7 +102,6 @@ const MyCouponsPage = () => {
       <div className="mt-6 pb-16 m-4 flex flex-col gap-4">
         {loadingCoupons && <div>Carregando seus cupons...</div>}
         {!loadingCoupons &&
-          couponCodes &&
           Array.isArray(couponCodes) &&
           couponCodes.length > 0 &&
           couponCodes.filter((t) => t.status === couponsFilter.id).length > 0 &&
@@ -120,7 +119,6 @@ const MyCouponsPage = () => {
               ),
           )}
         {!loadingCoupons &&
-          couponCodes &&
           Array.isArray(couponCodes) &&
           couponCodes.length > 0 &&
           couponCodes.filter((t) => t.status === couponsFilter.id).length ===

@@ -133,7 +133,7 @@ function PageHome() {
         href="/my-coupons"
       />
       <SearchCategory onChange={handleSetSearch} />
-      {categories && (
+      {categories && categories.length > 0 && (
         <div className="flex overflow-x-auto justify-start my-4 w-full gap-2">
           {categories.map((category: ICategorieProps, index) => (
             <CategoryCard
@@ -158,6 +158,7 @@ function PageHome() {
           endMessage={<p className="m-4 text-primary-main text-center">...</p>}
         >
           {!!suppliers &&
+            suppliers.length > 0 &&
             suppliers.map((supplier: ISuppliers, index) => (
               <SupplierCard
                 supplierCategory={

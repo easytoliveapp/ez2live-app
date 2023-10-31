@@ -24,7 +24,7 @@ const FloatButtonNav: React.FC<IFloatButtonNavProps & LinkProps<any>> = ({
     <NextLink
       href={href}
       className={`${
-        backgroundStyle == "main"
+        backgroundStyle === "main"
           ? "from-primary-main to-white"
           : "from-secondary-main to-secondary-lighter"
       } ${

@@ -275,7 +275,7 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
                 >
                   <Field
                     invalid={!!(errors.discount && touched.discount)}
-                    className="accent-primary-main !p-0 !focus:border-none !hover:border-none focus:ring-0"
+                    className="accent-primary-main p-0 !focus:border-none !hover:border-none focus:ring-0"
                     name="discount"
                     min="1"
                     max="100"
