@@ -130,7 +130,7 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
         <div className="flex items-center justify-between">
           <div className="flex gap-1">
             <Link
-              href={`/`}
+              href={`/?supplierCategory=${supplier.supplier.supplierInfo.supplierCategory.id}`}
               className="text-xs underline font-bold text-generic-dark"
             >
               {supplier?.supplier?.supplierInfo?.supplierCategory?.title}

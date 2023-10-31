@@ -49,6 +49,7 @@ const MyCouponsPage = () => {
     filterOptions[0],
   );
   const [couponCodes, setCouponCodes] = useState(Array<ICouponCodesByUser>);
+  const [loadingCoupons, setLoadingCoupons] = useState(true);
 
   const handleGetCouponCodesByUser = async () => {
     const res: any = await couponsService.getCouponCodesByUser();
@@ -58,10 +59,10 @@ const MyCouponsPage = () => {
   useEffect(() => {
     handleGetCouponCodesByUser()
       .then((res) => setCouponCodes(res.data.coupons))
-
       .catch((error) =>
         showToastify({ type: "error", label: `Ocorreu um erro: ${error}` }),
-      );
+      )
+      .finally(() => setLoadingCoupons(false));
   }, []);
 
   return (
@@ -99,10 +100,11 @@ const MyCouponsPage = () => {
         </CurrencyDropdown>
       </div>
       <div className="mt-6 pb-16 m-4 flex flex-col gap-4">
-        {couponCodes &&
-        Array.isArray(couponCodes) &&
-        couponCodes.length > 0 &&
-        couponCodes.filter((t) => t.status === couponsFilter.id).length > 0 ? (
+        {loadingCoupons && <div>Carregando seus cupons...</div>}
+        {!loadingCoupons &&
+          Array.isArray(couponCodes) &&
+          couponCodes.length > 0 &&
+          couponCodes.filter((t) => t.status === couponsFilter.id).length > 0 &&
           couponCodes.map(
             (couponCode: ICouponCodesByUser, key) =>
               couponCode.status === couponsFilter.id &&
@@ -115,10 +117,12 @@ const MyCouponsPage = () => {
                   key={key}
                 />
               ),
-          )
-        ) : (
-          <em className="text-sm">nenhum cupom encontrado...</em>
-        )}
+          )}
+        {!loadingCoupons &&
+          Array.isArray(couponCodes) &&
+          couponCodes.length > 0 &&
+          couponCodes.filter((t) => t.status === couponsFilter.id).length ===
+            0 && <em> Nenhum cupom encontrado...</em>}
       </div>
       <span className="fixed ring-0 bottom-0 text-neutral-400 w-full md:max-w-[500px] flex justify-center items-center h-16 bg-generic-dark">
         Todos os direitos reservados

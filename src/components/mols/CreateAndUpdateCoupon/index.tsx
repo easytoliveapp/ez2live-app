@@ -39,8 +39,8 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
   const [initalValues, setInitialValues] = useState({
     title: "",
     discount: "20",
-    maxTotal: 0,
-    maxPerUser: 0,
+    maxTotal: 100,
+    maxPerUser: 1,
     expirationGenerationDate: new Date("2022-01-01"),
     expirationUseDate: new Date("2022-01-01"),
   });
@@ -103,8 +103,8 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
       setInitialValues({
         title: coupon.title,
         discount: coupon.discount,
-        maxPerUser: coupon.maxPerUser === -1 ? 0 : coupon.maxPerUser,
-        maxTotal: coupon.maxTotal === -1 ? 0 : coupon.maxTotal,
+        maxPerUser: coupon.maxPerUser === -1 ? 1 : coupon.maxPerUser,
+        maxTotal: coupon.maxTotal === -1 ? 100 : coupon.maxTotal,
         expirationGenerationDate: new Date(coupon.expirationGenerationDate),
         expirationUseDate: new Date(coupon.expirationUseDate),
       });
@@ -266,19 +266,19 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
             onSubmit={handleFormSubmit}
           >
             {({ values, errors, touched, isValidating, handleSubmit }) => (
-              <Form onSubmit={handleSubmit} className="flex flex-col gap-3">
+              <Form onSubmit={handleSubmit} className="flex flex-col gap-1">
                 <FormItem
-                  className="w-32 !text-3xl py-3 flex items-center justify-center font-semibold rounded-full border-[1px] border-black"
+                  className="w-32 !text-3xl flex items-center justify-center font-semibold rounded-full border-[1px] border-black"
                   label={values.discount + "%"}
                   errorMessage={errors.discount}
                   invalid={!!(errors.discount && touched.discount)}
                 >
                   <Field
                     invalid={!!(errors.discount && touched.discount)}
-                    className="accent-primary-main !focus:border-none !hover:border-none focus:ring-0"
+                    className="accent-primary-main p-0 !focus:border-none !hover:border-none focus:ring-0"
                     name="discount"
-                    min="5"
-                    max="95"
+                    min="1"
+                    max="100"
                     step="1"
                     type="range"
                     label="discount"
@@ -413,7 +413,7 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
                 )}
                 <ButtonSecondary
                   type="submit"
-                  className="w-full mt-20"
+                  className="w-full mt-2"
                   disabled={loading}
                   loading={loading}
                 >

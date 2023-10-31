@@ -8,7 +8,7 @@ import CouponPrimary from "@/images/easytolive/icons/couponPrimary.svg";
 import CouponGreen from "@/images/easytolive/icons/coupongreen.svg";
 import ShoppingCartGreen from "@/images/easytolive/icons/shopping_cart_green.svg";
 import ClockCircleRed from "@/images/easytolive/icons/clock_circleRed.svg";
-import getDateDiffInDays from "@/utils/getDiffInDays";
+import getExpirateTime from "@/utils/getExpirateTime";
 
 interface ICouponCardProps {
   discount: string;
@@ -39,10 +39,10 @@ const CouponCard: React.FC<ICouponCardProps> = ({
       <h2 className={`text-white font-semibold text-xl`}>{discount}%</h2>
       <div
         className={classNames(
-          "rounded-full bg-white w-full py-3 gap-2 -m-[1px] hover:shadow-md",
+          "rounded-full bg-white w-full py-2.5 gap-1 -m-[1px] hover:shadow-md",
         )}
       >
-        <div className="rounded-full flex items-center gap-6 pr-3 pl-6 w-full">
+        <div className="rounded-full flex items-center gap-3 pr-3 pl-3 w-full">
           <Image
             className="h-10 w-auto"
             alt="Coupons Image"
@@ -85,7 +85,7 @@ const CouponCard: React.FC<ICouponCardProps> = ({
                       alt="coupon-black"
                       src={ClockCircleRed}
                     />
-                    termina em {getDateDiffInDays(expirationUseDate)}
+                    {getExpirateTime(expirationUseDate)}
                   </p>
                 )}
               </div>
