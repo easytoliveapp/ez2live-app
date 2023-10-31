@@ -62,6 +62,7 @@ module.exports = {
           blue: customColors("--generic-easytolive-blue"),
           background: customColors("--generic-easytolive-bg"),
           backgroundLighter: customColors("--generic-easytolive-bg-lighter"),
+          gray: customColors("--generic-bg-gray"),
         },
       },
     },
