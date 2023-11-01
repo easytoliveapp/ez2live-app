@@ -1,7 +1,7 @@
 import React from "react";
 
 import Link from "next/link";
-import SocialLoginComponent from "./SocialLoginComponent";
+import SocialLoginComponent from "../../../../../../components/mols/SocialLoginComponent";
 import FormComponent from "./FormComponent";
 
 const PageLogin = async () => {

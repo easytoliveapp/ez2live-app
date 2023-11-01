@@ -17,7 +17,7 @@ import { ICategorieProps } from "@/components/atoms/CategoryCard";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { showToastify } from "@/hooks/showToastify";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 function PageHome() {
   const { data: session } = useSession();
@@ -28,8 +28,17 @@ function PageHome() {
   const [textSearched] = useDebounce(search, 1000);
   const [categories, setCategories] = useState([]);
   const [pageNumber, setPageNumber] = useState(1);
+  const [loadingSuppliers, setLoadingSuppliers] = useState(true);
   const [hasMore, setHasMore] = useState(true);
   const [supplierCategoriesFilter, setSupplierCategoriesFilter] = useState("");
+  const searchParams = useSearchParams();
+  const queryCategoryFilter = searchParams.get("supplierCategory");
+
+  useEffect(() => {
+    if (queryCategoryFilter) {
+      setSupplierCategoriesFilter(queryCategoryFilter);
+    }
+  }, [queryCategoryFilter]);
 
   const getAllCategories = async () => {
     const res: any = await SupplierService.getSupplierCategories();
@@ -37,6 +46,8 @@ function PageHome() {
   };
 
   const handleCategoryFilter = (categoryId: string) => {
+    setLoadingSuppliers(true);
+    setPageNumber(1);
     setSupplierCategoriesFilter((prevState) =>
       prevState === categoryId ? "" : categoryId,
     );
@@ -70,18 +81,25 @@ function PageHome() {
   }, [session, router]);
 
   function handleSetSearch(e: any) {
+    setLoadingSuppliers(true);
     setSearch(e.target.value);
     setPageNumber(1);
   }
 
-  const handleResponse = (res: any) =>
-    setSuppliers(res.data.results ? res.data.results : res.data);
+  const handleResponse = (res: any) => {
+    setLoadingSuppliers(false);
+    setSuppliers(
+      pageNumber === 1
+        ? res.data.results
+        : suppliers.concat(res?.data?.results),
+    );
+  };
 
   useEffect(() => {
     const getAllSuppliers = async (data: Partial<ISupplierList>) => {
       const res: any = await SupplierService.getSupplierList(data);
 
-      if (res?.data?.totalPages <= pageNumber) {
+      if (res?.data?.totalPages === pageNumber) {
         setHasMore(false);
       } else {
         setHasMore(true);
@@ -95,8 +113,6 @@ function PageHome() {
       ...(supplierCategoriesFilter && {
         supplierCategory: supplierCategoriesFilter,
       }),
-      isVerified: true,
-      sortBy: "coupons:desc",
     };
 
     getAllSuppliers(data)
@@ -109,7 +125,7 @@ function PageHome() {
   }, [textSearched, pageNumber, supplierCategoriesFilter]);
 
   return (
-    <div className="md:w-[500px] w-full m-auto p-5 relative">
+    <div className="md:w-[600px] w-full m-auto p-5 relative">
       <FloatButtonNav
         hasCouponActive={true}
         backgroundStyle="secondary"
@@ -117,37 +133,47 @@ function PageHome() {
         href="/my-coupons"
       />
       <SearchCategory onChange={handleSetSearch} />
-      <div className="flex flex-wrap my-6 w-full gap-3">
-        {categories.map((category: ICategorieProps, index) => (
-          <CategoryCard
-            key={index}
-            name={category.title}
-            onClick={() => handleCategoryFilter(category.id)}
-            image={imageCategory}
-            isActive={category.id === supplierCategoriesFilter}
-          />
-        ))}
-      </div>
-      <InfiniteScroll
-        className="flex flex-col gap-3"
-        dataLength={suppliers.length}
-        next={() => setPageNumber(pageNumber + 1)}
-        hasMore={hasMore}
-        loader={<h4 className=" m-4 text-primary-main">Carregando...</h4>}
-        endMessage={<p className="m-4 text-primary-main text-center">...</p>}
-      >
-        {suppliers.map((supplier: ISuppliers, index) => (
-          <SupplierCard
-            supplierCategory={supplier?.supplierInfo?.supplierCategory?.title}
-            supplierImage={SupplierLogo}
-            avaliation="4.6"
-            couponsAvaible={supplier.supplierInfo.coupons.length}
-            name={supplier.name}
-            key={supplier.id + index}
-            id={supplier.id}
-          />
-        ))}
-      </InfiniteScroll>
+      {categories && categories.length > 0 && (
+        <div className="flex overflow-x-auto justify-start my-4 w-full gap-2">
+          {categories.map((category: ICategorieProps, index) => (
+            <CategoryCard
+              key={index}
+              name={category.title}
+              onClick={() => handleCategoryFilter(category.id)}
+              image={imageCategory}
+              isActive={category.id === supplierCategoriesFilter}
+            />
+          ))}
+        </div>
+      )}
+      {loadingSuppliers ? (
+        <em>Carregando...</em>
+      ) : (
+        <InfiniteScroll
+          className="flex flex-col gap-3"
+          dataLength={suppliers.length}
+          next={() => setPageNumber(pageNumber + 1)}
+          hasMore={hasMore}
+          loader={<h4 className=" m-4 text-primary-main">Carregando...</h4>}
+          endMessage={<p className="m-4 text-primary-main text-center">...</p>}
+        >
+          {!!suppliers &&
+            suppliers.length > 0 &&
+            suppliers.map((supplier: ISuppliers, index) => (
+              <SupplierCard
+                supplierCategory={
+                  supplier?.supplierInfo?.supplierCategory?.title
+                }
+                supplierImage={SupplierLogo}
+                avaliation="4.6"
+                couponsAvaible={supplier.supplierInfo.coupons.length}
+                name={supplier.name}
+                key={supplier.id + index}
+                id={supplier.id}
+              />
+            ))}
+        </InfiniteScroll>
+      )}
     </div>
   );
 }
