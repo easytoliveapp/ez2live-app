@@ -6,32 +6,28 @@ import Image, { StaticImageData } from "next/image";
 import ArrowRight from "@/images/easytolive/icons/arrow-next-right-black.svg";
 import { useRouter } from "next/navigation";
 
-interface ISupplierCardProps {
-  couponsAvaible?: number;
+interface SupplierCardProps {
+  couponsAvaible: number;
   supplierCategory: string;
   supplierImage: string | StaticImageData;
   name: string;
   avaliation?: string;
   id: string;
-  onClick?: () => void;
-  showArrow?: boolean;
 }
 
-const SupplierCard: FC<ISupplierCardProps> = ({
+const SupplierCard: FC<SupplierCardProps> = ({
   couponsAvaible,
   supplierCategory,
   name,
   supplierImage,
   avaliation,
   id,
-  onClick,
-  showArrow = true,
 }) => {
   const router = useRouter();
 
-  const handleClick = (e: string) => {
-    return onClick ? onClick() : router.push(`/supplier-dashboard/${e}`);
-  };
+  function handleClick(e: string) {
+    router.push(`/supplier-dashboard/${e}`);
+  }
 
   return (
     <div
@@ -50,15 +46,13 @@ const SupplierCard: FC<ISupplierCardProps> = ({
         <p className="text-xs pb-1 font-medium text-primary-main">
           {supplierCategory}
         </p>
-        {couponsAvaible && <CouponsAvaible coupons={couponsAvaible} />}
+        <CouponsAvaible coupons={couponsAvaible} />
       </div>
       <div className=" col-span-1 relative">
-        {avaliation && <Avaliation note={avaliation} />}
-        {showArrow && (
-          <button className="w-auto h-6 absolute right-0 bottom-2">
-            <Image className="w-auto h-6" alt="Next Button" src={ArrowRight} />
-          </button>
-        )}
+        <Avaliation note={avaliation} />
+        <button className="w-auto h-6 absolute right-0 bottom-2">
+          <Image className="w-auto h-6" alt="Next Button" src={ArrowRight} />
+        </button>
       </div>
     </div>
   );
