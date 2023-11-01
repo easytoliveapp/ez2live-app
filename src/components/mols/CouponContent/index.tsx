@@ -40,7 +40,11 @@ const CouponContent: React.FC<CouponProps> = ({
               src={CouponGreen}
               color="white"
             />
-            faltam {unintsAmount} unidades
+            {unintsAmount === -1
+              ? "quantidade ilimitada"
+              : `faltam ${unintsAmount} unidade${
+                  unintsAmount === 1 ? "" : "s"
+                }`}
           </p>
           <p className="flex font-semibold items-center text-generic-alertRed">
             <Image
