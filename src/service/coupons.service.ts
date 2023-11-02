@@ -1,9 +1,8 @@
 import { BaseService } from "./base.service";
 import {
   ICreateCoupon,
-  IGetCouponById,
   ISupplierCouponsList,
-  ICoupon,
+  IUpdateCoupon,
 } from "@/types/coupons";
 
 const createCoupon = async (data: ICreateCoupon) => {
@@ -28,9 +27,9 @@ const getCouponById = async (couponId: string) => {
   });
 };
 
-const updateCoupon = async (data: ICoupon, couponId: IGetCouponById) => {
+const updateCoupon = async (data: Partial<IUpdateCoupon>, couponId: string) => {
   return await BaseService.fetchData({
-    url: `/coupons/${couponId}`,
+    url: `/coupon/${couponId}`,
     method: "put",
     data,
   });
@@ -45,7 +44,7 @@ const generateCouponCode = async (couponId: string) => {
 
 const getCouponCodesByUser = async () => {
   return await BaseService.fetchData({
-    url: "coupon/code",
+    url: "/coupon/code",
     method: "get",
   });
 };
@@ -64,13 +63,23 @@ const activeCouponCode = async (couponCode: string) => {
   });
 };
 
-export default {
-  getSupplierCouponsList,
+const deleteCoupon = async (id: string) => {
+  return await BaseService.fetchData({
+    url: `/coupon/${id}`,
+    method: "delete",
+  });
+};
+
+const couponsService = {
   createCoupon,
+  getSupplierCouponsList,
   getCouponById,
   updateCoupon,
   generateCouponCode,
   getCouponCodesByUser,
   getCouponCodesByCode,
   activeCouponCode,
+  deleteCoupon,
 };
+
+export default couponsService;

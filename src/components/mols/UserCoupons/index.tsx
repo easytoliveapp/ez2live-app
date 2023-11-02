@@ -75,15 +75,17 @@ const UserCoupons: React.FC<UserCouponsProps> = ({ couponCodeData }) => {
           closeOnBlur={true}
           onCloseModal={() => setShowCouponModal(false)}
         >
-          <CouponActived
-            couponActivateCode={couponActivateCode}
-            couponDiscount={discount}
-            couponTitle={couponTitle}
-            expirateTime={expirationUseDate}
-            supplierCategory={supplierCategory.title}
-            supplierLogo={LogoImage}
-            supplierName={supplierName}
-          />
+          {supplierName && supplierCategory && (
+            <CouponActived
+              couponActivateCode={couponActivateCode}
+              couponDiscount={discount}
+              couponTitle={couponTitle}
+              expirateTime={expirationUseDate}
+              supplierCategory={supplierCategory.title}
+              supplierLogo={LogoImage}
+              supplierName={supplierName}
+            />
+          )}
         </Modal>
       )}
 

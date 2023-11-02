@@ -183,7 +183,7 @@ const SidebarFilters = () => {
                 name="minPrice"
                 disabled
                 id="minPrice"
-                className="block w-32 pr-10 pl-4 sm:text-sm border-neutral-200  rounded-full bg-transparent"
+                className="block w-32 pr-10 pl-4 text-sm border-neutral-200  rounded-full bg-transparent"
                 value={rangePrices[0]}
               />
             </div>
@@ -204,7 +204,7 @@ const SidebarFilters = () => {
                 disabled
                 name="maxPrice"
                 id="maxPrice"
-                className="block w-32 pr-10 pl-4 sm:text-sm border-neutral-200  rounded-full bg-transparent"
+                className="block w-32 pr-10 pl-4 text-sm border-neutral-200  rounded-full bg-transparent"
                 value={rangePrices[1]}
               />
             </div>

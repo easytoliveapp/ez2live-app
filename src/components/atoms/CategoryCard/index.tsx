@@ -2,20 +2,20 @@ import React, { FC } from "react";
 import Image, { StaticImageData } from "next/image";
 import classNames from "@/utils/classNames";
 
-export interface categorieProps {
+export interface ICategorieProps {
   active: boolean;
   title: string;
   id: string;
 }
 
-export interface CategoryProps {
+export interface ICategoryProps {
   image: string | StaticImageData;
   isActive: boolean;
   name: string;
   onClick?: (e: React.MouseEvent<HTMLDivElement>) => void;
 }
 
-const CategoryCard: FC<CategoryProps> = ({
+const CategoryCard: FC<ICategoryProps> = ({
   image,
   isActive,
   name,
@@ -24,8 +24,8 @@ const CategoryCard: FC<CategoryProps> = ({
   return (
     <div
       className={classNames(
-        "bg-white border-2 hover:border-secondary-main active:shadow-sm rounded-lg p-1 py-2 w-24 flex flex-col gap-1 items-center cursor-pointer",
-        isActive ? "border-secondary-main" : "border-white",
+        "bg-white border-2 focus:border-secondary-main active:shadow-sm rounded-lg p-1 py-2 w-20 min-w-[80px] flex flex-col gap-1 items-center cursor-pointer",
+        isActive ? "border-secondary-main" : "border-transparent",
       )}
       onClick={onClick}
     >
