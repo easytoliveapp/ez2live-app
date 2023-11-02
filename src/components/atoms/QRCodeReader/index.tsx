@@ -35,7 +35,7 @@ const QRCodeReader: React.FC<IQRCodeReaderProps> = ({
         }
       }}
       videoContainerStyle={{
-        height: "calc(100vh - 64px)",
+        height: "100vh",
         padding: "0px",
         backgroundColor: "#000",
       }}
