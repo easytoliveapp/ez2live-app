@@ -20,6 +20,10 @@ const ActiveCouponPage = () => {
     setShowCodeValidationModal(!showCodeValidationModal);
   };
 
+  const handleCancelCodeValidation = () => {
+    return router.push("/dashboard");
+  };
+
   return (
     <>
       <div className="md:w-screen-xl md:max-w-screen-xl sm:mx-auto">
@@ -32,9 +36,7 @@ const ActiveCouponPage = () => {
                 setShowCodeValidationModal(true);
               }
             }}
-            onClose={() => {
-              router.push("/dashboard");
-            }}
+            onClose={handleCancelCodeValidation}
             textOverlay="Aproxime a câmera para ler o QR Code de validação"
             aditionalElements={
               <div className="w-full flex flex-col gap-5 max-w-[350px]">
@@ -54,7 +56,7 @@ const ActiveCouponPage = () => {
           <div className="flex flex-col items-center md:w-[500px] w-full p-2">
             <ActiveCouponCode
               code={couponCode}
-              onCancelClick={handleWithCodeValidation}
+              onCancelClick={handleCancelCodeValidation}
             />
           </div>
         </div>
