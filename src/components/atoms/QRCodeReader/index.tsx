@@ -58,7 +58,7 @@ const QRCodeReader: React.FC<IQRCodeReaderProps> = ({
         );
       }}
       constraints={{
-        facingMode: "user",
+        facingMode: "environment",
         aspectRatio: 1,
       }}
     />
