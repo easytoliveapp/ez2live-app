@@ -15,9 +15,11 @@ import Image from "next/image";
 import { showToastify } from "@/hooks/showToastify";
 import CouponsService from "@/service/coupons.service";
 import cx from "classnames";
+import { useRouter } from "next/navigation";
 
 export interface IActiveCouponCodeProps {
   code?: string;
+  resetPageState: () => void;
   onCancelClick?: () => void;
 }
 
@@ -28,8 +30,10 @@ const ActiveCouponValidationScheema = Yup.object().shape({
 const ActiveCouponCode: React.FC<IActiveCouponCodeProps> = ({
   code,
   onCancelClick,
+  resetPageState,
 }) => {
   const [couponInfo, setCouponInfo] = React.useState<any>();
+  const [couponCode, setCouponCode] = React.useState(code);
   const [couponValidationLoading, setCouponValidationLoading] =
     React.useState(false);
   const [couponValidationError, setCouponValidationError] =
@@ -37,6 +41,8 @@ const ActiveCouponCode: React.FC<IActiveCouponCodeProps> = ({
   const [couponIsValidation, setCouponIsValidation] = React.useState(false);
   const [couponInfoLoading, setCouponInfoLoading] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
+
+  const router = useRouter();
 
   const getCouponCodeByCode = async (code: string) => {
     const codeActive = await CouponsService.getCouponCodesByCode(code);
@@ -55,8 +61,14 @@ const ActiveCouponCode: React.FC<IActiveCouponCodeProps> = ({
     return await CouponsService.activeCouponCode(code);
   };
 
+  const handleValidateOtherCoupon = () => {
+    resetPageState();
+    resetComponentState();
+  };
+
   const resetComponentState = () => {
     setCouponInfo("");
+    setCouponCode("");
     setCouponValidationLoading(false);
     setCouponValidationError(false);
     setCouponIsValidation(false);
@@ -114,9 +126,9 @@ const ActiveCouponCode: React.FC<IActiveCouponCodeProps> = ({
   };
 
   useEffect(() => {
-    if (code) {
+    if (couponCode) {
       setCouponInfoLoading(true);
-      CouponsService.getCouponCodesByCode(code)
+      CouponsService.getCouponCodesByCode(couponCode)
         .then((res: any) => {
           setCouponInfo(res?.data?.coupon);
         })
@@ -130,7 +142,7 @@ const ActiveCouponCode: React.FC<IActiveCouponCodeProps> = ({
           setCouponInfoLoading(false);
         });
     }
-  }, [code]);
+  }, [couponCode]);
 
   return (
     <div className="w-full h-full">
@@ -156,13 +168,21 @@ const ActiveCouponCode: React.FC<IActiveCouponCodeProps> = ({
           {!couponValidationLoading && (
             <div className="flex flex-col justify-center items-center">
               <ButtonSecondary
-                onClick={() => resetComponentState()}
+                onClick={() => router.push("/dashboard")}
                 className="w-full mt-4"
                 disabled={loading}
                 loading={loading}
               >
-                Validar outro cupom
+                Voltar para o inicio
               </ButtonSecondary>
+              <ButtonThird
+                onClick={() => handleValidateOtherCoupon()}
+                className="w-full mt-4 text-primary-main"
+                disabled={loading}
+                loading={loading}
+              >
+                Validar outro cupom
+              </ButtonThird>
             </div>
           )}
         </>
@@ -185,7 +205,7 @@ const ActiveCouponCode: React.FC<IActiveCouponCodeProps> = ({
           <Formik
             validateOnBlur={false}
             initialValues={{
-              couponCode: code ?? "",
+              couponCode: couponCode ?? "",
             }}
             validationSchema={ActiveCouponValidationScheema}
             onSubmit={(values) => handleClickButton(values)}
@@ -313,7 +333,7 @@ const ActiveCouponCode: React.FC<IActiveCouponCodeProps> = ({
                     className="text-generic-alertRed"
                     onClick={onCancelClick}
                   >
-                    cancelar
+                    voltar
                   </ButtonThird>
                 </div>
               </>

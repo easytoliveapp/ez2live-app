@@ -4,7 +4,7 @@ import { QRCodeReader } from "@/components";
 import { useRouter } from "next/navigation";
 import { Result } from "@zxing/library";
 
-import React from "react";
+import React, { useEffect } from "react";
 import ActiveCouponCode from "@/components/mols/ActiveCouponCode";
 
 const ActiveCouponPage = () => {
@@ -20,9 +20,14 @@ const ActiveCouponPage = () => {
     setShowCodeValidationModal(!showCodeValidationModal);
   };
 
-  const handleCancelCodeValidation = () => {
-    return router.push("/dashboard");
+  const resetPageFromOriginState = () => {
+    setCouponCode("");
+    setShowCodeValidationModal(false);
   };
+
+  useEffect(() => {
+    resetPageFromOriginState();
+  }, []);
 
   return (
     <>
@@ -36,7 +41,9 @@ const ActiveCouponPage = () => {
                 setShowCodeValidationModal(true);
               }
             }}
-            onClose={handleCancelCodeValidation}
+            onClose={() => {
+              router.push("/dashboard");
+            }}
             textOverlay="Aproxime a câmera para ler o QR Code de validação"
             aditionalElements={
               <div className="w-full flex flex-col gap-5 max-w-[350px]">
@@ -55,8 +62,9 @@ const ActiveCouponPage = () => {
         <div className="flex justify-center">
           <div className="flex flex-col items-center md:w-[500px] w-full p-2">
             <ActiveCouponCode
+              resetPageState={resetPageFromOriginState}
               code={couponCode}
-              onCancelClick={handleCancelCodeValidation}
+              onCancelClick={handleWithCodeValidation}
             />
           </div>
         </div>
