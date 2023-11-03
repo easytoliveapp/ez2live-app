@@ -49,6 +49,20 @@ const getCouponCodesByUser = async () => {
   });
 };
 
+const getCouponCodesByCode = async (couponCode: string) => {
+  return await BaseService.fetchData({
+    url: `/coupon/code/${couponCode}`,
+    method: "get",
+  });
+};
+
+const activeCouponCode = async (couponCode: string) => {
+  return await BaseService.fetchData({
+    url: `/coupon/code/${couponCode}/activate`,
+    method: "post",
+  });
+};
+
 const deleteCoupon = async (id: string) => {
   return await BaseService.fetchData({
     url: `/coupon/${id}`,
@@ -63,6 +77,8 @@ const couponsService = {
   updateCoupon,
   generateCouponCode,
   getCouponCodesByUser,
+  getCouponCodesByCode,
+  activeCouponCode,
   deleteCoupon,
 };
 

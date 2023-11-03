@@ -18,5 +18,6 @@ export { default as ToggleButton } from "./toggleButton";
 export { default as CouponLoading } from "./CouponLoading";
 export { default as LoadingComponent } from "./Loading";
 export { default as FloatButtonNav } from "./FloatButtonNav";
+export { default as QRCodeReader } from "./QRCodeReader";
 export { default as SearchCategory } from "./SearchCategory";
 export { default as ModalHeader } from "./ModalHeader";
