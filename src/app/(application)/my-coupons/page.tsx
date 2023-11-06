@@ -5,7 +5,7 @@ import { useSession } from "next-auth/react";
 import { ICouponCodesByUser } from "@/types/coupons";
 import { showToastify } from "@/hooks/showToastify";
 import { FloatButtonNav } from "@/components/atoms/index";
-import { UserCoupons } from "@/components/mols/index";
+import { FreePaymentComponent, UserCoupons } from "@/components/mols/index";
 import CouponGreen from "@/images/easytolive/icons/coupongreen.svg";
 import CouponBlack from "@/images/easytolive/icons/couponblack.svg";
 import CouponRed from "@/images/easytolive/icons/couponred.svg";
@@ -50,7 +50,7 @@ const MyCouponsPage = () => {
   );
   const [couponCodes, setCouponCodes] = useState(Array<ICouponCodesByUser>);
   const [loadingCoupons, setLoadingCoupons] = useState(true);
-
+  const [userAssignment, setUserAssignment] = useState(true);
   const handleGetCouponCodesByUser = async () => {
     const res: any = await couponsService.getCouponCodesByUser();
     return res;
@@ -67,6 +67,11 @@ const MyCouponsPage = () => {
 
   return (
     <div className="relative md:w-[500px] h-full w-full mx-auto">
+      <FreePaymentComponent
+        newUser={true}
+        showModal={userAssignment}
+        setModalFreePayment={setUserAssignment}
+      />
       <FloatButtonNav href="/" icon={Shop} backgroundStyle="main" />
       <div className="mt-8 mb-16 flex items-center justify-between">
         <h2 className=" pl-6 flex items-center text-2xl leading-[115%] md:leading-[115%] font-bold text-black dark:text-neutral-100 justify-center">

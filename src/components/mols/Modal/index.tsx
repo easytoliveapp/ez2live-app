@@ -3,6 +3,7 @@ import React, { FC, useEffect, useRef } from "react";
 import NcModal from "@/components/atoms/NcModal/NcModal";
 
 export interface ModalProps {
+  contentExtraClass?: string;
   show: boolean;
   onCloseModal: () => void;
   children: React.ReactNode;
@@ -16,6 +17,7 @@ const Modal: FC<ModalProps> = ({
   children,
   closeOnBlur,
   hasCloseButton = true,
+  contentExtraClass = "max-w-lg",
 }) => {
   const textareaRef = useRef(null);
 
@@ -48,7 +50,7 @@ const Modal: FC<ModalProps> = ({
       closeOnBlur={closeOnBlur}
       isOpenProp={show}
       onCloseModal={onCloseModal}
-      contentExtraClass="max-w-lg"
+      contentExtraClass={contentExtraClass}
       renderContent={renderContent}
       renderTrigger={renderTrigger}
       modalTitle=""

@@ -9,3 +9,4 @@ export { default as UserCoupons } from "./UserCoupons";
 export { default as FastLoginPage } from "./FastLoginPage";
 export { default as SiteHeader } from "./SiteHeader";
 export { default as SocialLoginComponent } from "./SocialLoginComponent";
+export { default as FreePaymentComponent } from "./FreePayment";
