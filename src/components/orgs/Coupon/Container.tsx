@@ -15,11 +15,13 @@ import { showToastify } from "@/hooks/showToastify";
 import { AxiosResponse } from "axios";
 import CouponCard from "@/components/mols/CouponCard";
 import { useSearchParams } from "next/navigation";
+import { useSession, signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 import { ICoupon } from "@/types/coupons";
 
 interface CouponContainerProps {
+  supplierId: string;
   couponTitle: string;
   discount: string;
   maxUnitsTotal: number;
@@ -42,9 +44,11 @@ const STEPS = {
   LOADING_COUPON: 1,
   COUPON_ACTIVE: 2,
   SHOWING_COUPON_CODE: 3,
+  REDIRECT_TO_LOGIN: 4,
 };
 
 const CouponContainer: React.FC<CouponContainerProps> = ({
+  supplierId,
   isOwnSupplier = false,
   discount,
   maxUnitsTotal,
@@ -64,6 +68,7 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
   const searchParams = useSearchParams();
   const couponIdParam = searchParams.get("coupon");
   const router = useRouter();
+  const { data: session } = useSession();
 
   const handleNextStep = (step: number) => setCurrentStep(step);
 
@@ -178,6 +183,35 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
     );
   };
 
+  const StepRedirectToLogin = () => {
+    return (
+      <div className="flex flex-col gap-3">
+        <h2 className="text-lg font-semibold text-center p-2">
+          Cadastre-se agora e ganhe 14 dias de acesso ao premium gratuitamente!
+          <br />
+          Venha desfrutar os benefícios exclusivos.
+        </h2>
+
+        <p className="text-xs text-center">
+          {"(não é necessário cadastrar cartão de crédito)"}
+        </p>
+        <ButtonPrimary
+          onClick={() =>
+            signIn(undefined, {
+              callbackUrl: `/supplier-dashboard/${supplierId}/?coupon=${CouponId}`,
+            })
+          }
+        >
+          {" "}
+          Junte-se a nós!
+        </ButtonPrimary>
+        <ButtonThird onClick={() => setShowCouponModal(false)}>
+          cancelar
+        </ButtonThird>
+      </div>
+    );
+  };
+
   const renderStep = (step: number) => {
     switch (step) {
       case STEPS.SHOWING_COUPON:
@@ -188,6 +222,8 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
         return <StepThree />;
       case STEPS.SHOWING_COUPON_CODE:
         return <StepFour couponCode={couponCode} />;
+      case STEPS.REDIRECT_TO_LOGIN:
+        return <StepRedirectToLogin />;
       default:
         return <StepOne />;
     }
@@ -200,44 +236,52 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
   };
 
   const handleActiveCoupon = async () => {
-    handleNextStep(STEPS.LOADING_COUPON);
+    if (session?.user) {
+      handleNextStep(STEPS.LOADING_COUPON);
 
-    activateCoupon()
-      .then((res) => {
-        if (res?.data?.coupon?.code) {
-          return setTimeout(() => {
-            setCouponCode(res?.data?.coupon?.code);
-          }, 2500);
-        }
+      activateCoupon()
+        .then((res) => {
+          if (res?.data?.coupon?.code) {
+            return setTimeout(() => {
+              setCouponCode(res?.data?.coupon?.code);
+            }, 2500);
+          }
 
-        setCurrentStep(STEPS.SHOWING_COUPON);
-        showToastify({
-          label: "Ocorreu um erro interno. Por favor, tente novamente.",
-          type: "error",
-        });
-      })
-      .catch((error) => {
-        setCurrentStep(STEPS.SHOWING_COUPON);
-        if (error?.response?.data?.code === 400) {
-          showToastify({
-            label:
-              "O Coupon que está tentando ativar não é mais válido, atualize a página.",
-            type: "error",
-          });
-        }
-        if (error?.response?.data?.code === 500) {
+          setCurrentStep(STEPS.SHOWING_COUPON);
           showToastify({
             label: "Ocorreu um erro interno. Por favor, tente novamente.",
             type: "error",
           });
-        }
-        if (error?.response?.data?.code === 404) {
-          showToastify({
-            label: "Nenhum dado encontrado. Por favor, tente novamente.",
-            type: "error",
-          });
-        }
+        })
+        .catch((error) => {
+          setCurrentStep(STEPS.SHOWING_COUPON);
+          if (error?.response?.data?.code === 400) {
+            showToastify({
+              label:
+                "O Coupon que está tentando ativar não é mais válido, atualize a página.",
+              type: "error",
+            });
+          }
+          if (error?.response?.data?.code === 500) {
+            showToastify({
+              label: "Ocorreu um erro interno. Por favor, tente novamente.",
+              type: "error",
+            });
+          }
+          if (error?.response?.data?.code === 404) {
+            showToastify({
+              label: "Nenhum dado encontrado. Por favor, tente novamente.",
+              type: "error",
+            });
+          }
+        });
+    } else {
+      showToastify({
+        label: "É necessário estar logado para gerar código de cupom",
+        type: "warning",
       });
+      handleNextStep(STEPS.REDIRECT_TO_LOGIN);
+    }
   };
 
   return (

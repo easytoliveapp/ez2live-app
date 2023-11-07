@@ -1,10 +1,15 @@
+"use client";
 import React from "react";
 
 import Link from "next/link";
 import SocialLoginComponent from "../../../../../../components/mols/SocialLoginComponent";
 import FormComponent from "./FormComponent";
+import { useSearchParams } from "next/navigation";
 
-const PageLogin = async () => {
+const PageLogin = () => {
+  const params = useSearchParams();
+  const callbackUrl = params.get("callbackUrl");
+
   return (
     <div className={`nc-PageLogin`} data-nc-id="PageLogin">
       <div className="container mb-8 lg:mb-32">
@@ -21,11 +26,11 @@ const PageLogin = async () => {
         <div className="max-w-md mx-auto space-y-6">
           {/* FORM */}
           <FormComponent />
-          <span className="block text-center text-sm text-black font-semibold dark:text-neutral-300">
+          <span className="flex gap-2 justify-center text-sm text-black font-semibold dark:text-neutral-300">
             nova conta?{" "}
             <Link
-              className="text-primary-main font-semibold"
-              href="/auth/register/user"
+              className="text-primary-main font-semibold cursor-pointer"
+              href={`/auth/register/user?callbackUrl=${callbackUrl}`}
             >
               criar conta
             </Link>

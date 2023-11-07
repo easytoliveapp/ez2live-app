@@ -17,11 +17,10 @@ import { ICategorieProps } from "@/components/atoms/CategoryCard";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { showToastify } from "@/hooks/showToastify";
 import { useSession } from "next-auth/react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 
 function PageHome() {
   const { data: session } = useSession();
-  const router = useRouter();
 
   const [suppliers, setSuppliers] = useState([]);
   const [search, setSearch] = useState("");
@@ -54,14 +53,6 @@ function PageHome() {
   };
 
   useEffect(() => {
-    if (session?.user?.isSupplier) {
-      if (!session?.user?.isVerified) {
-        router.push("/");
-      } else {
-        router.push("/dashboard");
-      }
-    }
-
     getAllCategories()
       .then((res) => setCategories(res?.data?.supplierCategories?.results))
       .catch((error) => {
@@ -78,7 +69,7 @@ function PageHome() {
           });
         }
       });
-  }, [session, router]);
+  }, []);
 
   function handleSetSearch(e: any) {
     setLoadingSuppliers(true);
@@ -126,12 +117,14 @@ function PageHome() {
 
   return (
     <div className="md:w-[600px] w-full m-auto p-5 relative">
-      <FloatButtonNav
-        hasCouponActive={true}
-        backgroundStyle="secondary"
-        icon={CouponPrimary}
-        href="/my-coupons"
-      />
+      {session?.user && (
+        <FloatButtonNav
+          hasCouponActive={true}
+          backgroundStyle="secondary"
+          icon={CouponPrimary}
+          href="/my-coupons"
+        />
+      )}
       <SearchCategory onChange={handleSetSearch} />
       {categories && categories.length > 0 && (
         <div className="flex overflow-x-auto justify-start my-4 w-full gap-2">
