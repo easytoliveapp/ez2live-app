@@ -9,6 +9,7 @@ import CouponGreen from "@/images/easytolive/icons/coupongreen.svg";
 import ShoppingCartGreen from "@/images/easytolive/icons/shopping_cart_green.svg";
 import ClockCircleRed from "@/images/easytolive/icons/clock_circleRed.svg";
 import getExpirateTime from "@/utils/getExpirateTime";
+import { getDateFormater } from "@/utils/getDateFormater";
 
 interface ICouponCardProps {
   discount: string;
@@ -75,7 +76,7 @@ const CouponCard: React.FC<ICouponCardProps> = ({
                       alt="coupon-black"
                       src={CouponGreen}
                     />
-                    utilizado em {activationDate}
+                    utilizado em {getDateFormater(activationDate)}
                   </p>
                 )}
                 {expirationUseDate && (
