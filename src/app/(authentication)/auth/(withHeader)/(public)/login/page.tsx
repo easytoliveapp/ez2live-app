@@ -26,7 +26,7 @@ const PageLogin = () => {
         <div className="max-w-md mx-auto space-y-6">
           {/* FORM */}
           <FormComponent />
-          <span className="flex gap-2 justify-center text-sm text-black font-semibold dark:text-neutral-300">
+          <span className="block text-center text-sm text-black font-semibold dark:text-neutral-300">
             nova conta?{" "}
             <Link
               className="text-primary-main font-semibold cursor-pointer"
