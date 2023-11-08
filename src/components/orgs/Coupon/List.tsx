@@ -22,6 +22,7 @@ import LogoImage from "@/images/easytolive/logo/logotipo-fundoazulroxo.svg";
 import { useSession } from "next-auth/react";
 import { CreateAndUpdateCoupon, Modal } from "@/components/mols";
 import { ICoupon } from "@/types/coupons";
+import getUnexpiredCoupons from "@/utils/getUnexpiredCoupons";
 
 interface ICouponListProps {
   supplierId: string;
@@ -173,25 +174,30 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
           {supplier &&
           Array.isArray(supplier?.coupons) &&
           supplier?.coupons.length > 0 ? (
-            supplier?.coupons.map((coupon: ICoupon, key) => (
-              <CouponContainer
-                isOwnSupplier={supplier.supplier.id === session?.user.id}
-                couponTitle={coupon.title}
-                icon={supplier.supplier.id === session?.user.id ? Edit : Arrow}
-                CouponId={coupon.id}
-                supplierCategory={
-                  supplier?.supplier?.supplierInfo?.supplierCategory?.title
-                }
-                supplierLogo={LogoImage}
-                supplierName={supplier.supplier.name}
-                discount={coupon.discount}
-                expirateTime={coupon.expirationGenerationDate}
-                expirationUseDate={coupon.expirationUseDate}
-                maxUnitsTotal={coupon.maxTotal}
-                key={key}
-                handleCouponUpdate={handleCouponUpdate}
-              />
-            ))
+            supplier?.coupons.map(
+              (coupon: ICoupon, key) =>
+                getUnexpiredCoupons(coupon.expirationGenerationDate) && (
+                  <CouponContainer
+                    isOwnSupplier={supplier.supplier.id === session?.user.id}
+                    couponTitle={coupon.title}
+                    icon={
+                      supplier.supplier.id === session?.user.id ? Edit : Arrow
+                    }
+                    CouponId={coupon.id}
+                    supplierCategory={
+                      supplier?.supplier?.supplierInfo?.supplierCategory?.title
+                    }
+                    supplierLogo={LogoImage}
+                    supplierName={supplier.supplier.name}
+                    discount={coupon.discount}
+                    expirateTime={coupon.expirationGenerationDate}
+                    expirationUseDate={coupon.expirationUseDate}
+                    maxUnitsTotal={coupon.maxTotal}
+                    key={key}
+                    handleCouponUpdate={handleCouponUpdate}
+                  />
+                ),
+            )
           ) : (
             <em className="text-xs">Nenhum cupom foi criado ainda...</em>
           )}
