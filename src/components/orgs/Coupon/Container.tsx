@@ -183,35 +183,6 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
     );
   };
 
-  const StepRedirectToLogin = () => {
-    return (
-      <div className="flex flex-col gap-3">
-        <h2 className="text-lg font-semibold text-center p-2">
-          Cadastre-se agora e ganhe 14 dias de acesso ao premium gratuitamente!
-          <br />
-          Venha desfrutar os benefícios exclusivos.
-        </h2>
-
-        <p className="text-xs text-center">
-          {"(não é necessário cadastrar cartão de crédito)"}
-        </p>
-        <ButtonPrimary
-          onClick={() =>
-            signIn(undefined, {
-              callbackUrl: `/supplier-dashboard/${supplierId}/?coupon=${CouponId}`,
-            })
-          }
-        >
-          {" "}
-          Junte-se a nós!
-        </ButtonPrimary>
-        <ButtonThird onClick={() => setShowCouponModal(false)}>
-          cancelar
-        </ButtonThird>
-      </div>
-    );
-  };
-
   const renderStep = (step: number) => {
     switch (step) {
       case STEPS.SHOWING_COUPON:
@@ -222,8 +193,6 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
         return <StepThree />;
       case STEPS.SHOWING_COUPON_CODE:
         return <StepFour couponCode={couponCode} />;
-      case STEPS.REDIRECT_TO_LOGIN:
-        return <StepRedirectToLogin />;
       default:
         return <StepOne />;
     }
@@ -276,11 +245,9 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
           }
         });
     } else {
-      showToastify({
-        label: "É necessário estar logado para gerar código de cupom",
-        type: "warning",
+      signIn(undefined, {
+        callbackUrl: `/supplier-dashboard/${supplierId}/?coupon=${CouponId}`,
       });
-      handleNextStep(STEPS.REDIRECT_TO_LOGIN);
     }
   };
 
