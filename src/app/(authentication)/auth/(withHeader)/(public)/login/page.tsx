@@ -30,7 +30,11 @@ const PageLogin = () => {
             nova conta?{" "}
             <Link
               className="text-primary-main font-semibold cursor-pointer"
-              href={`/auth/register/user?callbackUrl=${callbackUrl}`}
+              href={
+                callbackUrl
+                  ? `/auth/register/user?callbackUrl=${callbackUrl}`
+                  : "/auth/register/user"
+              }
             >
               criar conta
             </Link>
