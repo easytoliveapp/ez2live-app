@@ -22,7 +22,7 @@ import LogoImage from "@/images/easytolive/logo/logotipo-fundoazulroxo.svg";
 import { useSession } from "next-auth/react";
 import { CreateAndUpdateCoupon, Modal } from "@/components/mols";
 import { ICoupon } from "@/types/coupons";
-import getUnexpiredCoupons from "@/utils/getUnexpiredCoupons";
+import isCouponAvaible from "@/utils/isCouponAvaible";
 
 interface ICouponListProps {
   supplierId: string;
@@ -173,10 +173,10 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
         <div className="mt-6 pb-16 flex flex-col gap-4">
           {supplier &&
           Array.isArray(supplier?.coupons) &&
-          supplier?.coupons.length > 0 ? (
+          supplier?.coupons.length > 0  ? (
             supplier?.coupons.map(
               (coupon: ICoupon, key) =>
-                getUnexpiredCoupons(coupon.expirationGenerationDate) && (
+                isCouponAvaible(coupon.expirationGenerationDate) && (
                   <CouponContainer
                     isOwnSupplier={supplier.supplier.id === session?.user.id}
                     couponTitle={coupon.title}
