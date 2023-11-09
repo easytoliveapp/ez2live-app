@@ -53,6 +53,10 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
       });
   }, [supplierId]);
 
+  const activeCoupons = supplier?.coupons?.filter(
+    (coupon) => coupon.status === "ACTIVE",
+  );
+
   const handleCouponUpdate = (
     updatedCoupon: ICoupon,
     action: "CREATE" | "UPDATE" | "DELETE",
@@ -170,34 +174,27 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
           voluptates perferendis dicta fugiat.
         </p>
         <div className="mt-6 pb-16 flex flex-col gap-4">
-          {supplier &&
-            Array.isArray(supplier.coupons) &&
-            supplier.coupons.length > 0 &&
-            supplier.coupons
-              .filter((coupon) => coupon.status === "ACTIVE")
-              .map((coupon, key) => (
-                <CouponContainer
-                  isOwnSupplier={supplier.supplier.id === session?.user.id}
-                  couponTitle={coupon.title}
-                  icon={
-                    supplier.supplier.id === session?.user.id ? Edit : Arrow
-                  }
-                  CouponId={coupon.id}
-                  supplierCategory={
-                    supplier?.supplier?.supplierInfo?.supplierCategory?.title
-                  }
-                  supplierLogo={LogoImage}
-                  supplierName={supplier.supplier.name}
-                  discount={coupon.discount}
-                  expirateTime={coupon.expirationGenerationDate}
-                  expirationUseDate={coupon.expirationUseDate}
-                  maxUnitsTotal={coupon.maxTotal}
-                  key={key}
-                  handleCouponUpdate={handleCouponUpdate}
-                />
-              ))}
-          {supplier.coupons.filter((coupon) => coupon.status === "ACTIVE")
-            .length === 0 && (
+          {activeCoupons && activeCoupons.length > 0 ? (
+            activeCoupons.map((coupon, key) => (
+              <CouponContainer
+                isOwnSupplier={supplier.supplier.id === session?.user.id}
+                couponTitle={coupon.title}
+                icon={supplier.supplier.id === session?.user.id ? Edit : Arrow}
+                CouponId={coupon.id}
+                supplierCategory={
+                  supplier?.supplier?.supplierInfo?.supplierCategory?.title
+                }
+                supplierLogo={LogoImage}
+                supplierName={supplier.supplier.name}
+                discount={coupon.discount}
+                expirateTime={coupon.expirationGenerationDate}
+                expirationUseDate={coupon.expirationUseDate}
+                maxUnitsTotal={coupon.maxTotal}
+                key={key}
+                handleCouponUpdate={handleCouponUpdate}
+              />
+            ))
+          ) : (
             <em className="text-xs">Nenhum cupom ativo foi encontrado...</em>
           )}
         </div>
