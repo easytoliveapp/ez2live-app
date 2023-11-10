@@ -10,12 +10,13 @@ import {
   ButtonSecondary,
   LoadingComponent,
   SearchCategory,
-  ButtonThird,
+  // ButtonThird,
 } from "@/components";
 import { getDateFormater } from "@/utils/getDateFormater";
 import Pagination from "@/components/atoms/Pagination/Pagination";
 
 interface ISupplier {
+  _id?: string;
   id: string;
   name: string;
   email: string;
@@ -77,7 +78,20 @@ function SupplierPage() {
       });
   }, [pageNumber, textSearched, showOnlyNotVerified]);
 
-  const handleApprove = (supplierId: string) => {
+  const handleSupplierIsVerified = (
+    supplierId: string,
+    isVerified: boolean,
+  ) => {
+    setSuppliers((prevSuppliers) =>
+      prevSuppliers.map((s) =>
+        s._id === supplierId ? { ...s, isVerified } : s,
+      ),
+    );
+  };
+
+  const handleApprove = (supplierId?: string) => {
+    if (!supplierId) return;
+
     supplierService
       .verifySupplier(supplierId)
       .then(() => {
@@ -90,6 +104,8 @@ function SupplierPage() {
           label: "Parceiro verificado com sucesso!",
           type: "success",
         });
+
+        handleSupplierIsVerified(supplierId, true);
       })
       .catch((error) => {
         if (error?.response?.data?.code === 401) {
@@ -105,17 +121,29 @@ function SupplierPage() {
   };
 
   const renderSupplierContent = (supplier: ISupplier) => {
-    const { createdAt, email, isVerified } = supplier;
+    const { createdAt, email, isVerified, supplierInfo } = supplier;
     return (
       <>
-        <div className="flex flex-col mx-2 gap-5">
+        <div className="flex mx-2 gap-5 justify-between w-100">
           <div className="flex flex-col pb-5">
             <p className="font-semibold">email</p>
             <p className="">{email}</p>
             <p className="font-semibold">conta criada em:</p>
             <p>{getDateFormater(createdAt)}</p>
-            <p className="font-semibold">Verificada:</p>
-            <p>{isVerified ? "SIM" : "Ainda não verificada"}</p>
+            <p className="font-semibold">status do parceiro:</p>
+            <p>{isVerified ? "Verificado" : "Não verificado"}</p>
+          </div>
+          <div className="flex flex-col">
+            {/* address */}
+            <p className="font-semibold">Endereço</p>
+            <p>
+              {supplierInfo?.address?.street} - {supplierInfo?.address?.number}
+            </p>
+            <p className="font-semibold">Bairro/Cidade/Estado</p>
+            <p>
+              {supplierInfo?.address?.neighborhood} -{" "}
+              {supplierInfo?.address?.city}/{supplierInfo?.address?.state}
+            </p>
           </div>
         </div>
 
@@ -126,7 +154,7 @@ function SupplierPage() {
           {!isVerified && (
             <ButtonSecondary
               href="#"
-              onClick={() => handleApprove(supplier.id)}
+              onClick={() => handleApprove(supplier._id)}
             >
               Aprovar empresa
             </ButtonSecondary>
