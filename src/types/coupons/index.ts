@@ -42,6 +42,7 @@ export interface ICoupon {
   expirationUseDate: string;
   supplier: string;
   id: string;
+  status: "ACTIVE" | "USED" | "EXPIRED";
 }
 
 export interface ICouponCodesByUser {
