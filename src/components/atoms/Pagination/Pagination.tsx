@@ -1,4 +1,3 @@
-import { CustomLink } from "@/data/types";
 import React, { FC } from "react";
 import twFocusClass from "@/utils/twFocusClass";
 import Link from "next/link";
@@ -15,7 +14,6 @@ const Pagination: FC<PaginationProps> = ({
   className = "",
   totalPages = 1,
   currentPage = 1,
-  totalItems = 1,
   handleOnClick,
 }) => {
   const renderItem = (index: number) => {
