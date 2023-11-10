@@ -5,6 +5,7 @@ export interface userLoginResponseProps {
   active: boolean;
   address: IAddress;
   coupons: ICoupon;
+  subscriptionEndDate: string;
   email: string;
   id: string;
   isEmailVerified: boolean;
