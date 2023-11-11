@@ -10,7 +10,6 @@ import {
   ButtonSecondary,
   LoadingComponent,
   SearchCategory,
-  // ButtonThird,
 } from "@/components";
 import { getDateFormater } from "@/utils/getDateFormater";
 import Pagination from "@/components/atoms/Pagination/Pagination";
