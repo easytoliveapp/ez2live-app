@@ -245,9 +245,9 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
           }
         });
     } else {
-      signIn(undefined, {
-        callbackUrl: `/supplier-dashboard/${supplierId}/?coupon=${CouponId}`,
-      });
+      router.push(
+        `/auth/pre-login?callbackUrl=${`/supplier-dashboard/${supplierId}/?coupon=${CouponId}`}`,
+      );
     }
   };
 

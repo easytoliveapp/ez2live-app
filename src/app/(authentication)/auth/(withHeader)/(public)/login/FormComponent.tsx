@@ -57,7 +57,12 @@ const FormComponent = () => {
         }
       })
       .catch((error) => {
-        console.log(error);
+        if (error?.code === "R01") {
+          showToastify({
+            label: "Sua conta ainda não foi verificada",
+            type: "warning",
+          });
+        }
         //handleToast error in login
         if (error?.code === 401) {
           // eslint-disable-next-line react-hooks/rules-of-hooks
