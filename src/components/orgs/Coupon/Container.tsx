@@ -15,7 +15,7 @@ import { showToastify } from "@/hooks/showToastify";
 import { AxiosResponse } from "axios";
 import CouponCard from "@/components/mols/CouponCard";
 import { useSearchParams } from "next/navigation";
-import { useSession, signIn } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 import { ICoupon } from "@/types/coupons";
