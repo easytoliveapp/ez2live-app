@@ -53,19 +53,15 @@ const FormComponent = () => {
           await signIn("credentials", {
             email: values.email,
             password: values.password,
-            callbackUrl: callbackUrl ? callbackUrl : "/",
-          })
-            .then((resp) => {
-              console.log(resp);
-            })
-            .catch((error) => {
-              showToastify({
-                label:
-                  "Impossível criar sua conta. Por favor, tente novamente. " +
-                  error,
-                type: "error",
-              });
+            callbackUrl: callbackUrl ?? "/",
+          }).catch((error) => {
+            showToastify({
+              label:
+                "Impossível criar sua conta. Por favor, tente novamente. " +
+                error,
+              type: "error",
             });
+          });
         }
 
         setLoading(false);

@@ -27,7 +27,7 @@ interface CouponContainerProps {
   maxUnitsTotal: number;
   expirateTime: string;
   expirationUseDate: string;
-  CouponId: string;
+  couponId: string;
   supplierLogo: string | StaticImageData;
   supplierCategory: string;
   supplierName: string;
@@ -56,7 +56,7 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
   expirateTime,
   expirationUseDate,
   supplierCategory,
-  CouponId,
+  couponId,
   supplierName,
   icon,
   couponTitle,
@@ -93,16 +93,16 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
   }, [currentStep]);
 
   useEffect(() => {
-    if (CouponId === couponIdParam) {
+    if (couponId === couponIdParam) {
       setShowCouponModal(true);
     }
-  }, [CouponId, couponIdParam]);
+  }, [couponId, couponIdParam]);
 
   const StepOne = () => {
     return (
       <div className="flex flex-col h-auto items-center">
         <Coupon
-          id={CouponId}
+          id={couponId}
           couponTitle={couponTitle}
           couponDiscount={discount}
           expirateTime={expirateTime}
@@ -200,7 +200,7 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
 
   const activateCoupon = async () => {
     const res: AxiosResponse =
-      await couponsService.generateCouponCode(CouponId);
+      await couponsService.generateCouponCode(couponId);
     return res;
   };
 
@@ -246,7 +246,7 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
         });
     } else {
       router.push(
-        `/auth/pre-login?callbackUrl=${`/supplier-dashboard/${supplierId}/?coupon=${CouponId}`}`,
+        `/auth/pre-login?callbackUrl=${`/supplier-dashboard/${supplierId}/?coupon=${couponId}`}`,
       );
     }
   };
@@ -262,7 +262,7 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
           {isOwnSupplier ? (
             <CreateAndUpdateCoupon
               isUpdatingCoupon={true}
-              couponId={CouponId}
+              couponId={couponId}
               handleCouponUpdate={handleCouponUpdate}
             />
           ) : (
