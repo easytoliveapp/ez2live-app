@@ -116,7 +116,7 @@ function PageHome() {
   }, [textSearched, pageNumber, supplierCategoriesFilter]);
 
   return (
-    <div className="md:w-[600px] w-full m-auto p-5 relative">
+    <div className="md:w-[600px] w-full m-auto px-5 relative">
       {session?.user && (
         <FloatButtonNav
           hasCouponActive={true}
