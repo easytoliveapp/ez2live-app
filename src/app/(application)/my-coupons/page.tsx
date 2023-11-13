@@ -5,7 +5,7 @@ import { useSession } from "next-auth/react";
 import { ICouponCodesByUser } from "@/types/coupons";
 import { showToastify } from "@/hooks/showToastify";
 import { FloatButtonNav } from "@/components/atoms/index";
-import { UserCoupons } from "@/components/mols/index";
+import { FreePaymentComponent, UserCoupons } from "@/components/mols/index";
 import CouponGreen from "@/images/easytolive/icons/coupongreen.svg";
 import CouponBlack from "@/images/easytolive/icons/couponblack.svg";
 import CouponRed from "@/images/easytolive/icons/couponred.svg";
@@ -14,6 +14,7 @@ import CurrencyDropdown from "@/components/atoms/CurrencyDropdown";
 import Image, { StaticImageData } from "next/image";
 import couponsService from "@/service/coupons.service";
 import Arrow from "@/images/easytolive/icons/arrow-next-right-primary.svg";
+import isDateAvaible from "@/utils/isDateAvaible";
 
 interface IfilterOptions {
   id: string;
@@ -50,11 +51,21 @@ const MyCouponsPage = () => {
   );
   const [couponCodes, setCouponCodes] = useState(Array<ICouponCodesByUser>);
   const [loadingCoupons, setLoadingCoupons] = useState(true);
-
+  const [hasAssigmentExpired, setHasAssigmentExpired] = useState(false);
   const handleGetCouponCodesByUser = async () => {
     const res: any = await couponsService.getCouponCodesByUser();
     return res;
   };
+
+  useEffect(() => {
+    if (session) {
+      if (isDateAvaible(session.user.subscriptionEndDate)) {
+        setHasAssigmentExpired(false);
+      } else {
+        setHasAssigmentExpired(true);
+      }
+    }
+  }, [session]);
 
   useEffect(() => {
     handleGetCouponCodesByUser()
@@ -67,6 +78,14 @@ const MyCouponsPage = () => {
 
   return (
     <div className="relative md:w-[500px] h-full w-full mx-auto">
+      {hasAssigmentExpired && session?.user && (
+        <FreePaymentComponent
+          newUser={session.user.subscriptionEndDate === null}
+          showModal={hasAssigmentExpired}
+          setModalFreePayment={setHasAssigmentExpired}
+          userId={session.user.id}
+        />
+      )}
       <FloatButtonNav href="/" icon={Shop} backgroundStyle="main" />
       <div className="mt-8 mb-16 flex items-center justify-between">
         <h2 className=" pl-6 flex items-center text-2xl leading-[115%] md:leading-[115%] font-bold text-black dark:text-neutral-100 justify-center">
