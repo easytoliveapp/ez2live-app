@@ -20,6 +20,7 @@ import usersService from "@/service/users.service";
 import { Field, Form, Formik } from "formik";
 import classNames from "@/utils/classNames";
 import { signOut, useSession } from "next-auth/react";
+import { getDateFormater } from "@/utils/getDateFormater";
 
 const MyAccountPage = () => {
   const { data: session } = useSession();
@@ -37,6 +38,15 @@ const MyAccountPage = () => {
         <FormItem label="Email">
           <div className="ml-2 text-lg font-medium text-neutral-600">
             {session?.user?.email}
+          </div>
+        </FormItem>
+        <FormItem label="Premium">
+          <div className="ml-2 text-lg font-medium text-neutral-600">
+            {session?.user.subscriptionEndDate !== null
+              ? `validade: ${getDateFormater(
+                  session?.user?.subscriptionEndDate,
+                )}`
+              : "expirou"}
           </div>
         </FormItem>
 

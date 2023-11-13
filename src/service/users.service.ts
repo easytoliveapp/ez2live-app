@@ -46,10 +46,11 @@ const eraseUser = async (userId: string, password: string) => {
   });
 };
 
-const addSubscriptionDays = async (userId: string, addDays: string) => {
+const addSubscriptionDays = async (userId: string, addDays: number) => {
   return await BaseService.fetchData({
-    url: `/users/${userId}/subscription-days/${addDays}`,
+    url: `/users/${userId}/subscription-days/add`,
     method: "post",
+    data: { days: addDays },
   });
 };
 
@@ -60,7 +61,14 @@ const removeSubscriptionDays = async (userId: string) => {
   });
 };
 
-export {
+const getSubscriptionDays = async (userId: string) => {
+  return await BaseService.fetchData({
+    url: `/users/${userId}/subscription-days`,
+    method: "get",
+  });
+};
+
+export default {
   createUsers,
   getAllUsers,
   updateUser,
@@ -69,4 +77,5 @@ export {
   eraseUser,
   addSubscriptionDays,
   removeSubscriptionDays,
+  getSubscriptionDays,
 };

@@ -14,6 +14,7 @@ import CurrencyDropdown from "@/components/atoms/CurrencyDropdown";
 import Image, { StaticImageData } from "next/image";
 import couponsService from "@/service/coupons.service";
 import Arrow from "@/images/easytolive/icons/arrow-next-right-primary.svg";
+import isDateAvaible from "@/utils/isDateAvaible";
 
 interface IfilterOptions {
   id: string;
@@ -50,11 +51,21 @@ const MyCouponsPage = () => {
   );
   const [couponCodes, setCouponCodes] = useState(Array<ICouponCodesByUser>);
   const [loadingCoupons, setLoadingCoupons] = useState(true);
-  const [userAssignment, setUserAssignment] = useState(true);
+  const [hasAssigmentExpired, setHasAssigmentExpired] = useState(false);
   const handleGetCouponCodesByUser = async () => {
     const res: any = await couponsService.getCouponCodesByUser();
     return res;
   };
+
+  useEffect(() => {
+    if (session) {
+      if (isDateAvaible(session.user.subscriptionEndDate)) {
+        setHasAssigmentExpired(false);
+      } else {
+        setHasAssigmentExpired(true);
+      }
+    }
+  }, [session]);
 
   useEffect(() => {
     handleGetCouponCodesByUser()
@@ -67,11 +78,12 @@ const MyCouponsPage = () => {
 
   return (
     <div className="relative md:w-[500px] h-full w-full mx-auto">
-      {userAssignment && (
+      {hasAssigmentExpired && session?.user && (
         <FreePaymentComponent
-          newUser={true}
-          showModal={userAssignment}
-          setModalFreePayment={setUserAssignment}
+          newUser={session.user.subscriptionEndDate === null}
+          showModal={hasAssigmentExpired}
+          setModalFreePayment={setHasAssigmentExpired}
+          userId={session.user.id}
         />
       )}
       <FloatButtonNav href="/" icon={Shop} backgroundStyle="main" />

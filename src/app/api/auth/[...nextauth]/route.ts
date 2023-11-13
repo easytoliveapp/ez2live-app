@@ -66,7 +66,11 @@ export const authOptions: NextAuthOptions = {
   ],
 
   callbacks: {
-    async jwt({ token, user, account }) {
+    async jwt({ token, user, account, trigger, session }) {
+      if (trigger === "update") {
+        token.user = session.user;
+      }
+
       if (account && account?.provider !== "credentials") {
         const authSocialRes = await AuthService.loginSocial({
           user: { name: user?.name, email: user?.email },
