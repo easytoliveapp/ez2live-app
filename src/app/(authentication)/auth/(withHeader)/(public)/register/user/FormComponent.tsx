@@ -8,8 +8,10 @@ import { IRegisterAccount } from "@/types/auth/request";
 import authService from "@/service/auth.service";
 import { showToastify } from "@/hooks/showToastify";
 import { signIn } from "next-auth/react";
+import { useSearchParams } from "next/navigation";
 
 const FormComponent = () => {
+  const params = useSearchParams();
   const [loading, setLoading] = useState(false);
   const SignUpValidationSchema = Yup.object().shape({
     name: Yup.string()
@@ -38,6 +40,8 @@ const FormComponent = () => {
   const handleFormSubmit = async (values: Partial<IRegisterAccount>) => {
     setLoading(true);
 
+    const callbackUrl = params.get("callbackUrl");
+
     await authService
       .register({
         name: values.name,
@@ -49,19 +53,15 @@ const FormComponent = () => {
           await signIn("credentials", {
             email: values.email,
             password: values.password,
-            callbackUrl: "/",
-          })
-            .then((resp) => {
-              console.log(resp);
-            })
-            .catch((error) => {
-              showToastify({
-                label:
-                  "Impossível criar sua conta. Por favor, tente novamente. " +
-                  error,
-                type: "error",
-              });
+            callbackUrl: callbackUrl ?? "/",
+          }).catch((error) => {
+            showToastify({
+              label:
+                "Impossível criar sua conta. Por favor, tente novamente. " +
+                error,
+              type: "error",
             });
+          });
         }
 
         setLoading(false);

@@ -43,11 +43,13 @@ const FormComponent = () => {
         if (resp && !resp?.error) {
           const session = await getSession();
 
-          router.push(
-            (callbackUrl as any) ?? session?.user?.isSupplier
-              ? "/dashboard"
-              : "/",
-          );
+          if (callbackUrl) {
+            router.push(callbackUrl as any);
+          } else {
+            router.push(
+              !session?.user.isSupplier ? "/my-coupons" : "/dashboard",
+            );
+          }
         }
 
         if (resp && resp?.error) {
@@ -55,7 +57,12 @@ const FormComponent = () => {
         }
       })
       .catch((error) => {
-        console.log(error);
+        if (error?.code === "R01") {
+          showToastify({
+            label: "Sua conta ainda não foi verificada",
+            type: "warning",
+          });
+        }
         //handleToast error in login
         if (error?.code === 401) {
           // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -65,7 +72,8 @@ const FormComponent = () => {
             type: "error",
           });
         }
-      });
+      })
+      .finally(() => setLoading(false));
     setLoading(false);
   };
 

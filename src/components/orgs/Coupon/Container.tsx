@@ -15,17 +15,19 @@ import { showToastify } from "@/hooks/showToastify";
 import { AxiosResponse } from "axios";
 import CouponCard from "@/components/mols/CouponCard";
 import { useSearchParams } from "next/navigation";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 import { ICoupon } from "@/types/coupons";
 
 interface CouponContainerProps {
+  supplierId: string;
   couponTitle: string;
   discount: string;
   maxUnitsTotal: number;
   expirateTime: string;
   expirationUseDate: string;
-  CouponId: string;
+  couponId: string;
   supplierLogo: string | StaticImageData;
   supplierCategory: string;
   supplierName: string;
@@ -42,9 +44,11 @@ const STEPS = {
   LOADING_COUPON: 1,
   COUPON_ACTIVE: 2,
   SHOWING_COUPON_CODE: 3,
+  REDIRECT_TO_LOGIN: 4,
 };
 
 const CouponContainer: React.FC<CouponContainerProps> = ({
+  supplierId,
   isOwnSupplier = false,
   discount,
   maxUnitsTotal,
@@ -52,7 +56,7 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
   expirateTime,
   expirationUseDate,
   supplierCategory,
-  CouponId,
+  couponId,
   supplierName,
   icon,
   couponTitle,
@@ -64,6 +68,7 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
   const searchParams = useSearchParams();
   const couponIdParam = searchParams.get("coupon");
   const router = useRouter();
+  const { data: session } = useSession();
 
   const handleNextStep = (step: number) => setCurrentStep(step);
 
@@ -88,16 +93,16 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
   }, [currentStep]);
 
   useEffect(() => {
-    if (CouponId === couponIdParam) {
+    if (couponId === couponIdParam) {
       setShowCouponModal(true);
     }
-  }, [CouponId, couponIdParam]);
+  }, [couponId, couponIdParam]);
 
   const StepOne = () => {
     return (
       <div className="flex flex-col h-auto items-center">
         <Coupon
-          id={CouponId}
+          id={couponId}
           couponTitle={couponTitle}
           couponDiscount={discount}
           expirateTime={expirateTime}
@@ -195,49 +200,55 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
 
   const activateCoupon = async () => {
     const res: AxiosResponse =
-      await couponsService.generateCouponCode(CouponId);
+      await couponsService.generateCouponCode(couponId);
     return res;
   };
 
   const handleActiveCoupon = async () => {
-    handleNextStep(STEPS.LOADING_COUPON);
+    if (session?.user) {
+      handleNextStep(STEPS.LOADING_COUPON);
 
-    activateCoupon()
-      .then((res) => {
-        if (res?.data?.coupon?.code) {
-          return setTimeout(() => {
-            setCouponCode(res?.data?.coupon?.code);
-          }, 2500);
-        }
+      activateCoupon()
+        .then((res) => {
+          if (res?.data?.coupon?.code) {
+            return setTimeout(() => {
+              setCouponCode(res?.data?.coupon?.code);
+            }, 2500);
+          }
 
-        setCurrentStep(STEPS.SHOWING_COUPON);
-        showToastify({
-          label: "Ocorreu um erro interno. Por favor, tente novamente.",
-          type: "error",
-        });
-      })
-      .catch((error) => {
-        setCurrentStep(STEPS.SHOWING_COUPON);
-        if (error?.response?.data?.code === 400) {
-          showToastify({
-            label:
-              "O Coupon que está tentando ativar não é mais válido, atualize a página.",
-            type: "error",
-          });
-        }
-        if (error?.response?.data?.code === 500) {
+          setCurrentStep(STEPS.SHOWING_COUPON);
           showToastify({
             label: "Ocorreu um erro interno. Por favor, tente novamente.",
             type: "error",
           });
-        }
-        if (error?.response?.data?.code === 404) {
-          showToastify({
-            label: "Nenhum dado encontrado. Por favor, tente novamente.",
-            type: "error",
-          });
-        }
-      });
+        })
+        .catch((error) => {
+          setCurrentStep(STEPS.SHOWING_COUPON);
+          if (error?.response?.data?.code === 400) {
+            showToastify({
+              label:
+                "O Coupon que está tentando ativar não é mais válido, atualize a página.",
+              type: "error",
+            });
+          }
+          if (error?.response?.data?.code === 500) {
+            showToastify({
+              label: "Ocorreu um erro interno. Por favor, tente novamente.",
+              type: "error",
+            });
+          }
+          if (error?.response?.data?.code === 404) {
+            showToastify({
+              label: "Nenhum dado encontrado. Por favor, tente novamente.",
+              type: "error",
+            });
+          }
+        });
+    } else {
+      router.push(
+        `/auth/pre-login?callbackUrl=${`/supplier-dashboard/${supplierId}/?coupon=${couponId}`}`,
+      );
+    }
   };
 
   return (
@@ -251,7 +262,7 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
           {isOwnSupplier ? (
             <CreateAndUpdateCoupon
               isUpdatingCoupon={true}
-              couponId={CouponId}
+              couponId={couponId}
               handleCouponUpdate={handleCouponUpdate}
             />
           ) : (

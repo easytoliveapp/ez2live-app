@@ -5,24 +5,32 @@ import React, { useState } from "react";
 import PreLoginImage from "@/images/easytolive/home/fast-login-background.jpeg";
 import Image from "next/image";
 import Logo from "@/images/easytolive/logo/logocompleta-semfundoazulroxo.svg";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
 
 const FastLoginPage = () => {
   const [loadingLogin, setLoadingLogin] = useState(false);
   const [loadingRegister, setLoadingRegister] = useState(false);
   const router = useRouter();
+  const params = useSearchParams();
+  const callbackUrl = params.get("callbackUrl");
 
   const handleRedirectToLogin = async () => {
     setLoadingLogin(true);
-    router.push("/auth/login");
+    router.push(
+      callbackUrl ? `/auth/login?callbackUrl=${callbackUrl}` : "/auth/login",
+    );
     setTimeout(() => {
       setLoadingLogin(false);
     }, 1500);
   };
   const handleRedirectToRegister = async () => {
     setLoadingRegister(true);
-    router.push("/auth/register/user");
+    router.push(
+      callbackUrl
+        ? `/auth/register/user?callbackUrl=${callbackUrl}`
+        : "/auth/register/user",
+    );
     setTimeout(() => {
       setLoadingRegister(false);
     }, 1500);
