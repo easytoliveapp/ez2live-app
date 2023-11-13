@@ -69,38 +69,37 @@ const FreePaymentComponent: React.FC<IFreePaymentComponent> = ({
 
   return (
     <Modal
-      contentExtraClass="max-h-[95vh] max-w-xl"
+      contentExtraClass="max-w-lg"
       closeOnBlur={false}
       hasCloseButton={false}
       show={showModal}
       onCloseModal={() => setModalFreePayment(false)}
     >
       {newUser ? (
-        <div className="flex flex-col min-h-[90vh]  justify-between gap-3 text-center">
+        <div className="flex flex-col gap-3 text-center">
           <div className="flex flex-col items-center justify-center gap-4">
             <Image
               className="h-14 w-auto my-6"
               alt="easy-to-live-logo"
               src={LogoImage}
             />
-            <h2 className="text-2xl font-semibold">Parabéns !</h2>
-            <h3 className="text-lg font-semibold">
-              Você recebeu 14 dias como usuário premium ⭐
-            </h3>
+            <h2 className="text-2xl font-semibold">Bem-Vindo ao EasyToLive!</h2>
           </div>
-          <div className="flex  flex-col gap-3">
-            <p className="p-2 text-center">
-              Deseja receber mais 14 dias de premium free?
+          <div className="flex px-4 flex-col gap-3">
+            <p className="text-center">
+              Você tem 28 dias como usuário premium ⭐ para usar nosso app e
+              encontrar as melhores ofertas para você. <br />
+              Aproveite!
             </p>
             <ButtonPrimary
               onClick={() => {
                 addSubscriptionDays(28);
               }}
             >
-              Aceito!
+              Aceito! Começar a usar agora
             </ButtonPrimary>
             <ButtonThird onClick={() => addSubscriptionDays(14)}>
-              cancelar
+              Quero testar apenas por 14 dias
             </ButtonThird>
           </div>
         </div>
