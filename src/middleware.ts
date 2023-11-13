@@ -19,5 +19,6 @@ export const config = {
     "/dashboard",
     "/dashboard/supplier/:path*",
     "/supplier-not-verified",
+    "/account",
   ],
 };

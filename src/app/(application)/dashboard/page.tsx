@@ -61,6 +61,14 @@ function PageDashboard() {
             </div>
           ))}
         </div>
+        <div className="grid justify-center">
+          <table>
+            <thead>
+              <th>Parceiro</th>
+              <th>#</th>
+            </thead>
+          </table>
+        </div>
       </div>
     </div>
   );

@@ -1,40 +1,29 @@
-import { CustomLink } from "@/data/types";
 import React, { FC } from "react";
 import twFocusClass from "@/utils/twFocusClass";
 import Link from "next/link";
 
-const DEMO_PAGINATION: CustomLink[] = [
-  {
-    label: "1",
-    href: "/",
-  },
-  {
-    label: "2",
-    href: "/",
-  },
-  {
-    label: "3",
-    href: "/",
-  },
-  {
-    label: "4",
-    href: "/",
-  },
-];
-
 export interface PaginationProps {
   className?: string;
+  totalPages?: number;
+  currentPage?: number;
+  totalItems?: number;
+  handleOnClick: (index: number) => void;
 }
 
-const Pagination: FC<PaginationProps> = ({ className = "" }) => {
-  const renderItem = (pag: CustomLink, index: number) => {
-    if (index === 0) {
+const Pagination: FC<PaginationProps> = ({
+  className = "",
+  totalPages = 1,
+  currentPage = 1,
+  handleOnClick,
+}) => {
+  const renderItem = (index: number) => {
+    if (index + 1 === currentPage) {
       return (
         <span
           key={index}
           className={`inline-flex w-11 h-11 items-center justify-center rounded-full bg-primary-main text-white ${twFocusClass()}`}
         >
-          {pag.label}
+          {index}
         </span>
       );
     }
@@ -43,18 +32,21 @@ const Pagination: FC<PaginationProps> = ({ className = "" }) => {
       <Link
         key={index}
         className={`inline-flex w-11 h-11 items-center justify-center rounded-full bg-white hover:bg-neutral-100 border border-neutral-200 text-neutral-6000     ${twFocusClass()}`}
-        href={pag.href}
+        href="#"
+        onClick={() => handleOnClick(index + 1)}
       >
-        {pag.label}
+        {index}
       </Link>
     );
   };
 
   return (
     <nav
-      className={`nc-Pagination inline-flex space-x-1 text-base font-medium ${className}`}
+      className={`mx-auto w-full text-center justify-center flex py-5 mt-5 nc-Pagination inline-flex space-x-1 text-base font-medium ${className}`}
     >
-      {DEMO_PAGINATION.map(renderItem)}
+      {totalPages > 1 && (
+        <>{[...Array(totalPages)].map((_, idx) => renderItem(idx))}</>
+      )}
     </nav>
   );
 };

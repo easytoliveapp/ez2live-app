@@ -1,6 +1,7 @@
 export interface IUser {
   id: string;
   image: string;
+  subscriptionEndDate: string;
   name?: string | null;
   email?: string | null;
   role: string;
