@@ -159,10 +159,14 @@ function PageHome() {
                 }
                 supplierImage={SupplierLogo}
                 avaliation="4.6"
-                couponsAvaible={supplier.supplierInfo.coupons.length}
+                couponsAvaible={
+                  supplier.supplierInfo.coupons.filter(
+                    (t) => t.status === "ACTIVE",
+                  ).length
+                }
                 name={supplier.name}
-                key={supplier.id + index}
-                id={supplier.id}
+                key={supplier._id + index}
+                id={supplier._id}
               />
             ))}
         </InfiniteScroll>

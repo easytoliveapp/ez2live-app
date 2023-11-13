@@ -17,6 +17,7 @@ export interface ISupplier {
     email: string;
     id: string;
     supplierInfo: {
+      id: string;
       coupons: [];
       supplierCategory: iSupplierCategory;
       address: IAddress;
@@ -36,10 +37,10 @@ export interface ISuppliers {
   document: string;
   numberOfCoupons: number;
   email: string;
-  id: string;
+  _id: string;
   supplierInfo: {
-    id: string;
-    coupons: [];
+    _id: string;
+    coupons: ICoupon[];
     supplierCategory: iSupplierCategory;
     address: IAddress;
     isSupplier: boolean;
