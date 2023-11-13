@@ -179,7 +179,7 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
                 isOwnSupplier={supplier.supplier.id === session?.user.id}
                 couponTitle={coupon.title}
                 icon={supplier.supplier.id === session?.user.id ? Edit : Arrow}
-                CouponId={coupon.id}
+                couponId={coupon.id}
                 supplierCategory={
                   supplier?.supplier?.supplierInfo?.supplierCategory?.title
                 }
