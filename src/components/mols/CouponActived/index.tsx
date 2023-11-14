@@ -59,7 +59,7 @@ const CouponActivatedPage: React.FC<CouponProps> = ({
         <hr className="border-neutral-100 rounded-full border-[1px] w-full"></hr>
       </div>
       <div className="flex flex-col h-auto">
-        <div className="flex item-center">
+        <div className="flex items-center justify-center">
           <Image
             className="w-16 h-16 rounded-full"
             src={supplierLogo}
@@ -70,7 +70,7 @@ const CouponActivatedPage: React.FC<CouponProps> = ({
             <p className=" text-lg">{supplierName}</p>
           </div>
         </div>
-        <div className="flex justify-evenly items-center gap-2 m-2">
+        <div className="flex justify-evenly items-center gap-2 m-2 mb-6">
           <div className="flex flex-col gap-1">
             <p className="font-semibold">categoria</p>
             <p>{supplierCategory}</p>

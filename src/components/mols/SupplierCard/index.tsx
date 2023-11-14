@@ -42,7 +42,9 @@ const SupplierCard: FC<SupplierCardProps> = ({
         />
       </div>
       <div className="col-span-3 max-sm:pl-5 h-auto w-auto grid-rows-3 gap-3">
-        <p className="font-medium whitespace-nowrap text-ellipsis text-base overflow-hidden">{name}</p>
+        <p className="font-medium whitespace-nowrap text-ellipsis text-base overflow-hidden">
+          {name}
+        </p>
         <p className="text-xs pb-1 font-medium text-primary-main">
           {supplierCategory}
         </p>
