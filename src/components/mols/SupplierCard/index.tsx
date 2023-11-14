@@ -13,6 +13,7 @@ interface SupplierCardProps {
   name: string;
   avaliation?: string;
   id: string;
+  saveLastPagePosition: () => void;
 }
 
 const SupplierCard: FC<SupplierCardProps> = ({
@@ -22,10 +23,12 @@ const SupplierCard: FC<SupplierCardProps> = ({
   supplierImage,
   avaliation,
   id,
+  saveLastPagePosition,
 }) => {
   const router = useRouter();
 
   function handleClick(e: string) {
+    saveLastPagePosition?.();
     router.push(`/supplier-dashboard/${e}`);
   }
 
