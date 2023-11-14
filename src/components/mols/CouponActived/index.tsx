@@ -27,15 +27,18 @@ const CouponActivatedPage: React.FC<CouponProps> = ({
 }) => {
   return (
     <div className="pb-4 px-2 w-full flex flex-col text-black">
-      <h1 className=" text-2xl py-1 px-3 mb-2 font-bold text-black">
-        {couponTitle}
-      </h1>
-      <div className="flex justify-end mb-1 mt-2 gap-4">
-        <span className="relative text-xl w-32 text-white bg-primary-main flex items-center justify-center px-6 py-3 rounded-full">
-          {couponDiscount}%
-          <span className="absolute -top-5 -left-5 w-12 h-12 rounded-full bg-gradient-to-r from-secondary-dark to-secondary-lighter"></span>
-        </span>
+      <div className="flex my-2 gap-2 justify-between items-center">
+        <h1 className="text-2xl py-1 px-3 mb-2 font-bold overflow-hidden text-ellipsis text-black">
+          {couponTitle}
+        </h1>
+        <div className="flex justify-end mb-1 mt-2 gap-4">
+          <span className="relative text-xl w-32 text-white bg-primary-main flex items-center justify-center px-6 py-3 rounded-full">
+            {couponDiscount}%
+            <span className="absolute -top-5 -left-5 w-12 h-12 rounded-full bg-gradient-to-r from-secondary-dark to-secondary-lighter"></span>
+          </span>
+        </div>
       </div>
+
       <div className="flex flex-col gap-4 mb-4 items-center">
         <QRCode
           style={{ height: "140px", width: "140px" }}
