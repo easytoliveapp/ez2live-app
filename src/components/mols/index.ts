@@ -1,4 +1,3 @@
-export { default as DiscoverMoreGrid } from "./DiscoverMoreGrid";
 export { default as SupplierCard } from "./SupplierCard";
 export { default as Modal } from "./Modal";
 export { default as CreateAndUpdateCoupon } from "./CreateAndUpdateCoupon";
