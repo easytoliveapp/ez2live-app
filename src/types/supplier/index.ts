@@ -40,6 +40,7 @@ export interface ISuppliers {
   _id: string;
   supplierInfo: {
     _id: string;
+    validCoupons: ICoupon[];
     coupons: ICoupon[];
     supplierCategory: iSupplierCategory;
     address: IAddress;
