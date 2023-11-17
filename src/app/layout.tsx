@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import React from "react";
 import { Poppins } from "next/font/google";
 import "./globals.css";
 import "@/fonts/line-awesome-1.3.0/css/line-awesome.css";
@@ -10,7 +10,6 @@ import ToastProvider from "@/providers/ToastProvider";
 import AuthProvider from "@/providers/SessionProvider";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../app/api/auth/[...nextauth]/route";
-import { NavigationEvents } from "@/hoc/navigation-events";
 import { SupplierProvider } from "@/providers/SuppliersProvider";
 
 const poppins = Poppins({
@@ -36,9 +35,6 @@ export default async function RootLayout({
             <CommonClient />
           </AuthProvider>
         </ToastProvider>
-        <Suspense fallback={null}>
-          <NavigationEvents />
-        </Suspense>
       </body>
     </html>
   );

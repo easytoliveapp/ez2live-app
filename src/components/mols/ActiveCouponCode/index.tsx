@@ -85,7 +85,6 @@ const ActiveCouponCode: React.FC<IActiveCouponCodeProps> = ({
       setCouponValidationLoading(true);
       await validateCouponCode(couponCode)
         .then((res: any) => {
-          console.log(res?.data?.coupon);
           setCouponInfo(res?.data?.coupon);
         })
         .catch(() => {
