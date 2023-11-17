@@ -145,7 +145,7 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
             </p>
           </div>
           <div className="flex flex-col">
-            <Avaliation note={"4.7"} />
+            <Avaliation rating={"4.7"} />
           </div>
         </div>
         <div className="flex justify-between items-center">
