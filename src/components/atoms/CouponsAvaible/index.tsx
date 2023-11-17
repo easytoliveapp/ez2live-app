@@ -1,7 +1,6 @@
 import React, { FC } from "react";
 import Image from "next/image";
 import CouponGreen from "@/images/easytolive/icons/coupongreen.svg";
-import CouponRed from "@/images/easytolive/icons/couponred.svg";
 import classNames from "@/utils/classNames";
 
 interface CouponsProps {
