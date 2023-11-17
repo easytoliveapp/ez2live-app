@@ -1,6 +1,6 @@
 "use client";
 import React, { FC, useEffect, useRef } from "react";
-import NcModal from "@/components/atoms/NcModal/NcModal";
+import NcModal from "@/components/mols/NcModal";
 
 export interface ModalProps {
   contentExtraClass?: string;

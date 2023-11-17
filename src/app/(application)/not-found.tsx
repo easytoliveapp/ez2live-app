@@ -1,7 +1,7 @@
 import ButtonPrimary from "@/components/atoms/Button/ButtonPrimary";
 import React from "react";
 import I404Png from "@/images/404.png";
-import NcImage from "@/components/atoms/NcImage/NcImage";
+import NcImage from "@/components/atoms/NcImage";
 
 const Page404 = () => (
   <div className="nc-Page404">

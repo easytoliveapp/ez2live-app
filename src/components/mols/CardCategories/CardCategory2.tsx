@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import NcImage from "@/components/atoms/NcImage/NcImage";
+import NcImage from "@/components/atoms/NcImage";
 import Link from "next/link";
 import { StaticImageData } from "next/image";
 

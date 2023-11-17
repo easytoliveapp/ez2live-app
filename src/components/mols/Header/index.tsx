@@ -1,4 +1,4 @@
-import NavBar from "@/components/atoms/NavBar";
+import NavBar from "@/components/mols/NavBar";
 import React, { FC } from "react";
 
 export interface HeaderProps {

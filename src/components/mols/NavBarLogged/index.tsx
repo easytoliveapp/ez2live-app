@@ -3,7 +3,7 @@ import React, { FC } from "react";
 import Image from "next/image";
 import extendedLogoImage from "@/images/easytolive/logo/logocompleta-semfundoazulroxo.svg";
 import AvatarDropdown from "@/components/atoms/AvatarDropdown";
-import MenuBar from "../MenuBar/MenuBar";
+import MenuBar from "../MenuBar";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 
