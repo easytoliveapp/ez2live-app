@@ -71,7 +71,7 @@ export const SupplierProvider: React.FC<ISupplierProviderProps> = ({
     setPageNumber(1);
   }
 
-  const handleResponse = (res: any) => {
+  const handleSupplierResponse = (res: any) => {
     setLoadingSuppliers(false);
     setSuppliers(
       pageNumber === 1
@@ -79,19 +79,18 @@ export const SupplierProvider: React.FC<ISupplierProviderProps> = ({
         : suppliers.concat(res?.data?.results),
     );
   };
+  const getAllSuppliers = async (data: Partial<ISupplierList>) => {
+    const res: any = await SupplierService.getSupplierList(data);
+
+    if (res?.data?.totalPages === pageNumber) {
+      setHasMore(false);
+    } else {
+      setHasMore(true);
+    }
+    return res;
+  };
 
   useEffect(() => {
-    const getAllSuppliers = async (data: Partial<ISupplierList>) => {
-      const res: any = await SupplierService.getSupplierList(data);
-
-      if (res?.data?.totalPages === pageNumber) {
-        setHasMore(false);
-      } else {
-        setHasMore(true);
-      }
-      return res;
-    };
-
     const data = {
       page: pageNumber,
       ...(textSearched && { name: textSearched }),
@@ -100,33 +99,48 @@ export const SupplierProvider: React.FC<ISupplierProviderProps> = ({
       }),
     };
 
-    getAllSuppliers(data)
-      .then(handleResponse)
-      .catch((error) => {
-        if (error?.response?.data?.code === 401) {
-          showToastify({ label: "Usuário não autenticado", type: "error" });
-        }
-      });
-  }, [textSearched, pageNumber, supplierCategoriesFilter]);
+    const getSupplierAndCategories = async () => {
+      try {
+        const [supplierRes, categoriesRes] = await Promise.all([
+          getAllSuppliers(data),
+          getAllCategories(),
+        ]);
 
-  useEffect(() => {
-    getAllCategories()
-      .then((res) => setCategories(res?.data?.supplierCategories?.results))
-      .catch((error) => {
-        if (error?.response?.data?.code === 401) {
-          showToastify({
-            label: "Não autorizado. Por favor, autentique-se",
+        if (!(supplierRes?.data?.results.length > 0)) {
+          return showToastify({
+            label: `Ocorreu um erro ao carregar suppliers`,
             type: "error",
           });
         }
-        if (error?.response?.data?.code === 404) {
-          showToastify({
-            label: "Nenhuma categoria encontrada",
+        if (!(categoriesRes.data?.supplierCategories?.results.length > 0)) {
+          return showToastify({
+            label: `Ocorreu um erro ao carregar categorias`,
             type: "error",
           });
         }
-      });
-  }, []);
+        handleSupplierResponse(supplierRes);
+        setCategories(categoriesRes.data?.supplierCategories?.results);
+      } catch (error: any) {
+        console.log(error);
+        showToastify({
+          label: `Ocorreu um erro aos buscar dados: ${error.message}`,
+          type: "error",
+        });
+      }
+    };
+
+    if (suppliers.length === 0 && categories.length === 0) {
+      getSupplierAndCategories();
+    } else {
+      getAllSuppliers(data)
+        .then(handleSupplierResponse)
+        .catch((error) => {
+          if (error?.response?.data?.code === 401) {
+            showToastify({ label: "Usuário não autenticado", type: "error" });
+          }
+        });
+    }
+  }, [textSearched, pageNumber, supplierCategoriesFilter]);
 
   return (
     <SupplierContext.Provider
