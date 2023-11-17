@@ -10,6 +10,7 @@ import ToastProvider from "@/providers/ToastProvider";
 import AuthProvider from "@/providers/SessionProvider";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../app/api/auth/[...nextauth]/route";
+import { SupplierProvider } from "@/providers/SuppliersProvider";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -30,7 +31,7 @@ export default async function RootLayout({
       <body className="bg-generic-background text-base dark:bg-neutral-900 text-neutral-900 dark:text-neutral-200">
         <ToastProvider>
           <AuthProvider session={session}>
-            {children}
+            <SupplierProvider>{children}</SupplierProvider>
             <CommonClient />
           </AuthProvider>
         </ToastProvider>

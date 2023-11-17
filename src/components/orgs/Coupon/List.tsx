@@ -120,6 +120,7 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
       </Modal>
       <div className="h-40 w-full bg-gradient-to-r from-primary-lighter to-primary-main"></div>
       <Link
+        prefetch={true}
         className="absolute flex items-center justify-center rounded-full top-4 left-4 cursor-pointer h-8 w-8 bg-neutral-400 opacity-75 rotate-180"
         href={"/"}
       >

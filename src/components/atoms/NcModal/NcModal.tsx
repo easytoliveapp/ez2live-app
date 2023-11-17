@@ -20,7 +20,7 @@ export interface NcModalProps {
 const NcModal: FC<NcModalProps> = ({
   renderTrigger,
   renderContent,
-  contentExtraClass = "max-w-screen-xl",
+  contentExtraClass = "max-w-screen-lg",
   contentPaddingClass = "px-3 pb-4",
   triggerText = "Open Modal",
   modalTitle = "Modal title",
@@ -59,7 +59,7 @@ const NcModal: FC<NcModalProps> = ({
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog
           as="div"
-          className="fixed inset-0 x-100 z-50 overflow-y-auto"
+          className="fixed inset-0 x-100 z-50"
           onClose={() => closeOnBlur && closeModal()}
         >
           <div className="min-h-screen px-3 text-center md:px-3">

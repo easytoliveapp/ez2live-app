@@ -36,7 +36,6 @@ const ActiveCouponPage = () => {
           <QRCodeReader
             onResultCallback={async (result: Result) => {
               if (result.getText()) {
-                console.log(result.getText());
                 setCouponCode(result?.getText());
                 setShowCodeValidationModal(true);
               }
