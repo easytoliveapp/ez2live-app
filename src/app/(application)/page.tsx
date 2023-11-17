@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { SupplierCard } from "@/components/mols";
 import {
   CategoryCard,
@@ -9,29 +9,53 @@ import {
 } from "@/components/atoms";
 import SupplierLogo from "@/images/easytolive/logo/logotipo-fundoazulroxo.svg";
 import CouponPrimary from "@/images/easytolive/icons/couponPrimary.svg";
-import SupplierService from "@/service/supplier.service";
 import imageCategory from "@/images/easytolive/icons/categorie-example.svg";
-import { ISuppliers, ISupplierList } from "@/types/supplier";
-import { useDebounce } from "use-debounce";
+import { ISuppliers } from "@/types/supplier";
 import { ICategorieProps } from "@/components/atoms/CategoryCard";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { showToastify } from "@/hooks/showToastify";
 import { useSession } from "next-auth/react";
 import { useSearchParams } from "next/navigation";
+import { useSupplierContext } from "@/providers/SuppliersProvider";
 
 function PageHome() {
   const { data: session } = useSession();
+  const {
+    categories,
+    suppliers,
+    loadingSuppliers,
+    pageNumber,
+    setPageNumber,
+    hasMore,
+    handleSetSearch,
+    supplierCategoriesFilter,
+    handleCategoryFilter,
+    setSupplierCategoriesFilter,
+  } = useSupplierContext();
 
-  const [suppliers, setSuppliers] = useState([]);
-  const [search, setSearch] = useState("");
-  const [textSearched] = useDebounce(search, 1000);
-  const [categories, setCategories] = useState([]);
-  const [pageNumber, setPageNumber] = useState(1);
-  const [loadingSuppliers, setLoadingSuppliers] = useState(true);
-  const [hasMore, setHasMore] = useState(true);
-  const [supplierCategoriesFilter, setSupplierCategoriesFilter] = useState("");
   const searchParams = useSearchParams();
   const queryCategoryFilter = searchParams.get("supplierCategory");
+
+  // set scroll restoration to manual
+  const handleRouteChange = () => {
+    sessionStorage.setItem("scrollPosition", window.scrollY.toString());
+  };
+
+  useEffect(() => {
+    if (
+      "scrollRestoration" in history &&
+      history.scrollRestoration !== "manual"
+    ) {
+      history.scrollRestoration = "manual";
+    }
+  }, []);
+
+  // restore scroll position
+  useEffect(() => {
+    if ("scrollPosition" in sessionStorage && suppliers.length > 0) {
+      window.scrollTo(0, Number(sessionStorage.getItem("scrollPosition")));
+      sessionStorage.removeItem("scrollPosition");
+    }
+  }, [suppliers]);
 
   useEffect(() => {
     if (queryCategoryFilter) {
@@ -39,84 +63,8 @@ function PageHome() {
     }
   }, [queryCategoryFilter]);
 
-  const getAllCategories = async () => {
-    const res: any = await SupplierService.getSupplierCategories();
-    return res;
-  };
-
-  const handleCategoryFilter = (categoryId: string) => {
-    setLoadingSuppliers(true);
-    setPageNumber(1);
-    setSupplierCategoriesFilter((prevState) =>
-      prevState === categoryId ? "" : categoryId,
-    );
-  };
-
-  useEffect(() => {
-    getAllCategories()
-      .then((res) => setCategories(res?.data?.supplierCategories?.results))
-      .catch((error) => {
-        if (error?.response?.data?.code === 401) {
-          showToastify({
-            label: "Não autorizado. Por favor, autentique-se",
-            type: "error",
-          });
-        }
-        if (error?.response?.data?.code === 404) {
-          showToastify({
-            label: "Nenhuma categoria encontrada",
-            type: "error",
-          });
-        }
-      });
-  }, []);
-
-  function handleSetSearch(e: any) {
-    setLoadingSuppliers(true);
-    setSearch(e.target.value);
-    setPageNumber(1);
-  }
-
-  const handleResponse = (res: any) => {
-    setLoadingSuppliers(false);
-    setSuppliers(
-      pageNumber === 1
-        ? res.data.results
-        : suppliers.concat(res?.data?.results),
-    );
-  };
-
-  useEffect(() => {
-    const getAllSuppliers = async (data: Partial<ISupplierList>) => {
-      const res: any = await SupplierService.getSupplierList(data);
-
-      if (res?.data?.totalPages === pageNumber) {
-        setHasMore(false);
-      } else {
-        setHasMore(true);
-      }
-      return res;
-    };
-
-    const data = {
-      page: pageNumber,
-      ...(textSearched && { name: textSearched }),
-      ...(supplierCategoriesFilter && {
-        supplierCategory: supplierCategoriesFilter,
-      }),
-    };
-
-    getAllSuppliers(data)
-      .then(handleResponse)
-      .catch((error) => {
-        if (error?.response?.data?.code === 401) {
-          showToastify({ label: "Usuário não autenticado", type: "error" });
-        }
-      });
-  }, [textSearched, pageNumber, supplierCategoriesFilter]);
-
   return (
-    <div className="md:w-[600px] w-full m-auto p-5 relative">
+    <div className="md:w-[600px] w-full m-auto px-5 relative">
       {session?.user && (
         <FloatButtonNav
           hasCouponActive={true}
@@ -128,7 +76,7 @@ function PageHome() {
       <SearchCategory onChange={handleSetSearch} />
       {categories && categories.length > 0 && (
         <div className="flex overflow-x-auto justify-start my-4 w-full gap-2">
-          {categories.map((category: ICategorieProps, index) => (
+          {categories.map((category: ICategorieProps, index: number) => (
             <CategoryCard
               key={index}
               name={category.title}
@@ -152,7 +100,7 @@ function PageHome() {
         >
           {!!suppliers &&
             suppliers.length > 0 &&
-            suppliers.map((supplier: ISuppliers, index) => (
+            suppliers.map((supplier: ISuppliers, index: number) => (
               <SupplierCard
                 supplierCategory={
                   supplier?.supplierInfo?.supplierCategory?.title
@@ -167,6 +115,7 @@ function PageHome() {
                 name={supplier.name}
                 key={supplier._id + index}
                 id={supplier._id}
+                saveLastPagePosition={handleRouteChange}
               />
             ))}
         </InfiniteScroll>
