@@ -15,6 +15,8 @@ import { ICategorieProps } from "@/components/atoms/CategoryCard";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useSession } from "next-auth/react";
 import { useSearchParams } from "next/navigation";
+import SkeletonSuppliersCards from "@/skeleton/SuppliersCards";
+import SkeletonCategoriesCards from "@/skeleton/CategoriesCards";
 import { useSupplierContext } from "@/providers/SuppliersProvider";
 
 function PageHome() {
@@ -74,7 +76,7 @@ function PageHome() {
         />
       )}
       <SearchCategory onChange={handleSetSearch} />
-      {categories && categories.length > 0 && (
+      {categories && categories.length > 0 ? (
         <div className="flex overflow-x-auto justify-start my-4 w-full gap-2">
           {categories.map((category: ICategorieProps, index: number) => (
             <CategoryCard
@@ -86,9 +88,11 @@ function PageHome() {
             />
           ))}
         </div>
+      ) : (
+        <SkeletonCategoriesCards numberofCategories={4} />
       )}
       {loadingSuppliers ? (
-        <em>Carregando...</em>
+        <SkeletonSuppliersCards numberofSuppliers={10} />
       ) : (
         <InfiniteScroll
           className="flex flex-col gap-3"
