@@ -69,7 +69,7 @@ const MyCouponsPage = () => {
 
   useEffect(() => {
     handleGetCouponCodesByUser()
-      .then((res) => console.log(res.data.coupons))
+      .then((res) => setCouponCodes(res.data.coupons))
       .catch((error) =>
         showToastify({ type: "error", label: `Ocorreu um erro: ${error}` }),
       )
