@@ -1,26 +1,36 @@
 import React, { FC } from "react";
 import Image from "next/image";
 import CouponGreen from "@/images/easytolive/icons/coupongreen.svg";
-import CouponRed from "@/images/easytolive/icons/couponred.svg";
+import classNames from "@/utils/classNames";
 
 interface CouponsProps {
-  coupons?: number;
+  couponsAvailableCount?: number;
 }
 
-const CouponsAvaible: FC<CouponsProps> = ({ coupons }) => {
+const CouponsAvaible: FC<CouponsProps> = ({ couponsAvailableCount }) => {
   return (
     <span className=" flex items-center gap-1">
       <Image
-        className="w-6 h-auto"
-        src={coupons ? CouponGreen : CouponRed}
+        className={classNames(
+          "w-6 h-auto",
+          couponsAvailableCount ? "d-block" : "hidden",
+        )}
+        src={CouponGreen}
         alt="Coupon"
       />
       <p
-        className={`text-xs font-medium text ${
-          coupons ? `text-generic-alertGreen` : `text-generic-alertRed`
-        }`}
+        className={classNames(
+          "text-xs font-medium text text-generic-alertGreen",
+          couponsAvailableCount
+            ? "text-generic-alertGreen"
+            : "text-generic-grayDarker",
+        )}
       >
-        {coupons} reservas disponíveis
+        {couponsAvailableCount ? (
+          <>{couponsAvailableCount} reservas disponíveis</>
+        ) : (
+          <>Nenhuma reserva disponível</>
+        )}
       </p>
     </span>
   );

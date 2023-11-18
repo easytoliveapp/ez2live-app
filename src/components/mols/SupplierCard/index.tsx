@@ -7,21 +7,21 @@ import ArrowRight from "@/images/easytolive/icons/arrow-next-right-black.svg";
 import { useRouter } from "next/navigation";
 
 interface SupplierCardProps {
-  couponsAvaible: number;
+  couponsAvailableCount: number;
   supplierCategory: string;
   supplierImage: string | StaticImageData;
   name: string;
-  avaliation?: string;
+  rating?: string;
   id: string;
   saveLastPagePosition: () => void;
 }
 
 const SupplierCard: FC<SupplierCardProps> = ({
-  couponsAvaible,
+  couponsAvailableCount,
   supplierCategory,
   name,
   supplierImage,
-  avaliation,
+  rating,
   id,
   saveLastPagePosition,
 }) => {
@@ -51,10 +51,10 @@ const SupplierCard: FC<SupplierCardProps> = ({
         <p className="text-xs pb-1 font-medium text-primary-main">
           {supplierCategory}
         </p>
-        <CouponsAvaible coupons={couponsAvaible} />
+        <CouponsAvaible couponsAvailableCount={couponsAvailableCount} />
       </div>
       <div className=" col-span-1 relative">
-        <Avaliation note={avaliation} />
+        <Avaliation rating={rating} />
         <button className="w-auto h-6 absolute right-0 bottom-2">
           <Image className="w-auto h-6" alt="Next Button" src={ArrowRight} />
         </button>

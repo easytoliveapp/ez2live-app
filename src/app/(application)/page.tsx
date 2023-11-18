@@ -104,24 +104,26 @@ function PageHome() {
         >
           {!!suppliers &&
             suppliers.length > 0 &&
-            suppliers.map((supplier: ISuppliers, index: number) => (
-              <SupplierCard
-                supplierCategory={
-                  supplier?.supplierInfo?.supplierCategory?.title
-                }
-                supplierImage={SupplierLogo}
-                avaliation="4.6"
-                couponsAvaible={
-                  supplier.supplierInfo.coupons.filter(
-                    (t) => t.status === "ACTIVE",
-                  ).length
-                }
-                name={supplier.name}
-                key={supplier._id + index}
-                id={supplier._id}
-                saveLastPagePosition={handleRouteChange}
-              />
-            ))}
+            suppliers.map((supplier: ISuppliers, index: number) => {
+              const { supplierInfo, _id: id, name } = supplier || {};
+
+              const supplierCardData = {
+                // avaliation: "4.6",
+                id,
+                name,
+                couponsAvailableCount: supplierInfo?.validCoupons?.length || 0,
+                saveLastPagePosition: handleRouteChange,
+                supplierCategory: supplierInfo?.supplierCategory?.title,
+                supplierImage: SupplierLogo,
+              };
+
+              return (
+                <SupplierCard
+                  key={supplier._id + index}
+                  {...supplierCardData}
+                />
+              );
+            })}
         </InfiniteScroll>
       )}
     </div>
