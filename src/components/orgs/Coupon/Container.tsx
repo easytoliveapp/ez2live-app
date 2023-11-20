@@ -7,13 +7,14 @@ import {
   Coupon,
   CouponActivated,
   CreateAndUpdateCoupon,
-} from "@/components/mols/index";
-import { ButtonPrimary, ButtonThird } from "@/components/atoms/index";
-import CouponGenerating from "@/components/atoms/CouponLoading";
+  ButtonPrimary,
+  ButtonThird,
+  CouponCard,
+  CouponGenerating,
+} from "@/components";
 import couponsService from "@/service/coupons.service";
 import { showToastify } from "@/hooks/showToastify";
 import { AxiosResponse } from "axios";
-import CouponCard from "@/components/mols/CouponCard";
 import { useSearchParams } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";

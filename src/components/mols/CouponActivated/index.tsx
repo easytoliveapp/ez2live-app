@@ -2,7 +2,7 @@
 
 import React from "react";
 import Image, { StaticImageData } from "next/image";
-import { AccordionInfo } from "@/components/atoms";
+import { AccordionInfo } from "@/components";
 import { getDateFormater } from "@/utils/getDateFormater";
 import QRCode from "react-qr-code";
 

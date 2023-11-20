@@ -9,8 +9,10 @@ import {
   ButtonSecondary,
   ButtonThird,
   LoadingComponent,
-} from "@/components/atoms";
-import { CouponContainer } from "@/components/orgs";
+  CouponContainer,
+  CreateAndUpdateCoupon,
+  Modal,
+} from "@/components";
 import { ISupplier } from "@/types/supplier";
 import ArrowLeft from "@/images/easytolive/icons/arrow-next-right-white.svg";
 import supplierService from "@/service/supplier.service";
@@ -20,7 +22,6 @@ import CouponPrimary from "@/images/easytolive/icons/couponPrimary.svg";
 import Edit from "@/images/easytolive/icons/edit.svg";
 import LogoImage from "@/images/easytolive/logo/logotipo-fundoazulroxo.svg";
 import { useSession } from "next-auth/react";
-import { CreateAndUpdateCoupon, Modal } from "@/components/mols";
 import { ICoupon } from "@/types/coupons";
 
 interface ICouponListProps {

@@ -1,4 +1,4 @@
-import NavBarLogged from "@/components/mols/NavBarLogged";
+import { NavBarLogged } from "@/components";
 import React, { FC } from "react";
 
 export interface HeaderLoggedProps {

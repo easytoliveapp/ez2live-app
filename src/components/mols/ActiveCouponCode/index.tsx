@@ -4,10 +4,10 @@ import React, { useEffect } from "react";
 import {
   ButtonSecondary,
   ButtonThird,
-  CouponLoading,
+  CouponGenerating,
   FormItem,
   Input,
-} from "@/components/atoms";
+} from "@/components";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as Yup from "yup";
 import LogoImage from "@/images/easytolive/logo/logotipo-fundoazulroxo.svg";
@@ -148,7 +148,7 @@ const ActiveCouponCode: React.FC<IActiveCouponCodeProps> = ({
     <div className="w-full h-full">
       {couponIsValidation && (
         <>
-          <CouponLoading
+          <CouponGenerating
             backGround={couponValidationLoading ? "primary" : "secondary"}
             couponColor={couponValidationLoading ? "secondary" : "primary"}
             couponAnimation={couponValidationLoading}

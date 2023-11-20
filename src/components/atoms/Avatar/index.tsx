@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import VerifyIcon from "@/components/atoms/VerifyIcon";
+import { VerifyIcon } from "@/components";
 import Image, { StaticImageData } from "next/image";
 
 export interface AvatarProps {

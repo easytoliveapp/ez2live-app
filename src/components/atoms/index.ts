@@ -10,7 +10,7 @@ export { default as ButtonThird } from "./Button/ButtonThird";
 export { default as ButtonClose } from "./ButtonClose";
 export { default as CategoryCard } from "./CategoryCard";
 export { default as Checkbox } from "./Checkbox";
-export { default as CouponLoading } from "./CouponLoading";
+export { default as CouponGenerating } from "./CouponGenerating";
 export { default as CouponsAvaible } from "./CouponsAvaible";
 export { default as CurrencyDropdown } from "./CurrencyDropdown";
 export { default as DropdownCategories } from "./DropdownCategories";

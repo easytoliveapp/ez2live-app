@@ -1,7 +1,7 @@
 "use client";
 
 import React, { Dispatch, SetStateAction } from "react";
-import { ButtonPrimary, ButtonThird } from "@/components/atoms";
+import { ButtonPrimary, ButtonThird } from "@/components";
 import Modal from "../Modal";
 import Image from "next/image";
 import LogoImage from "@/images/easytolive/logo/logocompleta-semfundoazulroxo.svg";

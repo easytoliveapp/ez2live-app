@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { StaticImageData } from "next/image";
 import CouponRed from "@/images/easytolive/icons/couponred.svg";
 import CouponGreen from "@/images/easytolive/icons/coupongreen.svg";
-import { Modal, CouponActivated } from "@/components/mols";
+import { Modal, CouponActivated } from "@/components";
 import LogoImage from "@/images/easytolive/logo/logotipo-fundoazulroxo.svg";
 import CouponCard from "../CouponCard";
 import Arrow from "@/images/easytolive/icons/arrow-next-right-primary.svg";

@@ -1,9 +1,8 @@
 "use client";
 
 import React from "react";
-import ButtonClose from "@/components/atoms/ButtonClose";
+import { ButtonClose, SocialsList } from "@/components";
 import { NavItemType } from "./NavigationItem";
-import SocialsList from "@/components/atoms/SocialsList";
 import Image from "next/image";
 import extendedLogoImage from "@/images/easytolive/logo/logocompleta-semfundoazulroxo.svg";
 

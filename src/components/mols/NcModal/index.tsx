@@ -1,7 +1,7 @@
 "use client";
 import React, { FC, Fragment, ReactNode, useEffect, useState } from "react";
 import { Dialog, Transition } from "@/app/headlessui";
-import ButtonClose from "@/components/atoms/ButtonClose";
+import { ButtonClose } from "@/components";
 import Button from "@/components/atoms/Button/Button";
 
 export interface NcModalProps {
