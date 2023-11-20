@@ -206,7 +206,12 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
             });
           }
           setLoading(false);
-        });
+        })
+        .finally(() =>
+          setTimeout(() => {
+            setLoading(false);
+          }, 1500),
+        );
     }
 
     return values;
