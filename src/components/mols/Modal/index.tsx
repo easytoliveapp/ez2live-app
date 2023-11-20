@@ -37,7 +37,7 @@ const Modal: FC<ModalProps> = ({
   }, [show]);
 
   const renderContent = () => {
-    return <div>{children}</div>;
+    return <div className="max-h-[85vh] overflow-y-auto">{children}</div>;
   };
 
   const renderTrigger = () => {

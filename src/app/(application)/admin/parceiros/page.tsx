@@ -164,7 +164,6 @@ function SupplierPage() {
   };
 
   const renderSupplierName = (supplier: ISupplier) => {
-    console.log(supplier);
     return <p>{supplier.name}</p>;
   };
 

@@ -119,10 +119,10 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
           Eu quero!
         </ButtonPrimary>
         <ButtonThird
-          className="w-full mx-4 max-w-md"
+          className="w-full !text-generic-dark mx-4 max-w-md"
           onClick={() => setShowCouponModal(false)}
         >
-          não quero mais
+          não quero agora
         </ButtonThird>
       </div>
     );
@@ -158,8 +158,8 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
 
   const StepFour: React.FC<StepFour> = ({ couponCode }) => {
     return (
-      <div className="flex flex-col h-auto items-center">
-        <CouponActivated
+      <div className="flex flex-col h-auto max-h-[90vh] overflow-y-auto items-center">
+        <CouponActivatedPage
           couponTitle={couponTitle}
           couponDiscount={discount}
           expirateTime={expirationUseDate}
