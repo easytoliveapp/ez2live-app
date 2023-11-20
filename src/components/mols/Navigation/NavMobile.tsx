@@ -27,7 +27,6 @@ const NavMobile: React.FC<NavMobileProps> = ({ onClickClose }) => {
           <ButtonClose onClick={onClickClose} />
         </span>
       </div>
-      <ul className="flex flex-col py-6 px-2 space-y-1"></ul>
     </div>
   );
 };
