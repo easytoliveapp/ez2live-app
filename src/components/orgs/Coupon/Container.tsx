@@ -159,7 +159,7 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
   const StepFour: React.FC<StepFour> = ({ couponCode }) => {
     return (
       <div className="flex flex-col h-auto max-h-[90vh] overflow-y-auto items-center">
-        <CouponActivatedPage
+        <CouponActivated
           couponTitle={couponTitle}
           couponDiscount={discount}
           expirateTime={expirationUseDate}

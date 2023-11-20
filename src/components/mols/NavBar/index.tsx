@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 import extendedLogoImage from "@/images/easytolive/logo/logocompleta-semfundoazulroxo.svg";
 import Link from "next/link";
-import ButtonBasic from "../Button/ButtonBasic";
+import { ButtonBasic } from "@/components";
 
 interface NavBarProps {
   hasLogoImage?: boolean;
