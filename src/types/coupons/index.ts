@@ -34,6 +34,8 @@ export interface IGetCouponInfo {
 }
 
 export interface ICoupon {
+  active: string;
+  couponStatus: "ACTIVE" | "USED" | "EXPIRED";
   title: string;
   discount: string;
   maxTotal: number;
@@ -43,6 +45,8 @@ export interface ICoupon {
   supplier: string;
   id: string;
   status: "ACTIVE" | "USED" | "EXPIRED";
+  couponCodesActivated: number;
+  couponCodesGenerated: number;
 }
 
 export interface ICouponCodesByUser {
