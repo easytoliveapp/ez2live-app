@@ -186,8 +186,8 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
         </p>
         <div className="mt-6 pb-16 flex flex-col gap-4">
           {activeCoupons &&
-            activeCoupons.length > 0 &&
-            filterLimitReachedCoupons(activeCoupons).length > 0 ? (
+          activeCoupons.length > 0 &&
+          filterLimitReachedCoupons(activeCoupons).length > 0 ? (
             filterLimitReachedCoupons(activeCoupons).map((coupon, key) => (
               <CouponContainer
                 supplierId={supplier.supplier.id}
