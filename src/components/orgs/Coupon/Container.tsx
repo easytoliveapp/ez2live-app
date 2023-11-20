@@ -5,7 +5,7 @@ import { StaticImageData } from "next/image";
 import {
   Modal,
   Coupon,
-  CouponActivatedPage,
+  CouponActivated,
   CreateAndUpdateCoupon,
 } from "@/components/mols/index";
 import { ButtonPrimary, ButtonThird } from "@/components/atoms/index";
@@ -158,7 +158,7 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
   const StepFour: React.FC<StepFour> = ({ couponCode }) => {
     return (
       <div className="flex flex-col h-auto items-center">
-        <CouponActivatedPage
+        <CouponActivated
           couponTitle={couponTitle}
           couponDiscount={discount}
           expirateTime={expirationUseDate}

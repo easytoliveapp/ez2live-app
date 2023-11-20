@@ -1,11 +1,10 @@
 export { default as ActiveCouponCode } from "./ActiveCouponCode";
 export { default as CompleteSupplierRegister } from "./CompleteSupplierRegister";
-export { default as CouponActivatedPage } from "./CouponActived";
+export { default as CouponActivated } from "./CouponActivated";
 export { default as CouponCard } from "./CouponCard";
 export { default as Coupon } from "./CouponContent";
 export { default as CreateAndUpdateCoupon } from "./CreateAndUpdateCoupon";
 export { default as FastLoginPage } from "./FastLoginPage";
-export { default as FormItem } from "./FormItem";
 export { default as FreePaymentComponent } from "./FreePayment";
 export { default as Header } from "./Header";
 export { default as HeaderLogged } from "./HeaderLogged";
