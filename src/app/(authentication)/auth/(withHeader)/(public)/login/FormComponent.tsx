@@ -47,7 +47,7 @@ const FormComponent = () => {
             router.push(callbackUrl as any);
           } else {
             router.push(
-              !session?.user.isSupplier ? "/my-coupons" : "/dashboard",
+              !session?.user.isSupplier ? "/meus-cupons" : "/dashboard",
             );
           }
         }
