@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { Formik, Form, Field, FormikProps } from "formik";
-import { Input, ButtonPrimary, FormItem, Select } from "@/components/atoms";
+import { Input, ButtonPrimary, FormItem, Select } from "@/components";
 import * as Yup from "yup";
 import { IRegisterAccount } from "@/types/auth/request";
 import { useRouter } from "next/navigation";

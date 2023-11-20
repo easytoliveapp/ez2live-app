@@ -10,9 +10,9 @@ import {
   ButtonSecondary,
   LoadingComponent,
   SearchCategory,
+  Pagination,
 } from "@/components";
 import { getDateFormater } from "@/utils/getDateFormater";
-import Pagination from "@/components/atoms/Pagination";
 
 interface ISupplier {
   _id?: string;
