@@ -12,7 +12,7 @@ import {
   SearchCategory,
 } from "@/components";
 import { getDateFormater } from "@/utils/getDateFormater";
-import Pagination from "@/components/atoms/Pagination/Pagination";
+import Pagination from "@/components/atoms/Pagination";
 
 interface ISupplier {
   _id?: string;
