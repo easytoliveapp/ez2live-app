@@ -68,7 +68,7 @@ const getSubscriptionDays = async (userId: string) => {
   });
 };
 
-export default {
+const userService = {
   createUsers,
   getAllUsers,
   updateUser,
@@ -79,3 +79,5 @@ export default {
   removeSubscriptionDays,
   getSubscriptionDays,
 };
+
+export default userService;

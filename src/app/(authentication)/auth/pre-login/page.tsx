@@ -1,5 +1,5 @@
 import React from "react";
-import { FastLoginPage } from "@/components/mols/index";
+import { FastLoginPage } from "@/components";
 
 const PreLoginPage = () => {
   return <FastLoginPage />;

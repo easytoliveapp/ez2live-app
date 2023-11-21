@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import FormComponent from "./FormComponent";
 import Avatar from "@/images/easytolive/user/user_circle_color_primary.svg";
-import SocialLoginComponent from "../../../../../../../components/mols/SocialLoginComponent";
+import { SocialLoginComponent } from "@/components";
 
 const UserRegisterPage = () => {
   return (
@@ -27,7 +27,7 @@ const UserRegisterPage = () => {
           {/* FORM */}
           <FormComponent />
           <span className="block text-center text-sm font-medium text-black">
-            voltar para {}
+            voltar para{" "}
             <Link
               className="text-primary-main text-sm font-semibold"
               href="/auth/login"

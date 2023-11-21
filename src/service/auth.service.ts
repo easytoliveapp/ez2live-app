@@ -55,7 +55,7 @@ const refreshToken = async (data: any) => {
   });
 };
 
-export default {
+const authService = {
   login,
   loginSocial,
   register,
@@ -63,3 +63,5 @@ export default {
   resetPassword,
   refreshToken,
 };
+
+export default authService;

@@ -7,8 +7,8 @@ import {
   ButtonSecondary,
   ButtonPrimary,
   Input,
-} from "@/components/atoms";
-import { Modal } from "@/components/mols/index";
+  Modal,
+} from "@/components";
 import { showToastify } from "@/hooks/showToastify";
 import { type IDeleteUSer } from "@/types/user";
 

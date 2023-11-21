@@ -5,15 +5,16 @@ import { StaticImageData } from "next/image";
 import {
   Modal,
   Coupon,
-  CouponActivatedPage,
+  CouponActivated,
   CreateAndUpdateCoupon,
-} from "@/components/mols/index";
-import { ButtonPrimary, ButtonThird } from "@/components/atoms/index";
-import CouponGenerating from "@/components/atoms/CouponLoading";
+  ButtonPrimary,
+  ButtonThird,
+  CouponCard,
+  CouponGenerating,
+} from "@/components";
 import couponsService from "@/service/coupons.service";
 import { showToastify } from "@/hooks/showToastify";
 import { AxiosResponse } from "axios";
-import CouponCard from "@/components/mols/CouponCard";
 import { useSearchParams } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -158,7 +159,7 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
   const StepFour: React.FC<StepFour> = ({ couponCode }) => {
     return (
       <div className="flex flex-col h-auto max-h-[90vh] overflow-y-auto items-center">
-        <CouponActivatedPage
+        <CouponActivated
           couponTitle={couponTitle}
           couponDiscount={discount}
           expirateTime={expirationUseDate}

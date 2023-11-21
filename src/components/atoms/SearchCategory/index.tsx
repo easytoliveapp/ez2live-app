@@ -1,6 +1,6 @@
 "use client";
 import React, { FC } from "react";
-import { Input } from "@/components/atoms";
+import { Input } from "@/components";
 import Image from "next/image";
 import Search from "@/images/easytolive/icons/search.svg";
 
