@@ -27,7 +27,7 @@ const UserRegisterPage = () => {
           {/* FORM */}
           <FormComponent />
           <span className="block text-center text-sm font-medium text-black">
-            voltar para { }
+            voltar para{" "}
             <Link
               className="text-primary-main text-sm font-semibold"
               href="/conta/entrar"
