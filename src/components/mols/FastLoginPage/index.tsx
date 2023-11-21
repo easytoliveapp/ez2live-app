@@ -30,8 +30,8 @@ const FastLoginPage = () => {
     setLoadingRegister(true);
     router.push(
       callbackUrl
-        ? `/conta/registrar/usuario?callbackUrl=${callbackUrl}`
-        : "/conta/registrar/usuario",
+        ? `/conta/cadastrar/usuario?callbackUrl=${callbackUrl}`
+        : "/conta/cadastrar/usuario",
     );
     setTimeout(() => {
       setLoadingRegister(false);

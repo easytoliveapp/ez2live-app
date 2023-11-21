@@ -44,8 +44,8 @@ const MyAccountPage = () => {
           <div className="ml-2 text-lg font-medium text-neutral-600">
             {session?.user.subscriptionEndDate !== null
               ? `validade: ${getDateFormater(
-                session?.user?.subscriptionEndDate,
-              )}`
+                  session?.user?.subscriptionEndDate,
+                )}`
               : "expirou"}
           </div>
         </FormItem>
