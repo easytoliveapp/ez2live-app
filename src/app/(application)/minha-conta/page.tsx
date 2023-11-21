@@ -44,8 +44,8 @@ const MyAccountPage = () => {
           <div className="ml-2 text-lg font-medium text-neutral-600">
             {session?.user.subscriptionEndDate !== null
               ? `validade: ${getDateFormater(
-                  session?.user?.subscriptionEndDate,
-                )}`
+                session?.user?.subscriptionEndDate,
+              )}`
               : "expirou"}
           </div>
         </FormItem>
@@ -77,7 +77,7 @@ const MyAccountPage = () => {
               label: "Conta excluída com sucesso",
               type: "success",
             });
-            router.push("/auth/login");
+            router.push("/conta/entrar");
           })
           .catch(() => {
             showToastify({

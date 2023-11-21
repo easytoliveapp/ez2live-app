@@ -30,7 +30,7 @@ const SupplierRegisterPage = () => {
             voltar para{" "}
             <Link
               className="text-primary-main font-semibold"
-              href="/auth/login"
+              href="/conta/entrar"
             >
               login
             </Link>

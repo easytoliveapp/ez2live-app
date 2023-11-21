@@ -118,7 +118,7 @@ const FormComponent = () => {
           <span className="flex justify-end  items-start text-sm">
             <Link
               className="text-primary-main font-semibold"
-              href="/auth/forgot-password"
+              href="/conta/esqueci-a-senha"
             >
               esqueci a senha
             </Link>

@@ -246,7 +246,7 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
         });
     } else {
       router.push(
-        `/auth/pre-login?callbackUrl=${`/parceiro/${supplierId}/?coupon=${couponId}`}`,
+        `/conta/acessar?callbackUrl=${`/parceiro/${supplierId}/?coupon=${couponId}`}`,
       );
     }
   };

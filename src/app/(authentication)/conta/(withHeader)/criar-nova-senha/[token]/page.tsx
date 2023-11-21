@@ -50,7 +50,7 @@ const ResetPassword = ({ params }: ITokenProps) => {
       })
       .then(() => {
         showToastify({ label: "Senha alterada com sucesso!", type: "success" });
-        setTimeout(() => router.push("/auth/login"), 2000);
+        setTimeout(() => router.push("/conta/entrar"), 2000);
       })
       .catch(() => {
         showToastify({

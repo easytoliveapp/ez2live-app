@@ -5,7 +5,7 @@ export function middleware(request: NextRequest) {
   // Call our authentication function to check the request
   if (!isAuthenticated(request)) {
     // Respond with JSON indicating an error message
-    return NextResponse.redirect(new URL("/auth/login", request.url));
+    return NextResponse.redirect(new URL("/conta/entrar", request.url));
   }
 
   // If the request is authenticated, continue to the API route handler
@@ -19,6 +19,6 @@ export const config = {
     "/dashboard",
     "/dashboard/parceiro/:path*",
     "/parceiro-nao-encontrado",
-    "/conta",
+    "/minha-conta",
   ],
 };

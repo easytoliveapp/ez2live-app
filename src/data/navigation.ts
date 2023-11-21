@@ -49,7 +49,7 @@ export const MEGAMENU_TEMPLATES: NavItemType[] = [
       { id: ncNanoId(), href: "/", name: "Blog Single" },
       { id: ncNanoId(), href: "/", name: "About Page" },
       { id: ncNanoId(), href: "/", name: "Contact Page" },
-      { id: ncNanoId(), href: "/auth/login", name: "Login" },
+      { id: ncNanoId(), href: "/conta/entrar", name: "Login" },
       { id: ncNanoId(), href: "/", name: "Signup" },
       { id: ncNanoId(), href: "/", name: "Forgot Password" },
     ],
