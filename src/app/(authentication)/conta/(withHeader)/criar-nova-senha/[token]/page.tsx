@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { Formik, Form, Field } from "formik";
-import { Input, ButtonPrimary, FormItem } from "@/components/atoms";
+import { Input, ButtonPrimary, FormItem } from "@/components";
 import * as Yup from "yup";
 import { IResetPasswordForm } from "@/types/auth/request";
 import { useRouter } from "next/navigation";

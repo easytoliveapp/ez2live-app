@@ -1,7 +1,7 @@
 "use client";
 
 import React, { FC } from "react";
-import { Avaliation, CouponsAvaible } from "@/components/atoms";
+import { Avaliation, CouponsAvaible } from "@/components";
 import Image, { StaticImageData } from "next/image";
 import ArrowRight from "@/images/easytolive/icons/arrow-next-right-black.svg";
 import { useRouter } from "next/navigation";

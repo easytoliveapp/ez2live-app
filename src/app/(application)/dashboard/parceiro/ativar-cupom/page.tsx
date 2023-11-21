@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { Result } from "@zxing/library";
 
 import React, { useEffect } from "react";
-import ActiveCouponCode from "@/components/mols/ActiveCouponCode";
+import { ActiveCouponCode } from "@/components";
 
 const ActiveCouponPage = () => {
   const [showCodeValidationModal, setShowCodeValidationModal] =

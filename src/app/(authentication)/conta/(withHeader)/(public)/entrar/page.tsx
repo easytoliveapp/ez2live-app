@@ -2,7 +2,7 @@
 import React from "react";
 
 import Link from "next/link";
-import SocialLoginComponent from "../../../../../../components/mols/SocialLoginComponent";
+import { SocialLoginComponent } from "@/components";
 import FormComponent from "./FormComponent";
 import { useSearchParams } from "next/navigation";
 

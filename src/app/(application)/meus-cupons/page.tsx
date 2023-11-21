@@ -4,13 +4,16 @@ import React, { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import { ICouponCodesByUser } from "@/types/coupons";
 import { showToastify } from "@/hooks/showToastify";
-import { FloatButtonNav } from "@/components/atoms/index";
-import { FreePaymentComponent, UserCoupons } from "@/components/mols/index";
+import {
+  FloatButtonNav,
+  CurrencyDropdown,
+  FreePaymentComponent,
+  UserCoupons,
+} from "@/components";
 import CouponGreen from "@/images/easytolive/icons/coupongreen.svg";
 import CouponBlack from "@/images/easytolive/icons/couponblack.svg";
 import CouponRed from "@/images/easytolive/icons/couponred.svg";
 import Shop from "@/images/easytolive/icons/shop.svg";
-import CurrencyDropdown from "@/components/atoms/CurrencyDropdown";
 import Image, { StaticImageData } from "next/image";
 import couponsService from "@/service/coupons.service";
 import Arrow from "@/images/easytolive/icons/arrow-next-right-primary.svg";
