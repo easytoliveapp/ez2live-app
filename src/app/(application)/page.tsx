@@ -1,12 +1,12 @@
 "use client";
 
 import React, { useEffect } from "react";
-import { SupplierCard } from "@/components/mols";
 import {
   CategoryCard,
   FloatButtonNav,
   SearchCategory,
-} from "@/components/atoms";
+  SupplierCard,
+} from "@/components";
 import SupplierLogo from "@/images/easytolive/logo/logotipo-fundoazulroxo.svg";
 import CouponPrimary from "@/images/easytolive/icons/couponPrimary.svg";
 import imageCategory from "@/images/easytolive/icons/categorie-example.svg";

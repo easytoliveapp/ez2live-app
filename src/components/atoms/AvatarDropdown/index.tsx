@@ -3,7 +3,7 @@
 import { Popover, Transition } from "@/app/headlessui";
 import userImage from "@/images/easytolive/user/user_circle_1.svg";
 import React, { Fragment, useState } from "react";
-import Avatar from "@/components/atoms/Avatar/Avatar";
+import { Avatar } from "@/components";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { signOut } from "next-auth/react";

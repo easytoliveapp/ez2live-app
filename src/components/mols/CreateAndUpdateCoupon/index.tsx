@@ -8,13 +8,13 @@ import {
   FormItem,
   ToggleButton,
   ButtonThird,
-  CouponLoading,
-} from "@/components/atoms";
+  CouponGenerating,
+  Modal,
+} from "@/components";
 import * as Yup from "yup";
 import { ICoupon, ICreateCoupon, IGetCouponInfo } from "@/types/coupons";
 import couponService from "@/service/coupons.service";
 import { showToastify } from "@/hooks/showToastify";
-import { Modal } from "@/components";
 import couponsService from "@/service/coupons.service";
 
 interface ICreateOrUpdateCoupon {
@@ -206,7 +206,12 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
             });
           }
           setLoading(false);
-        });
+        })
+        .finally(() =>
+          setTimeout(() => {
+            setLoading(false);
+          }, 1500),
+        );
     }
 
     return values;
@@ -237,7 +242,7 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
         </div>
       </Modal>
       {isUpdatingCoupon && !coupon ? (
-        <CouponLoading
+        <CouponGenerating
           title={"carregando dados do cupom"}
           couponColor={"primary"}
           backGround={"secondary"}
