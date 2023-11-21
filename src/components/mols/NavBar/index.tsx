@@ -22,7 +22,7 @@ const NavBar: React.FC<NavBarProps> = ({ hasLogoImage = true }) => {
           </Link>
         )}
         <div className="absolute right-2">
-          <Link href="/auth/pre-login">
+          <Link href="/conta/acessar">
             <ButtonBasic className="text-primary-lighter">Entrar</ButtonBasic>
           </Link>
         </div>

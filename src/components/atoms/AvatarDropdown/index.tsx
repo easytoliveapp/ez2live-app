@@ -57,7 +57,7 @@ export default function AvatarDropdown() {
 
                     {/* ------------------ 1 --------------------- */}
                     <Link
-                      href={"/account"}
+                      href={"/minha-conta"}
                       className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-neutral-100  focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
                       onClick={() => close()}
                     >
@@ -93,7 +93,7 @@ export default function AvatarDropdown() {
                     {/* ------------------ 2 --------------------- */}
 
                     <Link
-                      href={user?.isSupplier ? "/dashboard" : "/my-coupons"}
+                      href={user?.isSupplier ? "/dashboard" : "/meus-cupons"}
                       className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-700 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
                     >
                       <div className="flex items-center justify-center flex-shrink-0 text-neutral-500 dark:text-neutral-300">
@@ -129,7 +129,7 @@ export default function AvatarDropdown() {
                     </Link>
                     {/* ------------------ 2 --------------------- */}
                     <Link
-                      href={"/auth/login"}
+                      href={"/conta/entrar"}
                       className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-700 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
                       onClick={() => handleLogout()}
                     >

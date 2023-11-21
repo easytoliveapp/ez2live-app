@@ -169,7 +169,7 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
           supplierName={supplierName}
         />
         <ButtonPrimary
-          onClick={() => router.push("/my-coupons")}
+          onClick={() => router.push("/meus-cupons")}
           className="w-full mx-4 max-w-md"
         >
           Ok, entendi!
@@ -247,7 +247,7 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
         });
     } else {
       router.push(
-        `/auth/pre-login?callbackUrl=${`/supplier-dashboard/${supplierId}/?coupon=${couponId}`}`,
+        `/conta/acessar?callbackUrl=${`/parceiro/${supplierId}/?coupon=${couponId}`}`,
       );
     }
   };

@@ -18,7 +18,9 @@ const FastLoginPage = () => {
   const handleRedirectToLogin = async () => {
     setLoadingLogin(true);
     router.push(
-      callbackUrl ? `/auth/login?callbackUrl=${callbackUrl}` : "/auth/login",
+      callbackUrl
+        ? `/conta/entrar?callbackUrl=${callbackUrl}`
+        : "/conta/entrar",
     );
     setTimeout(() => {
       setLoadingLogin(false);
@@ -28,8 +30,8 @@ const FastLoginPage = () => {
     setLoadingRegister(true);
     router.push(
       callbackUrl
-        ? `/auth/register/user?callbackUrl=${callbackUrl}`
-        : "/auth/register/user",
+        ? `/conta/cadastrar/usuario?callbackUrl=${callbackUrl}`
+        : "/conta/cadastrar/usuario",
     );
     setTimeout(() => {
       setLoadingRegister(false);

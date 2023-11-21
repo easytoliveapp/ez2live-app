@@ -17,12 +17,12 @@ function PageDashboard() {
           <FloatButtonNav
             icon={UserIcon}
             backgroundStyle={"secondary"}
-            href={"/dashboard/supplier/profile"}
+            href={"/dashboard/parceiro/perfil"}
           />
           <div className="h-10 w-full relative mb-2">
             <div className="absolute right-0 top-0">
               <ButtonSecondary
-                onClick={() => router.push("/dashboard/supplier/active-coupon")}
+                onClick={() => router.push("/dashboard/parceiro/ativar-cupom")}
               >
                 Ativar cupom
               </ButtonSecondary>

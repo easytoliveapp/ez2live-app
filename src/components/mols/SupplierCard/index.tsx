@@ -29,7 +29,7 @@ const SupplierCard: FC<SupplierCardProps> = ({
 
   function handleClick(e: string) {
     saveLastPagePosition?.();
-    router.push(`/supplier-dashboard/${e}`);
+    router.push(`/parceiro/${e}`);
   }
 
   return (

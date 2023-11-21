@@ -147,7 +147,7 @@ const FormComponent = () => {
                 type: "error",
               });
 
-              router.push("/auth/login");
+              router.push("/conta/entrar");
             })
             .finally(() => {
               setLoading(false);

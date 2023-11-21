@@ -5,7 +5,7 @@ export function middleware(request: NextRequest) {
   // Call our authentication function to check the request
   if (!isAuthenticated(request)) {
     // Respond with JSON indicating an error message
-    return NextResponse.redirect(new URL("/auth/login", request.url));
+    return NextResponse.redirect(new URL("/conta/entrar", request.url));
   }
 
   // If the request is authenticated, continue to the API route handler
@@ -15,10 +15,10 @@ export function middleware(request: NextRequest) {
 // Limit the middleware to paths starting with `/api/`
 export const config = {
   matcher: [
-    "/my-coupons",
+    "/meus-cupons",
     "/dashboard",
-    "/dashboard/supplier/:path*",
-    "/supplier-not-verified",
-    "/account",
+    "/dashboard/parceiro/:path*",
+    "/parceiro-nao-encontrado",
+    "/minha-conta",
   ],
 };

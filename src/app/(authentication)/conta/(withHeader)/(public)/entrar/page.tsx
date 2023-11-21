@@ -32,8 +32,8 @@ const PageLogin = () => {
               className="text-primary-main font-semibold cursor-pointer"
               href={
                 callbackUrl
-                  ? `/auth/register/user?callbackUrl=${callbackUrl}`
-                  : "/auth/register/user"
+                  ? `/conta/cadastrar/usuario?callbackUrl=${callbackUrl}`
+                  : "/conta/cadastrar/usuario"
               }
             >
               criar conta
@@ -56,7 +56,7 @@ const PageLogin = () => {
             <p> tem um estabelecimento e quer se juntar a nós? </p>
             <Link
               className="text-primary-main text-sm font-semibold"
-              href="/auth/register/supplier"
+              href="/conta/cadastrar/parceiro"
             >
               cadastre-se!
             </Link>
