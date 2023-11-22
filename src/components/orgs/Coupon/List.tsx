@@ -110,7 +110,10 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
         onCloseModal={() => setModalCreateCoupon(false)}
       >
         <div className="flex flex-col items-center w-full">
-          <CreateAndUpdateCoupon handleCouponUpdate={handleCouponUpdate} />
+          <CreateAndUpdateCoupon
+            setCouponModal={setModalCreateCoupon}
+            handleCouponUpdate={handleCouponUpdate}
+          />
           <ButtonThird
             className="text-generic-alertRed"
             onClick={() => setModalCreateCoupon(false)}

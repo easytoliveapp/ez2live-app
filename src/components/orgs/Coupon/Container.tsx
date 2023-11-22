@@ -262,6 +262,7 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
         >
           {isOwnSupplier ? (
             <CreateAndUpdateCoupon
+              setCouponModal={setShowCouponModal}
               isUpdatingCoupon={true}
               couponId={couponId}
               handleCouponUpdate={handleCouponUpdate}

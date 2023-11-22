@@ -18,6 +18,7 @@ import { showToastify } from "@/hooks/showToastify";
 import couponsService from "@/service/coupons.service";
 
 interface ICreateOrUpdateCoupon {
+  setCouponModal: React.Dispatch<React.SetStateAction<boolean>>;
   isUpdatingCoupon?: boolean;
   couponId?: string;
   handleCouponUpdate: (
@@ -30,6 +31,7 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
   isUpdatingCoupon,
   couponId,
   handleCouponUpdate,
+  setCouponModal,
 }) => {
   const [loading, setLoading] = useState(false);
   const [couponsUnlimited, setCouponsUnlimited] = useState(true);
@@ -67,6 +69,7 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
           }
         })
         .finally(() => {
+          setCouponModal(false);
           setDeleteModal(false);
           setLoading(false);
         });
@@ -185,6 +188,7 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
           }, 2000);
         })
         .finally(() => {
+          setCouponModal(false);
           setLoading(false);
         });
     } else {
@@ -207,11 +211,10 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
           }
           setLoading(false);
         })
-        .finally(() =>
-          setTimeout(() => {
-            setLoading(false);
-          }, 1500),
-        );
+        .finally(() => {
+          setCouponModal(false);
+          setLoading(false);
+        });
     }
 
     return values;
