@@ -1,9 +1,8 @@
 import { BaseService } from "./base.service";
 import {
   ICreateCoupon,
-  IGetCouponById,
   ISupplierCouponsList,
-  ICoupon,
+  IUpdateCoupon,
 } from "@/types/coupons";
 
 const createCoupon = async (data: ICreateCoupon) => {
@@ -21,24 +20,66 @@ const getSupplierCouponsList = async (supplierID: ISupplierCouponsList) => {
   });
 };
 
-const getCouponById = async (couponId: IGetCouponById) => {
+const getCouponById = async (couponId: string) => {
   return await BaseService.fetchData({
-    url: `/coupons/${couponId}`,
+    url: `/coupon/${couponId}`,
     method: "get",
   });
 };
 
-const updateCoupon = async (data: ICoupon, couponId: IGetCouponById) => {
+const updateCoupon = async (data: Partial<IUpdateCoupon>, couponId: string) => {
   return await BaseService.fetchData({
-    url: `/coupons/${couponId}`,
+    url: `/coupon/${couponId}`,
     method: "put",
     data,
   });
 };
 
-export default {
+const generateCouponCode = async (couponId: string) => {
+  return await BaseService.fetchData({
+    url: `/coupon/${couponId}/generate`,
+    method: "post",
+  });
+};
+
+const getCouponCodesByUser = async () => {
+  return await BaseService.fetchData({
+    url: "/coupon/code",
+    method: "get",
+  });
+};
+
+const getCouponCodesByCode = async (couponCode: string) => {
+  return await BaseService.fetchData({
+    url: `/coupon/code/${couponCode}`,
+    method: "get",
+  });
+};
+
+const activeCouponCode = async (couponCode: string) => {
+  return await BaseService.fetchData({
+    url: `/coupon/code/${couponCode}/activate`,
+    method: "post",
+  });
+};
+
+const deleteCoupon = async (id: string) => {
+  return await BaseService.fetchData({
+    url: `/coupon/${id}`,
+    method: "delete",
+  });
+};
+
+const couponsService = {
   createCoupon,
   getSupplierCouponsList,
   getCouponById,
   updateCoupon,
+  generateCouponCode,
+  getCouponCodesByUser,
+  getCouponCodesByCode,
+  activeCouponCode,
+  deleteCoupon,
 };
+
+export default couponsService;

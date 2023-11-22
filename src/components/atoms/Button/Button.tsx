@@ -21,7 +21,7 @@ export interface ButtonProps {
 }
 
 const Button: FC<ButtonProps> = ({
-  className = "text-neutral-700 dark:text-neutral-200 disabled:cursor-not-allowed",
+  className = "text-neutral-700  disabled:cursor-not-allowed",
   translate = "",
   sizeClass = "py-3 px-4 sm:py-3.5 sm:px-6",
   fontSize = "text-sm sm:text-base font-medium",
@@ -31,7 +31,7 @@ const Button: FC<ButtonProps> = ({
   targetBlank = false,
   type,
   loading,
-  onClick = () => { },
+  onClick = () => {},
 }) => {
   const CLASSES =
     `nc-Button relative h-auto inline-flex items-center justify-center rounded-full transition-colors ${fontSize} ${sizeClass} ${translate} ${className} ` +
@@ -68,7 +68,7 @@ const Button: FC<ButtonProps> = ({
         href={href}
         className={`${CLASSES} `}
         onClick={onClick}
-        {...(targetBlank && { target: '_blank' })}
+        {...(targetBlank && { target: "_blank" })}
       >
         {children || `This is Link`}
       </Link>

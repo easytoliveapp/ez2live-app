@@ -1,44 +1,38 @@
-import React, { FC } from 'react';
-import Image, { StaticImageData } from 'next/image';
-import classNames from '@/utils/classNames';
+import React, { FC } from "react";
+import Image, { StaticImageData } from "next/image";
+import classNames from "@/utils/classNames";
 
-export interface categorieProps {
+export interface ICategorieProps {
   active: boolean;
   title: string;
   id: string;
 }
 
-export interface CategoryProps  {
+export interface ICategoryProps {
   image: string | StaticImageData;
   isActive: boolean;
   name: string;
-  onClick?: (e:React.MouseEvent<HTMLDivElement>) => void
+  onClick?: (e: React.MouseEvent<HTMLDivElement>) => void;
 }
 
-const Categories: FC<CategoryProps> = ({
+const CategoryCard: FC<ICategoryProps> = ({
   image,
   isActive,
   name,
   onClick,
-})=> {
+}) => {
   return (
     <div
-      className={
-        classNames(
-          'bg-white border-2 hover:border-secondary-ez2live active:shadow-sm rounded-lg p-1 py-2 w-24 flex flex-col gap-1 items-center cursor-pointer',
-          isActive ? 'border-secondary-ez2live' : 'border-white'
-        )
-      }
+      className={classNames(
+        "bg-white border-2 focus:border-secondary-main active:shadow-sm rounded-lg p-1 py-2 min-w-[80px] w-full flex flex-col gap-1 items-center cursor-pointer",
+        isActive ? "border-secondary-main" : "border-transparent",
+      )}
       onClick={onClick}
     >
-      <Image
-        className="w-8 h-auto"
-        src={image} 
-        alt="Category Image"
-      />
+      <Image className="w-8 h-auto" src={image} alt="Category Image" />
       <p className="text-[10px] font-semibold">{name}</p>
     </div>
-  )
-}
+  );
+};
 
-export default Categories;
+export default CategoryCard;

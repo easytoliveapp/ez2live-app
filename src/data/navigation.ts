@@ -1,4 +1,4 @@
-import { NavItemType } from "@/components/atoms/Navigation/NavigationItem";
+import { NavItemType } from "@/components/mols/Navigation/NavigationItem";
 import ncNanoId from "@/utils/ncNanoId";
 
 export const MEGAMENU_TEMPLATES: NavItemType[] = [
@@ -49,130 +49,9 @@ export const MEGAMENU_TEMPLATES: NavItemType[] = [
       { id: ncNanoId(), href: "/", name: "Blog Single" },
       { id: ncNanoId(), href: "/", name: "About Page" },
       { id: ncNanoId(), href: "/", name: "Contact Page" },
-      { id: ncNanoId(), href: "/login", name: "Login" },
+      { id: ncNanoId(), href: "/conta/entrar", name: "Login" },
       { id: ncNanoId(), href: "/", name: "Signup" },
       { id: ncNanoId(), href: "/", name: "Forgot Password" },
-    ],
-  },
-];
-
-const OTHER_PAGE_CHILD: NavItemType[] = [
-  {
-    id: ncNanoId(),
-    href: "/",
-    name: "Home Demo 1",
-  },
-  {
-    id: ncNanoId(),
-    href: "/",
-    name: "Home Demo 2",
-  },
-  {
-    id: ncNanoId(),
-    href: "/",
-    name: "Category Pages",
-    type: "dropdown",
-    children: [
-      {
-        id: ncNanoId(),
-        href: "/",
-        name: "Category page 1",
-      },
-      {
-        id: ncNanoId(),
-        href: "/",
-        name: "Category page 2",
-      },
-    ],
-  },
-  {
-    id: ncNanoId(),
-    href: "/",
-    name: "Product Pages",
-    type: "dropdown",
-    children: [
-      {
-        id: ncNanoId(),
-        href: "/",
-        name: "Product detail 1",
-      },
-      {
-        id: ncNanoId(),
-        href: "/",
-        name: "Product detail 2",
-      },
-    ],
-  },
-  {
-    id: ncNanoId(),
-    href: "/",
-    name: "Cart Page",
-  },
-  {
-    id: ncNanoId(),
-    href: "/",
-    name: "Checkout Page",
-  },
-  {
-    id: ncNanoId(),
-    href: "/",
-    name: "Search Page",
-  },
-  {
-    id: ncNanoId(),
-    href: "/",
-    name: "Account Page",
-  },
-  {
-    id: ncNanoId(),
-    href: "/",
-    name: "Other Pages",
-    type: "dropdown",
-    children: [
-      {
-        id: ncNanoId(),
-        href: "/",
-        name: "About",
-      },
-      {
-        id: ncNanoId(),
-        href: "/",
-        name: "Contact us",
-      },
-      {
-        id: ncNanoId(),
-        href: "/login",
-        name: "Login",
-      },
-      {
-        id: ncNanoId(),
-        href: "/",
-        name: "Signup",
-      },
-      {
-        id: ncNanoId(),
-        href: "/",
-        name: "Subscription",
-      },
-      { id: ncNanoId(), href: "/", name: "Forgot Password" },
-    ],
-  },
-  {
-    id: ncNanoId(),
-    href: "/",
-    name: "Blog Page",
-    type: "dropdown",
-    children: [
-      {
-        id: ncNanoId(),
-        href: "/",
-        name: "Blog Page",
-      },
-      {
-        id: ncNanoId(),
-        href: "/",
-        name: "Blog Single",
-      },
     ],
   },
 ];
@@ -181,36 +60,11 @@ export const NAVIGATION_DEMO_2: NavItemType[] = [
   {
     id: ncNanoId(),
     href: "/",
-    name: "Men",
+    name: "Políticas de privacidade",
   },
   {
     id: ncNanoId(),
     href: "/",
-    name: "Women",
-  },
-  {
-    id: ncNanoId(),
-    href: "/",
-    name: "Beauty",
-  },
-
-  {
-    id: ncNanoId(),
-    href: "/",
-    name: "Sport",
-  },
-  {
-    id: ncNanoId(),
-    href: "/",
-    name: "Templates",
-    type: "megaMenu",
-    children: MEGAMENU_TEMPLATES,
-  },
-  {
-    id: ncNanoId(),
-    href: "/",
-    name: "Explore",
-    type: "dropdown",
-    children: OTHER_PAGE_CHILD,
+    name: "ajuda",
   },
 ];

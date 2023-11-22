@@ -1,14 +1,19 @@
 import React, { FC } from "react";
-import ButtonPrimary from "@/components/atoms/Button/ButtonPrimary";
-import ButtonSecondary from "@/components/atoms/Button/ButtonSecondary";
-import NcModal from "@/components/atoms/NcModal/NcModal";
+import { ButtonPrimary, ButtonSecondary, NcModal } from "@/components";
 
 export interface ModalDeleteProps {
   show: boolean;
   onCloseModalDelete: () => void;
+  closeOnBlur?: boolean;
+  hasCloseButton?: boolean;
 }
 
-const ModalDelete: FC<ModalDeleteProps> = ({ show, onCloseModalDelete }) => {
+const ModalDelete: FC<ModalDeleteProps> = ({
+  show,
+  onCloseModalDelete,
+  closeOnBlur = true,
+  hasCloseButton = true,
+}) => {
   const handleClickSubmitForm = () => {
     console.log({ 1: "1" });
   };
@@ -16,9 +21,7 @@ const ModalDelete: FC<ModalDeleteProps> = ({ show, onCloseModalDelete }) => {
   const renderContent = () => {
     return (
       <form action="#">
-        <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-200">
-          Delete NFT
-        </h3>
+        <h3 className="text-lg font-semibold text-neutral-900 ">Delete NFT</h3>
         <span className="text-sm">
           Are you sure you want to delete this NFT? You cannot undo this action.
         </span>
@@ -40,6 +43,8 @@ const ModalDelete: FC<ModalDeleteProps> = ({ show, onCloseModalDelete }) => {
 
   return (
     <NcModal
+      hasCloseButton={hasCloseButton}
+      closeOnBlur={closeOnBlur}
       isOpenProp={show}
       onCloseModal={onCloseModalDelete}
       contentExtraClass="max-w-screen-sm"
