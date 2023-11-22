@@ -54,9 +54,12 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
       });
   }, [supplierId]);
 
-  const activeCoupons = supplier?.coupons?.filter(
-    (coupon) => coupon.status === "ACTIVE",
-  );
+  const filteredCoupons = (supplier?.coupons || [])
+    .filter((coupon) => coupon.status === "ACTIVE")
+    .filter(
+      (coupon: ICoupon) =>
+        coupon.maxTotal === -1 || coupon.couponCodesGenerated < coupon.maxTotal,
+    );
 
   const handleCouponUpdate = (
     updatedCoupon: ICoupon,
@@ -179,8 +182,8 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
           voluptates perferendis dicta fugiat.
         </p>
         <div className="mt-6 pb-16 flex flex-col gap-4">
-          {activeCoupons && activeCoupons.length > 0 ? (
-            activeCoupons.map((coupon, key) => (
+          {filteredCoupons.length > 0 ? (
+            filteredCoupons.map((coupon, key) => (
               <CouponContainer
                 supplierId={supplier.supplier.id}
                 isOwnSupplier={supplier.supplier.id === session?.user.id}
