@@ -146,9 +146,6 @@ const MyCouponsPage = () => {
           couponCodes.filter((t) => t.status === couponsFilter.id).length ===
             0 && <em> Nenhum cupom encontrado...</em>}
       </div>
-      <span className="fixed ring-0 bottom-0 text-neutral-400 w-full md:max-w-[500px] flex justify-center items-center h-16 bg-generic-dark">
-        Todos os direitos reservados
-      </span>
     </div>
   );
 };
