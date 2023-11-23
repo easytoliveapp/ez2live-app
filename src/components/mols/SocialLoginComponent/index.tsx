@@ -6,6 +6,7 @@ import googleSvg from "@/images/Google.svg";
 import Image from "next/image";
 import { signIn } from "next-auth/react";
 import { showToastify } from "@/hooks/showToastify";
+import { useSearchParams } from "next/navigation";
 
 const loginSocials = [
   {
@@ -22,11 +23,13 @@ const loginSocials = [
 
 const SocialLoginComponent = () => {
   const [loading, setLoading] = useState(false);
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get("callbackUrl");
 
   const nextAuthLoginBasedOnProvider = (provider: string) => {
     setLoading(true);
 
-    signIn(provider, { callbackUrl: "/" })
+    signIn(provider, { callbackUrl: callbackUrl ?? "/" })
       .catch(() => {
         showToastify({
           type: "error",
