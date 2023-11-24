@@ -18,7 +18,7 @@ const NavBarLogged: FC<NavBarLoggedProps> = ({ hasLogoImage = true }) => {
     <div className="relative w-full p-2 flex justify-between items-center">
       <MenuBar />
       {hasLogoImage && (
-        <Link href="/">
+        <Link href={session?.user.isSupplier ? "/dashboard" : "/"}>
           <Image
             className="w-auto h-8 rounded-full cursor-pointer"
             src={session?.user?.image ?? extendedLogoImage}
