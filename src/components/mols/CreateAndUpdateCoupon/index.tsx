@@ -389,6 +389,7 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
                         }
                         name="expirationGenerationDate"
                         type="date"
+                        datetimeformat="d.M.y"
                         label="expirationGenerationDate"
                         component={Input}
                         className="bg-white cursor-pointer"
@@ -413,6 +414,7 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
                         name="expirationUseDate"
                         type="date"
                         label="expirationUseDate"
+                        datetimeformat="d.M.y"
                         component={Input}
                         className="bg-white cursor-pointer"
                       />
