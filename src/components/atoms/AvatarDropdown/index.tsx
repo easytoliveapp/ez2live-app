@@ -91,6 +91,32 @@ export default function AvatarDropdown() {
                     </Link>
 
                     {/* ------------------ 2 --------------------- */}
+                    {user?.role === "admin" && (
+                      <Link
+                        href={"/admin/parceiros"}
+                        className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-700 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
+                      >
+                        <div className="flex items-center justify-center flex-shrink-0 text-neutral-500 dark:text-neutral-300">
+                          <svg
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <g>
+                              <path fill="none" d="M0 0h24v24H0z" />
+                              <path d="M12 14v2a6 6 0 0 0-6 6H4a8 8 0 0 1 8-8zm0-1c-3.315 0-6-2.685-6-6s2.685-6 6-6 6 2.685 6 6-2.685 6-6 6zm0-2c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm9 6h1v5h-8v-5h1v-1a3 3 0 0 1 6 0v1zm-2 0v-1a1 1 0 0 0-2 0v1h2z" />
+                            </g>
+                          </svg>
+                        </div>
+                        <div className="ml-4">
+                          <p className="text-sm font-medium ">
+                            Admin dashboard
+                          </p>
+                        </div>
+                      </Link>
+                    )}
+                    {/* ------------------ 2 --------------------- */}
 
                     <Link
                       href={user?.isSupplier ? "/dashboard" : "/meus-cupons"}

@@ -18,6 +18,7 @@ import { useSearchParams } from "next/navigation";
 import SkeletonSuppliersCards from "@/skeleton/SuppliersCards";
 import SkeletonCategoriesCards from "@/skeleton/CategoriesCards";
 import { useSupplierContext } from "@/providers/SuppliersProvider";
+import AdminIconPurple from "@/images/easytolive/icons/admin-icon-primary.svg";
 
 function PageHome() {
   const { data: session } = useSession();
@@ -67,7 +68,14 @@ function PageHome() {
 
   return (
     <div className="md:w-[600px] w-full m-auto px-5 relative">
-      {session?.user && (
+      {session?.user.role === "admin" ? (
+        <FloatButtonNav
+          hasCouponActive={false}
+          backgroundStyle="secondary"
+          icon={AdminIconPurple}
+          href="/admin/parceiros"
+        />
+      ) : (
         <FloatButtonNav
           hasCouponActive={true}
           backgroundStyle="secondary"
