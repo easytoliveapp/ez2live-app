@@ -54,6 +54,7 @@ const FormComponent = () => {
             email: values.email,
             password: values.password,
             callbackUrl: callbackUrl ?? "/",
+            redirect: false,
           }).catch((error) => {
             showToastify({
               label:
