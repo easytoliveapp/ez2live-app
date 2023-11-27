@@ -68,21 +68,22 @@ function PageHome() {
 
   return (
     <div className="md:w-[600px] w-full m-auto px-5 relative">
-      {session?.user.role === "admin" ? (
-        <FloatButtonNav
-          hasCouponActive={false}
-          backgroundStyle="secondary"
-          icon={AdminIconPurple}
-          href="/admin/parceiros"
-        />
-      ) : (
-        <FloatButtonNav
-          hasCouponActive={true}
-          backgroundStyle="secondary"
-          icon={CouponPrimary}
-          href="/meus-cupons"
-        />
-      )}
+      {session?.user &&
+        (session?.user.role === "admin" ? (
+          <FloatButtonNav
+            hasCouponActive={false}
+            backgroundStyle="secondary"
+            icon={AdminIconPurple}
+            href="/admin/parceiros"
+          />
+        ) : (
+          <FloatButtonNav
+            hasCouponActive={true}
+            backgroundStyle="secondary"
+            icon={CouponPrimary}
+            href="/meus-cupons"
+          />
+        ))}
       <SearchCategory onChange={handleSetSearch} />
       {categories && categories.length > 0 ? (
         <div className="flex overflow-x-auto justify-start my-4 w-full gap-2">
