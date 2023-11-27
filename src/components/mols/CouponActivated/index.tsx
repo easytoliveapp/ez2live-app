@@ -31,10 +31,10 @@ const CouponActivated: React.FC<CouponProps> = ({
         <h1 className="text-2xl py-1 px-3 mb-2 font-bold overflow-hidden text-ellipsis text-black">
           {couponTitle}
         </h1>
-        <div className="flex justify-end mb-1 mt-2 gap-4">
+        <div className="flex justify-end mb-1 mt-2 p-0.5 gap-4">
           <span className="relative text-xl w-32 text-white bg-primary-main flex items-center justify-center px-6 py-3 rounded-full">
             {couponDiscount}%
-            <span className="absolute -top-5 -left-5 w-12 h-12 rounded-full bg-gradient-to-r from-secondary-dark to-secondary-lighter"></span>
+            <span className="absolute -top-4 -left-4 w-10 h-10 rounded-full bg-gradient-to-r from-secondary-dark to-secondary-lighter"></span>
           </span>
         </div>
       </div>

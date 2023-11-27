@@ -8,7 +8,7 @@ const ButtonThird: React.FC<ButtonThirdProps> = ({
 }) => {
   return (
     <Button
-      className={`ttnc-ButtonThird text-generic-alertRed font-semibold ${className}`}
+      className={`ttnc-ButtonThird text-generic-alertRed font ${className}`}
       {...args}
     />
   );

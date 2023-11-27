@@ -14,6 +14,7 @@ export { default as CouponGenerating } from "./CouponGenerating";
 export { default as CouponsAvaible } from "./CouponsAvaible";
 export { default as CurrencyDropdown } from "./CurrencyDropdown";
 export { default as DropdownCategories } from "./DropdownCategories";
+export { default as Footer } from "./Footer";
 export { default as FloatButtonNav } from "./FloatButtonNav";
 export { default as FormItem } from "./FormItem";
 export { default as Input } from "./Input";
