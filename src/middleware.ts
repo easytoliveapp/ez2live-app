@@ -4,6 +4,7 @@ import isAuthenticated from "@/utils/isAuthenticated";
 export function middleware(request: NextRequest) {
   // Call our authentication function to check the request
   if (!isAuthenticated(request)) {
+    console.log("debug preview");
     // Respond with JSON indicating an error message
     return NextResponse.redirect(new URL("/conta/entrar", request.url));
   }
