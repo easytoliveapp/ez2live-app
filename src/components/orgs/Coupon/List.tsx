@@ -106,7 +106,7 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
   };
 
   return supplier ? (
-    <div className="relative min-h-[calc(100vh-66px)] h-full w-full mx-auto">
+    <div className="relative h-full w-full mx-auto">
       <Modal
         closeOnBlur={false}
         show={modalCreateCoupon}
@@ -212,9 +212,6 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
           </div>
         </div>
       </div>
-      <span className="absolute bottom-0 text-neutral-400 w-full flex justify-center items-center h-16 bg-generic-dark">
-        Todos os direitos reservados
-      </span>
     </div>
   ) : (
     <LoadingComponent />
