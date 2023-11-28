@@ -10,7 +10,6 @@ import Auth from "@/service/auth.service";
 import Supplier from "@/service/supplier.service";
 import { ICategoryProps } from "@/types/supplier";
 import { showToastify } from "@/hooks/showToastify";
-import { signIn } from "next-auth/react";
 
 export interface IStepOneProps {
   next: (e: any) => void;
@@ -124,40 +123,12 @@ const FormComponent = () => {
         supplierCategory: values.supplierInfo.supplierCategory,
       },
     })
-      .then(async (res: any) => {
-        if (res?.data?.user) {
-          await signIn("credentials", {
-            email: values.email,
-            password: values.password,
-            callbackUrl: "/",
-          })
-            .then((resp) => {
-              if (!resp?.error) {
-                showToastify({
-                  label: "Bem vindo ao Easy2Live!",
-                  type: "success",
-                });
-
-                router.push("/");
-              }
-            })
-            .catch((error) => {
-              showToastify({
-                label: "Impossível autenticar " + error,
-                type: "error",
-              });
-
-              router.push("/conta/entrar");
-            })
-            .finally(() => {
-              setLoading(false);
-            });
-        }
-
-        setLoading(false);
+      .then(() => {
+        setTimeout(() => router.push("/conta/entrar"), 3000);
         showToastify({
-          label: "Impossível criar sua conta. Por favor, tente novamente.",
-          type: "error",
+          type: "success",
+          label:
+            "Obrigado por se juntar a Easy to Live! Sua solicitação de cadastro foi enviada e em breve será analisada pela nossa equipe.",
         });
       })
       .catch((error) => {
@@ -167,12 +138,12 @@ const FormComponent = () => {
               "Impossível criar sua conta pois já existe um e-mail cadastrado.",
             type: "error",
           });
+        } else {
+          showToastify({
+            label: "Impossível criar sua conta. Por favor, tente novamente.",
+            type: "error",
+          });
         }
-
-        showToastify({
-          label: "Impossível criar sua conta. Por favor, tente novamente.",
-          type: "error",
-        });
       })
       .finally(() => {
         setLoading(false);
