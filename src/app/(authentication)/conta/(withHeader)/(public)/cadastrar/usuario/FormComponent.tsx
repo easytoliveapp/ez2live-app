@@ -56,7 +56,9 @@ const FormComponent = () => {
             callbackUrl: callbackUrl ?? "/",
           }).catch((error) => {
             showToastify({
-              label: error,
+              label:
+                "Impossível criar sua conta. Por favor, tente novamente. " +
+                error,
               type: "error",
             });
           });
