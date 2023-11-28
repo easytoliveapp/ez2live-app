@@ -1,7 +1,6 @@
 import { Header } from "@/components";
-import React from "react";
 
-export default async function AuthenticationLayout({
+export default function AuthenticationLayout({
   children,
 }: {
   children: React.ReactNode;

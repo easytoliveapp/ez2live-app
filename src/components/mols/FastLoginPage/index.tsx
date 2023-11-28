@@ -77,15 +77,8 @@ const FastLoginPage = () => {
             loading={loadingLogin}
             className="!p-3 hover:translate-y-[-2px]"
           >
-            Já tenho uma conta
+            Entrar com email/senha
           </ButtonPrimary>
-          <ButtonThird
-            onClick={() => handleRedirectToRegister()}
-            loading={loadingRegister}
-            className="!p-0 m-1 !text-neutral-950 hover:translate-y-[-2px]"
-          >
-            Cadastrar nova conta
-          </ButtonThird>
         </div>
       </motion.div>
     </div>
