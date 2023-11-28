@@ -37,45 +37,46 @@ const FormComponent = () => {
       email: values.email,
       password: values.password,
       redirect: false,
-    }).then(async (resp: any) => {
-      const callbackUrl = params.get("callbackUrl");
-
-      if (resp && !resp?.error) {
-        const session = await getSession();
-
-        if (callbackUrl) {
-          router.push(callbackUrl as any);
-        } else {
-          router.push(
-            !session?.user.isSupplier ? "/meus-cupons" : "/dashboard",
-          );
-        }
-      }
-
-      if (resp && resp?.error) {
-        setLoading(false);
-        return Promise.reject(JSON.parse(resp?.error));
-      }
     })
-    .catch((error) => {
-      if (error?.code === "R01") {
-        showToastify({
-          label: "Sua conta ainda não foi verificada",
-          type: "warning",
-        });
-      }
-      //handleToast error in login
-      if (error?.code === 401) {
-        // eslint-disable-next-line react-hooks/rules-of-hooks
-        showToastify({
-          label:
-            "Oops! Algo deu errado com seu login. Verifique as credenciais e tente novamente",
-          type: "error",
-        });
-      }
+      .then(async (resp: any) => {
+        const callbackUrl = params.get("callbackUrl");
 
-      setLoading(false)
-    });
+        if (resp && !resp?.error) {
+          const session = await getSession();
+
+          if (callbackUrl) {
+            router.push(callbackUrl as any);
+          } else {
+            router.push(
+              !session?.user.isSupplier ? "/meus-cupons" : "/dashboard",
+            );
+          }
+        }
+
+        if (resp && resp?.error) {
+          setLoading(false);
+          return Promise.reject(JSON.parse(resp?.error));
+        }
+      })
+      .catch((error) => {
+        if (error?.code === "R01") {
+          showToastify({
+            label: "Sua conta ainda não foi verificada",
+            type: "warning",
+          });
+        }
+        //handleToast error in login
+        if (error?.code === 401) {
+          // eslint-disable-next-line react-hooks/rules-of-hooks
+          showToastify({
+            label:
+              "Oops! Algo deu errado com seu login. Verifique as credenciais e tente novamente",
+            type: "error",
+          });
+        }
+
+        setLoading(false);
+      });
   };
 
   return (

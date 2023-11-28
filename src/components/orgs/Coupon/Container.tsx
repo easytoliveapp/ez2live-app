@@ -20,6 +20,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 import { ICoupon } from "@/types/coupons";
+import isDateValid from "@/utils/isDateValid";
 
 interface CouponContainerProps {
   supplierId: string;
@@ -95,9 +96,16 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
 
   useEffect(() => {
     if (couponId === couponIdParam) {
-      setShowCouponModal(true);
+      if (
+        (session && !isDateValid(session.user.subscriptionEndDate)) ||
+        session?.user.subscriptionEndDate === null
+      ) {
+        setShowCouponModal(false);
+      } else {
+        setShowCouponModal(true);
+      }
     }
-  }, [couponId, couponIdParam]);
+  }, [couponId, couponIdParam, session]);
 
   const StepOne = () => {
     return (
