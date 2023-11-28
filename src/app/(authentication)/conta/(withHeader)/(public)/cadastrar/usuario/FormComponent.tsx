@@ -64,12 +64,6 @@ const FormComponent = () => {
             });
           });
         }
-
-        setLoading(false);
-        showToastify({
-          label: "Impossível criar sua conta. Por favor, tente novamente.",
-          type: "error",
-        });
       })
       .catch((error) => {
         if (error?.response?.data?.code === 400) {
@@ -84,8 +78,8 @@ const FormComponent = () => {
           label: "Impossível criar sua conta. Por favor, tente novamente.",
           type: "error",
         });
-        setLoading(false);
-      });
+      })
+      .finally(() => setLoading(false));
   };
 
   return (

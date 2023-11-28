@@ -1,19 +1,32 @@
 "use client";
 
-import { Header, HeaderLogged, Footer } from "@/components";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { PremiumConversionModal, Header, HeaderLogged } from "@/components";
+import isDateValid from "@/utils/isDateValid";
 import { useSession } from "next-auth/react";
 
 const AppLayout = ({ children }: { children: React.ReactNode }) => {
   const { data: session } = useSession();
+  const [isPremiumExpired, setIsPremiumExpired] = useState(false);
+
+  useEffect(() => {
+    if (session) {
+      setIsPremiumExpired(!isDateValid(session.user.subscriptionEndDate));
+    }
+  }, [session]);
 
   return (
-    <div className="min-h-[100vh] flex flex-col justify-between">
-      <div>
-        {session?.user ? <HeaderLogged /> : <Header />}
-        <div className="app-layout__container">{children}</div>
-      </div>
-      <Footer />
+    <div>
+      {session?.user && isPremiumExpired && (
+        <PremiumConversionModal
+          isPremiumExpired={isPremiumExpired}
+          isNewUser={session.user.subscriptionEndDate === null}
+          setIsPremiumExpired={setIsPremiumExpired}
+          userId={session.user.id}
+        />
+      )}
+      {session?.user ? <HeaderLogged /> : <Header />}
+      <div className="app-layout__container">{children}</div>
     </div>
   );
 };

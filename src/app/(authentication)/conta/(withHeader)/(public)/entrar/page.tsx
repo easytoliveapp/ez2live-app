@@ -27,7 +27,7 @@ const PageLogin = () => {
           {/* FORM */}
           <FormComponent />
           <span className="block text-center text-sm text-black font-semibold dark:text-neutral-300">
-            nova conta?{" "}
+            não tem uma conta?{" "}
             <Link
               className="text-primary-main font-semibold cursor-pointer"
               href={
@@ -36,7 +36,7 @@ const PageLogin = () => {
                   : "/conta/cadastrar/usuario"
               }
             >
-              criar conta
+              registrar com email/senha
             </Link>
           </span>
           {/* OR */}
