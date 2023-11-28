@@ -1,6 +1,6 @@
 "use client";
 
-import { ButtonPrimary, ButtonThird, SocialLoginComponent } from "@/components";
+import { ButtonPrimary, SocialLoginComponent } from "@/components";
 import React, { useState } from "react";
 import PreLoginImage from "@/images/easytolive/home/fast-login-background.jpeg";
 import Image from "next/image";
@@ -10,7 +10,6 @@ import { motion } from "framer-motion";
 
 const FastLoginPage = () => {
   const [loadingLogin, setLoadingLogin] = useState(false);
-  const [loadingRegister, setLoadingRegister] = useState(false);
   const router = useRouter();
   const params = useSearchParams();
   const callbackUrl = params.get("callbackUrl");
@@ -24,17 +23,6 @@ const FastLoginPage = () => {
     );
     setTimeout(() => {
       setLoadingLogin(false);
-    }, 1500);
-  };
-  const handleRedirectToRegister = async () => {
-    setLoadingRegister(true);
-    router.push(
-      callbackUrl
-        ? `/conta/cadastrar/usuario?callbackUrl=${callbackUrl}`
-        : "/conta/cadastrar/usuario",
-    );
-    setTimeout(() => {
-      setLoadingRegister(false);
     }, 1500);
   };
 
@@ -77,15 +65,8 @@ const FastLoginPage = () => {
             loading={loadingLogin}
             className="!p-3 hover:translate-y-[-2px]"
           >
-            Já tenho uma conta
+            Entrar com email/senha
           </ButtonPrimary>
-          <ButtonThird
-            onClick={() => handleRedirectToRegister()}
-            loading={loadingRegister}
-            className="!p-0 m-1 !text-neutral-950 hover:translate-y-[-2px]"
-          >
-            Cadastrar nova conta
-          </ButtonThird>
         </div>
       </motion.div>
     </div>

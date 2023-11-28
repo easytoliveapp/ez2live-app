@@ -32,12 +32,13 @@ const FormComponent = () => {
 
   const handleFormSubmit = async (values: ILogIn) => {
     setLoading(true);
+
     await signIn("credentials", {
       email: values.email,
       password: values.password,
       redirect: false,
     })
-      .then(async (resp) => {
+      .then(async (resp: any) => {
         const callbackUrl = params.get("callbackUrl");
 
         if (resp && !resp?.error) {
@@ -53,6 +54,7 @@ const FormComponent = () => {
         }
 
         if (resp && resp?.error) {
+          setLoading(false);
           return Promise.reject(JSON.parse(resp?.error));
         }
       })
@@ -72,9 +74,9 @@ const FormComponent = () => {
             type: "error",
           });
         }
-      })
-      .finally(() => setLoading(false));
-    setLoading(false);
+
+        setLoading(false);
+      });
   };
 
   return (

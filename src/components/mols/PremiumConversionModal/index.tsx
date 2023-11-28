@@ -10,17 +10,17 @@ import { showToastify } from "@/hooks/showToastify";
 import { useSession } from "next-auth/react";
 import usersService from "@/service/users.service";
 
-interface IFreePaymentComponent {
-  showModal: boolean;
-  setModalFreePayment: Dispatch<SetStateAction<boolean>>;
-  newUser: boolean;
+interface IPremiumConversionModal {
+  isPremiumExpired: boolean;
+  setIsPremiumExpired: Dispatch<SetStateAction<boolean>>;
+  isNewUser: boolean;
   userId: string;
 }
 
-const FreePaymentComponent: React.FC<IFreePaymentComponent> = ({
-  showModal,
-  setModalFreePayment,
-  newUser,
+const PremiumConversionModal: React.FC<IPremiumConversionModal> = ({
+  isNewUser,
+  isPremiumExpired,
+  setIsPremiumExpired,
   userId,
 }) => {
   const { data: session, update } = useSession();
@@ -55,12 +55,14 @@ const FreePaymentComponent: React.FC<IFreePaymentComponent> = ({
   const addSubscriptionDays = async (days: number) => {
     await useService
       .addSubscriptionDays(userId, days)
-      .then(() =>
+      .then(() => {
         showToastify({
           label: `Parabens! você recebeu mais ${days} dias de premium`,
           type: "success",
-        }),
-      )
+        });
+
+        setIsPremiumExpired(false);
+      })
       .then(() => updateUserSessionSubscriptionDate())
       .catch((err) =>
         showToastify({ label: `ocorreu um erro: ${err}`, type: "error" }),
@@ -72,10 +74,10 @@ const FreePaymentComponent: React.FC<IFreePaymentComponent> = ({
       contentExtraClass="max-w-lg"
       closeOnBlur={false}
       hasCloseButton={false}
-      show={showModal}
-      onCloseModal={() => setModalFreePayment(false)}
+      show={isPremiumExpired}
+      onCloseModal={() => null}
     >
-      {newUser ? (
+      {isNewUser ? (
         <div className="flex flex-col gap-3 text-center">
           <div className="flex flex-col items-center justify-center gap-4">
             <Image
@@ -128,4 +130,4 @@ const FreePaymentComponent: React.FC<IFreePaymentComponent> = ({
     </Modal>
   );
 };
-export default FreePaymentComponent;
+export default PremiumConversionModal;
