@@ -85,7 +85,7 @@ function PageHome() {
             href="/meus-cupons"
           />
         ))}
-      <SearchCategory value={search && search} onChange={handleSetSearch} />
+      <SearchCategory value={search || ''} onChange={handleSetSearch} />
       {categories && categories.length > 0 ? (
         <div className="flex overflow-x-auto justify-start my-4 w-full gap-2">
           {categories.map((category: ICategorieProps, index: number) => (
