@@ -47,7 +47,7 @@ const MyCouponsPage = () => {
     filterOptions[0],
   );
   const [couponCodes, setCouponCodes] = useState(Array<ICouponCodesByUser>);
-  const [loadingCoupons, setLoadingCoupons] = useState(true);
+  const [isLoadingCoupons, setIsLoadingCoupons] = useState(true);
   const handleGetCouponCodesByUser = async () => {
     const res: any = await couponsService.getCouponCodesByUser();
     return res;
