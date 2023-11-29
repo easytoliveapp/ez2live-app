@@ -18,7 +18,7 @@ const FastLoginPage = () => {
     setLoadingLogin(true);
     router.push(
       callbackUrl
-        ? `/conta/entrar?callbackUrl=${callbackUrl}`
+        ? `/conta/entrar?callbackUrl=${encodeURIComponent(callbackUrl)}`
         : "/conta/entrar",
     );
     setTimeout(() => {
