@@ -150,7 +150,11 @@ export default function AvatarDropdown() {
                         </svg>
                       </div>
                       <div className="ml-4">
-                        <p className="text-sm font-medium ">Meus Cupons</p>
+                        <p className="text-sm font-medium ">
+                          {user?.role === "supplier"
+                            ? "Minha loja"
+                            : "Meus Cupons"}
+                        </p>
                       </div>
                     </Link>
                     {/* ------------------ 2 --------------------- */}
