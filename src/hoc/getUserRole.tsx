@@ -1,20 +1,15 @@
 import { ROLES } from "@/constants/roles";
 import { useSession } from "next-auth/react";
 
-const GetUserRole = (condition: "isSupplier" | "isAdmin" | "isCommomUser") => {
+const UserRoles = () => {
   const { data: session } = useSession();
-  const userRole = session?.user.role;
+  const loggedUserRole = session?.user?.role;
 
-  switch (condition) {
-    case "isCommomUser":
-      return userRole === ROLES.commomUser;
-    case "isSupplier":
-      return userRole === ROLES.supplier;
-    case "isAdmin":
-      return userRole === ROLES.admin;
-    default:
-      return false;
-  }
+  return {
+    isSupplier: () => loggedUserRole === ROLES.supplier,
+    isCommonUser: () => loggedUserRole === ROLES.commonUser,
+    isAdmin: () => loggedUserRole === ROLES.admin,
+  };
 };
 
-export default GetUserRole;
+export default UserRoles();

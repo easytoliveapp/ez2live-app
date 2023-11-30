@@ -6,7 +6,7 @@ import extendedLogoImage from "@/images/easytolive/logo/logocompleta-semfundoazu
 import Link from "next/link";
 import { ButtonBasic } from "@/components";
 import { Route } from "next";
-import { CreateCallbackUrl } from "@/utils/createCallbackUrl";
+import { GenerateCallbackUrl } from "@/hooks/generateCallbackUrl";
 
 interface NavBarProps {
   hasLogoImage?: boolean;
@@ -26,7 +26,7 @@ const NavBar: React.FC<NavBarProps> = ({ hasLogoImage = true }) => {
           </Link>
         )}
         <div className="absolute right-2">
-          <Link href={`/conta/acessar${CreateCallbackUrl}` as Route}>
+          <Link href={`/conta/acessar${GenerateCallbackUrl()}` as Route}>
             <ButtonBasic className="text-primary-lighter">Entrar</ButtonBasic>
           </Link>
         </div>
