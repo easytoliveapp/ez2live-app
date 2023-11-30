@@ -106,7 +106,7 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
   };
 
   return supplier ? (
-    <div className="relative min-h-[800px] md:w-[500px] h-full w-full mx-auto">
+    <div className="relative h-full w-full mx-auto">
       <Modal
         closeOnBlur={false}
         show={modalCreateCoupon}
@@ -139,78 +139,79 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
         alt="Logo-restaurante"
       />
       <div className="px-5 py-6 -mt-6 rounded-t-3xl bg-generic-background w-full h-full">
-        <div className="flex items-center justify-between">
-          <div className="flex gap-1">
-            <Link
-              href={`/?supplierCategory=${supplier.supplier.supplierInfo.supplierCategory.id}`}
-              className="text-xs underline font-bold text-generic-dark"
-            >
-              {supplier?.supplier?.supplierInfo?.supplierCategory?.title}
-            </Link>
-            <p className="text-xs font-bold text-generic-dark">
-              / {supplier?.supplier?.name}
-            </p>
+        <div className="md:w-[700px] mx-auto">
+          <div className="flex items-center justify-between">
+            <div className="flex gap-1">
+              <Link
+                href={`/?supplierCategory=${supplier.supplier.supplierInfo.supplierCategory.id}`}
+                className="text-xs underline font-bold text-generic-dark"
+              >
+                {supplier?.supplier?.supplierInfo?.supplierCategory?.title}
+              </Link>
+              <p className="text-xs font-bold text-generic-dark">
+                / {supplier?.supplier?.name}
+              </p>
+            </div>
+            <div className="flex flex-col">
+              <Avaliation rating={"4.7"} />
+            </div>
           </div>
-          <div className="flex flex-col">
-            <Avaliation rating={"4.7"} />
+          <div className="flex justify-between items-center">
+            <Image
+              className="w-12 my-4 h-auto rounded-full"
+              alt="Logo Image"
+              src={LogoImage}
+            />
+            <div>
+              {supplier?.supplier?.id === session?.user?.id && (
+                <ButtonSecondary onClick={() => setModalCreateCoupon(true)}>
+                  <Image
+                    src={CouponPrimary}
+                    className="w-6 mr-3 h-auto"
+                    alt="coupon-image"
+                  />
+                  Novo Cupom
+                </ButtonSecondary>
+              )}
+            </div>
           </div>
-        </div>
-        <div className="flex justify-between items-center">
-          <Image
-            className="w-12 my-4 h-auto rounded-full"
-            alt="Logo Image"
-            src={LogoImage}
-          />
-          <div>
-            {supplier?.supplier?.id === session?.user?.id && (
-              <ButtonSecondary onClick={() => setModalCreateCoupon(true)}>
-                <Image
-                  src={CouponPrimary}
-                  className="w-6 mr-3 h-auto"
-                  alt="coupon-image"
+          <h2 className=" text-xl font-semibold">{supplier?.supplier?.name}</h2>
+          <p className="pt-2 text-xs text-gray-400">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi
+            vero velit quam repellendus facere ea recusandae, sapiente
+            repudiandae perspiciatis temporibus et exercitatione illum nobis
+            corrupti, sunt voluptates perferendis dicta fugiat.
+          </p>
+          <div className="mt-6 pb-16 flex flex-col gap-4">
+            {filteredCoupons.length > 0 ? (
+              filteredCoupons.map((coupon, key) => (
+                <CouponContainer
+                  supplierId={supplier.supplier.id}
+                  isOwnSupplier={supplier.supplier.id === session?.user.id}
+                  couponTitle={coupon.title}
+                  icon={
+                    supplier.supplier.id === session?.user.id ? Edit : Arrow
+                  }
+                  couponId={coupon.id}
+                  supplierCategory={
+                    supplier?.supplier?.supplierInfo?.supplierCategory?.title
+                  }
+                  supplierLogo={LogoImage}
+                  supplierName={supplier.supplier.name}
+                  discount={coupon.discount}
+                  expirateTime={coupon.expirationGenerationDate}
+                  expirationUseDate={coupon.expirationUseDate}
+                  maxUnitsTotal={coupon.maxTotal}
+                  key={key}
+                  handleCouponUpdate={handleCouponUpdate}
                 />
-                Novo Cupom
-              </ButtonSecondary>
+              ))
+            ) : (
+              <em className="text-xs">Nenhum cupom ativo foi encontrado...</em>
             )}
           </div>
         </div>
-        <h2 className=" text-xl font-semibold">{supplier?.supplier?.name}</h2>
-        <p className="pt-2 text-xs text-gray-400">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi
-          vero velit quam repellendus facere ea recusandae, sapiente repudiandae
-          perspiciatis temporibus et exercitatione illum nobis corrupti, sunt
-          voluptates perferendis dicta fugiat.
-        </p>
-        <div className="mt-6 pb-16 flex flex-col gap-4">
-          {filteredCoupons.length > 0 ? (
-            filteredCoupons.map((coupon, key) => (
-              <CouponContainer
-                supplierId={supplier.supplier.id}
-                isOwnSupplier={supplier.supplier.id === session?.user.id}
-                couponTitle={coupon.title}
-                icon={supplier.supplier.id === session?.user.id ? Edit : Arrow}
-                couponId={coupon.id}
-                supplierCategory={
-                  supplier?.supplier?.supplierInfo?.supplierCategory?.title
-                }
-                supplierLogo={LogoImage}
-                supplierName={supplier.supplier.name}
-                discount={coupon.discount}
-                expirateTime={coupon.expirationGenerationDate}
-                expirationUseDate={coupon.expirationUseDate}
-                maxUnitsTotal={coupon.maxTotal}
-                key={key}
-                handleCouponUpdate={handleCouponUpdate}
-              />
-            ))
-          ) : (
-            <em className="text-xs">Nenhum cupom ativo foi encontrado...</em>
-          )}
-        </div>
       </div>
-      <span className="md:w-[500px] absolute bottom-0 text-neutral-400 w-full flex justify-center items-center h-16 bg-generic-dark">
-        Todos os direitos reservados
-      </span>
     </div>
   ) : (
     <LoadingComponent />

@@ -47,7 +47,7 @@ const MyCouponsPage = () => {
     filterOptions[0],
   );
   const [couponCodes, setCouponCodes] = useState(Array<ICouponCodesByUser>);
-  const [loadingCoupons, setLoadingCoupons] = useState(true);
+  const [isLoadingCoupons, setIsLoadingCoupons] = useState(true);
   const handleGetCouponCodesByUser = async () => {
     const res: any = await couponsService.getCouponCodesByUser();
     return res;
@@ -59,8 +59,30 @@ const MyCouponsPage = () => {
       .catch((error) =>
         showToastify({ type: "error", label: `Ocorreu um erro: ${error}` }),
       )
-      .finally(() => setLoadingCoupons(false));
+      .finally(() => setIsLoadingCoupons(false));
   }, []);
+
+  const isShowingCoupons =
+    !isLoadingCoupons &&
+    Array.isArray(couponCodes) &&
+    couponCodes.length > 0 &&
+    couponCodes.filter((t) => t.status === couponsFilter.id).length > 0;
+
+  const isEmptyResult =
+    !isLoadingCoupons &&
+    Array.isArray(couponCodes) &&
+    couponCodes.length > 0 &&
+    couponCodes.filter((t) => t.status === couponsFilter.id).length === 0;
+
+  const renderCoupons = () =>
+    couponCodes.map(
+      (couponCode: ICouponCodesByUser, key) =>
+        couponCode.status === couponsFilter.id &&
+        couponCode.coupon.supplier?.name &&
+        couponCode.coupon.supplier.supplierInfo?.supplierCategory?.title && (
+          <UserCoupons icon={Arrow} couponCodeData={couponCode} key={key} />
+        ),
+    );
 
   return (
     <div className="relative md:w-[500px] h-full w-full mx-auto">
@@ -97,29 +119,9 @@ const MyCouponsPage = () => {
         </CurrencyDropdown>
       </div>
       <div className="mt-6 pb-16 m-4 flex flex-col gap-4">
-        {loadingCoupons && <div>Carregando seus cupons...</div>}
-        {!loadingCoupons &&
-          Array.isArray(couponCodes) &&
-          couponCodes.length > 0 &&
-          couponCodes.filter((t) => t.status === couponsFilter.id).length > 0 &&
-          couponCodes.map(
-            (couponCode: ICouponCodesByUser, key) =>
-              couponCode.status === couponsFilter.id &&
-              couponCode.coupon.supplier?.name &&
-              couponCode.coupon.supplier.supplierInfo?.supplierCategory
-                ?.title && (
-                <UserCoupons
-                  icon={Arrow}
-                  couponCodeData={couponCode}
-                  key={key}
-                />
-              ),
-          )}
-        {!loadingCoupons &&
-          Array.isArray(couponCodes) &&
-          couponCodes.length > 0 &&
-          couponCodes.filter((t) => t.status === couponsFilter.id).length ===
-            0 && <em> Nenhum cupom encontrado...</em>}
+        {isLoadingCoupons && <div>Carregando seus cupons...</div>}
+        {isShowingCoupons && renderCoupons()}
+        {isEmptyResult && <em> Nenhum cupom encontrado...</em>}
       </div>
     </div>
   );

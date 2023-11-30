@@ -9,6 +9,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { showToastify } from "@/hooks/showToastify";
 import { getSession, signIn } from "next-auth/react";
+import { Route } from "next";
 
 const FormComponent = () => {
   const [loading, setLoading] = useState(false);
@@ -44,12 +45,20 @@ const FormComponent = () => {
         if (resp && !resp?.error) {
           const session = await getSession();
 
+          let destination = "/dashboard";
+
+          if (session && session.user) {
+            if (!session.user.isSupplier) {
+              destination = "/meus-cupons";
+            } else if (session.user.role === "admin") {
+              destination = "/admin/parceiros";
+            }
+          }
+
           if (callbackUrl) {
             router.push(callbackUrl as any);
           } else {
-            router.push(
-              !session?.user.isSupplier ? "/meus-cupons" : "/dashboard",
-            );
+            router.push(destination as Route);
           }
         }
 
