@@ -18,9 +18,9 @@ interface ICategoryProps {
 }
 
 const CategoryCard: FC<ICategoryProps> = ({ isActive, name, onClick, id }) => {
-  const category = CATEGORIES.find((t) => t.id === id) || { image: "" };
-  const { image } = category;
-  const altText = `Category Image - ${name}`;
+  const { image, altImage } = CATEGORIES[id as keyof typeof CATEGORIES] || {
+    image: "",
+  };
 
   return (
     <div
@@ -30,7 +30,7 @@ const CategoryCard: FC<ICategoryProps> = ({ isActive, name, onClick, id }) => {
       )}
       onClick={onClick}
     >
-      {image && <Image className="w-8 h-8" src={image} alt={altText} />}
+      {image && <Image className="w-8 h-8" src={image} alt={altImage} />}
       <p className="text-[10px] font-semibold">{name}</p>
     </div>
   );
