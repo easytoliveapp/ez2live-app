@@ -1,10 +1,7 @@
 import React, { FC } from "react";
-import Image, { StaticImageData } from "next/image";
+import Image from "next/image";
 import classNames from "@/utils/classNames";
-import AestheticsImage from "@/images/easytolive/categories/estetica.svg";
-import NutritionImage from "@/images/easytolive/categories/nutricao.svg";
-import SupplementsImage from "@/images/easytolive/categories/suplementos.svg";
-import RestaurantsImage from "@/images/easytolive/categories/restaurantes.svg";
+import { CATEGORIES } from "@/constants/categories";
 
 export interface ICategorieProps {
   active: boolean;
@@ -13,21 +10,16 @@ export interface ICategorieProps {
 }
 
 interface ICategoryProps {
-  image: string | StaticImageData;
+  image: string;
+  id: string;
   isActive: boolean;
   name: string;
   onClick?: (e: React.MouseEvent<HTMLDivElement>) => void;
 }
 
-const categoryImages = new Map([
-  ["Restaurantes", RestaurantsImage],
-  ["Suplementos", SupplementsImage],
-  ["Estética", AestheticsImage],
-  ["Nutrição", NutritionImage],
-]);
-
-const CategoryCard: FC<ICategoryProps> = ({ isActive, name, onClick }) => {
-  const imageSource = categoryImages.get(name);
+const CategoryCard: FC<ICategoryProps> = ({ isActive, name, onClick, id }) => {
+  const category = CATEGORIES.find((t) => t.id === id) || { image: "" };
+  const { image } = category;
   const altText = `Category Image - ${name}`;
 
   return (
@@ -38,7 +30,7 @@ const CategoryCard: FC<ICategoryProps> = ({ isActive, name, onClick }) => {
       )}
       onClick={onClick}
     >
-      <Image className="w-8 h-8" src={imageSource || ""} alt={altText} />
+      {image && <Image className="w-8 h-8" src={image} alt={altText} />}
       <p className="text-[10px] font-semibold">{name}</p>
     </div>
   );
