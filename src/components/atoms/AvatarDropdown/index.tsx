@@ -7,11 +7,20 @@ import { Avatar } from "@/components";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { signOut } from "next-auth/react";
+import UserRoles from "@/hooks/useUserRoles";
 
 export default function AvatarDropdown() {
   const { data: session } = useSession();
   const user = session?.user;
   const [isLoading, setIsLoading] = useState(false);
+
+  const loginRedirectURL = UserRoles().isSupplier()
+    ? "/dashboard"
+    : "/meus-cupons";
+
+  const textMyCouponsOrMyShop = UserRoles().isSupplier()
+    ? "Minha loja"
+    : "Meus Cupons";
 
   const handleLogout = async () => {
     setIsLoading(true);
@@ -91,7 +100,7 @@ export default function AvatarDropdown() {
                     </Link>
 
                     {/* ------------------ 2 --------------------- */}
-                    {user?.role === "admin" && (
+                    {UserRoles().isAdmin() && (
                       <Link
                         href={"/admin/parceiros"}
                         className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-700 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
@@ -119,7 +128,7 @@ export default function AvatarDropdown() {
                     {/* ------------------ 2 --------------------- */}
 
                     <Link
-                      href={user?.isSupplier ? "/dashboard" : "/meus-cupons"}
+                      href={loginRedirectURL}
                       className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-700 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
                     >
                       <div className="flex items-center justify-center flex-shrink-0 text-neutral-500 dark:text-neutral-300">
@@ -150,7 +159,9 @@ export default function AvatarDropdown() {
                         </svg>
                       </div>
                       <div className="ml-4">
-                        <p className="text-sm font-medium ">Meus Cupons</p>
+                        <p className="text-sm font-medium ">
+                          {textMyCouponsOrMyShop}
+                        </p>
                       </div>
                     </Link>
                     {/* ------------------ 2 --------------------- */}
