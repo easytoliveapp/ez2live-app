@@ -1,7 +1,7 @@
 import { ROLES } from "@/constants/roles";
 import { useSession } from "next-auth/react";
 
-const UserRoles = () => {
+const useUserRoles = () => {
   const { data: session } = useSession();
   const loggedUserRole = session?.user.role;
 
@@ -11,4 +11,4 @@ const UserRoles = () => {
     isAdmin: () => loggedUserRole === ROLES.admin,
   };
 };
-export default UserRoles;
+export default useUserRoles;

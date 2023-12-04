@@ -7,7 +7,7 @@ import { Avatar } from "@/components";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { signOut } from "next-auth/react";
-import UserRoles from "@/hoc/UserRoles";
+import UserRoles from "@/hooks/useUserRoles";
 
 export default function AvatarDropdown() {
   const { data: session } = useSession();
