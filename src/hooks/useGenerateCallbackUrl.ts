@@ -1,8 +1,12 @@
 import { usePathname } from "next/navigation";
 
-export function useGenerateCallbackUrl() {
+export function useCallbackUrl() {
   const pathname = usePathname();
-  return pathname.startsWith("/conta") || pathname === "/"
-    ? ""
-    : `?callbackUrl=${encodeURIComponent(pathname)}`;
+  const generateCallbackUrl = () => {
+    return pathname.startsWith("/conta") || pathname === "/"
+      ? ""
+      : `?callbackUrl=${encodeURIComponent(pathname)}`;
+  };
+
+  return { generateCallbackUrl };
 }
