@@ -90,6 +90,7 @@ function PageHome() {
         <div className="flex overflow-x-auto justify-start my-4 w-full gap-2">
           {categories.map((category: ICategorieProps, index: number) => (
             <CategoryCard
+              id={category.id}
               key={index}
               name={category.title}
               onClick={() => handleCategoryFilter(category.id)}

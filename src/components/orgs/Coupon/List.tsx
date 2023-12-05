@@ -12,6 +12,7 @@ import {
   CouponContainer,
   CreateAndUpdateCoupon,
   Modal,
+  FloatButtonNav,
 } from "@/components";
 import { ISupplier } from "@/types/supplier";
 import ArrowLeft from "@/images/easytolive/icons/arrow-next-right-white.svg";
@@ -23,6 +24,7 @@ import Edit from "@/images/easytolive/icons/edit.svg";
 import LogoImage from "@/images/easytolive/logo/logotipo-fundoazulroxo.svg";
 import { useSession } from "next-auth/react";
 import { ICoupon } from "@/types/coupons";
+import CouponIcon from "@/images/easytolive/icons/couponPrimary.svg";
 
 interface ICouponListProps {
   supplierId: string;
@@ -31,12 +33,21 @@ interface ICouponListProps {
 const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
   const [modalCreateCoupon, setModalCreateCoupon] = useState(false);
   const [supplier, setSupplier] = useState<ISupplier>();
+  const [isOwnSupplier, setIsOwnSupplier] = useState(false);
   const { data: session } = useSession();
 
   const getSupplierById = async (id: string) => {
     const res: any = await supplierService.getSupplierById(id);
     return res;
   };
+
+  useEffect(() => {
+    if (supplier && session) {
+      if (supplier.supplier.id === session.user.id) {
+        setIsOwnSupplier(true);
+      }
+    }
+  }, [session, supplier]);
 
   useEffect(() => {
     getSupplierById(supplierId)
@@ -107,6 +118,14 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
 
   return supplier ? (
     <div className="relative h-full w-full mx-auto">
+      {isOwnSupplier && (
+        <FloatButtonNav
+          hasCouponActive={false}
+          backgroundStyle="secondary"
+          icon={CouponIcon}
+          href="/dashboard"
+        />
+      )}
       <Modal
         closeOnBlur={false}
         show={modalCreateCoupon}
@@ -187,11 +206,9 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
               filteredCoupons.map((coupon, key) => (
                 <CouponContainer
                   supplierId={supplier.supplier.id}
-                  isOwnSupplier={supplier.supplier.id === session?.user.id}
+                  isOwnSupplier={isOwnSupplier}
                   couponTitle={coupon.title}
-                  icon={
-                    supplier.supplier.id === session?.user.id ? Edit : Arrow
-                  }
+                  icon={isOwnSupplier ? Edit : Arrow}
                   couponId={coupon.id}
                   supplierCategory={
                     supplier?.supplier?.supplierInfo?.supplierCategory?.title

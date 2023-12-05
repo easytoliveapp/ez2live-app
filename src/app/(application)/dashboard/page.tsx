@@ -3,7 +3,7 @@
 import { ButtonSecondary, FloatButtonNav } from "@/components";
 import React from "react";
 import { ArchiveBoxIcon } from "@heroicons/react/24/outline";
-import UserIcon from "@/images/easytolive/user/user_circle_color_primary.svg";
+import ShopPageIcon from "@/images/easytolive/icons/shop.svg";
 import { useRouter } from "next/navigation";
 
 function PageDashboard() {
@@ -15,8 +15,8 @@ function PageDashboard() {
         {/* validate coupon */}
         <div className="mb-10">
           <FloatButtonNav
-            icon={UserIcon}
-            backgroundStyle={"secondary"}
+            icon={ShopPageIcon}
+            backgroundStyle={"main"}
             href={"/dashboard/parceiro/perfil"}
           />
           <div className="h-10 w-full relative mb-2">

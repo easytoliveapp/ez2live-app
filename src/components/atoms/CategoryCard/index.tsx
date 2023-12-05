@@ -1,6 +1,7 @@
 import React, { FC } from "react";
-import Image, { StaticImageData } from "next/image";
+import Image from "next/image";
 import classNames from "@/utils/classNames";
+import { CATEGORIES } from "@/constants/categories";
 
 export interface ICategorieProps {
   active: boolean;
@@ -8,19 +9,19 @@ export interface ICategorieProps {
   id: string;
 }
 
-export interface ICategoryProps {
-  image: string | StaticImageData;
+interface ICategoryProps {
+  image: string;
+  id: string;
   isActive: boolean;
   name: string;
   onClick?: (e: React.MouseEvent<HTMLDivElement>) => void;
 }
 
-const CategoryCard: FC<ICategoryProps> = ({
-  image,
-  isActive,
-  name,
-  onClick,
-}) => {
+const CategoryCard: FC<ICategoryProps> = ({ isActive, name, onClick, id }) => {
+  const { image, altImage } = CATEGORIES[id as keyof typeof CATEGORIES] || {
+    image: "",
+  };
+
   return (
     <div
       className={classNames(
@@ -29,7 +30,7 @@ const CategoryCard: FC<ICategoryProps> = ({
       )}
       onClick={onClick}
     >
-      <Image className="w-8 h-auto" src={image} alt="Category Image" />
+      {image && <Image className="w-8 h-8" src={image} alt={altImage} />}
       <p className="text-[10px] font-semibold">{name}</p>
     </div>
   );
