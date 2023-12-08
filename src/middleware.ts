@@ -22,7 +22,6 @@ export async function middleware(request: NextRequest) {
   if (!tokenInfo) {
     return NextResponse.redirect(new URL("/conta/entrar", request.url));
   }
-  console.log(tokenInfo.user.role);
 
   // If the user is not an admin or supplier and is trying to access the admin or dashboard, redirect to the home page
   if (
@@ -34,19 +33,13 @@ export async function middleware(request: NextRequest) {
   }
 
   // If the user is supplier account and is trying to access the admin or my-coupons, redirect to the dashboard page.
+
   if (
     tokenInfo.user.role === "supplier" &&
     (request.nextUrl.pathname.includes("/meus-cupons") ||
       request.nextUrl.pathname.includes("/admin"))
   ) {
     return NextResponse.redirect(new URL("/dashboard", request.url));
-  }
-  // If the user is an admin will only be able to access routes starting with /admin
-  if (
-    tokenInfo.user.role === "admin" &&
-    !request.nextUrl.pathname.includes("/admin")
-  ) {
-    return NextResponse.redirect(new URL("/admin", request.url));
   }
 
   // If the request is authenticated and authorized, continue to the API route handler
