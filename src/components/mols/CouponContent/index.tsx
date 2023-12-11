@@ -23,7 +23,6 @@ const CouponContent: React.FC<CouponProps> = ({
   expirateTime,
   supplierLogo,
   supplierName,
-  supplierCategory,
   couponTitle,
 }) => {
   return (
