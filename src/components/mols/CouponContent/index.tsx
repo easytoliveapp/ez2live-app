@@ -69,14 +69,11 @@ const CouponContent: React.FC<CouponProps> = ({
             alt="supplier-logo"
           />
           <div className="m-1 px-1">
-            <p className=" font-semibold">estabelecimento</p>
             <p className=" text-lg">{supplierName}</p>
           </div>
         </div>
         <div className="flex flex-col mx-2 gap-5 my-1 mb-3">
           <div className="flex flex-col">
-            <p className="font-semibold">categoria</p>
-            <p className="mb-1">{supplierCategory}</p>
             <p className="font-semibold">validade</p>
             <p>{getDateFormater(expirateTime)}</p>
           </div>

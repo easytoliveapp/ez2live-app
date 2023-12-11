@@ -128,7 +128,7 @@ const FormComponent = () => {
         showToastify({
           type: "success",
           label:
-            "Obrigado por se juntar a Easy to Live! Sua solicitação de cadastro foi enviada e em breve será analisada pela nossa equipe.",
+            "Acabamos de receber o seu cadastro! Vamos analisar seus dados e em breve entraremos em contato 🚀",
         });
       })
       .catch((error) => {

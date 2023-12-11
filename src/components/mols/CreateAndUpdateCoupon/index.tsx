@@ -427,7 +427,9 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
                   disabled={loading}
                   loading={loading}
                 >
-                  Salvar cupom
+                  {isUpdatingCoupon
+                    ? "Salvar cupom"
+                    : "Cadastre agora seu novo cupom!"}
                 </ButtonSecondary>
               </Form>
             )}

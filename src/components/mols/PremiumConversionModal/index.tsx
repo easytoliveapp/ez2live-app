@@ -57,7 +57,7 @@ const PremiumConversionModal: React.FC<IPremiumConversionModal> = ({
       .addSubscriptionDays(userId, days)
       .then(() => {
         showToastify({
-          label: `Parabens! você recebeu mais ${days} dias de premium`,
+          label: `Parabens! Você agora tem acesso a Cupons Exclusivos por mais ${days} dias! ✅`,
           type: "success",
         });
 
@@ -85,23 +85,27 @@ const PremiumConversionModal: React.FC<IPremiumConversionModal> = ({
               alt="easy-to-live-logo"
               src={LogoImage}
             />
-            <h2 className="text-2xl font-semibold">Bem-Vindo ao EasyToLive!</h2>
+            <h2 className="text-2xl font-semibold">
+              {isNewUser
+                ? "FINALMENTE VOCÊ CHEGOU! 🥳"
+                : "BEM-VINDO DE VOLTA! 🥳"}
+            </h2>
           </div>
           <div className="flex px-4 flex-col gap-3">
             <p className="text-center">
-              Você tem 28 dias como usuário premium ⭐ para usar nosso app e
-              encontrar as melhores ofertas para você. <br />
-              Aproveite!
+              Para deixar sua vida mais Easy, viemos entregar gratuitamente 28
+              dias de Assinatura Premium para você aproveitar os melhores
+              cupons! Resgate no botão abaixo!
             </p>
             <ButtonPrimary
               onClick={() => {
                 addSubscriptionDays(28);
               }}
             >
-              Aceito! Começar a usar agora
+              {"[RESGATAR MINHA ASSINATURA PREMIUM!]"}
             </ButtonPrimary>
             <ButtonThird onClick={() => addSubscriptionDays(14)}>
-              Quero testar apenas por 14 dias
+              Prefiro perder o presente!
             </ButtonThird>
           </div>
         </div>
