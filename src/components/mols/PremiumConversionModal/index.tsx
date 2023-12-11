@@ -4,7 +4,7 @@ import React, { Dispatch, SetStateAction } from "react";
 import { ButtonPrimary, ButtonThird } from "@/components";
 import Modal from "../Modal";
 import Image from "next/image";
-import LogoImage from "@/images/easytolive/logo/logocompleta-semfundoazulroxo.svg";
+import LogoImage from "@/images/easytolive/logo/logotipo-semfundoazulroxo.svg";
 import useService from "@/service/users.service";
 import { showToastify } from "@/hooks/showToastify";
 import { useSession } from "next-auth/react";
@@ -81,7 +81,7 @@ const PremiumConversionModal: React.FC<IPremiumConversionModal> = ({
         <div className="flex flex-col gap-3 text-center">
           <div className="flex flex-col items-center justify-center gap-4">
             <Image
-              className="h-14 w-auto my-6"
+              className="h-12 w-auto my-6"
               alt="easy-to-live-logo"
               src={LogoImage}
             />
