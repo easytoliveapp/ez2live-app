@@ -4,7 +4,7 @@ import { ButtonPrimary, SocialLoginComponent } from "@/components";
 import React, { useState } from "react";
 import PreLoginImage from "@/images/easytolive/home/fast-login-background.jpeg";
 import Image from "next/image";
-import Logo from "@/images/easytolive/logo/logocompleta-semfundoazulroxo.svg";
+import Logo from "@/images/easytolive/logo/logotipo-semfundoazulroxo.svg";
 import { useRouter, useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
 
@@ -45,16 +45,14 @@ const FastLoginPage = () => {
       >
         <div className="z-50">
           <Image
-            className="w-60 h-auto pt-12"
+            className="w-auto h-40 pt-12"
             alt="easy to live logo"
             src={Logo}
           />
-          <div className="flex pt-8 flex-col gap-5 ">
+          <div className="flex py-12 flex-col gap-5 ">
             <p className="font-bold max-w-[250px] md:max-w-sm text-black text-2xl">
-              Falta pouco para você aproveitar o seu desconto!
-            </p>
-            <p className="font-bold text-xs text-black">
-              preencha seus dados ou crie sua conta
+              Realize seu login ou crie sua conta abaixo E acesse os melhores
+              cupons Criados pensando em você!
             </p>
           </div>
         </div>
