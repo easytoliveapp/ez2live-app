@@ -78,13 +78,15 @@ const PremiumConversionModal: React.FC<IPremiumConversionModal> = ({
       onCloseModal={() => null}
     >
       {isNewUser ? (
-        <div className="flex flex-col gap-3 text-center">
-          <div className="flex flex-col items-center justify-center gap-4">
-            <Image
-              className="h-12 w-auto my-6"
-              alt="easy-to-live-logo"
-              src={LogoImage}
-            />
+        <div className="flex flex-col gap-1 text-center">
+          <div className="flex flex-col items-center justify-center">
+            <div className="w-full flex justify-end pr-6">
+              <Image
+                className="h-12 w-auto my-6"
+                alt="easy-to-live-logo"
+                src={LogoImage}
+              />
+            </div>
             <h2 className="text-2xl font-semibold">
               {isNewUser
                 ? "FINALMENTE VOCÊ CHEGOU! 🥳"
