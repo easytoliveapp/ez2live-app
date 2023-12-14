@@ -9,6 +9,7 @@ import CouponGreen from "@/images/easytolive/icons/coupongreen.svg";
 import ShoppingCartGreen from "@/images/easytolive/icons/shopping_cart_green.svg";
 import ClockCircleRed from "@/images/easytolive/icons/clock_circleRed.svg";
 import getExpirateTime from "@/utils/getExpirateTime";
+import cx from "classnames";
 import { getDateFormater } from "@/utils/getDateFormater";
 
 interface ICouponCardProps {
@@ -32,15 +33,37 @@ const CouponCard: React.FC<ICouponCardProps> = ({
   icon,
   setShowCouponModal,
 }) => {
+  function getBackgroundCouponColor(discount: number) {
+    const colorOptions = [
+      { value: 50, color: "bg-generic-alertRed" },
+      { value: 40, color: "bg-secondary-dark" },
+      { value: 30, color: "bg-secondary-main" },
+      { value: 25, color: "bg-secondary-light" },
+      { value: 15, color: "bg-primary-dark" },
+      { value: 5, color: "bg-primary-main" },
+    ];
+    const selectedColor = colorOptions.find(
+      ({ value }) => discount >= value,
+    ) || {
+      color: "bg-primary-light",
+    };
+    return selectedColor.color;
+  }
+
   return (
     <div
       onClick={() => setShowCouponModal && setShowCouponModal(true)}
-      className={`bg-primary-main h-auto pl-5 rounded-full flex items-center gap-2 cursor-pointer`}
+      className={cx(
+        getBackgroundCouponColor(Number(discount)),
+        "h-auto pl-5 rounded-full flex items-center gap-2 cursor-pointer",
+      )}
     >
-      <h2 className={`text-white font-semibold text-xl`}>{discount}%</h2>
+      <h2 className={`text-white font-semibold text-xl drop-shadow-sm`}>
+        {discount}%
+      </h2>
       <div
         className={classNames(
-          "rounded-full bg-white w-full py-2.5 gap-1 -m-[1px] hover:shadow-md",
+          "rounded-full bg-white w-full py-2.5 gap-1 -m-[1px] bg-pri hover:shadow-md",
         )}
       >
         <div className="rounded-full flex items-center gap-3 pr-4 pl-3 w-full">
