@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
-import LogoMain from "@/images/easytolive/logo/logotipo-fundoazulroxo.svg";
 import { LoadingComponent } from "@/components/atoms";
 interface IEmptyCoupons {
   couponColor: StaticImport;
