@@ -1,6 +1,10 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import Image from "next/image";
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
+import LogoMain from "@/images/easytolive/logo/logotipo-fundoazulroxo.svg";
+import { LoadingComponent } from "@/components/atoms";
 interface IEmptyCoupons {
   couponColor: StaticImport;
   title: string;
@@ -14,6 +18,12 @@ const EmptyCoupons: React.FC<IEmptyCoupons> = ({
   label,
   href,
 }) => {
+  const [stateLabel, setStateLabel] = useState<any>(label);
+
+  const onClick = () => {
+    setStateLabel(<LoadingComponent fullSize={false} bgColor="none" />);
+  };
+
   return (
     <div className="w-full flex flex-col justify-center items-center">
       <Image
@@ -24,10 +34,11 @@ const EmptyCoupons: React.FC<IEmptyCoupons> = ({
       <h3 className="text-lg font-semibold mb-10">{title}</h3>
       {label && href && href ? (
         <a
+          onClick={onClick}
           className=" font-semibold cursor-pointer text-primary-main"
           href={href}
         >
-          {label}
+          {stateLabel}
         </a>
       ) : (
         <p className=" font-semibold text-primary-main">{label}</p>

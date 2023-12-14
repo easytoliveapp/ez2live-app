@@ -1,27 +1,70 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import Image from "next/image";
 import React from "react";
-import LogoWhite from "@/images/easytolive/logo/logobranca-fundoprimary.svg";
+import cx from "classnames";
 
-const LoadingComponent = () => {
+interface ILoadingComponent {
+  fullSize?: boolean;
+  bgColor?: "main" | "secondary" | "none";
+  Icon?: StaticImport;
+}
+
+const LoadingComponent: React.FC<ILoadingComponent> = ({
+  fullSize = true,
+  bgColor = "main",
+  Icon,
+}) => {
+  const backGroundColor = () => {
+    switch (bgColor) {
+      case "main":
+        return "bg-primary-main";
+      case "secondary":
+        return "bg-secondary-main";
+      case "none":
+        return "bg-none";
+      default:
+        return "main";
+    }
+  };
+  const fullSizeLoadingComponent = () => {
+    switch (fullSize) {
+      case true:
+        return "min-h-[93vh]";
+      case false:
+        return "";
+    }
+  };
+
   return (
-    <div className="w-full min-h-[93vh] bg-primary-main flex flex-col items-center justify-around">
+    <div
+      className={cx(
+        backGroundColor(),
+        fullSizeLoadingComponent(),
+        "flex flex-col items-center justify-around",
+      )}
+    >
       <span></span>
       <div className="relative">
         <motion.div
-          className="relative border-opacity-60 border-collapse pb-primary-main w-40 h-40 rounded-full border-b-primary-main border-4 border-neutral-200 opacity-50 "
+          className={cx(
+            fullSize ? "w-40 h-40" : "w-12 h-12",
+            "relative border-opacity-60 border-collapse pb-primary-main  rounded-full border-b-primary-main border-4 border-neutral-200 opacity-50 ",
+          )}
           animate={{
             rotate: 360,
           }}
           transition={{ duration: 1, repeat: Infinity }}
         ></motion.div>
-        <Image
-          className="w-24 rounded-full h-auto absolute left-8 top-8"
-          src={LogoWhite}
-          alt="logo-branca"
-        />
+        {Icon && (
+          <Image
+            className="w-24 rounded-full h-auto absolute left-8 top-8"
+            src={Icon}
+            alt="logo-branca"
+          />
+        )}
       </div>
       <span></span>
     </div>

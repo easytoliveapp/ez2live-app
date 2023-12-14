@@ -23,10 +23,13 @@ import Arrow from "@/images/easytolive/icons/arrow-next-right-primary.svg";
 import CouponPrimary from "@/images/easytolive/icons/couponPrimary.svg";
 import Edit from "@/images/easytolive/icons/edit.svg";
 import LogoImage from "@/images/easytolive/logo/logotipo-fundoazulroxo.svg";
+import LogoMain from "@/images/easytolive/logo/logobranca-fundoprimary.svg";
+import SupplierICon from "@/images/easytolive/icons/shop.svg";
 import { useSession } from "next-auth/react";
 import { ICoupon } from "@/types/coupons";
 import CouponIcon from "@/images/easytolive/icons/couponPrimary.svg";
 import CouponRed from "@/images/easytolive/icons/couponred.svg";
+import useUserRoles from "@/hooks/useUserRoles";
 
 interface ICouponListProps {
   supplierId: string;
@@ -118,6 +121,17 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
     }
   };
 
+  const CommomUserNavigation = useUserRoles().isSupplier() ? (
+    ""
+  ) : (
+    <FloatButtonNav
+      label="buscar cupons"
+      backgroundStyle="main"
+      icon={SupplierICon}
+      href={"/"}
+    />
+  );
+
   return supplier ? (
     <div className="relative h-full w-full mx-auto">
       {isOwnSupplier && (
@@ -128,6 +142,7 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
           href="/dashboard"
         />
       )}
+      {CommomUserNavigation}
       <Modal
         closeOnBlur={false}
         show={modalCreateCoupon}
@@ -238,7 +253,7 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
       </div>
     </div>
   ) : (
-    <LoadingComponent />
+    <LoadingComponent Icon={LogoMain} />
   );
 };
 
