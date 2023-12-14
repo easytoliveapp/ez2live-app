@@ -135,15 +135,12 @@ const MyCouponsPage = () => {
         {isLoadingCoupons && <div>Carregando seus cupons...</div>}
         {isShowingCoupons && renderCoupons()}
         {isEmptyResult && (
-          <em>
-            {" "}
-            <EmptyCoupons
-              couponColor={couponsFilter.icon}
-              label={couponsFilter.HrefLabel ?? " "}
-              title={couponsFilter.emptyText}
-              href={couponsFilter.href}
-            />{" "}
-          </em>
+          <EmptyCoupons
+            couponColor={couponsFilter.icon}
+            label={couponsFilter.HrefLabel ?? " "}
+            title={couponsFilter.emptyText}
+            href={couponsFilter.href}
+          />
         )}
       </div>
     </div>
