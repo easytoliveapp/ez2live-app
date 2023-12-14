@@ -4,7 +4,12 @@ import React, { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import { ICouponCodesByUser } from "@/types/coupons";
 import { showToastify } from "@/hooks/showToastify";
-import { FloatButtonNav, CurrencyDropdown, UserCoupons } from "@/components";
+import {
+  FloatButtonNav,
+  CurrencyDropdown,
+  UserCoupons,
+  EmptyCoupons,
+} from "@/components";
 import CouponGreen from "@/images/easytolive/icons/coupongreen.svg";
 import CouponBlack from "@/images/easytolive/icons/couponblack.svg";
 import CouponRed from "@/images/easytolive/icons/couponred.svg";
@@ -16,26 +21,34 @@ import Arrow from "@/images/easytolive/icons/arrow-next-right-primary.svg";
 interface IfilterOptions {
   id: string;
   name: string;
+  emptyText: string;
   icon: StaticImageData;
   textColor: string;
+  href?: string;
+  HrefLabel?: string;
 }
 
 const filterOptions = [
   {
     id: "ACTIVE",
     name: "cupons ativos",
+    emptyText: "Nenhum cupom ativo disponível",
+    href: "/",
+    HrefLabel: "Buscar descontos",
     icon: CouponGreen,
     textColor: "text-generic-alertGreen",
   },
   {
     id: "USED",
     name: "cupons utilizados",
+    emptyText: "Nenhum cupom foi usado ainda",
     icon: CouponBlack,
     textColor: "text-black",
   },
   {
     id: "EXPIRED",
     name: "cupons expirados",
+    emptyText: "Nenhum cupom expirou",
     icon: CouponRed,
     textColor: "text-generic-alertRed",
   },
@@ -121,7 +134,17 @@ const MyCouponsPage = () => {
       <div className="mt-6 pb-16 m-4 flex flex-col gap-4">
         {isLoadingCoupons && <div>Carregando seus cupons...</div>}
         {isShowingCoupons && renderCoupons()}
-        {isEmptyResult && <em> Nenhum cupom encontrado...</em>}
+        {isEmptyResult && (
+          <em>
+            {" "}
+            <EmptyCoupons
+              couponColor={couponsFilter.icon}
+              label={couponsFilter.HrefLabel ?? " "}
+              title={couponsFilter.emptyText}
+              href={couponsFilter.href}
+            />{" "}
+          </em>
+        )}
       </div>
     </div>
   );
