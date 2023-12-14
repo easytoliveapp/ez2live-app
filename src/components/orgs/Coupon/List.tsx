@@ -13,6 +13,7 @@ import {
   CreateAndUpdateCoupon,
   Modal,
   FloatButtonNav,
+  EmptyCoupons,
 } from "@/components";
 import { ISupplier } from "@/types/supplier";
 import ArrowLeft from "@/images/easytolive/icons/arrow-next-right-white.svg";
@@ -25,6 +26,7 @@ import LogoImage from "@/images/easytolive/logo/logotipo-fundoazulroxo.svg";
 import { useSession } from "next-auth/react";
 import { ICoupon } from "@/types/coupons";
 import CouponIcon from "@/images/easytolive/icons/couponPrimary.svg";
+import CouponRed from "@/images/easytolive/icons/couponred.svg";
 
 interface ICouponListProps {
   supplierId: string;
@@ -224,7 +226,12 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
                 />
               ))
             ) : (
-              <em className="text-xs">Nenhum cupom ativo foi encontrado...</em>
+              <EmptyCoupons
+                couponColor={CouponRed}
+                title="Nenhum cupom disponível"
+                href={session?.user.isSupplier ? "" : "/"}
+                label={session?.user.isSupplier ? "" : "ver outros parceiros"}
+              />
             )}
           </div>
         </div>

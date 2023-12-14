@@ -23,7 +23,10 @@ const EmptyCoupons: React.FC<IEmptyCoupons> = ({
       />
       <h3 className="text-lg font-semibold mb-10">{title}</h3>
       {label && href && href ? (
-        <a className=" font-semibold text-primary-main" href={href}>
+        <a
+          className=" font-semibold cursor-pointer text-primary-main"
+          href={href}
+        >
           {label}
         </a>
       ) : (
