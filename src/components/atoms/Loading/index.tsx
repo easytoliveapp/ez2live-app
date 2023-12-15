@@ -29,20 +29,12 @@ const LoadingComponent: React.FC<ILoadingComponent> = ({
         return "main";
     }
   };
-  const fullSizeLoadingComponent = () => {
-    switch (fullSize) {
-      case true:
-        return "min-h-[93vh]";
-      case false:
-        return "";
-    }
-  };
 
   return (
     <div
       className={cx(
         backGroundColor(),
-        fullSizeLoadingComponent(),
+        fullSize ? "min-h-[93vh]" : "",
         "flex flex-col items-center justify-around",
       )}
     >
