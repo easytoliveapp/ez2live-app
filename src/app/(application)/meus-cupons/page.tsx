@@ -84,7 +84,7 @@ const MyCouponsPage = () => {
   const isEmptyResult =
     !isLoadingCoupons &&
     Array.isArray(couponCodes) &&
-    couponCodes.length > 0 &&
+    couponCodes.length >= 0 &&
     couponCodes.filter((t) => t.status === couponsFilter.id).length === 0;
 
   const renderCoupons = () =>
