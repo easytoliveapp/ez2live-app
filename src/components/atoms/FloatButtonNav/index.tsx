@@ -23,14 +23,11 @@ const FloatButtonNav: React.FC<IFloatButtonNavProps & LinkProps<any>> = ({
   icon,
   hasCouponActive = false,
 }) => {
-  const [stateLabel, setStateLabel] = useState<any>(label);
-
-  const onClick = () => {
-    setStateLabel(<LoadingComponent bgColor="none" fullSize={false} />);
-  };
+  const [isloading, setIsLoading] = useState(false);
 
   return (
     <NextLink
+      onClick={() => setIsLoading(true)}
       href={href}
       className={`${
         backgroundStyle === "main"
@@ -55,14 +52,17 @@ const FloatButtonNav: React.FC<IFloatButtonNavProps & LinkProps<any>> = ({
         </div>
       )}
       <div
-        onClick={onClick}
         className={`ml-3 ${
           backgroundStyle === "main"
             ? "text-secondary-main"
             : "text-primary-main"
         }`}
       >
-        {stateLabel}
+        {isloading ? (
+          <LoadingComponent bgStyle="none" fullSize={false} />
+        ) : (
+          label
+        )}
       </div>
     </NextLink>
   );

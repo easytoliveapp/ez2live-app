@@ -1,39 +1,30 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { StaticImport } from "next/dist/shared/lib/get-img-props";
-import Image from "next/image";
-import React from "react";
+import Image, { StaticImageData } from "next/image";
 import cx from "classnames";
 
 interface ILoadingComponent {
   fullSize?: boolean;
-  bgColor?: "main" | "secondary" | "none";
-  Icon?: StaticImport;
+  bgStyle?: "main" | "secondary" | "none";
+  Icon?: StaticImageData;
 }
 
 const LoadingComponent: React.FC<ILoadingComponent> = ({
   fullSize = true,
-  bgColor = "main",
+  bgStyle = "main",
   Icon,
 }) => {
-  const backGroundColor = () => {
-    switch (bgColor) {
-      case "main":
-        return "bg-primary-main";
-      case "secondary":
-        return "bg-secondary-main";
-      case "none":
-        return "bg-none";
-      default:
-        return "main";
-    }
+  const COLORS = {
+    main: "bg-primary-main",
+    secondary: "bg-secondary-main",
+    none: "bg-none",
   };
 
   return (
     <div
       className={cx(
-        backGroundColor(),
+        bgStyle as keyof typeof COLORS,
         fullSize ? "min-h-[93vh]" : "",
         "flex flex-col items-center justify-around",
       )}

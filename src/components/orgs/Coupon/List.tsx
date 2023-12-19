@@ -121,9 +121,9 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
     }
   };
 
-  const CommomUserNavigation = useUserRoles().isSupplier() ? (
-    ""
-  ) : (
+  const isSupplier = useUserRoles().isSupplier();
+
+  const renderNavigationButton = !isSupplier && (
     <FloatButtonNav
       label="buscar cupons"
       backgroundStyle="main"
@@ -142,7 +142,7 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
           href="/dashboard"
         />
       )}
-      {CommomUserNavigation}
+      {renderNavigationButton}
       <Modal
         closeOnBlur={false}
         show={modalCreateCoupon}
@@ -242,10 +242,10 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
               ))
             ) : (
               <EmptyCoupons
-                couponColor={CouponRed}
+                icon={CouponRed}
                 title="Nenhum cupom disponível"
-                href={session?.user.isSupplier ? "" : "/"}
-                label={session?.user.isSupplier ? "" : "ver outros parceiros"}
+                href={!isSupplier ? "/" : undefined}
+                label={!isSupplier ? "ver outros parceiros" : undefined}
               />
             )}
           </div>

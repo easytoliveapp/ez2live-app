@@ -25,16 +25,16 @@ interface IfilterOptions {
   icon: StaticImageData;
   textColor: string;
   href?: string;
-  HrefLabel?: string;
+  label?: string;
 }
 
-const filterOptions = [
+const IfilterOptions = [
   {
     id: "ACTIVE",
     name: "cupons ativos",
     emptyText: "Nenhum cupom ativo disponível",
     href: "/",
-    HrefLabel: "Buscar descontos",
+    label: "Buscar descontos",
     icon: CouponGreen,
     textColor: "text-generic-alertGreen",
   },
@@ -57,7 +57,7 @@ const filterOptions = [
 const MyCouponsPage = () => {
   const { data: session } = useSession();
   const [couponsFilter, setCouponsFilter] = useState<IfilterOptions>(
-    filterOptions[0],
+    IfilterOptions[0],
   );
   const [couponCodes, setCouponCodes] = useState(Array<ICouponCodesByUser>);
   const [isLoadingCoupons, setIsLoadingCoupons] = useState(true);
@@ -115,7 +115,7 @@ const MyCouponsPage = () => {
           {couponsFilter?.name}
         </div>
         <CurrencyDropdown>
-          {filterOptions.map((option, key) => (
+          {IfilterOptions.map((option, key) => (
             <div
               onClick={() => setCouponsFilter(option)}
               key={key}
@@ -136,8 +136,8 @@ const MyCouponsPage = () => {
         {isShowingCoupons && renderCoupons()}
         {isEmptyResult && (
           <EmptyCoupons
-            couponColor={couponsFilter.icon}
-            label={couponsFilter.HrefLabel ?? " "}
+            icon={couponsFilter.icon}
+            label={couponsFilter.label ?? " "}
             title={couponsFilter.emptyText}
             href={couponsFilter.href}
           />
