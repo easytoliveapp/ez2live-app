@@ -36,7 +36,7 @@ const CouponActivated: React.FC<CouponProps> = ({
         <div className="flex justify-end mb-1 mt-2 p-0.5 gap-4">
           <span
             className={cx(
-              getBackgroundCouponColor(Number(couponDiscount)),
+              getColorByDiscountValue(couponDiscount),
               "relative text-xl w-32 text-white flex items-center justify-center px-6 py-3 rounded-full",
             )}
           >
