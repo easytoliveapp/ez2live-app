@@ -9,6 +9,9 @@ import CouponGreen from "@/images/easytolive/icons/coupongreen.svg";
 import ShoppingCartGreen from "@/images/easytolive/icons/shopping_cart_green.svg";
 import ClockCircleRed from "@/images/easytolive/icons/clock_circleRed.svg";
 import getExpirateTime from "@/utils/getExpirateTime";
+import { getColorByDiscountValue } from "@/utils/getColorByDiscountValue";
+
+import cx from "classnames";
 import { getDateFormater } from "@/utils/getDateFormater";
 
 interface ICouponCardProps {
@@ -35,12 +38,19 @@ const CouponCard: React.FC<ICouponCardProps> = ({
   return (
     <div
       onClick={() => setShowCouponModal && setShowCouponModal(true)}
-      className={`bg-primary-main h-auto pl-5 rounded-full flex items-center gap-2 cursor-pointer`}
+      className={cx(
+        getColorByDiscountValue(discount),
+
+        "h-auto pl-5 rounded-full flex items-center gap-2 cursor-pointer",
+      )}
     >
-      <h2 className={`text-white font-semibold text-xl`}>{discount}%</h2>
+      <h2 className={`text-white font-semibold text-xl drop-shadow-sm`}>
+        {discount}%
+      </h2>
       <div
         className={classNames(
-          "rounded-full bg-white w-full py-2.5 gap-1 -m-[1px] hover:shadow-md",
+          "rounded-full bg-white w-full py-2.5 gap-1 -m-[1px] bg-primary hover:shadow-md",
+
         )}
       >
         <div className="rounded-full flex items-center gap-3 pr-4 pl-3 w-full">

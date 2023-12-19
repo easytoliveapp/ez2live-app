@@ -4,8 +4,9 @@ import CouponGreen from "@/images/easytolive/icons/coupongreen.svg";
 import ClockCircleRed from "@/images/easytolive/icons/clock_circleRed.svg";
 import { AccordionInfo } from "@/components";
 import { getDateFormater } from "@/utils/getDateFormater";
+import { getColorByDiscountValue } from "@/utils/getColorByDiscountValue";
 import getExpirateTime from "@/utils/getExpirateTime";
-
+import cx from "classnames";
 interface CouponProps {
   id: string;
   couponTitle: string;
@@ -54,7 +55,12 @@ const CouponContent: React.FC<CouponProps> = ({
             {getExpirateTime(expirateTime)}
           </p>
         </div>
-        <span className="relative text-3xl font-medium w-32 h-16 text-white bg-primary-main flex items-center justify-center px-6 rounded-full">
+        <span
+          className={cx(
+            getColorByDiscountValue(couponDiscount),
+            "relative text-3xl font-medium w-32 h-16 text-white flex items-center justify-center px-6 rounded-full",
+          )}
+        >
           {couponDiscount}%
           <span className="absolute z-50 -top-7 -left-7 w-14 h-14 rounded-full bg-gradient-to-r from-secondary-dark to-secondary-lighter"></span>
         </span>
