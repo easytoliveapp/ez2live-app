@@ -1,4 +1,6 @@
-export function getBackgroundCouponColor(discount: number) {
+export function getColorByDiscountValue(discount: string) {
+  const discountValue = Number(discount);
+  
   const colorOptions = [
     { value: 50, color: "bg-generic-alertRed" },
     { value: 40, color: "bg-secondary-dark" },
@@ -7,7 +9,7 @@ export function getBackgroundCouponColor(discount: number) {
     { value: 15, color: "bg-primary-dark" },
     { value: 5, color: "bg-primary-main" },
   ];
-  const selectedColor = colorOptions.find(({ value }) => discount >= value) || {
+  const selectedColor = colorOptions.find(({ value }) => discountValue >= value) || {
     color: "bg-primary-light",
   };
   return selectedColor.color;
