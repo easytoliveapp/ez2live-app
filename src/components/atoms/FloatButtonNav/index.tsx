@@ -61,7 +61,7 @@ const FloatButtonNav: React.FC<IFloatButtonNavProps & LinkProps<any>> = ({
         {isloading ? (
           <LoadingComponent bgStyle="none" fullSize={false} />
         ) : (
-          label
+          <span>{label}</span>
         )}
       </div>
     </NextLink>
