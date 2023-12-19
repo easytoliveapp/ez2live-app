@@ -94,11 +94,15 @@ const NcModal: FC<NcModalProps> = ({
               <div
                 className={`inline-block w-full my-5 overflow-hidden text-left align-middle transition-all transform bg-white border border-black border-opacity-5 shadow-xl rounded-[46px] sm:my-8 text-neutral-900  ${contentExtraClass}`}
               >
-                <div className="py-3 mt-2 px-6 text-center relative md:py-6">
+                <div
+                  className={`px-4 mt-2 ${
+                    hasCloseButton && "pt-1"
+                  } text-center relative`}
+                >
                   {hasCloseButton && (
                     <ButtonClose
                       onClick={() => closeModal()}
-                      className="absolute right-3 top-1/2 transform -translate-y-1/2 sm:right-4"
+                      className="py-4 mt-3 absolute right-1 top-1/2 transform -translate-y-1/2 sm:right-2"
                     />
                   )}
                   {modalTitle && (

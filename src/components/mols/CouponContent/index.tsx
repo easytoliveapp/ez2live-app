@@ -23,11 +23,10 @@ const CouponContent: React.FC<CouponProps> = ({
   expirateTime,
   supplierLogo,
   supplierName,
-  supplierCategory,
   couponTitle,
 }) => {
   return (
-    <div className="flex flex-col px-2 w-full pb-14 text-black">
+    <div className="flex flex-col px-2 w-full pb-3 text-black">
       <h1 className=" text-2xl px-3 mb-6 font-bold text-black">
         {couponTitle}
       </h1>
@@ -62,25 +61,19 @@ const CouponContent: React.FC<CouponProps> = ({
       </div>
       <hr className="border-neutral-100 border-[1.5px] mb-4"></hr>
       <div className="flex flex-col m-1 h-auto">
-        <div className="flex gap-3 item-center">
+        <div className="flex gap-3 item-center mb-3">
           <Image
             className="w-14 h-14 rounded-full"
             src={supplierLogo}
             alt="supplier-logo"
           />
-          <div className="m-1 px-1">
-            <p className=" font-semibold">estabelecimento</p>
+          <div className="my-auto font-semibold">
             <p className=" text-lg">{supplierName}</p>
           </div>
         </div>
-        <div className="flex flex-col mx-2 gap-5 my-1 mb-3">
-          <div className="flex flex-col">
-            <p className="font-semibold">categoria</p>
-            <p className="mb-1">{supplierCategory}</p>
-            <p className="font-semibold">validade</p>
-            <p>{getDateFormater(expirateTime)}</p>
-          </div>
-        </div>
+        <p className="items-center mb-4 p-3">
+          validade: {getDateFormater(expirateTime)}
+        </p>
         <AccordionInfo
           data={[
             {
