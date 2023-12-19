@@ -49,7 +49,8 @@ const CouponCard: React.FC<ICouponCardProps> = ({
       </h2>
       <div
         className={classNames(
-          "rounded-full bg-white w-full py-2.5 gap-1 -m-[1px] bg-pri hover:shadow-md",
+          "rounded-full bg-white w-full py-2.5 gap-1 -m-[1px] bg-primary hover:shadow-md",
+
         )}
       >
         <div className="rounded-full flex items-center gap-3 pr-4 pl-3 w-full">
