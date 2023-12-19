@@ -18,6 +18,21 @@ const EmptyCoupons: React.FC<IEmptyCoupons> = ({
 }) => {
   const [isloading, setIsLoading] = useState(false);
 
+  const RedirectLink = () => {
+    return (
+      <a
+        onClick={() => setIsLoading(true)}
+        className=" font-semibold cursor-pointer text-primary-main"
+        href={href}
+      >
+        {isloading ? (
+          <LoadingComponent fullSize={false} bgStyle="none" />
+        ) : (
+          label
+        )}
+      </a>
+    );
+  };
   return (
     <div className="w-full flex flex-col justify-center items-center">
       <Image
@@ -26,18 +41,8 @@ const EmptyCoupons: React.FC<IEmptyCoupons> = ({
         alt="Imagem Cupom"
       />
       <h3 className="text-lg font-semibold mb-10">{title}</h3>
-      {label && href && href ? (
-        <a
-          onClick={() => setIsLoading(true)}
-          className=" font-semibold cursor-pointer text-primary-main"
-          href={href}
-        >
-          {isloading ? (
-            <LoadingComponent fullSize={false} bgStyle="none" />
-          ) : (
-            label
-          )}
-        </a>
+      {label && href ? (
+        <RedirectLink />
       ) : (
         <p className=" font-semibold text-primary-main">{label}</p>
       )}
