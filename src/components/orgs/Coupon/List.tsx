@@ -123,15 +123,6 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
 
   const isSupplier = useUserRoles().isSupplier();
 
-  const renderNavigationButton = !isSupplier && (
-    <FloatButtonNav
-      label="buscar cupons"
-      backgroundStyle="main"
-      icon={SupplierICon}
-      href={"/"}
-    />
-  );
-
   return supplier ? (
     <div className="relative h-full w-full mx-auto">
       {isOwnSupplier && (
@@ -142,7 +133,14 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
           href="/dashboard"
         />
       )}
-      {renderNavigationButton}
+      {!isSupplier && (
+        <FloatButtonNav
+          label="buscar cupons"
+          backgroundStyle="main"
+          icon={SupplierICon}
+          href={"/"}
+        />
+      )}
       <Modal
         closeOnBlur={false}
         show={modalCreateCoupon}
