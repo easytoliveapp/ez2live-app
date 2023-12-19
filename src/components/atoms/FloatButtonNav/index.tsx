@@ -1,31 +1,37 @@
 "use client";
 
 import { StaticImageData } from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import NextLink, { LinkProps } from "next/link";
 import { UrlObject } from "url";
 import { motion } from "framer-motion";
+import LoadingComponent from "../Loading";
 
 interface IFloatButtonNavProps {
   icon: StaticImageData;
   backgroundStyle: "main" | "secondary";
+  label?: string;
   href: UrlObject | string;
   hasCouponActive?: boolean;
 }
 
 const FloatButtonNav: React.FC<IFloatButtonNavProps & LinkProps<any>> = ({
   href,
+  label,
   backgroundStyle,
   icon,
   hasCouponActive = false,
 }) => {
+  const [isloading, setIsLoading] = useState(false);
+
   return (
     <NextLink
+      onClick={() => setIsLoading(true)}
       href={href}
       className={`${
         backgroundStyle === "main"
-          ? "from-primary-main to-white"
+          ? "from-primary-main to-primary-lighter"
           : "from-secondary-main to-secondary-lighter"
       } ${
         hasCouponActive ? "pr-1" : "pr-8"
@@ -45,6 +51,19 @@ const FloatButtonNav: React.FC<IFloatButtonNavProps & LinkProps<any>> = ({
           <div className="absolute right-[15px] w-1.5 h-1.5 rounded-full bg-generic-alertGreen"></div>
         </div>
       )}
+      <div
+        className={`ml-3 ${
+          backgroundStyle === "main"
+            ? "text-secondary-main"
+            : "text-primary-main"
+        }`}
+      >
+        {isloading ? (
+          <LoadingComponent bgStyle="none" fullSize={false} />
+        ) : (
+          <span>{label}</span>
+        )}
+      </div>
     </NextLink>
   );
 };
