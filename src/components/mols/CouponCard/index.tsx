@@ -39,7 +39,8 @@ const CouponCard: React.FC<ICouponCardProps> = ({
     <div
       onClick={() => setShowCouponModal && setShowCouponModal(true)}
       className={cx(
-        getBackgroundCouponColor(Number(discount)),
+        getColorByDiscountValue(discount),
+
         "h-auto pl-5 rounded-full flex items-center gap-2 cursor-pointer",
       )}
     >
