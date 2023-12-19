@@ -264,7 +264,6 @@ const ActiveCouponCode: React.FC<IActiveCouponCodeProps> = ({
                               alt="supplier-logo"
                             />
                             <div className="m-4 px-1">
-                              <p className=" font-semibold">estabelecimento</p>
                               <p className=" text-lg">
                                 {couponInfo?.coupon?.supplier?.name}
                               </p>
@@ -324,7 +323,7 @@ const ActiveCouponCode: React.FC<IActiveCouponCodeProps> = ({
                       disabled={loading}
                       loading={loading}
                     >
-                      Validar cupom
+                      Resgatar Cupom!
                     </ButtonSecondary>
                   )}
 
@@ -332,7 +331,7 @@ const ActiveCouponCode: React.FC<IActiveCouponCodeProps> = ({
                     className="text-generic-alertRed"
                     onClick={onCancelClick}
                   >
-                    voltar
+                    Não quero agora.
                   </ButtonThird>
                 </div>
               </>

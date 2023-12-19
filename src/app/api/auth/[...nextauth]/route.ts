@@ -106,7 +106,7 @@ export const authOptions: NextAuthOptions = {
 
       if (!user && token) {
         // This happens when user has logged but we need refresh token
-        if (dayjs().isAfter(dayjs(token.tokens.refresh.expires))) {
+        if (dayjs().isAfter(dayjs(token.tokens.access.expires))) {
           const refreshRes = await AuthService.refreshToken({
             refreshToken: token.tokens.refresh.token,
           });

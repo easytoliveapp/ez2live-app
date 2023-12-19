@@ -4,7 +4,12 @@ import React, { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import { ICouponCodesByUser } from "@/types/coupons";
 import { showToastify } from "@/hooks/showToastify";
-import { FloatButtonNav, CurrencyDropdown, UserCoupons } from "@/components";
+import {
+  FloatButtonNav,
+  CurrencyDropdown,
+  UserCoupons,
+  EmptyCoupons,
+} from "@/components";
 import CouponGreen from "@/images/easytolive/icons/coupongreen.svg";
 import CouponBlack from "@/images/easytolive/icons/couponblack.svg";
 import CouponRed from "@/images/easytolive/icons/couponred.svg";
@@ -13,29 +18,37 @@ import Image, { StaticImageData } from "next/image";
 import couponsService from "@/service/coupons.service";
 import Arrow from "@/images/easytolive/icons/arrow-next-right-primary.svg";
 
-interface IfilterOptions {
+interface IFilterOptions {
   id: string;
   name: string;
+  emptyText: string;
   icon: StaticImageData;
   textColor: string;
+  href?: string;
+  label?: string;
 }
 
 const filterOptions = [
   {
     id: "ACTIVE",
     name: "cupons ativos",
+    emptyText: "Nenhum cupom ativo disponível",
+    href: "/",
+    label: "Buscar descontos",
     icon: CouponGreen,
     textColor: "text-generic-alertGreen",
   },
   {
     id: "USED",
     name: "cupons utilizados",
+    emptyText: "Nenhum cupom foi usado ainda",
     icon: CouponBlack,
     textColor: "text-black",
   },
   {
     id: "EXPIRED",
     name: "cupons expirados",
+    emptyText: "Nenhum cupom expirou",
     icon: CouponRed,
     textColor: "text-generic-alertRed",
   },
@@ -43,7 +56,7 @@ const filterOptions = [
 
 const MyCouponsPage = () => {
   const { data: session } = useSession();
-  const [couponsFilter, setCouponsFilter] = useState<IfilterOptions>(
+  const [couponsFilter, setCouponsFilter] = useState<IFilterOptions>(
     filterOptions[0],
   );
   const [couponCodes, setCouponCodes] = useState(Array<ICouponCodesByUser>);
@@ -71,7 +84,7 @@ const MyCouponsPage = () => {
   const isEmptyResult =
     !isLoadingCoupons &&
     Array.isArray(couponCodes) &&
-    couponCodes.length > 0 &&
+    couponCodes.length >= 0 &&
     couponCodes.filter((t) => t.status === couponsFilter.id).length === 0;
 
   const renderCoupons = () =>
@@ -121,7 +134,14 @@ const MyCouponsPage = () => {
       <div className="mt-6 pb-16 m-4 flex flex-col gap-4">
         {isLoadingCoupons && <div>Carregando seus cupons...</div>}
         {isShowingCoupons && renderCoupons()}
-        {isEmptyResult && <em> Nenhum cupom encontrado...</em>}
+        {isEmptyResult && (
+          <EmptyCoupons
+            icon={couponsFilter.icon}
+            label={couponsFilter.label ?? " "}
+            title={couponsFilter.emptyText}
+            href={couponsFilter.href}
+          />
+        )}
       </div>
     </div>
   );
