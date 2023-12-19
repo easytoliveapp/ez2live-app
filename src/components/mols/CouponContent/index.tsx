@@ -58,7 +58,7 @@ const CouponContent: React.FC<CouponProps> = ({
         </div>
         <span
           className={cx(
-            getBackgroundCouponColor(Number(couponDiscount)),
+            getColorByDiscountValue(couponDiscount),
             "relative text-3xl font-medium w-32 h-16 text-white flex items-center justify-center px-6 rounded-full",
           )}
         >
