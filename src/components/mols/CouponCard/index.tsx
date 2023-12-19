@@ -9,7 +9,8 @@ import CouponGreen from "@/images/easytolive/icons/coupongreen.svg";
 import ShoppingCartGreen from "@/images/easytolive/icons/shopping_cart_green.svg";
 import ClockCircleRed from "@/images/easytolive/icons/clock_circleRed.svg";
 import getExpirateTime from "@/utils/getExpirateTime";
-import { getBackgroundCouponColor } from "@/utils/getCouponBackgroundColor";
+import { getColorByDiscountValue} from "@/utils/getColorByDiscountValue";
+
 import cx from "classnames";
 import { getDateFormater } from "@/utils/getDateFormater";
 
