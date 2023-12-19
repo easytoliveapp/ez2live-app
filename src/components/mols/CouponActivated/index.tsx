@@ -4,7 +4,7 @@ import React from "react";
 import Image, { StaticImageData } from "next/image";
 import { AccordionInfo } from "@/components";
 import { getDateFormater } from "@/utils/getDateFormater";
-import { getBackgroundCouponColor } from "@/utils/getCouponBackgroundColor";
+import { getColorByDiscountValue } from "@/utils/getCouponBackgroundColor";
 import QRCode from "react-qr-code";
 import cx from "classnames";
 
