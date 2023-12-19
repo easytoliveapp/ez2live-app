@@ -18,7 +18,7 @@ import Image, { StaticImageData } from "next/image";
 import couponsService from "@/service/coupons.service";
 import Arrow from "@/images/easytolive/icons/arrow-next-right-primary.svg";
 
-interface IfilterOptions {
+interface IFilterOptions {
   id: string;
   name: string;
   emptyText: string;
@@ -28,7 +28,7 @@ interface IfilterOptions {
   label?: string;
 }
 
-const IfilterOptions = [
+const filterOptions = [
   {
     id: "ACTIVE",
     name: "cupons ativos",
@@ -56,8 +56,8 @@ const IfilterOptions = [
 
 const MyCouponsPage = () => {
   const { data: session } = useSession();
-  const [couponsFilter, setCouponsFilter] = useState<IfilterOptions>(
-    IfilterOptions[0],
+  const [couponsFilter, setCouponsFilter] = useState<IFilterOptions>(
+    filterOptions[0],
   );
   const [couponCodes, setCouponCodes] = useState(Array<ICouponCodesByUser>);
   const [isLoadingCoupons, setIsLoadingCoupons] = useState(true);
@@ -115,7 +115,7 @@ const MyCouponsPage = () => {
           {couponsFilter?.name}
         </div>
         <CurrencyDropdown>
-          {IfilterOptions.map((option, key) => (
+          {filterOptions.map((option, key) => (
             <div
               onClick={() => setCouponsFilter(option)}
               key={key}
