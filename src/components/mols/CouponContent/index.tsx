@@ -4,7 +4,7 @@ import CouponGreen from "@/images/easytolive/icons/coupongreen.svg";
 import ClockCircleRed from "@/images/easytolive/icons/clock_circleRed.svg";
 import { AccordionInfo } from "@/components";
 import { getDateFormater } from "@/utils/getDateFormater";
-import { getColorByDiscountValue} from "@/utils/getColorByDiscountValue";
+import { getColorByDiscountValue } from "@/utils/getColorByDiscountValue";
 import getExpirateTime from "@/utils/getExpirateTime";
 import cx from "classnames";
 interface CouponProps {
