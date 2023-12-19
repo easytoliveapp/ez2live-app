@@ -102,7 +102,7 @@ const NcModal: FC<NcModalProps> = ({
                   {hasCloseButton && (
                     <ButtonClose
                       onClick={() => closeModal()}
-                      className="py-4 mt-3 absolute right-1 top-1/2 transform -translate-y-1/2 sm:right-2"
+                      className="py-4 mt-3 absolute right-3 top-1/2 transform -translate-y-1/2 sm:right-2"
                     />
                   )}
                   {modalTitle && (
