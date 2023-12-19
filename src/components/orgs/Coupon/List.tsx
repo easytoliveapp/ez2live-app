@@ -242,8 +242,8 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
               <EmptyCoupons
                 icon={CouponRed}
                 title="Nenhum cupom disponível"
-                href={!isSupplier ? "/" : undefined}
-                label={!isSupplier ? "ver outros parceiros" : undefined}
+                href={!isSupplier && "/"}
+                label={!isSupplier && "ver outros parceiros"}
               />
             )}
           </div>
