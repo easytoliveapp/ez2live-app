@@ -127,6 +127,12 @@ function PageHome() {
                 />
               );
             })}
+          {suppliers.length === 0 && (
+            <span className="m-4 text-sm font-semibold">
+              Infelizmente, não encontramos nenhum parceiro correspondente no
+              momento 🌐
+            </span>
+          )}
         </InfiniteScroll>
       )}
     </div>
