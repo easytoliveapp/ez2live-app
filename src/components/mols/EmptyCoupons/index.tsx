@@ -44,7 +44,9 @@ const EmptyCoupons: React.FC<IEmptyCoupons> = ({
       />
       <h3 className="text-lg font-semibold mb-10">{title}</h3>
       {label && href && <RedirectLink href={href} label={label} />}
-      {label && <p className=" font-semibold text-primary-main">{label}</p>}
+      {label && !href && (
+        <p className=" font-semibold text-primary-main">{label}</p>
+      )}
     </div>
   );
 };
