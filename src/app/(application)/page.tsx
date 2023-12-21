@@ -3,6 +3,7 @@
 import React, { useEffect } from "react";
 import {
   CategoryCard,
+  EmptyCoupons,
   FloatButtonNav,
   SearchCategory,
   SupplierCard,
@@ -18,6 +19,7 @@ import { useSearchParams } from "next/navigation";
 import SkeletonSuppliersCards from "@/skeleton/SuppliersCards";
 import SkeletonCategoriesCards from "@/skeleton/CategoriesCards";
 import { useSupplierContext } from "@/providers/SuppliersProvider";
+import ShopImage from "@/images/easytolive/icons/shopMainColor.svg";
 
 function PageHome() {
   const { data: session } = useSession();
@@ -127,6 +129,12 @@ function PageHome() {
                 />
               );
             })}
+          {suppliers.length === 0 && (
+            <EmptyCoupons
+              icon={ShopImage}
+              title="Não encontramos nenhum parceiro no momento :/"
+            />
+          )}
         </InfiniteScroll>
       )}
     </div>

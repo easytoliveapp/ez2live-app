@@ -4,22 +4,22 @@ import SupplementsImage from "@/images/easytolive/categories/suplementos.svg";
 import RestaurantsImage from "@/images/easytolive/categories/restaurantes.svg";
 
 export const CATEGORIES = {
-  "64c1b0adff835f4ad802a7e9": {
+  "6583288ca8101b0027ecd823": {
     altImage: "Restaurantes Image",
     name: "Restaurantes",
     image: RestaurantsImage,
   },
-  "64c1b3f4f04a766a2c60eeeb": {
+  "6583296aa8101b0027ecd833": {
     altImage: "Suplementos Image",
     name: "Suplementos",
     image: SupplementsImage,
   },
-  "652e8e911824160027e6b66d": {
+  "6583289aa8101b0027ecd826": {
     altImage: "Estética Image",
     name: "Estética",
     image: AestheticsImage,
   },
-  "652e8eb01824160027e6b672": {
+  "658328a9a8101b0027ecd829": {
     altImage: "Nutrição Image",
     name: "Nutrição",
     image: NutritionImage,
