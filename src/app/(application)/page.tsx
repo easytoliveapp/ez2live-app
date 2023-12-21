@@ -132,8 +132,7 @@ function PageHome() {
           {suppliers.length === 0 && (
             <EmptyCoupons
               icon={ShopImage}
-              title="Infelizmente, não encontramos nenhum parceiro correspondente no
-            momento 🌐"
+              title="Não encontramos nenhum parceiro no momento :/"
             />
           )}
         </InfiniteScroll>
