@@ -19,7 +19,7 @@ import { useSearchParams } from "next/navigation";
 import SkeletonSuppliersCards from "@/skeleton/SuppliersCards";
 import SkeletonCategoriesCards from "@/skeleton/CategoriesCards";
 import { useSupplierContext } from "@/providers/SuppliersProvider";
-import ShopImage from "@/images/easytolive/icons/shopMainColor.svg";
+import EmptyIcon from "@/images/easytolive/icons/empty-icon.svg";
 
 function PageHome() {
   const { data: session } = useSession();
@@ -131,8 +131,8 @@ function PageHome() {
             })}
           {suppliers.length === 0 && (
             <EmptyCoupons
-              icon={ShopImage}
-              title="Não encontramos nenhum parceiro no momento :/"
+              icon={EmptyIcon}
+              label="Não encontramos nenhum parceiro no momento :/"
             />
           )}
         </InfiniteScroll>
