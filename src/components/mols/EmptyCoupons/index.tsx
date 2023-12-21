@@ -5,7 +5,7 @@ import Image, { StaticImageData } from "next/image";
 import { LoadingComponent } from "@/components/atoms";
 interface IEmptyCoupons {
   icon: StaticImageData;
-  title: string;
+  title?: string;
   label?: string | false;
   href?: string | false;
 }
