@@ -42,7 +42,7 @@ const EmptyCoupons: React.FC<IEmptyCoupons> = ({
         src={icon}
         alt="Imagem Cupom"
       />
-      <h3 className="text-lg font-semibold mb-10">{title}</h3>
+      <h3 className="text-center text-lg font-semibold mb-10">{title}</h3>
       {label && href && <RedirectLink href={href} label={label} />}
       {label && !href && (
         <p className=" font-semibold text-primary-main">{label}</p>
