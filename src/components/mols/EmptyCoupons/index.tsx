@@ -38,7 +38,7 @@ const EmptyCoupons: React.FC<IEmptyCoupons> = ({
   return (
     <div className="w-full flex flex-col justify-center items-center">
       <Image
-        className="w-24 m-2 bg-white p-4 h-auto rounded-full "
+        className="w-24 m-2 bg-white p-4 h-auto"
         src={icon}
         alt="Imagem Cupom"
       />
