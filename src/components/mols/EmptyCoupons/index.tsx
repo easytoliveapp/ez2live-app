@@ -46,9 +46,7 @@ const EmptyCoupons: React.FC<IEmptyCoupons> = ({
         alt="Imagem Cupom"
       />
       {title && (
-        <span className={cx(titleStyle, "text-center mb-10")}>
-          {title}
-        </span>
+        <span className={cx(titleStyle, "text-center mb-10")}>{title}</span>
       )}
       {label && (
         <>
