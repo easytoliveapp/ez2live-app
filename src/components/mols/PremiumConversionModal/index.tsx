@@ -104,7 +104,7 @@ const PremiumConversionModal: React.FC<IPremiumConversionModal> = ({
                 addSubscriptionDays(28);
               }}
             >
-              {"[RESGATAR MINHA ASSINATURA PREMIUM!]"}
+              {"RESGATAR MINHA ASSINATURA PREMIUM!"}
             </ButtonPrimary>
             <ButtonThird onClick={() => addSubscriptionDays(14)}>
               Prefiro perder o presente!
