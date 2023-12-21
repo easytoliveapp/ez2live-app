@@ -131,8 +131,9 @@ function PageHome() {
             })}
           {suppliers.length === 0 && (
             <EmptyCoupons
+              titleStyle="text-generic-grayLighter"
               icon={EmptyIcon}
-              label="Não encontramos nenhum parceiro no momento :/"
+              title="Não encontramos nenhum parceiro no momento :/"
             />
           )}
         </InfiniteScroll>

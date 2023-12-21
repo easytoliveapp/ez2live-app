@@ -3,11 +3,13 @@
 import React, { useState } from "react";
 import Image, { StaticImageData } from "next/image";
 import { LoadingComponent } from "@/components/atoms";
+import cx from "classnames";
 interface IEmptyCoupons {
   icon: StaticImageData;
   title?: string;
   label?: string | false;
   href?: string | false;
+  titleStyle?: string;
 }
 
 interface IRedirectLink {
@@ -32,18 +34,19 @@ const RedirectLink: React.FC<IRedirectLink> = ({ href, label }) => {
 const EmptyCoupons: React.FC<IEmptyCoupons> = ({
   icon,
   title,
+  titleStyle = "text-black text-lg",
   label,
   href,
 }) => {
   return (
     <div className="w-full flex flex-col justify-center items-center">
       <Image
-        className="w-24 m-2 bg-white p-4 h-auto"
+        className="w-24 m-2 bg-white p-4 h-auto rounded-full"
         src={icon}
         alt="Imagem Cupom"
       />
       {title && (
-        <h3 className="text-center text-lg font-semibold mb-10">{title}</h3>
+        <span className={cx(titleStyle, "text-center mb-10")}>{title}</span>
       )}
       {label && (
         <>
