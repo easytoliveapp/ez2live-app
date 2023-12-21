@@ -42,7 +42,7 @@ const EmptyCoupons: React.FC<IEmptyCoupons> = ({
         src={icon}
         alt="Imagem Cupom"
       />
-      <h3 className="text-center text-lg font-semibold mb-10">{title}</h3>
+      {title && <h3 className="text-center text-lg font-semibold mb-10">{title}</h3>}
       {label && (
         <>
           {href ? (
