@@ -30,7 +30,7 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
           userId={session.user.id}
         />
       )}
-      <CompleteSupplierRegister />
+      {!isPremiumExpired && <CompleteSupplierRegister />}
       {session?.user ? <HeaderLogged /> : <Header />}
       <div className="app-layout__container">{children}</div>
     </div>
