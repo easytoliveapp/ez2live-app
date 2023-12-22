@@ -4,7 +4,13 @@ import { Field, Form, Formik } from "formik";
 import React, { useState } from "react";
 import * as Yup from "yup";
 import { ISupplierCompleteRegister } from "@/types/supplier";
-import { ItemTypeImage, TextArea, ButtonPrimary, FormItem, Modal } from "@/components";
+import {
+  ItemTypeImage,
+  TextArea,
+  ButtonPrimary,
+  FormItem,
+  Modal,
+} from "@/components";
 import supplierService from "@/service/supplier.service";
 import { useSession } from "next-auth/react";
 import { showToastify } from "@/hooks/showToastify";
@@ -60,17 +66,19 @@ const CompleteSupplierRegister: React.FC = () => {
       });
     }
 
-    const uploadedImages = await supplierService.updateSupplierImages(session?.user.id, {
-      supplierLogo: values.supplierLogo,
-      supplierBanner: values.supplierBanner,
-      description: values.description,
-    })
+    const uploadedImages = await supplierService
+      .updateSupplierImages(session?.user.id, {
+        supplierLogo: values.supplierLogo,
+        supplierBanner: values.supplierBanner,
+        description: values.description,
+      })
       .then((response) => response.data)
       .catch((error) => {
         console.log(error);
         showToastify({
           type: "error",
-          label: "Tivemos um problema ao atualizar as imagens do estabelecimento",
+          label:
+            "Tivemos um problema ao atualizar as imagens do estabelecimento",
         });
       })
       .finally(() => {
@@ -139,9 +147,7 @@ const CompleteSupplierRegister: React.FC = () => {
               <FormItem
                 label="Imagem ilustrativa"
                 errorMessage={errors.supplierBanner}
-                invalid={
-                  !!(errors.supplierBanner && touched.supplierBanner)
-                }
+                invalid={!!(errors.supplierBanner && touched.supplierBanner)}
               >
                 <label
                   onChange={() => SetIlustrationImagePlaceHolder("carregado")}
