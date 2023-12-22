@@ -90,7 +90,7 @@ function PageHome() {
     if (queryCategoryFilter) {
       setSupplierCategoriesFilter(queryCategoryFilter);
     }
-  }, [queryCategoryFilter]);
+  }, [queryCategoryFilter, setSupplierCategoriesFilter]);
 
   return (
     <div className="md:w-[600px] w-full m-auto px-5 relative">

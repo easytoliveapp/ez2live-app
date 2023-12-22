@@ -40,7 +40,11 @@ const AvatarDropdown = () => {
                   <p className="absolute right-14 font-semibold text-sm text-generic-dark">
                     desconectando
                   </p>
-                  <LoadingComponent fullSize={false} bgStyle="none" />
+                  <LoadingComponent
+                    fullSize={false}
+                    bgStyle="none"
+                    size="small"
+                  />
                 </span>
               ) : (
                 <Avatar imgUrl={user?.image ?? userImage} />
