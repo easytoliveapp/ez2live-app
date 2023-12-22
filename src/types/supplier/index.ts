@@ -69,8 +69,8 @@ export interface ICategoryProps {
 }
 
 export interface ISupplierCompleteRegister {
-  logo: string | StaticImageData;
-  ilustration_image: string | StaticImageData;
+  supplierLogo: string | StaticImageData;
+  supplierBanner: string | StaticImageData;
   description: string;
 }
 
