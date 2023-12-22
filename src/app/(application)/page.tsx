@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   CategoryCard,
   EmptyCoupons,
@@ -9,6 +9,7 @@ import {
   SupplierCard,
 } from "@/components";
 import SupplierLogo from "@/images/easytolive/logo/logotipo-fundoazulroxo.svg";
+import couponsService from "@/service/coupons.service";
 import CouponPrimary from "@/images/easytolive/icons/couponPrimary.svg";
 import imageCategory from "@/images/easytolive/icons/categorie-example.svg";
 import { ISuppliers } from "@/types/supplier";
@@ -20,6 +21,9 @@ import SkeletonSuppliersCards from "@/skeleton/SuppliersCards";
 import SkeletonCategoriesCards from "@/skeleton/CategoriesCards";
 import { useSupplierContext } from "@/providers/SuppliersProvider";
 import EmptyIcon from "@/images/easytolive/icons/empty-icon.svg";
+import { ICouponCodesByUser } from "@/types/coupons";
+import { showToastify } from "@/hooks/showToastify";
+import useUserRoles from "@/hooks/useUserRoles";
 
 function PageHome() {
   const { data: session } = useSession();
@@ -54,6 +58,26 @@ function PageHome() {
     }
   }, []);
 
+  //------------ get coupon codes by ser ------------------
+  const isCommonUser = useUserRoles().isCommonUser();
+  const [couponCodes, setCouponCodes] = useState(Array<ICouponCodesByUser>);
+  const handleGetCouponCodesByUser = async () => {
+    const res: any = await couponsService.getCouponCodesByUser();
+    return res;
+  };
+
+  useEffect(() => {
+    if (isCommonUser)
+      handleGetCouponCodesByUser()
+        .then((res) => setCouponCodes(res.data.coupons))
+        .catch((error) =>
+          showToastify({ type: "error", label: `Ocorreu um erro: ${error}` }),
+        );
+  }, [isCommonUser]);
+
+  const hasActiveCoupon =
+    couponCodes.filter((t) => t.status === "ACTIVE").length > 0;
+  // ----------------------------------------------
   // restore scroll position
   useEffect(() => {
     if ("scrollPosition" in sessionStorage && suppliers.length > 0) {
@@ -73,7 +97,7 @@ function PageHome() {
       {session?.user && (
         <FloatButtonNav
           label="meus cupons"
-          hasCouponActive={true}
+          hasCouponActive={hasActiveCoupon}
           backgroundStyle="secondary"
           icon={CouponPrimary}
           href="/meus-cupons"

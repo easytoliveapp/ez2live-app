@@ -34,7 +34,7 @@ const FloatButtonNav: React.FC<IFloatButtonNavProps & LinkProps<any>> = ({
           ? "from-primary-main to-primary-lighter"
           : "from-secondary-main to-secondary-lighter"
       } ${
-        hasCouponActive ? "pr-1" : "pr-8"
+        hasCouponActive ? "pr-4" : "pr-8"
       } flex items-center bg-gradient-to-r rounded-l-full pl-4 py-4 fixed bottom-28 right-0 z-50 min-h-8 p-3`}
     >
       <Image className="w-auto h-9" alt="icon-image" src={icon}></Image>
