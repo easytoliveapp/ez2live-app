@@ -61,7 +61,7 @@ const FloatButtonNav: React.FC<IFloatButtonNavProps & LinkProps<any>> = ({
         {isloading ? (
           <LoadingComponent bgStyle="none" fullSize={false} />
         ) : (
-          <span>{label}</span>
+          <span className="md:[display:block] hidden">{label}</span>
         )}
       </div>
     </NextLink>
