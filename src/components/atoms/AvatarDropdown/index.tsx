@@ -3,13 +3,13 @@
 import { Popover, Transition } from "@/app/headlessui";
 import userImage from "@/images/easytolive/user/user_circle_1.svg";
 import React, { Fragment, useState } from "react";
-import { Avatar } from "@/components";
+import { Avatar, LoadingComponent } from "@/components";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { signOut } from "next-auth/react";
 import UserRoles from "@/hooks/useUserRoles";
 
-export default function AvatarDropdown() {
+const AvatarDropdown = () => {
   const { data: session } = useSession();
   const user = session?.user;
   const [isLoading, setIsLoading] = useState(false);
@@ -22,10 +22,10 @@ export default function AvatarDropdown() {
     ? "Dashboard"
     : "Meus Cupons";
 
-  const handleLogout = async () => {
+  function handleLogout() {
     setIsLoading(true);
-    signOut({ redirect: true });
-  };
+    return signOut();
+  }
 
   return (
     <div className="AvatarDropdown ">
@@ -35,7 +35,16 @@ export default function AvatarDropdown() {
             <Popover.Button
               className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full hover:bg-slate-100 focus:outline-none flex items-center justify-center`}
             >
-              <Avatar imgUrl={user?.image ?? userImage} />
+              {isLoading ? (
+                <span className="relative flex items-center">
+                  <p className="absolute right-14 font-semibold text-sm text-generic-dark">
+                    desconectando
+                  </p>
+                  <LoadingComponent fullSize={false} bgStyle="none" />
+                </span>
+              ) : (
+                <Avatar imgUrl={user?.image ?? userImage} />
+              )}
             </Popover.Button>
             <Transition
               as={Fragment}
@@ -226,10 +235,11 @@ export default function AvatarDropdown() {
                       </Link>
                     )}
                     {/* ------------------ 2 --------------------- */}
-                    <Link
-                      href={"/conta/entrar"}
-                      className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-700 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
-                      onClick={() => handleLogout()}
+                    <div
+                      className="flex cursor-pointer items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-700 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
+                      onClick={() => {
+                        close(), handleLogout();
+                      }}
                     >
                       <div className="flex items-center justify-center flex-shrink-0 text-neutral-500 ">
                         <svg
@@ -267,7 +277,7 @@ export default function AvatarDropdown() {
                           {isLoading ? "Desconectando..." : "Desconectar"}
                         </p>
                       </div>
-                    </Link>
+                    </div>
                   </div>
                 </div>
               </Popover.Panel>
@@ -277,4 +287,6 @@ export default function AvatarDropdown() {
       </Popover>
     </div>
   );
-}
+};
+
+export default AvatarDropdown;

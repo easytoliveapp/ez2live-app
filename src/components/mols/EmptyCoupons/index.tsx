@@ -22,7 +22,7 @@ const RedirectLink: React.FC<IRedirectLink> = ({ href, label }) => {
   return (
     <a
       onClick={() => setIsLoading(true)}
-      className=" font-semibold cursor-pointer text-primary-main"
+      className=" font-semibold cursor-pointer text-sm text-primary-main"
       href={href || ""}
     >
       {isLoading && <LoadingComponent fullSize={false} bgStyle="none" />}
@@ -34,7 +34,7 @@ const RedirectLink: React.FC<IRedirectLink> = ({ href, label }) => {
 const EmptyCoupons: React.FC<IEmptyCoupons> = ({
   icon,
   title,
-  titleStyle = "text-black text-lg",
+  titleStyle = "text-black text-lg text-generic-grayLighter",
   label,
   href,
 }) => {
@@ -46,7 +46,7 @@ const EmptyCoupons: React.FC<IEmptyCoupons> = ({
         alt="Imagem Cupom"
       />
       {title && (
-        <span className={cx(titleStyle, "text-center mb-10")}>{title}</span>
+        <span className={cx(titleStyle, "text-center mb-4")}>{title}</span>
       )}
       {label && (
         <>

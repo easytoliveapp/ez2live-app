@@ -33,7 +33,7 @@ const LoadingComponent: React.FC<ILoadingComponent> = ({
       <div className="relative">
         <motion.div
           className={cx(
-            fullSize ? "w-40 h-40" : "w-12 h-12",
+            fullSize ? "w-40 h-40" : "w-10 h-10",
             "relative border-opacity-60 border-collapse pb-primary-main  rounded-full border-b-primary-main border-4 border-neutral-200 opacity-50 ",
           )}
           animate={{
