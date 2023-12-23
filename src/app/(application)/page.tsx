@@ -24,6 +24,7 @@ import EmptyIcon from "@/images/easytolive/icons/empty-icon.svg";
 import { ICouponCodesByUser } from "@/types/coupons";
 import { showToastify } from "@/hooks/showToastify";
 import useUserRoles from "@/hooks/useUserRoles";
+import { boolean } from "yup";
 
 function PageHome() {
   const { data: session } = useSession();
@@ -60,7 +61,7 @@ function PageHome() {
 
   //------------ get coupon codes by ser ------------------
   const isCommonUser = useUserRoles().isCommonUser();
-  const [couponCodes, setCouponCodes] = useState(Array<ICouponCodesByUser>);
+  const [hasCouponActived, setHasCouponActived] = useState(false);
   const handleGetCouponCodesByUser = async () => {
     const res: any = await couponsService.getCouponCodesByUser();
     return res;
@@ -69,14 +70,18 @@ function PageHome() {
   useEffect(() => {
     if (isCommonUser)
       handleGetCouponCodesByUser()
-        .then((res) => setCouponCodes(res.data.coupons))
+        .then((res) =>
+          setHasCouponActived(
+            res.data.coupons.some(
+              (t: ICouponCodesByUser) => t.status === "ACTIVE",
+            ),
+          ),
+        )
         .catch((error) =>
           showToastify({ type: "error", label: `Ocorreu um erro: ${error}` }),
         );
   }, [isCommonUser]);
 
-  const hasActiveCoupon =
-    couponCodes.filter((t) => t.status === "ACTIVE").length > 0;
   // ----------------------------------------------
   // restore scroll position
   useEffect(() => {
@@ -97,7 +102,7 @@ function PageHome() {
       {session?.user && (
         <FloatButtonNav
           label="meus cupons"
-          hasCouponActive={hasActiveCoupon}
+          hasCouponActive={hasCouponActived}
           backgroundStyle="secondary"
           icon={CouponPrimary}
           href="/meus-cupons"
