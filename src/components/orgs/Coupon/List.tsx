@@ -30,6 +30,7 @@ import { ICoupon } from "@/types/coupons";
 import CouponIcon from "@/images/easytolive/icons/couponPrimary.svg";
 import CouponRed from "@/images/easytolive/icons/couponred.svg";
 import useUserRoles from "@/hooks/useUserRoles";
+import { useFullscreen } from "react-use";
 
 interface ICouponListProps {
   supplierId: string;
@@ -159,7 +160,16 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
           </ButtonThird>
         </div>
       </Modal>
-      <div className="h-40 w-full bg-gradient-to-r from-primary-lighter to-primary-main"></div>
+      <div className="h-40 w-full bg-gradient-to-r from-primary-lighter to-primary-main">
+        {supplier.supplier.supplierInfo.supplierBanner && (
+          <Image
+            alt="supplier-banner"
+            fill={true}
+            className="w-auto h-40"
+            src={supplier.supplier.supplierInfo.supplierBanner}
+          />
+        )}
+      </div>
       <Link
         prefetch={true}
         className="absolute flex items-center justify-center rounded-full top-4 left-4 cursor-pointer h-8 w-8 bg-neutral-400 opacity-75 rotate-180"
@@ -169,7 +179,7 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
       </Link>
       <Image
         className="absolute rounded-full w-20 h-auto top-8 right-4"
-        src={LogoImage}
+        src={supplier.supplier.supplierInfo.supplierLogo}
         alt="Logo-restaurante"
       />
       <div className="px-5 py-6 -mt-6 rounded-t-3xl bg-generic-background w-full h-full">
@@ -210,12 +220,12 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
             </div>
           </div>
           <h2 className=" text-xl font-semibold">{supplier?.supplier?.name}</h2>
-          <p className="pt-2 text-xs text-gray-400">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi
-            vero velit quam repellendus facere ea recusandae, sapiente
-            repudiandae perspiciatis temporibus et exercitatione illum nobis
-            corrupti, sunt voluptates perferendis dicta fugiat.
-          </p>
+          {supplier.supplier.supplierInfo.description && (
+            <p className="pt-2 text-xs text-gray-400">
+              {" "}
+              {supplier.supplier.supplierInfo.description}{" "}
+            </p>
+          )}
           <div className="mt-6 pb-16 flex flex-col gap-4">
             {filteredCoupons.length > 0 ? (
               filteredCoupons.map((coupon, key) => (

@@ -23,6 +23,9 @@ export interface ISupplier {
       address: IAddress;
       isSupplier: boolean;
       isVerified: boolean;
+      supplierBanner: string;
+      supplierLogo: string;
+      description: string;
     };
   };
   coupons: ICoupon[];
