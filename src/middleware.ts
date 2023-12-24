@@ -3,7 +3,7 @@ import { getToken } from "next-auth/jwt";
 import {
   ROLE_START_URL,
   PRIVATE_ROUTES_CONFIG,
-  SIGN_IN_ROUTE_PATH,
+  AUTH_ROUTE_PATHS,
 } from "./routers";
 import { ROLES } from "./constants/roles";
 
@@ -17,7 +17,7 @@ export async function middleware(request: NextRequest) {
         : "next-auth.session-token",
   });
 
-  if (!tokenInfo && request.nextUrl.pathname !== SIGN_IN_ROUTE_PATH) {
+  if (!tokenInfo && !(AUTH_ROUTE_PATHS.some((path) => path === request.nextUrl.pathname))) {
     return NextResponse.redirect(new URL("/conta/entrar", request.url));
   }
 

@@ -24,7 +24,14 @@ export const PRIVATE_ROUTES_CONFIG = [
   { path: "/meus-cupons", roles: [ROLES.commonUser], isPublic: false },
 ];
 
-export const SIGN_IN_ROUTE_PATH = "/conta/entrar";
+export const AUTH_ROUTE_PATHS = [
+  "/conta/acessar",
+  "/conta/entrar",
+  "/conta/cadastrar/parceiro",
+  "/conta/cadastrar/usuario",
+  "/conta/esqueci-a-senha",
+  "/conta/criar-nova-senha"
+]
 
 export const ROLE_START_URL = {
   [ROLES.commonUser]: "/meus-cupons",
