@@ -8,17 +8,25 @@ interface ILoadingComponent {
   fullSize?: boolean;
   bgStyle?: "main" | "secondary" | "none";
   Icon?: StaticImageData;
+  size?: "small" | "medium" | "large";
 }
 
 const LoadingComponent: React.FC<ILoadingComponent> = ({
   fullSize = true,
   bgStyle = "main",
   Icon,
+  size = "medium",
 }) => {
   const COLORS = {
     main: "bg-primary-main",
     secondary: "bg-secondary-main",
     none: "bg-none",
+  };
+
+  const SIZING = {
+    small: "w-4 h-4",
+    medium: "w-10 h-10",
+    large: "w-24 h-24",
   };
 
   return (
@@ -33,7 +41,7 @@ const LoadingComponent: React.FC<ILoadingComponent> = ({
       <div className="relative">
         <motion.div
           className={cx(
-            fullSize ? "w-40 h-40" : "w-12 h-12",
+            fullSize ? "w-40 h-40" : SIZING[size],
             "relative border-opacity-60 border-collapse pb-primary-main  rounded-full border-b-primary-main border-4 border-neutral-200 opacity-50 ",
           )}
           animate={{
