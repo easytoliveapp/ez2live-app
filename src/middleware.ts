@@ -13,10 +13,6 @@ export async function middleware(request: NextRequest) {
         : "next-auth.session-token",
   });
 
-  if (!tokenInfo) {
-    return NextResponse.redirect(new URL("/conta/entrar", request.url));
-  }
-
   const privateRequestRoute = PRIVATE_ROUTES_CONFIG.filter((routes) => {
     return routes.path === request.nextUrl.pathname;
   }).shift();
