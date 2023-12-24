@@ -79,15 +79,15 @@ const CompleteSupplierRegister: React.FC = () => {
           label:
             "Tivemos um problema ao atualizar as imagens do estabelecimento",
         });
-      })
-
+      });
 
     if (uploadedImages) {
-      await supplierService.updateSupplierById(session?.user.id, {
-        supplierInfo: {
-          supplierDescription: values.description,
-        },
-      })
+      await supplierService
+        .updateSupplierById(session?.user.id, {
+          supplierInfo: {
+            supplierDescription: values.description,
+          },
+        })
         .then(() => {
           showToastify({
             type: "success",
@@ -103,7 +103,7 @@ const CompleteSupplierRegister: React.FC = () => {
         .finally(() => {
           setloading(false);
         });
-    };
+    }
 
     return uploadedImages;
   };
