@@ -17,7 +17,7 @@ export async function middleware(request: NextRequest) {
         : "next-auth.session-token",
   });
 
-  console.log("tokenInfo", tokenInfo)
+  console.log("tokenInfo", tokenInfo);
 
   if (
     !tokenInfo &&
