@@ -17,12 +17,7 @@ export async function middleware(request: NextRequest) {
     return routes.path === request.nextUrl.pathname;
   }).shift();
 
-  if (
-    !tokenInfo &&
-    privateRequestRoute &&
-    !privateRequestRoute?.isPublic &&
-    !privateRequestRoute?.roles.some((role) => role === ROLES.commonUser)
-  ) {
+  if (!tokenInfo && privateRequestRoute && !privateRequestRoute?.isPublic) {
     return NextResponse.redirect("/conta/acessar");
   }
 
