@@ -31,7 +31,7 @@ export interface ISupplier {
       isVerified: boolean;
       supplierBanner: string;
       supplierLogo: string;
-      description: string;
+      supplierDescription: string;
     };
   };
   coupons: ICoupon[];

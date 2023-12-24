@@ -2,14 +2,14 @@
 
 import React, { FC } from "react";
 import { Avaliation, CouponsAvaible } from "@/components";
-import Image, { StaticImageData } from "next/image";
+import Image from "next/image";
 import ArrowRight from "@/images/easytolive/icons/arrow-next-right-black.svg";
 import { useRouter } from "next/navigation";
 
 interface SupplierCardProps {
   couponsAvailableCount: number;
   supplierCategory: string;
-  supplierImage: string | StaticImageData;
+  supplierImage: string;
   name: string;
   rating?: string;
   id: string;
