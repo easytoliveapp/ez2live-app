@@ -17,6 +17,8 @@ export async function middleware(request: NextRequest) {
         : "next-auth.session-token",
   });
 
+  console.log("tokenInfo", tokenInfo)
+
   if (
     !tokenInfo &&
     !AUTH_ROUTE_PATHS.some((path) => path === request.nextUrl.pathname)
