@@ -24,7 +24,7 @@ const AvatarDropdown = () => {
 
   function handleLogout() {
     setIsLoading(true);
-    return signOut({ redirect: true });
+    return signOut({ redirect: true, callbackUrl: "/" });
   }
 
   return (
