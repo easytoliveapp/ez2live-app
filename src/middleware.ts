@@ -33,6 +33,15 @@ export async function middleware(request: NextRequest) {
   }
 
   if (
+    !tokenInfo &&
+    privateRequestRoute &&
+    !privateRequestRoute?.isPublic &&
+    !privateRequestRoute?.roles.some((role) => role === ROLES.commonUser)
+  ) {
+    return NextResponse.redirect("/conta/acessar");
+  }
+
+  if (
     (tokenInfo?.user.role === ROLES.supplier ||
       tokenInfo?.user.role === ROLES.admin) &&
     request.nextUrl.pathname === "/"
