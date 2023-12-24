@@ -24,7 +24,6 @@ import EmptyIcon from "@/images/easytolive/icons/empty-icon.svg";
 import { ICouponCodesByUser } from "@/types/coupons";
 import { showToastify } from "@/hooks/showToastify";
 import useUserRoles from "@/hooks/useUserRoles";
-import { boolean } from "yup";
 
 function PageHome() {
   const { data: session } = useSession();
