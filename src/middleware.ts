@@ -18,6 +18,15 @@ export async function middleware(request: NextRequest) {
   }).shift();
 
   if (
+    !tokenInfo &&
+    privateRequestRoute &&
+    !privateRequestRoute?.isPublic &&
+    !privateRequestRoute?.roles.some((role) => role === ROLES.commonUser)
+  ) {
+    return NextResponse.redirect("/conta/acessar");
+  }
+
+  if (
     tokenInfo &&
     privateRequestRoute &&
     !privateRequestRoute?.isPublic &&
@@ -30,15 +39,6 @@ export async function middleware(request: NextRequest) {
         request.url,
       ),
     );
-  }
-
-  if (
-    !tokenInfo &&
-    privateRequestRoute &&
-    !privateRequestRoute?.isPublic &&
-    !privateRequestRoute?.roles.some((role) => role === ROLES.commonUser)
-  ) {
-    return NextResponse.redirect("/conta/acessar");
   }
 
   if (
