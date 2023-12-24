@@ -1,10 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getToken } from "next-auth/jwt";
-import {
-  ROLE_START_URL,
-  PRIVATE_ROUTES_CONFIG,
-  AUTH_ROUTE_PATHS,
-} from "./routers";
+import { ROLE_START_URL, PRIVATE_ROUTES_CONFIG } from /*   AUTH_ROUTE_PATHS,
+ */ "./routers";
 import { ROLES } from "./constants/roles";
 
 export async function middleware(request: NextRequest) {
@@ -17,7 +14,7 @@ export async function middleware(request: NextRequest) {
         : "next-auth.session-token",
   });
 
-/*   if (
+  /*   if (
     !tokenInfo &&
     !AUTH_ROUTE_PATHS.some((path) => path === request.nextUrl.pathname)
   ) {
