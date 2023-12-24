@@ -33,6 +33,19 @@ export interface ISupplier {
   role: string;
 }
 
+export interface ISupplierInfo {
+  _id: string;
+  validCoupons: ICoupon[];
+  coupons: ICoupon[];
+  supplierCategory: iSupplierCategory;
+  address: IAddress;
+  isSupplier: boolean;
+  isVerified: boolean;
+  supplierBanner?: string;
+  supplierLogo?: string;
+  supplierDescription?: string;
+}
+
 export interface ISuppliers {
   name: string;
   active: boolean;
@@ -41,15 +54,7 @@ export interface ISuppliers {
   numberOfCoupons: number;
   email: string;
   _id: string;
-  supplierInfo: {
-    _id: string;
-    validCoupons: ICoupon[];
-    coupons: ICoupon[];
-    supplierCategory: iSupplierCategory;
-    address: IAddress;
-    isSupplier: boolean;
-    isVerified: boolean;
-  };
+  supplierInfo: ISupplierInfo;
 }
 
 export interface ISupplierList {

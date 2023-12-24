@@ -1,3 +1,5 @@
+import { ISupplierInfo } from "@/types/supplier";
+
 export interface IUser {
   id: string;
   image: string;
@@ -8,6 +10,7 @@ export interface IUser {
   active: boolean;
   isSupplier: boolean;
   isVerified: boolean;
+  supplierInfo?: ISupplierInfo | null;
 }
 
 export interface ITokens {

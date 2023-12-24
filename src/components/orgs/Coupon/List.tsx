@@ -30,7 +30,6 @@ import { ICoupon } from "@/types/coupons";
 import CouponIcon from "@/images/easytolive/icons/couponPrimary.svg";
 import CouponRed from "@/images/easytolive/icons/couponred.svg";
 import useUserRoles from "@/hooks/useUserRoles";
-import { useFullscreen } from "react-use";
 
 interface ICouponListProps {
   supplierId: string;
