@@ -1,15 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getToken } from "next-auth/jwt";
-import isAuthenticated from "@/utils/isAuthenticated";
+import {
+  ROLE_START_URL,
+  PRIVATE_ROUTES_CONFIG,
+  AUTH_ROUTE_PATHS,
+} from "./routers";
+import { ROLES } from "./constants/roles";
 
 export async function middleware(request: NextRequest) {
-  // Call our authentication function to check the request
-
-  if (!isAuthenticated(request)) {
-    // Respond with JSON indicating an error message
-    return NextResponse.redirect(new URL("/conta/entrar", request.url));
-  }
-
   const tokenInfo = await getToken({
     req: request,
     secret: process.env.NEXTAUTH_SECRET,
@@ -19,41 +17,50 @@ export async function middleware(request: NextRequest) {
         : "next-auth.session-token",
   });
 
-  if (!tokenInfo) {
+  if (
+    !tokenInfo &&
+    !AUTH_ROUTE_PATHS.some((path) => path === request.nextUrl.pathname)
+  ) {
     return NextResponse.redirect(new URL("/conta/entrar", request.url));
   }
 
-  // If the user is not an admin or supplier and is trying to access the admin or dashboard, redirect to the home page
-  if (
-    tokenInfo.user.role === "user" &&
-    (request.nextUrl.pathname.includes("/dashboard") ||
-      request.nextUrl.pathname.includes("/admin"))
-  ) {
-    return NextResponse.redirect(new URL("/", request.url));
-  }
-
-  // If the user is supplier account and is trying to access the admin or my-coupons, redirect to the dashboard page.
+  const privateRequestRoute = PRIVATE_ROUTES_CONFIG.filter((routes) => {
+    return routes.path === request.nextUrl.pathname;
+  }).shift();
 
   if (
-    tokenInfo.user.role === "supplier" &&
-    (request.nextUrl.pathname.includes("/meus-cupons") ||
-      request.nextUrl.pathname.includes("/admin"))
+    tokenInfo &&
+    privateRequestRoute &&
+    !privateRequestRoute?.isPublic &&
+    !privateRequestRoute?.roles.some((role) => role === tokenInfo?.user.role)
   ) {
-    return NextResponse.redirect(new URL("/dashboard", request.url));
+    return NextResponse.redirect(
+      new URL(
+        ROLE_START_URL[tokenInfo?.user.role as keyof typeof ROLE_START_URL] ??
+          "/",
+        request.url,
+      ),
+    );
   }
 
-  // If the request is authenticated and authorized, continue to the API route handler
+  if (
+    (tokenInfo?.user.role === ROLES.supplier ||
+      tokenInfo?.user.role === ROLES.admin) &&
+    request.nextUrl.pathname === "/"
+  ) {
+    return NextResponse.redirect(
+      new URL(
+        ROLE_START_URL[tokenInfo?.user.role as keyof typeof ROLE_START_URL] ??
+          "/",
+        request.url,
+      ),
+    );
+  }
+
   return NextResponse.next();
 }
 
 // Limit the middleware to paths starting with `/api/`
 export const config = {
-  matcher: [
-    "/admin/:path*",
-    "/meus-cupons",
-    "/dashboard/:path*",
-    "/dashboard/parceiro/:path*",
-    "/parceiro-nao-encontrado",
-    "/minha-conta",
-  ],
+  matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
 };
