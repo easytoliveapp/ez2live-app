@@ -60,26 +60,6 @@ function PageHome() {
 
   //------------ get coupon codes by ser ------------------
   const isCommonUser = useUserRoles().isCommonUser();
-  const [hasCouponActived, setHasCouponActived] = useState(false);
-  const handleGetCouponCodesByUser = async () => {
-    const res: any = await couponsService.getCouponCodesByUser();
-    return res;
-  };
-
-  useEffect(() => {
-    if (isCommonUser)
-      handleGetCouponCodesByUser()
-        .then((res) =>
-          setHasCouponActived(
-            res.data.coupons.some(
-              (t: ICouponCodesByUser) => t.status === "ACTIVE",
-            ),
-          ),
-        )
-        .catch((error) =>
-          showToastify({ type: "error", label: `Ocorreu um erro: ${error}` }),
-        );
-  }, [isCommonUser]);
 
   // ----------------------------------------------
   // restore scroll position
@@ -101,7 +81,7 @@ function PageHome() {
       {session?.user && (
         <FloatButtonNav
           label="meus cupons"
-          hasCouponActive={hasCouponActived}
+          hasCouponActive={isCommonUser && session.user.supplierInfo?.coupons.some((t) => t.status === "ACTIVE")}
           backgroundStyle="secondary"
           icon={CouponPrimary}
           href="/meus-cupons"
