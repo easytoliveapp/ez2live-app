@@ -22,9 +22,9 @@ const AvatarDropdown = () => {
     ? "Dashboard"
     : "Meus Cupons";
 
-  function handleLogout() {
+  async function handleLogout() {
     setIsLoading(true);
-    return signOut();
+    return await signOut({ redirect: true, callbackUrl: "/conta/entrar" });
   }
 
   return (
