@@ -5,6 +5,7 @@ import { useDebounce } from "use-debounce";
 import supplierService from "@/service/supplier.service";
 import { ISupplierList } from "@/types/supplier";
 import { showToastify } from "@/hooks/showToastify";
+import LogoMain from "@/images/easytolive/logo/logotipo-fundoazulroxo.svg";
 import {
   AccordionInfo,
   ButtonSecondary,
@@ -168,7 +169,7 @@ function SupplierPage() {
   };
 
   if (Array.isArray(suppliers) && suppliers.length === 0 && isLoading) {
-    return <LoadingComponent />;
+    return <LoadingComponent Icon={LogoMain} fullSize={true} />;
   }
 
   const handlePaginationClick = (pageNumber: number) => {

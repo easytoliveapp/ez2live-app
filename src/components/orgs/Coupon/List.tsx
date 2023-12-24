@@ -12,6 +12,7 @@ import {
   CouponContainer,
   CreateAndUpdateCoupon,
   Modal,
+  EmptyCoupons,
   FloatButtonNav,
 } from "@/components";
 import { ISupplier } from "@/types/supplier";
@@ -22,9 +23,12 @@ import Arrow from "@/images/easytolive/icons/arrow-next-right-primary.svg";
 import CouponPrimary from "@/images/easytolive/icons/couponPrimary.svg";
 import Edit from "@/images/easytolive/icons/edit.svg";
 import LogoImage from "@/images/easytolive/logo/logotipo-fundoazulroxo.svg";
+import LogoMain from "@/images/easytolive/logo/logobranca-fundoprimary.svg";
 import { useSession } from "next-auth/react";
 import { ICoupon } from "@/types/coupons";
 import CouponIcon from "@/images/easytolive/icons/couponPrimary.svg";
+import CouponRed from "@/images/easytolive/icons/couponred.svg";
+import useUserRoles from "@/hooks/useUserRoles";
 
 interface ICouponListProps {
   supplierId: string;
@@ -115,6 +119,8 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
       return;
     }
   };
+
+  const isSupplier = useUserRoles().isSupplier();
 
   return supplier ? (
     <div className="relative h-full w-full mx-auto">
@@ -224,14 +230,19 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
                 />
               ))
             ) : (
-              <em className="text-xs">Nenhum cupom ativo foi encontrado...</em>
+              <EmptyCoupons
+                icon={CouponRed}
+                title="Nenhum cupom disponível"
+                href={!isSupplier && "/"}
+                label={!isSupplier && "ver outros parceiros"}
+              />
             )}
           </div>
         </div>
       </div>
     </div>
   ) : (
-    <LoadingComponent />
+    <LoadingComponent Icon={LogoMain} />
   );
 };
 

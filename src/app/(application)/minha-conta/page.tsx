@@ -11,7 +11,7 @@ import {
 } from "@/components";
 import { showToastify } from "@/hooks/showToastify";
 import { type IDeleteUSer } from "@/types/user";
-
+import dayjs from "dayjs";
 import * as Yup from "yup";
 import { useRouter } from "next/navigation";
 import React, { useState, useCallback } from "react";
@@ -21,6 +21,7 @@ import { Field, Form, Formik } from "formik";
 import classNames from "@/utils/classNames";
 import { signOut, useSession } from "next-auth/react";
 import { getDateFormater } from "@/utils/getDateFormater";
+import useUserRoles from "@/hooks/useUserRoles";
 
 const MyAccountPage = () => {
   const { data: session } = useSession();
@@ -30,6 +31,12 @@ const MyAccountPage = () => {
   const Account = () => {
     return (
       <div className="relative h-max flex flex-col mx-auto gap-4 w-full max-w-md">
+        {!useUserRoles().isCommonUser() && (
+          <div className=" bg-primary-main mb-4 rounded-2xl px-4 py-1 mx-auto text-white font-semibold">
+            {session?.user.role}
+          </div>
+        )}
+
         <FormItem label="Nome">
           <div className="ml-2 text-lg font-medium text-neutral-600">
             {session?.user?.name}
@@ -42,7 +49,8 @@ const MyAccountPage = () => {
         </FormItem>
         <FormItem label="Premium">
           <div className="ml-2 text-lg font-medium text-neutral-600">
-            {session?.user.subscriptionEndDate !== null
+            {session?.user.subscriptionEndDate !== null &&
+            dayjs(session?.user.subscriptionEndDate).isAfter(dayjs())
               ? `validade: ${getDateFormater(
                   session?.user?.subscriptionEndDate,
                 )}`
@@ -214,7 +222,7 @@ const MyAccountPage = () => {
 
   return (
     <div className="nc-AccountCommonLayout container">
-      <div className="mt-8 mb-16 flex items-center justify-between">
+      <div className="mt-8 mb-8 flex items-center justify-between">
         <h2 className=" flex flex-wrap items-center text-2xl leading-[115%] md:leading-[115%] font-bold text-black justify-center">
           {session?.user?.name}
         </h2>
@@ -256,7 +264,7 @@ const MyAccountPage = () => {
           <hr className="border-slate-200 dark:border-slate-700"></hr>
         </div>
       </div>
-      <div className="max-w-4xl h-full mx-auto pt-14 sm:pt-26 pb-12 lg:pb-12">
+      <div className="max-w-4xl h-full mx-auto pt-8 sm:pt-26 pb-12 lg:pb-12">
         <TabComponent />
       </div>
     </div>

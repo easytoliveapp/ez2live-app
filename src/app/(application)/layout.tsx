@@ -1,7 +1,12 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { PremiumConversionModal, Header, HeaderLogged } from "@/components";
+import {
+  PremiumConversionModal,
+  Header,
+  HeaderLogged,
+  CompleteSupplierRegister,
+} from "@/components";
 import isDateValid from "@/utils/isDateValid";
 import { useSession } from "next-auth/react";
 
@@ -25,6 +30,9 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
           userId={session.user.id}
         />
       )}
+
+      {true && <CompleteSupplierRegister />}
+
       {session?.user ? <HeaderLogged /> : <Header />}
       <div className="app-layout__container">{children}</div>
     </div>

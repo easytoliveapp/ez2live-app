@@ -1,13 +1,15 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   CategoryCard,
+  EmptyCoupons,
   FloatButtonNav,
   SearchCategory,
   SupplierCard,
 } from "@/components";
 import SupplierLogo from "@/images/easytolive/logo/logotipo-fundoazulroxo.svg";
+import couponsService from "@/service/coupons.service";
 import CouponPrimary from "@/images/easytolive/icons/couponPrimary.svg";
 import imageCategory from "@/images/easytolive/icons/categorie-example.svg";
 import { ISuppliers } from "@/types/supplier";
@@ -18,7 +20,10 @@ import { useSearchParams } from "next/navigation";
 import SkeletonSuppliersCards from "@/skeleton/SuppliersCards";
 import SkeletonCategoriesCards from "@/skeleton/CategoriesCards";
 import { useSupplierContext } from "@/providers/SuppliersProvider";
-import AdminIconPurple from "@/images/easytolive/icons/admin-icon-primary.svg";
+import EmptyIcon from "@/images/easytolive/icons/empty-icon.svg";
+import { ICouponCodesByUser } from "@/types/coupons";
+import { showToastify } from "@/hooks/showToastify";
+import useUserRoles from "@/hooks/useUserRoles";
 
 function PageHome() {
   const { data: session } = useSession();
@@ -53,6 +58,30 @@ function PageHome() {
     }
   }, []);
 
+  //------------ get coupon codes by ser ------------------
+  const isCommonUser = useUserRoles().isCommonUser();
+  const [hasCouponActived, setHasCouponActived] = useState(false);
+  const handleGetCouponCodesByUser = async () => {
+    const res: any = await couponsService.getCouponCodesByUser();
+    return res;
+  };
+
+  useEffect(() => {
+    if (isCommonUser)
+      handleGetCouponCodesByUser()
+        .then((res) =>
+          setHasCouponActived(
+            res.data.coupons.some(
+              (t: ICouponCodesByUser) => t.status === "ACTIVE",
+            ),
+          ),
+        )
+        .catch((error) =>
+          showToastify({ type: "error", label: `Ocorreu um erro: ${error}` }),
+        );
+  }, [isCommonUser]);
+
+  // ----------------------------------------------
   // restore scroll position
   useEffect(() => {
     if ("scrollPosition" in sessionStorage && suppliers.length > 0) {
@@ -65,26 +94,19 @@ function PageHome() {
     if (queryCategoryFilter) {
       setSupplierCategoriesFilter(queryCategoryFilter);
     }
-  }, [queryCategoryFilter]);
+  }, [queryCategoryFilter, setSupplierCategoriesFilter]);
 
   return (
     <div className="md:w-[600px] w-full m-auto px-5 relative">
-      {session?.user &&
-        (session?.user.role === "admin" ? (
-          <FloatButtonNav
-            hasCouponActive={false}
-            backgroundStyle="secondary"
-            icon={AdminIconPurple}
-            href="/admin/parceiros"
-          />
-        ) : (
-          <FloatButtonNav
-            hasCouponActive={true}
-            backgroundStyle="secondary"
-            icon={CouponPrimary}
-            href="/meus-cupons"
-          />
-        ))}
+      {session?.user && (
+        <FloatButtonNav
+          label="meus cupons"
+          hasCouponActive={hasCouponActived}
+          backgroundStyle="secondary"
+          icon={CouponPrimary}
+          href="/meus-cupons"
+        />
+      )}
       <SearchCategory value={search || ""} onChange={handleSetSearch} />
       {categories && categories.length > 0 ? (
         <div className="flex overflow-x-auto justify-start my-4 w-full gap-2">
@@ -135,6 +157,13 @@ function PageHome() {
                 />
               );
             })}
+          {suppliers.length === 0 && (
+            <EmptyCoupons
+              titleStyle="text-generic-grayLighter"
+              icon={EmptyIcon}
+              title="Não encontramos nenhum parceiro no momento :/"
+            />
+          )}
         </InfiniteScroll>
       )}
     </div>

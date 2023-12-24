@@ -105,13 +105,6 @@ export const SupplierProvider: React.FC<ISupplierProviderProps> = ({
           getAllSuppliers(data),
           getAllCategories(),
         ]);
-
-        if (!(supplierRes?.data?.results.length > 0)) {
-          return showToastify({
-            label: `Ocorreu um erro ao carregar suppliers`,
-            type: "error",
-          });
-        }
         if (!(categoriesRes.data?.supplierCategories?.results.length > 0)) {
           return showToastify({
             label: `Ocorreu um erro ao carregar categorias`,

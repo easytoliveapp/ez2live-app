@@ -256,11 +256,7 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
             <h2 className="pl-2 flex items-center text-3xl leading-[115%] md:leading-[115%] font-bold text-black dark:text-neutral-100 justify-center">
               {isUpdatingCoupon ? "Atualizar Cupom" : "Novo Coupon"}
             </h2>
-            <div className="pr-2">
-              <div className="relative rounded-full w-40 h-16 bg-gradient-to-r from-secondary-main to-secondary-lighter">
-                <div className="absolute top-8 right-0 rounded-full w-16 h-16 bg-gradient-to-r from-secondary-main to-secondary-lighter"></div>
-              </div>
-            </div>
+            <div className="pr-2"></div>
           </div>
           <Formik
             enableReinitialize={true}
@@ -427,7 +423,9 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
                   disabled={loading}
                   loading={loading}
                 >
-                  Salvar cupom
+                  {isUpdatingCoupon
+                    ? "Salvar cupom"
+                    : "Cadastre agora seu novo cupom!"}
                 </ButtonSecondary>
               </Form>
             )}

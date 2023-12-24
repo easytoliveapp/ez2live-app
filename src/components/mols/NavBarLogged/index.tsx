@@ -1,7 +1,7 @@
 "use client";
 import React, { FC } from "react";
 import Image from "next/image";
-import extendedLogoImage from "@/images/easytolive/logo/logocompleta-semfundoazulroxo.svg";
+import LogoImage from "@/images/easytolive/logo/logotipo-semfundoazulroxo.svg";
 import { AvatarDropdown } from "@/components";
 import MenuBar from "../MenuBar";
 import Link from "next/link";
@@ -21,7 +21,7 @@ const NavBarLogged: FC<NavBarLoggedProps> = ({ hasLogoImage = true }) => {
         <Link href={session?.user.isSupplier ? "/dashboard" : "/"}>
           <Image
             className="w-auto h-8 rounded-full cursor-pointer"
-            src={session?.user?.image ?? extendedLogoImage}
+            src={session?.user?.image ?? LogoImage}
             alt="Logo Extentida"
           />
         </Link>

@@ -49,7 +49,7 @@ const resetPassword = async (data: IResetPassword) => {
 
 const refreshToken = async (data: any) => {
   return await BaseService.fetchData({
-    url: "/auth/refresh-token",
+    url: "/auth/refresh-tokens",
     data,
     method: "post",
   });

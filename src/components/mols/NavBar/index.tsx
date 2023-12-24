@@ -2,7 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
-import extendedLogoImage from "@/images/easytolive/logo/logocompleta-semfundoazulroxo.svg";
+import LogoImage from "@/images/easytolive/logo/logotipo-semfundoazulroxo.svg";
 import Link from "next/link";
 import { ButtonBasic } from "@/components";
 import { Route } from "next";
@@ -20,11 +20,7 @@ const NavBar: React.FC<NavBarProps> = ({ hasLogoImage = true }) => {
       <div className="relative w-full p-4 flex justify-center items-center bg-generic-background">
         {hasLogoImage && (
           <Link href="/">
-            <Image
-              className="w-auto h-8"
-              src={extendedLogoImage}
-              alt="EasyToLive"
-            />
+            <Image className="w-auto h-8" src={LogoImage} alt="EasyToLive" />
           </Link>
         )}
         <div className="absolute right-2">

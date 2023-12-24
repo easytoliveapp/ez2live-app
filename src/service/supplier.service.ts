@@ -1,4 +1,4 @@
-import { ISupplierList } from "@/types/supplier";
+import { ISupplierCompleteRegister, ISupplierList } from "@/types/supplier";
 import { BaseService } from "./base.service";
 
 const getSupplierList = async (data?: Partial<ISupplierList>) => {
@@ -6,6 +6,20 @@ const getSupplierList = async (data?: Partial<ISupplierList>) => {
     url: `/supplier`,
     method: "get",
     params: data,
+  });
+};
+
+const updateSupplierImages = async (
+  supplerId: string,
+  data: ISupplierCompleteRegister,
+) => {
+  return await BaseService.fetchData({
+    url: `/supplier/${supplerId}/updateSupplierImages`,
+    method: "post",
+    data,
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
   });
 };
 
@@ -32,6 +46,7 @@ const getSupplierCategories = async () => {
 
 const supplierService = {
   getSupplierList,
+  updateSupplierImages,
   verifySupplier,
   getSupplierCategories,
   getSupplierById,
