@@ -12,6 +12,11 @@ export const PRIVATE_ROUTES_CONFIG = [
   { path: "/dashboard", roles: [ROLES.supplier], isPublic: false },
   { path: "/dashboard/parceiro", roles: [ROLES.supplier], isPublic: false },
   {
+    path: "/dashboard/parceiro/ativar-cupom",
+    roles: [ROLES.supplier],
+    isPublic: false,
+  },
+  {
     path: "/dashboard/parceiro/perfil",
     roles: [ROLES.supplier],
     isPublic: false,
