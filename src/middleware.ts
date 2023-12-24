@@ -5,6 +5,7 @@ import {
   PRIVATE_ROUTES_CONFIG,
   SIGN_IN_ROUTE_PATH,
 } from "./routers";
+import { ROLES } from "./constants/roles";
 
 export async function middleware(request: NextRequest) {
   const tokenInfo = await getToken({
@@ -38,6 +39,16 @@ export async function middleware(request: NextRequest) {
       ),
     );
   }
+
+  if((tokenInfo?.user.role === ROLES.supplier || tokenInfo?.user.role === ROLES.admin) && request.nextUrl.pathname === "/") {
+    return NextResponse.redirect(
+      new URL(
+        ROLE_START_URL[tokenInfo?.user.role as keyof typeof ROLE_START_URL] ?? "/",
+        request.url,
+      ),
+    );
+  }
+
 
   return NextResponse.next();
 }
