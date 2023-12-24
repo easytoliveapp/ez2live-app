@@ -2,7 +2,11 @@ import { NextRequest, NextResponse } from "next/server";
 import { getToken } from "next-auth/jwt";
 import isAuthenticated from "@/utils/isAuthenticated";
 import { REFUSE_NON_LOGGED_USERS } from "./constants/PrivateRoutes";
-import { ROLE_START_URL, PRIVATE_ROUTES_CONFIG, SIGN_IN_ROUTE_PATH } from "./routers";
+import {
+  ROLE_START_URL,
+  PRIVATE_ROUTES_CONFIG,
+  SIGN_IN_ROUTE_PATH,
+} from "./routers";
 
 export async function middleware(request: NextRequest) {
   // Call our authentication function to check the request
@@ -26,9 +30,8 @@ export async function middleware(request: NextRequest) {
         : "next-auth.session-token",
   });
 
-  if (!tokenInfo && request.nextUrl.pathname !== SIGN_IN_ROUTE_PATH) {
+  if (!tokenInfo && (request.nextUrl.pathname !== SIGN_IN_ROUTE_PATH || '/')) {
     return NextResponse.redirect(new URL("/conta/entrar", request.url));
-
   }
 
   const requestRouteConfig = PRIVATE_ROUTES_CONFIG.filter((routes) => {
@@ -41,9 +44,8 @@ export async function middleware(request: NextRequest) {
   ) {
     return NextResponse.redirect(
       new URL(
-        ROLE_START_URL[
-        tokenInfo?.user.role as keyof typeof ROLE_START_URL
-        ] ?? "/",
+        ROLE_START_URL[tokenInfo?.user.role as keyof typeof ROLE_START_URL] ??
+          "/",
         request.url,
       ),
     );
