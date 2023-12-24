@@ -21,7 +21,7 @@ export async function middleware(request: NextRequest) {
     !tokenInfo &&
     !AUTH_ROUTE_PATHS.some((path) => path === request.nextUrl.pathname)
   ) {
-    return NextResponse.redirect(new URL("/conta/entrar", request.url));
+    return NextResponse.redirect(new URL("/", request.url));
   }
 
   const privateRequestRoute = PRIVATE_ROUTES_CONFIG.filter((routes) => {
