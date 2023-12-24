@@ -1,4 +1,4 @@
-import { ISupplierCompleteRegister, ISupplierList } from "@/types/supplier";
+import { ISupplierCompleteRegister, ISupplierList, ISupplierUpdate } from "@/types/supplier";
 import { BaseService } from "./base.service";
 
 const getSupplierList = async (data?: Partial<ISupplierList>) => {
@@ -30,6 +30,14 @@ const getSupplierById = async (id: string) => {
   });
 };
 
+const updateSupplierById = async (id: string, data: Partial<ISupplierUpdate>) => {
+  return await BaseService.fetchData({
+    url: `/supplier/${id}`,
+    method: "patch",
+    data,
+  });
+}
+
 const verifySupplier = async (supplierId: string) => {
   return await BaseService.fetchData({
     url: `/supplier/${supplierId}/verify`,
@@ -50,6 +58,7 @@ const supplierService = {
   verifySupplier,
   getSupplierCategories,
   getSupplierById,
+  updateSupplierById
 };
 
 export default supplierService;

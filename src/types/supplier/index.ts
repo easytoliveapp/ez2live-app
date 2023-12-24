@@ -8,6 +8,12 @@ export interface iSupplierCategory {
   id: string;
 }
 
+export interface ISupplierUpdate {
+  name: string;
+  email: string;
+  supplierInfo: Partial<ISupplierInfo>;
+}
+
 export interface ISupplier {
   supplier: {
     name: string;

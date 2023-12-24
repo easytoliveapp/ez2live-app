@@ -73,17 +73,37 @@ const CompleteSupplierRegister: React.FC = () => {
         description: values.description,
       })
       .then((response) => response.data)
-      .catch((error) => {
-        console.log(error);
+      .catch(() => {
         showToastify({
           type: "error",
           label:
             "Tivemos um problema ao atualizar as imagens do estabelecimento",
         });
       })
-      .finally(() => {
-        setloading(false);
-      });
+
+
+    if (uploadedImages) {
+      await supplierService.updateSupplierById(session?.user.id, {
+        supplierInfo: {
+          supplierDescription: values.description,
+        },
+      })
+        .then(() => {
+          showToastify({
+            type: "success",
+            label: "Cadastro completo com sucesso",
+          });
+        })
+        .catch(() => {
+          showToastify({
+            type: "error",
+            label: "Tivemos um problema ao completar seu cadastro",
+          });
+        })
+        .finally(() => {
+          setloading(false);
+        });
+    };
 
     return uploadedImages;
   };
