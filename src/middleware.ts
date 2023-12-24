@@ -17,7 +17,10 @@ export async function middleware(request: NextRequest) {
         : "next-auth.session-token",
   });
 
-  if (!tokenInfo && !(AUTH_ROUTE_PATHS.some((path) => path === request.nextUrl.pathname))) {
+  if (
+    !tokenInfo &&
+    !AUTH_ROUTE_PATHS.some((path) => path === request.nextUrl.pathname)
+  ) {
     return NextResponse.redirect(new URL("/conta/entrar", request.url));
   }
 

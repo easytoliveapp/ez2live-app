@@ -30,8 +30,8 @@ export const AUTH_ROUTE_PATHS = [
   "/conta/cadastrar/parceiro",
   "/conta/cadastrar/usuario",
   "/conta/esqueci-a-senha",
-  "/conta/criar-nova-senha"
-]
+  "/conta/criar-nova-senha",
+];
 
 export const ROLE_START_URL = {
   [ROLES.commonUser]: "/meus-cupons",
