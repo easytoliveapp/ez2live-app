@@ -9,7 +9,10 @@ const getSupplierList = async (data?: Partial<ISupplierList>) => {
   });
 };
 
-const updateSupplierImages = async (supplerId: string, data: ISupplierCompleteRegister) => {
+const updateSupplierImages = async (
+  supplerId: string,
+  data: ISupplierCompleteRegister,
+) => {
   return await BaseService.fetchData({
     url: `/supplier/${supplerId}/updateSupplierImages`,
     method: "post",
@@ -18,7 +21,7 @@ const updateSupplierImages = async (supplerId: string, data: ISupplierCompleteRe
       "Content-Type": "multipart/form-data",
     },
   });
-}
+};
 
 const getSupplierById = async (id: string) => {
   return await BaseService.fetchData({
