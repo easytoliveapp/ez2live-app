@@ -12,8 +12,8 @@ import {
   CouponContainer,
   CreateAndUpdateCoupon,
   Modal,
-  FloatButtonNav,
   EmptyCoupons,
+  FloatButtonNav,
 } from "@/components";
 import { ISupplier } from "@/types/supplier";
 import ArrowLeft from "@/images/easytolive/icons/arrow-next-right-white.svg";
@@ -24,7 +24,6 @@ import CouponPrimary from "@/images/easytolive/icons/couponPrimary.svg";
 import Edit from "@/images/easytolive/icons/edit.svg";
 import LogoImage from "@/images/easytolive/logo/logotipo-fundoazulroxo.svg";
 import LogoMain from "@/images/easytolive/logo/logobranca-fundoprimary.svg";
-import SupplierICon from "@/images/easytolive/icons/shop.svg";
 import { useSession } from "next-auth/react";
 import { ICoupon } from "@/types/coupons";
 import CouponIcon from "@/images/easytolive/icons/couponPrimary.svg";
@@ -131,14 +130,6 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
           backgroundStyle="secondary"
           icon={CouponIcon}
           href="/dashboard"
-        />
-      )}
-      {!isSupplier && (
-        <FloatButtonNav
-          label="buscar cupons"
-          backgroundStyle="main"
-          icon={SupplierICon}
-          href={"/"}
         />
       )}
       <Modal
