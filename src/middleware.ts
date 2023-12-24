@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getToken } from "next-auth/jwt";
-import { ROLE_START_URL, PRIVATE_ROUTES_CONFIG } from /*   AUTH_ROUTE_PATHS,
- */ "./routers";
+import { ROLE_START_URL, PRIVATE_ROUTES_CONFIG } from "./routers";
 import { ROLES } from "./constants/roles";
 
 export async function middleware(request: NextRequest) {
@@ -13,6 +12,10 @@ export async function middleware(request: NextRequest) {
         ? "__Secure-next-auth.session-token"
         : "next-auth.session-token",
   });
+
+  if (!tokenInfo) {
+    return NextResponse.redirect(new URL("/conta/entrar", request.url));
+  }
 
   const privateRequestRoute = PRIVATE_ROUTES_CONFIG.filter((routes) => {
     return routes.path === request.nextUrl.pathname;
@@ -45,10 +48,6 @@ export async function middleware(request: NextRequest) {
         request.url,
       ),
     );
-  }
-
-  if (!tokenInfo) {
-    return NextResponse.redirect(new URL("/conta/entrar", request.url));
   }
 
   return NextResponse.next();
