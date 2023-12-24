@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getToken } from "next-auth/jwt";
 import isAuthenticated from "@/utils/isAuthenticated";
 import { REFUSE_NON_LOGGED_USERS } from "./constants/PrivateRoutes";
-import { DEFAULT_ROLE_PATH, ROUTES_CONFIG } from "./routers";
+import { ROLE_START_URL, PRIVATE_ROUTES_CONFIG, SIGN_IN_ROUTE_PATH } from "./routers";
 
 export async function middleware(request: NextRequest) {
   // Call our authentication function to check the request
@@ -26,27 +26,23 @@ export async function middleware(request: NextRequest) {
         : "next-auth.session-token",
   });
 
-  if (!tokenInfo) {
-    if (
-      REFUSE_NON_LOGGED_USERS.some((route) =>
-        request.nextUrl.pathname.startsWith(route),
-      )
-    ) {
-      return NextResponse.redirect(new URL("/conta/entrar", request.url));
-    }
+  if (!tokenInfo && request.nextUrl.pathname !== SIGN_IN_ROUTE_PATH) {
+    return NextResponse.redirect(new URL("/conta/entrar", request.url));
+
   }
 
-  const requestRouteConfig = ROUTES_CONFIG.filter((routes) => {
+  const requestRouteConfig = PRIVATE_ROUTES_CONFIG.filter((routes) => {
     return routes.path === request.nextUrl.pathname;
   }).shift();
   if (
+    tokenInfo &&
     !requestRouteConfig?.isPublic &&
     !requestRouteConfig?.roles.some((role) => role === tokenInfo?.user.role)
   ) {
     return NextResponse.redirect(
       new URL(
-        DEFAULT_ROLE_PATH[
-          tokenInfo?.user.role as keyof typeof DEFAULT_ROLE_PATH
+        ROLE_START_URL[
+        tokenInfo?.user.role as keyof typeof ROLE_START_URL
         ] ?? "/",
         request.url,
       ),
