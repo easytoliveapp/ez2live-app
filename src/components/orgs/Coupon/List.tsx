@@ -22,7 +22,6 @@ import { showToastify } from "@/hooks/showToastify";
 import Arrow from "@/images/easytolive/icons/arrow-next-right-primary.svg";
 import CouponPrimary from "@/images/easytolive/icons/couponPrimary.svg";
 import Edit from "@/images/easytolive/icons/edit.svg";
-import LogoImage from "@/images/easytolive/logo/logotipo-fundoazulroxo.svg";
 import LogoMain from "@/images/easytolive/logo/logobranca-fundoprimary.svg";
 import { useSession } from "next-auth/react";
 import { ICoupon } from "@/types/coupons";
@@ -154,7 +153,7 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
         {supplier.supplier.supplierInfo.supplierBanner && (
           <Image
             alt="supplier-banner"
-            className="w-auto h-40 bg-cover"
+            className="w-auto h-40 bg-cover max-w-5xl"
             src={supplier.supplier.supplierInfo.supplierBanner}
           />
         )}
@@ -193,7 +192,7 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
             <Image
               className="w-12 my-4 h-auto rounded-full"
               alt="Logo Image"
-              src={LogoImage}
+              src={supplier.supplier.supplierInfo.supplierLogo}
             />
             <div>
               {supplier?.supplier?.id === session?.user?.id && (
@@ -227,7 +226,7 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
                   supplierCategory={
                     supplier?.supplier?.supplierInfo?.supplierCategory?.title
                   }
-                  supplierLogo={LogoImage}
+                  supplierLogo={supplier.supplier.supplierInfo.supplierLogo}
                   supplierName={supplier.supplier.name}
                   discount={coupon.discount}
                   expirateTime={coupon.expirationGenerationDate}
