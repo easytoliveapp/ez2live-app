@@ -210,10 +210,10 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
             </div>
           </div>
           <h2 className=" text-xl font-semibold">{supplier?.supplier?.name}</h2>
-          {supplier.supplier.supplierInfo.description && (
+          {supplier.supplier.supplierInfo.supplierDescription && (
             <p className="pt-2 text-xs text-gray-400">
               {" "}
-              {supplier.supplier.supplierInfo.description}{" "}
+              {supplier.supplier.supplierInfo.supplierDescription}{" "}
             </p>
           )}
           <div className="mt-6 pb-16 flex flex-col gap-4">

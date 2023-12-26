@@ -1,5 +1,6 @@
 import { IAddress } from "../auth/request";
 import { ICoupon } from "../coupons";
+import { iSupplierCategory } from "../supplier";
 
 export interface userLoginResponseProps {
   active: boolean;
@@ -13,6 +14,17 @@ export interface userLoginResponseProps {
   isVerified: boolean;
   name: string;
   role: string;
+  supplierInfo?: {
+    id: string;
+    coupons: [];
+    supplierCategory: iSupplierCategory;
+    address: IAddress;
+    isSupplier: boolean;
+    isVerified: boolean;
+    supplierBanner: string;
+    supplierLogo: string;
+    supplierDescription: string;
+  };
 }
 export interface IDeleteUSer {
   password: string;
