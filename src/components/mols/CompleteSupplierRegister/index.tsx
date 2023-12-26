@@ -71,7 +71,7 @@ const CompleteSupplierRegister: React.FC = () => {
       });
     }
 
-    let newSupplierInfo = {}
+    let newSupplierInfo = {};
 
     const uploadedImages: any = await supplierService
       .updateSupplierImages(session?.user.id, {
@@ -92,11 +92,10 @@ const CompleteSupplierRegister: React.FC = () => {
       });
 
     if (uploadedImages) {
-
       newSupplierInfo = {
         supplierBanner: uploadedImages?.supplier?.supplierInfo.supplierBanner,
         supplierLogo: uploadedImages?.supplier?.supplierInfo.supplierLogo,
-      }
+      };
 
       await supplierService
         .updateSupplierById(session?.user.id, {
@@ -107,7 +106,8 @@ const CompleteSupplierRegister: React.FC = () => {
         .then((res: any) => {
           newSupplierInfo = {
             ...newSupplierInfo,
-            supplierDescription: res.data.supplier.supplierInfo.supplierDescription,
+            supplierDescription:
+              res.data.supplier.supplierInfo.supplierDescription,
           };
 
           showToastify({
