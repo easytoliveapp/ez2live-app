@@ -84,6 +84,9 @@ const CompleteSupplierRegister: React.FC = () => {
           label:
             "Tivemos um problema ao atualizar as imagens do estabelecimento",
         });
+      })
+      .finally(() => {
+        setloading(false);
       });
 
     if (uploadedImages) {
