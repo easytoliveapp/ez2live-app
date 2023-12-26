@@ -149,23 +149,23 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
           </ButtonThird>
         </div>
       </Modal>
-      <div className="h-auto min-h-40 max-h-80 w-full mx-auto flex justify-center bg-cover bg-gradient-to-r from-primary-lighter to-primary-main">
+      <div className="h-auto pb-6 relative min-h-52 max-h-80 w-full mx-auto flex justify-center bg-cover bg-gradient-to-r from-primary-lighter to-primary-main">
         {supplier.supplier.supplierInfo.supplierBanner && (
           <Image
             objectPosition="center"
             alt="supplier-banner"
-            objectFit="contain"
+            objectFit="cover"
             width={0}
             height={0}
             sizes="100vw"
-            style={{ width: "100%", height: "auto", maxWidth: "1200px" }}
+            style={{ width: "auto", height: "auto" }}
             src={supplier.supplier.supplierInfo.supplierBanner}
           />
         )}
       </div>
       <Link
         prefetch={true}
-        className="absolute flex items-center justify-center rounded-full top-4 left-4 cursor-pointer h-8 w-8 bg-neutral-400 opacity-75 rotate-180"
+        className="absolute flex items-center h- justify-center rounded-full top-4 left-4 cursor-pointer h-8 w-8 bg-neutral-400 opacity-75 rotate-180"
         href={"/"}
       >
         <Image className="w-6 h-auto" alt="arrow-left" src={ArrowLeft} />
@@ -177,7 +177,7 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
         src={supplier.supplier.supplierInfo.supplierLogo}
         alt="Logo-restaurante"
       />
-      <div className="px-5 py-6 -mt-4 rounded-t-3xl bg-generic-background w-full h-full">
+      <div className="relative px-5 py-6 -mt-6 rounded-t-3xl bg-generic-background w-full h-full">
         <div className="md:w-[700px] mx-auto">
           <div className="flex items-center justify-between">
             <div className="flex gap-1">
