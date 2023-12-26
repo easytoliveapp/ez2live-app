@@ -149,13 +149,14 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
           </ButtonThird>
         </div>
       </Modal>
-      <div className="h-40 w-full bg-gradient-to-r from-primary-lighter to-primary-main">
+      <div className="h-48 w-full flex justify-center bg-cover bg-gradient-to-r from-primary-lighter to-primary-main">
         {supplier.supplier.supplierInfo.supplierBanner && (
           <Image
             alt="supplier-banner"
-            sizes="(max-width: 1024px) 100vw "
+            width={1024}
+            height={1024}
             loading="lazy"
-            className="w-auto h-40 max-w-5xl"
+            className="w-full max-w-5xl h-44 bg-cover rounded-3xl"
             src={supplier.supplier.supplierInfo.supplierBanner}
           />
         )}
@@ -169,10 +170,12 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
       </Link>
       <Image
         className="absolute rounded-full w-20 h-auto top-8 right-4"
+        width={80}
+        height={80}
         src={supplier.supplier.supplierInfo.supplierLogo}
         alt="Logo-restaurante"
       />
-      <div className="px-5 py-6 -mt-6 rounded-t-3xl bg-generic-background w-full h-full">
+      <div className="px-5 py-6 -mt-4 rounded-t-3xl bg-generic-background w-full h-full">
         <div className="md:w-[700px] mx-auto">
           <div className="flex items-center justify-between">
             <div className="flex gap-1">
@@ -192,8 +195,10 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
           </div>
           <div className="flex justify-between items-center">
             <Image
-              className="w-12 my-4 h-auto rounded-full"
+              className="w-16 my-4 h-auto rounded-full mr-4"
               alt="Logo Image"
+              height={64}
+              width={64}
               src={supplier.supplier.supplierInfo.supplierLogo}
             />
             <div>

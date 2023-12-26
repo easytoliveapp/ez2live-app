@@ -39,6 +39,8 @@ const SupplierCard: FC<SupplierCardProps> = ({
     >
       <div className="col-span-1 flex items-center justify-center w-14 h-auto">
         <Image
+          width={80}
+          height={80}
           className="rounded-full h-auto w-auto"
           alt="Supplier-logo"
           src={supplierImage}
