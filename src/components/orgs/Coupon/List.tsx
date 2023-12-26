@@ -153,7 +153,9 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
         {supplier.supplier.supplierInfo.supplierBanner && (
           <Image
             alt="supplier-banner"
-            className="w-auto h-40 bg-cover max-w-5xl"
+            sizes="(max-width: 1024px) 100vw "
+            loading="lazy"
+            className="w-auto h-40 max-w-5xl"
             src={supplier.supplier.supplierInfo.supplierBanner}
           />
         )}
