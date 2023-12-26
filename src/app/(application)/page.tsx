@@ -8,7 +8,6 @@ import {
   SearchCategory,
   SupplierCard,
 } from "@/components";
-import SupplierLogo from "@/images/easytolive/logo/logotipo-fundoazulroxo.svg";
 import couponsService from "@/service/coupons.service";
 import CouponPrimary from "@/images/easytolive/icons/couponPrimary.svg";
 import imageCategory from "@/images/easytolive/icons/categorie-example.svg";
@@ -147,7 +146,7 @@ function PageHome() {
                 couponsAvailableCount: supplierInfo?.validCoupons?.length || 0,
                 saveLastPagePosition: handleRouteChange,
                 supplierCategory: supplierInfo?.supplierCategory?.title,
-                supplierImage: SupplierLogo,
+                supplierImage: supplierInfo.supplierLogo ?? "no-image",
               };
 
               return (
