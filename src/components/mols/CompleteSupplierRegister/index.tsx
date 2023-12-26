@@ -16,7 +16,7 @@ import { useSession } from "next-auth/react";
 import { showToastify } from "@/hooks/showToastify";
 
 const CompleteSupplierRegister: React.FC = () => {
-  const { data: session } = useSession();
+  const { data: session, update } = useSession();
   const [loading, setloading] = useState(false);
   const [logoPlaceHolder, setLogoPlaceHolder] = useState("...carregar");
   const [ilustrationImagePlaceHolder, SetIlustrationImagePlaceHolder] =
@@ -66,7 +66,9 @@ const CompleteSupplierRegister: React.FC = () => {
       });
     }
 
-    const uploadedImages = await supplierService
+    let newSupplierInfo = {}
+
+    const uploadedImages: any = await supplierService
       .updateSupplierImages(session?.user.id, {
         supplierLogo: values.supplierLogo,
         supplierBanner: values.supplierBanner,
@@ -82,13 +84,24 @@ const CompleteSupplierRegister: React.FC = () => {
       });
 
     if (uploadedImages) {
+
+      newSupplierInfo = {
+        supplierBanner: uploadedImages?.supplier?.supplierInfo.supplierBanner,
+        supplierLogo: uploadedImages?.supplier?.supplierInfo.supplierLogo,
+      }
+
       await supplierService
         .updateSupplierById(session?.user.id, {
           supplierInfo: {
             supplierDescription: values.description,
           },
         })
-        .then(() => {
+        .then((res: any) => {
+          newSupplierInfo = {
+            ...newSupplierInfo,
+            supplierDescription: res.data.supplier.supplierInfo.supplierDescription,
+          };
+
           showToastify({
             type: "success",
             label: "Cadastro completo com sucesso",
@@ -104,6 +117,19 @@ const CompleteSupplierRegister: React.FC = () => {
           setloading(false);
         });
     }
+
+    update({
+      ...session,
+      user: {
+        ...session?.user,
+        supplierInfo: {
+          ...session?.user.supplierInfo,
+          ...newSupplierInfo,
+        },
+      },
+    }).then(() => {
+      console.log("update");
+    });
 
     return uploadedImages;
   };
