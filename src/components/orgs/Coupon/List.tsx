@@ -22,7 +22,6 @@ import { showToastify } from "@/hooks/showToastify";
 import Arrow from "@/images/easytolive/icons/arrow-next-right-primary.svg";
 import CouponPrimary from "@/images/easytolive/icons/couponPrimary.svg";
 import Edit from "@/images/easytolive/icons/edit.svg";
-import LogoImage from "@/images/easytolive/logo/logotipo-fundoazulroxo.svg";
 import LogoMain from "@/images/easytolive/logo/logobranca-fundoprimary.svg";
 import { useSession } from "next-auth/react";
 import { ICoupon } from "@/types/coupons";
@@ -150,12 +149,14 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
           </ButtonThird>
         </div>
       </Modal>
-      <div className="h-40 w-full bg-gradient-to-r from-primary-lighter to-primary-main">
+      <div className="h-48 w-full flex justify-center bg-cover bg-gradient-to-r from-primary-lighter to-primary-main">
         {supplier.supplier.supplierInfo.supplierBanner && (
           <Image
             alt="supplier-banner"
-            fill={true}
-            className="w-auto h-40"
+            width={1024}
+            height={1024}
+            loading="lazy"
+            className="w-full max-w-5xl h-44 bg-cover rounded-3xl"
             src={supplier.supplier.supplierInfo.supplierBanner}
           />
         )}
@@ -169,10 +170,12 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
       </Link>
       <Image
         className="absolute rounded-full w-20 h-auto top-8 right-4"
+        width={80}
+        height={80}
         src={supplier.supplier.supplierInfo.supplierLogo}
         alt="Logo-restaurante"
       />
-      <div className="px-5 py-6 -mt-6 rounded-t-3xl bg-generic-background w-full h-full">
+      <div className="px-5 py-6 -mt-4 rounded-t-3xl bg-generic-background w-full h-full">
         <div className="md:w-[700px] mx-auto">
           <div className="flex items-center justify-between">
             <div className="flex gap-1">
@@ -192,9 +195,11 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
           </div>
           <div className="flex justify-between items-center">
             <Image
-              className="w-12 my-4 h-auto rounded-full"
+              className="w-16 my-4 h-auto rounded-full mr-4"
               alt="Logo Image"
-              src={LogoImage}
+              height={64}
+              width={64}
+              src={supplier.supplier.supplierInfo.supplierLogo}
             />
             <div>
               {supplier?.supplier?.id === session?.user?.id && (
@@ -228,7 +233,7 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
                   supplierCategory={
                     supplier?.supplier?.supplierInfo?.supplierCategory?.title
                   }
-                  supplierLogo={LogoImage}
+                  supplierLogo={supplier.supplier.supplierInfo.supplierLogo}
                   supplierName={supplier.supplier.name}
                   discount={coupon.discount}
                   expirateTime={coupon.expirationGenerationDate}

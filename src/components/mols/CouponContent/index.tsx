@@ -69,6 +69,8 @@ const CouponContent: React.FC<CouponProps> = ({
       <div className="flex flex-col m-1 h-auto">
         <div className="flex gap-3 item-center mb-3">
           <Image
+            width={56}
+            height={56}
             className="w-14 h-14 rounded-full"
             src={supplierLogo}
             alt="supplier-logo"

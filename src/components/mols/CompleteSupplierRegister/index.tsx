@@ -42,7 +42,12 @@ const CompleteSupplierRegister: React.FC = () => {
       .required("Insira uma logo para seu estabelecimento")
       .test(
         "FILE_SIZE",
-        "Arquivo muito grande! Selecione um de menor tramanho",
+        "Arquivo muito grande! Selecione um de menor tamanho",
+        (value: any) => !value || (value && value.size <= 1024 * 200),
+      )
+      .test(
+        "FILE_SIZE",
+        "Arquivo muito pequeno! Selecione um de maior tamanho",
         (value: any) => !value || (value && value.size <= 1024 * 1024),
       )
       .test(
@@ -81,6 +86,9 @@ const CompleteSupplierRegister: React.FC = () => {
           label:
             "Tivemos um problema ao atualizar as imagens do estabelecimento",
         });
+      })
+      .finally(() => {
+        setloading(false);
       });
 
     if (uploadedImages) {
