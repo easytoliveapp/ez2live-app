@@ -154,8 +154,7 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
         {supplier.supplier.supplierInfo.supplierBanner && (
           <Image
             alt="supplier-banner"
-            fill={true}
-            className="w-auto h-40"
+            className="w-auto h-40 bg-cover"
             src={supplier.supplier.supplierInfo.supplierBanner}
           />
         )}
