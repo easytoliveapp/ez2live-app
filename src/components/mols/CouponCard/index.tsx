@@ -13,6 +13,7 @@ import { getColorByDiscountValue } from "@/utils/getColorByDiscountValue";
 
 import cx from "classnames";
 import { getDateFormater } from "@/utils/getDateFormater";
+import { getUnintsAmount } from "@/utils/getUnitsAmount";
 
 interface ICouponCardProps {
   discount: string;
@@ -75,9 +76,7 @@ const CouponCard: React.FC<ICouponCardProps> = ({
                     />
                     {maxUnitsTotal === -1
                       ? "quantidade ilimitada"
-                      : `faltam ${
-                          maxUnitsTotal > 20 ? "poucas" : maxUnitsTotal
-                        } unidades`}
+                      : getUnintsAmount(maxUnitsTotal)}
                   </p>
                 )}
                 {activationDate && (

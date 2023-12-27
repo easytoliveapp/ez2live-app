@@ -7,6 +7,7 @@ import { getDateFormater } from "@/utils/getDateFormater";
 import { getColorByDiscountValue } from "@/utils/getColorByDiscountValue";
 import getExpirateTime from "@/utils/getExpirateTime";
 import cx from "classnames";
+import { getUnintsAmount } from "@/utils/getUnitsAmount";
 interface CouponProps {
   id: string;
   couponTitle: string;
@@ -26,17 +27,6 @@ const CouponContent: React.FC<CouponProps> = ({
   supplierName,
   couponTitle,
 }) => {
-  function hasUnintsAmount() {
-    if (unintsAmount > 20) {
-      return "poucas";
-    }
-    if (unintsAmount === 1) {
-      return "somente mais 1 unidade";
-    } else {
-      return "faltam " + unintsAmount + " unidades";
-    }
-  }
-
   return (
     <div className="flex flex-col px-2 w-full pb-3 text-black">
       <h1 className=" text-2xl px-3 mb-6 font-bold text-black">
@@ -51,7 +41,9 @@ const CouponContent: React.FC<CouponProps> = ({
               src={CouponGreen}
               color="white"
             />
-            {unintsAmount === -1 ? "quantidade ilimitada" : hasUnintsAmount()}
+            {unintsAmount === -1
+              ? "quantidade ilimitada"
+              : getUnintsAmount(unintsAmount)}
           </p>
           <p className="flex font-semibold items-center text-generic-alertRed">
             <Image
