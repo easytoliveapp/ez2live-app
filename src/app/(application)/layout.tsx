@@ -31,7 +31,7 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
         />
       )}
 
-      {true && <CompleteSupplierRegister />}
+      {/* {true && <CompleteSupplierRegister />} */}
 
       {session?.user ? <HeaderLogged /> : <Header />}
       <div className="app-layout__container">{children}</div>
