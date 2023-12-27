@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import Image from "next/image";
 
 import CheckIcon from "@/images/easytolive/icons/checkIcon.svg";
@@ -31,7 +31,6 @@ interface IDashboardItems {
 }
 
 const PageDashboard = () => {
-  const router = useRouter();
   const pathname = usePathname();
   const { data: session } = useSession();
 
@@ -83,15 +82,19 @@ const PageDashboard = () => {
       .finally(() => setIsLoading(false));
   }, [session?.user]);
 
+  const supplierBanner = session?.user?.supplierInfo?.supplierBanner
+    ? `url(${session?.user?.supplierInfo?.supplierBanner})`
+    : '';
+
   return (
     <div className="relative overflow-hidden flex gap-3 p-5 max-w-screen-2xl mx-auto flex-col sm:flex-row">
       <div className="md:flex flex-col sm:w-[300px] w-full pb-5 mb-3 sm:mb-0 border-b border-gray-100 sm:border-none">
         <div className="flex flex-col w-full gap-5 rounded-lg bg-[#e7eaf133] px-2">
           <div className="flex flex-col w-full h-24 gap-5 relative">
             <div
+              className={classNames(!supplierBanner && 'bg-primary-main')}
               style={{
-                backgroundImage:
-                  "url(https://images.pexels.com/photos/1954524/pexels-photo-1954524.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1)",
+                backgroundImage: supplierBanner,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
                 backgroundRepeat: "no-repeat",
@@ -105,21 +108,14 @@ const PageDashboard = () => {
                 <div className="flex flex-row w-full h-full gap-1 justify-center items-center ml-2">
                   <div className="rounded-full bg-gray-200">
                     <Image
-                      src={LogoImage}
+                      src={
+                        session?.user?.supplierInfo?.supplierLogo || LogoImage
+                      }
                       alt="logo"
                       className="rounded-full"
-                      width={40}
-                      height={40}
+                      width={50}
+                      height={50}
                     />
-                    {/* {session?.user?.supplierInfo?.supplierLogo && (
-                      <Image
-                        src={session?.user?.supplierInfo?.supplierLogo}
-                        alt="logo"
-                        className="rounded-full"
-                        width={50}
-                        height={50}
-                      />
-                    )} */}
                   </div>
                   <div className="flex flex-col">
                     {session?.user?.name && (
