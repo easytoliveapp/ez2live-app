@@ -16,7 +16,7 @@ import { useSession } from "next-auth/react";
 import { showToastify } from "@/hooks/showToastify";
 
 const CompleteSupplierRegister: React.FC = () => {
-  const { data: session } = useSession();
+  const { data: session, update } = useSession();
   const [loading, setloading] = useState(false);
   const [logoPlaceHolder, setLogoPlaceHolder] = useState("...carregar");
   const [ilustrationImagePlaceHolder, SetIlustrationImagePlaceHolder] =
@@ -42,7 +42,12 @@ const CompleteSupplierRegister: React.FC = () => {
       .required("Insira uma logo para seu estabelecimento")
       .test(
         "FILE_SIZE",
-        "Arquivo muito grande! Selecione um de menor tramanho",
+        "Arquivo muito grande! Selecione um de menor tamanho",
+        (value: any) => !value || (value && value.size <= 1024 * 200),
+      )
+      .test(
+        "FILE_SIZE",
+        "Arquivo muito pequeno! Selecione um de maior tamanho",
         (value: any) => !value || (value && value.size <= 1024 * 1024),
       )
       .test(
@@ -66,15 +71,16 @@ const CompleteSupplierRegister: React.FC = () => {
       });
     }
 
-    const uploadedImages = await supplierService
+    let newSupplierInfo = {};
+
+    const uploadedImages: any = await supplierService
       .updateSupplierImages(session?.user.id, {
         supplierLogo: values.supplierLogo,
         supplierBanner: values.supplierBanner,
         description: values.description,
       })
       .then((response) => response.data)
-      .catch((error) => {
-        console.log(error);
+      .catch(() => {
         showToastify({
           type: "error",
           label:
@@ -84,6 +90,52 @@ const CompleteSupplierRegister: React.FC = () => {
       .finally(() => {
         setloading(false);
       });
+
+    if (uploadedImages) {
+      newSupplierInfo = {
+        supplierBanner: uploadedImages?.supplier?.supplierInfo.supplierBanner,
+        supplierLogo: uploadedImages?.supplier?.supplierInfo.supplierLogo,
+      };
+
+      await supplierService
+        .updateSupplierById(session?.user.id, {
+          supplierInfo: {
+            supplierDescription: values.description,
+          },
+        })
+        .then((res: any) => {
+          newSupplierInfo = {
+            ...newSupplierInfo,
+            supplierDescription:
+              res.data.supplier.supplierInfo.supplierDescription,
+          };
+
+          showToastify({
+            type: "success",
+            label: "Cadastro completo com sucesso",
+          });
+        })
+        .catch(() => {
+          showToastify({
+            type: "error",
+            label: "Tivemos um problema ao completar seu cadastro",
+          });
+        })
+        .finally(() => {
+          setloading(false);
+        });
+    }
+
+    update({
+      ...session,
+      user: {
+        ...session?.user,
+        supplierInfo: {
+          ...session?.user.supplierInfo,
+          ...newSupplierInfo,
+        },
+      },
+    });
 
     return uploadedImages;
   };

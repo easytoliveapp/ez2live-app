@@ -8,11 +8,10 @@ import {
   SearchCategory,
   SupplierCard,
 } from "@/components";
-import SupplierLogo from "@/images/easytolive/logo/logotipo-fundoazulroxo.svg";
 import couponsService from "@/service/coupons.service";
 import CouponPrimary from "@/images/easytolive/icons/couponPrimary.svg";
 import imageCategory from "@/images/easytolive/icons/categorie-example.svg";
-import { ISuppliers } from "@/types/supplier";
+import { ISupplier } from "@/types/supplier";
 import { ICategorieProps } from "@/components/atoms/CategoryCard";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useSession } from "next-auth/react";
@@ -137,7 +136,7 @@ function PageHome() {
         >
           {!!suppliers &&
             suppliers.length > 0 &&
-            suppliers.map((supplier: ISuppliers, index: number) => {
+            suppliers.map((supplier: ISupplier, index: number) => {
               const { supplierInfo, _id: id, name } = supplier || {};
 
               const supplierCardData = {
@@ -147,7 +146,7 @@ function PageHome() {
                 couponsAvailableCount: supplierInfo?.validCoupons?.length || 0,
                 saveLastPagePosition: handleRouteChange,
                 supplierCategory: supplierInfo?.supplierCategory?.title,
-                supplierImage: SupplierLogo,
+                supplierImage: supplierInfo.supplierLogo ?? "no-image",
               };
 
               return (
