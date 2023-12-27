@@ -11,7 +11,7 @@ import {
 import couponsService from "@/service/coupons.service";
 import CouponPrimary from "@/images/easytolive/icons/couponPrimary.svg";
 import imageCategory from "@/images/easytolive/icons/categorie-example.svg";
-import { ISuppliers } from "@/types/supplier";
+import { ISupplier } from "@/types/supplier";
 import { ICategorieProps } from "@/components/atoms/CategoryCard";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useSession } from "next-auth/react";
@@ -136,7 +136,7 @@ function PageHome() {
         >
           {!!suppliers &&
             suppliers.length > 0 &&
-            suppliers.map((supplier: ISuppliers, index: number) => {
+            suppliers.map((supplier: ISupplier, index: number) => {
               const { supplierInfo, _id: id, name } = supplier || {};
 
               const supplierCardData = {
