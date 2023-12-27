@@ -135,8 +135,6 @@ const CompleteSupplierRegister: React.FC = () => {
           ...newSupplierInfo,
         },
       },
-    }).then(() => {
-      console.log("update");
     });
 
     return uploadedImages;
