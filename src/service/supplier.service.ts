@@ -59,12 +59,20 @@ const getSupplierCategories = async () => {
   });
 };
 
+const getSupplierDashboardData = async (id: string) => {
+  return await BaseService.fetchData({
+    url: `/supplier/${id}/dashboardData`,
+    method: "get",
+  });
+};
+
 const supplierService = {
   getSupplierList,
   updateSupplierImages,
   verifySupplier,
   getSupplierCategories,
   getSupplierById,
+  getSupplierDashboardData,
   updateSupplierById,
 };
 
