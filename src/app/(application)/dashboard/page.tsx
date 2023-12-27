@@ -7,9 +7,9 @@ import Image from "next/image";
 
 import CheckIcon from "@/images/easytolive/icons/checkIcon.svg";
 import CouponPrimary from "@/images/easytolive/icons/couponPrimary.svg";
-import DashboardIcon from "@/images/easytolive/icons/DashboardIcon.svg";
+import DashboardIcon from "@/images/easytolive/icons/dashboardIcon.svg";
 import ShopPageIcon from "@/images/easytolive/icons/shopMainColor.svg";
-import CalendarCheckIcon from "@/images/easytolive/icons/CalendarCheck.svg";
+import CalendarCheckIcon from "@/images/easytolive/icons/calendarCheck.svg";
 import LogoImage from "@/images/easytolive/logo/logotipo-fundoazulroxo.svg";
 
 import classNames from "@/utils/classNames";

@@ -24,7 +24,7 @@ import Edit from "@/images/easytolive/icons/edit.svg";
 import LogoMain from "@/images/easytolive/logo/logobranca-fundoprimary.svg";
 import { useSession } from "next-auth/react";
 import { ICoupon } from "@/types/coupons";
-import DashboardIcon from "@/images/easytolive/icons/DashboardIcon.svg";
+import DashboardIcon from "@/images/easytolive/icons/dashboardIcon.svg";
 import CouponRed from "@/images/easytolive/icons/couponred.svg";
 import useUserRoles from "@/hooks/useUserRoles";
 
