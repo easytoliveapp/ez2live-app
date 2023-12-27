@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
@@ -13,16 +13,79 @@ import CalendarCheckIcon from "@/images/easytolive/icons/CalendarCheck.svg";
 import LogoImage from "@/images/easytolive/logo/logotipo-fundoazulroxo.svg";
 
 import classNames from "@/utils/classNames";
+import supplierService from "@/service/supplier.service";
+import { showToastify } from "@/hooks/showToastify";
+import { LoadingComponent } from "@/components";
+
+interface IDashboardData {
+  couponsGenerated: number;
+  couponsActivated: number;
+  couponsAvailable: number;
+  couponsFinished: number;
+}
+
+interface IDashboardItems {
+  icon?: string;
+  title?: string;
+  subtitle?: string;
+}
 
 const PageDashboard = () => {
   const router = useRouter();
   const pathname = usePathname();
-
   const { data: session } = useSession();
 
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [dashboardData, setDashboardData] = useState<IDashboardItems[]>();
+
+  const getSupplierData = async (supplierId: string) =>
+    await supplierService.getSupplierDashboardData(supplierId);
+
+  const handleDashboarData = (data: IDashboardData) => {
+    const {
+      couponsGenerated,
+      couponsActivated,
+      couponsAvailable,
+      couponsFinished,
+    } = data;
+    setDashboardData([
+      {
+        icon: CouponPrimary,
+        title: couponsGenerated.toString(),
+        subtitle: "cupons gerados no total",
+      },
+      {
+        icon: CheckIcon,
+        title: couponsActivated.toString(),
+        subtitle: "cupons ativos no total",
+      },
+      {
+        icon: CalendarCheckIcon,
+        title: couponsAvailable.toString(),
+        subtitle: "ofertas disponíveis",
+      },
+      {
+        icon: CouponPrimary,
+        title: couponsFinished.toString(),
+        subtitle: "ofertas concluídas",
+      },
+    ]);
+  };
+
+  useEffect(() => {
+    if (!session?.user) return;
+
+    getSupplierData(session?.user?.id)
+      .then((res: any) => handleDashboarData(res.data))
+      .catch((error) =>
+        showToastify({ type: "error", label: `Ocorreu um erro: ${error}` }),
+      )
+      .finally(() => setIsLoading(false));
+  }, [session?.user]);
+
   return (
-    <div className="nc-PageHome relative overflow-hidden flex flex-row w-full gap-3 p-5">
-      <div className="md:flex flex-col w-[300px]">
+    <div className="relative overflow-hidden flex gap-3 p-5 max-w-screen-2xl mx-auto flex-col sm:flex-row">
+      <div className="md:flex flex-col sm:w-[300px] w-full pb-5 mb-3 sm:mb-0 border-b border-gray-100 sm:border-none">
         <div className="flex flex-col w-full gap-5 rounded-lg bg-[#e7eaf133] px-2">
           <div className="flex flex-col w-full h-24 gap-5 relative">
             <div
@@ -104,7 +167,7 @@ const PageDashboard = () => {
                   key={idx}
                   href={href}
                   className={classNames(
-                    "w-full py-2 px-3 hover:bg-secondary-main font-semibold flex flex-row gap-3 text-primary-main rounded-md transition",
+                    "w-full py-2 px-3 hover:bg-secondary-main font-semibold text-xs md:text-sm flex flex-row gap-3 text-primary-main rounded-md transition",
                     pathname === href ? "bg-secondary-main" : "bg-transparent",
                   )}
                 >
@@ -116,45 +179,28 @@ const PageDashboard = () => {
           </div>
         </div>
       </div>
-      <div className="flex flex-col md:w-screen-xl md:max-w-screen-xl w-full px-5">
+      <div className="flex flex-col w-full px-5">
         <h2 className="text-xl font-semibold mb-7">Dashboard</h2>
-        <div className="grid md:grid-cols-4 justify-center gap-20 b9r">
+        <div className="grid lg:grid-cols-4 justify-center gap-10 b9r grid-cols-1 sm:grid-cols-2">
+          {isLoading && <LoadingComponent fullSize />}
           {/* cards */}
-          {[
-            {
-              icon: CouponPrimary,
-              title: "423",
-              subtitle: "cupons gerados no total",
-            },
-            {
-              icon: CheckIcon,
-              title: "231",
-              subtitle: "cupons ativos no total",
-            },
-            {
-              icon: CalendarCheckIcon,
-              title: "31",
-              subtitle: "cupons ativos em janeiro",
-            },
-            {
-              icon: CouponPrimary,
-              title: "39",
-              subtitle: "cupons concluídos",
-            },
-          ].map((card, idx) => (
-            <div
-              className={classNames(
-                "md:w-full p-4 py-3 w-full border-l-8 border-secondary-main bg-[#e7eaf122] rounded-lg shadow-sm flex flex-col",
-              )}
-              key={idx}
-            >
-              <div className="rounded-lg bg-[#6722ff0d] p-1 w-fit mb-3">
-                <Image src={card.icon} className="w-auto h-6" alt="card icon" />
+          {dashboardData &&
+            dashboardData.map(({ icon, title, subtitle }, idx) => (
+              <div
+                className={classNames(
+                  "md:w-full p-4 py-3 w-full border-l-8 border-secondary-main bg-[#e7eaf122] rounded-lg shadow-sm flex flex-col",
+                )}
+                key={idx}
+              >
+                <div className="rounded-lg bg-[#6722ff0d] p-1 w-fit mb-3">
+                  {icon && (
+                    <Image src={icon} className="w-auto h-6" alt="card icon" />
+                  )}
+                </div>
+                <h3 className="font-bold text-xl pl-2">{title}</h3>
+                <p className="text-sm pl-2 text-gray-700">{subtitle}</p>
               </div>
-              <h3 className="font-bold text-xl pl-2">{card.title}</h3>
-              <p className="text-sm pl-2 text-gray-700">{card.subtitle}</p>
-            </div>
-          ))}
+            ))}
         </div>
       </div>
     </div>
