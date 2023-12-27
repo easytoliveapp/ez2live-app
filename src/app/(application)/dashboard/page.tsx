@@ -84,7 +84,7 @@ const PageDashboard = () => {
 
   const supplierBanner = session?.user?.supplierInfo?.supplierBanner
     ? `url(${session?.user?.supplierInfo?.supplierBanner})`
-    : '';
+    : "";
 
   return (
     <div className="relative overflow-hidden flex gap-3 p-5 max-w-screen-2xl mx-auto flex-col sm:flex-row">
@@ -92,7 +92,7 @@ const PageDashboard = () => {
         <div className="flex flex-col w-full gap-5 rounded-lg bg-[#e7eaf133] px-2">
           <div className="flex flex-col w-full h-24 gap-5 relative">
             <div
-              className={classNames(!supplierBanner && 'bg-primary-main')}
+              className={classNames(!supplierBanner && "bg-primary-main")}
               style={{
                 backgroundImage: supplierBanner,
                 backgroundSize: "cover",
