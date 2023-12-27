@@ -45,21 +45,21 @@ const FormComponent = () => {
         if (resp && !resp?.error) {
           const session = await getSession();
 
-          let destination = "/dashboard";
+          let destination = "/";
 
-          if (session && session.user) {
-            if (!session.user.isSupplier) {
-              destination = "/meus-cupons";
-            } else if (session.user.role === "admin") {
-              destination = "/admin/parceiros";
-            }
+          if (session?.user?.role === "supplier") {
+            destination = "/dashboard";
           }
 
-          if (callbackUrl) {
-            router.push(callbackUrl as any);
-          } else {
-            router.push(destination as Route);
+          if (session?.user?.role === "admin") {
+            destination = "/admin/parceiros";
           }
+
+          if (session?.user?.role === "user") {
+            destination = "/meus-cupons";
+          }
+
+          router.push((callbackUrl as any) ?? (destination as Route));
         }
 
         if (resp && resp?.error) {

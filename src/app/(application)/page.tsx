@@ -8,11 +8,10 @@ import {
   SearchCategory,
   SupplierCard,
 } from "@/components";
-import SupplierLogo from "@/images/easytolive/logo/logotipo-fundoazulroxo.svg";
 import couponsService from "@/service/coupons.service";
 import CouponPrimary from "@/images/easytolive/icons/couponPrimary.svg";
 import imageCategory from "@/images/easytolive/icons/categorie-example.svg";
-import { ISuppliers } from "@/types/supplier";
+import { ISupplier } from "@/types/supplier";
 import { ICategorieProps } from "@/components/atoms/CategoryCard";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useSession } from "next-auth/react";
@@ -60,7 +59,7 @@ function PageHome() {
 
   //------------ get coupon codes by ser ------------------
   const isCommonUser = useUserRoles().isCommonUser();
-  const [couponCodes, setCouponCodes] = useState(Array<ICouponCodesByUser>);
+  const [hasCouponActived, setHasCouponActived] = useState(false);
   const handleGetCouponCodesByUser = async () => {
     const res: any = await couponsService.getCouponCodesByUser();
     return res;
@@ -69,14 +68,18 @@ function PageHome() {
   useEffect(() => {
     if (isCommonUser)
       handleGetCouponCodesByUser()
-        .then((res) => setCouponCodes(res.data.coupons))
+        .then((res) =>
+          setHasCouponActived(
+            res.data.coupons.some(
+              (t: ICouponCodesByUser) => t.status === "ACTIVE",
+            ),
+          ),
+        )
         .catch((error) =>
           showToastify({ type: "error", label: `Ocorreu um erro: ${error}` }),
         );
   }, [isCommonUser]);
 
-  const hasActiveCoupon =
-    couponCodes.filter((t) => t.status === "ACTIVE").length > 0;
   // ----------------------------------------------
   // restore scroll position
   useEffect(() => {
@@ -97,7 +100,7 @@ function PageHome() {
       {session?.user && (
         <FloatButtonNav
           label="meus cupons"
-          hasCouponActive={hasActiveCoupon}
+          hasCouponActive={hasCouponActived}
           backgroundStyle="secondary"
           icon={CouponPrimary}
           href="/meus-cupons"
@@ -133,7 +136,7 @@ function PageHome() {
         >
           {!!suppliers &&
             suppliers.length > 0 &&
-            suppliers.map((supplier: ISuppliers, index: number) => {
+            suppliers.map((supplier: ISupplier, index: number) => {
               const { supplierInfo, _id: id, name } = supplier || {};
 
               const supplierCardData = {
@@ -143,7 +146,7 @@ function PageHome() {
                 couponsAvailableCount: supplierInfo?.validCoupons?.length || 0,
                 saveLastPagePosition: handleRouteChange,
                 supplierCategory: supplierInfo?.supplierCategory?.title,
-                supplierImage: SupplierLogo,
+                supplierImage: supplierInfo.supplierLogo ?? "no-image",
               };
 
               return (

@@ -1,4 +1,8 @@
-import { ISupplierList } from "@/types/supplier";
+import {
+  ISupplierCompleteRegister,
+  ISupplierList,
+  ISupplierUpdate,
+} from "@/types/supplier";
 import { BaseService } from "./base.service";
 
 const getSupplierList = async (data?: Partial<ISupplierList>) => {
@@ -9,10 +13,35 @@ const getSupplierList = async (data?: Partial<ISupplierList>) => {
   });
 };
 
+const updateSupplierImages = async (
+  supplerId: string,
+  data: ISupplierCompleteRegister,
+) => {
+  return await BaseService.fetchData({
+    url: `/supplier/${supplerId}/updateSupplierImages`,
+    method: "post",
+    data,
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+};
+
 const getSupplierById = async (id: string) => {
   return await BaseService.fetchData({
     url: `/supplier/${id}`,
     method: "get",
+  });
+};
+
+const updateSupplierById = async (
+  id: string,
+  data: Partial<ISupplierUpdate>,
+) => {
+  return await BaseService.fetchData({
+    url: `/supplier/${id}`,
+    method: "patch",
+    data,
   });
 };
 
@@ -30,11 +59,21 @@ const getSupplierCategories = async () => {
   });
 };
 
+const getSupplierDashboardData = async (id: string) => {
+  return await BaseService.fetchData({
+    url: `/supplier/${id}/dashboardData`,
+    method: "get",
+  });
+};
+
 const supplierService = {
   getSupplierList,
+  updateSupplierImages,
   verifySupplier,
   getSupplierCategories,
   getSupplierById,
+  getSupplierDashboardData,
+  updateSupplierById,
 };
 
 export default supplierService;

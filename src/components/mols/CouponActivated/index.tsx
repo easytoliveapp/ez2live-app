@@ -69,6 +69,8 @@ const CouponActivated: React.FC<CouponProps> = ({
         <div className="flex items-center justify-center">
           <Image
             className="w-16 h-16 rounded-full"
+            width={64}
+            height={64}
             src={supplierLogo}
             alt="supplier-logo"
           />
