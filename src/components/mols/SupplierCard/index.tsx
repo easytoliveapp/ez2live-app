@@ -2,14 +2,14 @@
 
 import React, { FC } from "react";
 import { Avaliation, CouponsAvaible } from "@/components";
-import Image, { StaticImageData } from "next/image";
+import Image from "next/image";
 import ArrowRight from "@/images/easytolive/icons/arrow-next-right-black.svg";
 import { useRouter } from "next/navigation";
 
 interface SupplierCardProps {
   couponsAvailableCount: number;
   supplierCategory: string;
-  supplierImage: string | StaticImageData;
+  supplierImage: string;
   name: string;
   rating?: string;
   id: string;
@@ -39,6 +39,8 @@ const SupplierCard: FC<SupplierCardProps> = ({
     >
       <div className="col-span-1 flex items-center justify-center w-14 h-auto">
         <Image
+          width={80}
+          height={80}
           className="rounded-full h-auto w-auto"
           alt="Supplier-logo"
           src={supplierImage}

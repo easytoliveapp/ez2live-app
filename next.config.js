@@ -19,6 +19,13 @@ const nextConfig = {
         port: "",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "ez2live.s3.us-east-1.amazonaws.com",
+        port: "",
+        pathname: "/**",
+      },
+
     ],
   },
 };
