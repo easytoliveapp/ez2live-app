@@ -48,7 +48,7 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
 
   useEffect(() => {
     if (supplier && session) {
-      if (supplier._id === session.user.id) {
+      if (supplier.id === session.user.id) {
         setIsOwnSupplier(true);
       }
     }
@@ -122,7 +122,6 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
   };
 
   const isSupplier = useUserRoles().isSupplier();
-
   return supplier ? (
     <div className="relative h-full w-full mx-auto">
       {isOwnSupplier && (
@@ -213,9 +212,8 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
                 src={supplier.supplierInfo.supplierLogo}
               />
             )}
-
             <div>
-              {supplier?._id === session?.user?.id && (
+              {session && supplier.id === session?.user?.id && (
                 <ButtonSecondary onClick={() => setModalCreateCoupon(true)}>
                   <Image
                     src={CouponPrimary}

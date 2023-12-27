@@ -34,6 +34,7 @@ export interface ISupplier {
   numberOfCoupons: number;
   email: string;
   _id: string;
+  id: string;
   supplierInfo: ISupplierInfo;
 }
 
