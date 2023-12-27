@@ -168,7 +168,7 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
       </div>
       <Link
         prefetch={true}
-        className="absolute flex items-center h- justify-center rounded-full top-4 left-4 cursor-pointer h-8 w-8 bg-neutral-400 opacity-75 rotate-180"
+        className="absolute flex items-center justify-center rounded-full top-4 left-4 cursor-pointer h-8 w-8 bg-neutral-400 opacity-75 rotate-180"
         href={"/"}
       >
         <Image className="w-6 h-auto" alt="arrow-left" src={ArrowLeft} />
@@ -230,8 +230,7 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
           <h2 className=" text-xl font-semibold">{supplier?.name}</h2>
           {supplier.supplierInfo.supplierDescription && (
             <p className="pt-2 text-xs text-gray-400">
-              {" "}
-              {supplier.supplierInfo.supplierDescription}{" "}
+              {supplier.supplierInfo.supplierDescription}
             </p>
           )}
           <div className="mt-6 pb-16 flex flex-col gap-4">

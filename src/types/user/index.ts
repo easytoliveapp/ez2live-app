@@ -14,7 +14,7 @@ export interface userLoginResponseProps {
   isVerified: boolean;
   name: string;
   role: string;
-  supplierInfo?: ISupplierInfo | null;
+  supplierInfo?: ISupplierInfo;
 }
 export interface IDeleteUSer {
   password: string;

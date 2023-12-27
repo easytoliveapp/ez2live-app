@@ -10,7 +10,7 @@ export interface IUser {
   active: boolean;
   isSupplier: boolean;
   isVerified: boolean;
-  supplierInfo?: ISupplierInfo | null;
+  supplierInfo?: ISupplierInfo;
 }
 
 export interface ITokens {
