@@ -1,5 +1,6 @@
 import { IAddress } from "../auth/request";
 import { ICoupon } from "../coupons";
+import { ISupplierInfo } from "../supplier";
 
 export interface userLoginResponseProps {
   active: boolean;
@@ -13,6 +14,7 @@ export interface userLoginResponseProps {
   isVerified: boolean;
   name: string;
   role: string;
+  supplierInfo?: ISupplierInfo;
 }
 export interface IDeleteUSer {
   password: string;

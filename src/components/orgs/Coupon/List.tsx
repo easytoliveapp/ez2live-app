@@ -15,14 +15,13 @@ import {
   EmptyCoupons,
   FloatButtonNav,
 } from "@/components";
-import { ISupplier } from "@/types/supplier";
+import { ISupplierResponse } from "@/types/supplier";
 import ArrowLeft from "@/images/easytolive/icons/arrow-next-right-white.svg";
 import supplierService from "@/service/supplier.service";
 import { showToastify } from "@/hooks/showToastify";
 import Arrow from "@/images/easytolive/icons/arrow-next-right-primary.svg";
 import CouponPrimary from "@/images/easytolive/icons/couponPrimary.svg";
 import Edit from "@/images/easytolive/icons/edit.svg";
-import LogoImage from "@/images/easytolive/logo/logotipo-fundoazulroxo.svg";
 import LogoMain from "@/images/easytolive/logo/logobranca-fundoprimary.svg";
 import { useSession } from "next-auth/react";
 import { ICoupon } from "@/types/coupons";
@@ -36,9 +35,11 @@ interface ICouponListProps {
 
 const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
   const [modalCreateCoupon, setModalCreateCoupon] = useState(false);
-  const [supplier, setSupplier] = useState<ISupplier>();
+  const [supplierResponse, setSupplierResponse] = useState<ISupplierResponse>();
   const [isOwnSupplier, setIsOwnSupplier] = useState(false);
   const { data: session } = useSession();
+  const supplier = supplierResponse?.supplier;
+  const coupons = supplierResponse?.coupons;
 
   const getSupplierById = async (id: string) => {
     const res: any = await supplierService.getSupplierById(id);
@@ -47,7 +48,7 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
 
   useEffect(() => {
     if (supplier && session) {
-      if (supplier.supplier.id === session.user.id) {
+      if (supplier._id === session.user.id) {
         setIsOwnSupplier(true);
       }
     }
@@ -56,7 +57,7 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
   useEffect(() => {
     getSupplierById(supplierId)
       .then((res) => {
-        setSupplier(res?.data);
+        setSupplierResponse(res?.data);
       })
       .catch((error) => {
         if (error?.response?.data?.code === 400) {
@@ -69,7 +70,7 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
       });
   }, [supplierId]);
 
-  const filteredCoupons = (supplier?.coupons || [])
+  const filteredCoupons = (coupons || [])
     .filter((coupon) => coupon.status === "ACTIVE")
     .filter(
       (coupon: ICoupon) =>
@@ -81,21 +82,21 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
     action: "CREATE" | "UPDATE" | "DELETE",
   ) => {
     if (action === "CREATE") {
-      setSupplier({
-        ...(supplier as ISupplier),
-        coupons: [...(supplier?.coupons || []), updatedCoupon],
+      setSupplierResponse({
+        ...(supplierResponse as ISupplierResponse),
+        coupons: [...(coupons || []), updatedCoupon],
       });
       return;
     }
 
     if (action === "DELETE") {
-      const updatedCoupons = supplier?.coupons?.filter(
+      const updatedCoupons = coupons?.filter(
         (coupon) => coupon.id !== updatedCoupon.id,
       );
 
       if (updatedCoupons) {
-        setSupplier({
-          ...(supplier as ISupplier),
+        setSupplierResponse({
+          ...(supplierResponse as ISupplierResponse),
           coupons: updatedCoupons,
         });
       }
@@ -103,7 +104,7 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
     }
 
     if (action === "UPDATE") {
-      const updatedCoupons = supplier?.coupons?.map((coupon) => {
+      const updatedCoupons = coupons?.map((coupon) => {
         if (coupon.id === updatedCoupon.id) {
           return updatedCoupon;
         }
@@ -111,8 +112,8 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
       });
 
       if (updatedCoupons) {
-        setSupplier({
-          ...(supplier as ISupplier),
+        setSupplierResponse({
+          ...(supplierResponse as ISupplierResponse),
           coupons: updatedCoupons,
         });
       }
@@ -150,7 +151,21 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
           </ButtonThird>
         </div>
       </Modal>
-      <div className="h-40 w-full bg-gradient-to-r from-primary-lighter to-primary-main"></div>
+      <div className="h-auto pb-6 relative max-h-80 w-full mx-auto flex justify-center bg-cover bg-gradient-to-r from-primary-lighter to-primary-main">
+        {supplier.supplierInfo.supplierBanner && (
+          <Image
+            objectPosition="center"
+            loading="lazy"
+            alt="supplier-banner"
+            objectFit="cover"
+            width={0}
+            height={0}
+            sizes="100vw"
+            style={{ width: "auto", height: "auto", minHeight: "140px" }}
+            src={supplier.supplierInfo.supplierBanner}
+          />
+        )}
+      </div>
       <Link
         prefetch={true}
         className="absolute flex items-center justify-center rounded-full top-4 left-4 cursor-pointer h-8 w-8 bg-neutral-400 opacity-75 rotate-180"
@@ -158,23 +173,30 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
       >
         <Image className="w-6 h-auto" alt="arrow-left" src={ArrowLeft} />
       </Link>
-      <Image
-        className="absolute rounded-full w-20 h-auto top-8 right-4"
-        src={LogoImage}
-        alt="Logo-restaurante"
-      />
-      <div className="px-5 py-6 -mt-6 rounded-t-3xl bg-generic-background w-full h-full">
+      {supplier.supplierInfo.supplierLogo && (
+        <Image
+          className="absolute rounded-full top-8 right-4"
+          width={0}
+          height={0}
+          sizes="100vw"
+          style={{ maxWidth: "80px", height: "auto", width: "auto" }}
+          src={supplier.supplierInfo.supplierLogo}
+          alt="Logo-restaurante"
+        />
+      )}
+
+      <div className="relative px-5 py-6 -mt-6 rounded-t-3xl bg-generic-background w-full h-full">
         <div className="md:w-[700px] mx-auto">
           <div className="flex items-center justify-between">
             <div className="flex gap-1">
               <Link
-                href={`/?supplierCategory=${supplier.supplier.supplierInfo.supplierCategory.id}`}
+                href={`/?supplierCategory=${supplier.supplierInfo.supplierCategory.id}`}
                 className="text-xs underline font-bold text-generic-dark"
               >
-                {supplier?.supplier?.supplierInfo?.supplierCategory?.title}
+                {supplier?.supplierInfo?.supplierCategory?.title}
               </Link>
               <p className="text-xs font-bold text-generic-dark">
-                / {supplier?.supplier?.name}
+                / {supplier?.name}
               </p>
             </div>
             <div className="flex flex-col">
@@ -182,13 +204,18 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
             </div>
           </div>
           <div className="flex justify-between items-center">
-            <Image
-              className="w-12 my-4 h-auto rounded-full"
-              alt="Logo Image"
-              src={LogoImage}
-            />
+            {supplier.supplierInfo.supplierLogo && (
+              <Image
+                className="w-16 my-4 h-auto rounded-full mr-4"
+                alt="Logo Image"
+                height={64}
+                width={64}
+                src={supplier.supplierInfo.supplierLogo}
+              />
+            )}
+
             <div>
-              {supplier?.supplier?.id === session?.user?.id && (
+              {supplier?._id === session?.user?.id && (
                 <ButtonSecondary onClick={() => setModalCreateCoupon(true)}>
                   <Image
                     src={CouponPrimary}
@@ -200,27 +227,26 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
               )}
             </div>
           </div>
-          <h2 className=" text-xl font-semibold">{supplier?.supplier?.name}</h2>
-          <p className="pt-2 text-xs text-gray-400">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi
-            vero velit quam repellendus facere ea recusandae, sapiente
-            repudiandae perspiciatis temporibus et exercitatione illum nobis
-            corrupti, sunt voluptates perferendis dicta fugiat.
-          </p>
+          <h2 className=" text-xl font-semibold">{supplier?.name}</h2>
+          {supplier.supplierInfo.supplierDescription && (
+            <p className="pt-2 text-xs text-gray-400">
+              {supplier.supplierInfo.supplierDescription}
+            </p>
+          )}
           <div className="mt-6 pb-16 flex flex-col gap-4">
             {filteredCoupons.length > 0 ? (
               filteredCoupons.map((coupon, key) => (
                 <CouponContainer
-                  supplierId={supplier.supplier.id}
+                  supplierId={supplier._id}
                   isOwnSupplier={isOwnSupplier}
                   couponTitle={coupon.title}
                   icon={isOwnSupplier ? Edit : Arrow}
                   couponId={coupon.id}
                   supplierCategory={
-                    supplier?.supplier?.supplierInfo?.supplierCategory?.title
+                    supplier?.supplierInfo?.supplierCategory?.title
                   }
-                  supplierLogo={LogoImage}
-                  supplierName={supplier.supplier.name}
+                  supplierLogo={supplier.supplierInfo.supplierLogo ?? ""}
+                  supplierName={supplier.name}
                   discount={coupon.discount}
                   expirateTime={coupon.expirationGenerationDate}
                   expirationUseDate={coupon.expirationUseDate}
