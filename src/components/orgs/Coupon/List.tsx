@@ -149,16 +149,17 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
           </ButtonThird>
         </div>
       </Modal>
-      <div className="h-auto pb-6 relative min-h-52 max-h-80 w-full mx-auto flex justify-center bg-cover bg-gradient-to-r from-primary-lighter to-primary-main">
+      <div className="h-auto pb-6 relative max-h-80 w-full mx-auto flex justify-center bg-cover bg-gradient-to-r from-primary-lighter to-primary-main">
         {supplier.supplier.supplierInfo.supplierBanner && (
           <Image
             objectPosition="center"
+            loading="lazy"
             alt="supplier-banner"
             objectFit="cover"
             width={0}
             height={0}
             sizes="100vw"
-            style={{ width: "auto", height: "auto" }}
+            style={{ width: "auto", height: "auto", minHeight: "140px" }}
             src={supplier.supplier.supplierInfo.supplierBanner}
           />
         )}
@@ -171,9 +172,11 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
         <Image className="w-6 h-auto" alt="arrow-left" src={ArrowLeft} />
       </Link>
       <Image
-        className="absolute rounded-full w-20 h-auto top-8 right-4"
-        width={80}
-        height={80}
+        className="absolute rounded-full top-8 right-4"
+        width={0}
+        height={0}
+        sizes="100vw"
+        style={{ maxWidth: "80px", height: "auto", width: "auto" }}
         src={supplier.supplier.supplierInfo.supplierLogo}
         alt="Logo-restaurante"
       />
