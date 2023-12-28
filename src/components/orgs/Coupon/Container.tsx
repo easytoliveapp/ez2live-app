@@ -21,6 +21,7 @@ import { useRouter } from "next/navigation";
 
 import { ICoupon } from "@/types/coupons";
 import isDateValid from "@/utils/isDateValid";
+import { Route } from "next";
 
 interface CouponContainerProps {
   supplierId: string;
@@ -177,7 +178,7 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
           supplierName={supplierName}
         />
         <ButtonPrimary
-          onClick={() => router.push("/meus-cupons")}
+          onClick={() => router.push("/app/meus-cupons" as Route)}
           className="w-full mx-4 max-w-md"
         >
           Ok, entendi!
@@ -255,9 +256,9 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
         });
     } else {
       router.push(
-        `/conta/acessar?callbackUrl=${encodeURIComponent(
+        `/app/conta/acessar?callbackUrl=${encodeURIComponent(
           `/parceiro/${supplierId}/?coupon=${couponId}`,
-        )}`,
+        )}` as Route,
       );
     }
   };

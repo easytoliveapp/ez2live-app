@@ -45,18 +45,18 @@ const FormComponent = () => {
         if (resp && !resp?.error) {
           const session = await getSession();
 
-          let destination = "/";
+          let destination = "/app";
 
           if (session?.user?.role === "supplier") {
-            destination = "/dashboard";
+            destination = "/app/dashboard";
           }
 
           if (session?.user?.role === "admin") {
-            destination = "/admin/parceiros";
+            destination = "/app/admin/parceiros";
           }
 
           if (session?.user?.role === "user") {
-            destination = "/meus-cupons";
+            destination = "/app/meus-cupons";
           }
 
           router.push((callbackUrl as any) ?? (destination as Route));
@@ -129,7 +129,7 @@ const FormComponent = () => {
           <span className="flex justify-end  items-start text-sm">
             <Link
               className="text-primary-main font-semibold"
-              href="/conta/esqueci-a-senha"
+              href="/app/conta/esqueci-a-senha"
             >
               esqueci a senha
             </Link>

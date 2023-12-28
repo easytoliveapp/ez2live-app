@@ -85,7 +85,7 @@ const MyAccountPage = () => {
               label: "Conta excluída com sucesso",
               type: "success",
             });
-            router.push("/conta/entrar");
+            router.push("/app/conta/entrar");
           })
           .catch(() => {
             showToastify({

@@ -103,7 +103,7 @@ function PageHome() {
           hasCouponActive={hasCouponActived}
           backgroundStyle="secondary"
           icon={CouponPrimary}
-          href="/meus-cupons"
+          href="/app/meus-cupons"
         />
       )}
       <SearchCategory value={search || ""} onChange={handleSetSearch} />

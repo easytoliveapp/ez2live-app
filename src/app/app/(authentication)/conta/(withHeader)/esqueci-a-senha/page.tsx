@@ -25,7 +25,7 @@ const UserForgotPasswordPage = () => {
             voltar para{" "}
             <Link
               className="text-primary-main text-sm font-semibold"
-              href="/conta/entrar"
+              href="/app/conta/entrar"
             >
               login
             </Link>
