@@ -5,7 +5,7 @@ import "@/fonts/line-awesome-1.3.0/css/line-awesome.css";
 import "@/styles/index.scss";
 import "rc-slider/assets/index.css";
 import "react-toastify/dist/ReactToastify.css";
-import CommonClient from "./(app)/CommonClient";
+import CommonClient from "./CommonClient";
 import ToastProvider from "@/providers/ToastProvider";
 import AuthProvider from "@/providers/SessionProvider";
 import { getServerSession } from "next-auth";
