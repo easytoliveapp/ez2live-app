@@ -5,7 +5,6 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 
 import {
-  Avaliation,
   ButtonSecondary,
   ButtonThird,
   LoadingComponent,
@@ -25,7 +24,7 @@ import Edit from "@/images/easytolive/icons/edit.svg";
 import LogoMain from "@/images/easytolive/logo/logobranca-fundoprimary.svg";
 import { useSession } from "next-auth/react";
 import { ICoupon } from "@/types/coupons";
-import CouponIcon from "@/images/easytolive/icons/couponPrimary.svg";
+import DashboardIcon from "@/images/easytolive/icons/dashboardIcon.svg";
 import CouponRed from "@/images/easytolive/icons/couponred.svg";
 import useUserRoles from "@/hooks/useUserRoles";
 
@@ -128,7 +127,8 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
         <FloatButtonNav
           hasCouponActive={false}
           backgroundStyle="secondary"
-          icon={CouponIcon}
+          icon={DashboardIcon}
+          label="Dashboard"
           href="/dashboard"
         />
       )}
@@ -198,9 +198,9 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
                 / {supplier?.name}
               </p>
             </div>
-            <div className="flex flex-col">
+            {/* <div className="flex flex-col">
               <Avaliation rating={"4.7"} />
-            </div>
+            </div> */}
           </div>
           <div className="flex justify-between items-center">
             {supplier.supplierInfo.supplierLogo && (

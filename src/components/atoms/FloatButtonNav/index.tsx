@@ -7,6 +7,7 @@ import NextLink, { LinkProps } from "next/link";
 import { UrlObject } from "url";
 import { motion } from "framer-motion";
 import LoadingComponent from "../Loading";
+import cx from "classnames";
 
 interface IFloatButtonNavProps {
   icon: StaticImageData;
@@ -14,6 +15,7 @@ interface IFloatButtonNavProps {
   label?: string;
   href: UrlObject | string;
   hasCouponActive?: boolean;
+  position?: 1 | 2 | 3;
 }
 
 const FloatButtonNav: React.FC<IFloatButtonNavProps & LinkProps<any>> = ({
@@ -22,22 +24,34 @@ const FloatButtonNav: React.FC<IFloatButtonNavProps & LinkProps<any>> = ({
   backgroundStyle,
   icon,
   hasCouponActive = false,
+  position = 1,
 }) => {
   const [isloading, setIsLoading] = useState(false);
+
+  const bottomPosition = {
+    1: "bottom-[100px]",
+    2: "bottom-[180px]",
+    3: "bottom-[260px]",
+  };
 
   return (
     <NextLink
       onClick={() => setIsLoading(true)}
       href={href}
-      className={`${
+      className={cx(
         backgroundStyle === "main"
           ? "from-primary-main to-primary-lighter"
-          : "from-secondary-main to-secondary-lighter"
-      } ${
-        hasCouponActive ? "pr-4" : "pr-8"
-      } flex items-center bg-gradient-to-r rounded-l-full pl-4 py-4 fixed bottom-28 right-0 z-50 min-h-8 p-3`}
+          : "from-secondary-main to-secondary-lighter",
+        hasCouponActive ? "pr-4" : "pr-8",
+        `${bottomPosition[position]}`,
+        "flex items-center bg-gradient-to-r rounded-l-full pl-4 py-4 fixed right-0 z-50 min-h-8 p-3",
+      )}
     >
-      <Image className="w-auto h-9" alt="icon-image" src={icon}></Image>
+      {isloading ? (
+        <LoadingComponent bgStyle="none" fullSize={false} size="small" />
+      ) : (
+        <Image className="w-auto h-7" alt="icon-image" src={icon}></Image>
+      )}
       {hasCouponActive && (
         <div className="w-9 h-9 rouded-full flex items-center relative">
           <motion.div
@@ -52,17 +66,14 @@ const FloatButtonNav: React.FC<IFloatButtonNavProps & LinkProps<any>> = ({
         </div>
       )}
       <div
-        className={`ml-3 ${
+        className={cx(
+          "ml-2",
           backgroundStyle === "main"
             ? "text-secondary-main"
-            : "text-primary-main"
-        }`}
-      >
-        {isloading ? (
-          <LoadingComponent bgStyle="none" fullSize={false} />
-        ) : (
-          <span className="md:[display:block] hidden">{label}</span>
+            : "text-primary-main",
         )}
+      >
+        <span className="md:[display:block] hidden">{label}</span>
       </div>
     </NextLink>
   );
