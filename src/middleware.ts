@@ -30,7 +30,7 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(
       new URL(
         ROLE_START_URL[tokenInfo?.user.role as keyof typeof ROLE_START_URL] ??
-          "/",
+          "/app",
         request.url,
       ),
     );
@@ -39,12 +39,12 @@ export async function middleware(request: NextRequest) {
   if (
     (tokenInfo?.user.role === ROLES.supplier ||
       tokenInfo?.user.role === ROLES.admin) &&
-    request.nextUrl.pathname === "/"
+    request.nextUrl.pathname === "/app"
   ) {
     return NextResponse.redirect(
       new URL(
         ROLE_START_URL[tokenInfo?.user.role as keyof typeof ROLE_START_URL] ??
-          "/",
+          "/app",
         request.url,
       ),
     );

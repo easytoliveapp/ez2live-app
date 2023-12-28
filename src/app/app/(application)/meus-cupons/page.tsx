@@ -33,7 +33,7 @@ const filterOptions = [
     id: "ACTIVE",
     name: "cupons ativos",
     emptyText: "Nenhum cupom ativo disponível",
-    href: "/",
+    href: "/app",
     label: "Buscar descontos",
     icon: CouponGreen,
     textColor: "text-generic-alertGreen",

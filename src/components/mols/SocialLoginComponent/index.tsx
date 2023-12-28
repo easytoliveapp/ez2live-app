@@ -29,7 +29,7 @@ const SocialLoginComponent = () => {
   const nextAuthLoginBasedOnProvider = (provider: string) => {
     setLoading(true);
 
-    signIn(provider, { callbackUrl: callbackUrl ?? "/" })
+    signIn(provider, { callbackUrl: callbackUrl ?? "/app" })
       .catch(() => {
         showToastify({
           type: "error",

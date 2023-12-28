@@ -1,4 +1,4 @@
-import { Popover, Transition } from "@/app/headlessui";
+import { Popover, Transition } from "@/app/app/headlessui";
 import React, { Fragment } from "react";
 
 interface CurrencyDropdownProps {
