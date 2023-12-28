@@ -1,3 +1,4 @@
+<<<<<<< HEAD:src/app/not-found.tsx
 <<<<<<< Updated upstream:src/app/not-found.tsx
 import { ButtonPrimary, NcImage } from "@/components";
 import React from "react";
@@ -22,6 +23,8 @@ const Page404 = () => (
 
 export default Page404;
 =======
+=======
+>>>>>>> 5b7cfa46f47cdbe78d6dea0e12e4f5384af5753b:src/app/app/not-found.tsx
 import { ButtonPrimary, NcImage } from "@/components";
 import React from "react";
 import I404Png from "@/images/404.png";
@@ -36,7 +39,11 @@ const Page404 = () => (
           {`THE PAGE YOU WERE LOOKING FOR DOESN'T EXIST.`}{" "}
         </span>
         <div className="pt-8">
+<<<<<<< HEAD:src/app/not-found.tsx
           <ButtonPrimary href="/app">Return Home Page</ButtonPrimary>
+=======
+          <ButtonPrimary href="/app/">Return Home Page</ButtonPrimary>
+>>>>>>> 5b7cfa46f47cdbe78d6dea0e12e4f5384af5753b:src/app/app/not-found.tsx
         </div>
       </header>
     </div>
@@ -44,4 +51,7 @@ const Page404 = () => (
 );
 
 export default Page404;
+<<<<<<< HEAD:src/app/not-found.tsx
 >>>>>>> Stashed changes:src/app/app/not-found.tsx
+=======
+>>>>>>> 5b7cfa46f47cdbe78d6dea0e12e4f5384af5753b:src/app/app/not-found.tsx

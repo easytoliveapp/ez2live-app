@@ -18,11 +18,15 @@ const NavBarLogged: FC<NavBarLoggedProps> = ({ hasLogoImage = true }) => {
     <div className="relative w-full p-2 flex justify-between items-center">
       <MenuBar />
       {hasLogoImage && (
+<<<<<<< HEAD
 <<<<<<< Updated upstream
         <Link href={session?.user.isSupplier ? "/dashboard" : "/"}>
 =======
         <Link href={session?.user.isSupplier ? "/app/dashboard" : "/app"}>
 >>>>>>> Stashed changes
+=======
+        <Link href={session?.user.isSupplier ? "/app/dashboard" : "/app/"}>
+>>>>>>> 5b7cfa46f47cdbe78d6dea0e12e4f5384af5753b
           <Image
             className="w-auto h-8 rounded-full cursor-pointer"
             src={session?.user?.image ?? LogoImage}

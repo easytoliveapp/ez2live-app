@@ -15,11 +15,15 @@ const Logo: React.FC<LogoProps> = ({
 }) => {
   return (
     <Link
+<<<<<<< HEAD
 <<<<<<< Updated upstream
       href="/"
 =======
       href="/app"
 >>>>>>> Stashed changes
+=======
+      href="/app/"
+>>>>>>> 5b7cfa46f47cdbe78d6dea0e12e4f5384af5753b
       className={`ttnc-logo inline-block text-slate-600 ${className}`}
     >
       {/* THIS USE FOR MY CLIENT */}

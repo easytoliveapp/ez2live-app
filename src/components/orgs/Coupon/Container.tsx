@@ -177,7 +177,7 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
           supplierName={supplierName}
         />
         <ButtonPrimary
-          onClick={() => router.push("/meus-cupons")}
+          onClick={() => router.push("/app/meus-cupons")}
           className="w-full mx-4 max-w-md"
         >
           Ok, entendi!
@@ -255,8 +255,8 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
         });
     } else {
       router.push(
-        `/conta/acessar?callbackUrl=${encodeURIComponent(
-          `/parceiro/${supplierId}/?coupon=${couponId}`,
+        `/app/conta/acessar?callbackUrl=${encodeURIComponent(
+          `/app/parceiro/${supplierId}/?coupon=${couponId}`,
         )}`,
       );
     }
