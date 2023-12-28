@@ -41,7 +41,7 @@ const ActiveCouponPage = () => {
               }
             }}
             onClose={() => {
-              router.push("/dashboard");
+              router.push("/app/dashboard");
             }}
             textOverlay="Aproxime a câmera para ler o QR Code de validação"
             aditionalElements={

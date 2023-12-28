@@ -5,11 +5,11 @@ import "@/fonts/line-awesome-1.3.0/css/line-awesome.css";
 import "@/styles/index.scss";
 import "rc-slider/assets/index.css";
 import "react-toastify/dist/ReactToastify.css";
-import CommonClient from "./CommonClient";
+import CommonClient from "./app/CommonClient";
 import ToastProvider from "@/providers/ToastProvider";
 import AuthProvider from "@/providers/SessionProvider";
 import { getServerSession } from "next-auth";
-import { authOptions } from "../app/api/auth/[...nextauth]/route";
+import { authOptions } from "./app/api/auth/[...nextauth]/route";
 import { SupplierProvider } from "@/providers/SuppliersProvider";
 
 const poppins = Poppins({

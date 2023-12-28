@@ -30,7 +30,7 @@ const UserRegisterPage = () => {
             voltar para{" "}
             <Link
               className="text-primary-main text-sm font-semibold"
-              href="/conta/entrar"
+              href="/app/conta/entrar"
             >
               login
             </Link>
@@ -52,7 +52,7 @@ const UserRegisterPage = () => {
             <p> tem um estabelecimento e quer se juntar a nós? </p>
             <Link
               className="text-primary-main text-sm font-semibold"
-              href="/conta/cadastrar/parceiro"
+              href="/app/conta/cadastrar/parceiro"
             >
               cadastre-se!
             </Link>

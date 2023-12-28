@@ -79,7 +79,7 @@ const AvatarDropdown = () => {
 
                     {/* ------------------ 1 --------------------- */}
                     <Link
-                      href={"/minha-conta"}
+                      href={"/app/minha-conta"}
                       className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-neutral-100  focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
                       onClick={() => close()}
                     >
@@ -114,7 +114,7 @@ const AvatarDropdown = () => {
                     {/* ------------------ admin dashboard ----------------- */}
                     {UserRoles().isAdmin() && (
                       <Link
-                        href={"/admin/parceiros"}
+                        href={"/app/admin/parceiros"}
                         className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-700 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
                       >
                         <div className="flex items-center justify-center flex-shrink-0 text-neutral-500 dark:text-neutral-300">
@@ -180,7 +180,7 @@ const AvatarDropdown = () => {
                     {/* ------------------ supplier dashboard ----------------- */}
                     {UserRoles().isSupplier() && (
                       <Link
-                        href={"/dashboard/parceiro/perfil"}
+                        href={"/app/dashboard/parceiro/perfil"}
                         className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-700 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
                       >
                         <div className="flex items-center justify-center flex-shrink-0 text-neutral-500 dark:text-neutral-300">

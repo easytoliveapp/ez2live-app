@@ -58,7 +58,7 @@ const PageLogin = () => {
             <p> tem um estabelecimento e quer se juntar a nós? </p>
             <Link
               className="text-primary-main text-sm font-semibold"
-              href="/conta/cadastrar/parceiro"
+              href="/app/conta/cadastrar/parceiro"
             >
               cadastre-se!
             </Link>

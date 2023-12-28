@@ -57,7 +57,7 @@ const FormComponent = () => {
             password: values.password,
             redirect: false,
           })
-            .then(() => router.push((callbackUrl as Route) ?? "/"))
+            .then(() => router.push((callbackUrl as Route) ?? "/app/"))
             .catch((error) => {
               showToastify({
                 label:

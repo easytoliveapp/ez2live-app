@@ -12,7 +12,7 @@ const SupplierNotVerified = () => {
 
   const handleClick = () => {
     signOut();
-    router.push("/");
+    router.push("/app/");
   };
 
   return (

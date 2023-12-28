@@ -124,7 +124,7 @@ const FormComponent = () => {
       },
     })
       .then(() => {
-        setTimeout(() => router.push("/conta/entrar"), 3000);
+        setTimeout(() => router.push("/app/conta/entrar"), 3000);
         showToastify({
           type: "success",
           label:
