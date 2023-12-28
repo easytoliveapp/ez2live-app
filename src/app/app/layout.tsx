@@ -9,7 +9,7 @@ import CommonClient from "./CommonClient";
 import ToastProvider from "@/providers/ToastProvider";
 import AuthProvider from "@/providers/SessionProvider";
 import { getServerSession } from "next-auth";
-import { authOptions } from "../app/api/auth/[...nextauth]/route";
+import { authOptions } from "../api/auth/[...nextauth]/route";
 import { SupplierProvider } from "@/providers/SuppliersProvider";
 
 const poppins = Poppins({
