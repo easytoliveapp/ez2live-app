@@ -2,39 +2,39 @@ import { ROLES } from "@/constants/roles";
 
 export const PRIVATE_ROUTES_CONFIG = [
   {
-    path: "/minha-conta",
+    path: "/app/minha-conta",
     roles: [ROLES.admin, ROLES.commonUser, ROLES.supplier],
     isPublic: false,
   },
 
-  { path: "/admin", roles: [ROLES.admin], isPublic: false },
-  { path: "/admin/parceiros", roles: [ROLES.admin], isPublic: false },
-  { path: "/dashboard", roles: [ROLES.supplier], isPublic: false },
-  { path: "/dashboard/parceiro", roles: [ROLES.supplier], isPublic: false },
+  { path: "/app/admin", roles: [ROLES.admin], isPublic: false },
+  { path: "/app/admin/parceiros", roles: [ROLES.admin], isPublic: false },
+  { path: "/app/dashboard", roles: [ROLES.supplier], isPublic: false },
+  { path: "/app/dashboard/parceiro", roles: [ROLES.supplier], isPublic: false },
   {
-    path: "/dashboard/parceiro/ativar-cupom",
+    path: "/app/dashboard/parceiro/ativar-cupom",
     roles: [ROLES.supplier],
     isPublic: false,
   },
   {
-    path: "/dashboard/parceiro/perfil",
+    path: "/app/dashboard/parceiro/perfil",
     roles: [ROLES.supplier],
     isPublic: false,
   },
-  { path: "/meus-cupons", roles: [ROLES.commonUser], isPublic: false },
+  { path: "/app/meus-cupons", roles: [ROLES.commonUser], isPublic: false },
 ];
 
 export const AUTH_ROUTE_PATHS = [
-  "/conta/acessar",
-  "/conta/entrar",
-  "/conta/cadastrar/parceiro",
-  "/conta/cadastrar/usuario",
-  "/conta/esqueci-a-senha",
-  "/conta/criar-nova-senha",
+  "/app/conta/acessar",
+  "/app/conta/entrar",
+  "/app/conta/cadastrar/parceiro",
+  "/app/conta/cadastrar/usuario",
+  "/app/conta/esqueci-a-senha",
+  "/app/conta/criar-nova-senha",
 ];
 
 export const ROLE_START_URL = {
-  [ROLES.commonUser]: "/meus-cupons",
-  [ROLES.admin]: "/admin",
-  [ROLES.supplier]: "/dashboard",
+  [ROLES.commonUser]: "/app/meus-cupons",
+  [ROLES.admin]: "/app/admin",
+  [ROLES.supplier]: "/app/dashboard",
 };
