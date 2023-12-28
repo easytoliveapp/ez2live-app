@@ -33,7 +33,11 @@ const filterOptions = [
     id: "ACTIVE",
     name: "cupons ativos",
     emptyText: "Nenhum cupom ativo disponível",
+<<<<<<< Updated upstream:src/app/(app)/(application)/meus-cupons/meus-cupons/page.tsx
     href: "/",
+=======
+    href: "/app",
+>>>>>>> Stashed changes:src/app/app/(application)/meus-cupons/meus-cupons/page.tsx
     label: "Buscar descontos",
     icon: CouponGreen,
     textColor: "text-generic-alertGreen",
@@ -99,7 +103,11 @@ const MyCouponsPage = () => {
 
   return (
     <div className="relative md:w-[500px] h-full w-full mx-auto">
+<<<<<<< Updated upstream:src/app/(app)/(application)/meus-cupons/meus-cupons/page.tsx
       <FloatButtonNav href="/" icon={Shop} backgroundStyle="main" />
+=======
+      <FloatButtonNav href="/app" icon={Shop} backgroundStyle="main" />
+>>>>>>> Stashed changes:src/app/app/(application)/meus-cupons/meus-cupons/page.tsx
       <div className="mt-8 mb-16 flex items-center justify-between">
         <h2 className=" pl-6 flex items-center text-2xl leading-[115%] md:leading-[115%] font-bold text-black dark:text-neutral-100 justify-center">
           {session?.user.name}

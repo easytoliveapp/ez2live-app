@@ -15,8 +15,8 @@ const AvatarDropdown = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const loginRedirectURL = UserRoles().isSupplier()
-    ? "/dashboard"
-    : "/meus-cupons";
+    ? "/app/dashboard"
+    : "/app/meus-cupons";
 
   const textMyCouponsOrMyShop = UserRoles().isSupplier()
     ? "Dashboard"

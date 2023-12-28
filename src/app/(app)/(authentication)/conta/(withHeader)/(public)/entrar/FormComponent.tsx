@@ -45,7 +45,11 @@ const FormComponent = () => {
         if (resp && !resp?.error) {
           const session = await getSession();
 
+<<<<<<< Updated upstream:src/app/(app)/(authentication)/conta/(withHeader)/(public)/entrar/FormComponent.tsx
           let destination = "/";
+=======
+          let destination = "/app";
+>>>>>>> Stashed changes:src/app/app/(authentication)/conta/(withHeader)/(public)/entrar/FormComponent.tsx
 
           if (session?.user?.role === "supplier") {
             destination = "/dashboard";

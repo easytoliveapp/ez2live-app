@@ -168,7 +168,11 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
       <Link
         prefetch={true}
         className="absolute flex items-center justify-center rounded-full top-4 left-4 cursor-pointer h-8 w-8 bg-neutral-400 opacity-75 rotate-180"
+<<<<<<< Updated upstream
         href={"/"}
+=======
+        href={"/app"}
+>>>>>>> Stashed changes
       >
         <Image className="w-6 h-auto" alt="arrow-left" src={ArrowLeft} />
       </Link>
@@ -257,7 +261,11 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
               <EmptyCoupons
                 icon={CouponRed}
                 title="Nenhum cupom disponível"
+<<<<<<< Updated upstream
                 href={!isSupplier && "/"}
+=======
+                href={!isSupplier && "/app"}
+>>>>>>> Stashed changes
                 label={!isSupplier && "ver outros parceiros"}
               />
             )}

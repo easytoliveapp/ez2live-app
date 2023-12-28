@@ -57,7 +57,11 @@ const FormComponent = () => {
             password: values.password,
             redirect: false,
           })
+<<<<<<< Updated upstream:src/app/(app)/(authentication)/conta/(withHeader)/(public)/cadastrar/usuario/FormComponent.tsx
             .then(() => router.push((callbackUrl as Route) ?? "/"))
+=======
+            .then(() => router.push((callbackUrl as Route) ?? "/app"))
+>>>>>>> Stashed changes:src/app/app/(authentication)/conta/(withHeader)/(public)/cadastrar/usuario/FormComponent.tsx
             .catch((error) => {
               showToastify({
                 label:

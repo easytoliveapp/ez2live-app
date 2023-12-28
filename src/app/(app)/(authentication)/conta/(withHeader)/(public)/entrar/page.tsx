@@ -32,10 +32,10 @@ const PageLogin = () => {
               className="text-primary-main font-semibold cursor-pointer"
               href={
                 callbackUrl
-                  ? `/conta/cadastrar/usuario?callbackUrl=${encodeURIComponent(
+                  ? `/app/conta/cadastrar/usuario?callbackUrl=${encodeURIComponent(
                       callbackUrl,
                     )}`
-                  : "/conta/cadastrar/usuario"
+                  : "/app/conta/cadastrar/usuario"
               }
             >
               registrar com email/senha

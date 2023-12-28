@@ -19,7 +19,11 @@ const NavBar: React.FC<NavBarProps> = ({ hasLogoImage = true }) => {
     <div>
       <div className="relative w-full p-4 flex justify-center items-center bg-generic-background">
         {hasLogoImage && (
+<<<<<<< Updated upstream
           <Link href="/">
+=======
+          <Link href="/app">
+>>>>>>> Stashed changes
             <Image className="w-auto h-8" src={LogoImage} alt="EasyToLive" />
           </Link>
         )}

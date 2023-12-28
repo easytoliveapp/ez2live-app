@@ -12,7 +12,11 @@ const SupplierNotVerified = () => {
 
   const handleClick = () => {
     signOut();
+<<<<<<< Updated upstream
     router.push("/");
+=======
+    router.push("/app");
+>>>>>>> Stashed changes
   };
 
   return (
