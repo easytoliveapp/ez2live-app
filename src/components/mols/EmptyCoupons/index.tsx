@@ -41,19 +41,19 @@ const EmptyCoupons: React.FC<IEmptyCoupons> = ({
   return (
     <div className="w-full flex flex-col justify-center items-center">
       <Image
-        className="w-24 m-2 bg-white p-4 h-auto rounded-full"
+        className="w-20 m-2 bg-white p-4 h-auto rounded-full"
         src={icon}
         alt="Imagem Cupom"
       />
       {title && (
-        <span className={cx(titleStyle, "text-center mb-4")}>{title}</span>
+        <span className={cx(titleStyle, "text-center mb-5")}>{title}</span>
       )}
       {label && (
         <>
           {href ? (
             <RedirectLink href={href} label={label} />
           ) : (
-            <p className=" font-semibold text-primary-main">{label}</p>
+            <p className="font-semibold text-primary-main">{label}</p>
           )}
         </>
       )}
