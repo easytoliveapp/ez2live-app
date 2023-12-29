@@ -10,7 +10,7 @@ import ToastProvider from "@/providers/ToastProvider";
 import AuthProvider from "@/providers/SessionProvider";
 import { getServerSession } from "next-auth";
 import { SupplierProvider } from "@/providers/SuppliersProvider";
-import { authOptions } from "./api/auth/[...nextauth]/route";
+import { authOptions } from "../api/auth/[...nextauth]/route";
 
 const poppins = Poppins({
   subsets: ["latin"],
