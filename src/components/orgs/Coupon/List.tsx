@@ -238,7 +238,7 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
             {filteredCoupons.length > 0 ? (
               filteredCoupons.map((coupon, key) => (
                 <CouponContainer
-                  supplierId={supplier._id}
+                  supplierId={supplier.id}
                   isOwnSupplier={isOwnSupplier}
                   couponTitle={coupon.title}
                   icon={isOwnSupplier ? Edit : Arrow}
