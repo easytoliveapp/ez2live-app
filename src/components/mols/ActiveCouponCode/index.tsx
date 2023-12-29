@@ -331,7 +331,7 @@ const ActiveCouponCode: React.FC<IActiveCouponCodeProps> = ({
                     className="text-generic-alertRed"
                     onClick={onCancelClick}
                   >
-                    Não quero agora.
+                    Não quero agora
                   </ButtonThird>
                 </div>
               </>
