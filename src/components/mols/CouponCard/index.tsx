@@ -13,6 +13,7 @@ import { getColorByDiscountValue } from "@/utils/getColorByDiscountValue";
 
 import cx from "classnames";
 import { getDateFormater } from "@/utils/getDateFormater";
+import { getCouponsRemaining } from "@/utils/getCouponsRemaining";
 
 interface ICouponCardProps {
   discount: string;
@@ -73,9 +74,7 @@ const CouponCard: React.FC<ICouponCardProps> = ({
                       src={ShoppingCartGreen}
                       color="white"
                     />
-                    {maxUnitsTotal === -1
-                      ? "quantidade ilimitada"
-                      : `faltam ${maxUnitsTotal} unidades`}
+                    {getCouponsRemaining(maxUnitsTotal)}
                   </p>
                 )}
                 {activationDate && (
