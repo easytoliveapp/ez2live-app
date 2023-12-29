@@ -16,6 +16,7 @@ import { showToastify } from "@/hooks/showToastify";
 import CouponsService from "@/service/coupons.service";
 import cx from "classnames";
 import { useRouter } from "next/navigation";
+import { getDateFormater } from "@/utils/getDateFormater";
 
 export interface IActiveCouponCodeProps {
   code?: string;
@@ -269,28 +270,37 @@ const ActiveCouponCode: React.FC<IActiveCouponCodeProps> = ({
                               </p>
                             </div>
                           </div>
-                          <div className="flex flex-col gap-2 m-3">
-                            <div className="flex flex-col gap-3">
-                              <div>
-                                <p className="font-semibold">categoria</p>
-                                <p>
-                                  {
-                                    couponInfo?.coupon?.supplier?.supplierInfo
-                                      ?.supplierCategory.title
-                                  }
-                                </p>
+                          <div className="flex flex-col  m-4">
+                            <div className="grid grid-cols-2">
+                              <div className="flex flex-col gap-2">
+                                <div>
+                                  <p className="font-semibold">categoria</p>
+                                  <p>
+                                    {
+                                      couponInfo?.coupon?.supplier?.supplierInfo
+                                        ?.supplierCategory.title
+                                    }
+                                  </p>
+                                </div>
+                                <div>
+                                  <p className="font-semibold">validade</p>
+                                  <p>
+                                    {getDateFormater(
+                                      couponInfo?.coupon?.expirationUseDate,
+                                    )}
+                                  </p>
+                                </div>
                               </div>
-                              <div>
-                                <p className="font-semibold">validade</p>
-                                <p>{couponInfo?.coupon?.expirationUseDate}</p>
-                              </div>
-                              <div>
-                                <p className="font-semibold">usuário</p>
-                                <p>{couponInfo?.user}</p>
-                              </div>
-                              <div>
-                                <p className="font-semibold">cupom</p>
-                                <p>{couponInfo?.coupon?.title}</p>
+
+                              <div className="flex flex-col gap-2">
+                                <div>
+                                  <p className="font-semibold">usuário</p>
+                                  <p>{couponInfo?.user}</p>
+                                </div>
+                                <div>
+                                  <p className="font-semibold">cupom</p>
+                                  <p>{couponInfo?.coupon?.title}</p>
+                                </div>
                               </div>
                             </div>
                           </div>
@@ -323,7 +333,7 @@ const ActiveCouponCode: React.FC<IActiveCouponCodeProps> = ({
                       disabled={loading}
                       loading={loading}
                     >
-                      Resgatar Cupom!
+                      Validar cupom
                     </ButtonSecondary>
                   )}
 
