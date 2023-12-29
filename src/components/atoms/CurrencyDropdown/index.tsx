@@ -14,7 +14,7 @@ const CurrencyDropdown: React.FC<CurrencyDropdownProps> = ({ children }) => {
             <Popover.Button
               className={`
                 ${!open && "text-opacity-100"}
-                group px-3 py-1.5  border-neutral-300 hover:border-neutral-400  rounded-full inline-flex items-center text-sm text-black  font-medium hover:text-opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75`}
+                group px-1 py-1 pb-1 border-neutral-300 hover:border-neutral-400  rounded-full inline-flex items-center text-sm text-black  font-medium hover:text-opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75`}
             >
               <span className=" text-2xl rotate-90">...</span>
             </Popover.Button>
@@ -30,7 +30,7 @@ const CurrencyDropdown: React.FC<CurrencyDropdownProps> = ({ children }) => {
               <Popover.Panel className="absolute z-10 w-screen max-w-[240px] px-2 mt-1 right-0 sm:px-0">
                 <div className="overflow-hidden rounded-2xl shadow-lg ring-1 ring-black ring-opacity-5">
                   <div
-                    className="relative grid gap-7 bg-white p-7"
+                    className="relative grid gap-5 bg-white p-5"
                     onClick={() => close()}
                   >
                     {children}

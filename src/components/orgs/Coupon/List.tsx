@@ -25,7 +25,7 @@ import LogoMain from "@/images/easytolive/logo/logobranca-fundoprimary.svg";
 import { useSession } from "next-auth/react";
 import { ICoupon } from "@/types/coupons";
 import DashboardIcon from "@/images/easytolive/icons/dashboardIcon.svg";
-import CouponRed from "@/images/easytolive/icons/couponred.svg";
+import CouponGray from "@/images/easytolive/icons/coupongray.svg";
 import useUserRoles from "@/hooks/useUserRoles";
 import { Route } from "next";
 
@@ -151,21 +151,18 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
           </ButtonThird>
         </div>
       </Modal>
-      <div className="h-auto pb-6 relative max-h-80 w-full mx-auto flex justify-center bg-cover bg-gradient-to-r from-primary-lighter to-primary-main">
-        {supplier.supplierInfo.supplierBanner && (
-          <Image
-            objectPosition="center"
-            loading="lazy"
-            alt="supplier-banner"
-            objectFit="cover"
-            width={0}
-            height={0}
-            sizes="100vw"
-            style={{ width: "auto", height: "auto", minHeight: "140px" }}
-            src={supplier.supplierInfo.supplierBanner}
-          />
-        )}
-      </div>
+
+      {supplier.supplierInfo.supplierBanner ? (
+        <div
+          style={{
+            backgroundImage: `url(${supplier.supplierInfo.supplierBanner})`,
+          }}
+          className="bg-cover bg-center w-full bg-no-repeat h-44"
+        ></div>
+      ) : (
+        <div className="h-40 pb-6max-h-80 w-full mx-auto flex justify-center bg-cover bg-gradient-to-r from-primary-lighter to-primary-main"></div>
+      )}
+
       <Link
         prefetch={true}
         className="absolute flex items-center justify-center rounded-full top-4 left-4 cursor-pointer h-8 w-8 bg-neutral-400 opacity-75 rotate-180"
@@ -258,7 +255,8 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
               ))
             ) : (
               <EmptyCoupons
-                icon={CouponRed}
+                titleStyle="font-bold text-lg text-generic-dark"
+                icon={CouponGray}
                 title="Nenhum cupom disponível"
                 href={!isSupplier && "/app"}
                 label={!isSupplier && "ver outros parceiros"}

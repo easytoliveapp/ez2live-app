@@ -92,7 +92,7 @@ const NcModal: FC<NcModalProps> = ({
               leaveTo="opacity-0 scale-95"
             >
               <div
-                className={`inline-block w-full my-5 overflow-hidden text-left align-middle transition-all transform bg-white border border-black border-opacity-5 shadow-xl rounded-[46px] sm:my-8 text-neutral-900  ${contentExtraClass}`}
+                className={`inline-block w-full my-5 py-2 overflow-hidden text-left align-middle transition-all transform bg-white border border-black border-opacity-5 shadow-xl rounded-[46px] sm:my-8 text-neutral-900  ${contentExtraClass}`}
               >
                 <div
                   className={`px-4 mt-2 ${
@@ -102,7 +102,7 @@ const NcModal: FC<NcModalProps> = ({
                   {hasCloseButton && (
                     <ButtonClose
                       onClick={() => closeModal()}
-                      className="py-4 mt-3 absolute right-3 top-1/2 transform -translate-y-1/2 sm:right-2"
+                      className="py-4 mt-3 absolute right-5 top-1/2 transform -translate-y-1/2 sm:right-5"
                     />
                   )}
                   {modalTitle && (

@@ -23,6 +23,7 @@ import EmptyIcon from "@/images/easytolive/icons/empty-icon.svg";
 import { ICouponCodesByUser } from "@/types/coupons";
 import { showToastify } from "@/hooks/showToastify";
 import useUserRoles from "@/hooks/useUserRoles";
+import Easy2LiveLogo from "@/images/easytolive/logo/logotipo-fundoazulroxo.svg";
 
 function PageHome() {
   const { data: session } = useSession();
@@ -146,7 +147,7 @@ function PageHome() {
                 couponsAvailableCount: supplierInfo?.validCoupons?.length || 0,
                 saveLastPagePosition: handleRouteChange,
                 supplierCategory: supplierInfo?.supplierCategory?.title,
-                supplierImage: supplierInfo.supplierLogo ?? "no-image",
+                supplierImage: supplierInfo.supplierLogo ?? Easy2LiveLogo,
               };
 
               return (
