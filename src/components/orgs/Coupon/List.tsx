@@ -156,7 +156,7 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
           style={{
             backgroundImage: `url(${supplier.supplierInfo.supplierBanner})`,
           }}
-          className="bg-cover bg-center w-full bg-no-repeat h-40"
+          className="bg-cover bg-center w-full bg-no-repeat h-44"
         ></div>
       ) : (
         <div className="h-40 pb-6max-h-80 w-full mx-auto flex justify-center bg-cover bg-gradient-to-r from-primary-lighter to-primary-main"></div>
