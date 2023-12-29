@@ -257,7 +257,7 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
     } else {
       router.push(
         `/app/conta/acessar?callbackUrl=${encodeURIComponent(
-          `/parceiro/${supplierId}/?coupon=${couponId}`,
+          `/app/parceiro/${supplierId}/?coupon=${couponId}`,
         )}` as Route,
       );
     }
