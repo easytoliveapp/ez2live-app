@@ -150,21 +150,30 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
           </ButtonThird>
         </div>
       </Modal>
-      <div className="h-auto pb-6 relative max-h-80 w-full mx-auto flex justify-center bg-cover bg-gradient-to-r from-primary-lighter to-primary-main">
-        {supplier.supplierInfo.supplierBanner && (
+
+      {supplier.supplierInfo.supplierBanner ? (
+        <div className="w-full h-40">
           <Image
             objectPosition="center"
-            loading="lazy"
+            blurDataURL="true"
+            placeholder="blur"
             alt="supplier-banner"
             objectFit="cover"
             width={0}
             height={0}
             sizes="100vw"
-            style={{ width: "auto", height: "auto", minHeight: "140px" }}
+            style={{
+              width: "100vw",
+              height: "auto",
+              minHeight: "160px",
+            }}
             src={supplier.supplierInfo.supplierBanner}
           />
-        )}
-      </div>
+        </div>
+      ) : (
+        <div className="h-40 pb-6max-h-80 w-full mx-auto flex justify-center bg-cover bg-gradient-to-r from-primary-lighter to-primary-main"></div>
+      )}
+
       <Link
         prefetch={true}
         className="absolute flex items-center justify-center rounded-full top-4 left-4 cursor-pointer h-8 w-8 bg-neutral-400 opacity-75 rotate-180"
