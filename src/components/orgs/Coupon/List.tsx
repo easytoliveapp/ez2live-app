@@ -152,24 +152,12 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
       </Modal>
 
       {supplier.supplierInfo.supplierBanner ? (
-        <div className="w-full h-40">
-          <Image
-            objectPosition="center"
-            blurDataURL="true"
-            placeholder="blur"
-            alt="supplier-banner"
-            objectFit="cover"
-            width={0}
-            height={0}
-            sizes="100vw"
-            style={{
-              width: "100vw",
-              height: "auto",
-              minHeight: "160px",
-            }}
-            src={supplier.supplierInfo.supplierBanner}
-          />
-        </div>
+        <div
+          style={{
+            backgroundImage: `url(${supplier.supplierInfo.supplierBanner})`,
+          }}
+          className="bg-cover bg-center w-full bg-no-repeat h-40"
+        ></div>
       ) : (
         <div className="h-40 pb-6max-h-80 w-full mx-auto flex justify-center bg-cover bg-gradient-to-r from-primary-lighter to-primary-main"></div>
       )}
