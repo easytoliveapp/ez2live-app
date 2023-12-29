@@ -9,8 +9,8 @@ import { ILogIn } from "@/types/auth/request";
 
 export const authOptions: NextAuthOptions = {
   pages: {
-    signIn: "/conta/entrar",
-    signOut: "/auth/logout",
+    signIn: "/app/conta/entrar",
+    signOut: "/app/auth/logout",
   },
   secret: process.env.NEXTAUTH_SECRET,
   session: {
