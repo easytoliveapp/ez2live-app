@@ -25,7 +25,7 @@ const AvatarDropdown = () => {
 
   async function handleLogout() {
     setIsLoading(true);
-    return await signOut({ redirect: true, callbackUrl: "/conta/entrar" });
+    return await signOut({ redirect: true, callbackUrl: "/app/conta/entrar" });
   }
 
   return (
