@@ -27,6 +27,7 @@ import { ICoupon } from "@/types/coupons";
 import DashboardIcon from "@/images/easytolive/icons/dashboardIcon.svg";
 import CouponGray from "@/images/easytolive/icons/coupongray.svg";
 import useUserRoles from "@/hooks/useUserRoles";
+import { Route } from "next";
 
 interface ICouponListProps {
   supplierId: string;
@@ -129,7 +130,7 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
           backgroundStyle="secondary"
           icon={DashboardIcon}
           label="Dashboard"
-          href="/dashboard"
+          href="/app/dashboard"
         />
       )}
       <Modal
@@ -165,7 +166,7 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
       <Link
         prefetch={true}
         className="absolute flex items-center justify-center rounded-full top-4 left-4 cursor-pointer h-8 w-8 bg-neutral-400 opacity-75 rotate-180"
-        href={"/"}
+        href={"/app"}
       >
         <Image className="w-6 h-auto" alt="arrow-left" src={ArrowLeft} />
       </Link>
@@ -186,7 +187,9 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
           <div className="flex items-center justify-between">
             <div className="flex gap-1">
               <Link
-                href={`/?supplierCategory=${supplier.supplierInfo.supplierCategory.id}`}
+                href={
+                  `/app/?supplierCategory=${supplier.supplierInfo.supplierCategory.id}` as Route
+                }
                 className="text-xs underline font-bold text-generic-dark"
               >
                 {supplier?.supplierInfo?.supplierCategory?.title}
@@ -232,7 +235,7 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
             {filteredCoupons.length > 0 ? (
               filteredCoupons.map((coupon, key) => (
                 <CouponContainer
-                  supplierId={supplier._id}
+                  supplierId={supplier.id}
                   isOwnSupplier={isOwnSupplier}
                   couponTitle={coupon.title}
                   icon={isOwnSupplier ? Edit : Arrow}
@@ -255,7 +258,7 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
                 titleStyle="font-bold text-lg text-generic-dark"
                 icon={CouponGray}
                 title="Nenhum cupom disponível"
-                href={!isSupplier && "/"}
+                href={!isSupplier && "/app"}
                 label={!isSupplier && "ver outros parceiros"}
               />
             )}

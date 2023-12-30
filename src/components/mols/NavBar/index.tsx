@@ -19,12 +19,12 @@ const NavBar: React.FC<NavBarProps> = ({ hasLogoImage = true }) => {
     <div>
       <div className="relative w-full p-4 flex justify-center items-center bg-generic-background">
         {hasLogoImage && (
-          <Link href="/">
+          <Link href="/app">
             <Image className="w-auto h-8" src={LogoImage} alt="EasyToLive" />
           </Link>
         )}
         <div className="absolute right-2">
-          <Link href={`/conta/acessar${generateCallbackUrl()}` as Route}>
+          <Link href={`/app/conta/acessar${generateCallbackUrl()}` as Route}>
             <ButtonBasic className="text-primary-lighter">Entrar</ButtonBasic>
           </Link>
         </div>

@@ -168,7 +168,7 @@ const ActiveCouponCode: React.FC<IActiveCouponCodeProps> = ({
           {!couponValidationLoading && (
             <div className="flex flex-col justify-center items-center">
               <ButtonSecondary
-                onClick={() => router.push("/dashboard")}
+                onClick={() => router.push("/app/dashboard")}
                 className="w-full mt-4"
                 disabled={loading}
                 loading={loading}
