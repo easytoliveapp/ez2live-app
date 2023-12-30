@@ -10,6 +10,7 @@ import {
   UserCoupons,
   EmptyCoupons,
 } from "@/components";
+import CouponGray from "@/images/easytolive/icons/coupongray.svg";
 import CouponGreen from "@/images/easytolive/icons/coupongreen.svg";
 import CouponBlack from "@/images/easytolive/icons/couponblack.svg";
 import CouponRed from "@/images/easytolive/icons/couponred.svg";
@@ -124,7 +125,7 @@ const MyCouponsPage = () => {
             <div
               onClick={() => setCouponsFilter(option)}
               key={key}
-              className={`${option.textColor} flex gap-2 cursor-pointer items-center hover:font-regular`}
+              className={`${option.textColor} flex gap-2 cursor-pointer items-center hover:font-semibold text-sm transition-all`}
             >
               <Image
                 className="w-8 h-auto"
@@ -141,7 +142,7 @@ const MyCouponsPage = () => {
         {isShowingCoupons && renderCoupons()}
         {isEmptyResult && (
           <EmptyCoupons
-            icon={couponsFilter.icon}
+            icon={CouponGray}
             label={couponsFilter.label ?? " "}
             title={couponsFilter.emptyText}
             href={couponsFilter.href}
