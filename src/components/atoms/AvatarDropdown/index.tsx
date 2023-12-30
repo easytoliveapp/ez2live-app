@@ -1,6 +1,6 @@
 "use client";
 
-import { Popover, Transition } from "@/app/headlessui";
+import { Popover, Transition } from "@/app/app/headlessui";
 import userImage from "@/images/easytolive/user/user_circle_1.svg";
 import React, { Fragment, useState } from "react";
 import { Avatar, LoadingComponent } from "@/components";
@@ -8,6 +8,7 @@ import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { signOut } from "next-auth/react";
 import UserRoles from "@/hooks/useUserRoles";
+import { Route } from "next";
 
 const AvatarDropdown = () => {
   const { data: session } = useSession();
@@ -15,8 +16,8 @@ const AvatarDropdown = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const loginRedirectURL = UserRoles().isSupplier()
-    ? "/dashboard"
-    : "/meus-cupons";
+    ? "/app/dashboard"
+    : "/app/meus-cupons";
 
   const textMyCouponsOrMyShop = UserRoles().isSupplier()
     ? "Dashboard"
@@ -24,7 +25,7 @@ const AvatarDropdown = () => {
 
   async function handleLogout() {
     setIsLoading(true);
-    return await signOut({ redirect: true, callbackUrl: "/conta/entrar" });
+    return await signOut({ redirect: true, callbackUrl: "/app/conta/entrar" });
   }
 
   return (
@@ -79,7 +80,7 @@ const AvatarDropdown = () => {
 
                     {/* ------------------ 1 --------------------- */}
                     <Link
-                      href={"/minha-conta"}
+                      href={"/app/minha-conta"}
                       className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-neutral-100  focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
                       onClick={() => close()}
                     >
@@ -114,7 +115,7 @@ const AvatarDropdown = () => {
                     {/* ------------------ admin dashboard ----------------- */}
                     {UserRoles().isAdmin() && (
                       <Link
-                        href={"/admin/parceiros"}
+                        href={"/app/admin/parceiros"}
                         className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-700 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
                       >
                         <div className="flex items-center justify-center flex-shrink-0 text-neutral-500 dark:text-neutral-300">
@@ -140,7 +141,7 @@ const AvatarDropdown = () => {
                     {/* ------------------ only for not admins --------------------- */}
                     {!UserRoles().isAdmin() && (
                       <Link
-                        href={loginRedirectURL}
+                        href={loginRedirectURL as Route}
                         className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-700 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
                       >
                         <div className="flex items-center justify-center flex-shrink-0 text-neutral-500 dark:text-neutral-300">
@@ -180,7 +181,7 @@ const AvatarDropdown = () => {
                     {/* ------------------ supplier dashboard ----------------- */}
                     {UserRoles().isSupplier() && (
                       <Link
-                        href={"/dashboard/parceiro/perfil"}
+                        href={"/app/dashboard/parceiro/perfil"}
                         className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-700 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
                       >
                         <div className="flex items-center justify-center flex-shrink-0 text-neutral-500 dark:text-neutral-300">
