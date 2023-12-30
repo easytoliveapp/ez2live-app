@@ -34,7 +34,7 @@ const RedirectLink: React.FC<IRedirectLink> = ({ href, label }) => {
 const EmptyCoupons: React.FC<IEmptyCoupons> = ({
   icon,
   title,
-  titleStyle = "text-black text-lg text-generic-grayLighter",
+  titleStyle = "text-black text-md text-generic-grayLighter",
   label,
   href,
 }) => {

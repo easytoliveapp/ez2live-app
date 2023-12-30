@@ -32,7 +32,7 @@ const filterOptions = [
   {
     id: "ACTIVE",
     name: "cupons ativos",
-    emptyText: "Nenhum cupom ativo disponível",
+    emptyText: "nenhum cupom ativo disponível",
     href: "/",
     label: "Buscar descontos",
     icon: CouponGreen,
@@ -41,14 +41,14 @@ const filterOptions = [
   {
     id: "USED",
     name: "cupons utilizados",
-    emptyText: "Nenhum cupom foi usado ainda",
+    emptyText: "nenhum cupom foi usado ainda",
     icon: CouponBlack,
     textColor: "text-black",
   },
   {
     id: "EXPIRED",
     name: "cupons expirados",
-    emptyText: "Nenhum cupom expirou",
+    emptyText: "nenhum cupom expirou",
     icon: CouponRed,
     textColor: "text-generic-alertRed",
   },
@@ -99,7 +99,12 @@ const MyCouponsPage = () => {
 
   return (
     <div className="relative md:w-[500px] h-full w-full mx-auto">
-      <FloatButtonNav href="/" icon={Shop} backgroundStyle="main" />
+      <FloatButtonNav
+        href="/"
+        icon={Shop}
+        backgroundStyle="main"
+        label="buscar descontos"
+      />
       <div className="mt-8 mb-16 flex items-center justify-between">
         <h2 className=" pl-6 flex items-center text-2xl leading-[115%] md:leading-[115%] font-bold text-black dark:text-neutral-100 justify-center">
           {session?.user.name}
@@ -110,8 +115,8 @@ const MyCouponsPage = () => {
           </div>
         </div>
       </div>
-      <div className="flex justify-end items-center w-full gap-4">
-        <div className={`${couponsFilter.textColor} text-lg font-semibold`}>
+      <div className="flex justify-end items-center w-full gap-1">
+        <div className={`${couponsFilter.textColor} text-md font-semibold`}>
           {couponsFilter?.name}
         </div>
         <CurrencyDropdown>
@@ -131,7 +136,7 @@ const MyCouponsPage = () => {
           ))}
         </CurrencyDropdown>
       </div>
-      <div className="mt-6 pb-16 m-4 flex flex-col gap-4">
+      <div className="mt-10 pb-16 m-4 flex flex-col gap-4 text-center">
         {isLoadingCoupons && <div>Carregando seus cupons...</div>}
         {isShowingCoupons && renderCoupons()}
         {isEmptyResult && (
