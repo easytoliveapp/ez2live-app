@@ -28,6 +28,7 @@ const FormComponent = () => {
     document: "",
     email: "",
     password: "",
+    phoneNumber: "",
     supplierInfo: {
       supplierCategory: firstCategory,
       address: {
@@ -80,6 +81,9 @@ const FormComponent = () => {
         .nonNullable()
         .required("Escolha a categoria da empresa"),
     }),
+    phoneNumber: Yup.string().required(
+      "Insira um número de telefone para contato",
+    ),
     email: Yup.string().email("Email inválido").required("Email requerido"),
     password: Yup.string()
       .matches(
@@ -118,6 +122,7 @@ const FormComponent = () => {
       email: values.email,
       password: values.password,
       document: values.document,
+      phoneNumber: values.phoneNumber,
       supplierInfo: {
         address: values.supplierInfo.address,
         supplierCategory: values.supplierInfo.supplierCategory,
@@ -187,6 +192,19 @@ const FormComponent = () => {
                 name="email"
                 type="email"
                 label="Email"
+                component={Input}
+              />
+            </FormItem>
+            <FormItem
+              label="Telefone"
+              errorMessage={errors.phoneNumber}
+              invalid={!!(errors.phoneNumber && touched.phoneNumber)}
+            >
+              <Field
+                invalid={!!(errors.phoneNumber && touched.phoneNumber)}
+                name="phoneNumber"
+                type="phoneNumber"
+                label="Telefone"
                 component={Input}
               />
             </FormItem>
