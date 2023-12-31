@@ -20,6 +20,7 @@ interface ISupplier {
   id: string;
   name: string;
   email: string;
+  phoneNumber: string;
   isVerified: boolean;
   createdAt: string;
   supplierInfo: any;
@@ -121,13 +122,16 @@ function SupplierPage() {
   };
 
   const renderSupplierContent = (supplier: ISupplier) => {
-    const { createdAt, email, isVerified, supplierInfo } = supplier;
+    const { createdAt, email, isVerified, supplierInfo, phoneNumber } =
+      supplier;
     return (
       <>
         <div className="flex mx-2 gap-5 justify-between w-100">
           <div className="flex flex-col pb-5">
             <p className="font-semibold">email</p>
             <p className="">{email}</p>
+            <p className="font-semibold">telefone</p>
+            <p className="">{phoneNumber ?? "-"}</p>
             <p className="font-semibold">conta criada em:</p>
             <p>{getDateFormater(createdAt)}</p>
             <p className="font-semibold">status do parceiro:</p>
