@@ -1,6 +1,6 @@
 "use client";
 
-import { Popover, Transition } from "@/app/app/headlessui";
+import { Popover, Transition } from "@/app/headlessui";
 import userImage from "@/images/easytolive/user/user_circle_1.svg";
 import React, { Fragment, useState } from "react";
 import { Avatar, LoadingComponent } from "@/components";
