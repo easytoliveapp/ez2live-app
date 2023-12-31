@@ -14,6 +14,9 @@ import {
 import supplierService from "@/service/supplier.service";
 import { useSession } from "next-auth/react";
 import { showToastify } from "@/hooks/showToastify";
+import Image from "next/image";
+import WidthIcon from "@/images/easytolive/icons/largura-48.svg";
+import HeigthIcon from "@/images/easytolive/icons/altura-48.svg";
 
 const CompleteSupplierRegister: React.FC = () => {
   const { data: session, update } = useSession();
@@ -28,7 +31,7 @@ const CompleteSupplierRegister: React.FC = () => {
       .required("Insira uma logo para seu estabelecimento")
       .test(
         "FILE_SIZE",
-        "Arquivo muito grande! Selecione um de menor tramanho",
+        "Arquivo muito grande! Você pode enviar arquivos de até 1MB",
         (value: any) => !value || (value && value.size <= 1024 * 1024),
       )
       .test(
@@ -39,15 +42,10 @@ const CompleteSupplierRegister: React.FC = () => {
       ),
     supplierBanner: Yup.mixed()
       .nullable()
-      .required("Insira uma logo para seu estabelecimento")
+      .required("Insira um banner para seu estabelecimento")
       .test(
         "FILE_SIZE",
-        "Arquivo muito grande! Selecione um de menor tamanho",
-        (value: any) => !value || (value && value.size <= 1024 * 200),
-      )
-      .test(
-        "FILE_SIZE",
-        "Arquivo muito pequeno! Selecione um de maior tamanho",
+        "Arquivo muito grande! Você pode enviar arquivos de até 1MB",
         (value: any) => !value || (value && value.size <= 1024 * 1024),
       )
       .test(
@@ -56,9 +54,6 @@ const CompleteSupplierRegister: React.FC = () => {
         (value: any) =>
           !value || (value && ["image/png", "image/jpeg"].includes(value.type)),
       ),
-    description: Yup.string().required(
-      "escolha uma descrição para seu estabelecimento",
-    ),
   });
 
   const handleFormSubmit = async (values: ISupplierCompleteRegister) => {
@@ -221,8 +216,40 @@ const CompleteSupplierRegister: React.FC = () => {
                 </label>
               </FormItem>
 
+              <div className="p-4 bg-[#6722ff0d] rounded-lg">
+                <div>
+                  <p className="font-bold text-sm text-primary-main pb-2">
+                    Tamanho recomendado:{" "}
+                  </p>
+                  <p className="text-primary-light font-light text-sm pb-2">
+                    Para uma melhor experiência do usuário, recomendamos que a
+                    imagem ilustrativa tenha ao menos 1024 x 300 pixels.
+                  </p>
+                </div>
+                <div className="flex justify-center items-center">
+                  <div className="flex gap-2 items-center w-1/2">
+                    <Image
+                      src={WidthIcon}
+                      width={24}
+                      height={24}
+                      alt={"width icon"}
+                    />
+                    <p className="text-primary-main">1024 px</p>
+                  </div>
+                  <div className="flex gap-2 items-center w-1/2">
+                    <Image
+                      src={HeigthIcon}
+                      width={24}
+                      height={24}
+                      alt={"heigth icon"}
+                    />
+                    <p className="text-primary-main">300 px</p>
+                  </div>
+                </div>
+              </div>
+
               <FormItem
-                label="descrição"
+                label="Descrição"
                 errorMessage={errors.description}
                 invalid={!!(errors.description && touched.description)}
               >

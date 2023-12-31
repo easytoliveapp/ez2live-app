@@ -42,14 +42,14 @@ const filterOptions = [
   {
     id: "USED",
     name: "cupons utilizados",
-    emptyText: "Nenhum cupom foi usado ainda",
+    emptyText: "nenhum cupom foi usado ainda",
     icon: CouponBlack,
     textColor: "text-black",
   },
   {
     id: "EXPIRED",
     name: "cupons expirados",
-    emptyText: "Nenhum cupom expirou",
+    emptyText: "nenhum cupom expirou",
     icon: CouponRed,
     textColor: "text-generic-alertRed",
   },
@@ -111,8 +111,8 @@ const MyCouponsPage = () => {
           </div>
         </div>
       </div>
-      <div className="flex justify-end items-center w-full gap-4">
-        <div className={`${couponsFilter.textColor} text-lg font-semibold`}>
+      <div className="flex justify-end items-center w-full gap-1">
+        <div className={`${couponsFilter.textColor} text-md font-semibold`}>
           {couponsFilter?.name}
         </div>
         <CurrencyDropdown>
@@ -132,7 +132,7 @@ const MyCouponsPage = () => {
           ))}
         </CurrencyDropdown>
       </div>
-      <div className="mt-6 pb-16 m-4 flex flex-col gap-4">
+      <div className="mt-10 pb-16 m-4 flex flex-col gap-4 text-center">
         {isLoadingCoupons && <div>Carregando seus cupons...</div>}
         {isShowingCoupons && renderCoupons()}
         {isEmptyResult && (
