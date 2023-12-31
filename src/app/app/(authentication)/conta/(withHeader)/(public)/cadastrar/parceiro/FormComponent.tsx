@@ -10,6 +10,7 @@ import Auth from "@/service/auth.service";
 import Supplier from "@/service/supplier.service";
 import { ICategoryProps } from "@/types/supplier";
 import { showToastify } from "@/hooks/showToastify";
+import { MASKS } from "@/constants/masks";
 
 export interface IStepOneProps {
   next: (e: any) => void;
@@ -200,12 +201,13 @@ const FormComponent = () => {
               errorMessage={errors.phoneNumber}
               invalid={!!(errors.phoneNumber && touched.phoneNumber)}
             >
-              <Field
+             <Field
                 invalid={!!(errors.phoneNumber && touched.phoneNumber)}
                 name="phoneNumber"
-                type="phoneNumber"
+                type="text"
                 label="Telefone"
                 component={Input}
+                mask={MASKS.PHONE}
               />
             </FormItem>
             <FormItem
@@ -219,6 +221,7 @@ const FormComponent = () => {
                 type="text"
                 label="document"
                 component={Input}
+                mask={MASKS.CNPJ}
               />
             </FormItem>
             <FormItem
@@ -304,6 +307,7 @@ const FormComponent = () => {
                 type="text"
                 label="CEP"
                 component={Input}
+                mask={MASKS.CEP}
               />
             </FormItem>
 
