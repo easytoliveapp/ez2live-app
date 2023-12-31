@@ -122,7 +122,8 @@ function SupplierPage() {
   };
 
   const renderSupplierContent = (supplier: ISupplier) => {
-    const { createdAt, email, isVerified, supplierInfo, phoneNumber } = supplier;
+    const { createdAt, email, isVerified, supplierInfo, phoneNumber } =
+      supplier;
     return (
       <>
         <div className="flex mx-2 gap-5 justify-between w-100">
