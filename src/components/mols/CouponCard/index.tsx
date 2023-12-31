@@ -13,6 +13,7 @@ import { getColorByDiscountValue } from "@/utils/getColorByDiscountValue";
 
 import cx from "classnames";
 import { getDateFormater } from "@/utils/getDateFormater";
+import { getCouponsRemaining } from "@/utils/getCouponsRemaining";
 
 interface ICouponCardProps {
   discount: string;
@@ -44,7 +45,7 @@ const CouponCard: React.FC<ICouponCardProps> = ({
         "h-auto pl-5 rounded-full flex items-center gap-2 cursor-pointer",
       )}
     >
-      <h2 className={`text-white font-semibold text-xl drop-shadow-sm`}>
+      <h2 className="text-white font-semibold text-md sm:text-xl drop-shadow-sm">
         {discount}%
       </h2>
       <div
@@ -54,14 +55,14 @@ const CouponCard: React.FC<ICouponCardProps> = ({
       >
         <div className="rounded-full flex items-center gap-3 pr-4 pl-3 w-full">
           <Image
-            className="h-10 w-auto"
+            className="h-6 w-auto"
             alt="Coupons Image"
             src={mainImage ?? CouponPrimary}
           />
           <span className="bg-gray-300 w-[1px] h-14"></span>
           <div className="flex-auto">
-            <div className="flex items-center justify-between gap-4">
-              <div className="flex flex-col gap-0.5 text-xs">
+            <div className="flex items-center justify-between gap-3">
+              <div className="flex flex-col sm:gap-0.5 text-[10px] sm:text-xs">
                 <p className="text-xs font-semibold text-black">
                   {couponTitle}
                 </p>
@@ -73,9 +74,7 @@ const CouponCard: React.FC<ICouponCardProps> = ({
                       src={ShoppingCartGreen}
                       color="white"
                     />
-                    {maxUnitsTotal === -1
-                      ? "quantidade ilimitada"
-                      : `faltam ${maxUnitsTotal} unidades`}
+                    {getCouponsRemaining(maxUnitsTotal)}
                   </p>
                 )}
                 {activationDate && (

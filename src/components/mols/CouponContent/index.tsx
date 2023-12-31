@@ -7,6 +7,7 @@ import { getDateFormater } from "@/utils/getDateFormater";
 import { getColorByDiscountValue } from "@/utils/getColorByDiscountValue";
 import getExpirateTime from "@/utils/getExpirateTime";
 import cx from "classnames";
+import { getCouponsRemaining } from "@/utils/getCouponsRemaining";
 interface CouponProps {
   id: string;
   couponTitle: string;
@@ -40,11 +41,7 @@ const CouponContent: React.FC<CouponProps> = ({
               src={CouponGreen}
               color="white"
             />
-            {unintsAmount === -1
-              ? "quantidade ilimitada"
-              : `faltam ${unintsAmount} unidade${
-                  unintsAmount === 1 ? "" : "s"
-                }`}
+            {getCouponsRemaining(unintsAmount)}
           </p>
           <p className="flex font-semibold items-center text-generic-alertRed">
             <Image

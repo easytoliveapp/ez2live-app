@@ -14,6 +14,7 @@ import {
 import supplierService from "@/service/supplier.service";
 import { useSession } from "next-auth/react";
 import { showToastify } from "@/hooks/showToastify";
+import ImageSizeWarning from "@/components/atoms/ImageSizeWarning";
 
 const CompleteSupplierRegister: React.FC = () => {
   const { data: session, update } = useSession();
@@ -28,7 +29,7 @@ const CompleteSupplierRegister: React.FC = () => {
       .required("Insira uma logo para seu estabelecimento")
       .test(
         "FILE_SIZE",
-        "Arquivo muito grande! Selecione um de menor tramanho",
+        "Arquivo muito grande! Você pode enviar arquivos de até 1MB",
         (value: any) => !value || (value && value.size <= 1024 * 1024),
       )
       .test(
@@ -39,15 +40,10 @@ const CompleteSupplierRegister: React.FC = () => {
       ),
     supplierBanner: Yup.mixed()
       .nullable()
-      .required("Insira uma logo para seu estabelecimento")
+      .required("Insira um banner para seu estabelecimento")
       .test(
         "FILE_SIZE",
-        "Arquivo muito grande! Selecione um de menor tamanho",
-        (value: any) => !value || (value && value.size <= 1024 * 200),
-      )
-      .test(
-        "FILE_SIZE",
-        "Arquivo muito pequeno! Selecione um de maior tamanho",
+        "Arquivo muito grande! Você pode enviar arquivos de até 1MB",
         (value: any) => !value || (value && value.size <= 1024 * 1024),
       )
       .test(
@@ -56,9 +52,6 @@ const CompleteSupplierRegister: React.FC = () => {
         (value: any) =>
           !value || (value && ["image/png", "image/jpeg"].includes(value.type)),
       ),
-    description: Yup.string().required(
-      "escolha uma descrição para seu estabelecimento",
-    ),
   });
 
   const handleFormSubmit = async (values: ISupplierCompleteRegister) => {
@@ -149,7 +142,7 @@ const CompleteSupplierRegister: React.FC = () => {
       onCloseModal={() => null}
     >
       <div>
-        <div className="mt-8 mb-16 w-full gap-4 flex items-center justify-between">
+        <div className="mt-6 mb-10 w-full gap-4 flex items-center justify-between">
           <h2 className=" pl-6 flex items-center text-lg leading-[115%] md:text-3xl md:leading-[115%] font-bold text-black dark:text-neutral-100 justify-center">
             Completar <br /> cadastro
           </h2>
@@ -195,7 +188,10 @@ const CompleteSupplierRegister: React.FC = () => {
                   />
                 </label>
               </FormItem>
-
+              <ImageSizeWarning
+                recommendedWidth={300}
+                recommendedHeight={300}
+              />
               <FormItem
                 label="Imagem ilustrativa"
                 errorMessage={errors.supplierBanner}
@@ -220,9 +216,12 @@ const CompleteSupplierRegister: React.FC = () => {
                   />
                 </label>
               </FormItem>
-
+              <ImageSizeWarning
+                recommendedWidth={1024}
+                recommendedHeight={300}
+              />
               <FormItem
-                label="descrição"
+                label="Descrição"
                 errorMessage={errors.description}
                 invalid={!!(errors.description && touched.description)}
               >
@@ -230,7 +229,7 @@ const CompleteSupplierRegister: React.FC = () => {
                   name="description"
                   label="description"
                   component={TextArea}
-                  className="h-32 bg-white text-black"
+                  className="h-24 bg-white text-black"
                   placeholder="escrever descrição do estabelecimento"
                 />
               </FormItem>

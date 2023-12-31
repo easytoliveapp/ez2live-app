@@ -18,8 +18,8 @@ const FastLoginPage = () => {
     setLoadingLogin(true);
     router.push(
       callbackUrl
-        ? `/conta/entrar?callbackUrl=${encodeURIComponent(callbackUrl)}`
-        : "/conta/entrar",
+        ? `/app/conta/entrar?callbackUrl=${encodeURIComponent(callbackUrl)}`
+        : "/app/conta/entrar",
     );
     setTimeout(() => {
       setLoadingLogin(false);
@@ -27,7 +27,7 @@ const FastLoginPage = () => {
   };
 
   return (
-    <div className="m-auto">
+    <div className="m-auto h-full">
       <Image
         className="absolute right-0"
         alt="pre login back-ground"
@@ -38,7 +38,7 @@ const FastLoginPage = () => {
       />
       <div className="absolute w-full opacity-50 h-full bg-neutral-200"></div>
       <motion.div
-        className="flex min-h-[90vh] flex-col w-full justify-between px-4 pb-6 pt-48 md:pt-28 md:pb-16 md:px-36 xl:px-60"
+        className="flex flex-col w-full justify-between px-4 pb-6 h-[100vh] md:pb-16 px-16 xl:px-60"
         initial={{ opacity: 0 }}
         animate={{ opacity: [0, 25, 50, 75, 100] }}
         transition={{ ease: "easeIn", duration: 2 }}
@@ -49,14 +49,14 @@ const FastLoginPage = () => {
             alt="easy to live logo"
             src={Logo}
           />
-          <div className="flex py-12 flex-col gap-5 ">
-            <p className="font-bold max-w-[250px] md:max-w-sm text-black text-2xl">
-              Realize seu login ou crie sua conta abaixo E acesse os melhores
-              cupons Criados pensando em você!
+          <div className="flex py-8 flex-col gap-5 ">
+            <p className="font-bold max-w-[350px] md:max-w-sm text-bold text-2xl">
+              Realize seu login ou crie sua conta abaixo e acesse os melhores
+              cupons criados pensando em você!
             </p>
           </div>
         </div>
-        <div className="flex flex-col gap-3 md:max-w-xs">
+        <div className="flex flex-col gap-3 mx-auto w-full sm:ml-0 sm:w-[350px]">
           <SocialLoginComponent />
           <ButtonPrimary
             onClick={() => handleRedirectToLogin()}

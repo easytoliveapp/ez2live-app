@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import facebookSvg from "@/images/Facebook.svg";
+// import facebookSvg from "@/images/Facebook.svg";
 import googleSvg from "@/images/Google.svg";
 import Image from "next/image";
 import { signIn } from "next-auth/react";
@@ -9,11 +9,11 @@ import { showToastify } from "@/hooks/showToastify";
 import { useSearchParams } from "next/navigation";
 
 const loginSocials = [
-  {
-    name: "Continuar com Facebook",
-    provider: "facebook",
-    icon: facebookSvg,
-  },
+  // {
+  //   name: "Continuar com Facebook",
+  //   provider: "facebook",
+  //   icon: facebookSvg,
+  // },
   {
     name: "Continuar com Google",
     provider: "google",
@@ -29,7 +29,7 @@ const SocialLoginComponent = () => {
   const nextAuthLoginBasedOnProvider = (provider: string) => {
     setLoading(true);
 
-    signIn(provider, { callbackUrl: callbackUrl ?? "/" })
+    signIn(provider, { callbackUrl: callbackUrl ?? "/app" })
       .catch(() => {
         showToastify({
           type: "error",

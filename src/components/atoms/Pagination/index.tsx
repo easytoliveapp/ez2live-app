@@ -42,7 +42,7 @@ const Pagination: FC<PaginationProps> = ({
 
   return (
     <nav
-      className={`mx-auto w-full text-center justify-center flex py-5 mt-5 nc-Pagination inline-flex space-x-1 text-base font-medium ${className}`}
+      className={`mx-auto w-full text-center justify-center py-5 mt-5 nc-Pagination inline-flex space-x-1 text-base font-medium ${className}`}
     >
       {totalPages > 1 && (
         <>{[...Array(totalPages)].map((_, idx) => renderItem(idx))}</>
