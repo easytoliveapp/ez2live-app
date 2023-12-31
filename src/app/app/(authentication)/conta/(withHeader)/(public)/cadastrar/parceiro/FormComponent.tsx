@@ -201,7 +201,7 @@ const FormComponent = () => {
               errorMessage={errors.phoneNumber}
               invalid={!!(errors.phoneNumber && touched.phoneNumber)}
             >
-             <Field
+              <Field
                 invalid={!!(errors.phoneNumber && touched.phoneNumber)}
                 name="phoneNumber"
                 type="text"
