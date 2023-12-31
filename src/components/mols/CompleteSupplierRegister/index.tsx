@@ -28,7 +28,7 @@ const CompleteSupplierRegister: React.FC = () => {
       .required("Insira uma logo para seu estabelecimento")
       .test(
         "FILE_SIZE",
-        "Arquivo muito grande! Selecione um de menor tramanho",
+        "Arquivo muito grande! Você pode enviar arquivos de até 1MB",
         (value: any) => !value || (value && value.size <= 1024 * 1024),
       )
       .test(
@@ -42,52 +42,14 @@ const CompleteSupplierRegister: React.FC = () => {
       .required("Insira uma logo para seu estabelecimento")
       .test(
         "FILE_SIZE",
-        "Arquivo muito grande! Selecione um de menor tamanho",
+        "Arquivo muito grande! Você pode enviar arquivos de até 1MB",
         (value: any) => !value || (value && value.size <= 1024 * 1024),
-      )
-      .test(
-        "FILE_SIZE",
-        "Arquivo muito pequeno! Selecione um de maior tamanho",
-        (value: any) => !value || (value && value.size <= 600 * 160),
       )
       .test(
         "FILE_FORMAT",
         "Arquivo com formato não suportado",
         (value: any) =>
           !value || (value && ["image/png", "image/jpeg"].includes(value.type)),
-      )
-      .test(
-        "fileSize",
-        "A imagem precisa ter pelo menos 800px de largura",
-        async (value) => {
-          if (!value) {
-            return true; // Allow empty values
-          }
-
-          const file = value as File;
-
-          try {
-            const result = await new Promise<boolean>((resolve) => {
-              const reader = new FileReader();
-
-              reader.onload = function (e) {
-                const img = new Image();
-                img.src = e.target?.result as string;
-
-                img.onload = function () {
-                  resolve(img.width >= 800);
-                };
-              };
-
-              reader.readAsDataURL(file);
-            });
-
-            return result;
-          } catch (error) {
-            console.error("Erro ao verificar a largura da imagem:", error);
-            return false;
-          }
-        },
       ),
   });
 
