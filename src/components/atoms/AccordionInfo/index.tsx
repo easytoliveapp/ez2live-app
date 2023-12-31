@@ -1,7 +1,7 @@
 "use client";
 
 import { ReactNode } from "react";
-import { Disclosure } from "@/app/app/headlessui";
+import { Disclosure } from "@/app/headlessui";
 import { MinusIcon, PlusIcon } from "@heroicons/react/24/outline";
 import React, { FC } from "react";
 
