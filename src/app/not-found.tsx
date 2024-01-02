@@ -10,7 +10,7 @@ const Page404 = () => (
       <header className="text-center max-w-2xl mx-auto space-y-2">
         <NcImage src={I404Png} alt="not-found" />
         <span className="block text-sm text-neutral-800 sm:text-base tracking-wider font-medium">
-          {`THE PAGE YOU WERE LOOKING FOR DOESN'T EXIST.`}{" "}
+          {`A PÁGINA QUE VOCÊ PROCURA NÃO EXISTE.`}{" "}
         </span>
         <div className="pt-8">
           <ButtonPrimary>
