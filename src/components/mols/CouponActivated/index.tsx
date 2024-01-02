@@ -28,7 +28,7 @@ const CouponActivated: React.FC<CouponProps> = ({
   couponActivateCode,
 }) => {
   return (
-    <div className="pb-4 px-2 w-full flex flex-col text-black">
+    <div className="pb-4 pt-2 px-2 w-full flex flex-col text-black">
       <div className="flex my-2 gap-2 justify-between items-center">
         <h1 className="text-2xl py-1 px-3 mb-2 font-bold overflow-hidden text-ellipsis text-black">
           {couponTitle}

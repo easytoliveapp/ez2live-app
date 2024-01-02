@@ -139,22 +139,22 @@ const PageDashboard = () => {
             <div className="w-full flex flex-col relative mb-2 justify-center gap-2">
               {[
                 {
-                  href: "/dashboard",
+                  href: "/app/dashboard",
                   label: "Dashboard",
                   icon: DashboardIcon,
                 },
                 {
-                  href: "/dashboard/parceiro/ativar-cupom",
+                  href: "/app/dashboard/parceiro/ativar-cupom",
                   label: "Ativar cupom",
                   icon: CheckIcon,
                 },
                 {
-                  href: "/dashboard/parceiro/perfil",
+                  href: "/app/dashboard/parceiro/perfil",
                   label: "Criar novo cupom",
                   icon: CouponPrimary,
                 },
                 {
-                  href: "/dashboard/parceiro/perfil",
+                  href: "/app/dashboard/parceiro/perfil",
                   label: "Meu perfil",
                   icon: ShopPageIcon,
                 },

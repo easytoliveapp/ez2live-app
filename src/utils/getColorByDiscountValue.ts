@@ -9,7 +9,7 @@ export function getColorByDiscountValue(discount: string) {
   const selectedColor = colorOptions.find(
     ({ value }) => discountValue >= value,
   ) || {
-    color: "bg-generic-gray",
+    color: "bg-primary-lighter",
   };
   return selectedColor.color;
 }
