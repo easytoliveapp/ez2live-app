@@ -14,7 +14,7 @@ const Page404 = () => (
         </span>
         <div className="pt-8">
           <ButtonPrimary>
-            <Link href={"/app"}>Return Home Page</Link>
+            <Link href={"/app"}>voltar para o início</Link>
           </ButtonPrimary>
         </div>
       </header>
