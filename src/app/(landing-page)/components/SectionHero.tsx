@@ -24,9 +24,14 @@ const SectionHero3: FC<SectionHero3Props> = ({ className = "" }) => {
             Os melhores descontos nas melhores lojas
           </h2>
           <div className="pt-4 gap-3">
-            <ButtonPrimary>Criar minha conta</ButtonPrimary>
+            <ButtonPrimary href="/app/conta/acessar">
+              Criar minha conta
+            </ButtonPrimary>
 
-            <ButtonThird className="text-sm sm:text-base lg:text-lg font-medium text-primary-lighter hover:text-primary-main">
+            <ButtonThird
+              href="#EasyToLive"
+              className="text-sm sm:text-base lg:text-lg font-medium text-primary-lighter hover:text-primary-main"
+            >
               Conhecer mais
             </ButtonThird>
           </div>

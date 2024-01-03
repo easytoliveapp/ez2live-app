@@ -28,7 +28,9 @@ const SectionPromo3: FC<SectionPromo3Props> = ({ className = "lg:pt-10" }) => {
             Cadastra-se para ter acesso primeiro ao app EasyToLive
           </span>
           <form className="mt-10 relative max-w-sm">
-            <ButtonPrimary type="submit">Criar minha conta agora</ButtonPrimary>
+            <ButtonPrimary href="/app/conta/acessar">
+              Criar minha conta agora
+            </ButtonPrimary>
           </form>
         </div>
 

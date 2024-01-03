@@ -11,7 +11,7 @@ export interface SectionPromo2Props {
 
 const SectionPromo2: FC<SectionPromo2Props> = ({ className = "lg:pt-10" }) => {
   return (
-    <div className={`nc-SectionPromo2 ${className}`}>
+    <div className={`nc-SectionPromo2 ${className}`} id="EasyToLive">
       <div className="relative flex flex-col lg:flex-row lg:justify-end bg-yellow-50 dark:bg-slate-800 rounded-2xl sm:rounded-[40px] p-4 pb-0 sm:p-5 sm:pb-0 lg:p-24">
         <div className="absolute inset-0">
           <img
@@ -34,7 +34,7 @@ const SectionPromo2: FC<SectionPromo2Props> = ({ className = "lg:pt-10" }) => {
           </span>
           <div className="flex space-x-2 sm:space-x-5 mt-6 sm:mt-12">
             <ButtonPrimary
-              href="/page-search"
+              href="/app/conta/acessar"
               className="dark:bg-slate-200 dark:text-slate-900"
             >
               Procurar descontos
