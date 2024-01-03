@@ -2,14 +2,13 @@ export function getColorByDiscountValue(discount: string) {
   const discountValue = Number(discount);
 
   const colorOptions = [
-    { value: 75, color: "bg-generic-alertRed" },
-    { value: 40, color: "bg-secondary-main" },
-    { value: 15, color: "bg-primary-main" },
+    { value: 76, color: "bg-generic-gold" },
+    { value: 26, color: "bg-generic-lightGreen" },
   ];
   const selectedColor = colorOptions.find(
     ({ value }) => discountValue >= value,
   ) || {
-    color: "bg-primary-lighter",
+    color: "bg-generic-lightBlue",
   };
   return selectedColor.color;
 }
