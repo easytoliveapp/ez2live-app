@@ -1,9 +1,8 @@
 import React, { FC } from "react";
+import Image from "next/image";
 import rightImgDemo from "../images/promo3.png";
 import backgroundLineSvg from "../images/BackgroundLine.svg";
-import { ArrowSmallRightIcon } from "@heroicons/react/24/solid";
-import { ButtonPrimary, ButtonThird, Input } from "@/components";
-import Image from "next/image";
+import { ButtonPrimary } from "@/components";
 
 export interface SectionPromo3Props {
   className?: string;

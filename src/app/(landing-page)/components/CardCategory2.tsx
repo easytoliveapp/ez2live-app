@@ -30,9 +30,8 @@ const CardCategory2: FC<CardCategory2Props> = ({
       >
         <div className="pt-14">
           <Image
-            className="w-full h-full flex justify-center"
+            className="w-full h-full flex justify-center object-cover rounded-2xl"
             src={featuredImage}
-            className="object-cover rounded-2xl"
           />
         </div>
         <span className="opacity-0 group-hover:opacity-100 absolute inset-0 bg-black bg-opacity-10 transition-opacity"></span>

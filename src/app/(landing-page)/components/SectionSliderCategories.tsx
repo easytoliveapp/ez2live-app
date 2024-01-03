@@ -7,7 +7,7 @@ import department3Png from "../images/department3.png";
 import department4Png from "../images/department4.png";
 import Link from "next/link";
 
-export interface CardCategoryData { 
+export interface CardCategoryData {
   name: string;
   desc: string;
   img: string;
@@ -49,7 +49,6 @@ export interface SectionSliderCategoriesProps {
 
 const SectionSliderCategories: FC<SectionSliderCategoriesProps> = ({
   heading = "Shop by department",
-  subHeading = "",
   className = "",
   itemClassName = "",
   data = CATS,
@@ -96,7 +95,7 @@ const SectionSliderCategories: FC<SectionSliderCategoriesProps> = ({
   return (
     <div className={`nc-SectionSliderCategories ${className}`}>
       <div className={`${UNIQUE_CLASS} flow-root`}>
-        <h2 desc={subHeading}>{heading}</h2>
+        <h2>{heading}</h2>
         <div className="glide__track" data-glide-el="track">
           <ul className="glide__slides">
             {data.map((item, index) => (

@@ -24,11 +24,13 @@ const SectionPromo2: FC<SectionPromo2Props> = ({ className = "lg:pt-10" }) => {
         <div className="lg:w-[45%] max-w-lg relative">
           <Image src={LogoImage} className="w-28" />
           <h2 className="font-semibold text-3xl sm:text-4xl xl:text-5xl 2xl:text-6xl mt-6 sm:mt-10 !leading-[1.13] tracking-tight">
-            A Easy quer<br />
+            A Easy quer
+            <br />
             facilitar sua vida
           </h2>
           <span className="block mt-6 text-slate-500 dark:text-slate-400">
-            Através de descontos em diversas áreas, nós vamos te conectar com os melhores produtos pelos melhor preço
+            Através de descontos em diversas áreas, nós vamos te conectar com os
+            melhores produtos pelos melhor preço
           </span>
           <div className="flex space-x-2 sm:space-x-5 mt-6 sm:mt-12">
             <ButtonPrimary
