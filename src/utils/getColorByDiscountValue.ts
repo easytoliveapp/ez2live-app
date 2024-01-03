@@ -1,18 +1,15 @@
-export function getColorByDiscountValue(discount: string) {
-  const discountValue = Number(discount);
+export function getColorByDiscountValue(discount: string): string {
+  const discountValue: number = Number(discount);
 
-  const colorOptions = [
-    { value: 50, color: "bg-generic-alertRed" },
-    { value: 40, color: "bg-secondary-dark" },
-    { value: 30, color: "bg-secondary-main" },
-    { value: 25, color: "bg-secondary-light" },
-    { value: 15, color: "bg-primary-dark" },
-    { value: 5, color: "bg-primary-main" },
+  const colorOptions: { value: number; color: string }[] = [
+    { value: 76, color: "bg-generic-electricGold" },
+    { value: 51, color: "bg-generic-gold" },
+    { value: 26, color: "bg-generic-limeGreen" },
   ];
+
   const selectedColor = colorOptions.find(
     ({ value }) => discountValue >= value,
-  ) || {
-    color: "bg-primary-light",
-  };
+  ) || { color: "bg-generic-skyBlue" };
+
   return selectedColor.color;
 }

@@ -3,7 +3,6 @@ import React, { FC } from "react";
 import Image from "next/image";
 import LogoImage from "@/images/easytolive/logo/logotipo-semfundoazulroxo.svg";
 import { AvatarDropdown } from "@/components";
-import MenuBar from "../MenuBar";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 
@@ -16,7 +15,7 @@ const NavBarLogged: FC<NavBarLoggedProps> = ({ hasLogoImage = true }) => {
 
   return (
     <div className="relative w-full p-2 flex justify-between items-center">
-      <MenuBar />
+      <span></span>
       {hasLogoImage && (
         <Link href={session?.user.isSupplier ? "/app/dashboard" : "/app"}>
           <Image
