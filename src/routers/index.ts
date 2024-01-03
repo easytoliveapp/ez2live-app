@@ -6,7 +6,6 @@ export const PRIVATE_ROUTES_CONFIG = [
     roles: [ROLES.admin, ROLES.commonUser, ROLES.supplier],
     isPublic: false,
   },
-
   { path: "/app/admin", roles: [ROLES.admin], isPublic: false },
   { path: "/app/admin/parceiros", roles: [ROLES.admin], isPublic: false },
   { path: "/app/dashboard", roles: [ROLES.supplier], isPublic: false },
