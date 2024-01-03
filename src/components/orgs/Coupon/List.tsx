@@ -70,7 +70,7 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
           });
         }
         if (error?.response?.data?.code === 404) {
-          router.push("/não-encontrada");
+          router.push("/nao-encontrada");
         }
       });
   }, [supplierId]);
