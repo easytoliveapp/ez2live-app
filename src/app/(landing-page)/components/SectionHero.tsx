@@ -2,6 +2,7 @@ import React, { FC } from "react";
 import backgroundLineSvg from "../images/Moon.svg";
 import imageRightPng2 from "../images/hero-2-right-1.png";
 import { ButtonPrimary, ButtonThird } from "@/components";
+import Image from "next/image";
 
 export interface SectionHero3Props {
   className?: string;
@@ -33,12 +34,12 @@ const SectionHero3: FC<SectionHero3Props> = ({ className = "" }) => {
 
         {/* 2nd column */}
         <div className="relative">
-          <img
+          <Image
             className="absolute w-full h-full object-contain"
             src={backgroundLineSvg}
             alt="hero"
           />
-          <img
+          <Image
             className="w-full object-contain h-[500px]"
             src={imageRightPng2}
             alt=""
