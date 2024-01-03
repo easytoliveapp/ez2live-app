@@ -65,6 +65,9 @@ module.exports = {
           grayLighter: customColors("--generic-bg-gray-lighter"),
           gray: customColors("--generic-bg-gray"),
           grayDarker: customColors("--generic-bg-gray-darker"),
+          lightBlue: customColors("--generic-light-blue"),
+          lightGreen: customColors("--generic-light-green"),
+          gold: customColors("--generic-gold")
         },
       },
     },
