@@ -1,16 +1,17 @@
 import React, { FC, useEffect, useId } from "react";
 import Glide from "@glidejs/glide";
+import Link from "next/link";
+import { StaticImageData } from "next/image";
 import CardCategory2 from "./CardCategory2";
 import department1Png from "../images/department1.png";
 import department2Png from "../images/department2.png";
 import department3Png from "../images/department3.png";
 import department4Png from "../images/department4.png";
-import Link from "next/link";
 
 export interface CardCategoryData {
   name: string;
   desc: string;
-  img: string;
+  img: StaticImageData;
   color?: string;
 }
 const CATS: CardCategoryData[] = [

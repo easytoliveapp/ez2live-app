@@ -1,12 +1,12 @@
 import React, { FC } from "react";
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import Link from "next/link";
 
 export interface CardCategory2Props {
   className?: string;
   ratioClass?: string;
   bgClass?: string;
-  featuredImage?: string;
+  featuredImage: StaticImageData;
   name: string;
   desc: string;
 }
@@ -15,7 +15,7 @@ const CardCategory2: FC<CardCategory2Props> = ({
   className = "",
   ratioClass = "aspect-w-1 aspect-h-1",
   bgClass = "bg-orange-50",
-  featuredImage = ".",
+  featuredImage,
   name,
   desc,
 }) => {
