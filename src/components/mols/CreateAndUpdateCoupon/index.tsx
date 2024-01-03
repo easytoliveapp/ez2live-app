@@ -10,6 +10,7 @@ import {
   ButtonThird,
   CouponGenerating,
   Modal,
+  TextArea,
 } from "@/components";
 import * as Yup from "yup";
 import { ICoupon, ICreateCoupon, IGetCouponInfo } from "@/types/coupons";
@@ -41,6 +42,7 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
   const [initalValues, setInitialValues] = useState({
     title: "",
     discount: "20",
+    couponRule: "",
     maxTotal: 100,
     maxPerUser: 1,
     expirationGenerationDate: new Date("2022-01-01"),
@@ -106,6 +108,7 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
       setInitialValues({
         title: coupon.title,
         discount: coupon.discount,
+        couponRule: coupon.couponRule,
         maxPerUser: coupon.maxPerUser === -1 ? 1 : coupon.maxPerUser,
         maxTotal: coupon.maxTotal === -1 ? 100 : coupon.maxTotal,
         expirationGenerationDate: new Date(coupon.expirationGenerationDate),
@@ -120,6 +123,7 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
     maxTotal: Yup.string().required(
       "Limite de cupons que podem ser utilizados.",
     ),
+    couponRules: Yup.string(),
     maxPerUser: Yup.string().required("Limite de cupons por usuário."),
     expirationGenerationDate: Yup.date()
       .required("Data de validade para geração do cupom.")
@@ -134,6 +138,7 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
     discount: Yup.string(),
     maxTotal: Yup.string(),
     maxPerUser: Yup.string(),
+    couponRules: Yup.string(),
   });
 
   const handleSuccessUpdate = (res: any, action: any) => {
@@ -156,6 +161,7 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
     const createData = {
       title: values.title,
       discount: String(values.discount),
+      couponRule: values.couponRule,
       maxPerUser: unlimitedByUser ? -1 : Number(values.maxPerUser),
       maxTotal: couponsUnlimited ? -1 : Number(values.maxTotal),
       expirationGenerationDate: new Date(values.expirationGenerationDate),
@@ -165,6 +171,9 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
       ...(coupon?.title !== values.title && { title: values.title }),
       ...(coupon?.discount !== values.discount && {
         discount: String(values.discount),
+      }),
+      ...(coupon?.couponRule !== values.couponRule && {
+        couponRule: values.couponRule,
       }),
       ...(values?.maxPerUser && {
         maxPerUser: unlimitedByUser ? -1 : values.maxPerUser,
@@ -302,6 +311,21 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
                     label="title"
                     component={Input}
                     className="bg-white"
+                  />
+                </FormItem>
+                <FormItem
+                  label="Regras do cupom"
+                  errorMessage={errors.couponRule}
+                  invalid={!!(errors.couponRule && touched.couponRule)}
+                >
+                  {!!isValidating && <ErrorMessage name="couponRule" />}
+                  <Field
+                    invalid={!!(errors.couponRule && touched.couponRule)}
+                    name="couponRule"
+                    type="text"
+                    label="couponRule"
+                    component={TextArea}
+                    className="bg-white h-20"
                   />
                 </FormItem>
                 <div className="grid grid-cols-2 w-full">
