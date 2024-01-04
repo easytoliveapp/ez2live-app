@@ -262,7 +262,7 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
             <h2 className="pl-2 flex items-center text-3xl leading-[115%] md:leading-[115%] font-bold text-black dark:text-neutral-100 justify-center">
               {isUpdatingCoupon ? "Atualizar Cupom" : "Novo Coupon"}
             </h2>
-            <span className="flex items-center gap-2 relative h-16 pr-3 pt-2">
+            <span className="flex items-center relative h-16 pr-3 pt-2">
               <Image
                 className="w-10 h-auto rounded-full"
                 src={easy2liveLogo}
@@ -271,7 +271,7 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
               <Image
                 width={64}
                 height={64}
-                className="left-10 w-12 h-auto rounded-full"
+                className="left-10 ml-[-8px] w-12 h-auto rounded-full"
                 src={supplierLogo}
                 alt="supplier-logo"
               />
