@@ -1,5 +1,4 @@
-import { IAddress } from "../auth/request";
-import { iSupplierCategory } from "../supplier";
+import { ISupplierInfo } from "../supplier";
 
 export interface ISupplierCouponsList {
   supplierId: string;
@@ -71,13 +70,7 @@ export interface ICouponCodesByUser {
       numberOfCoupons: number;
       email: string;
       id: string;
-      supplierInfo: {
-        coupons: [];
-        supplierCategory: iSupplierCategory;
-        address: IAddress;
-        isSupplier: boolean;
-        isVerified: boolean;
-      };
+      supplierInfo: ISupplierInfo;
     };
   };
   status: "ACTIVE" | "USED" | "EXPIRED";
