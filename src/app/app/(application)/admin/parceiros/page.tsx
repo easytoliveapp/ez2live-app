@@ -12,8 +12,11 @@ import {
   LoadingComponent,
   SearchCategory,
   Pagination,
+  ButtonThird,
+  Modal,
 } from "@/components";
 import { getDateFormater } from "@/utils/getDateFormater";
+import userService from "@/service/users.service";
 
 interface ISupplier {
   _id?: string;
@@ -121,9 +124,59 @@ function SupplierPage() {
     setPageNumber(1);
   };
 
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
+  const [isLoadingDelete, setIsLoadingDelete] = useState<boolean>(false);
+  const [partnerToDelete, setPartnerToDelete] = useState<string | null>(null);
+
+  const handleDeletePartner = (id?: string) => {
+    if (!id) return;
+
+    setPartnerToDelete(id);
+    setIsDeleteModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsDeleteModalOpen(false);
+    setPartnerToDelete(null);
+    setIsLoadingDelete(false);
+  };
+
+  const handleDeleteRequest = async () => {
+    if (!partnerToDelete) return;
+
+    setIsLoadingDelete(true);
+
+    userService
+      .updateUser(partnerToDelete, { active: false })
+      .then((res) => {
+        if (res) {
+          showToastify({
+            label: "Parceiro inativado com sucesso!",
+            type: "success",
+          });
+        }
+      })
+      .catch((error) => {
+        if (error?.response?.data?.code === 400) {
+          showToastify({
+            label: "Oops! Parece que você não tem permissão",
+            type: "error",
+          });
+        }
+      })
+      .finally(() => handleCloseModal());
+  };
+
   const renderSupplierContent = (supplier: ISupplier) => {
-    const { createdAt, email, isVerified, supplierInfo, phoneNumber } =
-      supplier;
+    const {
+      _id: id,
+      createdAt,
+      email,
+      isVerified,
+      supplierInfo,
+      phoneNumber,
+    } = supplier;
+
     return (
       <>
         <div className="flex mx-2 gap-5 justify-between w-100">
@@ -152,9 +205,9 @@ function SupplierPage() {
         </div>
 
         <div className="flex justify-end">
-          {/* <ButtonThird href="#" onClick={() => null}>
-            Excluir parceiro
-          </ButtonThird> */}
+          <ButtonThird href="#" onClick={() => handleDeletePartner(id)}>
+            Inativar parceiro
+          </ButtonThird>
           {!isVerified && (
             <ButtonSecondary
               href="#"
@@ -205,6 +258,53 @@ function SupplierPage() {
       )}
 
       <Pagination {...paginationData} handleOnClick={handlePaginationClick} />
+
+      {isDeleteModalOpen && (
+        <Modal
+          show
+          onCloseModal={() => {
+            setIsDeleteModalOpen(false);
+          }}
+        >
+          <div className="w-full flex flex-col gap-3 px-5">
+            <h2 className="font-bold text-xl w-full text-center pb-1 text-black">
+              Inativar Parceiro
+            </h2>
+            <p>
+              <b>Este processo é irreversível.</b> Depois de inativo, o parceiro
+              não aparece nos resultados de busca e não poderá ter acesso ao
+              app.
+            </p>
+            <p className="mb-5">
+              <b>Todos os códigos de cupom</b> já gerados pelos clientes que
+              ainda não foram ativados{" "}
+              <b>
+                ficarão inabilitados, já que o parceiro não terá mais acesso a
+                sua conta.
+              </b>
+            </p>
+
+            <div className="flex px-4 flex-col gap-3">
+              <ButtonThird
+                loading={isLoadingDelete}
+                disabled={isLoadingDelete}
+                onClick={() => {
+                  handleDeleteRequest();
+                }}
+              >
+                Tenho certeza, excluir parceiro!
+              </ButtonThird>
+              <ButtonThird
+                disabled={isLoadingDelete}
+                onClick={() => handleCloseModal()}
+                className="text-gray-800"
+              >
+                Não quero inativar agora
+              </ButtonThird>
+            </div>
+          </div>
+        </Modal>
+      )}
     </div>
   );
 }
