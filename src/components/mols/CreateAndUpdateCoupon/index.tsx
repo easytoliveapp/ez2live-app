@@ -16,11 +16,15 @@ import { ICoupon, ICreateCoupon, IGetCouponInfo } from "@/types/coupons";
 import couponService from "@/service/coupons.service";
 import { showToastify } from "@/hooks/showToastify";
 import couponsService from "@/service/coupons.service";
+import Image from "next/image";
+import { StaticImport } from "next/dist/shared/lib/get-img-props";
 
 interface ICreateOrUpdateCoupon {
   setCouponModal: React.Dispatch<React.SetStateAction<boolean>>;
   isUpdatingCoupon?: boolean;
   couponId?: string;
+  easy2liveLogo: StaticImport | string;
+  supplierLogo: StaticImport | string;
   handleCouponUpdate: (
     updatedCoupon: ICoupon,
     action: "CREATE" | "UPDATE" | "DELETE",
@@ -32,6 +36,8 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
   couponId,
   handleCouponUpdate,
   setCouponModal,
+  easy2liveLogo,
+  supplierLogo,
 }) => {
   const [loading, setLoading] = useState(false);
   const [couponsUnlimited, setCouponsUnlimited] = useState(true);
@@ -256,7 +262,20 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
             <h2 className="pl-2 flex items-center text-3xl leading-[115%] md:leading-[115%] font-bold text-black dark:text-neutral-100 justify-center">
               {isUpdatingCoupon ? "Atualizar Cupom" : "Novo Coupon"}
             </h2>
-            <div className="pr-2"></div>
+            <span className="flex items-center relative h-16 pr-3 pt-2 gap-4">
+              <Image
+                className="w-10 h-auto rounded-full"
+                src={easy2liveLogo}
+                alt="easy-2-live-logo"
+              />
+              <Image
+                width={64}
+                height={64}
+                className="w-12 h-auto rounded-full"
+                src={supplierLogo}
+                alt="supplier-logo"
+              />
+            </span>
           </div>
           <Formik
             enableReinitialize={true}
@@ -423,9 +442,7 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
                   disabled={loading}
                   loading={loading}
                 >
-                  {isUpdatingCoupon
-                    ? "Salvar cupom"
-                    : "Cadastre agora seu novo cupom!"}
+                  {isUpdatingCoupon ? "Salvar cupom" : "Cadastrar cupom"}
                 </ButtonSecondary>
               </Form>
             )}

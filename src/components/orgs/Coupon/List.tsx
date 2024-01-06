@@ -22,11 +22,13 @@ import Arrow from "@/images/easytolive/icons/arrow-next-right-primary.svg";
 import CouponPrimary from "@/images/easytolive/icons/couponPrimary.svg";
 import Edit from "@/images/easytolive/icons/edit.svg";
 import LogoMain from "@/images/easytolive/logo/logobranca-fundoprimary.svg";
+import LogoPrimary from "@/images/easytolive/logo/logotipo-semfundoazulroxo.svg";
 import { useSession } from "next-auth/react";
 import { ICoupon } from "@/types/coupons";
 import DashboardIcon from "@/images/easytolive/icons/dashboardIcon.svg";
 import CouponGray from "@/images/easytolive/icons/coupongray.svg";
 import useUserRoles from "@/hooks/useUserRoles";
+import { useRouter } from "next/navigation";
 import { Route } from "next";
 
 interface ICouponListProps {
@@ -40,6 +42,7 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
   const { data: session } = useSession();
   const supplier = supplierResponse?.supplier;
   const coupons = supplierResponse?.coupons;
+  const router = useRouter();
 
   const getSupplierById = async (id: string) => {
     const res: any = await supplierService.getSupplierById(id);
@@ -66,6 +69,9 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
               "Oops! Parece que você acessou um endereço de estabelecimento errado",
             type: "error",
           });
+        }
+        if (error?.response?.data?.code === 404) {
+          router.push("/nao-encontrada");
         }
       });
   }, [supplierId]);
@@ -139,10 +145,14 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
         onCloseModal={() => setModalCreateCoupon(false)}
       >
         <div className="flex flex-col items-center w-full">
-          <CreateAndUpdateCoupon
-            setCouponModal={setModalCreateCoupon}
-            handleCouponUpdate={handleCouponUpdate}
-          />
+          {supplier.supplierInfo.supplierLogo && LogoPrimary && (
+            <CreateAndUpdateCoupon
+              easy2liveLogo={LogoPrimary}
+              supplierLogo={supplier.supplierInfo.supplierLogo ?? ""}
+              setCouponModal={setModalCreateCoupon}
+              handleCouponUpdate={handleCouponUpdate}
+            />
+          )}
           <ButtonThird
             className="text-generic-alertRed"
             onClick={() => setModalCreateCoupon(false)}
@@ -220,7 +230,7 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
                     className="w-6 mr-3 h-auto"
                     alt="coupon-image"
                   />
-                  Novo Cupom
+                  Cadastre agora seu novo cupom!
                 </ButtonSecondary>
               )}
             </div>
@@ -243,6 +253,7 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
                   supplierCategory={
                     supplier?.supplierInfo?.supplierCategory?.title
                   }
+                  easy2liveLogo={LogoPrimary}
                   supplierLogo={supplier.supplierInfo.supplierLogo ?? ""}
                   supplierName={supplier.name}
                   discount={coupon.discount}
