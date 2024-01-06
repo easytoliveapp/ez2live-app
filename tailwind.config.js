@@ -33,6 +33,7 @@ module.exports = {
           dark: customColors("--primary-easytolive-dark"),
           light: customColors("--primary-easytolive-light"),
           lighter: customColors("--primary-easytolive-lighter"),
+          extraLighter: customColors("--primary-easytolive-extralighter"),
         },
         secondary: {
           main: customColors("--secondary-easytolive"),
