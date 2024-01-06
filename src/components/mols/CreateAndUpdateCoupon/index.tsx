@@ -144,7 +144,7 @@ Aproveita! :)`;
     maxTotal: Yup.string().required(
       "Limite de cupons que podem ser utilizados.",
     ),
-    couponRules: Yup.string(),
+    couponRules: Yup.string().required("Regras do cupom é obrigatório"),
     maxPerUser: Yup.string().required("Limite de cupons por usuário."),
     expirationGenerationDate: Yup.date()
       .required("Data de validade para geração do cupom.")
