@@ -1,12 +1,14 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
+import Image from "next/image";
 import SectionHero3 from "./components/SectionHero";
 import SectionPromo2 from "./components/SectionPromo2";
 import SectionPromo3 from "./components/SectionPromo3";
 import { SocialsList1 } from "@/components";
+import PartnersSlider from "./components/PartnersSlider";
 import LogoImage from "@/images/easytolive/logo/logotipo-fundoazulroxo.svg";
-import Image from "next/image";
 
 export interface CustomLink {
   label: string;
@@ -16,47 +18,38 @@ export interface CustomLink {
 export interface WidgetFooterMenu {
   id: string;
   title: string;
-  menus: CustomLink[];
+  submenus: CustomLink[];
 }
 const widgetMenus: WidgetFooterMenu[] = [
   {
     id: "5",
-    title: "Getting started",
-    menus: [
-      { href: "#", label: "Release Notes" },
-      { href: "#", label: "Upgrade Guide" },
-      { href: "#", label: "Browser Support" },
-      { href: "#", label: "Dark Mode" },
+    title: "Nossos links",
+    submenus: [
+      { href: "#", label: "Sobre a Easy" },
+      { href: "#", label: "Criar uma conta" },
+      { href: "#", label: "Entrar em contato" },
     ],
   },
   {
     id: "1",
-    title: "Explore",
-    menus: [
-      { href: "#", label: "Prototyping" },
-      { href: "#", label: "Design systems" },
-      { href: "#", label: "Pricing" },
-      { href: "#", label: "Security" },
-    ],
-  },
-  {
-    id: "2",
-    title: "Resources",
-    menus: [
-      { href: "#", label: "Best practices" },
-      { href: "#", label: "Support" },
-      { href: "#", label: "Developers" },
-      { href: "#", label: "Learn design" },
-    ],
-  },
-  {
-    id: "4",
-    title: "Community",
-    menus: [
-      { href: "#", label: "Discussion Forums" },
-      { href: "#", label: "Code of Conduct" },
-      { href: "#", label: "Contributing" },
-      { href: "#", label: "API Reference" },
+    title: "Descubra categorias",
+    submenus: [
+      {
+        href: "/app?supplierCategory=6583288ca8101b0027ecd823",
+        label: "Restaurantes",
+      },
+      {
+        href: "/app?supplierCategory=6583296aa8101b0027ecd833",
+        label: "Suplementos",
+      },
+      {
+        href: "/app?supplierCategory=6583289aa8101b0027ecd826",
+        label: "Estética",
+      },
+      {
+        href: "#",
+        label: "Nutrição",
+      },
     ],
   },
 ];
@@ -67,17 +60,17 @@ const renderWidgetMenuItem = (menu: WidgetFooterMenu, index: number) => {
         {menu.title}
       </h2>
       <ul className="mt-5 space-y-4">
-        {menu.menus.map((item, index) => (
+        {menu.submenus.map((item, index) => (
           <li key={index}>
-            <a
+            <Link
               key={index}
               className="text-neutral-6000 dark:text-neutral-300 hover:text-black dark:hover:text-white"
-              href={item.href}
+              href={item.href as any}
               target="_blank"
               rel="noopener noreferrer"
             >
               {item.label}
-            </a>
+            </Link>
           </li>
         ))}
       </ul>
@@ -93,17 +86,17 @@ function LandingPage() {
       <div className="container relative space-y-24 my-24 lg:space-y-32 lg:my-32">
         {/*  */}
         {/* sliders parceiros */}
+        <PartnersSlider />
 
         {/*  */}
         <SectionPromo2 />
 
         {/* SECTION */}
         <SectionPromo3 />
-        <SectionPromo2 />
       </div>
 
       <div className="nc-Footer relative py-20 lg:pt-28 lg:pb-24 border-t border-neutral-200 dark:border-neutral-700">
-        <div className="container grid grid-cols-2 gap-y-10 gap-x-5 sm:gap-x-8 md:grid-cols-4 lg:grid-cols-5 lg:gap-x-10 ">
+        <div className="container grid grid-cols-2 gap-y-10 gap-x-5 sm:gap-x-8 md:grid-cols-3 lg:grid-cols-3 lg:gap-x-10 ">
           <div className="grid grid-cols-4 gap-5 col-span-2 md:col-span-4 lg:md:col-span-1 lg:flex lg:flex-col">
             <div className="col-span-2 md:col-span-1">
               <Image src={LogoImage} className="w-28" alt="logo" />

@@ -1,16 +1,21 @@
 import React from "react";
 import { Poppins } from "next/font/google";
+import { getServerSession } from "next-auth";
+
 import "./globals.css";
 import "@/fonts/line-awesome-1.3.0/css/line-awesome.css";
 import "@/styles/index.scss";
 import "rc-slider/assets/index.css";
 import "react-toastify/dist/ReactToastify.css";
-import CommonClient from "./CommonClient";
-import ToastProvider from "@/providers/ToastProvider";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
 import AuthProvider from "@/providers/SessionProvider";
-import { getServerSession } from "next-auth";
 import { SupplierProvider } from "@/providers/SuppliersProvider";
+import ToastProvider from "@/providers/ToastProvider";
+
 import { authOptions } from "./api/auth/[...nextauth]/route";
+import CommonClient from "./CommonClient";
 
 const poppins = Poppins({
   subsets: ["latin"],

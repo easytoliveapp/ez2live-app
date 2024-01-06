@@ -11,10 +11,10 @@ const SkeletonCategoriesCards: React.FC<ISkeletonCategoriesCard> = ({
     return (
       <div
         className={
-          "bg-white border-2 focus:border-secondary-main active:shadow-sm rounded-lg p-1 py-2 w-20 min-w-[80px] flex flex-col border-transparent gap-1 items-center cursor-pointer"
+          "bg-white border-2 focus:border-secondary-main active:shadow-sm rounded-lg p-1 py-2 w-20 min-w-[80px] flex flex-col border-transparent gap-4 space-around w-full items-center cursor-pointer"
         }
       >
-        <div className="w-8 h-auto">
+        <div className="w-1/4 h-auto">
           <svg
             className="text-gray-200 rounded-full dark:text-gray-600"
             aria-hidden="true"
