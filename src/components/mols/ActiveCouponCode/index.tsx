@@ -79,12 +79,9 @@ const ActiveCouponCode: React.FC<IActiveCouponCodeProps> = ({
 
   const handleClickButton = async (values: { couponCode: string }) => {
     const { couponCode } = values;
-    console.log("CUPOM TESTE222", couponCode)
     setLoading(true);
-    console.log("CUPOM TESTE111")
 
     if (couponInfo) {
-      console.log("CUPOM TESTE")
       setCouponIsValidation(true);
       setCouponValidationLoading(true);
       await validateCouponCode(couponCode)
