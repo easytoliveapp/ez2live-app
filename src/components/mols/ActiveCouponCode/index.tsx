@@ -79,9 +79,12 @@ const ActiveCouponCode: React.FC<IActiveCouponCodeProps> = ({
 
   const handleClickButton = async (values: { couponCode: string }) => {
     const { couponCode } = values;
+    console.log("CUPOM TESTE222", couponCode)
     setLoading(true);
+    console.log("CUPOM TESTE111")
 
     if (couponInfo) {
+      console.log("CUPOM TESTE")
       setCouponIsValidation(true);
       setCouponValidationLoading(true);
       await validateCouponCode(couponCode)
@@ -295,7 +298,7 @@ const ActiveCouponCode: React.FC<IActiveCouponCodeProps> = ({
                               <div className="flex flex-col gap-2">
                                 <div>
                                   <p className="font-semibold">usuário</p>
-                                  <p>{couponInfo?.user}</p>
+                                  <p>{couponInfo?.user.name}</p>
                                 </div>
                                 <div>
                                   <p className="font-semibold">cupom</p>
