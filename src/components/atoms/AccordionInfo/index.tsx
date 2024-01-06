@@ -23,7 +23,7 @@ const DEMO_DATA = [
 ];
 
 const AccordionInfo: FC<IAccordionInfoProps> = ({
-  panelClassName = "p-4 pt-3 last:pb-0 h-max text-slate-600 text-sm max-h-[120px] overflow-y-scroll leading-6",
+  panelClassName = "p-4 pt-3 last:pb-0 h-max text-slate-600 text-sm max-h-[fit-content] overflow-y-scroll leading-6",
   data = DEMO_DATA,
 }) => {
   return (
