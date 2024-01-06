@@ -22,6 +22,7 @@ import { useRouter } from "next/navigation";
 import { ICoupon } from "@/types/coupons";
 import isDateValid from "@/utils/isDateValid";
 import { Route } from "next";
+import { StaticImport } from "next/dist/shared/lib/get-img-props";
 
 interface CouponContainerProps {
   supplierId: string;
@@ -29,6 +30,7 @@ interface CouponContainerProps {
   discount: string;
   maxUnitsTotal: number;
   expirateTime: string;
+  easy2liveLogo: StaticImport | string;
   expirationUseDate: string;
   couponId: string;
   supplierLogo: string | StaticImageData;
@@ -56,6 +58,7 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
   discount,
   maxUnitsTotal,
   supplierLogo,
+  easy2liveLogo,
   expirateTime,
   expirationUseDate,
   supplierCategory,
@@ -273,6 +276,8 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
         >
           {isOwnSupplier ? (
             <CreateAndUpdateCoupon
+              easy2liveLogo={easy2liveLogo}
+              supplierLogo={supplierLogo}
               setCouponModal={setShowCouponModal}
               isUpdatingCoupon={true}
               couponId={couponId}
