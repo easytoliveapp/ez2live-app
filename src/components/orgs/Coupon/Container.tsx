@@ -22,20 +22,16 @@ import { useRouter } from "next/navigation";
 import { ICoupon } from "@/types/coupons";
 import isDateValid from "@/utils/isDateValid";
 import { Route } from "next";
-import { StaticImport } from "next/dist/shared/lib/get-img-props";
+import { ISupplier } from "@/types/supplier";
 
 interface CouponContainerProps {
-  supplierId: string;
   couponTitle: string;
   discount: string;
   maxUnitsTotal: number;
   expirateTime: string;
-  easy2liveLogo: StaticImport | string;
   expirationUseDate: string;
   couponId: string;
-  supplierLogo: string | StaticImageData;
-  supplierCategory: string;
-  supplierName: string;
+  supplier: ISupplier;
   icon: string | StaticImageData;
   isOwnSupplier: boolean;
   handleCouponUpdate: (
@@ -53,17 +49,13 @@ const STEPS = {
 };
 
 const CouponContainer: React.FC<CouponContainerProps> = ({
-  supplierId,
   isOwnSupplier = false,
   discount,
   maxUnitsTotal,
-  supplierLogo,
-  easy2liveLogo,
   expirateTime,
   expirationUseDate,
-  supplierCategory,
   couponId,
-  supplierName,
+  supplier,
   icon,
   couponTitle,
   handleCouponUpdate,
@@ -75,6 +67,15 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
   const couponIdParam = searchParams.get("coupon");
   const router = useRouter();
   const { data: session } = useSession();
+
+  const {
+    id: supplierId,
+    name: supplierName,
+    supplierInfo: {
+      supplierCategory: { title: supplierCategory },
+      supplierLogo,
+    },
+  } = supplier;
 
   const handleNextStep = (step: number) => setCurrentStep(step);
 
@@ -121,7 +122,7 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
           expirateTime={expirateTime}
           unintsAmount={maxUnitsTotal}
           supplierCategory={supplierCategory}
-          supplierLogo={supplierLogo}
+          supplierLogo={supplierLogo ?? ""}
           supplierName={supplierName}
         />
         <ButtonPrimary
@@ -177,7 +178,7 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
           expirateTime={expirationUseDate}
           couponActivateCode={couponCode}
           supplierCategory={supplierCategory}
-          supplierLogo={supplierLogo}
+          supplierLogo={supplierLogo ?? ""}
           supplierName={supplierName}
         />
         <ButtonPrimary
@@ -276,8 +277,7 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
         >
           {isOwnSupplier ? (
             <CreateAndUpdateCoupon
-              easy2liveLogo={easy2liveLogo}
-              supplierLogo={supplierLogo}
+              supplier={supplier}
               setCouponModal={setShowCouponModal}
               isUpdatingCoupon={true}
               couponId={couponId}

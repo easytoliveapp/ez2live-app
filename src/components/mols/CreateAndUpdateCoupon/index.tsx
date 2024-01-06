@@ -10,6 +10,7 @@ import {
   ButtonThird,
   CouponGenerating,
   Modal,
+  TextArea,
 } from "@/components";
 import * as Yup from "yup";
 import { ICoupon, ICreateCoupon, IGetCouponInfo } from "@/types/coupons";
@@ -17,18 +18,18 @@ import couponService from "@/service/coupons.service";
 import { showToastify } from "@/hooks/showToastify";
 import couponsService from "@/service/coupons.service";
 import Image from "next/image";
-import { StaticImport } from "next/dist/shared/lib/get-img-props";
+import Easy2LiveLogo from "@/images/easytolive/logo/logotipo-semfundoazulroxo.svg";
+import { ISupplier } from "@/types/supplier";
 
 interface ICreateOrUpdateCoupon {
   setCouponModal: React.Dispatch<React.SetStateAction<boolean>>;
   isUpdatingCoupon?: boolean;
   couponId?: string;
-  easy2liveLogo: StaticImport | string;
-  supplierLogo: StaticImport | string;
   handleCouponUpdate: (
     updatedCoupon: ICoupon,
     action: "CREATE" | "UPDATE" | "DELETE",
   ) => void;
+  supplier: ISupplier;
 }
 
 const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
@@ -36,17 +37,33 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
   couponId,
   handleCouponUpdate,
   setCouponModal,
-  easy2liveLogo,
-  supplierLogo,
+  supplier,
 }) => {
   const [loading, setLoading] = useState(false);
   const [couponsUnlimited, setCouponsUnlimited] = useState(true);
   const [unlimitedByUser, setUnlimitedByUser] = useState(true);
   const [coupon, setCoupon] = useState<IGetCouponInfo>();
   const [deleteModal, setDeleteModal] = useState(false);
+
+  const {
+    name: supplierName,
+    email: supplierEmail,
+    phoneNumber: supplierPhone,
+    supplierInfo: { supplierLogo },
+  } = supplier;
+
+  const defaultCouponRules = `Para resgatar o seu desconto em ${supplierName} entre contato ${
+    supplierPhone ? `no telefone ${supplierPhone} ou ` : ""
+  }no e-mail ${supplierEmail} ou nas redes sociais para receber mais informações.
+  
+Basta apresentar esse QR Code para adquirir seu desconto. 
+  
+Aproveita! :)`;
+
   const [initalValues, setInitialValues] = useState({
     title: "",
     discount: "20",
+    couponRules: defaultCouponRules,
     maxTotal: 100,
     maxPerUser: 1,
     expirationGenerationDate: new Date("2022-01-01"),
@@ -112,6 +129,7 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
       setInitialValues({
         title: coupon.title,
         discount: coupon.discount,
+        couponRules: coupon.couponRules,
         maxPerUser: coupon.maxPerUser === -1 ? 1 : coupon.maxPerUser,
         maxTotal: coupon.maxTotal === -1 ? 100 : coupon.maxTotal,
         expirationGenerationDate: new Date(coupon.expirationGenerationDate),
@@ -126,6 +144,7 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
     maxTotal: Yup.string().required(
       "Limite de cupons que podem ser utilizados.",
     ),
+    couponRules: Yup.string(),
     maxPerUser: Yup.string().required("Limite de cupons por usuário."),
     expirationGenerationDate: Yup.date()
       .required("Data de validade para geração do cupom.")
@@ -140,6 +159,7 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
     discount: Yup.string(),
     maxTotal: Yup.string(),
     maxPerUser: Yup.string(),
+    couponRules: Yup.string(),
   });
 
   const handleSuccessUpdate = (res: any, action: any) => {
@@ -162,6 +182,7 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
     const createData = {
       title: values.title,
       discount: String(values.discount),
+      couponRules: values.couponRules,
       maxPerUser: unlimitedByUser ? -1 : Number(values.maxPerUser),
       maxTotal: couponsUnlimited ? -1 : Number(values.maxTotal),
       expirationGenerationDate: new Date(values.expirationGenerationDate),
@@ -171,6 +192,9 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
       ...(coupon?.title !== values.title && { title: values.title }),
       ...(coupon?.discount !== values.discount && {
         discount: String(values.discount),
+      }),
+      ...(coupon?.couponRules !== values.couponRules && {
+        couponRules: values.couponRules,
       }),
       ...(values?.maxPerUser && {
         maxPerUser: unlimitedByUser ? -1 : values.maxPerUser,
@@ -186,7 +210,7 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
         .then((res) => handleSuccessUpdate(res, "UPDATE"))
         .catch((error) => {
           showToastify({
-            label: `ocorreu um erro ao atualizar cupom: ${error}`,
+            label: `ocorreu um erro ao atualizar cupom: ${error} `,
             type: "error",
           });
           setTimeout(() => {
@@ -260,19 +284,19 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
         <div>
           <div className="mb-6 mt-4 flex justify-between">
             <h2 className="pl-2 flex items-center text-3xl leading-[115%] md:leading-[115%] font-bold text-black dark:text-neutral-100 justify-center">
-              {isUpdatingCoupon ? "Atualizar Cupom" : "Novo Coupon"}
+              {isUpdatingCoupon ? "Atualizar Cupom" : "Novo cupom de desconto"}
             </h2>
             <span className="flex items-center relative h-16 pr-3 pt-2 gap-4">
               <Image
                 className="w-10 h-auto rounded-full"
-                src={easy2liveLogo}
+                src={Easy2LiveLogo}
                 alt="easy-2-live-logo"
               />
               <Image
                 width={64}
                 height={64}
                 className="w-12 h-auto rounded-full"
-                src={supplierLogo}
+                src={supplierLogo ?? ""}
                 alt="supplier-logo"
               />
             </span>
@@ -323,7 +347,22 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
                     className="bg-white"
                   />
                 </FormItem>
-                <div className="grid grid-cols-2 w-full">
+                <FormItem
+                  label="Regras do cupom"
+                  errorMessage={errors.couponRules}
+                  invalid={!!(errors.couponRules && touched.couponRules)}
+                >
+                  {!!isValidating && <ErrorMessage name="couponRules" />}
+                  <Field
+                    invalid={!!(errors.couponRules && touched.couponRules)}
+                    name="couponRules"
+                    type="text"
+                    label="couponRules"
+                    component={TextArea}
+                    className="bg-white h-20"
+                  />
+                </FormItem>
+                <div className="grid grid-cols-2 w-full my-2">
                   <FormItem
                     label="Limite de cupons"
                     errorMessage={!couponsUnlimited && errors.maxTotal}
@@ -384,9 +423,9 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
                   </div>
                 </div>
                 {!isUpdatingCoupon && (
-                  <>
+                  <div className="grid grid-cols-2 w-full my-2">
                     <FormItem
-                      label="Cupom ativo até..."
+                      label="O cupom encerra em..."
                       errorMessage={errors.expirationGenerationDate}
                       invalid={
                         !!(
@@ -411,7 +450,7 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
                       />
                     </FormItem>
                     <FormItem
-                      label="Validade para o uso"
+                      label="Pode ser utlizado até..."
                       errorMessage={errors.expirationUseDate}
                       invalid={
                         !!(
@@ -434,15 +473,15 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
                         className="bg-white cursor-pointer"
                       />
                     </FormItem>
-                  </>
+                  </div>
                 )}
                 <ButtonSecondary
                   type="submit"
-                  className="w-full mt-2"
+                  className="w-full mt-4  "
                   disabled={loading}
                   loading={loading}
                 >
-                  {isUpdatingCoupon ? "Salvar cupom" : "Cadastrar cupom"}
+                  {isUpdatingCoupon ? "Atualizar cupom" : "Criar novo cupom"}
                 </ButtonSecondary>
               </Form>
             )}

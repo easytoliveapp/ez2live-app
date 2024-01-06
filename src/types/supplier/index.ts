@@ -36,6 +36,7 @@ export interface ISupplier {
   _id: string;
   id: string;
   supplierInfo: ISupplierInfo;
+  phoneNumber: string;
 }
 
 export interface ISupplierResponse {
