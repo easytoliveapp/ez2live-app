@@ -52,7 +52,7 @@ const FormComponent = () => {
           }
 
           if (session?.user?.role === "admin") {
-            destination = "/app/admin/parceiros";
+            destination = "/app/admin";
           }
 
           if (session?.user?.role === "user") {
