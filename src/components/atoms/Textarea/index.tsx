@@ -3,14 +3,27 @@ import React, { TextareaHTMLAttributes } from "react";
 export interface TextareaProps
   extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   field?: any;
+  invalid?: boolean;
 }
 
 const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
-  ({ field, className = "", children, rows = 4, ...args }, ref) => {
+  (props, ref) => {
+    const {
+      field,
+      className = "",
+      children,
+      rows = 4,
+      invalid,
+      ...args
+    } = props;
+
     return (
       <textarea
         ref={ref}
-        className={`block w-full text-sm placeholder:text-black target:border-primary-main text-black rounded-2xl border-black bg-white ${className}`}
+        className={`
+         block w-full text-sm placeholder:text-black target:border-primary-main text-black rounded-2xl bg-white
+         ${className}
+         ${invalid ? "border-rose-500" : "border-black"}`}
         rows={rows}
         {...args}
         {...field}

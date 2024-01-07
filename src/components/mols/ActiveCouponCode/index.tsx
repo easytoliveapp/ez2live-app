@@ -295,7 +295,7 @@ const ActiveCouponCode: React.FC<IActiveCouponCodeProps> = ({
                               <div className="flex flex-col gap-2">
                                 <div>
                                   <p className="font-semibold">usuário</p>
-                                  <p>{couponInfo?.user}</p>
+                                  <p>{couponInfo?.user.name}</p>
                                 </div>
                                 <div>
                                   <p className="font-semibold">cupom</p>

@@ -13,6 +13,7 @@ export interface ISearchUsers {
 }
 
 export interface IUpdateUser {
+  active?: boolean;
   id: string;
   name: string;
   email: string;

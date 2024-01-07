@@ -22,7 +22,6 @@ import Arrow from "@/images/easytolive/icons/arrow-next-right-primary.svg";
 import CouponPrimary from "@/images/easytolive/icons/couponPrimary.svg";
 import Edit from "@/images/easytolive/icons/edit.svg";
 import LogoMain from "@/images/easytolive/logo/logobranca-fundoprimary.svg";
-import LogoPrimary from "@/images/easytolive/logo/logotipo-semfundoazulroxo.svg";
 import { useSession } from "next-auth/react";
 import { ICoupon } from "@/types/coupons";
 import DashboardIcon from "@/images/easytolive/icons/dashboardIcon.svg";
@@ -145,14 +144,11 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
         onCloseModal={() => setModalCreateCoupon(false)}
       >
         <div className="flex flex-col items-center w-full">
-          {supplier.supplierInfo.supplierLogo && LogoPrimary && (
-            <CreateAndUpdateCoupon
-              easy2liveLogo={LogoPrimary}
-              supplierLogo={supplier.supplierInfo.supplierLogo ?? ""}
-              setCouponModal={setModalCreateCoupon}
-              handleCouponUpdate={handleCouponUpdate}
-            />
-          )}
+          <CreateAndUpdateCoupon
+            setCouponModal={setModalCreateCoupon}
+            handleCouponUpdate={handleCouponUpdate}
+            supplier={supplier}
+          />
           <ButtonThird
             className="text-generic-alertRed"
             onClick={() => setModalCreateCoupon(false)}
@@ -245,17 +241,11 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
             {filteredCoupons.length > 0 ? (
               filteredCoupons.map((coupon, key) => (
                 <CouponContainer
-                  supplierId={supplier.id}
                   isOwnSupplier={isOwnSupplier}
                   couponTitle={coupon.title}
                   icon={isOwnSupplier ? Edit : Arrow}
                   couponId={coupon.id}
-                  supplierCategory={
-                    supplier?.supplierInfo?.supplierCategory?.title
-                  }
-                  easy2liveLogo={LogoPrimary}
-                  supplierLogo={supplier.supplierInfo.supplierLogo ?? ""}
-                  supplierName={supplier.name}
+                  supplier={supplier}
                   discount={coupon.discount}
                   expirateTime={coupon.expirationGenerationDate}
                   expirationUseDate={coupon.expirationUseDate}
