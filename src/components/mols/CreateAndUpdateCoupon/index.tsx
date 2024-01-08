@@ -253,7 +253,7 @@ Aproveita! :)`;
   return (
     <div className="w-full">
       <Modal show={deleteModal} onCloseModal={() => setDeleteModal(false)}>
-        <div className="w-full flex flex-col gap-3">
+        <div className="w-full h-full flex flex-col gap-3">
           <h2 className="font-bold text-xl w-full text-center pb-1 text-black">
             DELETAR CUPOM
           </h2>
@@ -359,7 +359,7 @@ Aproveita! :)`;
                     type="text"
                     label="couponRules"
                     component={TextArea}
-                    className="bg-white h-20"
+                    className="bg-white max-h-20"
                   />
                 </FormItem>
                 <div className="grid grid-cols-2 w-full my-2">

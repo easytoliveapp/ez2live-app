@@ -38,7 +38,7 @@ const FastLoginPage = () => {
       />
       <div className="absolute w-full opacity-50 h-full bg-neutral-200"></div>
       <motion.div
-        className="flex flex-col w-full justify-between px-4 pb-6 h-[100vh] md:pb-16 px-16 xl:px-60"
+        className="flex flex-col w-full justify-between pb-6 h-[100vh] md:pb-16 px-16 xl:px-60"
         initial={{ opacity: 0 }}
         animate={{ opacity: [0, 25, 50, 75, 100] }}
         transition={{ ease: "easeIn", duration: 2 }}
