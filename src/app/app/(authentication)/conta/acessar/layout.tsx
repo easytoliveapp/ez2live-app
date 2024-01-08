@@ -1,8 +1,8 @@
-export default function FastLoginLayout({
+export default function AuthenticationLayout({
   children,
 }: {
   children: React.ReactNode;
   params: any;
 }) {
-  return <div className="auth-layout_container">{children}</div>;
+  return <div className="max-h-screen">{children}</div>;
 }
