@@ -286,7 +286,7 @@ Aproveita! :)`;
             <h2 className="pl-2 flex items-center text-3xl leading-[115%] md:leading-[115%] font-bold text-black dark:text-neutral-100 justify-center">
               {isUpdatingCoupon ? "Atualizar Cupom" : "Novo cupom de desconto"}
             </h2>
-            <span className="flex items-center relative h-16 pr-3 pt-2 gap-4">
+            <span className="flex flex-col sm:flex-row items-center relative h-20 pr-3 pt-3 gap-4">
               <Image
                 className="w-10 h-auto rounded-full"
                 src={Easy2LiveLogo}
