@@ -29,7 +29,6 @@ const FastLoginPage = () => {
   return (
     <div className="m-auto">
       <Image
-        className="absolute right-0"
         alt="pre login back-ground"
         src={PreLoginImage}
         objectFit="cover"
