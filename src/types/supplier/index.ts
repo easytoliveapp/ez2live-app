@@ -65,7 +65,7 @@ export interface ICategoryProps {
   id: string;
 }
 
-export interface ISupplierCompleteRegister {
+export interface ISupplierUpdateRegister {
   supplierLogo: string | StaticImageData;
   supplierBanner: string | StaticImageData;
   description: string;

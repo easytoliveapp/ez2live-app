@@ -3,7 +3,7 @@
 import { Field, Form, Formik } from "formik";
 import React, { useState } from "react";
 import * as Yup from "yup";
-import { ISupplierCompleteRegister } from "@/types/supplier";
+import { ISupplierUpdateRegister } from "@/types/supplier";
 import {
   ItemTypeImage,
   TextArea,
@@ -16,14 +16,20 @@ import { useSession } from "next-auth/react";
 import { showToastify } from "@/hooks/showToastify";
 import ImageSizeWarning from "@/components/atoms/ImageSizeWarning";
 
-const CompleteSupplierRegister: React.FC = () => {
+interface IUpdateSupplierRegister {
+  isUpdate?: boolean;
+}
+
+const UpdateSupplierRegister: React.FC<IUpdateSupplierRegister> = ({
+  isUpdate,
+}) => {
   const { data: session, update } = useSession();
   const [loading, setloading] = useState(false);
   const [logoPlaceHolder, setLogoPlaceHolder] = useState("...carregar");
   const [ilustrationImagePlaceHolder, SetIlustrationImagePlaceHolder] =
     useState("...carregar");
 
-  const CompleteSupplierRegisterSchema = Yup.object().shape({
+  const FirstUploadSupplierRegisterSchema = Yup.object().shape({
     supplierLogo: Yup.mixed()
       .nullable()
       .required("Insira uma logo para seu estabelecimento")
@@ -53,8 +59,36 @@ const CompleteSupplierRegister: React.FC = () => {
           !value || (value && ["image/png", "image/jpeg"].includes(value.type)),
       ),
   });
+  const UpdateSupplierRegisterSchema = Yup.object().shape({
+    supplierLogo: Yup.mixed()
+      .nullable()
+      .test(
+        "FILE_SIZE",
+        "Arquivo muito grande! Você pode enviar arquivos de até 1MB",
+        (value: any) => !value || (value && value.size <= 1024 * 1024),
+      )
+      .test(
+        "FILE_FORMAT",
+        "Arquivo com formato não suportado",
+        (value: any) =>
+          !value || (value && ["image/png", "image/jpeg"].includes(value.type)),
+      ),
+    supplierBanner: Yup.mixed()
+      .nullable()
+      .test(
+        "FILE_SIZE",
+        "Arquivo muito grande! Você pode enviar arquivos de até 1MB",
+        (value: any) => !value || (value && value.size <= 1024 * 1024),
+      )
+      .test(
+        "FILE_FORMAT",
+        "Arquivo com formato não suportado",
+        (value: any) =>
+          !value || (value && ["image/png", "image/jpeg"].includes(value.type)),
+      ),
+  });
 
-  const handleFormSubmit = async (values: ISupplierCompleteRegister) => {
+  const handleFormSubmit = async (values: ISupplierUpdateRegister) => {
     setloading(true);
 
     if (!session?.user) {
@@ -144,7 +178,7 @@ const CompleteSupplierRegister: React.FC = () => {
       <div>
         <div className="mt-6 mb-10 w-full gap-4 flex items-center justify-between">
           <h2 className=" pl-6 flex items-center text-lg leading-[115%] md:text-3xl md:leading-[115%] font-bold text-black dark:text-neutral-100 justify-center">
-            Completar <br /> cadastro
+            {!isUpdate ? "Completar " : "Atualizar "} {"cadastro"}
           </h2>
           <div>
             <div className="relative rounded-full w-40 h-16 bg-gradient-to-r from-secondary-main to-secondary-lighter">
@@ -159,7 +193,11 @@ const CompleteSupplierRegister: React.FC = () => {
             supplierBanner: "",
             description: "",
           }}
-          validationSchema={CompleteSupplierRegisterSchema}
+          validationSchema={
+            isUpdate
+              ? FirstUploadSupplierRegisterSchema
+              : UpdateSupplierRegisterSchema
+          }
           onSubmit={handleFormSubmit}
         >
           {({ errors, touched, handleSubmit, setFieldValue }) => (
@@ -240,7 +278,7 @@ const CompleteSupplierRegister: React.FC = () => {
                 disabled={loading}
                 loading={loading}
               >
-                Completar cadastro
+                {!isUpdate ? "Completar " : "Atualizar "} {"cadastro"}
               </ButtonPrimary>
             </Form>
           )}
@@ -250,4 +288,4 @@ const CompleteSupplierRegister: React.FC = () => {
   );
 };
 
-export default CompleteSupplierRegister;
+export default UpdateSupplierRegister;

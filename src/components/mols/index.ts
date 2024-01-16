@@ -1,5 +1,5 @@
 export { default as ActiveCouponCode } from "./ActiveCouponCode";
-export { default as CompleteSupplierRegister } from "./CompleteSupplierRegister";
+export { default as UpdateSupplierRegister } from "./UpdateSupplierRegister";
 export { default as CouponActivated } from "./CouponActivated";
 export { default as CouponCard } from "./CouponCard";
 export { default as Coupon } from "./CouponContent";

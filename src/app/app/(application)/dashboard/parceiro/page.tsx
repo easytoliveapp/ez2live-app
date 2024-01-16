@@ -3,7 +3,7 @@
 import {
   ButtonSecondary,
   ButtonThird,
-  CompleteSupplierRegister,
+  UpdateSupplierRegister,
   Modal,
 } from "@/components";
 import React, { useEffect, useState } from "react";
@@ -68,7 +68,7 @@ function PageDashboard() {
           onCloseModal={() => setIShowingComplementSignUpModal(false)}
         >
           <div className="h-[85vh] flex flex-col items-center justify-around">
-            <CompleteSupplierRegister />
+            <UpdateSupplierRegister />
             <ButtonThird
               onClick={() => setIShowingComplementSignUpModal(false)}
             >

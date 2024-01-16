@@ -1,5 +1,5 @@
 import {
-  ISupplierCompleteRegister,
+  ISupplierUpdateRegister,
   ISupplierList,
   ISupplierUpdate,
 } from "@/types/supplier";
@@ -15,7 +15,7 @@ const getSupplierList = async (data?: Partial<ISupplierList>) => {
 
 const updateSupplierImages = async (
   supplerId: string,
-  data: ISupplierCompleteRegister,
+  data: ISupplierUpdateRegister,
 ) => {
   return await BaseService.fetchData({
     url: `/supplier/${supplerId}/updateSupplierImages`,
