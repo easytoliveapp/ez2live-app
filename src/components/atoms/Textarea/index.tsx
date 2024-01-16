@@ -21,7 +21,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
       <textarea
         ref={ref}
         className={`
-         block w-full text-sm placeholder:text-black target:border-primary-main text-black rounded-2xl bg-white
+         block w-full text-md placeholder:text-black target:border-primary-main overflow-auto text-black rounded-2xl bg-white
          ${className}
          ${invalid ? "border-rose-500" : "border-black"}`}
         rows={rows}
