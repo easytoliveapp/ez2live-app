@@ -253,7 +253,7 @@ Aproveita! :)`;
   return (
     <div className="w-full">
       <Modal show={deleteModal} onCloseModal={() => setDeleteModal(false)}>
-        <div className="w-full flex flex-col gap-3">
+        <div className="w-full h-full flex flex-col gap-3">
           <h2 className="font-bold text-xl w-full text-center pb-1 text-black">
             DELETAR CUPOM
           </h2>
@@ -286,7 +286,7 @@ Aproveita! :)`;
             <h2 className="pl-2 flex items-center text-3xl leading-[115%] md:leading-[115%] font-bold text-black dark:text-neutral-100 justify-center">
               {isUpdatingCoupon ? "Atualizar Cupom" : "Novo cupom de desconto"}
             </h2>
-            <span className="flex items-center relative h-16 pr-3 pt-2 gap-4">
+            <span className="flex flex-col sm:flex-row items-center relative h-20 pr-3 pt-3 gap-4">
               <Image
                 className="w-10 h-auto rounded-full"
                 src={Easy2LiveLogo}
@@ -322,7 +322,7 @@ Aproveita! :)`;
                 >
                   <Field
                     invalid={!!(errors.discount && touched.discount)}
-                    className="accent-primary-main p-0 !focus:border-none !hover:border-none focus:ring-0"
+                    className="accent-primary-main !px-0 !focus:border-none !hover:border-none focus:ring-0"
                     name="discount"
                     min="1"
                     max="100"
@@ -359,7 +359,7 @@ Aproveita! :)`;
                     type="text"
                     label="couponRules"
                     component={TextArea}
-                    className="bg-white h-20"
+                    className="bg-white max-h-20"
                   />
                 </FormItem>
                 <div className="grid grid-cols-2 w-full my-2">
