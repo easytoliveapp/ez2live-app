@@ -18,7 +18,7 @@ export async function middleware(request: NextRequest) {
   }).shift();
 
   if (!tokenInfo && privateRequestRoute && !privateRequestRoute?.isPublic) {
-    return NextResponse.redirect(new URL("/conta/acessar", request.url));
+    return NextResponse.redirect(new URL("/app/conta/acessar", request.url));
   }
 
   if (
