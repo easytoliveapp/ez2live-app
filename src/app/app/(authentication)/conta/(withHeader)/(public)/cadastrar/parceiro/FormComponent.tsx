@@ -42,6 +42,8 @@ const FormComponent = () => {
       },
     },
   });
+  const phoneRegExp =
+    /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
   const getSupplierCatogires = async () => {
     const res: any = await Supplier.getSupplierCategories();
@@ -82,9 +84,9 @@ const FormComponent = () => {
         .nonNullable()
         .required("Escolha a categoria da empresa"),
     }),
-    phoneNumber: Yup.string().required(
-      "Insira um número de telefone para contato",
-    ),
+    phoneNumber: Yup.string()
+      .required("Insira um número de telefone para contato")
+      .matches(phoneRegExp, "O número de telefone não é válido"),
     email: Yup.string().email("Email inválido").required("Email requerido"),
     password: Yup.string()
       .matches(
