@@ -15,10 +15,6 @@ export const PRIVATE_ROUTES_CONFIG = [
     isPublic: false,
   },
   {
-    path: "/app/conta/parceiro-cadastrado",
-    isPublic: true,
-  },
-  {
     path: "/app/dashboard/parceiro/perfil",
     roles: [ROLES.supplier],
     isPublic: false,
