@@ -41,7 +41,6 @@ const CouponActivated: React.FC<CouponProps> = ({
             )}
           >
             {couponDiscount}%
-            <span className="absolute -top-4 -left-4 w-10 h-10 rounded-full bg-gradient-to-r from-secondary-dark to-secondary-lighter"></span>
           </span>
         </div>
       </div>

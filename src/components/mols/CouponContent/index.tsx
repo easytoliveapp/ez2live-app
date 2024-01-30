@@ -29,10 +29,10 @@ const CouponContent: React.FC<CouponProps> = ({
 }) => {
   return (
     <div className="flex flex-col px-2 w-full pb-3 text-black">
-      <h1 className=" text-2xl px-3 mb-6 font-bold text-black">
+      <h1 className=" text-2xl px-3 mb-2 font-bold text-black">
         {couponTitle}
       </h1>
-      <div className="flex mb-4 gap-4 justify-between">
+      <div className="flex mb-4 gap-4 justify-between items-center">
         <div className="flex flex-col gap-1.5 text-sm">
           <p className="flex font-semibold items-center text-generic-alertGreen">
             <Image
@@ -59,7 +59,6 @@ const CouponContent: React.FC<CouponProps> = ({
           )}
         >
           {couponDiscount}%
-          <span className="absolute z-50 -top-7 -left-7 w-14 h-14 rounded-full bg-gradient-to-r from-secondary-dark to-secondary-lighter"></span>
         </span>
       </div>
       <hr className="border-neutral-100 border-[1.5px] mb-4"></hr>
