@@ -45,7 +45,6 @@ const CouponActivated: React.FC<CouponProps> = ({
     }
     const text = `Olá, me chamo ${user?.name} e gostaria de realizar a compra online do meu cupom de ${couponDiscount}% sobre a(o) ${couponTitle}.${breakLine} Meu código de ativação é: ${couponActivateCode}.`;
     const urlPath = `http://wa.me/55${supplierPhoneNumber}?text=${text}`;
-    console.log(supplierPhoneNumber);
     return window.open(urlPath, "_blank")?.focus();
   }
 
