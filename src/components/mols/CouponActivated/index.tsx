@@ -9,13 +9,14 @@ import whatsapp from "@/images/socials/whatsapp.svg";
 import QRCode from "react-qr-code";
 import { useSession } from "next-auth/react";
 import cx from "classnames";
+import { showToastify } from "@/hooks/showToastify";
 
 interface CouponProps {
   couponActivateCode: string;
   couponTitle: string;
   expirateTime: string;
   supplierLogo: string | StaticImageData;
-  supplierCellPhone?: string;
+  supplierPhoneNumber: string;
   supplierName: string;
   couponDiscount: string;
   supplierCategory: string;
@@ -29,14 +30,22 @@ const CouponActivated: React.FC<CouponProps> = ({
   couponTitle,
   supplierCategory,
   couponActivateCode,
+  supplierPhoneNumber,
 }) => {
   const { data: session } = useSession();
   const user = session?.user;
   function goToWhatsApp() {
     const breakLine = "%0A";
 
+    if (!supplierPhoneNumber) {
+      return showToastify({
+        label: "Supplier sem telefone disponível no cadastro",
+        type: "error",
+      });
+    }
     const text = `Olá, me chamo ${user?.name} e gostaria de realizar a compra online do meu cupom de ${couponDiscount}% sobre a(o) ${couponTitle}.${breakLine} Meu código de ativação é: ${couponActivateCode}.`;
-    const urlPath = `http://wa.me/5585981654701?${text}`;
+    const urlPath = `http://wa.me/55${supplierPhoneNumber}?text=${text}`;
+    console.log(supplierPhoneNumber);
     return window.open(urlPath, "_blank")?.focus();
   }
 

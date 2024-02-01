@@ -70,6 +70,7 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
 
   const {
     id: supplierId,
+    phoneNumber: phoneNumber,
     name: supplierName,
     supplierInfo: {
       supplierCategory: { title: supplierCategory },
@@ -173,6 +174,7 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
     return (
       <div className="flex flex-col h-auto max-h-[90vh] overflow-y-auto items-center">
         <CouponActivated
+          supplierPhoneNumber={phoneNumber}
           couponTitle={couponTitle}
           couponDiscount={discount}
           expirateTime={expirationUseDate}
