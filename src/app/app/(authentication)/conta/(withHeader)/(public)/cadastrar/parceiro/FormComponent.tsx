@@ -42,7 +42,6 @@ const FormComponent = () => {
       },
     },
   });
-
   const getSupplierCatogires = async () => {
     const res: any = await Supplier.getSupplierCategories();
     return res;
@@ -130,12 +129,7 @@ const FormComponent = () => {
       },
     })
       .then(() => {
-        setTimeout(() => router.push("/app/conta/entrar"), 3000);
-        showToastify({
-          type: "success",
-          label:
-            "Acabamos de receber o seu cadastro! Vamos analisar seus dados e em breve entraremos em contato 🚀",
-        });
+        router.push("/app/conta/parceiro-cadastrado");
       })
       .catch((error) => {
         if (error?.response?.data?.code === 400) {
