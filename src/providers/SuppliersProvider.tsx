@@ -92,11 +92,12 @@ export const SupplierProvider: React.FC<ISupplierProviderProps> = ({
 
   useEffect(() => {
     const data = {
-      page: pageNumber,
       ...(textSearched && { name: textSearched }),
       ...(supplierCategoriesFilter && {
         supplierCategory: supplierCategoriesFilter,
       }),
+      isVerified: true,
+      page: pageNumber,
     };
 
     const getSupplierAndCategories = async () => {
