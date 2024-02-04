@@ -2,17 +2,21 @@
 
 import React from "react";
 import Image, { StaticImageData } from "next/image";
-import { AccordionInfo } from "@/components";
+import { AccordionInfo, ButtonPrimary } from "@/components";
 import { getDateFormater } from "@/utils/getDateFormater";
 import { getColorByDiscountValue } from "@/utils/getColorByDiscountValue";
+import whatsapp from "@/images/socials/whatsapp.svg";
 import QRCode from "react-qr-code";
+import { useSession } from "next-auth/react";
 import cx from "classnames";
+import { showToastify } from "@/hooks/showToastify";
 
 interface CouponProps {
   couponActivateCode: string;
   couponTitle: string;
   expirateTime: string;
   supplierLogo: string | StaticImageData;
+  supplierPhoneNumber: string;
   supplierName: string;
   couponDiscount: string;
   supplierCategory: string;
@@ -26,7 +30,24 @@ const CouponActivated: React.FC<CouponProps> = ({
   couponTitle,
   supplierCategory,
   couponActivateCode,
+  supplierPhoneNumber,
 }) => {
+  const { data: session } = useSession();
+  const user = session?.user;
+  function goToWhatsApp() {
+    const breakLine = "%0A";
+
+    if (!supplierPhoneNumber) {
+      return showToastify({
+        label: "Supplier sem telefone disponível no cadastro",
+        type: "error",
+      });
+    }
+    const text = `Olá, me chamo ${user?.name} e gostaria de realizar a compra online do meu cupom de ${couponDiscount}% sobre a(o) ${couponTitle}.${breakLine} Meu código de ativação é: ${couponActivateCode}.`;
+    const urlPath = `http://wa.me/55${supplierPhoneNumber}?text=${text}`;
+    return window.open(urlPath, "_blank")?.focus();
+  }
+
   return (
     <div className="pb-4 pt-2 px-2 w-full flex flex-col text-black">
       <div className="flex my-2 gap-2 justify-between items-center">
@@ -98,6 +119,10 @@ const CouponActivated: React.FC<CouponProps> = ({
             },
           ]}
         />
+        <ButtonPrimary className="mt-4" onClick={() => goToWhatsApp()}>
+          <Image src={whatsapp} className="w-4 h-auto mr-4" alt="wpp-image" />
+          {`Realizar a compra online`}
+        </ButtonPrimary>
       </div>
     </div>
   );

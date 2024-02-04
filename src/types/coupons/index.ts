@@ -65,6 +65,7 @@ export interface ICouponCodesByUser {
     id: string;
     supplier: {
       name: string;
+      phoneNumber: string;
       active: boolean;
       document: string;
       numberOfCoupons: number;
