@@ -70,7 +70,11 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
           });
         }
         if (error?.response?.data?.code === 404) {
-          router.push("/not-found");
+          showToastify({
+            label:
+              "Oops! Parece que você acessou um endereço de estabelecimento errado",
+            type: "error",
+          });
         }
       });
   }, [supplierId]);
