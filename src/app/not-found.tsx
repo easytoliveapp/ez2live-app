@@ -3,7 +3,7 @@ import React from "react";
 import I404Png from "@/images/404.png";
 import Link from "next/link";
 
-const Page404 = () => (
+export default function NotFound() {
   <div className="nc-Page404">
     <div className="container relative pt-5 pb-16 lg:pb-20 lg:pt-5">
       {/* HEADER */}
@@ -19,7 +19,5 @@ const Page404 = () => (
         </div>
       </header>
     </div>
-  </div>
-);
-
-export default Page404;
+  </div>;
+}
