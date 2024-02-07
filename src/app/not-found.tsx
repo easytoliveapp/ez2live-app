@@ -1,5 +1,4 @@
 import { ButtonPrimary, NcImage } from "@/components";
-import React from "react";
 import I404Png from "@/images/404.png";
 import Link from "next/link";
 
