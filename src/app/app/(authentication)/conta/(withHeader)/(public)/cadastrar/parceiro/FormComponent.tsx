@@ -46,7 +46,7 @@ const FormComponent = () => {
     const res: any = await Supplier.getSupplierCategories();
     return res;
   };
-  function validateCnpj(cnpj) {
+  function validateCnpj(cnpj: any) {
     cnpj = cnpj.replace(/[^\d]+/g, "");
 
     if (cnpj === "") return false;
