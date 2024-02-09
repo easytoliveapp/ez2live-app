@@ -34,6 +34,7 @@ const CouponActivated: React.FC<CouponProps> = ({
 }) => {
   const { data: session } = useSession();
   const user = session?.user;
+
   function goToWhatsApp() {
     const breakLine = "%0A";
 
@@ -119,10 +120,19 @@ const CouponActivated: React.FC<CouponProps> = ({
             },
           ]}
         />
-        <ButtonPrimary className="mt-4" onClick={() => goToWhatsApp()}>
-          <Image src={whatsapp} className="w-4 h-auto mr-4" alt="wpp-image" />
-          {`Realizar a compra online`}
-        </ButtonPrimary>
+        {supplierPhoneNumber && (
+          <ButtonPrimary
+            className="mt-4 relative"
+            onClick={() => goToWhatsApp()}
+          >
+            {`Realizar a compra online`}
+            <Image
+              src={whatsapp}
+              className="w-4 h-auto absolute right-5"
+              alt="wpp-image"
+            />
+          </ButtonPrimary>
+        )}
       </div>
     </div>
   );
