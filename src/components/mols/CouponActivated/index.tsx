@@ -36,26 +36,24 @@ const CouponActivated: React.FC<CouponProps> = ({
   const user = session?.user;
 
   function goToWhatsApp() {
-    const breakLine = "%0A";
-
     if (!supplierPhoneNumber) {
       return showToastify({
-        label: "Supplier sem telefone disponível no cadastro",
+        label:
+          "Telefone do fornecedor não disponível no cadastro. Tente o contato por e-mail/telefone",
         type: "error",
       });
     }
 
-    const text = `Olá, me chamo ${user?.name} e gostaria de realizar a compra online do meu cupom de ${couponDiscount}% sobre a(o) ${couponTitle}.
-                  ${breakLine}
-                  ${breakLine}
-                  Meu código de ativação é: ${couponActivateCode}.
-                `;
+    const userMessage = `Olá *${supplierName}*, meu nome é *${user?.name}* e gostaria de resgatar uma reserva que fiz na *EasyToLive*.\n\n`;
+    const couponDetails = `Detalhes:\n- Título do cupom: *${couponTitle}*\n- Desconto: *${couponDiscount}%*\n- Código do cupom: *${couponActivateCode}*`;
 
-    const urlPath = `http://wa.me/+55${supplierPhoneNumber.replace(
-      /\D/g,
-      "",
-    )}?text=${text}`;
-    return window.open(urlPath, "_blank")?.focus();
+    const whatsappMessage = `${userMessage}${couponDetails}`;
+    const phoneNumber = `+55${supplierPhoneNumber.replace(/\D/g, "")}`;
+    const whatsappUrl = `http://wa.me/${phoneNumber}?text=${encodeURIComponent(
+      whatsappMessage,
+    )}`;
+
+    return window.open(whatsappUrl, "_blank")?.focus();
   }
 
   return (
