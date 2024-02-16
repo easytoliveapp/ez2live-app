@@ -33,6 +33,10 @@ export default async function RootLayout({
 
   return (
     <html lang="en" className={poppins.className}>
+      <head>
+        <title>EasyToLive</title>
+        <link rel="icon" href="/favicon.ico" />
+      </head>
       <body className="bg-generic-background text-base dark:bg-neutral-900 text-neutral-900 dark:text-neutral-200">
         <ToastProvider>
           <AuthProvider session={session}>
