@@ -69,10 +69,7 @@ const FormComponent = () => {
       })
       .catch((error) => {
         if (error?.code === "R01") {
-          showToastify({
-            label: "Sua conta ainda não foi verificada",
-            type: "warning",
-          });
+          router.push("/app/conta/parceiro-cadastrado");
         }
         //handleToast error in login
         if (error?.code === 401) {

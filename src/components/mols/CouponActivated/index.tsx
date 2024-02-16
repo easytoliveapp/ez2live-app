@@ -2,17 +2,21 @@
 
 import React from "react";
 import Image, { StaticImageData } from "next/image";
-import { AccordionInfo } from "@/components";
+import { ButtonPrimary } from "@/components";
 import { getDateFormater } from "@/utils/getDateFormater";
 import { getColorByDiscountValue } from "@/utils/getColorByDiscountValue";
+import whatsapp from "@/images/socials/whatsapp.svg";
 import QRCode from "react-qr-code";
+import { useSession } from "next-auth/react";
 import cx from "classnames";
+import { showToastify } from "@/hooks/showToastify";
 
 interface CouponProps {
   couponActivateCode: string;
   couponTitle: string;
   expirateTime: string;
   supplierLogo: string | StaticImageData;
+  supplierPhoneNumber: string;
   supplierName: string;
   couponDiscount: string;
   supplierCategory: string;
@@ -26,7 +30,34 @@ const CouponActivated: React.FC<CouponProps> = ({
   couponTitle,
   supplierCategory,
   couponActivateCode,
+  supplierPhoneNumber,
 }) => {
+  const { data: session } = useSession();
+  const user = session?.user;
+
+  function goToWhatsApp() {
+    const breakLine = "%0A";
+
+    if (!supplierPhoneNumber) {
+      return showToastify({
+        label: "Supplier sem telefone disponível no cadastro",
+        type: "error",
+      });
+    }
+
+    const text = `Olá, me chamo ${user?.name} e gostaria de realizar a compra online do meu cupom de ${couponDiscount}% sobre a(o) ${couponTitle}.
+                  ${breakLine}
+                  ${breakLine}
+                  Meu código de ativação é: ${couponActivateCode}.
+                `;
+
+    const urlPath = `http://wa.me/+55${supplierPhoneNumber.replace(
+      /\D/g,
+      "",
+    )}?text=${text}`;
+    return window.open(urlPath, "_blank")?.focus();
+  }
+
   return (
     <div className="pb-4 pt-2 px-2 w-full flex flex-col text-black">
       <div className="flex my-2 gap-2 justify-between items-center">
@@ -41,7 +72,6 @@ const CouponActivated: React.FC<CouponProps> = ({
             )}
           >
             {couponDiscount}%
-            <span className="absolute -top-4 -left-4 w-10 h-10 rounded-full bg-gradient-to-r from-secondary-dark to-secondary-lighter"></span>
           </span>
         </div>
       </div>
@@ -90,15 +120,19 @@ const CouponActivated: React.FC<CouponProps> = ({
             <p>{getDateFormater(expirateTime)}</p>
           </div>
         </div>
-        <AccordionInfo
-          data={[
-            {
-              name: "Regras de uso",
-              content:
-                "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa,Lorem ipsum dolor dolor sit amet consectetur adipisicing elit. amet consectetur adipisicing elit. Ipsa,Lorem  amet consectetur adipisicing elit. Ipsa,Lorem   amet consectetur adipisicing elit. Ipsa,Lorem  ",
-            },
-          ]}
-        />
+        {supplierPhoneNumber && (
+          <ButtonPrimary
+            className="mt-4 relative"
+            onClick={() => goToWhatsApp()}
+          >
+            {`Entre em contato com a loja`}
+            <Image
+              src={whatsapp}
+              className="w-4 h-auto absolute right-5"
+              alt="wpp-image"
+            />
+          </ButtonPrimary>
+        )}
       </div>
     </div>
   );

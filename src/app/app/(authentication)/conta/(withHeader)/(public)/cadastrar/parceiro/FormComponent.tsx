@@ -11,6 +11,7 @@ import Supplier from "@/service/supplier.service";
 import { ICategoryProps } from "@/types/supplier";
 import { showToastify } from "@/hooks/showToastify";
 import { MASKS } from "@/constants/masks";
+import { validateCnpj } from "@/utils/validateCNPJ";
 
 export interface IStepOneProps {
   next: (e: any) => void;
@@ -42,7 +43,6 @@ const FormComponent = () => {
       },
     },
   });
-
   const getSupplierCatogires = async () => {
     const res: any = await Supplier.getSupplierCategories();
     return res;
@@ -74,9 +74,8 @@ const FormComponent = () => {
       .max(50, "Nome muito longo!")
       .required("Campo nome é requerido"),
     document: Yup.string()
-      .min(14, "Muito curto!")
-      .max(18, "Muito longo!")
-      .required("Campo requerido"),
+      .required("Campo requerido")
+      .test("cnpj", "CNPJ Inválido", (value) => validateCnpj(value)),
     supplierInfo: Yup.object().shape({
       supplierCategory: Yup.string()
         .nonNullable()
@@ -130,12 +129,7 @@ const FormComponent = () => {
       },
     })
       .then(() => {
-        setTimeout(() => router.push("/app/conta/entrar"), 3000);
-        showToastify({
-          type: "success",
-          label:
-            "Acabamos de receber o seu cadastro! Vamos analisar seus dados e em breve entraremos em contato 🚀",
-        });
+        router.push("/app/conta/parceiro-cadastrado");
       })
       .catch((error) => {
         if (error?.response?.data?.code === 400) {

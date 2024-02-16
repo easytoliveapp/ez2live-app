@@ -70,6 +70,7 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
 
   const {
     id: supplierId,
+    phoneNumber: phoneNumber,
     name: supplierName,
     supplierInfo: {
       supplierCategory: { title: supplierCategory },
@@ -173,6 +174,7 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
     return (
       <div className="flex flex-col h-auto max-h-[90vh] overflow-y-auto items-center">
         <CouponActivated
+          supplierPhoneNumber={phoneNumber}
           couponTitle={couponTitle}
           couponDiscount={discount}
           expirateTime={expirationUseDate}
@@ -181,18 +183,12 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
           supplierLogo={supplierLogo ?? ""}
           supplierName={supplierName}
         />
-        <ButtonPrimary
+        <ButtonThird
           onClick={() => router.push("/app/meus-cupons" as Route)}
-          className="w-full mx-4 max-w-md"
+          className="w-full mx-4 max-w-md !text-black !py-0 !bg-none Third-main !shadow-none"
         >
-          Ok, entendi!
-        </ButtonPrimary>
-        <ButtonPrimary
-          className="w-full mx-4 max-w-md !bg-white !text-primary-main !shadow-none"
-          onClick={() => setShowCouponModal(false)}
-        >
-          voltar
-        </ButtonPrimary>
+          Ver meus cupons
+        </ButtonThird>
       </div>
     );
   };

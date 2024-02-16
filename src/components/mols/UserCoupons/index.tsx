@@ -45,6 +45,7 @@ const UserCoupons: React.FC<UserCouponsProps> = ({ couponCodeData }) => {
 
   const {
     name: supplierName,
+    phoneNumber: phoneNumber,
     supplierInfo: { supplierCategory },
   } = supplier;
 
@@ -76,6 +77,7 @@ const UserCoupons: React.FC<UserCouponsProps> = ({ couponCodeData }) => {
         >
           {supplierName && supplierCategory && (
             <CouponActivated
+              supplierPhoneNumber={phoneNumber}
               couponActivateCode={couponActivateCode}
               couponDiscount={discount}
               couponTitle={couponTitle}
