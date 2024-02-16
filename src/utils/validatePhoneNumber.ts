@@ -15,8 +15,8 @@ export function validatePhoneNumber(phoneNumber: string): boolean {
     // Using the Array(q+1).join(n) method where "q" is the quantity and n is the
     // character to be repeated
     if (
-      phoneNumber === new Array(11).join(n) ||
-      phoneNumber === new Array(12).join(n)
+      phoneNumber === new Array(11).join(n.toString()) ||
+      phoneNumber === new Array(12).join(n.toString())
     )
       return false;
   }
