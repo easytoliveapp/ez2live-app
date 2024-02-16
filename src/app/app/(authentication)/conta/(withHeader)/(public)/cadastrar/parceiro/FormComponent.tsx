@@ -12,6 +12,7 @@ import { ICategoryProps } from "@/types/supplier";
 import { showToastify } from "@/hooks/showToastify";
 import { MASKS } from "@/constants/masks";
 import { validateCnpj } from "@/utils/validateCNPJ";
+import { validatePhoneNumber } from "@/utils/validatePhoneNumber";
 
 export interface IStepOneProps {
   next: (e: any) => void;
@@ -81,9 +82,11 @@ const FormComponent = () => {
         .nonNullable()
         .required("Escolha a categoria da empresa"),
     }),
-    phoneNumber: Yup.string().required(
-      "Insira um número de telefone para contato",
-    ),
+    phoneNumber: Yup.string()
+      .required("Insira um número de telefone para contato")
+      .test("phone", "Telefone inválido", (value) =>
+        validatePhoneNumber(value),
+      ),
     email: Yup.string().email("Email inválido").required("Email requerido"),
     password: Yup.string()
       .matches(
