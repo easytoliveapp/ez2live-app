@@ -27,7 +27,6 @@ import { ICoupon } from "@/types/coupons";
 import DashboardIcon from "@/images/easytolive/icons/dashboardIcon.svg";
 import CouponGray from "@/images/easytolive/icons/coupongray.svg";
 import useUserRoles from "@/hooks/useUserRoles";
-import { useRouter } from "next/navigation";
 import { Route } from "next";
 
 interface ICouponListProps {
@@ -41,7 +40,6 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
   const { data: session } = useSession();
   const supplier = supplierResponse?.supplier;
   const coupons = supplierResponse?.coupons;
-  const router = useRouter();
 
   const getSupplierById = async (id: string) => {
     const res: any = await supplierService.getSupplierById(id);
@@ -70,7 +68,10 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
           });
         }
         if (error?.response?.data?.code === 404) {
-          router.push("/nao-encontrada");
+          showToastify({
+            label: "Oops! Parece que ocorreu um erro",
+            type: "error",
+          });
         }
       });
   }, [supplierId]);
