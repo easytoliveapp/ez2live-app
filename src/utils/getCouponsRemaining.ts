@@ -5,9 +5,15 @@ export function getRemainingUnitsAmount(couponData: {
   const { remainingCouponsByUser = -1, remainingCoupons = -1 } =
     couponData ?? {};
 
-  if (remainingCouponsByUser === 0) return 0;
-  if (remainingCouponsByUser > 0) return remainingCouponsByUser;
+  if (remainingCouponsByUser === 0 || remainingCoupons === 0) return 0;
   if (remainingCouponsByUser === -1) return remainingCoupons;
+  if (remainingCoupons === -1 && remainingCouponsByUser > 0)
+    return remainingCouponsByUser;
+  if (remainingCouponsByUser > 0 && remainingCoupons > 0) {
+    return remainingCouponsByUser < remainingCoupons
+      ? remainingCouponsByUser
+      : remainingCoupons;
+  }
 
   return -1;
 }
