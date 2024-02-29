@@ -11,7 +11,7 @@ import { getCouponsRemaining } from "@/utils/getCouponsRemaining";
 interface CouponProps {
   id: string;
   couponTitle: string;
-  unintsAmount: number;
+  remainingUnits: number;
   expirateTime: string;
   supplierLogo: string | StaticImageData;
   supplierName: string;
@@ -20,7 +20,7 @@ interface CouponProps {
 }
 
 const CouponContent: React.FC<CouponProps> = ({
-  unintsAmount,
+  remainingUnits,
   couponDiscount,
   expirateTime,
   supplierLogo,
@@ -41,7 +41,7 @@ const CouponContent: React.FC<CouponProps> = ({
               src={CouponGreen}
               color="white"
             />
-            {getCouponsRemaining(unintsAmount)}
+            {getCouponsRemaining(remainingUnits)}
           </p>
           <p className="flex font-semibold items-center text-generic-alertRed">
             <Image

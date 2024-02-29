@@ -29,6 +29,7 @@ import CouponGray from "@/images/easytolive/icons/coupongray.svg";
 import useUserRoles from "@/hooks/useUserRoles";
 import { useRouter } from "next/navigation";
 import { Route } from "next";
+import { getRemainingUnitsAmount } from "@/utils/getCouponsRemaining";
 
 interface ICouponListProps {
   supplierId: string;
@@ -56,7 +57,7 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
     }
   }, [session, supplier]);
 
-  useEffect(() => {
+  const fetchSupplierData = () => {
     getSupplierById(supplierId)
       .then((res) => {
         setSupplierResponse(res?.data);
@@ -73,58 +74,21 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
           router.push("/nao-encontrada");
         }
       });
+  };
+
+  useEffect(() => {
+    fetchSupplierData();
   }, [supplierId]);
 
   const filteredCoupons = (coupons || [])
-    .filter((coupon) => coupon.status === "ACTIVE")
+    .filter((coupon) => coupon.couponData.status === "ACTIVE")
     .filter(
       (coupon: ICoupon) =>
-        coupon.maxTotal === -1 || coupon.couponCodesGenerated < coupon.maxTotal,
+        coupon.maxTotal === -1 ||
+        coupon.couponData.couponCodesGenerated < coupon.maxTotal,
     );
 
-  const handleCouponUpdate = (
-    updatedCoupon: ICoupon,
-    action: "CREATE" | "UPDATE" | "DELETE",
-  ) => {
-    if (action === "CREATE") {
-      setSupplierResponse({
-        ...(supplierResponse as ISupplierResponse),
-        coupons: [...(coupons || []), updatedCoupon],
-      });
-      return;
-    }
-
-    if (action === "DELETE") {
-      const updatedCoupons = coupons?.filter(
-        (coupon) => coupon.id !== updatedCoupon.id,
-      );
-
-      if (updatedCoupons) {
-        setSupplierResponse({
-          ...(supplierResponse as ISupplierResponse),
-          coupons: updatedCoupons,
-        });
-      }
-      return;
-    }
-
-    if (action === "UPDATE") {
-      const updatedCoupons = coupons?.map((coupon) => {
-        if (coupon.id === updatedCoupon.id) {
-          return updatedCoupon;
-        }
-        return coupon;
-      });
-
-      if (updatedCoupons) {
-        setSupplierResponse({
-          ...(supplierResponse as ISupplierResponse),
-          coupons: updatedCoupons,
-        });
-      }
-      return;
-    }
-  };
+  const handleCouponUpdate = () => fetchSupplierData();
 
   const isSupplier = useUserRoles().isSupplier();
   return supplier ? (
@@ -244,12 +208,12 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
                   isOwnSupplier={isOwnSupplier}
                   couponTitle={coupon.title}
                   icon={isOwnSupplier ? Edit : Arrow}
-                  couponId={coupon.id}
+                  couponId={coupon.couponData.id}
                   supplier={supplier}
                   discount={coupon.discount}
                   expirateTime={coupon.expirationGenerationDate}
                   expirationUseDate={coupon.expirationUseDate}
-                  maxUnitsTotal={coupon.maxTotal}
+                  remainingUnits={getRemainingUnitsAmount(coupon.couponData)}
                   key={key}
                   handleCouponUpdate={handleCouponUpdate}
                 />

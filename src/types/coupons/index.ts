@@ -48,6 +48,7 @@ export interface ICoupon {
   status: "ACTIVE" | "USED" | "EXPIRED";
   couponCodesActivated: number;
   couponCodesGenerated: number;
+  couponData: any;
 }
 
 export interface ICouponCodesByUser {
@@ -63,6 +64,8 @@ export interface ICouponCodesByUser {
     expirationGenerationDate: string;
     expirationUseDate: string;
     id: string;
+    remainingCoupons?: number;
+    remainingCouponsByUser?: number;
     supplier: {
       name: string;
       phoneNumber: string;

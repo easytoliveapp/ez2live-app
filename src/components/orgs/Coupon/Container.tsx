@@ -27,7 +27,7 @@ import { ISupplier } from "@/types/supplier";
 interface CouponContainerProps {
   couponTitle: string;
   discount: string;
-  maxUnitsTotal: number;
+  remainingUnits: number;
   expirateTime: string;
   expirationUseDate: string;
   couponId: string;
@@ -51,7 +51,7 @@ const STEPS = {
 const CouponContainer: React.FC<CouponContainerProps> = ({
   isOwnSupplier = false,
   discount,
-  maxUnitsTotal,
+  remainingUnits,
   expirateTime,
   expirationUseDate,
   couponId,
@@ -121,7 +121,7 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
           couponTitle={couponTitle}
           couponDiscount={discount}
           expirateTime={expirateTime}
-          unintsAmount={maxUnitsTotal}
+          remainingUnits={remainingUnits}
           supplierCategory={supplierCategory}
           supplierLogo={supplierLogo ?? ""}
           supplierName={supplierName}
@@ -288,7 +288,7 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
       <CouponCard
         couponTitle={couponTitle}
         discount={discount}
-        maxUnitsTotal={maxUnitsTotal}
+        remainingUnits={remainingUnits}
         expirationUseDate={expirateTime}
         setShowCouponModal={setShowCouponModal}
         icon={icon}
