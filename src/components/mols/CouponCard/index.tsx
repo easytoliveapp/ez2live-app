@@ -16,6 +16,7 @@ import { getDateFormater } from "@/utils/getDateFormater";
 import { getCouponsRemaining } from "@/utils/getCouponsRemaining";
 
 interface ICouponCardProps {
+  isOwnSupplier?: boolean;
   discount: string;
   couponTitle: string;
   remainingUnits?: number;
@@ -27,6 +28,7 @@ interface ICouponCardProps {
 }
 
 const CouponCard: React.FC<ICouponCardProps> = ({
+  isOwnSupplier,
   discount,
   couponTitle,
   remainingUnits,
@@ -74,7 +76,7 @@ const CouponCard: React.FC<ICouponCardProps> = ({
                       src={ShoppingCartGreen}
                       color="white"
                     />
-                    {getCouponsRemaining(remainingUnits)}
+                    {getCouponsRemaining(remainingUnits, isOwnSupplier)}
                   </p>
                 )}
                 {activationDate && (

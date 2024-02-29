@@ -9,6 +9,7 @@ import getExpirateTime from "@/utils/getExpirateTime";
 import cx from "classnames";
 import { getCouponsRemaining } from "@/utils/getCouponsRemaining";
 interface CouponProps {
+  isOwnSupplier: boolean;
   id: string;
   couponTitle: string;
   remainingUnits: number;
@@ -20,6 +21,7 @@ interface CouponProps {
 }
 
 const CouponContent: React.FC<CouponProps> = ({
+  isOwnSupplier,
   remainingUnits,
   couponDiscount,
   expirateTime,
@@ -41,7 +43,7 @@ const CouponContent: React.FC<CouponProps> = ({
               src={CouponGreen}
               color="white"
             />
-            {getCouponsRemaining(remainingUnits)}
+            {getCouponsRemaining(remainingUnits, isOwnSupplier)}
           </p>
           <p className="flex font-semibold items-center text-generic-alertRed">
             <Image

@@ -117,6 +117,7 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
     return (
       <div className="flex flex-col h-auto items-center">
         <Coupon
+          isOwnSupplier={isOwnSupplier}
           id={couponId}
           couponTitle={couponTitle}
           couponDiscount={discount}
@@ -287,6 +288,7 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
 
       <CouponCard
         couponTitle={couponTitle}
+        isOwnSupplier={isOwnSupplier}
         discount={discount}
         remainingUnits={remainingUnits}
         expirationUseDate={expirateTime}

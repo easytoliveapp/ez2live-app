@@ -213,7 +213,11 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
                   discount={coupon.discount}
                   expirateTime={coupon.expirationGenerationDate}
                   expirationUseDate={coupon.expirationUseDate}
-                  remainingUnits={getRemainingUnitsAmount(coupon.couponData)}
+                  remainingUnits={
+                    !isOwnSupplier
+                      ? getRemainingUnitsAmount(coupon.couponData)
+                      : coupon.couponData.remainingCoupons
+                  }
                   key={key}
                   handleCouponUpdate={handleCouponUpdate}
                 />
