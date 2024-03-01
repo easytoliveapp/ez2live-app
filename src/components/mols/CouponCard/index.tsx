@@ -16,9 +16,10 @@ import { getDateFormater } from "@/utils/getDateFormater";
 import { getCouponsRemaining } from "@/utils/getCouponsRemaining";
 
 interface ICouponCardProps {
+  isOwnSupplier?: boolean;
   discount: string;
   couponTitle: string;
-  maxUnitsTotal?: number;
+  remainingUnits?: number;
   activationDate?: string;
   expirationUseDate?: string;
   mainImage?: string | StaticImageData;
@@ -27,9 +28,10 @@ interface ICouponCardProps {
 }
 
 const CouponCard: React.FC<ICouponCardProps> = ({
+  isOwnSupplier,
   discount,
   couponTitle,
-  maxUnitsTotal,
+  remainingUnits,
   activationDate,
   expirationUseDate,
   mainImage,
@@ -66,7 +68,7 @@ const CouponCard: React.FC<ICouponCardProps> = ({
                 <p className="text-xs font-semibold text-black">
                   {couponTitle}
                 </p>
-                {maxUnitsTotal && (
+                {remainingUnits !== undefined && !isNaN(remainingUnits) && (
                   <p className="flex font-semibold items-center text-generic-alertGreen">
                     <Image
                       className="h-3.5 pr-2 w-auto"
@@ -74,7 +76,7 @@ const CouponCard: React.FC<ICouponCardProps> = ({
                       src={ShoppingCartGreen}
                       color="white"
                     />
-                    {getCouponsRemaining(maxUnitsTotal)}
+                    {getCouponsRemaining(remainingUnits, isOwnSupplier)}
                   </p>
                 )}
                 {activationDate && (

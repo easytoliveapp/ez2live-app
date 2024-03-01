@@ -21,7 +21,7 @@ import Image from "next/image";
 import Easy2LiveLogo from "@/images/easytolive/logo/logotipo-semfundoazulroxo.svg";
 import { ISupplier } from "@/types/supplier";
 
-interface ICreateOrUpdateCoupon {
+interface ICreateAndUpdateCoupon {
   setCouponModal: React.Dispatch<React.SetStateAction<boolean>>;
   isUpdatingCoupon?: boolean;
   couponId?: string;
@@ -32,7 +32,7 @@ interface ICreateOrUpdateCoupon {
   supplier: ISupplier;
 }
 
-const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
+const CreateAndUpdateCoupon: React.FC<ICreateAndUpdateCoupon> = ({
   isUpdatingCoupon,
   couponId,
   handleCouponUpdate,
@@ -500,4 +500,4 @@ Aproveita! :)`;
   );
 };
 
-export default CreateOrUpdateCoupon;
+export default CreateAndUpdateCoupon;
