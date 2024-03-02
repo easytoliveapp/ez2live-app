@@ -1,18 +1,18 @@
 export function getRemainingUnitsAmount(couponData: {
   remainingCouponsByUser?: number;
-  remainingCoupons?: number;
+  remainingCouponsTotal?: number;
 }) {
-  const { remainingCouponsByUser = -1, remainingCoupons = -1 } =
+  const { remainingCouponsByUser = -1, remainingCouponsTotal = -1 } =
     couponData ?? {};
 
-  if (remainingCouponsByUser === 0 || remainingCoupons === 0) return 0;
-  if (remainingCouponsByUser === -1) return remainingCoupons;
-  if (remainingCoupons === -1 && remainingCouponsByUser > 0)
+  if (remainingCouponsByUser === 0 || remainingCouponsTotal === 0) return 0;
+  if (remainingCouponsByUser === -1) return remainingCouponsTotal;
+  if (remainingCouponsTotal === -1 && remainingCouponsByUser > 0)
     return remainingCouponsByUser;
-  if (remainingCouponsByUser > 0 && remainingCoupons > 0) {
-    return remainingCouponsByUser < remainingCoupons
+  if (remainingCouponsByUser > 0 && remainingCouponsTotal > 0) {
+    return remainingCouponsByUser < remainingCouponsTotal
       ? remainingCouponsByUser
-      : remainingCoupons;
+      : remainingCouponsTotal;
   }
 
   return -1;
