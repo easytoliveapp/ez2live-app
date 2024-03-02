@@ -12,7 +12,7 @@ interface CouponProps {
   isOwnSupplier: boolean;
   id: string;
   couponTitle: string;
-  remainingUnits: number;
+  remainingUnits?: number;
   expirateTime: string;
   supplierLogo: string | StaticImageData;
   supplierName: string;
@@ -43,7 +43,8 @@ const CouponContent: React.FC<CouponProps> = ({
               src={CouponGreen}
               color="white"
             />
-            {getCouponsRemaining(remainingUnits, isOwnSupplier)}
+            {remainingUnits &&
+              getCouponsRemaining(remainingUnits, isOwnSupplier)}
           </p>
           <p className="flex font-semibold items-center text-generic-alertRed">
             <Image

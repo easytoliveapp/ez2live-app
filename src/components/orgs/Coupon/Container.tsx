@@ -27,7 +27,7 @@ import { ISupplier } from "@/types/supplier";
 interface CouponContainerProps {
   couponTitle: string;
   discount: string;
-  remainingUnits: number;
+  remainingUnits?: number;
   expirateTime: string;
   expirationUseDate: string;
   couponId: string;

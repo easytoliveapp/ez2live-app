@@ -81,11 +81,10 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
   }, [supplierId]);
 
   const filteredCoupons = (coupons || [])
-    .filter((coupon) => coupon.couponData.status === "ACTIVE")
+    .filter((coupon) => coupon.status === "ACTIVE")
     .filter(
       (coupon: ICoupon) =>
-        coupon.maxTotal === -1 ||
-        coupon.couponData.couponCodesGenerated < coupon.maxTotal,
+        coupon.maxTotal === -1 || coupon.couponCodesGenerated < coupon.maxTotal,
     );
 
   const handleCouponUpdate = () => fetchSupplierData();
@@ -208,15 +207,15 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
                   isOwnSupplier={isOwnSupplier}
                   couponTitle={coupon.title}
                   icon={isOwnSupplier ? Edit : Arrow}
-                  couponId={coupon.couponData.id}
+                  couponId={coupon.id}
                   supplier={supplier}
                   discount={coupon.discount}
                   expirateTime={coupon.expirationGenerationDate}
                   expirationUseDate={coupon.expirationUseDate}
                   remainingUnits={
-                    !isOwnSupplier
-                      ? getRemainingUnitsAmount(coupon.couponData)
-                      : coupon.couponData.remainingCoupons
+                    isOwnSupplier
+                      ? coupon.remainingCouponsTotal
+                      : getRemainingUnitsAmount(coupon)
                   }
                   key={key}
                   handleCouponUpdate={handleCouponUpdate}
