@@ -41,8 +41,6 @@ const FormComponent = () => {
   const handleFormSubmit = async (values: Partial<IRegisterAccount>) => {
     setLoading(true);
 
-    const callbackUrl = params.get("callbackUrl");
-
     await authService
       .register({
         name: values.name,
@@ -51,7 +49,7 @@ const FormComponent = () => {
       })
       .then(async (res: any) => {
         if (res?.data?.user) {
-          router.push((callbackUrl as Route) ?? "/app");
+          router.push("/app/conta/conta-cadastrada");
 
           showToastify({
             label:
@@ -61,6 +59,8 @@ const FormComponent = () => {
         }
       })
       .catch((error) => {
+        setLoading(false);
+
         if (error?.response?.data?.code === 400) {
           return showToastify({
             label:
@@ -73,8 +73,7 @@ const FormComponent = () => {
           label: "Impossível criar sua conta. Por favor, tente novamente.",
           type: "error",
         });
-      })
-      .finally(() => setLoading(false));
+      });
   };
 
   return (

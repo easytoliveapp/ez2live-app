@@ -69,7 +69,10 @@ const FormComponent = () => {
       })
       .catch((error) => {
         if (error?.code === "R01") {
-          router.push("/app/conta/parceiro-cadastrado");
+          router.push("/app/conta/conta-cadastrada?isSupplier=1");
+        }
+        if (error?.code === "R02") {
+          router.push("/app/conta/conta-cadastrada");
         }
         //handleToast error in login
         if (error?.code === 401) {

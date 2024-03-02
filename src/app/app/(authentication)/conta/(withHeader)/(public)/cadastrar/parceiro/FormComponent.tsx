@@ -141,7 +141,7 @@ const FormComponent = () => {
       },
     })
       .then(() => {
-        router.push("/app/conta/parceiro-cadastrado");
+        router.push("/app/conta/conta-cadastrada?isSupplier=1");
       })
       .catch((error) => {
         setLoading(false);
