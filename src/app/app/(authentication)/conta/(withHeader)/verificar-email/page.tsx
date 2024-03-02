@@ -28,7 +28,6 @@ const VerifyEmail = () => {
     }
 
     setIsEmailVerified(true);
-    router.push("/app/conta/entrar");
   };
 
   React.useEffect(() => {
