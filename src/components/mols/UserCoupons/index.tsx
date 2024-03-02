@@ -40,7 +40,7 @@ const UserCoupons: React.FC<UserCouponsProps> = ({ couponCodeData }) => {
 
   const {
     name: supplierName,
-    phoneNumber: phoneNumber,
+    whatsappPhoneNumber: phoneNumber,
     supplierInfo: { supplierCategory },
   } = supplier;
 

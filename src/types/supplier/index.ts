@@ -37,6 +37,7 @@ export interface ISupplier {
   id: string;
   supplierInfo: ISupplierInfo;
   phoneNumber: string;
+  whatsappPhoneNumber: string;
 }
 
 export interface ISupplierResponse {

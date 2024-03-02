@@ -37,7 +37,6 @@ const CreateAndUpdateCoupon: React.FC<ICreateAndUpdateCoupon> = ({
   couponId,
   handleCouponUpdate,
   setCouponModal,
-  supplier,
 }) => {
   const [loading, setLoading] = useState(false);
   const [couponsUnlimited, setCouponsUnlimited] = useState(true);
@@ -45,25 +44,9 @@ const CreateAndUpdateCoupon: React.FC<ICreateAndUpdateCoupon> = ({
   const [coupon, setCoupon] = useState<IGetCouponInfo>();
   const [deleteModal, setDeleteModal] = useState(false);
 
-  const {
-    name: supplierName,
-    email: supplierEmail,
-    phoneNumber: supplierPhone,
-    supplierInfo: { supplierLogo },
-  } = supplier;
-
-  const defaultCouponRules = `Para resgatar o seu desconto em ${supplierName} entre contato ${
-    supplierPhone ? `no telefone ${supplierPhone} ou ` : ""
-  }no e-mail ${supplierEmail} ou nas redes sociais para receber mais informações.
-  
-Basta apresentar esse QR Code para adquirir seu desconto. 
-  
-Aproveita! :)`;
-
   const [initalValues, setInitialValues] = useState({
     title: "",
     discount: "20",
-    couponRules: defaultCouponRules,
     maxTotal: 100,
     maxPerUser: 1,
     expirationGenerationDate: new Date("2022-01-01"),
@@ -129,7 +112,6 @@ Aproveita! :)`;
       setInitialValues({
         title: coupon.title,
         discount: coupon.discount,
-        couponRules: coupon.couponRules,
         maxPerUser: coupon.maxPerUser === -1 ? 1 : coupon.maxPerUser,
         maxTotal: coupon.maxTotal === -1 ? 100 : coupon.maxTotal,
         expirationGenerationDate: new Date(coupon.expirationGenerationDate),
@@ -144,7 +126,6 @@ Aproveita! :)`;
     maxTotal: Yup.string().required(
       "Limite de cupons que podem ser utilizados.",
     ),
-    couponRules: Yup.string().required("Regras do cupom é obrigatório"),
     maxPerUser: Yup.string().required("Limite de cupons por usuário."),
     expirationGenerationDate: Yup.date()
       .required("Data de validade para geração do cupom.")
@@ -159,7 +140,6 @@ Aproveita! :)`;
     discount: Yup.string(),
     maxTotal: Yup.string(),
     maxPerUser: Yup.string(),
-    couponRules: Yup.string(),
   });
 
   const handleSuccessUpdate = (res: any, action: any) => {
@@ -182,7 +162,6 @@ Aproveita! :)`;
     const createData = {
       title: values.title,
       discount: String(values.discount),
-      couponRules: values.couponRules,
       maxPerUser: unlimitedByUser ? -1 : Number(values.maxPerUser),
       maxTotal: couponsUnlimited ? -1 : Number(values.maxTotal),
       expirationGenerationDate: new Date(values.expirationGenerationDate),
@@ -192,9 +171,6 @@ Aproveita! :)`;
       ...(coupon?.title !== values.title && { title: values.title }),
       ...(coupon?.discount !== values.discount && {
         discount: String(values.discount),
-      }),
-      ...(coupon?.couponRules !== values.couponRules && {
-        couponRules: values.couponRules,
       }),
       ...(values?.maxPerUser && {
         maxPerUser: unlimitedByUser ? -1 : values.maxPerUser,
@@ -345,21 +321,6 @@ Aproveita! :)`;
                     label="title"
                     component={Input}
                     className="bg-white"
-                  />
-                </FormItem>
-                <FormItem
-                  label="Regras do cupom"
-                  errorMessage={errors.couponRules}
-                  invalid={!!(errors.couponRules && touched.couponRules)}
-                >
-                  {!!isValidating && <ErrorMessage name="couponRules" />}
-                  <Field
-                    invalid={!!(errors.couponRules && touched.couponRules)}
-                    name="couponRules"
-                    type="text"
-                    label="couponRules"
-                    component={TextArea}
-                    className="bg-white max-h-20"
                   />
                 </FormItem>
                 <div className="grid grid-cols-2 w-full my-2">

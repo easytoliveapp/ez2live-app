@@ -2,8 +2,8 @@
 
 import React, { useEffect } from "react";
 import Image from "next/image";
-import Ez2LiveLogo from "@/images/easytolive/logo/logocompleta-semfundoazulroxo.svg";
-import { ButtonPrimary } from "@/components";
+import Checked from "@/images/easytolive/icons/checked-success.svg";
+import { ButtonPrimary, ButtonSecondary } from "@/components";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 
@@ -18,26 +18,24 @@ const SupplierRegistered = () => {
   }, []);
 
   return (
-    <div className="flex h-[calc(100vh-120px)] flex-col items-center justify-between">
+    <div className="flex flex-col items-center justify-between pt-24 gap-8">
       <span></span>
-      <Image alt="Ez-2-live-logo" src={Ez2LiveLogo} className="w-auto h-28" />
+      <Image alt="Ez-2-live-logo" src={Checked} className="w-auto h-14" />
       <div className="flex flex-col gap-1 w-full justify-center items-center">
-        <h2 className="pt-2 text-lg font-semibold">
-          Cadastro criado com succeso!
-        </h2>
-        <p className="p-4 max-w-xl">
-          sua conta como parceiro EasyToLive foi enviada para análise do nosso
-          time. quando for aprovada você receberá um e-mail com as instruções
-          para acessar sua conta
+        <h2 className="pt-2 text-lg font-semibold">Bem-vindo ao EasyToLive</h2>
+        <p className="p-4 max-w-xl text-center">
+          Sua conta como <b>parceiro EasyToLive</b> foi enviada para análise do
+          nosso time. Quando for aprovada você receberá um e-mail com as
+          instruções para acessar sua conta.
         </p>
       </div>
 
       <ButtonPrimary
         onClick={() => {
-          router.push("/app/conta/entrar");
+          router.push("/");
         }}
       >
-        Voltar
+        Visite nosso site
       </ButtonPrimary>
     </div>
   );
