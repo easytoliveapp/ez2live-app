@@ -36,6 +36,7 @@ const CreateAndUpdateCoupon: React.FC<ICreateAndUpdateCoupon> = ({
   couponId,
   handleCouponUpdate,
   setCouponModal,
+  supplier,
 }) => {
   const [loading, setLoading] = useState(false);
   const [couponsUnlimited, setCouponsUnlimited] = useState(true);
@@ -48,6 +49,7 @@ const CreateAndUpdateCoupon: React.FC<ICreateAndUpdateCoupon> = ({
     discount: "20",
     maxTotal: 100,
     maxPerUser: 1,
+    couponRules: "",
     expirationGenerationDate: new Date("2022-01-01"),
     expirationUseDate: new Date("2022-01-01"),
   });
@@ -113,6 +115,7 @@ const CreateAndUpdateCoupon: React.FC<ICreateAndUpdateCoupon> = ({
         discount: coupon.discount,
         maxPerUser: coupon.maxPerUser === -1 ? 1 : coupon.maxPerUser,
         maxTotal: coupon.maxTotal === -1 ? 100 : coupon.maxTotal,
+        couponRules: coupon.couponRules,
         expirationGenerationDate: new Date(coupon.expirationGenerationDate),
         expirationUseDate: new Date(coupon.expirationUseDate),
       });
@@ -165,6 +168,7 @@ const CreateAndUpdateCoupon: React.FC<ICreateAndUpdateCoupon> = ({
       maxTotal: couponsUnlimited ? -1 : Number(values.maxTotal),
       expirationGenerationDate: new Date(values.expirationGenerationDate),
       expirationUseDate: new Date(values.expirationUseDate),
+      couponRules: "regras do cupom",
     };
     const updateData = {
       ...(coupon?.title !== values.title && { title: values.title }),
@@ -271,7 +275,7 @@ const CreateAndUpdateCoupon: React.FC<ICreateAndUpdateCoupon> = ({
                 width={64}
                 height={64}
                 className="w-12 h-auto rounded-full"
-                src={supplierLogo ?? ""}
+                src={supplier.supplierInfo.supplierLogo ?? ""}
                 alt="supplier-logo"
               />
             </span>
