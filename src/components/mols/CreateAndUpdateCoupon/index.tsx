@@ -10,7 +10,6 @@ import {
   ButtonThird,
   CouponGenerating,
   Modal,
-  TextArea,
 } from "@/components";
 import * as Yup from "yup";
 import { ICoupon, ICreateCoupon, IGetCouponInfo } from "@/types/coupons";
