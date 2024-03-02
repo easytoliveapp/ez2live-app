@@ -7,11 +7,9 @@ import * as Yup from "yup";
 import { IRegisterAccount } from "@/types/auth/request";
 import authService from "@/service/auth.service";
 import { showToastify } from "@/hooks/showToastify";
-import { useRouter, useSearchParams } from "next/navigation";
-import { Route } from "@/routers/types";
+import { useRouter } from "next/navigation";
 
 const FormComponent = () => {
-  const params = useSearchParams();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const SignUpValidationSchema = Yup.object().shape({

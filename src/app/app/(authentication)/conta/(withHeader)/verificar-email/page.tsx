@@ -37,7 +37,6 @@ const VerifyEmail = () => {
     }
   }, [params]);
 
-  // Return a user email verified message
   return (
     <div className="flex flex-col gap-8 pt-24 items-center justify-between">
       <span></span>
