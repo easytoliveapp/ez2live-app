@@ -47,6 +47,10 @@ const FormComponent = () => {
       })
       .then(async (res: any) => {
         if (res?.data?.user) {
+          localStorage.setItem(
+            "LastUserCreated",
+            JSON.stringify(res.data.user),
+          );
           router.push("/app/conta/conta-cadastrada");
 
           showToastify({

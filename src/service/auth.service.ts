@@ -5,7 +5,7 @@ import {
   IResetPassword,
 } from "@/types/auth/request";
 import { BaseService } from "./base.service";
-import { ILoginResponse } from "@/types/auth/response";
+import { ILoginResponse, IUser } from "@/types/auth/response";
 
 const login = async (data: ILogIn) => {
   return await BaseService.fetchData<ILoginResponse>({
@@ -39,6 +39,14 @@ const forgotPassword = async (data: IForgotPassword) => {
   });
 };
 
+const resendEmailVerification = async (data: Partial<IUser>) => {
+  return await BaseService.fetchData({
+    url: "/auth/send-verification-email",
+    method: "post",
+    data,
+  });
+};
+
 const resetPassword = async (data: IResetPassword) => {
   return await BaseService.fetchData({
     url: `/auth/reset-password`,
@@ -62,6 +70,7 @@ const authService = {
   forgotPassword,
   resetPassword,
   refreshToken,
+  resendEmailVerification,
 };
 
 export default authService;
