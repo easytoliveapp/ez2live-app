@@ -85,7 +85,7 @@ const SupplierRegistered = () => {
       >
         Visite nosso site
       </ButtonPrimary>
-      <div>
+      <div className="flex flex-col items-center">
         <p className="mb-0 mt-24 p-0">{textEmaiVerification}</p>
         <ButtonThird
           onClick={() => sendVerificationEmail()}

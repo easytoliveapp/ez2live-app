@@ -39,11 +39,10 @@ const forgotPassword = async (data: IForgotPassword) => {
   });
 };
 
-const resendEmailVerification = async (params: string) => {
+const resendEmailVerification = async (id: string) => {
   return await BaseService.fetchData({
-    url: "/auth/send-verification-email",
+    url: `/auth/send-verification-email?id=${id}`,
     method: "post",
-    params,
   });
 };
 
