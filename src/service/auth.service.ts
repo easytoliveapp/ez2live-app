@@ -5,7 +5,7 @@ import {
   IResetPassword,
 } from "@/types/auth/request";
 import { BaseService } from "./base.service";
-import { ILoginResponse, IUser } from "@/types/auth/response";
+import { ILoginResponse } from "@/types/auth/response";
 
 const login = async (data: ILogIn) => {
   return await BaseService.fetchData<ILoginResponse>({

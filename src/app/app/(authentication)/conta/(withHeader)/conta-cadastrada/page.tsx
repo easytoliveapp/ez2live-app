@@ -6,7 +6,6 @@ import Checked from "@/images/easytolive/icons/checked-success.svg";
 import { ButtonPrimary } from "@/components";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useSession } from "next-auth/react";
-import { getItemByLocalStorage } from "@/utils/localStorageHelper";
 import authService from "@/service/auth.service";
 import { showToastify } from "@/hooks/showToastify";
 
