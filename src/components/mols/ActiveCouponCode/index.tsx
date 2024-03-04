@@ -283,7 +283,7 @@ const ActiveCouponCode: React.FC<IActiveCouponCodeProps> = ({
                                   </p>
                                 </div>
                                 <div>
-                                  <p className="font-semibold">validade</p>
+                                  <p className="font-semibold">Validade</p>
                                   <p>
                                     {getDateFormater(
                                       couponInfo?.coupon?.expirationUseDate,

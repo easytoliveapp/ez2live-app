@@ -276,7 +276,7 @@ Aproveita! :)`;
       </Modal>
       {isUpdatingCoupon && !coupon ? (
         <CouponGenerating
-          title={"carregando dados do cupom"}
+          title={"Carregando dados do cupom"}
           couponColor={"primary"}
           backGround={"secondary"}
         />

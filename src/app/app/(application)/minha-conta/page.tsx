@@ -51,10 +51,10 @@ const MyAccountPage = () => {
           <div className="ml-2 text-lg font-medium text-neutral-600">
             {session?.user.subscriptionEndDate !== null &&
             dayjs(session?.user.subscriptionEndDate).isAfter(dayjs())
-              ? `validade: ${getDateFormater(
+              ? `Validade: ${getDateFormater(
                   session?.user?.subscriptionEndDate,
                 )}`
-              : "expirou"}
+              : "Expirou"}
           </div>
         </FormItem>
 

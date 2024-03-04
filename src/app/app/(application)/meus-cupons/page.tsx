@@ -49,7 +49,7 @@ const filterOptions = [
   {
     id: "EXPIRED",
     name: "cupons expirados",
-    emptyText: "nenhum cupom expirou",
+    emptyText: "nenhum cupom xpirou",
     icon: CouponRed,
     textColor: "text-generic-alertRed",
   },

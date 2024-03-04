@@ -4,7 +4,7 @@ import getDateDiffInHours from "@/utils/getDiffInHours";
 const formatExpirationString = (value: number, unit: string) => {
   const absValue = Math.abs(value);
   const pluralSuffix = absValue === 1 ? "" : "s";
-  const prefix = value < 0 ? "expirou a" : "termina em";
+  const prefix = value < 0 ? "Expirou a" : "Termina em";
   return `${prefix} ${absValue} ${unit}${pluralSuffix}`;
 };
 const getExpirateTime = (expirateDate: string) => {
