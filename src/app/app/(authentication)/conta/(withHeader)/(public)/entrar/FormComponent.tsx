@@ -41,7 +41,6 @@ const FormComponent = () => {
     })
       .then(async (resp: any) => {
         const callbackUrl = params.get("callbackUrl");
-        console.log(resp);
         if (resp && !resp?.error) {
           const session = await getSession();
 
