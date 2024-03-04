@@ -48,7 +48,7 @@ const VerifyEmail = () => {
             </h2>
             <p className="p-4 max-w-xl text-center">
               Você acabou de verificar seu e-mail, agora você pode acessar sua
-              conta
+              conta e encontrar os melhores descontos com a EasyToLive.
             </p>
           </div>
         </>
@@ -87,7 +87,7 @@ const VerifyEmail = () => {
           router.push("/app/conta/entrar");
         }}
       >
-        Voltar
+        Entrar com email/senha
       </ButtonPrimary>
     </div>
   );
