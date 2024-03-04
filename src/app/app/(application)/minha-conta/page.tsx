@@ -246,7 +246,7 @@ const MyAccountPage = () => {
                   setPageId("account");
                 }}
               >
-                conta
+                Conta
               </div>
               <div
                 className={classNames(
@@ -257,7 +257,7 @@ const MyAccountPage = () => {
                   setPageId("security");
                 }}
               >
-                segurança
+                Segurança
               </div>
             </div>
           </div>
