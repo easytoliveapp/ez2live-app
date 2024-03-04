@@ -32,7 +32,7 @@ interface IFilterOptions {
 const filterOptions = [
   {
     id: "ACTIVE",
-    name: "cupons ativos",
+    name: "Cupons ativos",
     emptyText: "Nenhum cupom ativo disponível",
     href: "/app",
     label: "Buscar descontos",
@@ -41,14 +41,14 @@ const filterOptions = [
   },
   {
     id: "USED",
-    name: "cupons utilizados",
+    name: "Cupons utilizados",
     emptyText: "nenhum cupom foi usado ainda",
     icon: CouponBlack,
     textColor: "text-black",
   },
   {
     id: "EXPIRED",
-    name: "cupons expirados",
+    name: "Cupons expirados",
     emptyText: "nenhum cupom xpirou",
     icon: CouponRed,
     textColor: "text-generic-alertRed",
