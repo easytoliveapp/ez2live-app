@@ -76,7 +76,7 @@ const CouponContent: React.FC<CouponProps> = ({
           </div>
         </div>
         <p className="items-center mb-4 p-3">
-          validade: {getDateFormater(expirateTime)}
+          Validade: {getDateFormater(expirateTime)}
         </p>
         <AccordionInfo
           data={[
