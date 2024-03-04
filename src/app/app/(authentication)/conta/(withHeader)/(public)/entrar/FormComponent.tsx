@@ -73,7 +73,7 @@ const FormComponent = () => {
         }
         if (error?.code === "R02") {
           localStorage.setItem("LastUserCreated", JSON.stringify(error.user));
-          router.push("/app/conta/conta-cadastrada");
+          router.push(`/app/conta/conta-cadastrada?id=${error.user.id}`);
         }
         //handleToast error in login
         if (error?.code === 401) {

@@ -39,7 +39,7 @@ const forgotPassword = async (data: IForgotPassword) => {
   });
 };
 
-const resendEmailVerification = async (data: Partial<IUser>) => {
+const resendEmailVerification = async (data: string) => {
   return await BaseService.fetchData({
     url: "/auth/send-verification-email",
     method: "post",

@@ -16,20 +16,38 @@ const SupplierRegistered = () => {
   const [textEmaiVerification, setTextEmaiVerification] = useState(
     "Não recebeu nenhum email?",
   );
+  const userId = params.get("id");
   async function sendVerificationEmail() {
-    const localStorageUser = getItemByLocalStorage("LastUserCreated");
     const currentDate = new Date();
     const emailSentDate = localStorage.getItem("VERIFICATION_EMAIL_SENT");
-    if (emailSentDate !== null) {
-      const storedDate = new Date(emailSentDate);
-      currentDate.setMinutes(currentDate.getMinutes() - 1);
-      if (storedDate >= currentDate) {
-        setTextEmaiVerification(
-          "Por favor, aguarde 1 minuto antes de enviar outro e-mail de verificação.",
-        );
+    if (userId) {
+      if (emailSentDate !== null) {
+        const storedDate = new Date(emailSentDate);
+        currentDate.setMinutes(currentDate.getMinutes() - 1);
+        if (storedDate >= currentDate) {
+          setTextEmaiVerification(
+            "Por favor, aguarde 1 minuto antes de enviar outro e-mail de verificação.",
+          );
+        } else {
+          await authService
+            .resendEmailVerification(userId)
+            .then(() => {
+              setTextEmaiVerification(
+                "Foi enviado uma mensagem de verificação para o seu email.",
+              );
+              const dateString = currentDate.toString();
+              localStorage.setIem("VERIFICATION_EMAIL_SENT", dateString);
+            })
+            .catch(() =>
+              showToastify({
+                label: "Ocorreu um erro ao reenviar email de verificação",
+                type: "error",
+              }),
+            );
+        }
       } else {
         await authService
-          .resendEmailVerification(localStorageUser)
+          .resendEmailVerification(userId)
           .then(() => {
             setTextEmaiVerification(
               "Foi enviado uma mensagem de verificação para o seu email.",
@@ -45,21 +63,7 @@ const SupplierRegistered = () => {
           );
       }
     } else {
-      await authService
-        .resendEmailVerification(localStorageUser)
-        .then(() => {
-          setTextEmaiVerification(
-            "Foi enviado uma mensagem de verificação para o seu email.",
-          );
-          const dateString = currentDate.toString();
-          localStorage.setIem("VERIFICATION_EMAIL_SENT", dateString);
-        })
-        .catch(() =>
-          showToastify({
-            label: "Ocorreu um erro ao reenviar email de verificação",
-            type: "error",
-          }),
-        );
+      showToastify({ label: "Id de usuário não disponível", type: "error" });
     }
   }
 
