@@ -72,7 +72,7 @@ function PageDashboard() {
             <ButtonThird
               onClick={() => setIShowingComplementSignUpModal(false)}
             >
-              cancelar
+              Cancelar
             </ButtonThird>
           </div>
         </Modal>

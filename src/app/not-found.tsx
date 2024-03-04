@@ -15,7 +15,7 @@ export default function NotFound() {
             </span>
             <div className="pt-8">
               <ButtonPrimary>
-                <Link href={"/app"}>voltar para o início</Link>
+                <Link href={"/app"}>Voltar para o início</Link>
               </ButtonPrimary>
             </div>
           </header>

@@ -265,7 +265,7 @@ Aproveita! :)`;
               className="w-full !text-white !bg-generic-alertRed cursor-pointer"
               onClick={() => handleDeleteModal()}
             >
-              deletar cupom
+              Deletar cupom
             </ButtonSecondary>
           </div>
           <p className="text-xs p-2 text-center">
@@ -491,7 +491,7 @@ Aproveita! :)`;
               className="m-auto w-full !hover:border-none"
               onClick={() => setDeleteModal(true)}
             >
-              deletar cupom
+              Deletar cupom
             </ButtonThird>
           )}
         </div>

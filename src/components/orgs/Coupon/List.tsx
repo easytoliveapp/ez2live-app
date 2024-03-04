@@ -154,7 +154,7 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
             className="text-generic-alertRed"
             onClick={() => setModalCreateCoupon(false)}
           >
-            cancelar
+            Cancelar
           </ButtonThird>
         </div>
       </Modal>

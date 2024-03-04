@@ -59,7 +59,7 @@ const MyAccountPage = () => {
         </FormItem>
 
         <ButtonBasic onClick={() => signOut({ redirect: true })}>
-          desconectar
+          Desconectar
         </ButtonBasic>
       </div>
     );
@@ -187,7 +187,7 @@ const MyAccountPage = () => {
                       setHandleModal(false);
                     }}
                   >
-                    cancelar
+                    Cancelar
                   </ButtonThird>
                 </Form>
               )}
@@ -209,7 +209,7 @@ const MyAccountPage = () => {
             setHandleModal(true);
           }}
         >
-          excluir conta
+          Excluir conta
         </ButtonThird>
       </div>
     );
