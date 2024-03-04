@@ -83,7 +83,7 @@ const SupplierRegistered = () => {
         <p className="p-4 max-w-xl text-center">{message}</p>
       </div>
 
-      <p>{textEmaiVerification}</p>
+      <p className="m-0">{textEmaiVerification}</p>
       <ButtonPrimary onClick={() => sendVerificationEmail()}>
         Enviar email de confirmação
       </ButtonPrimary>

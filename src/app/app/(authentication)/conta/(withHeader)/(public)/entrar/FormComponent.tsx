@@ -41,7 +41,7 @@ const FormComponent = () => {
     })
       .then(async (resp: any) => {
         const callbackUrl = params.get("callbackUrl");
-
+        console.log(resp);
         if (resp && !resp?.error) {
           const session = await getSession();
 
@@ -72,6 +72,10 @@ const FormComponent = () => {
           router.push("/app/conta/conta-cadastrada?isSupplier=1");
         }
         if (error?.code === "R02") {
+          localStorage.setItem(
+            "LastUserCreated",
+            JSON.stringify(error.user.id),
+          );
           router.push("/app/conta/conta-cadastrada");
         }
         //handleToast error in login
