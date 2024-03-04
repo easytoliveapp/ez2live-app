@@ -25,6 +25,10 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <div>
+      <head>
+        <title>EasyToLive</title>
+        <link rel="icon" href="/favicon.ico" />
+      </head>
       {session?.user && isPremiumExpired && isCommomUser && (
         <PremiumConversionModal
           isPremiumExpired={isPremiumExpired}
