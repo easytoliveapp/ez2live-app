@@ -244,7 +244,7 @@ const CreateAndUpdateCoupon: React.FC<ICreateAndUpdateCoupon> = ({
               className="w-full !text-white !bg-generic-alertRed cursor-pointer"
               onClick={() => handleDeleteModal()}
             >
-              deletar cupom
+              Deletar cupom
             </ButtonSecondary>
           </div>
           <p className="text-xs p-2 text-center">
@@ -255,7 +255,7 @@ const CreateAndUpdateCoupon: React.FC<ICreateAndUpdateCoupon> = ({
       </Modal>
       {isUpdatingCoupon && !coupon ? (
         <CouponGenerating
-          title={"carregando dados do cupom"}
+          title={"Carregando dados do cupom"}
           couponColor={"primary"}
           backGround={"secondary"}
         />
@@ -455,7 +455,7 @@ const CreateAndUpdateCoupon: React.FC<ICreateAndUpdateCoupon> = ({
               className="m-auto w-full !hover:border-none"
               onClick={() => setDeleteModal(true)}
             >
-              deletar cupom
+              Deletar cupom
             </ButtonThird>
           )}
         </div>

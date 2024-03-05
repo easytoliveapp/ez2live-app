@@ -31,12 +31,12 @@ export function getCouponsRemaining(
     return "esgotado";
   }
   if (unintsAmount > 20) {
-    return "restam poucas unidades";
+    return "Restam poucas unidades";
   }
   if (unintsAmount === -1) {
-    return "quantidade ilimitada";
+    return "Quantidade ilimitada";
   }
   return unintsAmount === 1
-    ? "resta apenas 1 unidade"
-    : `restam ${unintsAmount} unidades`;
+    ? "Resta apenas 1 unidade"
+    : `Restam ${unintsAmount} unidades`;
 }

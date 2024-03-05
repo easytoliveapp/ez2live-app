@@ -114,7 +114,7 @@ const CouponActivated: React.FC<CouponProps> = ({
           </div>
           <hr className="border-neutral-100 rounded-full border-[1px] w-10 rotate-90"></hr>
           <div className="flex flex-col gap-1">
-            <p className="font-semibold">validade</p>
+            <p className="font-semibold">Validade</p>
             <p>{getDateFormater(expirateTime)}</p>
           </div>
         </div>

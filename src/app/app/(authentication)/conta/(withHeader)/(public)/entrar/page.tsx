@@ -27,7 +27,7 @@ const PageLogin = () => {
           {/* FORM */}
           <FormComponent />
           <span className="block text-center text-sm text-black font-semibold dark:text-neutral-300">
-            não tem uma conta?{" "}
+            Não tem uma conta?{" "}
             <Link
               className="text-primary-main font-semibold cursor-pointer"
               href={
@@ -55,12 +55,12 @@ const PageLogin = () => {
 
           <span className=" block pt-6 text-center text-sm font-medium text-black dark:text-neutral-300">
             <div className="bg-white h-0.5 w-auto m-auto mb-4"></div>
-            <p> tem um estabelecimento e quer se juntar a nós? </p>
+            <p> Tem um estabelecimento e quer se juntar a nós? </p>
             <Link
               className="text-primary-main text-sm font-semibold"
               href="/app/conta/cadastrar/parceiro"
             >
-              cadastre-se!
+              Cadastre-se!
             </Link>
           </span>
         </div>

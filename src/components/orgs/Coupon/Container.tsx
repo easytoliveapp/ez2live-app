@@ -137,7 +137,7 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
           className="w-full !text-generic-dark mx-4 max-w-md"
           onClick={() => setShowCouponModal(false)}
         >
-          não quero agora
+          Não quero agora
         </ButtonThird>
       </div>
     );

@@ -130,7 +130,7 @@ const FormComponent = () => {
               className="text-primary-main font-semibold"
               href="/app/conta/esqueci-a-senha"
             >
-              esqueci a senha
+              Esqueci a senha
             </Link>
           </span>
           <ButtonPrimary

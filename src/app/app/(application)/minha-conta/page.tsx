@@ -51,15 +51,15 @@ const MyAccountPage = () => {
           <div className="ml-2 text-lg font-medium text-neutral-600">
             {session?.user.subscriptionEndDate !== null &&
             dayjs(session?.user.subscriptionEndDate).isAfter(dayjs())
-              ? `validade: ${getDateFormater(
+              ? `Validade: ${getDateFormater(
                   session?.user?.subscriptionEndDate,
                 )}`
-              : "expirou"}
+              : "Expirou"}
           </div>
         </FormItem>
 
         <ButtonBasic onClick={() => signOut({ redirect: true })}>
-          desconectar
+          Desconectar
         </ButtonBasic>
       </div>
     );
@@ -187,7 +187,7 @@ const MyAccountPage = () => {
                       setHandleModal(false);
                     }}
                   >
-                    cancelar
+                    Cancelar
                   </ButtonThird>
                 </Form>
               )}
@@ -209,7 +209,7 @@ const MyAccountPage = () => {
             setHandleModal(true);
           }}
         >
-          excluir conta
+          Excluir conta
         </ButtonThird>
       </div>
     );
@@ -246,7 +246,7 @@ const MyAccountPage = () => {
                   setPageId("account");
                 }}
               >
-                conta
+                Conta
               </div>
               <div
                 className={classNames(
@@ -257,7 +257,7 @@ const MyAccountPage = () => {
                   setPageId("security");
                 }}
               >
-                segurança
+                Segurança
               </div>
             </div>
           </div>
