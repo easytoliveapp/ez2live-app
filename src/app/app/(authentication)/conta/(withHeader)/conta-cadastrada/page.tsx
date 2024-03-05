@@ -15,6 +15,7 @@ const SupplierRegistered = () => {
   const [textEmaiVerification, setTextEmaiVerification] = useState(
     "Não recebeu nenhum email?",
   );
+  const [disableButton, setDisableButton] = useState(false);
   const userId = params.get("id");
   async function sendVerificationEmail() {
     const currentDate = new Date();
@@ -33,6 +34,7 @@ const SupplierRegistered = () => {
         setTextEmaiVerification(
           "Por favor, aguarde 5 minutos antes de enviar outro e-mail de verificação.",
         );
+        setDisableButton(true);
         return;
       }
     }
@@ -89,6 +91,7 @@ const SupplierRegistered = () => {
         <p className="mb-0 mt-24 p-0">{textEmaiVerification}</p>
         <ButtonThird
           onClick={() => sendVerificationEmail()}
+          disabled={disableButton}
           className="sm:py-2 sm:my-0 sm:text-xs text-primary-main"
         >
           Enviar email de confirmação
