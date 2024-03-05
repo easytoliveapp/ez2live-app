@@ -70,7 +70,7 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
 
   const {
     id: supplierId,
-    phoneNumber: phoneNumber,
+    whatsappPhoneNumber: phoneNumber,
     name: supplierName,
     supplierInfo: {
       supplierCategory: { title: supplierCategory },

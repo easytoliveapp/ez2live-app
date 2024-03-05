@@ -7,11 +7,9 @@ import * as Yup from "yup";
 import { IRegisterAccount } from "@/types/auth/request";
 import authService from "@/service/auth.service";
 import { showToastify } from "@/hooks/showToastify";
-import { useRouter, useSearchParams } from "next/navigation";
-import { Route } from "@/routers/types";
+import { useRouter } from "next/navigation";
 
 const FormComponent = () => {
-  const params = useSearchParams();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const SignUpValidationSchema = Yup.object().shape({
@@ -41,8 +39,6 @@ const FormComponent = () => {
   const handleFormSubmit = async (values: Partial<IRegisterAccount>) => {
     setLoading(true);
 
-    const callbackUrl = params.get("callbackUrl");
-
     await authService
       .register({
         name: values.name,
@@ -51,7 +47,7 @@ const FormComponent = () => {
       })
       .then(async (res: any) => {
         if (res?.data?.user) {
-          router.push((callbackUrl as Route) ?? "/app");
+          router.push(`/app/conta/conta-cadastrada?id=${res.data.user.id}`);
 
           showToastify({
             label:
@@ -61,6 +57,8 @@ const FormComponent = () => {
         }
       })
       .catch((error) => {
+        setLoading(false);
+
         if (error?.response?.data?.code === 400) {
           return showToastify({
             label:
@@ -73,8 +71,7 @@ const FormComponent = () => {
           label: "Impossível criar sua conta. Por favor, tente novamente.",
           type: "error",
         });
-      })
-      .finally(() => setLoading(false));
+      });
   };
 
   return (

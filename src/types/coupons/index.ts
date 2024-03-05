@@ -70,6 +70,7 @@ export interface ICouponCodesByUser {
     supplier: {
       name: string;
       phoneNumber: string;
+      whatsappPhoneNumber: string;
       active: boolean;
       document: string;
       numberOfCoupons: number;
