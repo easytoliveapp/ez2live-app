@@ -8,6 +8,10 @@ export default function AuthenticationLayout({
 }) {
   return (
     <div>
+      <head>
+        <title>EasyToLive</title>
+        <link rel="icon" href="/favicon.ico" />
+      </head>
       <Header />
       <div className="auth-layout_container">{children}</div>
     </div>

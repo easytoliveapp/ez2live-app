@@ -16,6 +16,7 @@ export interface IRegisterAccount {
   password: string;
   document: string;
   phoneNumber: string;
+  whatsappPhoneNumber: string;
   supplierInfo: {
     supplierCategory: string;
     address: IAddress;

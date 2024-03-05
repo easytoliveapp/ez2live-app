@@ -15,9 +15,15 @@ const AuthLayout = async ({ children }: { children: React.ReactNode }) => {
   await PublicRoutesRedirect();
 
   return (
-    <div className="auth-layout">
-      <div className="auth-layout__container">{children}</div>
-    </div>
+    <>
+      <head>
+        <title>EasyToLive</title>
+        <link rel="icon" href="/favicon.ico" />
+      </head>
+      <div className="auth-layout">
+        <div className="auth-layout__container">{children}</div>
+      </div>
+    </>
   );
 };
 

@@ -28,6 +28,7 @@ import DashboardIcon from "@/images/easytolive/icons/dashboardIcon.svg";
 import CouponGray from "@/images/easytolive/icons/coupongray.svg";
 import useUserRoles from "@/hooks/useUserRoles";
 import { Route } from "next";
+import { getRemainingUnitsAmount } from "@/utils/getCouponsRemaining";
 
 interface ICouponListProps {
   supplierId: string;
@@ -54,7 +55,7 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
     }
   }, [session, supplier]);
 
-  useEffect(() => {
+  const fetchSupplierData = () => {
     getSupplierById(supplierId)
       .then((res) => {
         setSupplierResponse(res?.data);
@@ -74,6 +75,10 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
           });
         }
       });
+  };
+
+  useEffect(() => {
+    fetchSupplierData();
   }, [supplierId]);
 
   const filteredCoupons = (coupons || [])
@@ -83,49 +88,7 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
         coupon.maxTotal === -1 || coupon.couponCodesGenerated < coupon.maxTotal,
     );
 
-  const handleCouponUpdate = (
-    updatedCoupon: ICoupon,
-    action: "CREATE" | "UPDATE" | "DELETE",
-  ) => {
-    if (action === "CREATE") {
-      setSupplierResponse({
-        ...(supplierResponse as ISupplierResponse),
-        coupons: [...(coupons || []), updatedCoupon],
-      });
-      return;
-    }
-
-    if (action === "DELETE") {
-      const updatedCoupons = coupons?.filter(
-        (coupon) => coupon.id !== updatedCoupon.id,
-      );
-
-      if (updatedCoupons) {
-        setSupplierResponse({
-          ...(supplierResponse as ISupplierResponse),
-          coupons: updatedCoupons,
-        });
-      }
-      return;
-    }
-
-    if (action === "UPDATE") {
-      const updatedCoupons = coupons?.map((coupon) => {
-        if (coupon.id === updatedCoupon.id) {
-          return updatedCoupon;
-        }
-        return coupon;
-      });
-
-      if (updatedCoupons) {
-        setSupplierResponse({
-          ...(supplierResponse as ISupplierResponse),
-          coupons: updatedCoupons,
-        });
-      }
-      return;
-    }
-  };
+  const handleCouponUpdate = () => fetchSupplierData();
 
   const isSupplier = useUserRoles().isSupplier();
   return supplier ? (
@@ -250,7 +213,11 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
                   discount={coupon.discount}
                   expirateTime={coupon.expirationGenerationDate}
                   expirationUseDate={coupon.expirationUseDate}
-                  maxUnitsTotal={coupon.maxTotal}
+                  remainingUnits={
+                    isOwnSupplier
+                      ? coupon.remainingCouponsTotal
+                      : getRemainingUnitsAmount(coupon)
+                  }
                   key={key}
                   handleCouponUpdate={handleCouponUpdate}
                 />

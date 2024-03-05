@@ -30,6 +30,7 @@ interface ISupplier {
   name: string;
   email: string;
   phoneNumber: string;
+  whatsappPhoneNumber: string;
   isVerified: boolean;
   createdAt: string;
   supplierInfo: any;
@@ -184,6 +185,7 @@ const AdminPage = () => {
       isVerified,
       supplierInfo,
       phoneNumber,
+      whatsappPhoneNumber,
     } = supplier;
 
     return (
@@ -194,6 +196,8 @@ const AdminPage = () => {
             <p className="">{email}</p>
             <p className="font-semibold">telefone</p>
             <p className="">{phoneNumber ?? "-"}</p>
+            <p className="font-semibold">whatsapp da loja</p>
+            <p className="">{whatsappPhoneNumber ?? "-"}</p>
             <p className="font-semibold">conta criada em:</p>
             <p>{getDateFormater(createdAt)}</p>
             <p className="font-semibold">status do parceiro:</p>

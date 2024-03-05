@@ -19,9 +19,9 @@ import ImageSizeWarning from "@/components/atoms/ImageSizeWarning";
 const CompleteSupplierRegister: React.FC = () => {
   const { data: session, update } = useSession();
   const [loading, setloading] = useState(false);
-  const [logoPlaceHolder, setLogoPlaceHolder] = useState("...carregar");
+  const [logoPlaceHolder, setLogoPlaceHolder] = useState("Escolher imagem...");
   const [ilustrationImagePlaceHolder, SetIlustrationImagePlaceHolder] =
-    useState("...carregar");
+    useState("Escolher imagem...");
 
   const CompleteSupplierRegisterSchema = Yup.object().shape({
     supplierLogo: Yup.mixed()
@@ -142,8 +142,8 @@ const CompleteSupplierRegister: React.FC = () => {
       onCloseModal={() => null}
     >
       <div>
-        <div className="mt-6 mb-10 w-full gap-4 flex items-center justify-between">
-          <h2 className=" pl-6 flex items-center text-lg leading-[115%] md:text-3xl md:leading-[115%] font-bold text-black dark:text-neutral-100 justify-center">
+        <div className="mt-3 mb-5 w-full gap-4 flex items-center justify-between">
+          <h2 className="pl-2 flex items-center text-lg leading-[115%] md:text-3xl md:leading-[115%] font-bold text-black dark:text-neutral-100 justify-center">
             Completar <br /> cadastro
           </h2>
           <div>
@@ -165,10 +165,16 @@ const CompleteSupplierRegister: React.FC = () => {
           {({ errors, touched, handleSubmit, setFieldValue }) => (
             <Form onSubmit={handleSubmit} className="flex flex-col gap-3">
               <FormItem
-                label="Logo"
+                label="Logomarca"
                 errorMessage={errors.supplierLogo}
                 invalid={!!(errors.supplierLogo && touched.supplierLogo)}
               >
+                <div className="py-2">
+                  <ImageSizeWarning
+                    recommendedWidth={300}
+                    recommendedHeight={300}
+                  />
+                </div>
                 <label
                   onChange={() => setLogoPlaceHolder("carregado")}
                   htmlFor="supplierLogo"
@@ -188,15 +194,18 @@ const CompleteSupplierRegister: React.FC = () => {
                   />
                 </label>
               </FormItem>
-              <ImageSizeWarning
-                recommendedWidth={300}
-                recommendedHeight={300}
-              />
+
               <FormItem
-                label="Imagem ilustrativa"
+                label="Banner"
                 errorMessage={errors.supplierBanner}
                 invalid={!!(errors.supplierBanner && touched.supplierBanner)}
               >
+                <div className="py-3">
+                  <ImageSizeWarning
+                    recommendedWidth={1024}
+                    recommendedHeight={300}
+                  />
+                </div>
                 <label
                   onChange={() => SetIlustrationImagePlaceHolder("carregado")}
                   htmlFor="supplierBanner"
@@ -216,10 +225,6 @@ const CompleteSupplierRegister: React.FC = () => {
                   />
                 </label>
               </FormItem>
-              <ImageSizeWarning
-                recommendedWidth={1024}
-                recommendedHeight={300}
-              />
               <FormItem
                 label="Descrição"
                 errorMessage={errors.description}
@@ -230,13 +235,12 @@ const CompleteSupplierRegister: React.FC = () => {
                   label="description"
                   component={TextArea}
                   className="h-24 bg-white text-black"
-                  placeholder="escrever descrição do estabelecimento"
+                  placeholder="Uma breve descrição do estabelecimento"
                 />
               </FormItem>
-
               <ButtonPrimary
                 type="submit"
-                className="w-full mt-6"
+                className="w-full mt-2"
                 disabled={loading}
                 loading={loading}
               >

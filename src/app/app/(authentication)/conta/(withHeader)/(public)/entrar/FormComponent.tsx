@@ -41,7 +41,6 @@ const FormComponent = () => {
     })
       .then(async (resp: any) => {
         const callbackUrl = params.get("callbackUrl");
-
         if (resp && !resp?.error) {
           const session = await getSession();
 
@@ -69,7 +68,10 @@ const FormComponent = () => {
       })
       .catch((error) => {
         if (error?.code === "R01") {
-          router.push("/app/conta/parceiro-cadastrado");
+          router.push("/app/conta/conta-cadastrada?isSupplier=1");
+        }
+        if (error?.code === "R02") {
+          router.push(`/app/conta/conta-cadastrada?id=${error.user.id}`);
         }
         //handleToast error in login
         if (error?.code === 401) {
