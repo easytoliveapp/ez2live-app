@@ -18,6 +18,7 @@ interface CouponProps {
   supplierName: string;
   couponDiscount: string;
   supplierCategory: string;
+  couponRules: string;
 }
 
 const CouponContent: React.FC<CouponProps> = ({
@@ -28,6 +29,7 @@ const CouponContent: React.FC<CouponProps> = ({
   supplierLogo,
   supplierName,
   couponTitle,
+  couponRules,
 }) => {
   return (
     <div className="flex flex-col px-2 w-full pb-3 text-black">
@@ -81,15 +83,16 @@ const CouponContent: React.FC<CouponProps> = ({
         <p className="items-center mb-4 p-3">
           Validade: {getDateFormater(expirateTime)}
         </p>
-        <AccordionInfo
-          data={[
-            {
-              name: "Regras de uso",
-              content:
-                "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa, dolorem. Quae debitis hic ipsum inventore assumenda laborum reprehenderit, asperiores nostrum, molestiae odio excepturi maiores possimus ad cum quia et doloremque?",
-            },
-          ]}
-        />
+        {couponRules && (
+          <AccordionInfo
+            data={[
+              {
+                name: "Regras de uso",
+                content: `${couponRules}`,
+              },
+            ]}
+          />
+        )}
       </div>
     </div>
   );

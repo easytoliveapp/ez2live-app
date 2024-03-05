@@ -38,6 +38,7 @@ export interface ICoupon {
   active: string;
   couponStatus: "ACTIVE" | "USED" | "EXPIRED";
   title: string;
+  couponRules: string;
   discount: string;
   maxTotal: number;
   maxPerUser: number;
