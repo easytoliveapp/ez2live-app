@@ -116,7 +116,7 @@ export const SupplierProvider: React.FC<ISupplierProviderProps> = ({
         setCategories(categoriesRes.data?.supplierCategories?.results);
       } catch (error: any) {
         showToastify({
-          label: `Ocorreu um erro aos buscar dados: ${error.message}`,
+          label: `Ocorreu um erro aos buscar dados. Por favor tente novamente`,
           type: "error",
         });
       }

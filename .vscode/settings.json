@@ -1,6 +1,6 @@
 {
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true,
-    "files.eol": "\n",
+    "source.fixAll.eslint": "explicit",
+    "files.eol": "\n"
   }
 }

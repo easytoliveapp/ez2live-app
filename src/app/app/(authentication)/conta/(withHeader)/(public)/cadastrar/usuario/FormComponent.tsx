@@ -7,12 +7,9 @@ import * as Yup from "yup";
 import { IRegisterAccount } from "@/types/auth/request";
 import authService from "@/service/auth.service";
 import { showToastify } from "@/hooks/showToastify";
-import { signIn } from "next-auth/react";
-import { useRouter, useSearchParams } from "next/navigation";
-import { Route } from "@/routers/types";
+import { useRouter } from "next/navigation";
 
 const FormComponent = () => {
-  const params = useSearchParams();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const SignUpValidationSchema = Yup.object().shape({
@@ -42,8 +39,6 @@ const FormComponent = () => {
   const handleFormSubmit = async (values: Partial<IRegisterAccount>) => {
     setLoading(true);
 
-    const callbackUrl = params.get("callbackUrl");
-
     await authService
       .register({
         name: values.name,
@@ -52,23 +47,18 @@ const FormComponent = () => {
       })
       .then(async (res: any) => {
         if (res?.data?.user) {
-          await signIn("credentials", {
-            email: values.email,
-            password: values.password,
-            redirect: false,
-          })
-            .then(() => router.push((callbackUrl as Route) ?? "/app"))
-            .catch((error) => {
-              showToastify({
-                label:
-                  "Impossível criar sua conta. Por favor, tente novamente. " +
-                  error,
-                type: "error",
-              });
-            });
+          router.push(`/app/conta/conta-cadastrada?id=${res.data.user.id}`);
+
+          showToastify({
+            label:
+              "Cadastro criado com sucesso! Verifique seu e-mail para acessar sua conta.",
+            type: "success",
+          });
         }
       })
       .catch((error) => {
+        setLoading(false);
+
         if (error?.response?.data?.code === 400) {
           return showToastify({
             label:
@@ -81,8 +71,7 @@ const FormComponent = () => {
           label: "Impossível criar sua conta. Por favor, tente novamente.",
           type: "error",
         });
-      })
-      .finally(() => setLoading(false));
+      });
   };
 
   return (

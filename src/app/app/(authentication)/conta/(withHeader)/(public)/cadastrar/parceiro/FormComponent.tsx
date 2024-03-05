@@ -32,6 +32,7 @@ const FormComponent = () => {
     email: "",
     password: "",
     phoneNumber: "",
+    whatsappPhoneNumber: "",
     supplierInfo: {
       supplierCategory: firstCategory,
       address: {
@@ -73,9 +74,9 @@ const FormComponent = () => {
     name: Yup.string()
       .min(2, "Nome muito curto!")
       .max(50, "Nome muito longo!")
-      .required("Campo nome é requerido"),
+      .required("Campo nome é obrigatório"),
     document: Yup.string()
-      .required("Campo requerido")
+      .required("Campo obrigatório")
       .test("cnpj", "CNPJ Inválido", (value) => validateCnpj(value)),
     supplierInfo: Yup.object().shape({
       supplierCategory: Yup.string()
@@ -87,7 +88,14 @@ const FormComponent = () => {
       .test("phone", "Telefone inválido", (value) =>
         validatePhoneNumber(value),
       ),
-    email: Yup.string().email("Email inválido").required("Email requerido"),
+
+    whatsappPhoneNumber: Yup.string()
+      .required("Insira um número de telefone para contato")
+      .test("phone", "Telefone inválido", (value) =>
+        validatePhoneNumber(value),
+      ),
+
+    email: Yup.string().email("Email inválido").required("Email obrigatório"),
     password: Yup.string()
       .matches(
         /(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]/,
@@ -103,12 +111,12 @@ const FormComponent = () => {
   const SecondStepValidationSchema = Yup.object().shape({
     supplierInfo: Yup.object().shape({
       address: Yup.object().shape({
-        street: Yup.string().required("Campo requerido"),
-        number: Yup.string().required("Campo requerido"),
-        neighborhood: Yup.string().required("Campo requerido"),
-        city: Yup.string().required("Campo requerido"),
-        state: Yup.string().required("Campo requerido"),
-        zipcode: Yup.string().required("Campo requerido"),
+        street: Yup.string().required("Campo obrigatório"),
+        number: Yup.string().required("Campo obrigatório"),
+        neighborhood: Yup.string().required("Campo obrigatório"),
+        city: Yup.string().required("Campo obrigatório"),
+        state: Yup.string().required("Campo obrigatório"),
+        zipcode: Yup.string().required("Campo obrigatório"),
       }),
     }),
   });
@@ -126,19 +134,21 @@ const FormComponent = () => {
       password: values.password,
       document: values.document,
       phoneNumber: values.phoneNumber,
+      whatsappPhoneNumber: values.whatsappPhoneNumber,
       supplierInfo: {
         address: values.supplierInfo.address,
         supplierCategory: values.supplierInfo.supplierCategory,
       },
     })
       .then(() => {
-        router.push("/app/conta/parceiro-cadastrado");
+        router.push("/app/conta/conta-cadastrada?isSupplier=1");
       })
       .catch((error) => {
+        setLoading(false);
         if (error?.response?.data?.code === 400) {
-          return showToastify({
+          showToastify({
             label:
-              "Impossível criar sua conta pois já existe um e-mail cadastrado.",
+              "Impossível criar sua conta pois já existe uma conta cadastrada.",
             type: "error",
           });
         } else {
@@ -147,8 +157,7 @@ const FormComponent = () => {
             type: "error",
           });
         }
-      })
-      .finally(() => {
+
         setLoading(false);
       });
   };
@@ -181,7 +190,7 @@ const FormComponent = () => {
               />
             </FormItem>
             <FormItem
-              label="Email"
+              label="E-mail da empresa"
               errorMessage={errors.email}
               invalid={!!(errors.email && touched.email)}
             >
@@ -203,6 +212,24 @@ const FormComponent = () => {
                 name="phoneNumber"
                 type="text"
                 label="Telefone"
+                component={Input}
+                mask={MASKS.PHONE}
+              />
+            </FormItem>
+            <FormItem
+              label="Número WhatsApp"
+              errorMessage={errors.whatsappPhoneNumber}
+              invalid={
+                !!(errors.whatsappPhoneNumber && touched.whatsappPhoneNumber)
+              }
+            >
+              <Field
+                invalid={
+                  !!(errors.whatsappPhoneNumber && touched.whatsappPhoneNumber)
+                }
+                name="whatsappPhoneNumber"
+                type="text"
+                label="Número WhatsApp"
                 component={Input}
                 mask={MASKS.PHONE}
               />

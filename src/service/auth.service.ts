@@ -39,6 +39,13 @@ const forgotPassword = async (data: IForgotPassword) => {
   });
 };
 
+const resendEmailVerification = async (id: string) => {
+  return await BaseService.fetchData({
+    url: `/auth/send-verification-email?id=${id}`,
+    method: "post",
+  });
+};
+
 const resetPassword = async (data: IResetPassword) => {
   return await BaseService.fetchData({
     url: `/auth/reset-password`,
@@ -62,6 +69,7 @@ const authService = {
   forgotPassword,
   resetPassword,
   refreshToken,
+  resendEmailVerification,
 };
 
 export default authService;

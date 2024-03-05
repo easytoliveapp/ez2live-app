@@ -8,6 +8,7 @@ import { Modal, CouponActivated } from "@/components";
 import CouponCard from "../CouponCard";
 import Arrow from "@/images/easytolive/icons/arrow-next-right-primary.svg";
 import { ICouponCodesByUser } from "@/types/coupons";
+import { getRemainingUnitsAmount } from "@/utils/getCouponsRemaining";
 
 interface UserCouponsProps {
   couponCodeData: ICouponCodesByUser;
@@ -20,7 +21,7 @@ type PropsByStatus = {
     activationDate?: string;
     expirationUseDate?: string;
     discount?: string;
-    maxUnitsTotal?: number;
+    remainingUnits?: number;
     mainImage?: string | StaticImageData;
   };
 };
@@ -35,17 +36,11 @@ const UserCoupons: React.FC<UserCouponsProps> = ({ couponCodeData }) => {
     status,
   } = couponCodeData;
 
-  const {
-    title: couponTitle,
-    expirationUseDate,
-    discount,
-    maxTotal: maxUnitsTotal,
-    supplier,
-  } = coupon;
+  const { title: couponTitle, expirationUseDate, discount, supplier } = coupon;
 
   const {
     name: supplierName,
-    phoneNumber: phoneNumber,
+    whatsappPhoneNumber: phoneNumber,
     supplierInfo: { supplierCategory },
   } = supplier;
 
@@ -62,7 +57,7 @@ const UserCoupons: React.FC<UserCouponsProps> = ({ couponCodeData }) => {
     },
     ACTIVE: {
       couponTitle,
-      maxUnitsTotal,
+      remainingUnits: getRemainingUnitsAmount(coupon),
       expirationUseDate,
     },
   };
