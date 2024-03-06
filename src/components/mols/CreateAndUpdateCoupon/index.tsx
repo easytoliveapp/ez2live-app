@@ -168,7 +168,7 @@ const CreateAndUpdateCoupon: React.FC<ICreateAndUpdateCoupon> = ({
       maxTotal: couponsUnlimited ? -1 : Number(values.maxTotal),
       expirationGenerationDate: new Date(values.expirationGenerationDate),
       expirationUseDate: new Date(values.expirationUseDate),
-      couponRules: "regras do cupom",
+      couponRules: values.couponRules,
     };
     const updateData = {
       ...(coupon?.title !== values.title && { title: values.title }),
