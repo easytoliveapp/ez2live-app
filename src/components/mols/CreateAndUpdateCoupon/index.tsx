@@ -169,23 +169,27 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
   const handleFormSubmit = async (values: ICreateCoupon) => {
     setLoading(true);
 
-    const createData = {
+    const createData: ICreateCoupon = {
       title: values.title,
       discount: String(values.discount),
-      couponRules: values.couponRules,
       maxPerUser: unlimitedByUser ? -1 : Number(values.maxPerUser),
       maxTotal: couponsUnlimited ? -1 : Number(values.maxTotal),
       expirationGenerationDate: new Date(values.expirationGenerationDate),
       expirationUseDate: new Date(values.expirationUseDate),
     };
+
+    if (hasCouponRules) {
+      createData.couponRules = values.couponRules;
+    }
     const updateData = {
       ...(coupon?.title !== values.title && { title: values.title }),
       ...(coupon?.discount !== values.discount && {
         discount: String(values.discount),
       }),
-      ...(coupon?.couponRules !== values.couponRules && {
-        couponRules: values.couponRules,
-      }),
+      ...(coupon?.couponRules !== values.couponRules &&
+        values.couponRules && {
+          couponRules: values.couponRules,
+        }),
       ...(values?.maxPerUser && {
         maxPerUser: unlimitedByUser ? -1 : values.maxPerUser,
       }),
