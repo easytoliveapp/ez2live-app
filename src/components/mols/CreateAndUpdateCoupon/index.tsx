@@ -105,6 +105,12 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
   }, [isUpdatingCoupon, couponId]);
 
   useEffect(() => {
+    if (coupon && coupon.couponRules !== undefined) {
+      setHasCouponRules(true);
+    }
+  }, [coupon]);
+
+  useEffect(() => {
     if (!!coupon) {
       if (coupon?.maxPerUser === -1) {
         setUnlimitedByUser(true);
@@ -149,7 +155,7 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
     discount: Yup.string(),
     maxTotal: Yup.string(),
     maxPerUser: Yup.string(),
-    couponRules: Yup.string(),
+    couponRules: Yup.string().required("Preencha as regras do cupom"),
   });
 
   const handleSuccessUpdate = (res: any, action: any) => {
@@ -341,11 +347,13 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
                     className="bg-white"
                   />
                 </FormItem>
-                <ToggleButton
-                  onClick={() => setHasCouponRules(!hasCouponRules)}
-                  toggle={hasCouponRules}
-                  label="Adicionar descrição"
-                />
+                {!isUpdatingCoupon && (
+                  <ToggleButton
+                    onClick={() => setHasCouponRules(!hasCouponRules)}
+                    toggle={hasCouponRules}
+                    label="Adicionar descrição"
+                  />
+                )}
                 {hasCouponRules && (
                   <FormItem
                     label="Regras do cupom"
