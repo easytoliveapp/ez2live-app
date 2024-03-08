@@ -105,7 +105,7 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
   }, [isUpdatingCoupon, couponId]);
 
   useEffect(() => {
-    if (coupon && coupon.couponRules !== undefined) {
+    if (coupon && coupon.couponRules !== (undefined ?? "")) {
       setHasCouponRules(true);
     }
   }, [coupon]);
@@ -155,7 +155,7 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
     discount: Yup.string(),
     maxTotal: Yup.string(),
     maxPerUser: Yup.string(),
-    couponRules: Yup.string().required("Preencha as regras do cupom"),
+    couponRules: Yup.string(),
   });
 
   const handleSuccessUpdate = (res: any, action: any) => {
@@ -192,16 +192,16 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
       ...(coupon?.discount !== values.discount && {
         discount: String(values.discount),
       }),
-      ...(coupon?.couponRules !== values.couponRules &&
-        values.couponRules && {
-          couponRules: values.couponRules,
-        }),
+      ...(coupon?.couponRules !== values.couponRules && {
+        couponRules: values.couponRules === "" ? " " : values.couponRules,
+      }),
       ...(values?.maxPerUser && {
         maxPerUser: unlimitedByUser ? -1 : values.maxPerUser,
       }),
       ...(values?.maxTotal && {
         maxTotal: couponsUnlimited ? -1 : values.maxTotal,
       }),
+      ...(hasCouponRules === false && { couponRules: " " }),
     };
 
     if (isUpdatingCoupon && couponId) {
@@ -347,13 +347,13 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
                     className="bg-white"
                   />
                 </FormItem>
-                {!isUpdatingCoupon && (
-                  <ToggleButton
-                    onClick={() => setHasCouponRules(!hasCouponRules)}
-                    toggle={hasCouponRules}
-                    label="Adicionar descrição"
-                  />
-                )}
+
+                <ToggleButton
+                  onClick={() => setHasCouponRules(!hasCouponRules)}
+                  toggle={hasCouponRules}
+                  label="Adicionar descrição"
+                />
+
                 {hasCouponRules && (
                   <FormItem
                     label="Regras do cupom"
