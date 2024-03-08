@@ -193,7 +193,7 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
         discount: String(values.discount),
       }),
       ...(coupon?.couponRules !== values.couponRules && {
-        couponRules: values.couponRules === "" ? " " : values.couponRules,
+        couponRules: values.couponRules,
       }),
       ...(values?.maxPerUser && {
         maxPerUser: unlimitedByUser ? -1 : values.maxPerUser,
@@ -201,7 +201,7 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
       ...(values?.maxTotal && {
         maxTotal: couponsUnlimited ? -1 : values.maxTotal,
       }),
-      ...(hasCouponRules === false && { couponRules: " " }),
+      ...(!hasCouponRules && { couponRules: "" }),
     };
 
     if (isUpdatingCoupon && couponId) {
@@ -351,7 +351,7 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
                 <ToggleButton
                   onClick={() => setHasCouponRules(!hasCouponRules)}
                   toggle={hasCouponRules}
-                  label="Adicionar descrição"
+                  label="Adicionar regras do cupom"
                 />
 
                 {hasCouponRules && (
