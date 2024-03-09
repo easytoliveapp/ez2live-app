@@ -15,6 +15,7 @@ import supplierService from "@/service/supplier.service";
 import { useSession } from "next-auth/react";
 import { showToastify } from "@/hooks/showToastify";
 import ImageSizeWarning from "@/components/atoms/ImageSizeWarning";
+import { useCompleteSupplierRegister } from "./Context";
 
 const CompleteSupplierRegister: React.FC = () => {
   const { data: session, update } = useSession();
@@ -23,10 +24,16 @@ const CompleteSupplierRegister: React.FC = () => {
   const [ilustrationImagePlaceHolder, SetIlustrationImagePlaceHolder] =
     useState("Escolher imagem...");
 
+  const { isUpdate, setUpdate } = useCompleteSupplierRegister();
+
   const CompleteSupplierRegisterSchema = Yup.object().shape({
     supplierLogo: Yup.mixed()
-      .nullable()
-      .required("Insira uma logo para seu estabelecimento")
+      .when([], (value: any, schema: any) => {
+        if (!isUpdate) {
+          return schema.required("Insira um logo para seu estabelecimento");
+        }
+        return schema.nullable();
+      })
       .test(
         "FILE_SIZE",
         "Arquivo muito grande! Você pode enviar arquivos de até 1MB",
@@ -39,8 +46,12 @@ const CompleteSupplierRegister: React.FC = () => {
           !value || (value && ["image/png", "image/jpeg"].includes(value.type)),
       ),
     supplierBanner: Yup.mixed()
-      .nullable()
-      .required("Insira um banner para seu estabelecimento")
+      .when([], (value: any, schema: any) => {
+        if (!isUpdate) {
+          return schema.required("Insira um banner para seu estabelecimento");
+        }
+        return schema.nullable();
+      })
       .test(
         "FILE_SIZE",
         "Arquivo muito grande! Você pode enviar arquivos de até 1MB",
@@ -82,6 +93,7 @@ const CompleteSupplierRegister: React.FC = () => {
       })
       .finally(() => {
         setloading(false);
+        setUpdate(false);
       });
 
     if (uploadedImages) {
@@ -144,7 +156,8 @@ const CompleteSupplierRegister: React.FC = () => {
       <div>
         <div className="mt-3 mb-5 w-full gap-4 flex items-center justify-between">
           <h2 className="pl-2 flex items-center text-lg leading-[115%] md:text-3xl md:leading-[115%] font-bold text-black dark:text-neutral-100 justify-center">
-            Completar <br /> cadastro
+            {isUpdate ? "Atualizar" : "Completar"}
+            <br /> cadastro
           </h2>
           <div>
             <div className="relative rounded-full w-40 h-16 bg-gradient-to-r from-secondary-main to-secondary-lighter">
@@ -157,7 +170,7 @@ const CompleteSupplierRegister: React.FC = () => {
           initialValues={{
             supplierLogo: "",
             supplierBanner: "",
-            description: "",
+            description: session?.user.supplierInfo?.supplierDescription || "",
           }}
           validationSchema={CompleteSupplierRegisterSchema}
           onSubmit={handleFormSubmit}
@@ -244,7 +257,7 @@ const CompleteSupplierRegister: React.FC = () => {
                 disabled={loading}
                 loading={loading}
               >
-                Completar cadastro
+                {isUpdate ? "Atualizar" : "Completar"} cadastro
               </ButtonPrimary>
             </Form>
           )}
