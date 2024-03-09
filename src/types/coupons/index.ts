@@ -10,7 +10,7 @@ export interface IGetCouponById {
 export interface ICreateCoupon {
   title: string;
   discount: string;
-  couponRules: string;
+  couponRules?: string;
   maxTotal: number;
   maxPerUser: number;
   expirationGenerationDate: Date;
@@ -38,6 +38,7 @@ export interface ICoupon {
   active: string;
   couponStatus: "ACTIVE" | "USED" | "EXPIRED";
   title: string;
+  couponRules: string;
   discount: string;
   maxTotal: number;
   maxPerUser: number;

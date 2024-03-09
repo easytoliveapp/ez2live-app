@@ -10,6 +10,7 @@ import {
   ButtonThird,
   CouponGenerating,
   Modal,
+  TextArea,
 } from "@/components";
 import * as Yup from "yup";
 import { ICoupon, ICreateCoupon, IGetCouponInfo } from "@/types/coupons";
@@ -20,7 +21,7 @@ import Image from "next/image";
 import Easy2LiveLogo from "@/images/easytolive/logo/logotipo-semfundoazulroxo.svg";
 import { ISupplier } from "@/types/supplier";
 
-interface ICreateAndUpdateCoupon {
+interface ICreateOrUpdateCoupon {
   setCouponModal: React.Dispatch<React.SetStateAction<boolean>>;
   isUpdatingCoupon?: boolean;
   couponId?: string;
@@ -31,7 +32,7 @@ interface ICreateAndUpdateCoupon {
   supplier: ISupplier;
 }
 
-const CreateAndUpdateCoupon: React.FC<ICreateAndUpdateCoupon> = ({
+const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
   isUpdatingCoupon,
   couponId,
   handleCouponUpdate,
@@ -44,12 +45,16 @@ const CreateAndUpdateCoupon: React.FC<ICreateAndUpdateCoupon> = ({
   const [coupon, setCoupon] = useState<IGetCouponInfo>();
   const [deleteModal, setDeleteModal] = useState(false);
 
+  const {
+    supplierInfo: { supplierLogo },
+  } = supplier;
+
   const [initalValues, setInitialValues] = useState({
     title: "",
     discount: "20",
+    couponRules: "",
     maxTotal: 100,
     maxPerUser: 1,
-    couponRules: "",
     expirationGenerationDate: new Date("2022-01-01"),
     expirationUseDate: new Date("2022-01-01"),
   });
@@ -113,9 +118,9 @@ const CreateAndUpdateCoupon: React.FC<ICreateAndUpdateCoupon> = ({
       setInitialValues({
         title: coupon.title,
         discount: coupon.discount,
+        couponRules: coupon.couponRules,
         maxPerUser: coupon.maxPerUser === -1 ? 1 : coupon.maxPerUser,
         maxTotal: coupon.maxTotal === -1 ? 100 : coupon.maxTotal,
-        couponRules: coupon.couponRules,
         expirationGenerationDate: new Date(coupon.expirationGenerationDate),
         expirationUseDate: new Date(coupon.expirationUseDate),
       });
@@ -128,6 +133,7 @@ const CreateAndUpdateCoupon: React.FC<ICreateAndUpdateCoupon> = ({
     maxTotal: Yup.string().required(
       "Limite de cupons que podem ser utilizados.",
     ),
+    couponRules: Yup.string(),
     maxPerUser: Yup.string().required("Limite de cupons por usuário."),
     expirationGenerationDate: Yup.date()
       .required("Data de validade para geração do cupom.")
@@ -142,6 +148,7 @@ const CreateAndUpdateCoupon: React.FC<ICreateAndUpdateCoupon> = ({
     discount: Yup.string(),
     maxTotal: Yup.string(),
     maxPerUser: Yup.string(),
+    couponRules: Yup.string(),
   });
 
   const handleSuccessUpdate = (res: any, action: any) => {
@@ -161,19 +168,21 @@ const CreateAndUpdateCoupon: React.FC<ICreateAndUpdateCoupon> = ({
   const handleFormSubmit = async (values: ICreateCoupon) => {
     setLoading(true);
 
-    const createData = {
+    const createData: ICreateCoupon = {
       title: values.title,
       discount: String(values.discount),
       maxPerUser: unlimitedByUser ? -1 : Number(values.maxPerUser),
       maxTotal: couponsUnlimited ? -1 : Number(values.maxTotal),
       expirationGenerationDate: new Date(values.expirationGenerationDate),
       expirationUseDate: new Date(values.expirationUseDate),
-      couponRules: "regras do cupom",
     };
     const updateData = {
       ...(coupon?.title !== values.title && { title: values.title }),
       ...(coupon?.discount !== values.discount && {
         discount: String(values.discount),
+      }),
+      ...(coupon?.couponRules !== values.couponRules && {
+        couponRules: values.couponRules,
       }),
       ...(values?.maxPerUser && {
         maxPerUser: unlimitedByUser ? -1 : values.maxPerUser,
@@ -232,7 +241,7 @@ const CreateAndUpdateCoupon: React.FC<ICreateAndUpdateCoupon> = ({
   return (
     <div className="w-full">
       <Modal show={deleteModal} onCloseModal={() => setDeleteModal(false)}>
-        <div className="w-full h-full flex flex-col gap-3">
+        <div className="w-full flex flex-col gap-3">
           <h2 className="font-bold text-xl w-full text-center pb-1 text-black">
             DELETAR CUPOM
           </h2>
@@ -244,7 +253,7 @@ const CreateAndUpdateCoupon: React.FC<ICreateAndUpdateCoupon> = ({
               className="w-full !text-white !bg-generic-alertRed cursor-pointer"
               onClick={() => handleDeleteModal()}
             >
-              Deletar cupom
+              deletar cupom
             </ButtonSecondary>
           </div>
           <p className="text-xs p-2 text-center">
@@ -255,7 +264,7 @@ const CreateAndUpdateCoupon: React.FC<ICreateAndUpdateCoupon> = ({
       </Modal>
       {isUpdatingCoupon && !coupon ? (
         <CouponGenerating
-          title={"Carregando dados do cupom"}
+          title={"carregando dados do cupom"}
           couponColor={"primary"}
           backGround={"secondary"}
         />
@@ -265,7 +274,7 @@ const CreateAndUpdateCoupon: React.FC<ICreateAndUpdateCoupon> = ({
             <h2 className="pl-2 flex items-center text-3xl leading-[115%] md:leading-[115%] font-bold text-black dark:text-neutral-100 justify-center">
               {isUpdatingCoupon ? "Atualizar Cupom" : "Novo cupom de desconto"}
             </h2>
-            <span className="flex flex-col sm:flex-row items-center relative h-20 pr-3 pt-3 gap-4">
+            <span className="flex items-center relative h-16 pr-3 pt-2 gap-4">
               <Image
                 className="w-10 h-auto rounded-full"
                 src={Easy2LiveLogo}
@@ -275,7 +284,7 @@ const CreateAndUpdateCoupon: React.FC<ICreateAndUpdateCoupon> = ({
                 width={64}
                 height={64}
                 className="w-12 h-auto rounded-full"
-                src={supplier.supplierInfo.supplierLogo ?? ""}
+                src={supplierLogo ?? ""}
                 alt="supplier-logo"
               />
             </span>
@@ -301,7 +310,7 @@ const CreateAndUpdateCoupon: React.FC<ICreateAndUpdateCoupon> = ({
                 >
                   <Field
                     invalid={!!(errors.discount && touched.discount)}
-                    className="accent-primary-main !px-0 !focus:border-none !hover:border-none focus:ring-0"
+                    className="accent-primary-main p-0 !focus:border-none !hover:border-none focus:ring-0"
                     name="discount"
                     min="1"
                     max="100"
@@ -326,6 +335,24 @@ const CreateAndUpdateCoupon: React.FC<ICreateAndUpdateCoupon> = ({
                     className="bg-white"
                   />
                 </FormItem>
+
+                <FormItem
+                  label="Regras do cupom"
+                  errorMessage={errors.couponRules}
+                  invalid={!!(errors.couponRules && touched.couponRules)}
+                >
+                  {!!isValidating && <ErrorMessage name="couponRules" />}
+                  <Field
+                    invalid={!!(errors.couponRules && touched.couponRules)}
+                    name="couponRules"
+                    placeHolder="Digite as regras do cupom (Opcional)"
+                    type="text"
+                    label="couponRules"
+                    component={TextArea}
+                    className="bg-white h-20"
+                  />
+                </FormItem>
+
                 <div className="grid grid-cols-2 w-full my-2">
                   <FormItem
                     label="Limite de cupons"
@@ -455,7 +482,7 @@ const CreateAndUpdateCoupon: React.FC<ICreateAndUpdateCoupon> = ({
               className="m-auto w-full !hover:border-none"
               onClick={() => setDeleteModal(true)}
             >
-              Deletar cupom
+              deletar cupom
             </ButtonThird>
           )}
         </div>
@@ -464,4 +491,4 @@ const CreateAndUpdateCoupon: React.FC<ICreateAndUpdateCoupon> = ({
   );
 };
 
-export default CreateAndUpdateCoupon;
+export default CreateOrUpdateCoupon;

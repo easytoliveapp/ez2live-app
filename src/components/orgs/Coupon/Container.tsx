@@ -25,6 +25,7 @@ import { Route } from "next";
 import { ISupplier } from "@/types/supplier";
 
 interface CouponContainerProps {
+  couponRules: string;
   couponTitle: string;
   discount: string;
   remainingUnits?: number;
@@ -54,6 +55,7 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
   remainingUnits,
   expirateTime,
   expirationUseDate,
+  couponRules,
   couponId,
   supplier,
   icon,
@@ -117,6 +119,7 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
     return (
       <div className="flex flex-col h-auto items-center">
         <Coupon
+          couponRules={couponRules}
           isOwnSupplier={isOwnSupplier}
           id={couponId}
           couponTitle={couponTitle}
