@@ -58,7 +58,6 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
     expirationGenerationDate: new Date("2022-01-01"),
     expirationUseDate: new Date("2022-01-01"),
   });
-  const [hasCouponRules, setHasCouponRules] = useState(false);
   const handleDeleteModal = async () => {
     if (couponId) {
       return await couponsService
@@ -103,12 +102,6 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
         .finally();
     }
   }, [isUpdatingCoupon, couponId]);
-
-  useEffect(() => {
-    if (coupon && coupon.couponRules !== (undefined ?? "")) {
-      setHasCouponRules(true);
-    }
-  }, [coupon]);
 
   useEffect(() => {
     if (!!coupon) {
@@ -183,10 +176,6 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
       expirationGenerationDate: new Date(values.expirationGenerationDate),
       expirationUseDate: new Date(values.expirationUseDate),
     };
-
-    if (hasCouponRules) {
-      createData.couponRules = values.couponRules;
-    }
     const updateData = {
       ...(coupon?.title !== values.title && { title: values.title }),
       ...(coupon?.discount !== values.discount && {
@@ -201,7 +190,6 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
       ...(values?.maxTotal && {
         maxTotal: couponsUnlimited ? -1 : values.maxTotal,
       }),
-      ...(hasCouponRules === false && { couponRules: " " }),
     };
 
     if (isUpdatingCoupon && couponId) {
@@ -348,29 +336,23 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
                   />
                 </FormItem>
 
-                <ToggleButton
-                  onClick={() => setHasCouponRules(!hasCouponRules)}
-                  toggle={hasCouponRules}
-                  label="Adicionar descrição"
-                />
-
-                {hasCouponRules && (
-                  <FormItem
-                    label="Regras do cupom"
-                    errorMessage={errors.couponRules}
+                <FormItem
+                  label="Regras do cupom"
+                  errorMessage={errors.couponRules}
+                  invalid={!!(errors.couponRules && touched.couponRules)}
+                >
+                  {!!isValidating && <ErrorMessage name="couponRules" />}
+                  <Field
                     invalid={!!(errors.couponRules && touched.couponRules)}
-                  >
-                    {!!isValidating && <ErrorMessage name="couponRules" />}
-                    <Field
-                      invalid={!!(errors.couponRules && touched.couponRules)}
-                      name="couponRules"
-                      type="text"
-                      label="couponRules"
-                      component={TextArea}
-                      className="bg-white h-20"
-                    />
-                  </FormItem>
-                )}
+                    name="couponRules"
+                    placeHolder="Digite as regras do cupom (Opcional)"
+                    type="text"
+                    label="couponRules"
+                    component={TextArea}
+                    className="bg-white h-20"
+                  />
+                </FormItem>
+
                 <div className="grid grid-cols-2 w-full my-2">
                   <FormItem
                     label="Limite de cupons"
