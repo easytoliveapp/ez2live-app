@@ -39,13 +39,13 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
           userId={session.user.id}
         />
       )}
-      {isUpdate ||
+      {!!(
+        isUpdate ||
         (session?.user &&
           !session.user.supplierInfo?.supplierBanner &&
           !session.user.supplierInfo?.supplierLogo &&
-          !session.user.supplierInfo?.supplierDescription && (
-            <CompleteSupplierRegister />
-          ))}
+          !session.user.supplierInfo?.supplierDescription)
+      ) && <CompleteSupplierRegister />}
       {session?.user ? <HeaderLogged /> : <Header />}
       <div className="app-layout__container">{children}</div>
     </div>
