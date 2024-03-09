@@ -182,7 +182,7 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
         discount: String(values.discount),
       }),
       ...(coupon?.couponRules !== values.couponRules && {
-        couponRules: values.couponRules === "" ? " " : values.couponRules,
+        couponRules: values.couponRules,
       }),
       ...(values?.maxPerUser && {
         maxPerUser: unlimitedByUser ? -1 : values.maxPerUser,
