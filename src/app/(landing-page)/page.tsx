@@ -80,8 +80,8 @@ const renderWidgetMenuItem = (menu: WidgetFooterMenu, index: number) => {
 };
 function LandingPage() {
   return (
-    <div className="nc-LandingPage relative overflow-hidden">
-      <span className="absolute flex h-14 justify-center items-center bg-primary-main text-white top-0 w-full sm:text-lg md:text-xl font-semibold">
+    <div className="nc-LandingPage relative overflow-hidden bg-generic-dark2">
+      <span className=" flex h-14 justify-center items-center bg-primary-main text-white w-full sm:text-lg md:text-xl font-semibold">
         Cadastre-se agora e ganhe um mês gratuito de cupons!
       </span>
       {/* SECTION HERO */}
