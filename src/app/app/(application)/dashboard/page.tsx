@@ -51,22 +51,22 @@ const PageDashboard = () => {
       {
         icon: CouponPrimary,
         title: couponsGenerated.toString(),
-        subtitle: "cupons gerados no total",
+        subtitle: "Cupons gerados no total",
       },
       {
         icon: CheckIcon,
         title: couponsActivated.toString(),
-        subtitle: "cupons ativos no total",
+        subtitle: "Cupons ativos no total",
       },
       {
         icon: CalendarCheckIcon,
         title: couponsAvailable.toString(),
-        subtitle: "ofertas disponíveis",
+        subtitle: "Ofertas disponíveis",
       },
       {
         icon: CouponPrimary,
         title: couponsFinished.toString(),
-        subtitle: "ofertas concluídas",
+        subtitle: "Ofertas concluídas",
       },
     ]);
   };
