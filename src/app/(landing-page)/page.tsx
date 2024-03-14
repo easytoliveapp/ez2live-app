@@ -3,6 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
+import NewSection2 from "./components/NewSection2";
 import SectionHero3 from "./components/SectionHero";
 import SectionPromo2 from "./components/SectionPromo2";
 import SectionPromo3 from "./components/SectionPromo3";
@@ -80,15 +81,19 @@ const renderWidgetMenuItem = (menu: WidgetFooterMenu, index: number) => {
 function LandingPage() {
   return (
     <div className="nc-LandingPage relative overflow-hidden">
+      <span className="absolute flex h-14 justify-center items-center bg-primary-main text-white top-0 w-full sm:text-lg md:text-xl font-semibold">
+        Cadastre-se agora e ganhe um mês gratuito de cupons!
+      </span>
       {/* SECTION HERO */}
       <SectionHero3 />
 
-      <div className="container relative space-y-24 my-24 lg:space-y-32 lg:my-32">
+      <div className="relative space-y-24 my-24 lg:space-y-32 lg:my-32">
         {/*  */}
         {/* sliders parceiros */}
         <PartnersSlider />
 
         {/*  */}
+        <NewSection2 />
         <SectionPromo2 />
 
         {/* SECTION */}
