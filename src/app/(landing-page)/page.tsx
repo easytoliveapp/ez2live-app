@@ -89,11 +89,14 @@ function LandingPage() {
 
       <div className="relative space-y-24 my-24 lg:space-y-32 lg:my-32">
         {/*  */}
+
+        <NewSection2 />
+        {/* */}
+
         {/* sliders parceiros */}
         <PartnersSlider />
 
         {/*  */}
-        <NewSection2 />
         <SectionPromo2 />
 
         {/* SECTION */}

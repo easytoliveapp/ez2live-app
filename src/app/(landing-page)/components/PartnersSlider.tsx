@@ -1,3 +1,5 @@
+import { ButtonPrimary } from "@/components";
+import Button from "@/components/atoms/Button/Button";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -32,8 +34,9 @@ const PartnersSlider: React.FC = () => {
 
   return (
     <div>
-      <h2 className="font-semibold text-2xl sm:text-3xl xl:text-4xl 2xl:text-5xl mt-6 sm:mt-10 mb-24 text-center">
-        Melhores parceiros da <span className="text-primary-main">Easy</span>
+      <h2 className="font-semibold text-white text-2xl xl:text-3xl 2xl:text-4xl mt-6 sm:mt-10 mb-24 text-center">
+        Criamos um aplicativo com maiores e melhores lojas, naquele precinho e a
+        poucos metros de você!
       </h2>
 
       <Slider {...settings}>
@@ -57,15 +60,12 @@ const PartnersSlider: React.FC = () => {
         ))}
       </Slider>
 
-      <p className="w-full mt-12 text-center mx-auto italic text-xs">
-        Tem uma loja e quer ser parceiro?{" "}
-        <Link
-          href="/app/conta/cadastrar/parceiro"
-          className="text-primary-main text-underline hover:font-semibold transition-all"
-        >
-          Crie uma conta agora
-        </Link>
-      </p>
+      <ButtonPrimary
+        href="/app/conta/cadastrar/parceiro"
+        className="text-primary-main text-underline hover:font-semibold transition-all"
+      >
+        GARANTIR ACESSO
+      </ButtonPrimary>
     </div>
   );
 };
