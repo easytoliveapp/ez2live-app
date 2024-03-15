@@ -94,7 +94,7 @@ const SectionSliderCategories: FC<SectionSliderCategoriesProps> = ({
   }, [UNIQUE_CLASS]);
 
   return (
-    <div className={`nc-SectionSliderCategories ${className}`}>
+    <div className={`nc-SectionSliderCategories ${className} `}>
       <div className={`${UNIQUE_CLASS} flow-root`}>
         <h2>{heading}</h2>
         <div className="glide__track" data-glide-el="track">

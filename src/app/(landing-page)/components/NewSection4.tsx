@@ -1,22 +1,24 @@
 import React from "react";
 import { ButtonFourth } from "@/components";
-import logoImage from "../../../images/easytolive/logo/logobranca-fundoprimary.svg";
+import CommunitImage from "@/images/easytolive/user/user_circle_color_primary.svg";
+import CouponImage from "@/images/easytolive/icons/couponPrimary.svg";
+import ComunicationImage from "@/images/easytolive/icons/email-primary.svg";
 import Section4Card from "./Section4Card";
 
 const NewSection4 = () => {
   const CARDS_CONTENT = [
     {
-      icon: logoImage,
+      icon: CouponImage,
       label:
         "Cupons exclusivos de descontos entregues com descrição em todas as nossas empresas parceiras",
     },
     {
-      icon: logoImage,
+      icon: ComunicationImage,
       label:
         "Comunicações feitas para você, te avisando quando o que você mais procura entrar em promoção",
     },
     {
-      icon: logoImage,
+      icon: CommunitImage,
       label: `Acesso a uma comunidade para atingir seus
               objetivos, recebendo o apoio de todos
               os membros.
@@ -25,9 +27,10 @@ const NewSection4 = () => {
   ];
 
   return (
-    <div className="w-full flex flex-col justify-center items-center gap-6 md:gap-20 p-6 py-14 md:pt-32">
+    <div className="w-full flex flex-col justify-center items-center gap-6 md:gap-20 p-6 py-14 md:pt-8">
       <h2 className="text-white text-2xl">
-        Fomos criados para te ajudar a se tornar a sua melhor versão!
+        Fomos criados para te ajudar a <br />
+        se tornar a sua melhor versão!
       </h2>
       <p className="pt-2 text-secondary-main">
         Assinando a Easy to Live você receberá acesso a:

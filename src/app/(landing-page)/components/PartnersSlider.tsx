@@ -1,4 +1,3 @@
-import { ButtonPrimary } from "@/components";
 import Image from "next/image";
 import React from "react";
 import Slider from "react-slick";
@@ -32,15 +31,10 @@ const PartnersSlider: React.FC = () => {
 
   return (
     <div>
-      <h2 className="font-semibold text-white text-2xl xl:text-3xl 2xl:text-4xl mt-6 sm:mt-10 mb-24 text-center">
-        Criamos um aplicativo com maiores e melhores lojas, naquele precinho e a
-        poucos metros de você!
-      </h2>
-
       <Slider {...settings}>
         {partners.map((partner, index) => (
           <div key={index}>
-            <div className="flex gap-5 flex-col justify-center items-center mb-5">
+            <div className="flex gap-5 flex-col justify-center items-center mb-5 text-white">
               <div>
                 <Image
                   className="rounded-full"
@@ -57,13 +51,6 @@ const PartnersSlider: React.FC = () => {
           </div>
         ))}
       </Slider>
-
-      <ButtonPrimary
-        href="/app/conta/cadastrar/parceiro"
-        className="text-primary-main text-underline hover:font-semibold transition-all"
-      >
-        GARANTIR ACESSO
-      </ButtonPrimary>
     </div>
   );
 };

@@ -32,17 +32,8 @@ const SectionHero3: FC<SectionHero3Props> = ({ className = "" }) => {
         </div>
 
         {/* 2nd column */}
-        <div className="relative">
-          <Image
-            className="absolute w-full h-full object-contain"
-            src={backgroundLineSvg}
-            alt="hero"
-          />
-          <Image
-            className="w-full object-contain h-[500px]"
-            src={imageRightPng2}
-            alt=""
-          />
+        <div className="border-2 border-primary-main rounded-3xl w-[800px] h-96 flex items-center justify-center text-white">
+          IMAGE
         </div>
       </div>
     </div>
