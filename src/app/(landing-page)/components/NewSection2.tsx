@@ -4,7 +4,7 @@ import Image from "next/image";
 
 const NewSection2 = () => {
   return (
-    <div className="w-full flex flex-col gap-6 md:gap-20 p-6 py-14 md:pt-32">
+    <div className="w-full flex flex-col gap-6 md:gap-20 p-6 py-14 md:pt-32 container">
       <div className="flex flex-wrap justify-center items-center gap-28">
         <div className="flex flex-col gap-4 text-white">
           <h2 className=" font-bold md:text-3xl text-2xl">

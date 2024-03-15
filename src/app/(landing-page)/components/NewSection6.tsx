@@ -5,7 +5,7 @@ import { ButtonFourth } from "@/components";
 
 const NewSection6 = () => {
   return (
-    <div className="flex flex-col items-center justify-center">
+    <div className="flex flex-col items-center justify-center container">
       <div className="flex flex-wrap gap-10 items-center">
         <Image
           src={LogoEasyToLive}

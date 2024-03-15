@@ -27,7 +27,7 @@ const NewSection4 = () => {
   ];
 
   return (
-    <div className="w-full flex flex-col justify-center items-center gap-6 md:gap-20 p-6 py-14 md:pt-8">
+    <div className="w-full container flex flex-col justify-center items-center gap-6 md:gap-20 p-6 py-14 md:pt-8">
       <h2 className="text-white text-3xl md:text-2xl">
         Fomos criados para te ajudar a <br />
         <span className="text-primary-main">
@@ -37,7 +37,7 @@ const NewSection4 = () => {
       <p className="pt-2 text-secondary-main">
         Assinando a Easy to Live você receberá acesso a:
       </p>
-      <div className="flex flex-wrap gap-10">
+      <div className="flex flex-wrap items-center justify-center gap-10">
         {CARDS_CONTENT.map((card, index) => (
           <Section4Card icon={card.icon} key={index} label={card.label} />
         ))}

@@ -6,7 +6,7 @@ import { ButtonFourth } from "@/components";
 
 const NewSection3 = () => {
   return (
-    <div>
+    <div className="container">
       <h2 className="text-2xl md:text-3xl text-white text-center mb-10">
         Criamos um aplicativo com maiores e melhores lojas,
         <br /> naquele precinho e a poucos metros de você!

@@ -7,7 +7,7 @@ export interface SectionHero3Props {
 const SectionHero3: FC<SectionHero3Props> = ({ className = "" }) => {
   return (
     <div
-      className={`nc-SectionHero3 relative ${className}`}
+      className={`nc-SectionHero3 relative ${className} container`}
       data-nc-id="SectionHero3"
     >
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-[80%] mx-auto md:mt-20  my-5">
@@ -31,7 +31,7 @@ const SectionHero3: FC<SectionHero3Props> = ({ className = "" }) => {
         </div>
 
         {/* 2nd column */}
-        <div className="border-2 border-primary-main rounded-3xl w-[800px] h-96 flex items-center justify-center text-white">
+        <div className="border-2 border-primary-main rounded-3xl w-full h-96 flex items-center justify-center text-white">
           IMAGE
         </div>
       </div>
