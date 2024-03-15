@@ -14,11 +14,14 @@ const SectionHero3: FC<SectionHero3Props> = ({ className = "" }) => {
         {/* 1st column */}
         <div className="flex flex-col md:items-start items-center justify-center space-y-5 pt-24">
           <h2 className="font-bold text-white text-3xl text-center md:text-left md:text-4xl !leading-[115%]">
-            Viver e praticar uma vida saudável nunca foi tão fácil e barato.
+            Viver e praticar uma
+            <span className="text-primary-main"> vida saudável </span> <br />
+            nunca foi tão
+            <span className="text-primary-main"> fácil e barato.</span>
           </h2>
           <p className="text-white max-w-md">
-            Aperte no botão abaixo para se cadastrar e ficar por dentro de todos
-            os detalhes do projeto que irá transformar a sua realidade.
+            Cadastre-se para acessar os maiores descontos das melhores lojas a
+            um clique de distância!
           </p>
           <div className="m-auto pt-10">
             <ButtonFourth href="/app/conta/acessar" className="text-slate-2">
