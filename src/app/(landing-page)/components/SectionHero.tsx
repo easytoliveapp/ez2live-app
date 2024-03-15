@@ -1,9 +1,5 @@
 import React, { FC } from "react";
-import backgroundLineSvg from "../images/Moon.svg";
-import imageRightPng2 from "../images/hero-2-right-1.png";
 import { ButtonFourth } from "@/components";
-import Image from "next/image";
-
 export interface SectionHero3Props {
   className?: string;
 }
