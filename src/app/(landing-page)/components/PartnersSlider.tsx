@@ -37,7 +37,7 @@ const PartnersSlider: React.FC = () => {
             <div className="flex gap-5 flex-col justify-center items-center mb-5 text-white">
               <div>
                 <Image
-                  className="rounded-full"
+                  className="rounded-full shadow-black shadow-2xl"
                   src={partner.logo}
                   alt={partner.name}
                   width="80"
