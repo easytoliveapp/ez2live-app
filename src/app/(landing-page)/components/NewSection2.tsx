@@ -32,10 +32,10 @@ const NewSection2 = () => {
           </span>
         </div>
       </div>
-      <div className="flex justify-center flex-wrap md:flex-nowrap items-center">
+      <div className="flex justify-center flex-wrap gap-14 md:flex-nowrap items-center">
         <Image
           src={LogoImage}
-          className=" w-56 md:w-[500px]  rounded-full"
+          className=" w-56 md:w-[400px]  rounded-full"
           alt="Logo Easy"
         />
         <div className="flex flex-col gap-3">
