@@ -112,7 +112,7 @@ const PremiumConversionModal: React.FC<IPremiumConversionModal> = ({
           </div>
         </div>
       ) : (
-        <div className="flex flex-col pb-8 min-h-[90vh]  justify-between gap-3 text-center">
+        <div className="flex flex-col pb-6 min-h-[60vh] mx-2 justify-between gap-3 text-center">
           <Image
             className="h-14 w-auto my-4"
             alt="easy-to-live-logo"
