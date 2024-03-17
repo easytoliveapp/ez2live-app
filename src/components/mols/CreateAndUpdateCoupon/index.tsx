@@ -369,7 +369,7 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
                         !!(errors.maxTotal && touched.maxTotal)
                       }
                       name="maxTotal"
-                      value={couponsUnlimited ? "ilimitado" : values.maxTotal}
+                      value={couponsUnlimited ? "Ilimitado" : values.maxTotal}
                       type="text"
                       label="maxTotal"
                       component={Input}
@@ -391,7 +391,7 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
                         !!(errors.maxPerUser && touched.maxPerUser)
                       }
                       name="maxPerUser"
-                      value={unlimitedByUser ? "ilimitado" : values.maxPerUser}
+                      value={unlimitedByUser ? "Ilimitado" : values.maxPerUser}
                       type="text"
                       label="maxPerUser"
                       component={Input}
@@ -402,14 +402,14 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
                     <ToggleButton
                       onClick={() => setCouponsUnlimited(!couponsUnlimited)}
                       toggle={couponsUnlimited}
-                      label="ilimitado"
+                      label="Ilimitado"
                     />
                   </div>
                   <div>
                     <ToggleButton
                       onClick={() => setUnlimitedByUser(!unlimitedByUser)}
                       toggle={unlimitedByUser}
-                      label="ilimitado"
+                      label="Ilimitado"
                     />
                   </div>
                 </div>

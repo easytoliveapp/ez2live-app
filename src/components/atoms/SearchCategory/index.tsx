@@ -27,7 +27,7 @@ const SearchCategory: FC<SearchCategoryProps> = ({
         onSubmit={onSubmit}
         onChange={onChange}
         value={value}
-        placeholder="buscar por estabelecimento / categoria"
+        placeholder="Buscar por estabelecimento / categoria"
       />
 
       <div className="absolute right-1 h-6 w-auto bg-transparent">
