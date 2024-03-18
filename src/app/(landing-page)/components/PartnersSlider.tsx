@@ -1,5 +1,4 @@
 import Image from "next/image";
-import Link from "next/link";
 import React from "react";
 import Slider from "react-slick";
 
@@ -32,17 +31,13 @@ const PartnersSlider: React.FC = () => {
 
   return (
     <div>
-      <h2 className="font-semibold text-2xl sm:text-3xl xl:text-4xl 2xl:text-5xl mt-6 sm:mt-10 mb-24 text-center">
-        Melhores parceiros da <span className="text-primary-main">Easy</span>
-      </h2>
-
       <Slider {...settings}>
         {partners.map((partner, index) => (
           <div key={index}>
-            <div className="flex gap-5 flex-col justify-center items-center mb-5">
+            <div className="flex gap-5 flex-col justify-center items-center mb-5 text-white">
               <div>
                 <Image
-                  className="rounded-full"
+                  className="rounded-full shadow-black shadow-2xl"
                   src={partner.logo}
                   alt={partner.name}
                   width="80"
@@ -56,16 +51,6 @@ const PartnersSlider: React.FC = () => {
           </div>
         ))}
       </Slider>
-
-      <p className="w-full mt-12 text-center mx-auto italic text-xs">
-        Tem uma loja e quer ser parceiro?{" "}
-        <Link
-          href="/app/conta/cadastrar/parceiro"
-          className="text-primary-main text-underline hover:font-semibold transition-all"
-        >
-          Crie uma conta agora
-        </Link>
-      </p>
     </div>
   );
 };

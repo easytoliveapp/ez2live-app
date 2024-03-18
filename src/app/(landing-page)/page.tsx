@@ -3,12 +3,14 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
+import NewSection2 from "./components/NewSection2";
 import SectionHero3 from "./components/SectionHero";
-import SectionPromo2 from "./components/SectionPromo2";
-import SectionPromo3 from "./components/SectionPromo3";
+import NewSection5 from "./components/NewSection5";
+import NewSection6 from "./components/NewSection6";
 import { SocialsList1 } from "@/components";
-import PartnersSlider from "./components/PartnersSlider";
 import LogoImage from "@/images/easytolive/logo/logotipo-fundoazulroxo.svg";
+import NewSection3 from "./components/NewSection3";
+import NewSection4 from "./components/NewSection4";
 
 export interface CustomLink {
   label: string;
@@ -55,16 +57,14 @@ const widgetMenus: WidgetFooterMenu[] = [
 ];
 const renderWidgetMenuItem = (menu: WidgetFooterMenu, index: number) => {
   return (
-    <div key={index} className="text-sm">
-      <h2 className="font-semibold text-neutral-700 dark:text-neutral-200">
-        {menu.title}
-      </h2>
+    <div key={index} className="text-sm text-white">
+      <h2 className="font-semibold text-white">{menu.title}</h2>
       <ul className="mt-5 space-y-4">
         {menu.submenus.map((item, index) => (
           <li key={index}>
             <Link
               key={index}
-              className="text-neutral-6000 dark:text-neutral-300 hover:text-black dark:hover:text-white"
+              className="text-neutral-6000 dark:text-neutral-300 hover:text-primary-main dark:hover:text-white"
               href={item.href as any}
               target="_blank"
               rel="noopener noreferrer"
@@ -79,23 +79,28 @@ const renderWidgetMenuItem = (menu: WidgetFooterMenu, index: number) => {
 };
 function LandingPage() {
   return (
-    <div className="nc-LandingPage relative overflow-hidden">
+    <div className="nc-LandingPage relative  overflow-hidden bg-generic-dark2">
+      <span className="flex h-14 justify-center items-center bg-primary-main text-white w-full sm:text-lg md:text-xl font-semibold">
+        Cadastre-se agora e ganhe um mês gratuito de cupons!
+      </span>
       {/* SECTION HERO */}
       <SectionHero3 />
 
-      <div className="container relative space-y-24 my-24 lg:space-y-32 lg:my-32">
+      <div className="relative space-y-24 my-24 lg:space-y-64 lg:my-64">
         {/*  */}
-        {/* sliders parceiros */}
-        <PartnersSlider />
 
+        <NewSection2 />
+        {/* */}
+        <NewSection3 />
+        {/* */}
+        <NewSection4 />
         {/*  */}
-        <SectionPromo2 />
-
-        {/* SECTION */}
-        <SectionPromo3 />
+        <NewSection5 />
+        {/*  */}
+        <NewSection6 />
       </div>
 
-      <div className="nc-Footer relative py-20 lg:pt-28 lg:pb-24 border-t border-neutral-200 dark:border-neutral-700">
+      <div className="nc-Footer relative py-20 lg:pt-28 lg:pb-24 dark:border-neutral-700 text-white">
         <div className="container grid grid-cols-2 gap-y-10 gap-x-5 sm:gap-x-8 md:grid-cols-3 lg:grid-cols-3 lg:gap-x-10 ">
           <div className="grid grid-cols-4 gap-5 col-span-2 md:col-span-4 lg:md:col-span-1 lg:flex lg:flex-col">
             <div className="col-span-2 md:col-span-1">

@@ -73,6 +73,7 @@ module.exports = {
           limeGreen: customColors("--generic-lime-green"),
           electricGold: customColors("--generic-electric-gold"),
           tomatoRed: customColors("--generic-tomato-red"),
+          dark2: customColors("--generic-dark2"),
         },
       },
     },

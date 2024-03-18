@@ -7,6 +7,7 @@ export { default as ButtonBasic } from "./Button/ButtonBasic";
 export { default as ButtonPrimary } from "./Button/ButtonPrimary";
 export { default as ButtonSecondary } from "./Button/ButtonSecondary";
 export { default as ButtonThird } from "./Button/ButtonThird";
+export { default as ButtonFourth } from "./Button/ButtonFourth";
 export { default as ButtonClose } from "./ButtonClose";
 export { default as CategoryCard } from "./CategoryCard";
 export { default as Checkbox } from "./Checkbox";
