@@ -84,12 +84,20 @@ const CompleteSupplierRegister: React.FC = () => {
         description: values.description,
       })
       .then((response) => response.data)
-      .catch(() => {
-        showToastify({
-          type: "error",
-          label:
-            "Tivemos um problema ao atualizar as imagens do estabelecimento",
-        });
+      .catch((error) => {
+        console.log(error.response);
+        if (error.response.data.code === 400) {
+          showToastify({
+            type: "success",
+            label: "Perfil atualizado com sucesso!",
+          });
+        } else {
+          showToastify({
+            type: "error",
+            label:
+              "Tivemos um problema ao atualizar as imagens do estabelecimento",
+          });
+        }
       })
       .finally(() => {
         setloading(false);
