@@ -149,9 +149,9 @@ const CompleteSupplierRegister: React.FC = () => {
     <Modal
       contentExtraClass="max-w-lg"
       closeOnBlur={false}
-      hasCloseButton={false}
+      hasCloseButton={isUpdate ? true : false}
       show={!!(session?.user && session.user.isSupplier)}
-      onCloseModal={() => null}
+      onCloseModal={() => setUpdate(false)}
     >
       <div>
         <div className="mt-3 mb-5 w-full gap-4 flex items-center justify-between">
@@ -159,11 +159,6 @@ const CompleteSupplierRegister: React.FC = () => {
             {isUpdate ? "Atualizar" : "Completar"}
             <br /> cadastro
           </h2>
-          <div>
-            <div className="relative rounded-full w-40 h-16 bg-gradient-to-r from-secondary-main to-secondary-lighter">
-              <div className="absolute top-8 right-0 rounded-full w-16 h-16 bg-gradient-to-r from-secondary-main to-secondary-lighter"></div>
-            </div>
-          </div>
         </div>
 
         <Formik
@@ -189,7 +184,7 @@ const CompleteSupplierRegister: React.FC = () => {
                   />
                 </div>
                 <label
-                  onChange={() => setLogoPlaceHolder("carregado")}
+                  onChange={() => setLogoPlaceHolder("Arquivo carregado")}
                   htmlFor="supplierLogo"
                   className="flex justify-between cursor-pointer focus:border-primary-main items-center w-full border-black border-[1px] rounded-3xl h-11 px-4 py-3 text-sm font-medium"
                 >
@@ -220,7 +215,9 @@ const CompleteSupplierRegister: React.FC = () => {
                   />
                 </div>
                 <label
-                  onChange={() => SetIlustrationImagePlaceHolder("carregado")}
+                  onChange={() =>
+                    SetIlustrationImagePlaceHolder("Arquivo carregado")
+                  }
                   htmlFor="supplierBanner"
                   className="flex justify-between cursor-pointer focus:border-primary-main items-center w-full border-black border-[1px] rounded-3xl h-11 px-4 py-3 text-sm font-medium"
                 >
