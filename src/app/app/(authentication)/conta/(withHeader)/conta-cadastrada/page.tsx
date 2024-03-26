@@ -5,7 +5,7 @@ import Image from "next/image";
 import Checked from "@/images/easytolive/icons/checked-success.svg";
 import { ButtonPrimary, ButtonThird } from "@/components";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import authService from "@/service/auth.service";
 import { showToastify } from "@/hooks/showToastify";
 
@@ -66,6 +66,9 @@ const SupplierRegistered = () => {
   useEffect(() => {
     if (session?.user.isVerified === true) {
       router.push(isSupplier ? "/app/dashboard" : "/app");
+    }
+    if (session?.user.supplierInfo?.isVerified === false) {
+      signOut({ redirect: false });
     }
   }, []);
   // by url query param
