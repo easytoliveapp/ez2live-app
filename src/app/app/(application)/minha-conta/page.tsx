@@ -81,11 +81,11 @@ const MyAccountPage = () => {
         await usersService
           .eraseUser(session?.user.id, values.password)
           .then(() => {
+            router.push("/app/conta/entrar");
             showToastify({
               label: "Conta excluída com sucesso",
               type: "success",
             });
-            router.push("/app/conta/entrar");
           })
           .catch(() => {
             showToastify({
