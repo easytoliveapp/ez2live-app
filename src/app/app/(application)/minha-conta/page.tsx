@@ -13,7 +13,6 @@ import { showToastify } from "@/hooks/showToastify";
 import { type IDeleteUSer } from "@/types/user";
 import dayjs from "dayjs";
 import * as Yup from "yup";
-import { useRouter } from "next/navigation";
 import React, { useState, useCallback } from "react";
 import authService from "@/service/auth.service";
 import usersService from "@/service/users.service";
@@ -26,7 +25,6 @@ import useUserRoles from "@/hooks/useUserRoles";
 const MyAccountPage = () => {
   const { data: session } = useSession();
   const [pageId, setPageId] = useState<string>("account");
-  const router = useRouter();
 
   const Account = () => {
     return (
@@ -81,7 +79,7 @@ const MyAccountPage = () => {
         await usersService
           .eraseUser(session?.user.id, values.password)
           .then(() => {
-            router.push("/app/conta/entrar");
+            setTimeout(() => signOut({ redirect: true }), 1500);
             showToastify({
               label: "Conta excluída com sucesso",
               type: "success",
