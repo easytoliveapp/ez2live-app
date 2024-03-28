@@ -4,13 +4,14 @@ import FacebookProvider from "next-auth/providers/facebook";
 import AuthService from "@/service/auth.service";
 import NextAuth, { NextAuthOptions } from "next-auth";
 import dayjs from "dayjs";
-
+import { ROLES } from "@/constants/roles";
 import { ILogIn } from "@/types/auth/request";
 
 export const authOptions: NextAuthOptions = {
   pages: {
     signIn: "/app/conta/entrar",
     signOut: "/app/auth/logout",
+    error: "/app/conta/entrar",
   },
   secret: process.env.NEXTAUTH_SECRET,
   session: {
@@ -66,6 +67,27 @@ export const authOptions: NextAuthOptions = {
   ],
 
   callbacks: {
+    async signIn({ profile }) {
+      if (!profile?.email) return false;
+
+      const userByEmailResponse: any = await AuthService.getUserByEmail(
+        profile.email,
+      ).catch((err) => {
+        console.log(err);
+      });
+
+      const { data: user } = userByEmailResponse;
+
+      if (!userByEmailResponse || userByEmailResponse.status !== 200 || !user) {
+        return Promise.reject(
+          new Error(
+            "Api Response Error Http Status: " + userByEmailResponse.status,
+          ),
+        );
+      }
+
+      return !user.isSupplier && user.active;
+    },
     async jwt({ token, user, account, trigger, session }) {
       if (trigger === "update") {
         token.user = session.user;
@@ -88,6 +110,10 @@ export const authOptions: NextAuthOptions = {
 
         const { data } = authSocialRes;
         const { user: userData, tokens } = data;
+
+        if (userData.role === ROLES.supplier) {
+          return Promise.reject(new Error("User has signed with supplier yet"));
+        }
 
         if (!data?.user) {
           return Promise.reject(new Error("No user found"));
@@ -129,7 +155,6 @@ export const authOptions: NextAuthOptions = {
 
       return token;
     },
-
     async session({ session, token }) {
       session = {
         ...token,

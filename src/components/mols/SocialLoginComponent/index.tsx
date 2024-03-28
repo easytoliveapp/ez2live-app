@@ -26,10 +26,10 @@ const SocialLoginComponent = () => {
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl");
 
-  const nextAuthLoginBasedOnProvider = (provider: string) => {
+  const nextAuthLoginBasedOnProvider = async (provider: string) => {
     setLoading(true);
 
-    signIn(provider, { callbackUrl: callbackUrl ?? "/app" })
+    await signIn(provider, { callbackUrl: callbackUrl ?? "/app" })
       .catch(() => {
         showToastify({
           type: "error",

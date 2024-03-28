@@ -62,6 +62,13 @@ const refreshToken = async (data: any) => {
   });
 };
 
+const getUserByEmail = async (email: string) => {
+  return await BaseService.fetchData({
+    url: `/users/by-email?email=${email}`,
+    method: "get",
+  });
+};
+
 const authService = {
   login,
   loginSocial,
@@ -70,6 +77,7 @@ const authService = {
   resetPassword,
   refreshToken,
   resendEmailVerification,
+  getUserByEmail,
 };
 
 export default authService;
