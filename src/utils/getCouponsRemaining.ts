@@ -23,9 +23,9 @@ export function getCouponsRemaining(
   isOwnSupplier?: boolean,
 ) {
   if (isOwnSupplier) {
-    if (unintsAmount === -1) return "quantidade ilimitada";
+    if (unintsAmount === -1) return "Quantidade ilimitada";
     if (unintsAmount > 0)
-      return `resta${unintsAmount === 1 ? " " : "m "}${unintsAmount} unidade${
+      return `Resta${unintsAmount === 1 ? " " : "m "}${unintsAmount} unidade${
         unintsAmount === 1 ? "" : "s"
       }`;
     return "esgotado";
