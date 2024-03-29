@@ -1,14 +1,25 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 
 import Link from "next/link";
 import { SocialLoginComponent } from "@/components";
 import FormComponent from "./FormComponent";
 import { useSearchParams } from "next/navigation";
+import { showToastify } from "@/hooks/showToastify";
 
 const PageLogin = () => {
   const params = useSearchParams();
   const callbackUrl = params.get("callbackUrl");
+  const errorMessage = params.get("error");
+  useEffect(() => {
+    if (errorMessage === "AccessDenied") {
+      showToastify({
+        type: "error",
+        label: `Ops! Parece que não foi possível concluir o seu login.
+         Por favor, experimente utilizar uma outra forma de autenticação para acessar a sua conta`,
+      });
+    }
+  });
 
   return (
     <div className={`nc-PageLogin`} data-nc-id="PageLogin">

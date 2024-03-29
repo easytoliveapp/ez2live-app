@@ -63,11 +63,13 @@ const SupplierRegistered = () => {
 
   const { data: session } = useSession();
   const isSupplier = params.get("isSupplier") === "1";
+
   useEffect(() => {
     if (session?.user.isVerified === true) {
       router.push(isSupplier ? "/app/dashboard" : "/app");
     }
   }, []);
+
   // by url query param
   const message = isSupplier
     ? "Sua conta foi criada para análise do nosso time. Quando for aprovada você receberá um e-mail com as instruções para acessar sua conta."
