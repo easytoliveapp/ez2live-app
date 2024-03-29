@@ -28,11 +28,13 @@ const NewSection6 = () => {
           <ButtonFourth>Começar o meu teste gratuito</ButtonFourth>
         </div>
       </div>
-      <Image
-        src={HappyMen}
-        alt="Happy Men Runnig"
-        className="drop-shadow-xl w-auto lg:h-[500px] shadow-black z-50"
-      />
+      <div className="">
+        <Image
+          src={HappyMen}
+          alt="Happy Men Runnig"
+          className="drop-shadow-xl shadow-black"
+        />
+      </div>
     </div>
   );
 };
