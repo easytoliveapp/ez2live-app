@@ -24,6 +24,7 @@ import { ICouponCodesByUser } from "@/types/coupons";
 import { showToastify } from "@/hooks/showToastify";
 import useUserRoles from "@/hooks/useUserRoles";
 import Easy2LiveLogo from "@/images/easytolive/logo/logotipo-fundoazulroxo.svg";
+import { getRemainingUnitsAmount } from "@/utils/getCouponsRemaining";
 
 function PageHome() {
   const { data: session } = useSession();
@@ -58,6 +59,19 @@ function PageHome() {
     }
   }, []);
 
+  const getCouponsAvailableCountByCoupons = (coupons: any) => {
+    if (!coupons) return 0;
+
+    const couponsLength = coupons.filter(
+      ({ remainingCouponsByUser, remainingCouponsTotal }: any) =>
+        getRemainingUnitsAmount({
+          remainingCouponsByUser,
+          remainingCouponsTotal,
+        }) > 0,
+    ).length;
+
+    return couponsLength;
+  };
   //------------ get coupon codes by ser ------------------
   const isCommonUser = useUserRoles().isCommonUser();
   const [hasCouponActived, setHasCouponActived] = useState(false);
@@ -144,7 +158,9 @@ function PageHome() {
                 // avaliation: "4.6",
                 id,
                 name,
-                couponsAvailableCount: supplierInfo?.validCoupons?.length || 0,
+                couponsAvailableCount: getCouponsAvailableCountByCoupons(
+                  supplier.supplierInfo?.coupons,
+                ),
                 saveLastPagePosition: handleRouteChange,
                 supplierCategory: supplierInfo?.supplierCategory?.title,
                 supplierImage: supplierInfo.supplierLogo ?? Easy2LiveLogo,
