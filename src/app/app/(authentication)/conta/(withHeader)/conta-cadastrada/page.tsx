@@ -70,14 +70,18 @@ const SupplierRegistered = () => {
   }, []);
   // by url query param
   const message = isSupplier
-    ? "Sua conta foi criada para análise do nosso time. Quando for aprovada você receberá um e-mail com as instruções para acessar sua conta."
+    ? "Agora pode relaxar e ficar tranquilo! Em breve entraremos em contato"
     : "Cadastro criado com sucesso! Verifique seu e-mail para acessar sua conta.";
+
+  const title = isSupplier
+    ? "Cadastro Enviado 🚀"
+    : "Bem-vindo a EasyToLive 🚀";
   return (
     <div className="flex flex-col items-center justify-between pt-24 gap-8">
       <span></span>
       <Image alt="Ez-2-live-logo" src={Checked} className="w-auto h-14" />
       <div className="flex flex-col gap-1 w-full justify-center items-center">
-        <h2 className="pt-2 text-lg font-semibold">Bem-vindo a EasyToLive</h2>
+        <h2 className="pt-2 text-lg font-semibold">{title}</h2>
         <p className="p-4 max-w-xl text-center">{message}</p>
       </div>
       <ButtonPrimary
