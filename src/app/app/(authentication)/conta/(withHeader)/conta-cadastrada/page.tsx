@@ -63,21 +63,27 @@ const SupplierRegistered = () => {
 
   const { data: session } = useSession();
   const isSupplier = params.get("isSupplier") === "1";
+
   useEffect(() => {
     if (session?.user.isVerified === true) {
       router.push(isSupplier ? "/app/dashboard" : "/app");
     }
   }, []);
+
   // by url query param
   const message = isSupplier
-    ? "Sua conta foi criada para análise do nosso time. Quando for aprovada você receberá um e-mail com as instruções para acessar sua conta."
+    ? "Agora pode relaxar e ficar tranquilo! Em breve entraremos em contato"
     : "Cadastro criado com sucesso! Verifique seu e-mail para acessar sua conta.";
+
+  const title = isSupplier
+    ? "Cadastro Enviado 🚀"
+    : "Bem-vindo a EasyToLive 🚀";
   return (
     <div className="flex flex-col items-center justify-between pt-24 gap-8">
       <span></span>
       <Image alt="Ez-2-live-logo" src={Checked} className="w-auto h-14" />
       <div className="flex flex-col gap-1 w-full justify-center items-center">
-        <h2 className="pt-2 text-lg font-semibold">Bem-vindo a EasyToLive</h2>
+        <h2 className="pt-2 text-lg font-semibold">{title}</h2>
         <p className="p-4 max-w-xl text-center">{message}</p>
       </div>
       <ButtonPrimary
@@ -87,16 +93,18 @@ const SupplierRegistered = () => {
       >
         Visite nosso site
       </ButtonPrimary>
-      <div className="flex flex-col items-center">
-        <p className="mb-0 mt-24 p-0">{textEmaiVerification}</p>
-        <ButtonThird
-          onClick={() => sendVerificationEmail()}
-          disabled={disableButton}
-          className="sm:py-2 sm:my-0 sm:text-xs text-primary-main"
-        >
-          Enviar email de confirmação
-        </ButtonThird>
-      </div>
+      {!isSupplier && (
+        <div className="flex flex-col items-center">
+          <p className="mb-0 mt-24 p-0">{textEmaiVerification}</p>
+          <ButtonThird
+            onClick={() => sendVerificationEmail()}
+            disabled={disableButton}
+            className="sm:py-2 sm:my-0 sm:text-xs text-primary-main"
+          >
+            Enviar email de confirmação
+          </ButtonThird>
+        </div>
+      )}
     </div>
   );
 };
