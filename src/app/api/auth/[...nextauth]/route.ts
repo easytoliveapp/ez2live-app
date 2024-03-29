@@ -67,26 +67,34 @@ export const authOptions: NextAuthOptions = {
   ],
 
   callbacks: {
-    async signIn({ profile }) {
-      if (!profile?.email) return false;
+    async signIn({ profile, account }) {
+      if (account?.provider !== "credentials") {
+        if (!profile?.email) return false;
 
-      const userByEmailResponse: any = await AuthService.getUserByEmail(
-        profile.email,
-      ).catch((err) => {
-        console.log(err);
-      });
+        const userByEmailResponse: any = await AuthService.getUserByEmail(
+          profile.email,
+        ).catch((err) => {
+          console.log(err);
+        });
 
-      const { data: user } = userByEmailResponse;
+        const { data: user } = userByEmailResponse;
 
-      if (!userByEmailResponse || userByEmailResponse.status !== 200 || !user) {
-        return Promise.reject(
-          new Error(
-            "Api Response Error Http Status: " + userByEmailResponse.status,
-          ),
-        );
+        if (
+          !userByEmailResponse ||
+          userByEmailResponse.status !== 200 ||
+          !user
+        ) {
+          return Promise.reject(
+            new Error(
+              "Api Response Error Http Status: " + userByEmailResponse.status,
+            ),
+          );
+        }
+
+        return !user.isSupplier && user.active;
       }
 
-      return !user.isSupplier && user.active;
+      return true;
     },
     async jwt({ token, user, account, trigger, session }) {
       if (trigger === "update") {
