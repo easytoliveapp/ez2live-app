@@ -23,7 +23,7 @@ const SectionHero3: FC<SectionHero3Props> = ({ className = "" }) => {
             Cadastre-se para acessar os maiores descontos das melhores lojas a
             um clique de distância!
           </p>
-          <div className="m-auto">
+          <div className="">
             <ButtonFourth href="/app/conta/acessar" className="text-slate-2">
               GARANTIR ACESSO
             </ButtonFourth>

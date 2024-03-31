@@ -16,7 +16,7 @@ const NewSection6 = () => {
           Somos mais do que um aplicativo de cupons… <br />
           <span className="text-primary-main">Somos o futuro!</span>
         </h2>
-        <div className="text-white flex flex-col gap-4 items-center">
+        <div className="text-white flex flex-col gap-4 items-start">
           <p className="text-lg mb-4">
             E você pode começar agora mesmo a aproveitar todos <br />
             os descontos enquanto começa a viver quem você nasceu para ser.
