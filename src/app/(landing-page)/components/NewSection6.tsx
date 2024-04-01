@@ -6,7 +6,7 @@ import HappyMen from "../images/png/sport-concept-smiling-handsome-muscular-guy-
 
 const NewSection6 = () => {
   return (
-    <div className="container flex flex-wrap justify-between items-center lg:grid lg:grid-cols-2">
+    <div className="container flex flex-wrap md:flex-nowrap gap-20 items-center">
       <div className="space-y-8">
         <Image
           src={LogoEasyToLive}
@@ -28,7 +28,7 @@ const NewSection6 = () => {
           <ButtonFourth>Começar o meu teste gratuito</ButtonFourth>
         </div>
       </div>
-      <div className="">
+      <div className="grow w-full h-full flex items-start justify-center">
         <Image
           src={HappyMen}
           alt="Happy Men Runnig"

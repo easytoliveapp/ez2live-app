@@ -12,9 +12,9 @@ const SectionHero3: FC<SectionHero3Props> = ({ className = "" }) => {
       className={`relative ${className} container`}
       data-nc-id="SectionHero3"
     >
-      <div className="grid grid-cols-1 md:grid-cols-5 mt-34 lg:mt-24 space-y-5">
+      <div className="flex flex-wrap md:flex-nowrap mt-34 lg:mt-10 space-y-5 justify-between">
         {/* 1st column */}
-        <div className="flex flex-col col-span-2 md:items-start items-center space-y-5 pt-24 relative">
+        <div className="flex flex-col col-span-2 md:items-start items-center space-y-5 pt-20 relative">
           <h2 className="font-bold text-white text-3xl lg:pt-20 text-center md:text-left md:text-4xl !leading-[115%] z-50">
             Viver e praticar uma
             <span className="text-primary-main"> vida saudável </span> <br />
@@ -25,7 +25,7 @@ const SectionHero3: FC<SectionHero3Props> = ({ className = "" }) => {
             Cadastre-se para acessar os maiores descontos das melhores lojas a
             um clique de distância!
           </p>
-          <div className="">
+          <div>
             <ButtonFourth href="/app/conta/acessar" className="text-slate-2">
               GARANTIR ACESSO
             </ButtonFourth>
@@ -33,11 +33,9 @@ const SectionHero3: FC<SectionHero3Props> = ({ className = "" }) => {
         </div>
 
         {/* 2nd column */}
-        <Image
-          src={IphoneCelular}
-          alt="Iphone Cell"
-          className="m-0  col-span-3"
-        />
+        <div className="w-full h-full grow m-auto flex justify-center items-center lg:m-28">
+          <Image src={IphoneCelular} alt="Iphone Cell" />
+        </div>
       </div>
     </div>
   );
