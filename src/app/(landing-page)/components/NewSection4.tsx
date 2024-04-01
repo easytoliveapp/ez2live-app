@@ -28,7 +28,7 @@ const NewSection4 = () => {
 
   return (
     <div className="w-full flex flex-col justify-around space-y-16 items-center">
-      <div className="space-y-8">
+      <div className="space-y-8 flex flex-col items-center">
         <h2 className="text-white text-2xl md:text-3xl font-bold">
           Fomos criados para te ajudar a <br />
           <span className="text-primary-main">
@@ -39,7 +39,7 @@ const NewSection4 = () => {
           Assinando a Easy to Live você receberá acesso a:
         </p>
       </div>
-      <div className="flex flex-wrap items-center justify-center gap-10">
+      <div className="flex flex-wrap items-center text-center justify-center gap-10">
         {CARDS_CONTENT.map((card, index) => (
           <Section4Card icon={card.icon} key={index} label={card.label} />
         ))}

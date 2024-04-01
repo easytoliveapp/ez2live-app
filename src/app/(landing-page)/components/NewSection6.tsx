@@ -2,10 +2,11 @@ import React from "react";
 import LogoEasyToLive from "@/images/easytolive/logo/logobranca-fundoprimary.svg";
 import Image from "next/image";
 import { ButtonFourth } from "@/components";
+import HappyMen from "../images/png/sport-concept-smiling-handsome-muscular-guy-running-outdoors-against-white-wall.png";
 
 const NewSection6 = () => {
   return (
-    <div className="container flex justify-between items-center">
+    <div className="container flex flex-wrap md:flex-nowrap gap-20 items-center">
       <div className="space-y-8">
         <Image
           src={LogoEasyToLive}
@@ -16,7 +17,7 @@ const NewSection6 = () => {
           Somos mais do que um aplicativo de cupons… <br />
           <span className="text-primary-main">Somos o futuro!</span>
         </h2>
-        <div className="text-white flex flex-col gap-4 items-center">
+        <div className="text-white flex flex-col gap-4 items-start">
           <p className="text-lg mb-4">
             E você pode começar agora mesmo a aproveitar todos <br />
             os descontos enquanto começa a viver quem você nasceu para ser.
@@ -27,9 +28,12 @@ const NewSection6 = () => {
           <ButtonFourth>Começar o meu teste gratuito</ButtonFourth>
         </div>
       </div>
-
-      <div className="w-full h-auto md:w-96 md:h-96 rounded-3xl border-2 border-secondary-main flex items-center justify-center text-white">
-        Imagem
+      <div className="grow w-full h-full flex items-start justify-center">
+        <Image
+          src={HappyMen}
+          alt="Happy Men Runnig"
+          className="drop-shadow-xl shadow-black"
+        />
       </div>
     </div>
   );
