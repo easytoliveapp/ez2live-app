@@ -33,7 +33,7 @@ const SectionHero3: FC<SectionHero3Props> = ({ className = "" }) => {
         </div>
 
         {/* 2nd column */}
-        <div className="w-full h-full grow m-auto flex justify-center items-center lg:m-28">
+        <div className="w-full h-full grow m-auto flex justify-center items-center max-w-2xl">
           <Image src={IphoneCelular} alt="Iphone Cell" />
         </div>
       </div>
