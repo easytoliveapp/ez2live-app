@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { ButtonFourth } from "@/components";
-import IphoneCelular from "../images/png/06 IPhone Celular Smartphone Mockup PSD.png";
+import IphoneCelular from "../images/png/iphone-mockup.png";
 import Image from "next/image";
 export interface SectionHero3Props {
   className?: string;
