@@ -2,7 +2,7 @@ import React from "react";
 import LogoEasyToLive from "@/images/easytolive/logo/logobranca-fundoprimary.svg";
 import Image from "next/image";
 import { ButtonFourth } from "@/components";
-import HappyMen from "../images/png/sport-concept-smiling-handsome-muscular-guy-running-outdoors-against-white-wall.png";
+import HappyMen from "../images/png/sport-concept-smiling-handsome-tiny.png";
 
 const NewSection6 = () => {
   return (

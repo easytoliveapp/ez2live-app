@@ -86,7 +86,7 @@ function LandingPage() {
       {/* SECTION HERO */}
       <SectionHero3 />
 
-      <div className="relative space-y-24 my-24 lg:space-y-64 lg:my-64">
+      <div className="relative space-y-24 my-24 lg:space-y-64">
         {/*  */}
 
         <NewSection2 />
