@@ -4,8 +4,8 @@ import Image from "next/image";
 
 const NewSection2 = () => {
   return (
-    <div className="w-full flex flex-col space-y-32 container">
-      <div className="grid grid-cols-2 items-center gap-32">
+    <div className="w-full flex flex-col space-y-20 md:space-y-32 container">
+      <div className="flex flex-wrap flex-col md:grid md:grid-cols-2 items-center gap-6 md:gap-32">
         <div className="flex flex-col gap-4 text-white">
           <h2 className=" font-bold md:text-3xl text-2xl">
             A sua forma de levar a vida <br /> pode ser muito melhor... <br />e
@@ -32,13 +32,13 @@ const NewSection2 = () => {
           </span>
         </div>
       </div>
-      <div className="flex flex-wrap gap-32 md:grid md:grid-cols-2 md:flex-nowrap items-center">
+      <div className="flex flex-wrap md:gap-32 gap-20 md:grid md:grid-cols-2 md:flex-nowrap items-center">
         <Image
           src={LogoImage}
-          className=" w-56 md:w-[400px]  rounded-full"
+          className=" w-56 md:w-[400px]  rounded-full m-auto md:m-0"
           alt="Logo Easy"
         />
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-3 m-auto md:m-0">
           <h2 className=" font-bold text-2xl md:text-3xl text-secondary-main">
             Nós viemos para <br />
             revolucionar o mercado <br />e mudar esse pensamento.
