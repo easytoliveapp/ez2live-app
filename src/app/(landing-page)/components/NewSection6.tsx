@@ -2,10 +2,11 @@ import React from "react";
 import LogoEasyToLive from "@/images/easytolive/logo/logobranca-fundoprimary.svg";
 import Image from "next/image";
 import { ButtonFourth } from "@/components";
+import HappyMen from "../images/png/sport-concept-smiling-handsome-muscular-guy-running-outdoors-against-white-wall.png";
 
 const NewSection6 = () => {
   return (
-    <div className="container flex justify-between items-center">
+    <div className="container flex flex-wrap justify-between items-center lg:grid lg:grid-cols-2">
       <div className="space-y-8">
         <Image
           src={LogoEasyToLive}
@@ -27,9 +28,12 @@ const NewSection6 = () => {
           <ButtonFourth>Começar o meu teste gratuito</ButtonFourth>
         </div>
       </div>
-
-      <div className="w-full h-auto md:w-96 md:h-96 rounded-3xl border-2 border-secondary-main flex items-center justify-center text-white">
-        Imagem
+      <div className="">
+        <Image
+          src={HappyMen}
+          alt="Happy Men Runnig"
+          className="drop-shadow-xl shadow-black"
+        />
       </div>
     </div>
   );
