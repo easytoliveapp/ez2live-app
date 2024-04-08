@@ -22,7 +22,9 @@ const NewSection3 = () => {
         <PartnersSlider />
       </div>
       <div className="flex items-center justify-center mt-12">
-        <ButtonFourth className="px-6">GARANTIR ACESSO</ButtonFourth>
+        <ButtonFourth href="/app/conta/acessar" className="px-6">
+          GARANTIR ACESSO
+        </ButtonFourth>
       </div>
     </div>
   );
