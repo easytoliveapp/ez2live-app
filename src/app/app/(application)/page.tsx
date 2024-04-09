@@ -63,11 +63,14 @@ function PageHome() {
     if (!coupons) return 0;
 
     const couponsLength = coupons.filter(
-      ({ remainingCouponsByUser, remainingCouponsTotal }: any) =>
-        getRemainingUnitsAmount({
+      ({ remainingCouponsByUser, remainingCouponsTotal }: any) => {
+        const currentRemaining = getRemainingUnitsAmount({
           remainingCouponsByUser,
           remainingCouponsTotal,
-        }) > 0,
+        });
+
+        return currentRemaining === -1 || currentRemaining > 0;
+      },
     ).length;
 
     return couponsLength;
