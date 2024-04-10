@@ -73,16 +73,12 @@ export const authOptions: NextAuthOptions = {
 
         const userByEmailResponse: any = await AuthService.getUserByEmail(
           profile.email,
-        ).catch((err) => {
-          console.log(err);
-        });
-
-        const { data: user } = userByEmailResponse;
+        );
 
         if (
           !userByEmailResponse ||
           userByEmailResponse.status !== 200 ||
-          !user
+          !userByEmailResponse.data
         ) {
           return Promise.reject(
             new Error(
@@ -90,6 +86,8 @@ export const authOptions: NextAuthOptions = {
             ),
           );
         }
+
+        const { data: user } = userByEmailResponse;
 
         return !user.isSupplier && user.active;
       }
