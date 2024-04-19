@@ -7322,6 +7322,13 @@ iterator.prototype@^1.1.0:
     has-symbols "^1.0.3"
     reflect.getprototypeof "^1.0.3"
 
+iugu@^0.0.6:
+  version "0.0.6"
+  resolved "https://registry.npmjs.org/iugu/-/iugu-0.0.6.tgz"
+  integrity sha512-0L6moVclJz++1O9UkQmgXwmqO68BCJoqH7hR7/MPh+qfvpDrpIeMyYNktGXaujhr5UHZWl6TVKToAzNBM9G9/Q==
+  dependencies:
+    when "~3.1.0"
+
 jake@^10.8.5:
   version "10.8.7"
   resolved "https://registry.npmjs.org/jake/-/jake-10.8.7.tgz"
@@ -11218,6 +11225,11 @@ whatwg-url@^5.0.0:
   dependencies:
     tr46 "~0.0.3"
     webidl-conversions "^3.0.0"
+
+when@~3.1.0:
+  version "3.1.0"
+  resolved "https://registry.npmjs.org/when/-/when-3.1.0.tgz"
+  integrity sha512-dAzT69pMCz+s4iTjMNQH+j2x83waW2swg/cD4GEHQWvC5cT4dSUJI8+Xe4PMx8uoE7kTcP05SlP5RPwdLI28zw==
 
 which-boxed-primitive@^1.0.2:
   version "1.0.2"
