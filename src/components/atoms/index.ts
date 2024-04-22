@@ -41,6 +41,7 @@ export { default as Radio } from "./Radio";
 export { default as SearchCategory } from "./SearchCategory";
 export { default as SearchDropdown } from "./SearchDropdown";
 export { default as Select } from "./Select";
+export { default as SimpleModal } from "./SimpleModal";
 export { default as SocialsList } from "./SocialsList";
 export { default as SocialsList1 } from "./SocialsList1";
 export { default as SocialsShare } from "./SocialsShare";
