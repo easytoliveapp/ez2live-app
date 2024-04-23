@@ -56,8 +56,8 @@ const CreditCardPayment = () => {
       validationSchema={CreditCardvalidationSchema}
     >
       {({ errors, touched, handleSubmit }) => (
-        <Form onSubmit={handleSubmit}>
-          <div className="w-full flex justify-center">
+        <Form onSubmit={handleSubmit} className="space-y-3">
+          <div className="w-full flex justify-center my-3">
             <Image alt="Card Flags" src={CardFlag} width={287} height={40} />
           </div>
           <FormItem
