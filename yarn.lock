@@ -4466,6 +4466,13 @@ caniuse-lite@^1.0.30001406, caniuse-lite@^1.0.30001517, caniuse-lite@^1.0.300015
   resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001525.tgz"
   integrity sha512-/3z+wB4icFt3r0USMwxujAqRvaD/B7rvGTsKhbhSQErVrJvkZCLhgNLJxU8MevahQVH6hCU9FsHdNUFbiwmE7Q==
 
+card-validator@^9.1.0:
+  version "9.1.0"
+  resolved "https://registry.npmjs.org/card-validator/-/card-validator-9.1.0.tgz"
+  integrity sha512-MhqRKw8Q83qMppvDlkQ37ojocCaRR/hQzklIW7OabT5uQKS/5uDuqdXI6CbQ6uf+Zlc8rmzl7wVo4aw5uWFK9w==
+  dependencies:
+    credit-card-type "^9.1.0"
+
 case-sensitive-paths-webpack-plugin@^2.4.0:
   version "2.4.0"
   resolved "https://registry.npmjs.org/case-sensitive-paths-webpack-plugin/-/case-sensitive-paths-webpack-plugin-2.4.0.tgz"
@@ -4877,6 +4884,11 @@ create-hmac@^1.1.0, create-hmac@^1.1.4, create-hmac@^1.1.7:
     ripemd160 "^2.0.0"
     safe-buffer "^5.0.1"
     sha.js "^2.4.8"
+
+credit-card-type@^9.1.0:
+  version "9.1.0"
+  resolved "https://registry.npmjs.org/credit-card-type/-/credit-card-type-9.1.0.tgz"
+  integrity sha512-CpNFuLxiPFxuZqhSKml3M+t0K/484pMAnfYWH14JoD7OZMnmC0Lmo+P7JX9SobqFpRoo7ifA18kOHdxJywYPEA==
 
 cross-spawn@^7.0.0, cross-spawn@^7.0.2, cross-spawn@^7.0.3:
   version "7.0.3"
