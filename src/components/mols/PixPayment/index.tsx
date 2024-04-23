@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from "react";
 import { Formik, Form, Field } from "formik";
 import { Input, ButtonPrimary, FormItem } from "@/components";
@@ -79,7 +80,7 @@ const PixPayment = () => {
           </div>
 
           <ButtonPrimary loading={loading} disabled={loading}>
-            Efetuar Pagamento
+            {loading ? "Realizando pagamento" : "Efetuar Pagamento"}
           </ButtonPrimary>
           <span className="text-xs">
             Os pagamentos serão realizados de forma recorrente a cada renovoção.

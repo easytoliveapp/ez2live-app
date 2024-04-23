@@ -1,6 +1,7 @@
+"use client";
 import React, { useState } from "react";
 import { Formik, Form, Field } from "formik";
-import { Input, ButtonPrimary, FormItem, Select } from "@/components";
+import { Input, ButtonPrimary, FormItem, Select, Checkbox } from "@/components";
 import { ICreditCardPayment } from "@/types/payment";
 import * as Yup from "yup";
 import valid from "card-validator";
@@ -10,7 +11,7 @@ import CardFlag from "@/images/easytolive/payment/card-flag.svg";
 const CreditCardPayment = () => {
   const [loading, setLoading] = useState(false);
 
-  const CreditCardvalidationSchema = {
+  const CreditCardvalidationSchema = Yup.object().shape({
     cardNumber: Yup.string()
       .test(
         "test-number",
@@ -18,7 +19,7 @@ const CreditCardPayment = () => {
         (value) => valid.number(value).isValid,
       )
       .required(),
-    cvc: Yup.string().test("test-cvv", (value) => valid.cvv(value).isValid),
+    cvv: Yup.string().test("test-cvv", (value) => valid.cvv(value).isValid),
     nameOnCard: Yup.string().label("Name on card").required(),
     cardMonth: Yup.string()
       .required()
@@ -32,10 +33,10 @@ const CreditCardPayment = () => {
         [true],
         "Você precisa concordar com os termos de uso para prosseguir.",
       ),
-  };
+  });
   const initialValues: ICreditCardPayment = {
     cardNumber: "",
-    cvc: "",
+    cvv: "",
     nameOnCard: "",
     cardMonth: "",
     cardYear: "",
@@ -56,9 +57,10 @@ const CreditCardPayment = () => {
     >
       {({ errors, touched, handleSubmit }) => (
         <Form onSubmit={handleSubmit}>
-          <Image alt="Card Flags" src={CardFlag} width={287} height={40} />
+          <div className="w-full flex justify-center">
+            <Image alt="Card Flags" src={CardFlag} width={287} height={40} />
+          </div>
           <FormItem
-            label="cardNumber"
             errorMessage={errors.cardNumber}
             invalid={!!(errors.cardNumber && touched.cardNumber)}
           >
@@ -66,12 +68,11 @@ const CreditCardPayment = () => {
               invalid={!!(errors.cardNumber && touched.cardNumber)}
               name="cardNumber"
               type="number"
-              label="Número do cartão"
+              placeholder="Número do cartão"
               component={Input}
             ></Field>
           </FormItem>
           <FormItem
-            label="nameOnCard"
             errorMessage={errors.nameOnCard}
             invalid={!!(errors.nameOnCard && touched.nameOnCard)}
           >
@@ -79,14 +80,12 @@ const CreditCardPayment = () => {
               invalid={!!(errors.nameOnCard && touched.nameOnCard)}
               name="nameOnCard"
               type="text"
-              label="Nome do titular"
+              placeholder="Nome do titular"
               component={Input}
             ></Field>
           </FormItem>
-
-          <div className="flex gap-4">
+          <div className="w-full grid grid-cols-3 gap-2">
             <FormItem
-              label="cardMonth"
               errorMessage={errors.cardMonth}
               invalid={!!(errors.cardMonth && touched.cardMonth)}
             >
@@ -94,25 +93,22 @@ const CreditCardPayment = () => {
                 invalid={!!(errors.cardMonth && touched.cardMonth)}
                 name="cardMonth"
                 component={Select}
+                className="text-center"
               >
-                <option value={undefined}>mês</option>
                 {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((m, i) => (
-                  <option key={i} value={m}></option>
+                  <option key={i} value={m}>
+                    {m}
+                  </option>
                 ))}
               </Field>
             </FormItem>
             <FormItem
-              label="Ano de Vencimento"
               errorMessage={
                 touched.cardYear && errors.cardYear ? errors.cardYear : null
               }
               invalid={!!(touched.cardYear && errors.cardYear)}
             >
-              <Field
-                name="cardYear"
-                component={Select}
-                placeholder="Selecione o ano"
-              >
+              <Field name="cardYear" component={Select} className="text-center">
                 {Array.from(
                   { length: 10 },
                   (_, index) => new Date().getFullYear() + index,
@@ -124,50 +120,53 @@ const CreditCardPayment = () => {
               </Field>
             </FormItem>
             <FormItem
-              label="cvc"
-              errorMessage={errors.cvc}
-              invalid={!!(errors.cvc && touched.cvc)}
+              errorMessage={errors.cvv}
+              invalid={!!(errors.cvv && touched.cvv)}
             >
               <Field
-                invalid={!!(errors.cvc && touched.cvc)}
-                name="cvc"
+                invalid={!!(errors.cvv && touched.cvv)}
+                name="cvv"
                 type="number"
-                label="CVC"
+                placeholder="CVV"
+                className="text-center"
                 component={Input}
               ></Field>
             </FormItem>
           </div>
 
-          <div className="flex gap-2">
+          <div className="flex gap-2 mx-2">
             <FormItem
-              label="TermsOfUse"
               errorMessage={errors.TermsOfUse}
               invalid={!!(errors.TermsOfUse && touched.TermsOfUse)}
+              className="flex"
             >
-              <Field></Field>
+              <div className="flex w-full gap-1 justify-center items-center">
+                <Field
+                  invalid={!!(errors.TermsOfUse && touched.TermsOfUse)}
+                  name="TermsOfUse"
+                  component={Checkbox}
+                ></Field>
+                <label
+                  htmlFor="TermsOfUse"
+                  className="text-[10px] w-full leading-3"
+                >
+                  Ao realizar a assinatura você concorda com os Termos de Uso
+                </label>
+              </div>
             </FormItem>
-            <input
-              type="checkbox"
-              name="TermsOfUse"
-              id="TermsOfUse"
-              className="bg-generic-alertGreen"
-            />
-            <label htmlFor="TermsOfUse">
-              Ao realizar a assinatura você concorda com os Termos de Uso
-            </label>
           </div>
           <ButtonPrimary
             type="submit"
-            className="w-full mt-6"
+            className="w-full my-2"
             disabled={loading}
             loading={loading}
           >
-            Efetuar Pagamento
+            {loading ? "Realizando pagamento" : "Efetuar Pagamento"}
           </ButtonPrimary>
-          <span className="text-xs">
+          <p className=" text-[10px] leading-3 text-center italic">
             Os pagamentos serão realizados de forma recorrente a cada renovoção.
             Você poderá cancelar a qualquer momento em seu perfil.
-          </span>
+          </p>
         </Form>
       )}
     </Formik>

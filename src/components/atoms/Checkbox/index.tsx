@@ -16,7 +16,7 @@ const Checkbox: FC<CheckboxProps> = ({
   label = "",
   name,
   className = "",
-  sizeClassName = "w-6 h-6",
+  sizeClassName = "w-4 h-4",
   labelClassName = "",
   defaultChecked,
   onChange,
@@ -27,7 +27,7 @@ const Checkbox: FC<CheckboxProps> = ({
         id={name}
         name={name}
         type="checkbox"
-        className={`focus:ring-action-primary text-primary-500 rounded border-slate-400 hover:border-slate-700 bg-transparent    focus:ring-primary-500 ${sizeClassName}`}
+        className={`cursor-pointer focus:ring-action-primary-main text-primary-500 rounded border-primary-main hover:border-primary-main bg-transparent accent-primary-main  focus:ring-primary-main ${sizeClassName}`}
         defaultChecked={defaultChecked}
         onChange={(e) => onChange && onChange(e.target.checked)}
       />
@@ -37,14 +37,14 @@ const Checkbox: FC<CheckboxProps> = ({
           className="pl-2.5 sm:pl-3.5 flex flex-col flex-1 justify-center select-none"
         >
           <span
-            className={`text-slate-900   ${labelClassName} ${
+            className={`text-primary-main   ${labelClassName} ${
               subLabel ? "-mt-0.5" : ""
             }`}
           >
             {label}
           </span>
           {subLabel && (
-            <p className="mt-0.5 text-slate-500  text-sm font-light">
+            <p className="mt-0.5 text-primary-main  text-sm font-light">
               {subLabel}
             </p>
           )}

@@ -4,6 +4,7 @@ export { default as CouponActivated } from "./CouponActivated";
 export { default as CouponCard } from "./CouponCard";
 export { default as Coupon } from "./CouponContent";
 export { default as CreateAndUpdateCoupon } from "./CreateAndUpdateCoupon";
+export { default as CreditCardPayment } from "./CreditCardPayment"
 export { default as EmptyCoupons } from "./EmptyCoupons";
 export { default as FastLoginPage } from "./FastLoginPage";
 export { default as Header } from "./Header";
@@ -15,6 +16,7 @@ export { default as NavBarLogged } from "./NavBarLogged";
 export { default as NavidationItem } from "./Navigation/NavigationItem";
 export { default as NavidationMobile } from "./Navigation/NavMobile";
 export { default as PremiumConversionModal } from "./PremiumConversionModal";
+export { default as PixPayment } from "./PixPayment";
 export { default as SocialLoginComponent } from "./SocialLoginComponent";
 export { default as SupplierCard } from "./SupplierCard";
 export { default as UserCoupons } from "./UserCoupons";
