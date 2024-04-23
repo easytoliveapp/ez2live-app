@@ -3,6 +3,7 @@ import { Formik, Form, Field } from "formik";
 import { Input, ButtonPrimary, FormItem, Select } from "@/components";
 import { ICreditCardPayment } from "@/types/payment";
 import * as Yup from "yup";
+import valid from "card-validator";
 import Image from "next/image";
 import CardFlag from "@/images/easytolive/payment/card-flag.svg";
 
@@ -11,13 +12,20 @@ const CreditCardPayment = () => {
 
   const CreditCardvalidationSchema = {
     cardNumber: Yup.string()
-      .label("Card number")
-      .min(16, "Verifique novamente")
+      .test(
+        "test-number",
+        "Credit Card number is invalid",
+        (value) => valid.number(value).isValid,
+      )
       .required(),
-    cvc: Yup.string().label("CVC").min(3).max(4).required(),
+    cvc: Yup.string().test("test-cvv", (value) => valid.cvv(value).isValid),
     nameOnCard: Yup.string().label("Name on card").required(),
-    cardMonth: Yup.string().required(),
-    cardYear: Yup.string().required(),
+    cardMonth: Yup.string()
+      .required()
+      .test((value) => valid.expirationMonth(value).isValid),
+    cardYear: Yup.string()
+      .required()
+      .test((value) => valid.expirationYear(value).isValid),
     TermsOfUse: Yup.boolean()
       .required()
       .oneOf(
