@@ -2,11 +2,14 @@ import React, { ReactNode } from "react";
 
 interface SimpleModalProps {
   children: ReactNode;
+  className?: string;
 }
 
-const SimpleModal: React.FC<SimpleModalProps> = ({ children }) => {
+const SimpleModal: React.FC<SimpleModalProps> = ({ children, className }) => {
   return (
-    <div className="bg-white rounded-xl w-full max-w-sm m-2 p-3 flex flex-col items-center justify-center gap-2 my-4">
+    <div
+      className={`bg-white rounded-xl shadow-md w-full max-w-sm m-2 p-3 flex flex-col items-center justify-center gap-2 my-4 ${className}`}
+    >
       {children}
     </div>
   );
