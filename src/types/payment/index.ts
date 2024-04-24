@@ -6,3 +6,8 @@ export interface ICreditCardPayment {
   cardYear: string;
   TermsOfUse: boolean;
 }
+
+export interface IPixPayment {
+  cpf: string;
+  TermsOfUse: boolean;
+}

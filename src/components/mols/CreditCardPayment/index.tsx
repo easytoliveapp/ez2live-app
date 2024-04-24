@@ -1,34 +1,52 @@
 "use client";
 import React, { useState } from "react";
 import { Formik, Form, Field } from "formik";
-import { Input, ButtonPrimary, FormItem, Select, Checkbox } from "@/components";
+import { Input, ButtonPrimary, FormItem, Select } from "@/components";
 import { ICreditCardPayment } from "@/types/payment";
 import * as Yup from "yup";
 import valid from "card-validator";
 import Image from "next/image";
 import CardFlag from "@/images/easytolive/payment/card-flag.svg";
 
-const CreditCardPayment = () => {
+interface ICreditCardPaymentProps {
+  currentStepPayment: React.Dispatch<React.SetStateAction<number>>;
+}
+
+const CreditCardPayment: React.FC<ICreditCardPaymentProps> = ({
+  currentStepPayment,
+}) => {
   const [loading, setLoading] = useState(false);
 
   const CreditCardvalidationSchema = Yup.object().shape({
     cardNumber: Yup.string()
       .test(
         "test-number",
-        "Credit Card number is invalid",
+        "Número de cartão inválido",
         (value) => valid.number(value).isValid,
       )
       .required(),
     cvv: Yup.string().test("test-cvv", (value) => valid.cvv(value).isValid),
-    nameOnCard: Yup.string().label("Name on card").required(),
+    nameOnCard: Yup.string().required("Digite o nome do titular"),
     cardMonth: Yup.string()
       .required()
-      .test((value) => valid.expirationMonth(value).isValid),
+      .test("is-expired", "O cartão está vencido", function (value) {
+        const currentYear = new Date().getFullYear();
+        const currentMonth = new Date().getMonth() + 1;
+
+        if (
+          parseInt(value) < currentMonth &&
+          parseInt(this.parent.cardYear) <= currentYear
+        ) {
+          return false;
+        }
+
+        return true;
+      }),
     cardYear: Yup.string()
       .required()
       .test((value) => valid.expirationYear(value).isValid),
     TermsOfUse: Yup.boolean()
-      .required()
+      .required("Você precisa concordar com os termos de uso para prosseguir.")
       .oneOf(
         [true],
         "Você precisa concordar com os termos de uso para prosseguir.",
@@ -38,14 +56,18 @@ const CreditCardPayment = () => {
     cardNumber: "",
     cvv: "",
     nameOnCard: "",
-    cardMonth: "",
-    cardYear: "",
+    cardMonth: "1",
+    cardYear: String(new Date().getFullYear()),
     TermsOfUse: false,
   };
 
   const handleSubmit = async (values: ICreditCardPayment) => {
     setLoading(true);
     console.log(values);
+    currentStepPayment(1);
+    setTimeout(() => {
+      currentStepPayment(2);
+    }, 2000);
     setLoading(false);
   };
 
@@ -54,8 +76,9 @@ const CreditCardPayment = () => {
       onSubmit={handleSubmit}
       initialValues={initialValues}
       validationSchema={CreditCardvalidationSchema}
+      validateOnBlur={false}
     >
-      {({ errors, touched, handleSubmit }) => (
+      {({ setFieldValue, values, errors, touched, handleSubmit }) => (
         <Form onSubmit={handleSubmit} className="space-y-3">
           <div className="w-full flex justify-center my-3">
             <Image alt="Card Flags" src={CardFlag} width={287} height={40} />
@@ -84,7 +107,7 @@ const CreditCardPayment = () => {
               component={Input}
             ></Field>
           </FormItem>
-          <div className="w-full grid grid-cols-3 gap-2">
+          <div className="w-full flex justify-between gap-2">
             <FormItem
               errorMessage={errors.cardMonth}
               invalid={!!(errors.cardMonth && touched.cardMonth)}
@@ -93,7 +116,7 @@ const CreditCardPayment = () => {
                 invalid={!!(errors.cardMonth && touched.cardMonth)}
                 name="cardMonth"
                 component={Select}
-                className="text-center"
+                className="text-center pl-2 !w-20"
               >
                 {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((m, i) => (
                   <option key={i} value={m}>
@@ -108,7 +131,11 @@ const CreditCardPayment = () => {
               }
               invalid={!!(touched.cardYear && errors.cardYear)}
             >
-              <Field name="cardYear" component={Select} className="text-center">
+              <Field
+                name="cardYear"
+                component={Select}
+                className="text-center pl-2 !w-24"
+              >
                 {Array.from(
                   { length: 10 },
                   (_, index) => new Date().getFullYear() + index,
@@ -121,14 +148,14 @@ const CreditCardPayment = () => {
             </FormItem>
             <FormItem
               errorMessage={errors.cvv}
-              invalid={!!(errors.cvv && touched.cvv)}
+              invalid={!!errors.cvv && touched.cvv}
             >
               <Field
-                invalid={!!(errors.cvv && touched.cvv)}
+                invalid={!!errors.cvv && touched.cvv}
                 name="cvv"
                 type="number"
                 placeholder="CVV"
-                className="text-center"
+                className="text-center !w-24"
                 component={Input}
               ></Field>
             </FormItem>
@@ -144,7 +171,13 @@ const CreditCardPayment = () => {
                 <Field
                   invalid={!!(errors.TermsOfUse && touched.TermsOfUse)}
                   name="TermsOfUse"
-                  component={Checkbox}
+                  type="checkbox"
+                  className="!w-4 !h-4 !rounded-none !p-0 !m-0"
+                  component={Input}
+                  checked={values.TermsOfUse}
+                  onChange={(e: any) => {
+                    setFieldValue("TermsOfUse", e.target.checked);
+                  }}
                 ></Field>
                 <label
                   htmlFor="TermsOfUse"
