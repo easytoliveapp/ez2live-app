@@ -2,7 +2,7 @@ import Button, { ButtonProps } from "@/components/atoms/Button/Button";
 import React from "react";
 
 export interface ButtonFourthProps extends ButtonProps {
-  className: string;
+  className?: string;
 }
 
 const ButtonFourth: React.FC<ButtonFourthProps> = ({
