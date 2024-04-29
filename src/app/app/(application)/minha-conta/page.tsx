@@ -21,6 +21,7 @@ import classNames from "@/utils/classNames";
 import { signOut, useSession } from "next-auth/react";
 import { getDateFormater } from "@/utils/getDateFormater";
 import useUserRoles from "@/hooks/useUserRoles";
+import isDateValid from "@/utils/isDateValid";
 
 const MyAccountPage = () => {
   const { data: session } = useSession();
@@ -213,10 +214,42 @@ const MyAccountPage = () => {
     );
   };
 
-  const TabComponent = useCallback(
-    () => (pageId === "account" ? <Account /> : <Security />),
-    [pageId],
-  );
+  const Signature = () => {
+    if (session === null) return;
+    const { name, subscriptionEndDate } = session.user;
+    const hasSignature = isDateValid(subscriptionEndDate);
+    return (
+      <div>
+        <p>Olá, {name}!</p>
+        <p>
+          <strong>assinatura:</strong>{" "}
+          {hasSignature
+            ? `Sua assinatura ainda é válida até o dia ${getDateFormater(
+                subscriptionEndDate,
+              )}`
+            : "Sua assinatura expirou"}{" "}
+        </p>
+        {!hasSignature && (
+          <ButtonPrimary href="/app/pagamento">
+            renovar assinatura
+          </ButtonPrimary>
+        )}
+        <ButtonThird>não renovar</ButtonThird>
+      </div>
+    );
+  };
+
+  const TabComponent = useCallback(() => {
+    if (pageId === "account") {
+      return <Account />;
+    } else if (pageId === "security") {
+      return <Security />;
+    } else if (pageId === "signature") {
+      return <Signature />;
+    } else {
+      return <Account />;
+    }
+  }, [pageId]);
 
   return (
     <div className="nc-AccountCommonLayout container">
@@ -237,8 +270,8 @@ const MyAccountPage = () => {
             <div className="flex gap-6">
               <div
                 className={classNames(
-                  "font-normal cursor-pointer text-black hover:text-black",
-                  pageId === "account" ? "text-black" : "text-neutral-400",
+                  "font-normal cursor-pointer text-black",
+                  pageId === "account" ? "opacity-100" : "opacity-60",
                 )}
                 onClick={() => {
                   setPageId("account");
@@ -248,14 +281,25 @@ const MyAccountPage = () => {
               </div>
               <div
                 className={classNames(
-                  "font-normal cursor-pointer text-black hover:text-black",
-                  pageId === "security" ? "text-black" : "text-neutral-400",
+                  "font-normal cursor-pointer text-black",
+                  pageId === "security" ? "opacity-100" : "opacity-60",
                 )}
                 onClick={() => {
                   setPageId("security");
                 }}
               >
                 Segurança
+              </div>
+              <div
+                className={classNames(
+                  "font-normal cursor-pointer text-black",
+                  pageId === "security" ? "opacity-100" : "opacity-60",
+                )}
+                onClick={() => {
+                  setPageId("signature");
+                }}
+              >
+                Assinatura
               </div>
             </div>
           </div>
