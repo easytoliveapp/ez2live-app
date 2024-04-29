@@ -47,6 +47,7 @@ const STEPS = {
   COUPON_ACTIVE: 2,
   SHOWING_COUPON_CODE: 3,
   REDIRECT_TO_LOGIN: 4,
+  REDIRECT_TO_PAYMENT: 5,
 };
 
 const CouponContainer: React.FC<CouponContainerProps> = ({
@@ -197,6 +198,33 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
     );
   };
 
+  const StepFive = () => {
+    return (
+      <div className="flex flex-col gap-1 items-center">
+        <p className="text-lg max-w-xs">
+          Para gerar o seu cupom exclusivo, é necessário realizar a assinatura
+          em nossa plataforma. Assine agora e tenha acesso a benefícios
+          especiais, incluindo <strong>descontos</strong> e
+          <strong>ofertas exclusivas</strong>. Não perca essa oportunidade!
+        </p>
+        <ButtonPrimary
+          onClick={() =>
+            router.push(
+              `/app/pagamento?callbackUrl=${encodeURIComponent(
+                `/app/parceiro/${supplierId}/?coupon=${couponId}`,
+              )}` as Route,
+            )
+          }
+        >
+          Assinar Agora
+        </ButtonPrimary>
+        <ButtonThird onClick={() => setShowCouponModal(false)}>
+          voltar
+        </ButtonThird>
+      </div>
+    );
+  };
+
   const renderStep = (step: number) => {
     switch (step) {
       case STEPS.SHOWING_COUPON:
@@ -207,6 +235,8 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
         return <StepThree />;
       case STEPS.SHOWING_COUPON_CODE:
         return <StepFour couponCode={couponCode} />;
+      case STEPS.REDIRECT_TO_PAYMENT:
+        return <StepFive />;
       default:
         return <StepOne />;
     }
@@ -220,6 +250,9 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
 
   const handleActiveCoupon = async () => {
     if (session?.user) {
+      if (isDateValid(session.user.subscriptionEndDate) === false) {
+        return handleNextStep(STEPS.REDIRECT_TO_PAYMENT);
+      }
       handleNextStep(STEPS.LOADING_COUPON);
 
       activateCoupon()
