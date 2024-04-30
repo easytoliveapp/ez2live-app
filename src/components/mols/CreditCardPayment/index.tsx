@@ -58,7 +58,7 @@ const CreditCardPayment: React.FC<ICreditCardPaymentProps> = ({
     nameOnCard: "",
     cardMonth: "1",
     cardYear: String(new Date().getFullYear()),
-    TermsOfUse: false,
+    TermsOfUse: true,
   };
 
   const handleSubmit = async (values: ICreditCardPayment) => {

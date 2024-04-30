@@ -36,7 +36,7 @@ const PixPayment: React.FC<IPixPaymentProps> = ({ currentStepPayment }) => {
 
   const initialValues: IPixPayment = {
     cpf: "",
-    TermsOfUse: false,
+    TermsOfUse: true,
   };
   return (
     <Formik
