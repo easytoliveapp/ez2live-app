@@ -28,9 +28,9 @@ const PixPayment: React.FC<IPixPaymentProps> = ({ currentStepPayment }) => {
     setLoading(true);
     console.log(values);
     currentStepPayment(1);
-    // setTimeout(() => {
-    //   currentStepPayment(3);
-    // }, 5000);
+    setTimeout(() => {
+      currentStepPayment(3);
+    }, 5000);
     setLoading(false);
   };
 
