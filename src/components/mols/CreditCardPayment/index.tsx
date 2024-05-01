@@ -17,6 +17,21 @@ const CreditCardPayment: React.FC<ICreditCardPaymentProps> = ({
 }) => {
   const [loading, setLoading] = useState(false);
 
+  const Months = [
+    " - JAN",
+    " - FEV",
+    " - MAR",
+    " - ABR",
+    " - MAI",
+    " - JUN",
+    " - JUL",
+    " - AGO",
+    " - SET",
+    " - OUT",
+    " - NOV",
+    " - DEZ",
+  ];
+
   const CreditCardvalidationSchema = Yup.object().shape({
     cardNumber: Yup.string()
       .test(
@@ -116,11 +131,12 @@ const CreditCardPayment: React.FC<ICreditCardPaymentProps> = ({
                 invalid={!!(errors.cardMonth && touched.cardMonth)}
                 name="cardMonth"
                 component={Select}
-                className="text-center pl-2 !w-20"
+                className="text-center pl-2 !w-24"
               >
                 {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((m, i) => (
                   <option key={i} value={m}>
                     {m}
+                    {Months[m - 1]}
                   </option>
                 ))}
               </Field>
