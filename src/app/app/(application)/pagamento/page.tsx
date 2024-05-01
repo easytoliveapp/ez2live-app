@@ -36,10 +36,12 @@ const PaymentPage = () => {
 
   const PaymentMethod = () => {
     return (
-      <div className="flex w-full justify-around">
+      <div className="flex gap-4 w-full justify-around">
         <div
-          className={` flex flex-col justify-center items-center w-full ${
-            PaymentTab === "cartao" ? "opacity-100" : "opacity-60"
+          className={`cursor-pointer flex flex-col justify-center items-center w-full ${
+            PaymentTab === "cartao"
+              ? "opacity-100 border-b-2 border-black"
+              : "opacity-60 hover:bg-generic-gray"
           }`}
           onClick={() => SetPaymentTab("cartao")}
         >
@@ -49,12 +51,14 @@ const PaymentPage = () => {
             width={16}
             height={13}
           />
-          <p className="text-xs font-bold">Cartão de crédito</p>
+          <p className="text-xs font-semibold">Cartão de crédito</p>
         </div>
         <span className="bg-generic-grayLighter h-9 w-0.5"></span>
         <div
-          className={`w-full flex flex-col justify-center items-center ${
-            PaymentTab === "pix" ? "opacity-100" : "opacity-60"
+          className={`w-full cursor-pointer p-2 flex flex-col justify-center items-center ${
+            PaymentTab === "pix"
+              ? "opacity-100 border-b-2 border-black"
+              : "opacity-60 hover:bg-generic-gray"
           }`}
           onClick={() => SetPaymentTab("pix")}
         >
@@ -87,8 +91,8 @@ const PaymentPage = () => {
         <LoadingPayment paymentMethod={PaymentTab} />
         {PaymentTab === "pix" && (
           <div>
-            <SimpleModal>
-              <div className="w-full flex justify-center my-3">
+            <SimpleModal className="pb-6">
+              <div className="w-full flex justify-center my-1">
                 <Image alt="Pix Image" src={PixImage} width={82} height={33} />
               </div>
               <p className="font-bold text-xs text-generic-dark">QR Code</p>
@@ -98,15 +102,17 @@ const PaymentPage = () => {
                 height={128}
                 width={128}
               />
-              <p className="font-bold text-generic-dark my-5 text-xs">
-                Copia e Cola
-              </p>
-              <p className="text-xs overflow-hidden max-w-xs">
-                00020101021226990014br.gov.bcb.pix2577pix.bpp.com.br/14796606/qrdaksldkalsdkamdl,KDl123
-                KmIYgzfr3AZ38E8vQbnYv6xqDPenH0KehYAyWeXfjF5204000053039865802BR591{" "}
-              </p>
+              <div>
+                <p className="font-bold text-center pb-1 text-generic-dark mt-5 text-xs">
+                  Copia e Cola
+                </p>
+                <p className="text-xs overflow-hidden mb-2 max-w-xs">
+                  00020101021226990014br.gov.bcb.pix2577pix.bpp.com.br/14796606/qrdaksldkalsdkamdl,KDl123
+                  KmIYgzfr3AZ38E8vQbnYv6xqDPenH0KehYAyWeXfjF5204000053039865802BR591{" "}
+                </p>
+              </div>
 
-              <ButtonFourth className="!border-generic-limeGreen !text-generic-limeGreen">
+              <ButtonFourth className="!border-generic-limeGreen !border-[1px] !py-1 !text-xs  !text-generic-limeGreen">
                 Copiar Código PIX
               </ButtonFourth>
             </SimpleModal>
@@ -154,16 +160,16 @@ const PaymentPage = () => {
   const StepThree = () => {
     return (
       <div className="max-w-sm w-full">
-        <SimpleModal>
+        <SimpleModal className="px-4">
           <Image alt="accept-icon" src={CheckIcon} width={84} height={84} />
           <p className="text-lg font-bold">Pagamento Aprovado</p>
-          <p className="text-center">
+          <p className="text-center text-sm p-x3">
             Sua assinatura está confirmada! <br />
             Você agora é um <strong>assinante EasyToLive</strong> e já possui
             acesso aos melhores descontos
           </p>
         </SimpleModal>
-        <SimpleModal className="space-y-4 text-center">
+        <SimpleModal className="space-y-4 py-1 text-center">
           <div>
             <p>Nome</p>
             <p>

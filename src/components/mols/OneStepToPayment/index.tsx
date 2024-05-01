@@ -15,7 +15,7 @@ const OneStepToPayment = () => {
         nosso app.
       </p>
       <span className="text-xs">
-        <span className="text-xl font-bold">R$ 29,90</span>/mês
+        <span className="text-2xl font-bold">R$ 29,90</span>/mês
       </span>
     </SimpleModal>
   );

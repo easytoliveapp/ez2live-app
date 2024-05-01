@@ -18,7 +18,7 @@ const FormItem: React.FC<IFormItemProps> = ({
   children,
 }) => {
   return (
-    <div className="flex flex-col gap-1 m-1">
+    <div className="flex flex-col">
       <label
         className={`text-sm text-black font-semibold ${className}`}
         htmlFor={htmlFor}

@@ -137,7 +137,7 @@ const CreditCardPayment: React.FC<ICreditCardPaymentProps> = ({
                 className="text-center pl-2 !w-24"
               >
                 {Array.from(
-                  { length: 10 },
+                  { length: 20 },
                   (_, index) => new Date().getFullYear() + index,
                 ).map((year) => (
                   <option key={year} value={year}>
@@ -194,7 +194,7 @@ const CreditCardPayment: React.FC<ICreditCardPaymentProps> = ({
             disabled={loading}
             loading={loading}
           >
-            {loading ? "Realizando pagamento" : "Efetuar Pagamento"}
+            {loading ? "Aguardando pagamento" : "Efetuar Pagamento"}
           </ButtonPrimary>
           <p className=" text-[10px] leading-3 text-center italic">
             Os pagamentos serão realizados de forma recorrente a cada renovoção.

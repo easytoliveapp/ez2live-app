@@ -28,9 +28,9 @@ const PixPayment: React.FC<IPixPaymentProps> = ({ currentStepPayment }) => {
     setLoading(true);
     console.log(values);
     currentStepPayment(1);
-    setTimeout(() => {
-      currentStepPayment(3);
-    }, 5000);
+    // setTimeout(() => {
+    //   currentStepPayment(3);
+    // }, 5000);
     setLoading(false);
   };
 
@@ -52,6 +52,7 @@ const PixPayment: React.FC<IPixPaymentProps> = ({ currentStepPayment }) => {
           <FormItem
             errorMessage={errors.cpf}
             invalid={!!(errors.cpf && touched.cpf)}
+            className=""
           >
             <Field
               invalid={!!(errors.cpf && touched.cpf)}
@@ -70,13 +71,13 @@ const PixPayment: React.FC<IPixPaymentProps> = ({ currentStepPayment }) => {
             Sua assinatura será confirmada após a identificação da transferência
             pelo nosso sistema.
           </p>
-          <div className="flex gap-2 mx-2">
+          <div className="flex gap-2 ">
             <FormItem
               errorMessage={errors.TermsOfUse}
               invalid={!!(errors.TermsOfUse && touched.TermsOfUse)}
               className="flex mt-[31px]"
             >
-              <div className="flex w-full gap-1 justify-center items-center">
+              <div className="flex w-full gap-1 items-center ">
                 <Field
                   invalid={!!(errors.TermsOfUse && touched.TermsOfUse)}
                   name="TermsOfUse"
