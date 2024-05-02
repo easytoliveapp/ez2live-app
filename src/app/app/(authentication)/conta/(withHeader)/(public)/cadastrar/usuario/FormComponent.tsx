@@ -127,7 +127,7 @@ const FormComponent = () => {
             disabled={loading}
             loading={loading}
           >
-            Verificar cartão
+            Cadastrar
           </ButtonPrimary>
         </Form>
       )}
