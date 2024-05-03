@@ -100,7 +100,12 @@ const MyCouponsPage = () => {
 
   return (
     <div className="relative md:w-[500px] h-full w-full mx-auto">
-      <FloatButtonNav href="/app" icon={Shop} backgroundStyle="main" />
+      <FloatButtonNav
+        href="/app"
+        icon={Shop}
+        backgroundStyle="main"
+        label="Parceiros"
+      />
       <div className="mt-8 mb-16 flex items-center justify-between">
         <h2 className=" pl-6 flex items-center text-2xl leading-[115%] md:leading-[115%] font-bold text-black dark:text-neutral-100 justify-center">
           {session?.user.name}

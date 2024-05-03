@@ -12,41 +12,41 @@ import { showToastify } from "@/hooks/showToastify";
 const SupplierRegistered = () => {
   const router = useRouter();
   const params = useSearchParams();
-  const [textEmaiVerification, setTextEmaiVerification] = useState(
-    "Não recebeu nenhum email?",
-  );
-  const [disableButton, setDisableButton] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [emailSent, setEmailSent] = useState(false);
   const userId = params.get("id");
   async function sendVerificationEmail() {
     const currentDate = new Date();
     const emailSentDate = localStorage.getItem("VERIFICATION_EMAIL_SENT");
+    setLoading(true);
 
     if (!userId) {
       showToastify({ label: "Id de usuário não disponível", type: "error" });
+      setLoading(false);
       return;
     }
 
     if (emailSentDate !== null) {
       const storedDate = new Date(emailSentDate);
       storedDate.setMinutes(storedDate.getMinutes() + 5); // Adiciona 5 minutos ao horário armazenado
-
+      setTimeout(() => setEmailSent(false), 5 * 60 * 1000);
       if (currentDate < storedDate) {
-        setTextEmaiVerification(
-          "Por favor, aguarde 5 minutos antes de enviar outro e-mail de verificação.",
-        );
-        setDisableButton(true);
+        setEmailSent(true);
+        setLoading(false);
         return;
       }
+      setEmailSent(false);
     }
 
     try {
       await resendVerificationEmail(userId);
-      setTextEmaiVerification(
-        "Foi enviado uma mensagem de verificação para o seu email.",
-      );
       localStorage.setItem("VERIFICATION_EMAIL_SENT", currentDate.toString());
+      setLoading(false);
+      setEmailSent(true);
     } catch (error) {
       handleVerificationEmailError();
+      setLoading(false);
+      setEmailSent(false);
     }
   }
 
@@ -95,13 +95,13 @@ const SupplierRegistered = () => {
       </ButtonPrimary>
       {!isSupplier && (
         <div className="flex flex-col items-center">
-          <p className="mb-0 mt-24 p-0">{textEmaiVerification}</p>
+          <p className="mb-0 mt-24 p-0">Não recebeu nenhum email?</p>
           <ButtonThird
             onClick={() => sendVerificationEmail()}
-            disabled={disableButton}
+            disabled={loading || emailSent}
             className="sm:py-2 sm:my-0 sm:text-xs text-primary-main"
           >
-            Enviar email de confirmação
+            {emailSent ? "E-mail enviado ✓" : "Enviar e-mail de confirmação"}
           </ButtonThird>
         </div>
       )}
