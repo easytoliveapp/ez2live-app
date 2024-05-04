@@ -2,6 +2,7 @@ import React from "react";
 import Image from "next/image";
 import CreditCardIcon from "@/images/easytolive/payment/credit-card-icon.svg";
 import PixIcon from "@/images/easytolive/payment/pix-icon.svg";
+import { PAYMENT } from "@/constants/paymentMethods";
 
 interface PaymentMethodProps {
   SetPaymentTab: React.Dispatch<React.SetStateAction<"creditCard" | "pix">>;
@@ -16,7 +17,7 @@ const PaymentMethod: React.FC<PaymentMethodProps> = ({
     <div className="flex gap-4 w-full justify-around">
       <div
         className={`cursor-pointer flex flex-col justify-center items-center w-full ${
-          PaymentTab === "creditCard"
+          PaymentTab === PAYMENT.creditCard
             ? "opacity-100 border-b-2 border-black"
             : "opacity-60 hover:bg-generic-gray"
         }`}
@@ -33,7 +34,7 @@ const PaymentMethod: React.FC<PaymentMethodProps> = ({
       <span className="bg-generic-grayLighter h-9 w-0.5"></span>
       <div
         className={`w-full cursor-pointer p-2 flex flex-col justify-center items-center ${
-          PaymentTab === "pix"
+          PaymentTab === PAYMENT.pix
             ? "opacity-100 border-b-2 border-black"
             : "opacity-60 hover:bg-generic-gray"
         }`}

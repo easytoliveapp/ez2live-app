@@ -5,6 +5,7 @@ import QrCodeSimpleIcon from "@/images/easytolive/payment/qr-code-simple-icon.sv
 import PixSimpleIcon from "@/images/easytolive/payment/pix-simple-icon.svg";
 import QRCode from "react-qr-code";
 import PixImage from "@/images/easytolive/payment/pix-image.svg";
+import { PAYMENT } from "@/constants/paymentMethods";
 
 interface IStepTwoProps {
   PaymentTab: "creditCard" | "pix";
@@ -14,7 +15,7 @@ export const StepTwo: React.FC<IStepTwoProps> = ({ PaymentTab }) => {
   return (
     <div>
       <LoadingPayment paymentMethod={PaymentTab} />
-      {PaymentTab === "pix" && (
+      {PaymentTab === PAYMENT.pix && (
         <div>
           <SimpleModal className="pb-6">
             <div className="w-full flex justify-center my-1">

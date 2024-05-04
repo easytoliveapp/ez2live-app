@@ -7,6 +7,7 @@ import {
   SimpleModal,
   PaymentMethod,
 } from "@/components";
+import { PAYMENT } from "@/constants/paymentMethods";
 
 interface IStepOneProps {
   setCurrentStep: React.Dispatch<React.SetStateAction<number>>;
@@ -24,7 +25,7 @@ export const StepOne: React.FC<IStepOneProps> = ({
       <OneStepToPayment />
       <SimpleModal>
         <PaymentMethod PaymentTab={PaymentTab} SetPaymentTab={SetPaymentTab} />
-        {PaymentTab === "creditCard" ? (
+        {PaymentTab === PAYMENT.creditCard ? (
           <CreditCardPayment currentStepPayment={setCurrentStep} />
         ) : (
           <PixPayment currentStepPayment={setCurrentStep} />

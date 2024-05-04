@@ -1,4 +1,5 @@
 import { LoadingComponent, SimpleModal } from "@/components/atoms";
+import { PAYMENT } from "@/constants/paymentMethods";
 import React from "react";
 
 interface LoadingPaymentModalComponentProps {
@@ -14,11 +15,11 @@ const LoadingPaymentModal: React.FC<LoadingPaymentModalComponentProps> = ({
       <p className="text-lg text-center font-bold">Aguardando Pagamento</p>
       <p className="text-center">
         Sua assinatura será confirmada após a identificação{" "}
-        {paymentMethod === "creditCard"
+        {paymentMethod === PAYMENT.creditCard
           ? "do pagamento pelo nosso sistema."
           : "da transferência pelo nosso sistema."}
       </p>
-      {paymentMethod === "creditCard" && (
+      {paymentMethod === PAYMENT.creditCard && (
         <div>
           <p className="text-sm my-4">
             Seu pagamento está sendo processado. Isso pode levar alguns minutos.
