@@ -69,7 +69,7 @@ export const StepTwo: React.FC<IStepTwoProps> = ({ PaymentTab }) => {
             />
             <h4 className="font-bold">Instruções de pagamento PIX</h4>
             <ol className="list-decimal px-3">
-              <li>Aperte o botão “copiar código”</li>
+              <li>Clique no botão “copiar código”</li>
               <li>
                 Abra o site ou aplicativo do seu banco e selecione a opção PIX
               </li>
