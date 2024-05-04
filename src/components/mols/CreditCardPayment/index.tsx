@@ -7,6 +7,7 @@ import * as Yup from "yup";
 import valid from "card-validator";
 import Image from "next/image";
 import CardFlag from "@/images/easytolive/payment/card-flag.svg";
+import { MONTHS } from "@/constants/months";
 
 interface ICreditCardPaymentProps {
   currentStepPayment: React.Dispatch<React.SetStateAction<number>>;
@@ -17,21 +18,6 @@ const CreditCardPayment: React.FC<ICreditCardPaymentProps> = ({
 }) => {
   const [loading, setLoading] = useState(false);
   const [formattedCardNumber, setFormattedCardNumber] = useState("");
-
-  const Months = [
-    " - JAN",
-    " - FEV",
-    " - MAR",
-    " - ABR",
-    " - MAI",
-    " - JUN",
-    " - JUL",
-    " - AGO",
-    " - SET",
-    " - OUT",
-    " - NOV",
-    " - DEZ",
-  ];
 
   const CreditCardvalidationSchema = Yup.object().shape({
     cardNumber: Yup.string()
@@ -157,10 +143,9 @@ const CreditCardPayment: React.FC<ICreditCardPaymentProps> = ({
                   component={Select}
                   className="text-center pl-2 !w-24"
                 >
-                  {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((m, i) => (
-                    <option key={i} value={m}>
-                      {m}
-                      {Months[m - 1]}
+                  {MONTHS.map((eachMonth, idx) => (
+                    <option value={idx + 1} key={idx}>
+                      {(idx + 1).toString().concat(" - ").concat(eachMonth)}
                     </option>
                   ))}
                 </Field>
