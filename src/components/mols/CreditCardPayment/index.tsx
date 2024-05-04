@@ -118,7 +118,7 @@ const CreditCardPayment: React.FC<ICreditCardPaymentProps> = ({
                 onChange={handleCardNumberChange}
                 value={formattedCardNumber}
                 component={Input}
-              ></Field>
+              />
             </FormItem>
             <FormItem
               errorMessage={errors.nameOnCard}
@@ -130,7 +130,7 @@ const CreditCardPayment: React.FC<ICreditCardPaymentProps> = ({
                 type="text"
                 placeholder="Nome do titular"
                 component={Input}
-              ></Field>
+              />
             </FormItem>
             <div className="w-full flex justify-between gap-2">
               <FormItem
@@ -182,7 +182,7 @@ const CreditCardPayment: React.FC<ICreditCardPaymentProps> = ({
                   placeholder="CVV"
                   className="text-center !w-24 "
                   component={Input}
-                ></Field>
+                />
               </FormItem>
             </div>
 
@@ -203,7 +203,7 @@ const CreditCardPayment: React.FC<ICreditCardPaymentProps> = ({
                     onChange={(e: any) => {
                       setFieldValue("TermsOfUse", e.target.checked);
                     }}
-                  ></Field>
+                  />
                   <label
                     htmlFor="TermsOfUse"
                     className="text-[10px] w-full leading-3"
