@@ -11,6 +11,7 @@ import {
 } from "@/components";
 import { showToastify } from "@/hooks/showToastify";
 import { type IDeleteUSer } from "@/types/user";
+import Image from "next/image";
 import dayjs from "dayjs";
 import * as Yup from "yup";
 import React, { useState, useCallback } from "react";
@@ -22,10 +23,13 @@ import { signOut, useSession } from "next-auth/react";
 import { getDateFormater } from "@/utils/getDateFormater";
 import useUserRoles from "@/hooks/useUserRoles";
 import isDateValid from "@/utils/isDateValid";
+import EasyLogo from "@/images/easytolive/logo/logotipo-semfundoazulroxo.svg";
 
 const MyAccountPage = () => {
   const { data: session } = useSession();
   const [pageId, setPageId] = useState<string>("account");
+  const [openCancelSignatureModal, SetOpenCancelSignatureModal] =
+    useState(false);
 
   const Account = () => {
     return (
@@ -215,26 +219,59 @@ const MyAccountPage = () => {
   };
 
   const Signature = () => {
-    if (session === null) return;
-    const { name, subscriptionEndDate } = session.user;
+    if (session === null) return <div>sessão indisponível</div>;
+    const { subscriptionEndDate } = session.user;
     const hasSignature = isDateValid(subscriptionEndDate);
-    return (
-      <div>
-        <p>Olá, {name}!</p>
+    return hasSignature ? (
+      <div className="flex flex-col items-center justify-center text-center">
+        <Image src={EasyLogo} width={40} height={40} alt="logo-image" />
+        <h2 className="text-lg font-semibold">
+          Você está há 1 passo de <br /> economizar ainda mais!
+        </h2>
         <p>
-          <strong>assinatura:</strong>{" "}
-          {hasSignature
-            ? `Sua assinatura ainda é válida até o dia ${getDateFormater(
-                subscriptionEndDate,
-              )}`
-            : "Sua assinatura expirou"}{" "}
+          Seja um assinante EasyToLive e tenha acesso <br />
+          aos melhores descontos em nosso app
         </p>
-        {!hasSignature && (
-          <ButtonPrimary href="/app/pagamento">
-            renovar assinatura
-          </ButtonPrimary>
-        )}
-        <ButtonThird>não renovar</ButtonThird>
+        <ButtonPrimary className="!bg-generic-alertGreen !px-4 !py-2 !text-sm !font-bold">
+          Quero os melhores descontos
+        </ButtonPrimary>
+      </div>
+    ) : (
+      <div>
+        <div className=" grid grid-cols-2 items-center">
+          <div>
+            <p className="font-bold">Status Assiantura</p>
+            <span>
+              {hasSignature ? (
+                <p className="text-generic-alertGreen font-semibold">Ativa</p>
+              ) : (
+                <p className="font-semibold"> Inativa</p>
+              )}
+            </span>
+          </div>
+          <div>
+            <p className="font-bold">Última cobrança</p>
+            <span>04/05/2024 as 10:23</span>
+          </div>
+          <div>
+            <p className="font-bold">Plano</p>
+            <span>EasyToLive Mensal</span>
+          </div>
+          <div>
+            <p className="font-bold">ID da assinatura</p>
+            <span>LASK001-02NDKKS-190SDKND-293KD</span>
+          </div>
+          <div>
+            <p className="font-bold">Próxima cobrança</p>
+            <span>04/06/2024</span>
+          </div>
+        </div>
+        <ButtonThird
+          className="!text-generic-alertRed"
+          onClick={() => SetOpenCancelSignatureModal(true)}
+        >
+          Cancelar Assinatura
+        </ButtonThird>
       </div>
     );
   };
@@ -253,6 +290,38 @@ const MyAccountPage = () => {
 
   return (
     <div className="nc-AccountCommonLayout container">
+      <Modal
+        closeOnBlur={true}
+        hasCloseButton={true}
+        show={openCancelSignatureModal}
+        onCloseModal={() => SetOpenCancelSignatureModal(false)}
+      >
+        <h2 className="text-lg font-semibold">
+          Tem certeza que deseja cancelar sua assinatura
+        </h2>
+        <p>
+          Se você cancelar a assinatura{" "}
+          <strong>perderá acesso aos melhores descontos</strong> que
+          selecionamos para você.
+        </p>
+        <p>
+          {" "}
+          Você pode cancelar a qualquer momento e encerrar a recorrência do
+          ciclo em <strong>10/05/2025</strong>
+        </p>
+        <p>
+          <strong>Até lá você ainda pode aproveitar</strong>
+          <br /> nossos melhores descontos.
+        </p>
+        <ButtonPrimary className="!text-generic-alertRed"></ButtonPrimary>
+        <ButtonThird
+          className="!text-generic-alertGreenLight"
+          onClick={() => SetOpenCancelSignatureModal(false)}
+        >
+          {" "}
+          Permanecer Assinante Easy{" "}
+        </ButtonThird>
+      </Modal>
       <div className="mt-8 mb-8 flex items-center justify-between">
         <h2 className=" flex flex-wrap items-center text-2xl leading-[115%] md:leading-[115%] font-bold text-black justify-center">
           {session?.user?.name}
