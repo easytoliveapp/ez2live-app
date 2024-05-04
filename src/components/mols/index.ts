@@ -18,6 +18,7 @@ export { default as NavidationItem } from "./Navigation/NavigationItem";
 export { default as NavidationMobile } from "./Navigation/NavMobile";
 export { default as OneStepToPayment } from "./OneStepToPayment";
 export { default as PremiumConversionModal } from "./PremiumConversionModal";
+export { default as PaymentMethod } from "./PaymentMethod";
 export { default as PixPayment } from "./PixPayment";
 export { default as SocialLoginComponent } from "./SocialLoginComponent";
 export { default as SupplierCard } from "./SupplierCard";
