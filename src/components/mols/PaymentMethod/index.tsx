@@ -14,12 +14,12 @@ const PaymentMethod: React.FC<PaymentMethodProps> = ({
   PaymentTab,
 }) => {
   return (
-    <div className="flex gap-4 w-full justify-around">
+    <div className="flex w-full justify-center">
       <div
-        className={`cursor-pointer flex flex-col justify-center items-center w-full ${
+        className={`cursor-pointer flex flex-col justify-center items-center w-full px-4 py-5 ${
           PaymentTab === PAYMENT.creditCard
             ? "opacity-100 border-b-2 border-black"
-            : "opacity-60 hover:bg-generic-gray"
+            : "opacity-50 bg-generic-gray"
         }`}
         onClick={() => SetPaymentTab("creditCard")}
       >
@@ -29,14 +29,14 @@ const PaymentMethod: React.FC<PaymentMethodProps> = ({
           width={16}
           height={13}
         />
-        <p className="text-xs font-semibold">Cartão de crédito</p>
+        <p className="text-xs font-bold">Cartão de crédito</p>
       </div>
-      <span className="bg-generic-grayLighter h-9 w-0.5"></span>
+      <span className="bg-generic-grayDarker z-50 w-1"></span>
       <div
-        className={`w-full cursor-pointer p-2 flex flex-col justify-center items-center ${
+        className={`cursor-pointer flex flex-col justify-center items-center w-full px-4 py-5  ${
           PaymentTab === PAYMENT.pix
             ? "opacity-100 border-b-2 border-black"
-            : "opacity-60 hover:bg-generic-gray"
+            : "opacity-50 bg-generic-gray"
         }`}
         onClick={() => SetPaymentTab("pix")}
       >

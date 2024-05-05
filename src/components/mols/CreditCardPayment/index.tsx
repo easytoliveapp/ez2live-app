@@ -106,9 +106,9 @@ const CreditCardPayment: React.FC<ICreditCardPaymentProps> = ({
         };
 
         return (
-          <Form onSubmit={handleSubmit}>
-            <div className="w-full flex justify-center my-3">
-              <Image alt="Card Flags" src={CardFlag} width={287} height={40} />
+          <Form onSubmit={handleSubmit} className="px-4 my-4">
+            <div className="w-full flex justify-center mb-5">
+              <Image alt="Card Flags" src={CardFlag} />
             </div>
             <FormItem
               errorMessage={errors.nameOnCard}

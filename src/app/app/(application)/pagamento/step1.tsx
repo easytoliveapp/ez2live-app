@@ -23,7 +23,7 @@ export const StepOne: React.FC<IStepOneProps> = ({
   return (
     <div>
       <OneStepToPayment />
-      <SimpleModal>
+      <SimpleModal className="!p-0">
         <PaymentMethod PaymentTab={PaymentTab} SetPaymentTab={SetPaymentTab} />
         {PaymentTab === PAYMENT.creditCard ? (
           <CreditCardPayment currentStepPayment={setCurrentStep} />
