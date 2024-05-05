@@ -45,9 +45,15 @@ const PixPayment: React.FC<IPixPaymentProps> = ({ currentStepPayment }) => {
       onSubmit={handleSubmit}
     >
       {({ setFieldValue, values, errors, touched, handleSubmit }) => (
-        <Form onSubmit={handleSubmit} className="space-y-3">
+        <Form onSubmit={handleSubmit} className="flex flex-col justify-around">
           <div className="w-full flex justify-center my-3">
-            <Image alt="Pix Image" src={PixImage} width={82} height={33} />
+            <Image
+              alt="Pix Image"
+              src={PixImage}
+              width={82}
+              height={33}
+              className="my-[3.5px]"
+            />
           </div>
           <FormItem
             errorMessage={errors.cpf}
@@ -67,13 +73,13 @@ const PixPayment: React.FC<IPixPaymentProps> = ({ currentStepPayment }) => {
             transferência de dinheiro entre contas sem limite de horário, 24
             horas por dia, 7 dias por semana.
           </p>
-          <p className="text-xs">
+          <p className="text-xs mb-[47px]">
             Sua assinatura será confirmada após a identificação da transferência
             pelo nosso sistema.
           </p>
           <div className="flex gap-2 ">
             <FormItem
-              errorMessage={errors.TermsOfUse}
+              errorMessage={null}
               invalid={!!(errors.TermsOfUse && touched.TermsOfUse)}
               className="flex mt-[31px]"
             >
@@ -102,7 +108,7 @@ const PixPayment: React.FC<IPixPaymentProps> = ({ currentStepPayment }) => {
           <ButtonPrimary
             loading={loading}
             disabled={loading}
-            className="w-full"
+            className="w-full my-2"
           >
             {loading ? "Realizando pagamento" : "Efetuar Pagamento"}
           </ButtonPrimary>

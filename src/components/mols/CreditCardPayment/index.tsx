@@ -26,34 +26,38 @@ const CreditCardPayment: React.FC<ICreditCardPaymentProps> = ({
         "Número de cartão inválido",
         (value) => valid.number(value).isValid,
       )
-      .required("Digite o número do cartão"),
+      .required("Número de cartão inválido"),
     cvv: Yup.string().test(
       "test-cvv",
-      "CVV inválido",
+      "Verifique a validade do cartão ou CVV",
       (value) => valid.cvv(value).isValid,
     ),
     nameOnCard: Yup.string()
-      .required("Digite o nome do titular")
+      .required("Nome do titular inválido")
       .test(
         "test-name",
-        "Nome inválido",
+        "Nome do titular inválido",
         (value) => valid.cardholderName(value).isValid,
       ),
     cardMonth: Yup.string()
       .required()
-      .test("is-expired", "O cartão está vencido", function (value) {
-        const currentYear = new Date().getFullYear();
-        const currentMonth = new Date().getMonth() + 1;
+      .test(
+        "is-expired",
+        "Verifique a validade do cartão ou CVV",
+        function (value) {
+          const currentYear = new Date().getFullYear();
+          const currentMonth = new Date().getMonth() + 1;
 
-        if (
-          parseInt(value) < currentMonth &&
-          parseInt(this.parent.cardYear) <= currentYear
-        ) {
-          return false;
-        }
+          if (
+            parseInt(value) < currentMonth &&
+            parseInt(this.parent.cardYear) <= currentYear
+          ) {
+            return false;
+          }
 
-        return true;
-      }),
+          return true;
+        },
+      ),
     cardYear: Yup.string()
       .required()
       .test((value) => valid.expirationYear(value).isValid),
@@ -102,10 +106,22 @@ const CreditCardPayment: React.FC<ICreditCardPaymentProps> = ({
         };
 
         return (
-          <Form onSubmit={handleSubmit} className="space-y-3">
+          <Form onSubmit={handleSubmit}>
             <div className="w-full flex justify-center my-3">
               <Image alt="Card Flags" src={CardFlag} width={287} height={40} />
             </div>
+            <FormItem
+              errorMessage={errors.nameOnCard}
+              invalid={!!(errors.nameOnCard && touched.nameOnCard)}
+            >
+              <Field
+                invalid={!!(errors.nameOnCard && touched.nameOnCard)}
+                name="nameOnCard"
+                type="text"
+                placeholder="Nome do titular"
+                component={Input}
+              />
+            </FormItem>
             <FormItem
               errorMessage={errors.cardNumber}
               invalid={!!(errors.cardNumber && touched.cardNumber)}
@@ -121,27 +137,18 @@ const CreditCardPayment: React.FC<ICreditCardPaymentProps> = ({
               />
             </FormItem>
             <FormItem
-              errorMessage={errors.nameOnCard}
-              invalid={!!(errors.nameOnCard && touched.nameOnCard)}
+              errorMessage={errors.cvv || errors.cardMonth}
+              invalid={
+                !!(errors.cvv && touched.cvv) ||
+                !!(errors.cardMonth && touched.cardMonth)
+              }
             >
-              <Field
-                invalid={!!(errors.nameOnCard && touched.nameOnCard)}
-                name="nameOnCard"
-                type="text"
-                placeholder="Nome do titular"
-                component={Input}
-              />
-            </FormItem>
-            <div className="w-full flex justify-between gap-2">
-              <FormItem
-                errorMessage={errors.cardMonth}
-                invalid={!!(errors.cardMonth && touched.cardMonth)}
-              >
+              <div className="flex justify-between gap-2 w-full">
                 <Field
                   invalid={!!(errors.cardMonth && touched.cardMonth)}
                   name="cardMonth"
                   component={Select}
-                  className="text-center pl-2 !w-24"
+                  className="text-center pl-2 w-full max-w-[140px]"
                 >
                   {MONTHS.map((eachMonth, idx) => (
                     <option value={idx + 1} key={idx}>
@@ -149,17 +156,10 @@ const CreditCardPayment: React.FC<ICreditCardPaymentProps> = ({
                     </option>
                   ))}
                 </Field>
-              </FormItem>
-              <FormItem
-                errorMessage={
-                  touched.cardYear && errors.cardYear ? errors.cardYear : null
-                }
-                invalid={!!(touched.cardYear && errors.cardYear)}
-              >
                 <Field
                   name="cardYear"
                   component={Select}
-                  className="text-center pl-2 !w-24"
+                  className="text-center pl-2 !w-28"
                 >
                   {Array.from(
                     { length: 20 },
@@ -170,11 +170,7 @@ const CreditCardPayment: React.FC<ICreditCardPaymentProps> = ({
                     </option>
                   ))}
                 </Field>
-              </FormItem>
-              <FormItem
-                errorMessage={errors.cvv}
-                invalid={!!errors.cvv && touched.cvv}
-              >
+
                 <Field
                   invalid={!!errors.cvv && touched.cvv}
                   name="cvv"
@@ -183,13 +179,13 @@ const CreditCardPayment: React.FC<ICreditCardPaymentProps> = ({
                   className="text-center !w-24 "
                   component={Input}
                 />
-              </FormItem>
-            </div>
+              </div>
+            </FormItem>
 
-            <div className="flex gap-2 mx-2">
+            <div className="flex gap-2">
               <FormItem
-                errorMessage={errors.TermsOfUse}
-                invalid={!!(errors.TermsOfUse && touched.TermsOfUse)}
+                errorMessage={null}
+                invalid={!!errors.TermsOfUse && touched.TermsOfUse}
                 className="flex"
               >
                 <div className="flex w-full gap-1 justify-center items-center">
