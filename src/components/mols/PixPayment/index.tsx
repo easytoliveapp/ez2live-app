@@ -15,7 +15,7 @@ const PixPayment: React.FC<IPixPaymentProps> = ({ currentStepPayment }) => {
   const [loading, setLoading] = useState(false);
 
   const PixPaymentValidationSchema = Yup.object().shape({
-    cpf: Yup.string().required("Digite seu CPF"),
+    cpf: Yup.string().required("CPF inválido"),
     TermsOfUse: Yup.boolean()
       .required()
       .oneOf(
