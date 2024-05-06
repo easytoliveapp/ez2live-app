@@ -10,7 +10,7 @@ interface SignatureProps {
 }
 
 export const Signature: React.FC<SignatureProps> = ({ session }) => {
-  const [openCancelSignatureModal, SetOpenCancelSignatureModal] =
+  const [isCancelSubscriptionModalOpen, setIsCancelSubscriptionModalOpen] =
     useState(false);
   const [loading, setLoading] = useState(false);
   const hasSignature = isDateValid(session?.user.subscriptionEndDate);
@@ -43,8 +43,8 @@ export const Signature: React.FC<SignatureProps> = ({ session }) => {
       <Modal
         closeOnBlur={true}
         hasCloseButton={true}
-        show={openCancelSignatureModal}
-        onCloseModal={() => SetOpenCancelSignatureModal(false)}
+        show={isCancelSubscriptionModalOpen}
+        onCloseModal={() => setIsCancelSubscriptionModalOpen(false)}
       >
         <div className="flex flex-col items-center justify-center space-y-3 text-center px-6 pt-6">
           <h2 className="text-xl font-extrabold m-1">
@@ -74,7 +74,7 @@ export const Signature: React.FC<SignatureProps> = ({ session }) => {
           </ButtonPrimary>
           <ButtonThird
             className="!text-generic-limeGreen mt-2 !text-sm font-extrabold"
-            onClick={() => SetOpenCancelSignatureModal(false)}
+            onClick={() => setIsCancelSubscriptionModalOpen(false)}
           >
             Permanecer Assinante Easy
           </ButtonThird>
@@ -110,7 +110,7 @@ export const Signature: React.FC<SignatureProps> = ({ session }) => {
       </div>
       <ButtonThird
         className="!text-generic-alertRed !p-0 mt-8"
-        onClick={() => SetOpenCancelSignatureModal(true)}
+        onClick={() => setIsCancelSubscriptionModalOpen(true)}
       >
         Cancelar Assinatura
       </ButtonThird>
