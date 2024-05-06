@@ -1,7 +1,6 @@
 "use client";
 
 import React, { ButtonHTMLAttributes, FC } from "react";
-import twFocusClass from "@/utils/twFocusClass";
 import { Route } from "@/routers/types";
 import Link from "next/link";
 
@@ -34,8 +33,7 @@ const Button: FC<ButtonProps> = ({
   onClick = () => {},
 }) => {
   const CLASSES =
-    `relative h-auto inline-flex items-center justify-center rounded-full transition-colors ${fontSize} ${sizeClass} ${translate} ${className} ` +
-    twFocusClass(false);
+    `relative h-auto inline-flex items-center justify-center rounded-full transition-colors ${fontSize} ${sizeClass} ${translate} ${className} `;
 
   const _renderLoading = () => {
     return (
