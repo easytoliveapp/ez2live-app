@@ -16,7 +16,7 @@ export const Signature: React.FC<SignatureProps> = ({ session }) => {
   const { subscriptionEndDate } = session.user;
   const hasSignature = isDateValid(subscriptionEndDate);
 
-  return !hasSignature ? (
+  return hasSignature ? (
     <div className="flex flex-col items-center justify-center text-center">
       <Image src={EasyLogo} width={40} height={40} alt="logo-image" />
       <h2 className="text-lg font-semibold mb-2 mt-4">
