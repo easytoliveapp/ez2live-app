@@ -11,11 +11,11 @@ export const StepThree = () => {
     <div className="max-w-sm w-full">
       <SimpleModal className="px-4">
         <Image alt="accept-icon" src={CheckIcon} width={84} height={84} />
-        <p className="text-lg font-bold">Pagamento Aprovado</p>
+        <p className="text-xl font-extrabold">Pagamento Aprovado</p>
         <p className="text-center text-sm p-x3">
-          Sua assinatura está confirmada! <br />
-          Você agora é um <strong>assinante EasyToLive</strong> e já possui
-          acesso aos melhores descontos
+          Agora você pode aproveitar os melhores <br />
+          <strong>descontos</strong> e tornar sua rotina saudável mais{" "}
+          <strong className="text-primary-main">Easy!</strong>
         </p>
       </SimpleModal>
       <SimpleModal className="space-y-4 py-1 text-center">
