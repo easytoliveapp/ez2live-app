@@ -13,16 +13,14 @@ const MyAccountPage = () => {
     "account",
   );
 
+  const tabComponents = {
+    account: <Account session={session} />,
+    security: <Security session={session} />,
+    signature: <Signature session={session} />,
+  };
+
   const TabComponent = useCallback(() => {
-    if (pageId === "account") {
-      return <Account session={session} />;
-    } else if (pageId === "security") {
-      return <Security session={session} />;
-    } else if (pageId === "signature") {
-      return <Signature session={session} />;
-    } else {
-      return <Account session={session} />;
-    }
+    return tabComponents[pageId] || tabComponents.account;
   }, [pageId]);
 
   return (
