@@ -94,10 +94,10 @@ const CreditCardPayment: React.FC<ICreditCardPaymentProps> = ({
     setLoading(true);
     Iugu.setTestMode(true);
     await Iugu.createPaymentToken(iuguData);
-    // currentStepPayment(1);
-    // setTimeout(() => {
-    //   currentStepPayment(2);
-    // }, 2000);
+    currentStepPayment(1);
+    setTimeout(() => {
+      currentStepPayment(2);
+    }, 2000);
     setLoading(false);
   };
 
