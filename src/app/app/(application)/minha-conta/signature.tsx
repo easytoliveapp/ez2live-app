@@ -12,9 +12,7 @@ interface SignatureProps {
 export const Signature: React.FC<SignatureProps> = ({ session }) => {
   const [openCancelSignatureModal, SetOpenCancelSignatureModal] =
     useState(false);
-  if (session === null) return <div>sessão indisponível</div>;
-  const { subscriptionEndDate } = session.user;
-  const hasSignature = isDateValid(subscriptionEndDate);
+  const hasSignature = isDateValid(session?.user.subscriptionEndDate);
 
   return hasSignature ? (
     <div className="flex flex-col items-center justify-center text-center">
