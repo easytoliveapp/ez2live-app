@@ -5,18 +5,18 @@ import classNames from "@/utils/classNames";
 import { useSession } from "next-auth/react";
 import { Security } from "./security";
 import { Account } from "./account";
-import { Signature } from "./signature";
+import { Signature } from "./subscription";
 
 const MyAccountPage = () => {
   const { data: session } = useSession();
-  const [pageId, setPageId] = useState<"account" | "security" | "signature">(
+  const [pageId, setPageId] = useState<"account" | "security" | "subscription">(
     "account",
   );
 
   const tabComponents = {
     account: <Account session={session} />,
     security: <Security session={session} />,
-    signature: <Signature session={session} />,
+    subscription: <Signature session={session} />,
   };
 
   const TabComponent = useCallback(() => {
@@ -65,10 +65,10 @@ const MyAccountPage = () => {
               <div
                 className={classNames(
                   "font-bold cursor-pointer text-black",
-                  pageId === "signature" ? "opacity-100" : "opacity-60",
+                  pageId === "subscription" ? "opacity-100" : "opacity-60",
                 )}
                 onClick={() => {
-                  setPageId("signature");
+                  setPageId("subscription");
                 }}
               >
                 Assinatura
