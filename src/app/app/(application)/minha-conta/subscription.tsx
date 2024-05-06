@@ -12,7 +12,14 @@ interface SignatureProps {
 export const Signature: React.FC<SignatureProps> = ({ session }) => {
   const [openCancelSignatureModal, SetOpenCancelSignatureModal] =
     useState(false);
+  const [loading, setLoading] = useState(false);
   const hasSignature = isDateValid(session?.user.subscriptionEndDate);
+
+  const handleCancelSubscription = () => {
+    setLoading(true);
+    // END-POINT CANCEL SUBSCRIPTION
+    setLoading(false);
+  };
 
   return hasSignature ? (
     <div className="flex flex-col items-center justify-center text-center">
@@ -59,8 +66,11 @@ export const Signature: React.FC<SignatureProps> = ({ session }) => {
             <strong>Até lá você ainda pode aproveitar</strong>
             <br /> nossos melhores descontos.
           </p>
-          <ButtonPrimary className="!bg-generic-alertRed !text-xs !py-2 !px-4 font-extrabold">
-            Cancelar assinatura
+          <ButtonPrimary
+            onClick={() => handleCancelSubscription}
+            className="!bg-generic-alertRed !text-xs !py-2 !px-4 font-extrabold"
+          >
+            {loading ? "cancelando  (...)" : "Cancelar assinatura"}
           </ButtonPrimary>
           <ButtonThird
             className="!text-generic-limeGreen mt-2 !text-sm font-extrabold"
