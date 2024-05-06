@@ -1,7 +1,7 @@
 export interface ICreditCardPayment {
   cardNumber: string;
   cvv: string;
-  nameOnCard: string;
+  full_name: string;
   cardMonth: string;
   cardYear: string;
   TermsOfUse: boolean;

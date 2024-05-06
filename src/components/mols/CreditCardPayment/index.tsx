@@ -8,6 +8,7 @@ import valid from "card-validator";
 import Image from "next/image";
 import CardFlag from "@/images/easytolive/payment/card-flag.svg";
 import { MONTHS } from "@/constants/months";
+import useIugu from "@/payment/iugu";
 
 interface ICreditCardPaymentProps {
   currentStepPayment: React.Dispatch<React.SetStateAction<number>>;
@@ -18,7 +19,7 @@ const CreditCardPayment: React.FC<ICreditCardPaymentProps> = ({
 }) => {
   const [loading, setLoading] = useState(false);
   const [formattedCardNumber, setFormattedCardNumber] = useState("");
-
+  const Iugu = useIugu("1A97DDA07E62427D89BCDD6DECB05841");
   const CreditCardvalidationSchema = Yup.object().shape({
     cardNumber: Yup.string()
       .test(
@@ -32,7 +33,7 @@ const CreditCardPayment: React.FC<ICreditCardPaymentProps> = ({
       "Verifique a validade do cartão ou CVV",
       (value) => valid.cvv(value).isValid,
     ),
-    nameOnCard: Yup.string()
+    full_name: Yup.string()
       .required("Nome do titular inválido")
       .test(
         "test-name",
@@ -71,19 +72,32 @@ const CreditCardPayment: React.FC<ICreditCardPaymentProps> = ({
   const initialValues: ICreditCardPayment = {
     cardNumber: "",
     cvv: "",
-    nameOnCard: "",
+    full_name: "",
     cardMonth: "1",
     cardYear: String(new Date().getFullYear()),
     TermsOfUse: true,
   };
 
   const handleSubmit = async (values: ICreditCardPayment) => {
+    const fragmentedName = values.full_name.split(" ");
+    const firstName = fragmentedName[0];
+    const lastName = fragmentedName.slice(1).join(" ");
+
+    const iuguData = {
+      number: values.cardNumber,
+      first_name: firstName,
+      last_name: lastName,
+      verification_value: values.cvv,
+      month: values.cardMonth,
+      year: values.cardYear,
+    };
     setLoading(true);
-    console.log(values);
-    currentStepPayment(1);
-    setTimeout(() => {
-      currentStepPayment(2);
-    }, 2000);
+    Iugu.setTestMode(true);
+    await Iugu.createPaymentToken(iuguData);
+    // currentStepPayment(1);
+    // setTimeout(() => {
+    //   currentStepPayment(2);
+    // }, 2000);
     setLoading(false);
   };
 
@@ -111,12 +125,13 @@ const CreditCardPayment: React.FC<ICreditCardPaymentProps> = ({
               <Image alt="Card Flags" src={CardFlag} />
             </div>
             <FormItem
-              errorMessage={errors.nameOnCard}
-              invalid={!!(errors.nameOnCard && touched.nameOnCard)}
+              errorMessage={errors.full_name}
+              invalid={!!(errors.full_name && touched.full_name)}
             >
               <Field
-                invalid={!!(errors.nameOnCard && touched.nameOnCard)}
-                name="nameOnCard"
+                invalid={!!(errors.full_name && touched.full_name)}
+                name="full_name"
+                data-iugu="full_name"
                 type="text"
                 placeholder="Nome do titular"
                 component={Input}
@@ -131,6 +146,7 @@ const CreditCardPayment: React.FC<ICreditCardPaymentProps> = ({
                 name="cardNumber"
                 type="text"
                 placeholder="Número do cartão"
+                data-iugu="number"
                 onChange={handleCardNumberChange}
                 value={formattedCardNumber}
                 component={Input}
@@ -147,6 +163,7 @@ const CreditCardPayment: React.FC<ICreditCardPaymentProps> = ({
                 <Field
                   invalid={!!(errors.cardMonth && touched.cardMonth)}
                   name="cardMonth"
+                  data-iugu="expiration_month"
                   component={Select}
                   className="text-center pl-2 w-full max-w-[140px]"
                 >
@@ -160,6 +177,7 @@ const CreditCardPayment: React.FC<ICreditCardPaymentProps> = ({
                   name="cardYear"
                   component={Select}
                   className="text-center pl-2 !w-28"
+                  data-iugu="expiration_year"
                 >
                   {Array.from(
                     { length: 20 },
@@ -176,6 +194,7 @@ const CreditCardPayment: React.FC<ICreditCardPaymentProps> = ({
                   name="cvv"
                   type="text"
                   placeholder="CVV"
+                  data-iug=""
                   className="text-center !w-24 "
                   component={Input}
                 />
