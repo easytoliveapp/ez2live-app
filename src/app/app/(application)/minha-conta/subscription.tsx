@@ -25,10 +25,10 @@ export const Signature: React.FC<SignatureProps> = ({ session }) => {
     <div className="flex flex-col items-center justify-center text-center">
       <Image src={EasyLogo} width={40} height={40} alt="logo-image" />
       <h2 className="text-lg font-semibold mb-2 mt-4">
-        Você está há 1 passo de <br /> economizar ainda mais!
+        Você está a um passo de <br /> economizar ainda mais!
       </h2>
       <p className="text-sm font-medium">
-        Seja um assinante EasyToLive e tenha acesso <br />
+        Seja um assinante Easy To Live e tenha acesso <br />
         aos melhores descontos em nosso app
       </p>
       <ButtonPrimary
@@ -48,14 +48,14 @@ export const Signature: React.FC<SignatureProps> = ({ session }) => {
       >
         <div className="flex flex-col items-center justify-center space-y-3 text-center px-6 pt-6">
           <h2 className="text-xl font-extrabold m-1">
-            Tem certeza que deseja <br /> cancelar sua assinatura
+            Tem certeza que você quer <br /> deixar de economizar?
           </h2>
           <p className="text-sm font-medium">
             {"Se você cancelar a assinatura "}
             <strong>
-              perderá <br /> acesso aos melhores descontos
+              perderá <br /> o acesso aos melhores descontos
             </strong>
-            que <br /> selecionamos para você.
+            que <br /> selecionamos para você!
           </p>
           <p className="text-sm font-medium">
             Você pode cancelar a qualquer <br /> momento e encerrar a
@@ -63,7 +63,7 @@ export const Signature: React.FC<SignatureProps> = ({ session }) => {
             ciclo em <strong>10/05/2025</strong>
           </p>
           <p className="text-sm font-medium">
-            <strong>Até lá você ainda pode aproveitar</strong>
+            <strong>Até lá, você ainda pode aproveitar</strong>
             <br /> nossos melhores descontos.
           </p>
           <ButtonPrimary
