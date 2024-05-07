@@ -68,7 +68,6 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
   const [loading, setLoading] = useState(false);
   const searchParams = useSearchParams();
   const couponIdParam = searchParams.get("coupon");
-  const generatedCoupon = searchParams.get("generatedCoupon");
   const router = useRouter();
   const { data: session } = useSession();
 
@@ -114,9 +113,7 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
       } else {
         setShowCouponModal(true);
         setLoading(true);
-        if (generatedCoupon === "true") {
-          setTimeout(() => handleActiveCoupon(), 2000);
-        }
+        setTimeout(() => handleActiveCoupon(), 2000);
       }
     }
   }, [couponId, couponIdParam, session]);
