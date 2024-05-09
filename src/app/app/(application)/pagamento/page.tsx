@@ -1,9 +1,9 @@
 "use client";
 import React, { useState } from "react";
-import { StepOne } from "./step1";
-import { StepTwo } from "./step2";
-import { StepThree } from "./step3";
-import { StepFour } from "./step4";
+import { PaymentStep } from "./PaymentStep";
+import { WaitingApprovalStep } from "./WaitingApprovalStep";
+import { AcceptedPaymentStep } from "./AcceptedPaymentStep";
+import { RejectedPaymentStep } from "./RejectedPaymentStep";
 
 const PaymentPage = () => {
   const STEPS = {
@@ -14,28 +14,26 @@ const PaymentPage = () => {
   };
 
   const [currentStep, setCurrentStep] = useState<number>(STEPS.PAYMENT);
-  const [paymentTab, setPaymentTab] = useState<"creditCard" | "pix">(
-    "creditCard",
-  );
+  const [paymentTab, setPaymentTab] = useState("creditCard");
   const renderStep = (step: number) => {
     switch (step) {
       case STEPS.PAYMENT:
         return (
-          <StepOne
+          <PaymentStep
             PaymentTab={paymentTab}
             SetPaymentTab={setPaymentTab}
             setCurrentStep={setCurrentStep}
           />
         );
       case STEPS.LOADING_PAYMENT:
-        return <StepTwo PaymentTab={paymentTab} />;
+        return <WaitingApprovalStep PaymentTab={paymentTab} />;
       case STEPS.PAYMENT_ACCEPT:
-        return <StepThree />;
+        return <AcceptedPaymentStep />;
       case STEPS.PAYMENT_REJECT:
-        return <StepFour setCurrentStep={setCurrentStep} />;
+        return <RejectedPaymentStep setCurrentStep={setCurrentStep} />;
       default:
         return (
-          <StepOne
+          <PaymentStep
             PaymentTab={paymentTab}
             SetPaymentTab={setPaymentTab}
             setCurrentStep={setCurrentStep}

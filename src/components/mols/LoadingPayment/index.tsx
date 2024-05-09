@@ -3,11 +3,11 @@ import { PAYMENT } from "@/constants/paymentMethods";
 import React from "react";
 
 interface LoadingPaymentModalComponentProps {
-  paymentMethod: "creditCard" | "pix";
+  paymentMethod: string;
 }
 
 const LoadingPaymentModal: React.FC<LoadingPaymentModalComponentProps> = ({
-  paymentMethod = "creditCard",
+  paymentMethod,
 }) => {
   return (
     <SimpleModal className="text-center">

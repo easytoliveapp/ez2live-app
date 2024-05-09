@@ -9,13 +9,13 @@ import {
 } from "@/components";
 import { PAYMENT } from "@/constants/paymentMethods";
 
-interface IStepOneProps {
+interface IPaymentStepProps {
   setCurrentStep: React.Dispatch<React.SetStateAction<number>>;
-  PaymentTab: "creditCard" | "pix";
-  SetPaymentTab: React.Dispatch<React.SetStateAction<"creditCard" | "pix">>;
+  PaymentTab: string;
+  SetPaymentTab: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export const StepOne: React.FC<IStepOneProps> = ({
+export const PaymentStep: React.FC<IPaymentStepProps> = ({
   setCurrentStep,
   PaymentTab,
   SetPaymentTab,

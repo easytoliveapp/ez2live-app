@@ -7,11 +7,13 @@ import QRCode from "react-qr-code";
 import PixImage from "@/images/easytolive/payment/pix-image.svg";
 import { PAYMENT } from "@/constants/paymentMethods";
 
-interface IStepTwoProps {
-  PaymentTab: "creditCard" | "pix";
+interface IWaitingApprovalStepProps {
+  PaymentTab: string;
 }
 
-export const StepTwo: React.FC<IStepTwoProps> = ({ PaymentTab }) => {
+export const WaitingApprovalStep: React.FC<IWaitingApprovalStepProps> = ({
+  PaymentTab,
+}) => {
   return (
     <div>
       <LoadingPayment paymentMethod={PaymentTab} />

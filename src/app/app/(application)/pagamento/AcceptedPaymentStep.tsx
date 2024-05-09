@@ -5,7 +5,7 @@ import { ButtonPrimary, ButtonThird, SimpleModal } from "@/components";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
 
-export const StepThree = () => {
+export const AcceptedPaymentStep = () => {
   const { data: session } = useSession();
   return (
     <div className="max-w-sm w-full">

@@ -3,11 +3,13 @@ import { ButtonPrimary, SimpleModal } from "@/components";
 import Image from "next/image";
 import RefusedIcon from "@/images/easytolive/icons/refused-icon.svg";
 
-interface IStepFourProps {
+interface IRejectedPaymentStepProps {
   setCurrentStep: React.Dispatch<React.SetStateAction<number>>;
 }
 
-export const StepFour: React.FC<IStepFourProps> = ({ setCurrentStep }) => {
+export const RejectedPaymentStep: React.FC<IRejectedPaymentStepProps> = ({
+  setCurrentStep,
+}) => {
   const STEPS = {
     PAYMENT: 0,
     LOADING_PAYMENT: 1,
