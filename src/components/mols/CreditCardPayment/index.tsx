@@ -81,7 +81,7 @@ const CreditCardPayment: React.FC<ICreditCardPaymentProps> = ({
   const handleSubmit = async (values: ICreditCardPayment) => {
     const fragmentedName = values.fullName.split(" ");
     const firstName = fragmentedName[0];
-    const lastName = fragmentedName.slice(1).join(" ");
+    const lastName = fragmentedName.at(-1);
 
     const iuguData = {
       number: values.creditCard,
