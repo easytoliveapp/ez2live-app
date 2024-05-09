@@ -23,7 +23,8 @@ interface SecurityProps {
 export const Security: React.FC<SecurityProps> = ({ session }) => {
   const [loading, setLoading] = useState(false);
   const [isDeleteAccountOpened, setIsDeleteAccountOpened] = useState(false);
-  const [emailSendButton, setEmailSendButton] = useState("Trocar senha");
+  const [sendEmailButtonText, setSendEmailButtonText] =
+    useState("Trocar senha");
   const [isSendEmailDisabled, setIsSendEmailDisabled] = useState(false);
 
   const DeleteUserValidationSchema = Yup.object().shape({
@@ -76,7 +77,7 @@ export const Security: React.FC<SecurityProps> = ({ session }) => {
         });
 
       setLoading(false);
-      setEmailSendButton("E-mail enviado");
+      setSendEmailButtonText("E-mail enviado");
     }
   };
 
@@ -155,7 +156,7 @@ export const Security: React.FC<SecurityProps> = ({ session }) => {
         disabled={isSendEmailDisabled}
         className="mt-4"
       >
-        {emailSendButton}
+        {sendEmailButtonText}
       </ButtonSecondary>
       <ButtonThird
         onClick={() => {
