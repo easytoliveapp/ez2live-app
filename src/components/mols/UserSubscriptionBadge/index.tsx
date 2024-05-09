@@ -4,7 +4,7 @@ import { useSession } from "next-auth/react";
 
 const UserSubscriptionBadge = () => {
   const { data: session } = useSession();
-  const hasPremium = session && isPremiumUser(session.user);
+  const hasPremium = session && isPremiumUser();
 
   return (
     <div
