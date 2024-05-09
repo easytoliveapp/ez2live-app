@@ -19,7 +19,7 @@ const CreditCardPayment: React.FC<ICreditCardPaymentProps> = ({
 }) => {
   const [loading, setLoading] = useState(false);
   const [formattedCardNumber, setFormattedCardNumber] = useState("");
-  const Iugu = useIugu("1A97DDA07E62427D89BCDD6DECB05841");
+  const Iugu = useIugu(process.env.IUGU_ID);
   const CreditCardvalidationSchema = Yup.object().shape({
     cardNumber: Yup.string()
       .test(
