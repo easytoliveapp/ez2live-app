@@ -4,6 +4,7 @@ import { PaymentStep } from "./PaymentStep";
 import { WaitingApprovalStep } from "./WaitingApprovalStep";
 import { AcceptedPaymentStep } from "./AcceptedPaymentStep";
 import { RejectedPaymentStep } from "./RejectedPaymentStep";
+import { PAYMENT } from "@/constants/paymentMethods";
 
 const PaymentPage = () => {
   const STEPS = {
@@ -13,8 +14,8 @@ const PaymentPage = () => {
     PAYMENT_REJECT: 3,
   };
 
-  const [currentStep, setCurrentStep] = useState<number>(STEPS.PAYMENT);
-  const [paymentTab, setPaymentTab] = useState("creditCard");
+  const [currentStep, setCurrentStep] = useState<number>(STEPS.LOADING_PAYMENT);
+  const [paymentTab, setPaymentTab] = useState(PAYMENT.creditCard);
   const renderStep = (step: number) => {
     switch (step) {
       case STEPS.PAYMENT:
@@ -43,7 +44,7 @@ const PaymentPage = () => {
   };
 
   return (
-    <div className="bg-generic-gray h-full min-h-[calc(100vh-66px)] flex flex-col justify-center items-center">
+    <div className="bg-generic-gray h-full min-h-[calc(100vh-66px)] flex flex-col pt-14 items-center">
       {renderStep(currentStep)}
     </div>
   );

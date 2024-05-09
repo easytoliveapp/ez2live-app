@@ -34,7 +34,7 @@ export const WaitingApprovalStep: React.FC<IWaitingApprovalStepProps> = ({
               <p className="font-bold text-center pb-1 text-generic-dark mt-5 text-xs">
                 Copia e Cola
               </p>
-              <p className="text-xs overflow-hidden mb-2 max-w-xs">
+              <p className="text-xs max-w-[280px] mb-2 break-words md:max-w-[340px]">
                 00020101021226990014br.gov.bcb.pix2577pix.bpp.com.br/14796606/qrdaksldkalsdkamdl,KDl123
                 KmIYgzfr3AZ38E8vQbnYv6xqDPenH0KehYAyWeXfjF5204000053039865802BR591{" "}
               </p>
@@ -44,7 +44,7 @@ export const WaitingApprovalStep: React.FC<IWaitingApprovalStepProps> = ({
               Copiar Código PIX
             </ButtonFourth>
           </SimpleModal>
-          <SimpleModal className="flex text-xs flex-col justify-start items-baseline">
+          <SimpleModal className="flex text-xs flex-col px-5 justify-start items-baseline">
             <p className="text-sm font-bold">
               Você tem duas formas de fazer a transferência:
             </p>

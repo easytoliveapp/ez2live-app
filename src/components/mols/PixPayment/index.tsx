@@ -31,7 +31,7 @@ const PixPayment: React.FC<IPixPaymentProps> = ({ currentStepPayment }) => {
       currentStepPayment(3);
     }, 5000);
     setLoading(false);
-    return values
+    return values;
   };
 
   const initialValues: IPixPayment = {
