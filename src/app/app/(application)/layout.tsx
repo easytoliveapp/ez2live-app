@@ -7,7 +7,7 @@ import {
   HeaderLogged,
   CompleteSupplierRegister,
 } from "@/components";
-import isDateValid from "@/utils/isDateValid";
+import hasDateExpired from "@/utils/hasDateExpired";
 import { useSession } from "next-auth/react";
 import useUserRoles from "@/hooks/useUserRoles";
 import { useCompleteSupplierRegister } from "@/components/mols/CompleteSupplierRegister/Context";
@@ -21,7 +21,7 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     if (session) {
-      setIsPremiumExpired(!isDateValid(session.user.subscriptionEndDate));
+      setIsPremiumExpired(!hasDateExpired(session.user.subscriptionEndDate));
     }
   }, [session]);
 

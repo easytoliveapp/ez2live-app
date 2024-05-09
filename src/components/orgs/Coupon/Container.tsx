@@ -20,7 +20,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 import { ICoupon } from "@/types/coupons";
-import isDateValid from "@/utils/isDateValid";
+import hasDateExpired from "@/utils/hasDateExpired";
 import { Route } from "next";
 import { ISupplier } from "@/types/supplier";
 
@@ -105,7 +105,7 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
   useEffect(() => {
     if (couponId === couponIdParam) {
       if (
-        (session && !isDateValid(session.user.subscriptionEndDate)) ||
+        (session && !hasDateExpired(session.user.subscriptionEndDate)) ||
         session?.user.subscriptionEndDate === null
       ) {
         setShowCouponModal(false);
