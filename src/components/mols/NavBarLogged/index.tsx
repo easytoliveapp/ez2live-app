@@ -2,10 +2,9 @@
 import React, { FC } from "react";
 import Image from "next/image";
 import LogoImage from "@/images/easytolive/logo/logotipo-semfundoazulroxo.svg";
-import { AvatarDropdown, PremiumBadge } from "@/components";
+import { AvatarDropdown, UserSubscriptionBadge } from "@/components";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
-import isPremiumUser from "@/utils/isPremiumUser";
 
 interface NavBarLoggedProps {
   hasLogoImage?: boolean;
@@ -27,9 +26,7 @@ const NavBarLogged: FC<NavBarLoggedProps> = ({ hasLogoImage = true }) => {
         </Link>
       )}
       <div className="flex items-center gap-3">
-        {session?.user && (
-          <PremiumBadge hasPremium={isPremiumUser(session.user)} />
-        )}
+        {session?.user && <UserSubscriptionBadge />}
         <AvatarDropdown />
       </div>
     </div>
