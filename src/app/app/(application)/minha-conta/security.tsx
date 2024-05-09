@@ -116,7 +116,7 @@ export const Security: React.FC<SecurityProps> = ({ session }) => {
             {({ errors, touched, handleSubmit }) => (
               <Form onSubmit={handleSubmit} className="flex flex-col gap-3">
                 <FormItem
-                  label="senha"
+                  label="Senha"
                   errorMessage={errors.password}
                   invalid={!!(errors.password && touched.password)}
                 >
@@ -150,9 +150,7 @@ export const Security: React.FC<SecurityProps> = ({ session }) => {
         </div>
       </Modal>
       <ButtonSecondary
-        onClick={async () => {
-          await handleSendEmailChangePassword();
-        }}
+        onClick={handleSendEmailChangePassword}
         loading={loading}
         disabled={isSendEmailDisabled}
         className="mt-4"
