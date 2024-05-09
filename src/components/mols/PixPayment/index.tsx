@@ -26,12 +26,12 @@ const PixPayment: React.FC<IPixPaymentProps> = ({ currentStepPayment }) => {
 
   const handleSubmit = async (values: IPixPayment) => {
     setLoading(true);
-    console.log(values);
     currentStepPayment(1);
     setTimeout(() => {
       currentStepPayment(3);
     }, 5000);
     setLoading(false);
+    return values;
   };
 
   const initialValues: IPixPayment = {
