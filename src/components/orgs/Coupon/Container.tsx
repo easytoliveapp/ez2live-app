@@ -23,7 +23,7 @@ import { ICoupon } from "@/types/coupons";
 import isDateValid from "@/utils/isDateValid";
 import { Route } from "next";
 import { ISupplier } from "@/types/supplier";
-
+import getSubscriptionPageURL from "@/utils/getSubscriptionPageUrl";
 interface CouponContainerProps {
   couponRules: string;
   couponTitle: string;
@@ -231,12 +231,7 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
             "Você precisa ser premium para utilizar este cupom. Iremos lhe direcionar para página de assinatura",
         });
         return setTimeout(
-          () =>
-            router.push(
-              `/app/pagamento?callbackUrl=${encodeURIComponent(
-                `/app/parceiro/${supplierId}/?coupon=${couponId}`,
-              )}` as Route,
-            ),
+          () => router.push(getSubscriptionPageURL(supplierId, couponId)),
           3000,
         );
       }
