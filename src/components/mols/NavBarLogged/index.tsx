@@ -5,7 +5,7 @@ import LogoImage from "@/images/easytolive/logo/logotipo-semfundoazulroxo.svg";
 import { AvatarDropdown, PremiumBadge } from "@/components";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
-import hasDateExpired from "@/utils/hasDateExpired";
+import isPremiumUser from "@/utils/isPremiumUser";
 
 interface NavBarLoggedProps {
   hasLogoImage?: boolean;
@@ -28,9 +28,7 @@ const NavBarLogged: FC<NavBarLoggedProps> = ({ hasLogoImage = true }) => {
       )}
       <div className="flex items-center gap-3">
         {session?.user && (
-          <PremiumBadge
-            hasPremium={hasDateExpired(session?.user.subscriptionEndDate)}
-          />
+          <PremiumBadge hasPremium={isPremiumUser(session.user)} />
         )}
         <AvatarDropdown />
       </div>
