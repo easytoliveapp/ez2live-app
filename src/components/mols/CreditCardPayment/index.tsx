@@ -79,7 +79,6 @@ const CreditCardPayment: React.FC<ICreditCardPaymentProps> = ({
 
   const handleSubmit = async (values: ICreditCardPayment) => {
     setLoading(true);
-    console.log(values);
     currentStepPayment(1);
     setTimeout(() => {
       currentStepPayment(2);
