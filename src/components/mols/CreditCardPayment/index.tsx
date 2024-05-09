@@ -70,21 +70,21 @@ const CreditCardPayment: React.FC<ICreditCardPaymentProps> = ({
       ),
   });
   const initialValues: ICreditCardPayment = {
-    cardNumber: "",
+    creditCard: "",
     cvv: "",
-    full_name: "",
+    fullName: "",
     cardMonth: "1",
     cardYear: String(new Date().getFullYear()),
     TermsOfUse: true,
   };
 
   const handleSubmit = async (values: ICreditCardPayment) => {
-    const fragmentedName = values.full_name.split(" ");
+    const fragmentedName = values.fullName.split(" ");
     const firstName = fragmentedName[0];
     const lastName = fragmentedName.slice(1).join(" ");
 
     const iuguData = {
-      number: values.cardNumber,
+      number: values.creditCard,
       first_name: firstName,
       last_name: lastName,
       verification_value: values.cvv,
@@ -125,28 +125,26 @@ const CreditCardPayment: React.FC<ICreditCardPaymentProps> = ({
               <Image alt="Card Flags" src={CardFlag} />
             </div>
             <FormItem
-              errorMessage={errors.full_name}
-              invalid={!!(errors.full_name && touched.full_name)}
+              errorMessage={errors.fullName}
+              invalid={!!(errors.fullName && touched.fullName)}
             >
               <Field
-                invalid={!!(errors.full_name && touched.full_name)}
-                name="full_name"
-                data-iugu="full_name"
+                invalid={!!(errors.fullName && touched.fullName)}
+                name="fullName"
                 type="text"
                 placeholder="Nome do titular"
                 component={Input}
               />
             </FormItem>
             <FormItem
-              errorMessage={errors.cardNumber}
-              invalid={!!(errors.cardNumber && touched.cardNumber)}
+              errorMessage={errors.creditCard}
+              invalid={!!(errors.creditCard && touched.creditCard)}
             >
               <Field
-                invalid={!!(errors.cardNumber && touched.cardNumber)}
-                name="cardNumber"
+                invalid={!!(errors.creditCard && touched.creditCard)}
+                name="creditCard"
                 type="text"
                 placeholder="Número do cartão"
-                data-iugu="number"
                 onChange={handleCardNumberChange}
                 value={formattedCardNumber}
                 component={Input}
@@ -163,7 +161,6 @@ const CreditCardPayment: React.FC<ICreditCardPaymentProps> = ({
                 <Field
                   invalid={!!(errors.cardMonth && touched.cardMonth)}
                   name="cardMonth"
-                  data-iugu="expiration_month"
                   component={Select}
                   className="text-center pl-2 w-full max-w-[140px]"
                 >
@@ -177,7 +174,6 @@ const CreditCardPayment: React.FC<ICreditCardPaymentProps> = ({
                   name="cardYear"
                   component={Select}
                   className="text-center pl-2 !w-28"
-                  data-iugu="expiration_year"
                 >
                   {Array.from(
                     { length: 20 },
@@ -194,7 +190,6 @@ const CreditCardPayment: React.FC<ICreditCardPaymentProps> = ({
                   name="cvv"
                   type="text"
                   placeholder="CVV"
-                  data-iug=""
                   className="text-center !w-24 "
                   component={Input}
                 />
