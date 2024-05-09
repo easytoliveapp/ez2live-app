@@ -13,32 +13,15 @@ export const Signature: React.FC<SignatureProps> = ({ session }) => {
   const [isCancelSubscriptionModalOpen, setIsCancelSubscriptionModalOpen] =
     useState(false);
   const [loading, setLoading] = useState(false);
-  const hasSignature = isDateValid(session?.user.subscriptionEndDate);
+  const userSubscription = isDateValid(session?.user.subscriptionEndDate);
 
   const handleCancelSubscription = () => {
     setLoading(true);
-    // END-POINT CANCEL SUBSCRIPTION
+    // TODO: CONECTAR ENDPOINT PARA CANCELAR
     setLoading(false);
   };
 
-  return hasSignature ? (
-    <div className="flex flex-col items-center justify-center text-center">
-      <Image src={EasyLogo} width={40} height={40} alt="logo-image" />
-      <h2 className="text-lg font-semibold mb-2 mt-4">
-        Você está a um passo de <br /> economizar ainda mais!
-      </h2>
-      <p className="text-sm font-medium">
-        Seja um assinante Easy To Live e tenha acesso <br />
-        aos melhores descontos em nosso app
-      </p>
-      <ButtonPrimary
-        href="/app/pagamento"
-        className="!bg-generic-limeGreen mt-8 !px-4 !py-2 !text-xs !font-extraboldbold"
-      >
-        Quero os melhores descontos
-      </ButtonPrimary>
-    </div>
-  ) : (
+  return userSubscription ? (
     <div className="px-4">
       <Modal
         closeOnBlur={true}
@@ -84,7 +67,7 @@ export const Signature: React.FC<SignatureProps> = ({ session }) => {
         <div>
           <p className="font-bold">Status Assiantura</p>
           <span>
-            {hasSignature ? (
+            {userSubscription ? (
               <p className="text-generic-alertGreen font-semibold">Ativa</p>
             ) : (
               <p className="font-semibold"> Inativa</p>
@@ -114,6 +97,23 @@ export const Signature: React.FC<SignatureProps> = ({ session }) => {
       >
         Cancelar Assinatura
       </ButtonThird>
+    </div>
+  ) : (
+    <div className="flex flex-col items-center justify-center text-center">
+      <Image src={EasyLogo} width={40} height={40} alt="logo-image" />
+      <h2 className="text-lg font-semibold mb-2 mt-4">
+        Você está a um passo de <br /> economizar ainda mais!
+      </h2>
+      <p className="text-sm font-medium">
+        Seja um assinante Easy To Live e tenha acesso <br />
+        aos melhores descontos em nosso app
+      </p>
+      <ButtonPrimary
+        href="/app/pagamento"
+        className="!bg-generic-limeGreen mt-8 !px-4 !py-2 !text-xs !font-extraboldbold"
+      >
+        Quero os melhores descontos
+      </ButtonPrimary>
     </div>
   );
 };
