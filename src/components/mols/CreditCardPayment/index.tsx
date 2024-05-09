@@ -194,7 +194,9 @@ const CreditCardPayment: React.FC<ICreditCardPaymentProps> = ({
                     name="TermsOfUse"
                     type="checkbox"
                     className="!w-4 !h-4 !rounded-none !p-0 !m-0"
-                    component={Input}
+                    component={(props: any) => {
+                      return <Input {...props} />;
+                    }}
                     checked={values.TermsOfUse}
                     onChange={(e: any) => {
                       setFieldValue("TermsOfUse", e.target.checked);
