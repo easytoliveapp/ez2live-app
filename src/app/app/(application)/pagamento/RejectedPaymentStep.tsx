@@ -17,9 +17,9 @@ export const RejectedPaymentStep: React.FC<IRejectedPaymentStepProps> = ({
     PAYMENT_REJECT: 3,
   };
   return (
-    <div>
-      <SimpleModal className="text-center space-y-2">
-        <Image alt="refused-icon" src={RefusedIcon} width={36} height={36} />
+    <div className="flex flex-col items-center">
+      <SimpleModal className="text-center">
+        <Image alt="refused-icon" src={RefusedIcon} width={70} height={70} />
         <p className="text-xl font-extrabold"> Oooops, algo deu errado...</p>
         <p className="text-sm font-medium">
           Sua assinatura não pôde ser confirmada.

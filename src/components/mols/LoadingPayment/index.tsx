@@ -12,7 +12,9 @@ const LoadingPaymentModal: React.FC<LoadingPaymentModalComponentProps> = ({
   return (
     <SimpleModal className="text-center">
       <LoadingComponent fullSize={false} size="medium" bgStyle="none" />
-      <p className="text-xl text-center font-extrabold">Aguardando Pagamento</p>
+      <p className="text-xl text-center font-extrabold mt-2">
+        Aguardando Pagamento
+      </p>
       {paymentMethod === PAYMENT.pix && (
         <p className="text-center my-4">
           Sua assinatura será confirmada após a identificação da transferência
