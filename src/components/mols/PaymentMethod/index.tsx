@@ -5,8 +5,8 @@ import PixIcon from "@/images/easytolive/payment/pix-icon.svg";
 import { PAYMENT } from "@/constants/paymentMethods";
 
 interface PaymentMethodProps {
-  SetPaymentTab: React.Dispatch<React.SetStateAction<"creditCard" | "pix">>;
-  PaymentTab: "creditCard" | "pix";
+  SetPaymentTab: React.Dispatch<React.SetStateAction<string>>;
+  PaymentTab: string;
 }
 
 const PaymentMethod: React.FC<PaymentMethodProps> = ({
@@ -21,7 +21,7 @@ const PaymentMethod: React.FC<PaymentMethodProps> = ({
             ? "opacity-100 border-b-2 border-black"
             : "opacity-50 bg-generic-gray"
         }`}
-        onClick={() => SetPaymentTab("creditCard")}
+        onClick={() => SetPaymentTab(PAYMENT.creditCard)}
       >
         <Image
           alt="credit-card-icon"
@@ -38,7 +38,7 @@ const PaymentMethod: React.FC<PaymentMethodProps> = ({
             ? "opacity-100 border-b-2 border-black"
             : "opacity-50 bg-generic-gray"
         }`}
-        onClick={() => SetPaymentTab("pix")}
+        onClick={() => SetPaymentTab(PAYMENT.pix)}
       >
         <Image alt="pix-icon" src={PixIcon} width={16} height={13} />
         <p className="text-xs font-bold">PIX</p>

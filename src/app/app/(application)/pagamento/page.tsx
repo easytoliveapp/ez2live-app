@@ -1,9 +1,10 @@
 "use client";
 import React, { useState } from "react";
-import { StepOne } from "./step1";
-import { StepTwo } from "./step2";
-import { StepThree } from "./step3";
-import { StepFour } from "./step4";
+import { PaymentStep } from "./PaymentStep";
+import { WaitingApprovalStep } from "./WaitingApprovalStep";
+import { AcceptedPaymentStep } from "./AcceptedPaymentStep";
+import { RejectedPaymentStep } from "./RejectedPaymentStep";
+import { PAYMENT } from "@/constants/paymentMethods";
 
 const PaymentPage = () => {
   const STEPS = {
@@ -13,29 +14,27 @@ const PaymentPage = () => {
     PAYMENT_REJECT: 3,
   };
 
-  const [currentStep, setCurrentStep] = useState<number>(STEPS.PAYMENT);
-  const [paymentTab, setPaymentTab] = useState<"creditCard" | "pix">(
-    "creditCard",
-  );
+  const [currentStep, setCurrentStep] = useState<number>(STEPS.PAYMENT_REJECT);
+  const [paymentTab, setPaymentTab] = useState(PAYMENT.creditCard);
   const renderStep = (step: number) => {
     switch (step) {
       case STEPS.PAYMENT:
         return (
-          <StepOne
+          <PaymentStep
             PaymentTab={paymentTab}
             SetPaymentTab={setPaymentTab}
             setCurrentStep={setCurrentStep}
           />
         );
       case STEPS.LOADING_PAYMENT:
-        return <StepTwo PaymentTab={paymentTab} />;
+        return <WaitingApprovalStep PaymentTab={paymentTab} />;
       case STEPS.PAYMENT_ACCEPT:
-        return <StepThree />;
+        return <AcceptedPaymentStep />;
       case STEPS.PAYMENT_REJECT:
-        return <StepFour setCurrentStep={setCurrentStep} />;
+        return <RejectedPaymentStep setCurrentStep={setCurrentStep} />;
       default:
         return (
-          <StepOne
+          <PaymentStep
             PaymentTab={paymentTab}
             SetPaymentTab={setPaymentTab}
             setCurrentStep={setCurrentStep}
@@ -45,7 +44,7 @@ const PaymentPage = () => {
   };
 
   return (
-    <div className="bg-generic-gray h-full min-h-[calc(100vh-66px)] flex flex-col justify-center items-center">
+    <div className="bg-generic-gray h-full min-h-[calc(100vh-66px)] flex flex-col pt-14 items-center">
       {renderStep(currentStep)}
     </div>
   );

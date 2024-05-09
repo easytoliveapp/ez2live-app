@@ -99,6 +99,7 @@ const CreditCardPayment: React.FC<ICreditCardPaymentProps> = ({
       currentStepPayment(2);
     }, 2000);
     setLoading(false);
+    return values;
   };
 
   return (

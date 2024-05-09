@@ -3,11 +3,13 @@ import { ButtonPrimary, SimpleModal } from "@/components";
 import Image from "next/image";
 import RefusedIcon from "@/images/easytolive/icons/refused-icon.svg";
 
-interface IStepFourProps {
+interface IRejectedPaymentStepProps {
   setCurrentStep: React.Dispatch<React.SetStateAction<number>>;
 }
 
-export const StepFour: React.FC<IStepFourProps> = ({ setCurrentStep }) => {
+export const RejectedPaymentStep: React.FC<IRejectedPaymentStepProps> = ({
+  setCurrentStep,
+}) => {
   const STEPS = {
     PAYMENT: 0,
     LOADING_PAYMENT: 1,
@@ -15,19 +17,17 @@ export const StepFour: React.FC<IStepFourProps> = ({ setCurrentStep }) => {
     PAYMENT_REJECT: 3,
   };
   return (
-    <div>
-      <SimpleModal className="text-center space-y-2">
-        <Image alt="refused-icon" src={RefusedIcon} width={36} height={36} />
-        <p className="text-lg font-bold">Pagamento Recusado</p>
+    <div className="flex flex-col items-center">
+      <SimpleModal className="text-center">
+        <Image alt="refused-icon" src={RefusedIcon} width={70} height={70} />
+        <p className="text-xl font-extrabold"> Oooops, algo deu errado...</p>
         <p className="text-sm font-medium">
-          Sua assinatura não pôde ser confirmada. <br /> O pagamento não foi
-          aprovado e você <br /> pode tentar novamente.
+          Sua assinatura não pôde ser confirmada.
         </p>
         <p className="text-sm font-medium">
-          Seu pagamento não foi concluído. <br />
-          Verifique os detalhes do cartão ou tente <br />
-          outro método de pagamento. Estamos <br />
-          aqui para ajudar se você precisar. Tentar Novamente
+          Verifique os detalhes do seu cartão e <br />
+          tente novamente ou confira outra forma <br />
+          de pagamento.
         </p>
       </SimpleModal>
       <ButtonPrimary
