@@ -22,7 +22,7 @@ interface SecurityProps {
 
 export const Security: React.FC<SecurityProps> = ({ session }) => {
   const [loading, setLoading] = useState(false);
-  const [handleModal, setHandleModal] = useState(false);
+  const [isDeleteAccountOpened, setIsDeleteAccountOpened] = useState(false);
   const [emailSendButton, setEmailSendButton] = useState("Trocar senha");
   const [disableButtonSendEmail, setDisableButtonSendEmail] = useState(false);
 
@@ -51,7 +51,7 @@ export const Security: React.FC<SecurityProps> = ({ session }) => {
           setLoading(false);
         });
     }
-    setHandleModal(false);
+    setIsDeleteAccountOpened(false);
   };
 
   const handleSendEmailChangePassword = async () => {
@@ -83,9 +83,9 @@ export const Security: React.FC<SecurityProps> = ({ session }) => {
   return (
     <div className="relative h-max flex flex-col mx-auto gap-4 w-full max-w-md">
       <Modal
-        show={handleModal}
+        show={isDeleteAccountOpened}
         onCloseModal={() => {
-          setHandleModal(false);
+          setIsDeleteAccountOpened(false);
         }}
       >
         <div className="flex flex-col h-[85vh]">
@@ -139,7 +139,7 @@ export const Security: React.FC<SecurityProps> = ({ session }) => {
                 </ButtonPrimary>
                 <ButtonThird
                   onClick={() => {
-                    setHandleModal(false);
+                    setIsDeleteAccountOpened(false);
                   }}
                 >
                   Cancelar
@@ -161,7 +161,7 @@ export const Security: React.FC<SecurityProps> = ({ session }) => {
       </ButtonSecondary>
       <ButtonThird
         onClick={() => {
-          setHandleModal(true);
+          setIsDeleteAccountOpened(true);
         }}
       >
         Excluir conta
