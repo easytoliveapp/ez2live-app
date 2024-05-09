@@ -24,7 +24,7 @@ export const Security: React.FC<SecurityProps> = ({ session }) => {
   const [loading, setLoading] = useState(false);
   const [isDeleteAccountOpened, setIsDeleteAccountOpened] = useState(false);
   const [emailSendButton, setEmailSendButton] = useState("Trocar senha");
-  const [disableButtonSendEmail, setDisableButtonSendEmail] = useState(false);
+  const [isSendEmailDisabled, setIsSendEmailDisabled] = useState(false);
 
   const DeleteUserValidationSchema = Yup.object().shape({
     password: Yup.string().required("Digite a sua senha."),
@@ -66,7 +66,7 @@ export const Security: React.FC<SecurityProps> = ({ session }) => {
               "Foi enviado um link para redefinir a senha ao endereço de email cadastrado.",
             type: "success",
           });
-          setDisableButtonSendEmail(true);
+          setIsSendEmailDisabled(true);
         })
         .catch(() => {
           showToastify({
@@ -154,7 +154,7 @@ export const Security: React.FC<SecurityProps> = ({ session }) => {
           await handleSendEmailChangePassword();
         }}
         loading={loading}
-        disabled={disableButtonSendEmail}
+        disabled={isSendEmailDisabled}
         className="mt-4"
       >
         {emailSendButton}
