@@ -65,6 +65,7 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
   const [couponCode, setCouponCode] = useState("");
   const [showCouponModal, setShowCouponModal] = useState(false);
   const [currentStep, setCurrentStep] = useState<number>(STEPS.SHOWING_COUPON);
+  const [loading, setLoading] = useState(false);
   const searchParams = useSearchParams();
   const couponIdParam = searchParams.get("coupon");
   const router = useRouter();
@@ -111,6 +112,8 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
         setShowCouponModal(false);
       } else {
         setShowCouponModal(true);
+        setLoading(true);
+        setTimeout(() => handleActiveCoupon(), 2000);
       }
     }
   }, [couponId, couponIdParam, session]);
@@ -132,9 +135,10 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
         />
         <ButtonPrimary
           onClick={() => handleActiveCoupon()}
+          disabled={loading}
           className="w-full mx-4 max-w-md"
         >
-          Eu quero!
+          {loading ? "Gerando cupom..." : "Eu quero!"}
         </ButtonPrimary>
         <ButtonThird
           className="w-full !text-generic-dark mx-4 max-w-md"
