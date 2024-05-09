@@ -33,7 +33,7 @@ const CreditCardPayment: React.FC<ICreditCardPaymentProps> = ({
       "Verifique a validade do cartão ou CVV",
       (value) => valid.cvv(value).isValid,
     ),
-    full_name: Yup.string()
+    fullName: Yup.string()
       .required("Nome do titular inválido")
       .test(
         "test-name",
