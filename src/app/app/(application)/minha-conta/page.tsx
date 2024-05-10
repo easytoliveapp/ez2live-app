@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useCallback } from "react";
+import React, { useState, useMemo } from "react";
 import classNames from "@/utils/classNames";
 import { useSession } from "next-auth/react";
 import { Security } from "./security";
@@ -9,19 +9,17 @@ import { Signature } from "./subscription";
 
 const MyAccountPage = () => {
   const { data: session } = useSession();
-  const [pageId, setPageId] = useState<"account" | "security" | "subscription">(
-    "account",
+  const [pageId, setPageId] = useState<"ACCOUNT" | "SECURITY" | "SIGNATURE">(
+    "ACCOUNT",
   );
 
-  const tabComponents = {
-    account: <Account session={session} />,
-    security: <Security session={session} />,
-    subscription: <Signature session={session} />,
-  };
-
-  const TabComponent = useCallback(() => {
-    return tabComponents[pageId] || tabComponents.account;
-  }, [pageId]);
+  const TabComponent = useMemo(() => {
+    return {
+      ACCOUNT: <Account session={session} />,
+      SECURITY: <Security session={session} />,
+      SIGNATURE: <Signature session={session} />,
+    };
+  }, [session]);
 
   return (
     <div className="nc-AccountCommonLayout container">
@@ -43,10 +41,10 @@ const MyAccountPage = () => {
               <div
                 className={classNames(
                   "font-bold cursor-pointer text-black",
-                  pageId === "account" ? "opacity-100" : "opacity-60",
+                  pageId === "ACCOUNT" ? "opacity-100" : "opacity-60",
                 )}
                 onClick={() => {
-                  setPageId("account");
+                  setPageId("ACCOUNT");
                 }}
               >
                 Conta
@@ -54,10 +52,10 @@ const MyAccountPage = () => {
               <div
                 className={classNames(
                   "font-bold cursor-pointer text-black",
-                  pageId === "security" ? "opacity-100" : "opacity-60",
+                  pageId === "SECURITY" ? "opacity-100" : "opacity-60",
                 )}
                 onClick={() => {
-                  setPageId("security");
+                  setPageId("SECURITY");
                 }}
               >
                 Segurança
@@ -65,10 +63,10 @@ const MyAccountPage = () => {
               <div
                 className={classNames(
                   "font-bold cursor-pointer text-black",
-                  pageId === "subscription" ? "opacity-100" : "opacity-60",
+                  pageId === "SIGNATURE" ? "opacity-100" : "opacity-60",
                 )}
                 onClick={() => {
-                  setPageId("subscription");
+                  setPageId("SIGNATURE");
                 }}
               >
                 Assinatura
@@ -79,7 +77,7 @@ const MyAccountPage = () => {
         </div>
       </div>
       <div className="max-w-4xl h-full mx-auto pt-8 sm:pt-26 pb-12 lg:pb-12">
-        <TabComponent />
+        {TabComponent[pageId]}
       </div>
     </div>
   );
