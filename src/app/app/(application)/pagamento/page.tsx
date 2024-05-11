@@ -14,7 +14,7 @@ const PaymentPage = () => {
     PAYMENT_REJECT: 3,
   };
 
-  const [currentStep, setCurrentStep] = useState<number>(STEPS.PAYMENT_REJECT);
+  const [currentStep, setCurrentStep] = useState<number>(STEPS.PAYMENT);
   const [paymentTab, setPaymentTab] = useState(PAYMENT.creditCard);
   const renderStep = (step: number) => {
     switch (step) {
