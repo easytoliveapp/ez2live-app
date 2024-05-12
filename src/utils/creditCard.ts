@@ -1,7 +1,10 @@
-export default function isCreditCardExpirationValid(
-  month: string,
-  year: string,
-) {
+export const isCreditCardExpirationValid = ({
+  month,
+  year,
+}: {
+  month: string;
+  year: string;
+}) => {
   const currentYear = new Date().getFullYear();
   const currentMonth = new Date().getMonth() + 1;
 
@@ -10,4 +13,4 @@ export default function isCreditCardExpirationValid(
   }
 
   return true;
-}
+};

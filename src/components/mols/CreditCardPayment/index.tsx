@@ -8,6 +8,7 @@ import valid from "card-validator";
 import Image from "next/image";
 import CardFlag from "@/images/easytolive/payment/card-flag.svg";
 import { MONTHS } from "@/constants/months";
+import { isCreditCardExpirationValid } from "@/utils/creditCard";
 
 interface ICreditCardPaymentProps {
   currentStepPayment: React.Dispatch<React.SetStateAction<number>>;
@@ -45,17 +46,10 @@ const CreditCardPayment: React.FC<ICreditCardPaymentProps> = ({
         "is-expired",
         "Verifique a validade do cartão ou CVV",
         function (value) {
-          const currentYear = new Date().getFullYear();
-          const currentMonth = new Date().getMonth() + 1;
-
-          if (
-            parseInt(value) < currentMonth &&
-            parseInt(this.parent.cardYear) <= currentYear
-          ) {
-            return false;
-          }
-
-          return true;
+          isCreditCardExpirationValid({
+            month: value,
+            year: this.parent.cardYear,
+          });
         },
       ),
     cardYear: Yup.string()
