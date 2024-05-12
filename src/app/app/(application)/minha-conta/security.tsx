@@ -125,7 +125,7 @@ export const Security: React.FC<SecurityProps> = ({ session }) => {
                     invalid={!!(errors.password && touched.password)}
                     name="password"
                     type="password"
-                    label="Password"
+                    label="Senha"
                     component={Input}
                   />
                 </FormItem>
