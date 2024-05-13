@@ -15,6 +15,7 @@ export { default as NavBarLogged } from "./NavBarLogged";
 export { default as NavidationItem } from "./Navigation/NavigationItem";
 export { default as NavidationMobile } from "./Navigation/NavMobile";
 export { default as PremiumConversionModal } from "./PremiumConversionModal";
+export { default as UserSubscriptionBadge } from "./UserSubscriptionBadge";
 export { default as SocialLoginComponent } from "./SocialLoginComponent";
 export { default as SupplierCard } from "./SupplierCard";
 export { default as UserCoupons } from "./UserCoupons";

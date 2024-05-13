@@ -2,7 +2,7 @@
 import React, { FC } from "react";
 import Image from "next/image";
 import LogoImage from "@/images/easytolive/logo/logotipo-semfundoazulroxo.svg";
-import { AvatarDropdown } from "@/components";
+import { AvatarDropdown, UserSubscriptionBadge } from "@/components";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 
@@ -25,8 +25,10 @@ const NavBarLogged: FC<NavBarLoggedProps> = ({ hasLogoImage = true }) => {
           />
         </Link>
       )}
-
-      <AvatarDropdown />
+      <div className="flex items-center gap-3">
+        {session?.user && <UserSubscriptionBadge />}
+        <AvatarDropdown />
+      </div>
     </div>
   );
 };
