@@ -29,7 +29,7 @@ const FormComponent = () => {
       .then(() => {
         showToastify({
           label:
-            "Se o e-mail está cadastrado em nosso app, você receberá uma mensagem em alguns minutos.",
+            "Se o e-mail estiver cadastrado em nosso app, você receberá uma mensagem em alguns minutos.",
           type: "success",
         });
         setEmailSent(true);
@@ -53,7 +53,7 @@ const FormComponent = () => {
       {({ errors, touched, handleSubmit }) => (
         <Form onSubmit={handleSubmit} className="flex flex-col gap-3">
           <FormItem
-            label="email"
+            label="E-mail"
             errorMessage={errors.email}
             invalid={!!(errors.email && touched.email)}
           >
