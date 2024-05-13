@@ -95,8 +95,8 @@ const CreditCardPayment: React.FC<ICreditCardPaymentProps> = ({
     const subscriptionData: Partial<ISubscriptionIuguService> = {
       email: session?.user.email || undefined,
       plan_identifier: "ez2live_monthly",
-      playable_with: "credit_card",
-      token: iuguJsToken,
+      payable_with: "credit_card",
+      token: iuguJsToken.id,
     };
     await subscriptionService
       .createSubscription(subscriptionData)
