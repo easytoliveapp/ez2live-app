@@ -96,7 +96,7 @@ const FormComponent = () => {
             />
           </FormItem>
           <FormItem
-            label="Email"
+            label="E-mail"
             errorMessage={errors.email}
             invalid={!!(errors.email && touched.email)}
           >

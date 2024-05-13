@@ -84,7 +84,7 @@ const ResetPassword = ({ params }: ITokenProps) => {
             {({ errors, touched, handleSubmit }) => (
               <Form onSubmit={handleSubmit} className="flex flex-col gap-3">
                 <FormItem
-                  label="nova senha"
+                  label="Nova senha"
                   errorMessage={errors.password}
                   invalid={!!(errors.password && touched.password)}
                 >
@@ -97,7 +97,7 @@ const ResetPassword = ({ params }: ITokenProps) => {
                   />
                 </FormItem>
                 <FormItem
-                  label="repetir nova senha"
+                  label="Repetir nova senha"
                   errorMessage={errors.conf_password}
                   invalid={!!(errors.conf_password && touched.conf_password)}
                 >

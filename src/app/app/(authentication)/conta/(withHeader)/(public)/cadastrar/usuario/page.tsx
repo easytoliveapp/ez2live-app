@@ -27,7 +27,7 @@ const UserRegisterPage = () => {
           {/* FORM */}
           <FormComponent />
           <span className="block text-center text-sm font-medium text-black">
-            voltar para{" "}
+            Voltar para{" "}
             <Link
               className="text-primary-main text-sm font-semibold"
               href="/app/conta/entrar"
@@ -49,12 +49,12 @@ const UserRegisterPage = () => {
           {/* ==== */}
           <span className=" block text-center text-sm font-medium text-black">
             <div className="bg-white h-0.5 w-auto m-auto mb-4"></div>
-            <p> tem um estabelecimento e quer se juntar a nós? </p>
+            <p> Tem um estabelecimento e quer se juntar a nós? </p>
             <Link
               className="text-primary-main text-sm font-semibold"
               href="/app/conta/cadastrar/parceiro"
             >
-              cadastre-se!
+              Cadastre-se!
             </Link>
           </span>
         </div>
