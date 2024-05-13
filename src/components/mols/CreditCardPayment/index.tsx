@@ -51,7 +51,7 @@ const CreditCardPayment: React.FC<ICreditCardPaymentProps> = ({
         "is-expired",
         "Verifique a validade do cartão ou CVV",
         function (value) {
-          isCreditCardExpirationValid({
+          return isCreditCardExpirationValid({
             month: value,
             year: this.parent.cardYear,
           });
