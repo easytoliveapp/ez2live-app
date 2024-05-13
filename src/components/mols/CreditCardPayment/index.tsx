@@ -23,6 +23,7 @@ const CreditCardPayment: React.FC<ICreditCardPaymentProps> = ({
   const Iugu = useIugu(process.env.NEXT_PUBLIC_IUGU_ID);
   const CreditCardvalidationSchema = Yup.object().shape({
     creditCard: Yup.string()
+
       .test(
         "test-number",
         "Número de cartão inválido",
@@ -138,6 +139,7 @@ const CreditCardPayment: React.FC<ICreditCardPaymentProps> = ({
               <Field
                 invalid={!!(errors.creditCard && touched.creditCard)}
                 name="creditCard"
+                maxLength={23}
                 type="text"
                 placeholder="Número do cartão"
                 data-iugu="number"
