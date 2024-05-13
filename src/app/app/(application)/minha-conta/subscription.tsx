@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import isDateValid from "@/utils/isDateValid";
+import isDateBeforeToday from "@/utils/isDateBeforeToday";
 import Image from "next/image";
 import EasyLogo from "@/images/easytolive/logo/logotipo-semfundoazulroxo.svg";
 import { Session } from "next-auth";
@@ -13,7 +13,7 @@ export const Signature: React.FC<SignatureProps> = ({ session }) => {
   const [isCancelSubscriptionModalOpen, setIsCancelSubscriptionModalOpen] =
     useState(false);
   const [loading, setLoading] = useState(false);
-  const userSubscription = isDateValid(session?.user.subscriptionEndDate);
+  const userSubscription = isDateBeforeToday(session?.user.subscriptionEndDate);
 
   const handleCancelSubscription = () => {
     setLoading(true);
