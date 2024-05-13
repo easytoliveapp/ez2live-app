@@ -218,6 +218,9 @@ const CreditCardPayment: React.FC<ICreditCardPaymentProps> = ({
                   <label
                     htmlFor="TermsOfUse"
                     className="text-[10px] w-full leading-3"
+                    onClick={() =>
+                      setFieldValue("TermsOfUse", !values.TermsOfUse)
+                    }
                   >
                     Ao realizar a assinatura você concorda com os Termos de Uso
                   </label>
