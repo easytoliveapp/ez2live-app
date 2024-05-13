@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { Formik, Form, Field } from "formik";
 import { Input, ButtonPrimary, FormItem, Select } from "@/components";
-import { ICreditCardPayment } from "@/types/payment";
+import { ICreditCardPayment, ISubscriptionIuguService } from "@/types/payment";
 import * as Yup from "yup";
 import valid from "card-validator";
 import Image from "next/image";
@@ -10,6 +10,8 @@ import CardFlag from "@/images/easytolive/payment/card-flag.svg";
 import { MONTHS } from "@/constants/months";
 import useIugu from "@/payment/iugu";
 import { isCreditCardExpirationValid } from "@/utils/creditCard";
+import subscriptionService from "@/service/subscription.service";
+import { useSession } from "next-auth/react";
 
 interface ICreditCardPaymentProps {
   currentStepPayment: React.Dispatch<React.SetStateAction<number>>;
@@ -21,6 +23,8 @@ const CreditCardPayment: React.FC<ICreditCardPaymentProps> = ({
   const [loading, setLoading] = useState(false);
   const [formattedcreditCard, setFormattedcreditCard] = useState("");
   const Iugu = useIugu(process.env.NEXT_PUBLIC_IUGU_ID);
+  const { data: session } = useSession();
+
   const CreditCardvalidationSchema = Yup.object().shape({
     creditCard: Yup.string()
       .test(
@@ -87,11 +91,23 @@ const CreditCardPayment: React.FC<ICreditCardPaymentProps> = ({
     };
     setLoading(true);
     Iugu.setTestMode(process.env.NEXT_PUBLIC_TEST_MODE);
-    await Iugu.createPaymentToken(iuguData);
-    currentStepPayment(1);
-    setTimeout(() => {
-      currentStepPayment(2);
-    }, 2000);
+    const iuguJsToken = await Iugu.createPaymentToken(iuguData);
+    const subscriptionData: Partial<ISubscriptionIuguService> = {
+      email: session?.user.email || undefined,
+      plan_identifier: "ez2live_monthly",
+      playable_with: "credit_card",
+      token: iuguJsToken,
+    };
+    await subscriptionService
+      .createSubscription(subscriptionData)
+      .then(() => {
+        currentStepPayment(1);
+        setTimeout(() => {
+          currentStepPayment(2);
+        }, 2000);
+      })
+      .catch(() => currentStepPayment(3));
+
     setLoading(false);
   };
 
