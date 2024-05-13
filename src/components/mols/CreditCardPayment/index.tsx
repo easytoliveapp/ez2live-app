@@ -9,6 +9,7 @@ import Image from "next/image";
 import CardFlag from "@/images/easytolive/payment/card-flag.svg";
 import { MONTHS } from "@/constants/months";
 import useIugu from "@/payment/iugu";
+import { isCreditCardExpirationValid } from "@/utils/creditCard";
 
 interface ICreditCardPaymentProps {
   currentStepPayment: React.Dispatch<React.SetStateAction<number>>;
@@ -46,17 +47,10 @@ const CreditCardPayment: React.FC<ICreditCardPaymentProps> = ({
         "is-expired",
         "Verifique a validade do cartão ou CVV",
         function (value) {
-          const currentYear = new Date().getFullYear();
-          const currentMonth = new Date().getMonth() + 1;
-
-          if (
-            parseInt(value) < currentMonth &&
-            parseInt(this.parent.cardYear) <= currentYear
-          ) {
-            return false;
-          }
-
-          return true;
+          isCreditCardExpirationValid({
+            month: value,
+            year: this.parent.cardYear,
+          });
         },
       ),
     cardYear: Yup.string()
@@ -213,7 +207,9 @@ const CreditCardPayment: React.FC<ICreditCardPaymentProps> = ({
                     name="TermsOfUse"
                     type="checkbox"
                     className="!w-4 !h-4 !rounded-none !p-0 !m-0"
-                    component={Input}
+                    component={(props: any) => {
+                      return <Input {...props} />;
+                    }}
                     checked={values.TermsOfUse}
                     onChange={(e: any) => {
                       setFieldValue("TermsOfUse", e.target.checked);
