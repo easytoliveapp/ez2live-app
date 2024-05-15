@@ -103,18 +103,16 @@ const CreditCardPayment: React.FC<ICreditCardPaymentProps> = ({
     Iugu.setTestMode(process.env.NEXT_PUBLIC_TEST_MODE);
     const iuguJsToken = await Iugu.createPaymentToken(iuguData);
     const subscriptionData: Partial<ISubscriptionIuguService> = {
-      plan_identifier: "ez2live_monthly",
+      plan_identifier: "ez2live_weekly",
       payable_with: "credit_card",
       token: iuguJsToken.id,
     };
+    currentStepPayment(1);
     await subscriptionService
       .createSubscription(subscriptionData)
       .then((res: any) => {
-        updateSession(res.user.subscriptionEndDate);
-        currentStepPayment(1);
-        setTimeout(() => {
-          currentStepPayment(2);
-        }, 2000);
+        updateSession(res.data.user.subscriptionEndDate);
+        currentStepPayment(2);
       })
       .catch(() => currentStepPayment(3));
 
