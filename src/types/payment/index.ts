@@ -13,7 +13,6 @@ export interface IPixPayment {
 }
 
 export interface ISubscriptionIuguService {
-  email: string;
   plan_identifier: string;
   payable_with: "pix" | "credit_card";
   payer_cpf_cnpj: string;

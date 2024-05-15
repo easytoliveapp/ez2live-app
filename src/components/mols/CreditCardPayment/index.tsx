@@ -23,7 +23,17 @@ const CreditCardPayment: React.FC<ICreditCardPaymentProps> = ({
   const [loading, setLoading] = useState(false);
   const [formattedcreditCard, setFormattedcreditCard] = useState("");
   const Iugu = useIugu(process.env.NEXT_PUBLIC_IUGU_ID);
-  const { data: session } = useSession();
+  const { data: session, update } = useSession();
+
+  async function updateSession(newSubscriptionDate: string) {
+    await update({
+      ...session,
+      user: {
+        ...session?.user,
+        subscriptionEndDate: newSubscriptionDate,
+      },
+    });
+  }
 
   const CreditCardvalidationSchema = Yup.object().shape({
     creditCard: Yup.string()
@@ -93,14 +103,14 @@ const CreditCardPayment: React.FC<ICreditCardPaymentProps> = ({
     Iugu.setTestMode(process.env.NEXT_PUBLIC_TEST_MODE);
     const iuguJsToken = await Iugu.createPaymentToken(iuguData);
     const subscriptionData: Partial<ISubscriptionIuguService> = {
-      email: session?.user.email || undefined,
       plan_identifier: "ez2live_monthly",
       payable_with: "credit_card",
       token: iuguJsToken.id,
     };
     await subscriptionService
       .createSubscription(subscriptionData)
-      .then(() => {
+      .then((res: any) => {
+        updateSession(res.user.subscriptionEndDate);
         currentStepPayment(1);
         setTimeout(() => {
           currentStepPayment(2);
