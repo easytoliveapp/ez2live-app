@@ -16,6 +16,6 @@ export interface ISubscriptionIuguService {
   email: string;
   plan_identifier: string;
   payable_with: "pix" | "credit_card";
-  player_cpf_cnpj: string;
+  payer_cpf_cnpj: string;
   token: string;
 }
