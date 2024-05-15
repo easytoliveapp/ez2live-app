@@ -4,10 +4,10 @@ export interface ICreditCardPayment {
   fullName: string;
   cardMonth: string;
   cardYear: string;
-  TermsOfUse: boolean;
+  termsOfUse: boolean;
 }
 
 export interface IPixPayment {
   cpf: string;
-  TermsOfUse: boolean;
+  termsOfUse: boolean;
 }

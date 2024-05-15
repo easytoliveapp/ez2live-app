@@ -57,7 +57,7 @@ const CreditCardPayment: React.FC<ICreditCardPaymentProps> = ({
     cardYear: Yup.string()
       .required()
       .test((value) => valid.expirationYear(value).isValid),
-    TermsOfUse: Yup.boolean()
+    termsOfUse: Yup.boolean()
       .required("Você precisa concordar com os termos de uso para prosseguir.")
       .oneOf(
         [true],
@@ -70,7 +70,7 @@ const CreditCardPayment: React.FC<ICreditCardPaymentProps> = ({
     fullName: "",
     cardMonth: "1",
     cardYear: String(new Date().getFullYear()),
-    TermsOfUse: true,
+    termsOfUse: true,
   };
 
   const handleSubmit = async (values: ICreditCardPayment) => {
@@ -200,28 +200,28 @@ const CreditCardPayment: React.FC<ICreditCardPaymentProps> = ({
             <div className="flex gap-2">
               <FormItem
                 errorMessage={null}
-                invalid={!!errors.TermsOfUse && touched.TermsOfUse}
+                invalid={!!errors.termsOfUse && touched.termsOfUse}
                 className="flex"
               >
                 <div className="flex w-full gap-1 justify-center items-center">
                   <Field
-                    invalid={!!(errors.TermsOfUse && touched.TermsOfUse)}
-                    name="TermsOfUse"
+                    invalid={!!(errors.termsOfUse && touched.termsOfUse)}
+                    name="termsOfUse"
                     type="checkbox"
                     className="!w-4 !h-4 !rounded-none !p-0 !m-0"
                     component={(props: any) => {
                       return <Input {...props} />;
                     }}
-                    checked={values.TermsOfUse}
+                    checked={values.termsOfUse}
                     onChange={(e: any) => {
-                      setFieldValue("TermsOfUse", e.target.checked);
+                      setFieldValue("termsOfUse", e.target.checked);
                     }}
                   />
                   <label
-                    htmlFor="TermsOfUse"
+                    htmlFor="termsOfUse"
                     className="text-[10px] w-full leading-3"
                     onClick={() =>
-                      setFieldValue("TermsOfUse", !values.TermsOfUse)
+                      setFieldValue("termsOfUse", !values.termsOfUse)
                     }
                   >
                     Ao realizar a assinatura você concorda com os Termos de Uso
