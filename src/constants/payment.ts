@@ -12,3 +12,11 @@ export const subscriptionCreditCardData = (iuguJsToken: any) => {
     token: iuguJsToken.id,
   };
 };
+
+export const subscriptionPixData = (Indentification: string) => {
+  return {
+    plan_identifier: "ez2live_weekly",
+    payable_with: "pix",
+    payer_cpf_cnpj: Indentification,
+  };
+};

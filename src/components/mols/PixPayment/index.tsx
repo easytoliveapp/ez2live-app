@@ -6,12 +6,18 @@ import * as Yup from "yup";
 import Image from "next/image";
 import PixImage from "@/images/easytolive/payment/pix-image.svg";
 import { IPixPayment } from "@/types/payment";
+import subscriptionService from "@/service/subscription.service";
+import { subscriptionPixData } from "@/constants/payment";
 
 interface IPixPaymentProps {
   currentStepPayment: React.Dispatch<React.SetStateAction<number>>;
+  setQrCode: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const PixPayment: React.FC<IPixPaymentProps> = ({ currentStepPayment }) => {
+const PixPayment: React.FC<IPixPaymentProps> = ({
+  currentStepPayment,
+  setQrCode,
+}) => {
   const [loading, setLoading] = useState(false);
 
   const PixPaymentValidationSchema = Yup.object().shape({
@@ -26,10 +32,13 @@ const PixPayment: React.FC<IPixPaymentProps> = ({ currentStepPayment }) => {
 
   const handleSubmit = async (values: IPixPayment) => {
     setLoading(true);
-    currentStepPayment(1);
-    // TODO invoice to get if user payed pix
-    setLoading(false);
-    return values;
+    await subscriptionService
+      .createSubscription(subscriptionPixData(values.cpf))
+      .then((res: any) => {
+        setQrCode(res.data.paymentInfo.pix.qrcode_text);
+        currentStepPayment(1);
+      })
+      .catch(() => currentStepPayment(3));
   };
 
   const initialValues: IPixPayment = {

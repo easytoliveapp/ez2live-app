@@ -3,16 +3,19 @@ import { ButtonFourth, LoadingPayment, SimpleModal } from "@/components";
 import Image from "next/image";
 import QrCodeSimpleIcon from "@/images/easytolive/payment/qr-code-simple-icon.svg";
 import PixSimpleIcon from "@/images/easytolive/payment/pix-simple-icon.svg";
-import QRCode from "react-qr-code";
 import PixImage from "@/images/easytolive/payment/pix-image.svg";
 import { PAYMENT } from "@/constants/paymentMethods";
+import QRCode from "react-qr-code";
+import { copyTextToClipboard } from "@/utils/copyTextToClipboard";
 
 interface IWaitingApprovalStepProps {
   PaymentTab: string;
+  qrCodeValue: string;
 }
 
 export const WaitingApprovalStep: React.FC<IWaitingApprovalStepProps> = ({
   PaymentTab,
+  qrCodeValue,
 }) => {
   return (
     <div>
@@ -25,22 +28,25 @@ export const WaitingApprovalStep: React.FC<IWaitingApprovalStepProps> = ({
             </div>
             <p className="font-bold text-xs text-generic-dark">QR Code</p>
             <QRCode
-              value="123123123123123"
+              value={qrCodeValue}
               className="w-32 h-32"
               height={128}
               width={128}
             />
+
             <div>
               <p className="font-bold text-center pb-1 text-generic-dark mt-5 text-xs">
                 Copia e Cola
               </p>
               <p className="text-xs max-w-[280px] mb-2 break-words md:max-w-[340px]">
-                00020101021226990014br.gov.bcb.pix2577pix.bpp.com.br/14796606/qrdaksldkalsdkamdl,KDl123
-                KmIYgzfr3AZ38E8vQbnYv6xqDPenH0KehYAyWeXfjF5204000053039865802BR591{" "}
+                {qrCodeValue}
               </p>
             </div>
 
-            <ButtonFourth className="!border-generic-limeGreen !border-[1px] !py-1 !text-xs  !text-generic-limeGreen">
+            <ButtonFourth
+              onClick={() => copyTextToClipboard(qrCodeValue)}
+              className="!border-generic-limeGreen !border-[1px] !py-1 !text-xs  !text-generic-limeGreen"
+            >
               Copiar Código PIX
             </ButtonFourth>
           </SimpleModal>

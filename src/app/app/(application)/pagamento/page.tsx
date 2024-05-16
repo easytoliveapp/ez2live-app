@@ -15,6 +15,7 @@ const PaymentPage = () => {
   };
 
   const [currentStep, setCurrentStep] = useState<number>(STEPS.PAYMENT);
+  const [qrCode, setQrCode] = useState("");
   const [paymentTab, setPaymentTab] = useState(PAYMENT.creditCard);
   const renderStep = (step: number) => {
     switch (step) {
@@ -22,12 +23,15 @@ const PaymentPage = () => {
         return (
           <PaymentStep
             PaymentTab={paymentTab}
-            SetPaymentTab={setPaymentTab}
+            setPaymentTab={setPaymentTab}
             setCurrentStep={setCurrentStep}
+            setQrCode={setQrCode}
           />
         );
       case STEPS.LOADING_PAYMENT:
-        return <WaitingApprovalStep PaymentTab={paymentTab} />;
+        return (
+          <WaitingApprovalStep PaymentTab={paymentTab} qrCodeValue={qrCode} />
+        );
       case STEPS.PAYMENT_ACCEPT:
         return <AcceptedPaymentStep />;
       case STEPS.PAYMENT_REJECT:
@@ -36,8 +40,9 @@ const PaymentPage = () => {
         return (
           <PaymentStep
             PaymentTab={paymentTab}
-            SetPaymentTab={setPaymentTab}
+            setPaymentTab={setPaymentTab}
             setCurrentStep={setCurrentStep}
+            setQrCode={setQrCode}
           />
         );
     }
