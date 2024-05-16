@@ -11,10 +11,3 @@ export interface IPixPayment {
   cpf: string;
   TermsOfUse: boolean;
 }
-
-export interface ISubscriptionIuguService {
-  plan_identifier: string;
-  payable_with: "pix" | "credit_card";
-  payer_cpf_cnpj: string;
-  token: string;
-}
