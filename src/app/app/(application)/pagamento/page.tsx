@@ -30,7 +30,11 @@ const PaymentPage = () => {
         );
       case STEPS.LOADING_PAYMENT:
         return (
-          <WaitingApprovalStep PaymentTab={paymentTab} qrCodeValue={qrCode} />
+          <WaitingApprovalStep
+            PaymentTab={paymentTab}
+            setCurrentStep={setCurrentStep}
+            qrCodeValue={qrCode}
+          />
         );
       case STEPS.PAYMENT_ACCEPT:
         return <AcceptedPaymentStep />;

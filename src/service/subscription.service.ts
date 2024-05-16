@@ -28,11 +28,19 @@ const deleteIuguCostumer = async (email: string) => {
   });
 };
 
+const getInvoices = async () => {
+  return await BaseService.fetchData({
+    url: "/subscription/invoices",
+    method: "get",
+  });
+};
+
 const subscriptionService = {
   createSubscription,
   deleteSubscription,
   createIuguCostumer,
   deleteIuguCostumer,
+  getInvoices,
 };
 
 export default subscriptionService;
