@@ -11,6 +11,9 @@ export interface IUser {
   isSupplier: boolean;
   isVerified: boolean;
   supplierInfo?: ISupplierInfo;
+  iuguCustomerId?: string;
+  iuguPaymentMethodId?: string;
+  iuguSubscriptionId?: string;
 }
 
 export interface ITokens {

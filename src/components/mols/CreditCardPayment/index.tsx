@@ -25,15 +25,18 @@ const CreditCardPayment: React.FC<ICreditCardPaymentProps> = ({
   const Iugu = useIugu(process.env.NEXT_PUBLIC_IUGU_ID);
   const { data: session, update } = useSession();
 
-  async function updateSession(newSubscriptionDate: string) {
+  const updateSession = async (responseData: any) => {
     await update({
       ...session,
       user: {
         ...session?.user,
-        subscriptionEndDate: newSubscriptionDate,
+        subscriptionEndDate: responseData.newSubscriptionDate,
+        iuguCustomerId: responseData.iuguCustomerId,
+        iuguPaymentMethodId: responseData.iuguPaymentMethodId,
+        iuguSubscriptionId: responseData.iuguSubscriptionId,
       },
     });
-  }
+  };
 
   const CreditCardvalidationSchema = Yup.object().shape({
     creditCard: Yup.string()
@@ -111,7 +114,7 @@ const CreditCardPayment: React.FC<ICreditCardPaymentProps> = ({
     await subscriptionService
       .createSubscription(subscriptionData)
       .then((res: any) => {
-        updateSession(res.data.user.subscriptionEndDate);
+        updateSession(res.data.user);
         currentStepPayment(2);
       })
       .catch(() => currentStepPayment(3));
