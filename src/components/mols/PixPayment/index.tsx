@@ -27,9 +27,7 @@ const PixPayment: React.FC<IPixPaymentProps> = ({ currentStepPayment }) => {
   const handleSubmit = async (values: IPixPayment) => {
     setLoading(true);
     currentStepPayment(1);
-    setTimeout(() => {
-      currentStepPayment(3);
-    }, 5000);
+    // TODO invoice to get if user payed pix
     setLoading(false);
     return values;
   };

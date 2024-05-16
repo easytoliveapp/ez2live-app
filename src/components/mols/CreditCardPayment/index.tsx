@@ -10,6 +10,9 @@ import CardFlag from "@/images/easytolive/payment/card-flag.svg";
 import { MONTHS } from "@/constants/months";
 import useIugu from "@/payment/iugu";
 import { isCreditCardExpirationValid } from "@/utils/creditCard";
+import subscriptionService from "@/service/subscription.service";
+import { useSession } from "next-auth/react";
+import { subscriptionCreditCardData } from "@/constants/payment";
 
 interface ICreditCardPaymentProps {
   currentStepPayment: React.Dispatch<React.SetStateAction<number>>;
@@ -21,6 +24,21 @@ const CreditCardPayment: React.FC<ICreditCardPaymentProps> = ({
   const [loading, setLoading] = useState(false);
   const [formattedcreditCard, setFormattedcreditCard] = useState("");
   const Iugu = useIugu(process.env.NEXT_PUBLIC_IUGU_ID);
+  const { data: session, update } = useSession();
+
+  const updateSession = async (responseData: any) => {
+    await update({
+      ...session,
+      user: {
+        ...session?.user,
+        subscriptionEndDate: responseData.subscriptionEndDate,
+        iuguCustomerId: responseData.iuguCustomerId,
+        iuguPaymentMethodId: responseData.iuguPaymentMethodId,
+        iuguSubscriptionId: responseData.iuguSubscriptionId,
+      },
+    });
+  };
+
   const CreditCardvalidationSchema = Yup.object().shape({
     creditCard: Yup.string()
 
@@ -88,11 +106,16 @@ const CreditCardPayment: React.FC<ICreditCardPaymentProps> = ({
     };
     setLoading(true);
     Iugu.setTestMode(process.env.NEXT_PUBLIC_TEST_MODE);
-    await Iugu.createPaymentToken(iuguData);
+    const iuguJsToken = await Iugu.createPaymentToken(iuguData);
     currentStepPayment(1);
-    setTimeout(() => {
-      currentStepPayment(2);
-    }, 2000);
+    await subscriptionService
+      .createSubscription(subscriptionCreditCardData(iuguJsToken))
+      .then((res: any) => {
+        updateSession(res.data.user);
+        currentStepPayment(2);
+      })
+      .catch(() => currentStepPayment(3));
+
     setLoading(false);
   };
 
