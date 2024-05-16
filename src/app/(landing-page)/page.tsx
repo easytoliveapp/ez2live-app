@@ -27,9 +27,9 @@ const widgetMenus: WidgetFooterMenu[] = [
     id: "5",
     title: "Nossos links",
     submenus: [
-      { href: "#", label: "Sobre a Easy" },
-      { href: "#", label: "Criar uma conta" },
-      { href: "#", label: "Entrar em contato" },
+      // { href: "#", label: "Sobre a Easy" },
+      { href: "/app/conta/acessar", label: "Criar uma conta" },
+      { href: "mailto:contato@easytolive.com.br", label: "Entrar em contato" },
     ],
   },
   {
@@ -49,7 +49,7 @@ const widgetMenus: WidgetFooterMenu[] = [
         label: "Estética",
       },
       {
-        href: "#",
+        href: "/app?supplierCategory=658328a9a8101b0027ecd829",
         label: "Nutrição",
       },
     ],

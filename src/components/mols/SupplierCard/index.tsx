@@ -41,7 +41,7 @@ const SupplierCard: FC<SupplierCardProps> = ({
         <Image
           width={80}
           height={80}
-          className="rounded-full h-auto w-auto"
+          className="rounded-full max-h-14"
           alt="Supplier-logo"
           src={supplierImage}
         />
