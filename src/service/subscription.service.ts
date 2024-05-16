@@ -1,7 +1,6 @@
-import { ISubscriptionIuguService } from "@/types/payment";
 import { BaseService } from "./base.service";
 
-const createSubscription = async (data: Partial<ISubscriptionIuguService>) => {
+const createSubscription = async (data: any) => {
   return await BaseService.fetchData({
     url: "/subscription",
     method: "post",

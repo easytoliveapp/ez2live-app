@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { Formik, Form, Field } from "formik";
 import { Input, ButtonPrimary, FormItem, Select } from "@/components";
-import { ICreditCardPayment, ISubscriptionIuguService } from "@/types/payment";
+import { ICreditCardPayment } from "@/types/payment";
 import * as Yup from "yup";
 import valid from "card-validator";
 import Image from "next/image";
@@ -12,6 +12,7 @@ import useIugu from "@/payment/iugu";
 import { isCreditCardExpirationValid } from "@/utils/creditCard";
 import subscriptionService from "@/service/subscription.service";
 import { useSession } from "next-auth/react";
+import { subscriptionCreditCardData } from "@/constants/payment";
 
 interface ICreditCardPaymentProps {
   currentStepPayment: React.Dispatch<React.SetStateAction<number>>;
@@ -30,7 +31,7 @@ const CreditCardPayment: React.FC<ICreditCardPaymentProps> = ({
       ...session,
       user: {
         ...session?.user,
-        subscriptionEndDate: responseData.newSubscriptionDate,
+        subscriptionEndDate: responseData.subscriptionEndDate,
         iuguCustomerId: responseData.iuguCustomerId,
         iuguPaymentMethodId: responseData.iuguPaymentMethodId,
         iuguSubscriptionId: responseData.iuguSubscriptionId,
@@ -105,14 +106,9 @@ const CreditCardPayment: React.FC<ICreditCardPaymentProps> = ({
     setLoading(true);
     Iugu.setTestMode(process.env.NEXT_PUBLIC_TEST_MODE);
     const iuguJsToken = await Iugu.createPaymentToken(iuguData);
-    const subscriptionData: Partial<ISubscriptionIuguService> = {
-      plan_identifier: "ez2live_weekly",
-      payable_with: "credit_card",
-      token: iuguJsToken.id,
-    };
     currentStepPayment(1);
     await subscriptionService
-      .createSubscription(subscriptionData)
+      .createSubscription(subscriptionCreditCardData(iuguJsToken))
       .then((res: any) => {
         updateSession(res.data.user);
         currentStepPayment(2);
