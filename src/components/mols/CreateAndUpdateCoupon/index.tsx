@@ -310,6 +310,7 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
                   label={values.discount + "%"}
                   errorMessage={errors.discount}
                   invalid={!!(errors.discount && touched.discount)}
+                  hasErrorSpacement={false}
                 >
                   <Field
                     invalid={!!(errors.discount && touched.discount)}
@@ -352,7 +353,7 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
                     type="text"
                     label="couponRules"
                     component={TextArea}
-                    className="bg-white h-20 mb-6"
+                    className="bg-white h-20"
                   />
                 </FormItem>
                 <div className="flex items-center">
@@ -380,7 +381,7 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
                       />
                     </FormItem>
                   </div>
-                  <div className="mb-4">
+                  <div className="mb-2">
                     <ToggleButton
                       onClick={() => setCouponsUnlimited(!couponsUnlimited)}
                       toggle={couponsUnlimited}
