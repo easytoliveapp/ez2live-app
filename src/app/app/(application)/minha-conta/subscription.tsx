@@ -3,7 +3,7 @@ import isDateBeforeToday from "@/utils/isDateBeforeToday";
 import Image from "next/image";
 import EasyLogo from "@/images/easytolive/logo/logotipo-semfundoazulroxo.svg";
 import { Session } from "next-auth";
-import { ButtonPrimary, ButtonThird, Modal } from "@/components";
+import { ButtonPrimary, ButtonThird, Modal, CreditCard } from "@/components";
 
 interface SignatureProps {
   session: Session | null;
@@ -63,40 +63,68 @@ export const Signature: React.FC<SignatureProps> = ({ session }) => {
           </ButtonThird>
         </div>
       </Modal>
-      <div className=" grid grid-cols-2 items-center space-y-3">
+      <div className="text-sm grid items-center grid-cols-2 gap-4">
         <div>
-          <p className="font-bold">Status Assiantura</p>
-          <span>
-            {userSubscription ? (
-              <p className="text-generic-alertGreen font-semibold">Ativa</p>
-            ) : (
-              <p className="font-semibold"> Inativa</p>
-            )}
+          <p className="font-extrabold mb-1">Status Assiantura</p>
+          {userSubscription ? (
+            <span className="text-generic-limeGreen font-semibold">Ativa</span>
+          ) : (
+            <span className="font-semibold text-generic-dark">Inativa</span>
+          )}
+        </div>
+        <div>
+          <p className="font-extrabold mb-1">Última cobrança</p>
+          <span className="font-semibold text-generic-dark">
+            04/05/2024 as 10:23
           </span>
         </div>
         <div>
-          <p className="font-bold">Última cobrança</p>
-          <span>04/05/2024 as 10:23</span>
+          <p className="font-extrabold mb-1">Plano</p>
+          <span className="font-semibold text-generic-dark">
+            EasyToLive Mensal
+          </span>
         </div>
         <div>
-          <p className="font-bold">Plano</p>
-          <span>EasyToLive Mensal</span>
+          <p className="font-extrabold mb-1">ID da assinatura</p>
+          <span className="font-semibold text-generic-dark">
+            LASK001-02NDKKS-190SDKND-293KD
+          </span>
         </div>
         <div>
-          <p className="font-bold">ID da assinatura</p>
-          <span>LASK001-02NDKKS-190SDKND-293KD</span>
+          <p className="font-extrabold mb-1">Próxima cobrança</p>
+          <span className="font-semibold text-generic-dark">04/06/2024</span>
         </div>
-        <div>
-          <p className="font-bold">Próxima cobrança</p>
-          <span>04/06/2024</span>
-        </div>
+        <ButtonThird
+          className="!text-generic-alertRed !justify-end !text-sm !font-black "
+          onClick={() => setIsCancelSubscriptionModalOpen(true)}
+        >
+          Cancelar Assinatura
+        </ButtonThird>
       </div>
-      <ButtonThird
-        className="!text-generic-alertRed !p-0 mt-8"
-        onClick={() => setIsCancelSubscriptionModalOpen(true)}
-      >
-        Cancelar Assinatura
-      </ButtonThird>
+
+      <div className="flex flex-col items-center text-center px-4 space-y-4 mt-14">
+        <h2 className="font-extrabold text-sm">Meio de pagamento salvo</h2>
+        <p className="text-xs leading-4 text-generic-grayLighter">
+          Nós não salvamos dados sensíveis do cartão de crédito, apenas o dado
+          criptografado necessário para realizar o pagamento.
+        </p>
+        <CreditCard
+          cardFlag="master-card"
+          expirationDate="10/26"
+          lastNumbers="4111"
+          nameOnCard="Felipe M F Henrique"
+        />
+      </div>
+      <div className="mt-2 text-center">
+        <ButtonThird className="!text-generic-alertRed !text-sm !font-extrabold">
+          {" "}
+          Excluir Cartão Principal
+        </ButtonThird>
+        <p className="text-xs leading-4 italic text-generic-grayLighter px-8">
+          Ao remover o cartão principal de pagamento, suas próximas faturas
+          terão que ser pagas manualmente.
+        </p>
+      </div>
     </div>
   ) : (
     <div className="flex flex-col items-center justify-center text-center">

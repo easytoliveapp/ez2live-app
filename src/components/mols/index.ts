@@ -4,6 +4,7 @@ export { default as CouponActivated } from "./CouponActivated";
 export { default as CouponCard } from "./CouponCard";
 export { default as Coupon } from "./CouponContent";
 export { default as CreateAndUpdateCoupon } from "./CreateAndUpdateCoupon";
+export { default as CreditCard } from "./CreditCard";
 export { default as CreditCardPayment } from "./CreditCardPayment";
 export { default as EmptyCoupons } from "./EmptyCoupons";
 export { default as FastLoginPage } from "./FastLoginPage";
