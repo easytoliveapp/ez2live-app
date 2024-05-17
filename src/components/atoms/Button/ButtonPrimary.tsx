@@ -9,7 +9,7 @@ const ButtonPrimary: React.FC<ButtonPrimaryProps> = ({
 }) => {
   return (
     <Button
-      className={`ttnc-ButtonPrimary disabled:bg-opacity-90 bg-primary-main dark:bg-slate-100 disabled:bg-primary-lighter text-slate-50 shadow-xl ${className}`}
+      className={`ttnc-ButtonPrimary hover:opacity-95 active:scale-100 hover:scale-[1.01] disabled:bg-opacity-90 bg-primary-main dark:bg-slate-100 disabled:bg-primary-lighter text-slate-50 shadow-xl ${className}`}
       {...args}
     />
   );

@@ -82,8 +82,6 @@ const FormComponent = () => {
             type: "error",
           });
         }
-
-        setLoading(false);
       });
   };
 

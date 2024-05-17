@@ -25,7 +25,7 @@ const LoadingComponent: React.FC<ILoadingComponent> = ({
 
   const SIZING = {
     small: "w-4 h-4",
-    medium: "w-10 h-10",
+    medium: "w-16 h-16",
     large: "w-24 h-24",
   };
 

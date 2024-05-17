@@ -29,7 +29,7 @@ const PremiumConversionModal: React.FC<IPremiumConversionModal> = ({
     return await usersService.getSubscriptionDays(userId);
   };
 
-  async function updateSession(newSubscriptionDate: string) {
+  const updateSession = async (newSubscriptionDate: string) => {
     await update({
       ...session,
       user: {
@@ -37,12 +37,12 @@ const PremiumConversionModal: React.FC<IPremiumConversionModal> = ({
         subscriptionEndDate: newSubscriptionDate,
       },
     });
-  }
+  };
 
   const updateUserSessionSubscriptionDate = async () => {
     getSubscriptionDays(userId)
       .then((res: any) => {
-        updateSession(res.data.subscriptionDays);
+        session && updateSession(res.data.subscriptionDays);
       })
       .catch((err) => {
         showToastify({

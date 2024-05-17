@@ -2,7 +2,7 @@
 import React, { FC } from "react";
 import Image from "next/image";
 import LogoImage from "@/images/easytolive/logo/logotipo-semfundoazulroxo.svg";
-import { AvatarDropdown } from "@/components";
+import { AvatarDropdown, UserSubscriptionBadge } from "@/components";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 
@@ -14,7 +14,7 @@ const NavBarLogged: FC<NavBarLoggedProps> = ({ hasLogoImage = true }) => {
   const { data: session } = useSession();
 
   return (
-    <div className="relative w-full p-2 flex justify-between items-center">
+    <div className="relative w-full p-2 flex pl-4  sm:justify-center items-center">
       <span></span>
       {hasLogoImage && (
         <Link href={session?.user.isSupplier ? "/app/dashboard" : "/app"}>
@@ -25,8 +25,10 @@ const NavBarLogged: FC<NavBarLoggedProps> = ({ hasLogoImage = true }) => {
           />
         </Link>
       )}
-
-      <AvatarDropdown />
+      <div className="flex absolute right-2 items-center gap-3">
+        {session?.user && <UserSubscriptionBadge />}
+        <AvatarDropdown />
+      </div>
     </div>
   );
 };
