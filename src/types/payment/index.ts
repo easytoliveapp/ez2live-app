@@ -1,13 +1,13 @@
 export interface ICreditCardPayment {
-  cardNumber: string;
+  creditCard: string;
   cvv: string;
-  nameOnCard: string;
+  fullName: string;
   cardMonth: string;
   cardYear: string;
-  TermsOfUse: boolean;
+  termsOfUse: boolean;
 }
 
 export interface IPixPayment {
   cpf: string;
-  TermsOfUse: boolean;
+  termsOfUse: boolean;
 }

@@ -14,7 +14,7 @@ const NavBarLogged: FC<NavBarLoggedProps> = ({ hasLogoImage = true }) => {
   const { data: session } = useSession();
 
   return (
-    <div className="relative w-full p-2 flex justify-between items-center">
+    <div className="relative w-full p-2 flex pl-4  sm:justify-center items-center">
       <span></span>
       {hasLogoImage && (
         <Link href={session?.user.isSupplier ? "/app/dashboard" : "/app"}>
@@ -25,7 +25,7 @@ const NavBarLogged: FC<NavBarLoggedProps> = ({ hasLogoImage = true }) => {
           />
         </Link>
       )}
-      <div className="flex items-center gap-3">
+      <div className="flex absolute right-2 items-center gap-3">
         {session?.user && <UserSubscriptionBadge />}
         <AvatarDropdown />
       </div>
