@@ -224,7 +224,7 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
 
   const handleActiveCoupon = async () => {
     if (session?.user) {
-      if (isDateValid(session.user.subscriptionEndDate) === false) {
+      if (isDateBeforeToday(session.user.subscriptionEndDate) === false) {
         showToastify({
           type: "info",
           label:
