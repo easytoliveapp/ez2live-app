@@ -246,7 +246,7 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
       <Modal show={deleteModal} onCloseModal={() => setDeleteModal(false)}>
         <div className="w-full flex flex-col gap-3">
           <h2 className="font-bold text-xl w-full text-center pb-1 text-black">
-            DELETAR CUPOM
+            EXCLUIR CUPOM
           </h2>
           <p className="p-1 text-center">
             Deseja deletar permanentemente o cupom?
@@ -256,7 +256,7 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
               className="w-full !text-white !bg-generic-alertRed cursor-pointer"
               onClick={() => handleDeleteModal()}
             >
-              deletar cupom
+              excluir cupom
             </ButtonSecondary>
           </div>
           <p className="text-xs p-2 text-center">
@@ -485,7 +485,7 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
               className="m-auto w-full !hover:border-none"
               onClick={() => setDeleteModal(true)}
             >
-              deletar cupom
+              excluir cupom
             </ButtonThird>
           )}
         </div>
