@@ -47,7 +47,6 @@ export const Signature: React.FC<SignatureProps> = ({ session }) => {
       (await userService
         .removeSubscriptionDays(session?.user.id, 30)
         .then((res: any) => {
-          console.log(res);
           updateSession(res.data.user.subscriptionEndDate);
         })
         .catch(() => {
