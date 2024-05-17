@@ -28,7 +28,7 @@ const FormItem: React.FC<IFormItemProps> = ({
       {children}
       {errorMessage && invalid && (
         <span
-          className={`text-sx absolute bottom-4 left-[18px] text-rose-500 text-xs italic`}
+          className={`text-sx absolute top-[70px] left-[18px] text-rose-500 text-xs italic`}
         >
           {errorMessage}
         </span>

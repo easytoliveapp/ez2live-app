@@ -175,7 +175,7 @@ const FormComponent = () => {
         onSubmit={handleSubmit}
       >
         {({ errors, touched, handleSubmit }: FormikProps<IRegisterAccount>) => (
-          <Form onSubmit={handleSubmit} className="flex flex-col gap-3">
+          <Form onSubmit={handleSubmit} className="flex flex-col">
             <FormItem
               label="Nome da empresa"
               errorMessage={errors.name}
