@@ -14,7 +14,7 @@ export interface SectionPromo2Props {
 
 const CONTENT_BY_CATEGORY = {
   Restaurante: {
-    title: "Restaurantes",
+    title: "Comida saudável",
     description:
       "Descontos especiais em refeições, combos de restaurantes populares, ofertas de delivery e cupons para sobremesas gratuitas.",
   },

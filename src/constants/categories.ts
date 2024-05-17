@@ -6,7 +6,7 @@ import RestaurantsImage from "@/images/easytolive/categories/restaurantes.svg";
 export const CATEGORIES = {
   "6583288ca8101b0027ecd823": {
     altImage: "Restaurantes Image",
-    name: "Restaurantes",
+    name: "Comida saudável",
     image: RestaurantsImage,
   },
   "6583296aa8101b0027ecd833": {

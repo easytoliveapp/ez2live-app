@@ -166,6 +166,8 @@ const FormComponent = () => {
     const handleSubmit = (values: Partial<IRegisterAccount>) => {
       props.next(values);
     };
+    const [disableCategoriePlaceholder, setDisableCategoriePlaceholder] =
+      useState(false);
 
     return (
       <Formik
@@ -267,8 +269,14 @@ const FormComponent = () => {
                 }
                 name="supplierInfo.supplierCategory"
                 component={Select}
+                onClick={() => setDisableCategoriePlaceholder(true)}
               >
-                <option value={undefined}>selecione uma categoria</option>
+                <option
+                  value={undefined}
+                  disabled={disableCategoriePlaceholder}
+                >
+                  selecione uma categoria
+                </option>
                 {categories.map((categorie: ICategoryProps, index) => (
                   <option key={index} value={categorie.id}>
                     {categorie.title}
