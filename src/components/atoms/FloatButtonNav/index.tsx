@@ -42,9 +42,8 @@ const FloatButtonNav: React.FC<IFloatButtonNavProps & LinkProps<any>> = ({
         backgroundStyle === "main"
           ? "from-primary-main to-primary-lighter"
           : "from-secondary-main to-secondary-lighter",
-        hasCouponActive ? "pr-4" : "pr-8",
         `${bottomPosition[position]}`,
-        "flex items-center bg-gradient-to-r rounded-l-full pl-4 py-4 fixed right-0 z-50 min-h-8 p-3",
+        "flex items-center bg-gradient-to-r rounded-l-full pl-4 py-4 pr-5 fixed right-0 z-50 min-h-8",
       )}
     >
       {isloading ? (
@@ -52,7 +51,7 @@ const FloatButtonNav: React.FC<IFloatButtonNavProps & LinkProps<any>> = ({
       ) : (
         <Image className="w-auto h-7" alt="icon-image" src={icon}></Image>
       )}
-      {hasCouponActive && (
+      {hasCouponActive ? (
         <div className="w-9 h-9 rouded-full flex items-center relative">
           <motion.div
             className="flex items-center justify-center ml-2 w-5 h-5 rounded-full bg-generic-alertGreenLigther"
@@ -64,10 +63,11 @@ const FloatButtonNav: React.FC<IFloatButtonNavProps & LinkProps<any>> = ({
           </motion.div>
           <div className="absolute right-[15px] w-1.5 h-1.5 rounded-full bg-generic-alertGreen"></div>
         </div>
+      ) : (
+        <div className="w-9 h-9"></div>
       )}
       <div
         className={cx(
-          "ml-2",
           backgroundStyle === "main"
             ? "text-secondary-main"
             : "text-primary-main",
