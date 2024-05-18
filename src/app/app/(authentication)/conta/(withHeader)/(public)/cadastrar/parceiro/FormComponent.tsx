@@ -275,7 +275,7 @@ const FormComponent = () => {
                   value={undefined}
                   disabled={disableCategoriePlaceholder}
                 >
-                  selecione uma categoria
+                  Selecione uma categoria
                 </option>
                 {categories.map((categorie: ICategoryProps, index) => (
                   <option key={index} value={categorie.id}>

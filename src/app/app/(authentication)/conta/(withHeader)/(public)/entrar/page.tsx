@@ -49,7 +49,7 @@ const PageLogin = () => {
                   : "/app/conta/cadastrar/usuario"
               }
             >
-              registrar
+              Registrar com e-mail/senha
             </Link>
           </span>
           {/* OR */}

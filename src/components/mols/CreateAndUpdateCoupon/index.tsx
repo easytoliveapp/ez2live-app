@@ -256,7 +256,7 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
               className="w-full !text-white !bg-generic-alertRed cursor-pointer"
               onClick={() => handleDeleteModal()}
             >
-              excluir cupom
+              Excluir cupom
             </ButtonSecondary>
           </div>
           <p className="text-xs p-2 text-center">
@@ -458,7 +458,7 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
               className="m-auto w-full !hover:border-none"
               onClick={() => setDeleteModal(true)}
             >
-              excluir cupom
+              Excluir cupom
             </ButtonThird>
           )}
         </div>
