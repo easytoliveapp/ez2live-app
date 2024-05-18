@@ -13,6 +13,6 @@ export interface IPixPayment {
 }
 
 export interface IPixResponseData {
-  qrCodeValue: string;
+  qrCodeValue: { image: string; text: string };
   invoiceId: string;
 }

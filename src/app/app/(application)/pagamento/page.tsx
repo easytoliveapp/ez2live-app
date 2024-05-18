@@ -18,7 +18,10 @@ const PaymentPage = () => {
   const [currentStep, setCurrentStep] = useState<number>(STEPS.PAYMENT);
   const [pixData, setPixData] = useState<IPixResponseData>({
     invoiceId: "",
-    qrCodeValue: "",
+    qrCodeValue: {
+      image: "",
+      text: "",
+    },
   });
   const [paymentTab, setPaymentTab] = useState(PAYMENT.creditCard);
   const renderStep = (step: number) => {

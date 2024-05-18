@@ -5,7 +5,6 @@ import QrCodeSimpleIcon from "@/images/easytolive/payment/qr-code-simple-icon.sv
 import PixSimpleIcon from "@/images/easytolive/payment/pix-simple-icon.svg";
 import PixImage from "@/images/easytolive/payment/pix-image.svg";
 import { PAYMENT } from "@/constants/paymentMethods";
-import QRCode from "react-qr-code";
 import { copyTextToClipboard } from "@/utils/copyTextToClipboard";
 import subscriptionService from "@/service/subscription.service";
 import { showToastify } from "@/hooks/showToastify";
@@ -80,8 +79,9 @@ export const WaitingApprovalStep: React.FC<IWaitingApprovalStepProps> = ({
               <Image alt="Pix Image" src={PixImage} width={82} height={33} />
             </div>
             <p className="font-bold text-xs text-generic-dark">QR Code</p>
-            <QRCode
-              value={pixData.qrCodeValue}
+            <Image
+              src={pixData.qrCodeValue.image}
+              alt="pix-image"
               className="w-32 h-32"
               height={128}
               width={128}
@@ -92,12 +92,12 @@ export const WaitingApprovalStep: React.FC<IWaitingApprovalStepProps> = ({
                 Copia e Cola
               </p>
               <p className="text-xs max-w-[280px] mb-2 break-words md:max-w-[340px]">
-                {pixData.qrCodeValue}
+                {pixData.qrCodeValue.text}
               </p>
             </div>
 
             <ButtonFourth
-              onClick={() => copyTextToClipboard(pixData.qrCodeValue)}
+              onClick={() => copyTextToClipboard(pixData.qrCodeValue.text)}
               className="!border-generic-limeGreen !border-[1px] !py-1 !text-xs  !text-generic-limeGreen"
             >
               Copiar Código PIX

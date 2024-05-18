@@ -49,7 +49,13 @@ const PixPayment: React.FC<IPixPaymentProps> = ({
       .createSubscription(subscriptionPixData(values.cpf))
       .then((res: any) => {
         updateSession(res.data.user);
-        setPixData(res.data.paymentInfo.pix.qrcode_text);
+        setPixData({
+          invoiceId: res.data.subscriptionResponse.recentInvoiceId,
+          qrCodeValue: {
+            image: res.data.subscriptionResponse.pix.qrCode,
+            text: res.data.subscriptionResponse.pix.qrCodeText,
+          },
+        });
         currentStepPayment(1);
       })
       .catch((res: any) => {
