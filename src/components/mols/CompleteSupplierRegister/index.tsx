@@ -85,7 +85,6 @@ const CompleteSupplierRegister: React.FC = () => {
       })
       .then((response) => response.data)
       .catch((error) => {
-        console.log(error.response);
         if (error.response.data.code === 400) {
           showToastify({
             type: "success",

@@ -4,9 +4,16 @@ import { getDateFormater } from "@/utils/getDateFormater";
 import { ButtonPrimary, ButtonThird, SimpleModal } from "@/components";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { Route } from "next";
 
 export const AcceptedPaymentStep = () => {
   const { data: session } = useSession();
+  const router = useRouter();
+  const params = useSearchParams();
+  const callbackUrl = params.get("callbackUrl");
+  const redirectLink = callbackUrl ? callbackUrl : "/app/meus-cupons";
+
   return (
     <div className="w-full flex flex-col items-center">
       <SimpleModal className="px-4">
@@ -47,7 +54,7 @@ export const AcceptedPaymentStep = () => {
         </div>
       </SimpleModal>
       <div className="flex flex-col w-full max-w-xs md:max-w-sm">
-        <ButtonPrimary href="/app/meus-cupons">
+        <ButtonPrimary onClick={() => router.push(redirectLink as Route)}>
           Quero meu desconto
         </ButtonPrimary>
         <ButtonThird

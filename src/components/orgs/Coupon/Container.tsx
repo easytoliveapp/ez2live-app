@@ -223,6 +223,7 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
   };
 
   const handleActiveCoupon = async () => {
+    console.log("chegou aqui");
     if (session?.user) {
       if (isDateBeforeToday(session.user.subscriptionEndDate) === false) {
         showToastify({
@@ -235,6 +236,7 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
           3000,
         );
       }
+
       handleNextStep(STEPS.LOADING_COUPON);
 
       activateCoupon()
