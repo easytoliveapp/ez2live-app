@@ -41,7 +41,7 @@ export const Signature: React.FC<SignatureProps> = ({ session }) => {
     // TODO: CONECTAR ENDPOINT PARA CANCELAR
     setLoading(false);
   };
-
+  //TODO:REMOVE THIS CODE BEFORE IT GOES LIVE--------------------------
   const handleCancelFreeTrial = async () => {
     session &&
       (await userService
@@ -56,7 +56,7 @@ export const Signature: React.FC<SignatureProps> = ({ session }) => {
           });
         }));
   };
-
+  //----------------------------------------------------------------------
   return session?.user.iuguCustomerId !== null ? (
     <div className="px-4">
       <Modal
