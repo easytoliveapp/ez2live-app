@@ -10,6 +10,7 @@ import { copyTextToClipboard } from "@/utils/copyTextToClipboard";
 import subscriptionService from "@/service/subscription.service";
 import { showToastify } from "@/hooks/showToastify";
 import { IPixResponseData } from "@/types/payment";
+import { useSession } from "next-auth/react";
 
 interface IWaitingApprovalStepProps {
   PaymentTab: string;
@@ -22,12 +23,34 @@ export const WaitingApprovalStep: React.FC<IWaitingApprovalStepProps> = ({
   pixData,
   setCurrentStep,
 }) => {
+  const { data: session, update } = useSession();
+
+  const updateSession = async (responseData: any) => {
+    await update({
+      ...session,
+      user: {
+        ...session?.user,
+        iuguSubscriptionId: responseData.subscriptionId,
+      },
+    });
+  };
+
   useEffect(() => {
     const interval = setInterval(() => {
       getInvoiceStatus();
     }, 5000);
 
-    return clearInterval(interval);
+    const timeout = setTimeout(
+      () => {
+        setCurrentStep(3);
+      },
+      5 * 60 * 1000,
+    );
+
+    return () => {
+      clearInterval(interval);
+      clearTimeout(timeout);
+    };
   }, []);
 
   const getInvoiceStatus = async () => {
@@ -35,7 +58,7 @@ export const WaitingApprovalStep: React.FC<IWaitingApprovalStepProps> = ({
       .getInvoiceById(pixData.invoiceId)
       .then((res: any) => {
         if (res.data.status === "paid") {
-          // TODO Atualizar Dados da sessaio IuguCostumer IuguId SubscriptionID
+          updateSession(res.data);
           setCurrentStep(2);
         }
       })
