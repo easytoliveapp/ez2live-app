@@ -11,3 +11,8 @@ export interface IPixPayment {
   cpf: string;
   termsOfUse: boolean;
 }
+
+export interface IPixResponseData {
+  qrCodeValue: string;
+  invoiceId: string;
+}

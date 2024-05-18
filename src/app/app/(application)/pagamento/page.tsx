@@ -5,6 +5,7 @@ import { WaitingApprovalStep } from "./WaitingApprovalStep";
 import { AcceptedPaymentStep } from "./AcceptedPaymentStep";
 import { RejectedPaymentStep } from "./RejectedPaymentStep";
 import { PAYMENT } from "@/constants/paymentMethods";
+import { IPixResponseData } from "@/types/payment";
 
 const PaymentPage = () => {
   const STEPS = {
@@ -15,7 +16,10 @@ const PaymentPage = () => {
   };
 
   const [currentStep, setCurrentStep] = useState<number>(STEPS.PAYMENT);
-  const [qrCode, setQrCode] = useState("");
+  const [pixData, setPixData] = useState<IPixResponseData>({
+    invoiceId: "",
+    qrCodeValue: "",
+  });
   const [paymentTab, setPaymentTab] = useState(PAYMENT.creditCard);
   const renderStep = (step: number) => {
     switch (step) {
@@ -25,7 +29,7 @@ const PaymentPage = () => {
             PaymentTab={paymentTab}
             setPaymentTab={setPaymentTab}
             setCurrentStep={setCurrentStep}
-            setQrCode={setQrCode}
+            setPixData={setPixData}
           />
         );
       case STEPS.LOADING_PAYMENT:
@@ -33,7 +37,7 @@ const PaymentPage = () => {
           <WaitingApprovalStep
             PaymentTab={paymentTab}
             setCurrentStep={setCurrentStep}
-            qrCodeValue={qrCode}
+            pixData={pixData}
           />
         );
       case STEPS.PAYMENT_ACCEPT:
@@ -46,7 +50,7 @@ const PaymentPage = () => {
             PaymentTab={paymentTab}
             setPaymentTab={setPaymentTab}
             setCurrentStep={setCurrentStep}
-            setQrCode={setQrCode}
+            setPixData={setPixData}
           />
         );
     }

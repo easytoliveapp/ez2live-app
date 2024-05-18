@@ -5,18 +5,18 @@ import { Input, ButtonPrimary, FormItem } from "@/components";
 import * as Yup from "yup";
 import Image from "next/image";
 import PixImage from "@/images/easytolive/payment/pix-image.svg";
-import { IPixPayment } from "@/types/payment";
+import { IPixPayment, IPixResponseData } from "@/types/payment";
 import subscriptionService from "@/service/subscription.service";
 import { subscriptionPixData } from "@/constants/payment";
 
 interface IPixPaymentProps {
   currentStepPayment: React.Dispatch<React.SetStateAction<number>>;
-  setQrCode: React.Dispatch<React.SetStateAction<string>>;
+  setPixData: React.Dispatch<React.SetStateAction<IPixResponseData>>;
 }
 
 const PixPayment: React.FC<IPixPaymentProps> = ({
   currentStepPayment,
-  setQrCode,
+  setPixData,
 }) => {
   const [loading, setLoading] = useState(false);
 
@@ -35,7 +35,7 @@ const PixPayment: React.FC<IPixPaymentProps> = ({
     await subscriptionService
       .createSubscription(subscriptionPixData(values.cpf))
       .then((res: any) => {
-        setQrCode(res.data.paymentInfo.pix.qrcode_text);
+        setPixData(res.data.paymentInfo.pix.qrcode_text);
         currentStepPayment(1);
       })
       .catch(() => currentStepPayment(3));

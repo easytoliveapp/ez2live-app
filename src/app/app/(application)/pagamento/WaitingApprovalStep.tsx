@@ -9,16 +9,17 @@ import QRCode from "react-qr-code";
 import { copyTextToClipboard } from "@/utils/copyTextToClipboard";
 import subscriptionService from "@/service/subscription.service";
 import { showToastify } from "@/hooks/showToastify";
+import { IPixResponseData } from "@/types/payment";
 
 interface IWaitingApprovalStepProps {
   PaymentTab: string;
-  qrCodeValue: string;
+  pixData: IPixResponseData;
   setCurrentStep: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export const WaitingApprovalStep: React.FC<IWaitingApprovalStepProps> = ({
   PaymentTab,
-  qrCodeValue,
+  pixData,
   setCurrentStep,
 }) => {
   useEffect(() => {
@@ -31,10 +32,10 @@ export const WaitingApprovalStep: React.FC<IWaitingApprovalStepProps> = ({
 
   const getInvoiceStatus = async () => {
     await subscriptionService
-      .getInvoices()
+      .getInvoiceById(pixData.invoiceId)
       .then((res: any) => {
-        //TODO change de response based on the new request /invoice/{id}
-        if (res.data.items[0].status === "paid") {
+        if (res.data.status === "paid") {
+          // TODO Atualizar Dados da sessaio IuguCostumer IuguId SubscriptionID
           setCurrentStep(2);
         }
       })
@@ -57,7 +58,7 @@ export const WaitingApprovalStep: React.FC<IWaitingApprovalStepProps> = ({
             </div>
             <p className="font-bold text-xs text-generic-dark">QR Code</p>
             <QRCode
-              value={qrCodeValue}
+              value={pixData.qrCodeValue}
               className="w-32 h-32"
               height={128}
               width={128}
@@ -68,12 +69,12 @@ export const WaitingApprovalStep: React.FC<IWaitingApprovalStepProps> = ({
                 Copia e Cola
               </p>
               <p className="text-xs max-w-[280px] mb-2 break-words md:max-w-[340px]">
-                {qrCodeValue}
+                {pixData.qrCodeValue}
               </p>
             </div>
 
             <ButtonFourth
-              onClick={() => copyTextToClipboard(qrCodeValue)}
+              onClick={() => copyTextToClipboard(pixData.qrCodeValue)}
               className="!border-generic-limeGreen !border-[1px] !py-1 !text-xs  !text-generic-limeGreen"
             >
               Copiar Código PIX
