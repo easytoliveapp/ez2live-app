@@ -1,12 +1,25 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import CheckIcon from "@/images/easytolive/icons/checkIcon.svg";
 import { getDateFormater } from "@/utils/getDateFormater";
 import { ButtonPrimary, ButtonThird, SimpleModal } from "@/components";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
+import subscriptionService from "@/service/subscription.service";
 
 export const AcceptedPaymentStep = () => {
   const { data: session } = useSession();
+  const [expiredSubscriptionData, setExpiredSubscriptionData] = useState();
+
+  const getSubscriptionEndDate = async () => {
+    const subscriptionResponse: any =
+      await subscriptionService.getSubscriptionInfo();
+    return setExpiredSubscriptionData(subscriptionResponse.expires_at);
+  };
+
+  useEffect(() => {
+    if (session?.user) getSubscriptionEndDate();
+  }, []);
+
   return (
     <div className="w-full flex flex-col items-center">
       <SimpleModal className="px-4">
@@ -40,9 +53,7 @@ export const AcceptedPaymentStep = () => {
         <div>
           <p>Próxima cobrança</p>
           <p>
-            <strong>
-              {getDateFormater(session?.user.subscriptionEndDate)}
-            </strong>
+            <strong>{getDateFormater(expiredSubscriptionData)}</strong>
           </p>
         </div>
       </SimpleModal>
