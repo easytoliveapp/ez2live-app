@@ -13,7 +13,7 @@ export const AcceptedPaymentStep = () => {
   const getSubscriptionEndDate = async () => {
     const subscriptionResponse: any =
       await subscriptionService.getSubscriptionInfo();
-    return setExpiredSubscriptionData(subscriptionResponse.expires_at);
+    return setExpiredSubscriptionData(subscriptionResponse.expiresAt);
   };
 
   useEffect(() => {
