@@ -48,6 +48,7 @@ export async function middleware(request: NextRequest) {
     );
   }
 
+  //  Apenas usuários comuns e sem assinatura ativa podem visitar a página de pagamento
   if (
     tokenInfo?.user.role !== ROLES.commonUser &&
     request.nextUrl.pathname === "/app/pagamento"
@@ -71,7 +72,7 @@ export async function middleware(request: NextRequest) {
       new URL("/app/minha-conta?aba=assinatura" ?? "/app", request.url),
     );
   }
-
+  //  -----------------------------------------------------------------------
   if (
     (tokenInfo?.user.role === ROLES.supplier ||
       tokenInfo?.user.role === ROLES.admin) &&
