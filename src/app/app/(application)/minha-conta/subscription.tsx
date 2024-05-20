@@ -67,6 +67,9 @@ export const SubscriptionTab: React.FC<SubscriptionProps> = ({
         .then((res: any) => {
           updateSession(res.data.user.subscriptionTrialEndDate);
         })
+        .then(() => {
+          showToastify({ label: "Trial removido", type: "success" });
+        })
         .catch(() => {
           showToastify({
             label: "Ocorreu um erro ao remover seu período grátis",
