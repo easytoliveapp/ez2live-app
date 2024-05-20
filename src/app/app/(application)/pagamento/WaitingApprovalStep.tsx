@@ -97,7 +97,13 @@ export const WaitingApprovalStep: React.FC<IWaitingApprovalStepProps> = ({
             </div>
 
             <ButtonFourth
-              onClick={() => copyTextToClipboard(pixData.qrCodeValue.text)}
+              onClick={() => {
+                copyTextToClipboard(pixData.qrCodeValue.text);
+                showToastify({
+                  label: "Texto copiado para a área de transferência!",
+                  type: "success",
+                });
+              }}
               className="!border-generic-limeGreen !border-[1px] !py-1 !text-xs  !text-generic-limeGreen"
             >
               Copiar Código PIX
