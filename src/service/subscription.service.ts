@@ -14,6 +14,14 @@ const createSubscription = async (data: any) => {
     data: data,
   });
 };
+
+const suspendSubscription = async () => {
+  return await BaseService.fetchData({
+    url: "/subscription",
+    method: "delete",
+  });
+};
+
 const deleteSubscription = async (email: string) => {
   return await BaseService.fetchData({
     url: `/subscription/${email}`,
@@ -51,6 +59,7 @@ const getInvoices = async () => {
 
 const subscriptionService = {
   getSubscriptionInfo,
+  suspendSubscription,
   createSubscription,
   deleteSubscription,
   createIuguCostumer,
