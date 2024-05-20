@@ -86,8 +86,8 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
   const handleNextStep = (step: number) => setCurrentStep(step);
 
   const getUserInfo = async () => {
-    if (session && session.user.email) {
-      const res: any = await userService.getUser(session.user.email);
+    if (session && session.user.id) {
+      const res: any = await userService.getUser(session.user.id);
       return res;
     }
   };
