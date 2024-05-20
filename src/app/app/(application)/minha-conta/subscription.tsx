@@ -13,7 +13,7 @@ import { showToastify } from "@/hooks/showToastify";
 import { useSession } from "next-auth/react";
 import { Session } from "next-auth";
 import { getDateFormater } from "@/utils/getDateFormater";
-import { IGetSubscriptionResponse } from "@/types/auth/response";
+import IGetSubscriptionResponse from "@/types/subscription/response/index";
 
 interface SubscriptionProps {
   session: Session | null;

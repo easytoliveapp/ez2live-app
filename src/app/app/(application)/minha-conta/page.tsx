@@ -6,7 +6,7 @@ import { useSession } from "next-auth/react";
 import { SecurityTab } from "./security";
 import { AccountTab } from "./account";
 import { SubscriptionTab } from "./subscription";
-import { IGetSubscriptionResponse } from "@/types/auth/response";
+import IGetSubscriptionResponse from "@/types/subscription/response/index";
 import subscriptionService from "@/service/subscription.service";
 import { showToastify } from "@/hooks/showToastify";
 
