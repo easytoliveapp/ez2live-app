@@ -20,7 +20,6 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 import { ICoupon } from "@/types/coupons";
-import isDateBeforeToday from "@/utils/isDateBeforeToday";
 import { Route } from "next";
 import { ISupplier } from "@/types/supplier";
 import getSubscriptionPageURL from "@/utils/getSubscriptionPageUrl";
