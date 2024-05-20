@@ -41,7 +41,7 @@ export const WaitingApprovalStep: React.FC<IWaitingApprovalStepProps> = ({
   };
 
   const updateSession = async (responseData: any) => {
-    await update({
+    return await update({
       ...session,
       user: {
         ...session?.user,
