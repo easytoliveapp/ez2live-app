@@ -52,7 +52,7 @@ export const WaitingApprovalStep: React.FC<IWaitingApprovalStepProps> = ({
   useEffect(() => {
     const interval = setInterval(() => {
       getInvoiceStatus();
-    }, 5000);
+    }, 30 * 1000);
 
     const timeout = setTimeout(
       () => {
