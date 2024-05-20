@@ -128,15 +128,14 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
   useEffect(() => {
     if (couponId === couponIdParam) {
       if (
-        (session &&
-          !isDateBeforeToday(session.user.subscriptionTrialEndDate)) ||
-        session?.user.subscriptionTrialEndDate === null
+        session?.user.subscriptionStatus === SUBSCRIPTION_STATUS.PREMIUM ||
+        session?.user.subscriptionStatus === SUBSCRIPTION_STATUS.TRIAL
       ) {
-        setShowCouponModal(false);
-      } else {
         setShowCouponModal(true);
         setLoading(true);
         setTimeout(() => handleActiveCoupon(), 2000);
+      } else {
+        setShowCouponModal(false);
       }
     }
   }, [couponId, couponIdParam, session]);
