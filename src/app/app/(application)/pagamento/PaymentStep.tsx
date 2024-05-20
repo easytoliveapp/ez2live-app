@@ -12,14 +12,14 @@ import { IPixResponseData } from "@/types/payment";
 
 interface IPaymentStepProps {
   setCurrentStep: React.Dispatch<React.SetStateAction<number>>;
-  PaymentTab: string;
+  paymentTab: string;
   setPaymentTab: React.Dispatch<React.SetStateAction<string>>;
   setPixData: React.Dispatch<React.SetStateAction<IPixResponseData>>;
 }
 
 export const PaymentStep: React.FC<IPaymentStepProps> = ({
   setCurrentStep,
-  PaymentTab,
+  paymentTab,
   setPaymentTab,
   setPixData,
 }) => {
@@ -27,8 +27,8 @@ export const PaymentStep: React.FC<IPaymentStepProps> = ({
     <div>
       <OneStepToPayment />
       <SimpleModal className="!p-0">
-        <PaymentMethod PaymentTab={PaymentTab} SetPaymentTab={setPaymentTab} />
-        {PaymentTab === PAYMENT.creditCard ? (
+        <PaymentMethod paymentTab={paymentTab} SetPaymentTab={setPaymentTab} />
+        {paymentTab === PAYMENT.creditCard ? (
           <CreditCardPayment currentStepPayment={setCurrentStep} />
         ) : (
           <PixPayment

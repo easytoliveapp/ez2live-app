@@ -29,7 +29,7 @@ const PaymentPage = () => {
       case STEPS.PAYMENT:
         return (
           <PaymentStep
-            PaymentTab={paymentTab}
+            paymentTab={paymentTab}
             setPaymentTab={setPaymentTab}
             setCurrentStep={setCurrentStep}
             setPixData={setPixData}
@@ -38,7 +38,7 @@ const PaymentPage = () => {
       case STEPS.LOADING_PAYMENT:
         return (
           <WaitingApprovalStep
-            PaymentTab={paymentTab}
+            paymentTab={paymentTab}
             setCurrentStep={setCurrentStep}
             pixData={pixData}
           />
@@ -50,7 +50,7 @@ const PaymentPage = () => {
       default:
         return (
           <PaymentStep
-            PaymentTab={paymentTab}
+            paymentTab={paymentTab}
             setPaymentTab={setPaymentTab}
             setCurrentStep={setCurrentStep}
             setPixData={setPixData}

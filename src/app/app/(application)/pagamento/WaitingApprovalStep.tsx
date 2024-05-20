@@ -12,13 +12,13 @@ import { IPixResponseData } from "@/types/payment";
 import { useSession } from "next-auth/react";
 
 interface IWaitingApprovalStepProps {
-  PaymentTab: string;
+  paymentTab: string;
   pixData: IPixResponseData;
   setCurrentStep: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export const WaitingApprovalStep: React.FC<IWaitingApprovalStepProps> = ({
-  PaymentTab,
+  paymentTab,
   pixData,
   setCurrentStep,
 }) => {
@@ -71,8 +71,8 @@ export const WaitingApprovalStep: React.FC<IWaitingApprovalStepProps> = ({
 
   return (
     <div>
-      <LoadingPayment paymentMethod={PaymentTab} />
-      {PaymentTab === PAYMENT.pix && (
+      <LoadingPayment paymentMethod={paymentTab} />
+      {paymentTab === PAYMENT.pix && (
         <div>
           <SimpleModal className="pb-6">
             <div className="w-full flex justify-center my-1">
