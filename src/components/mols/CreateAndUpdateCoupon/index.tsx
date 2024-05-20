@@ -120,7 +120,7 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
         title: coupon.title,
         discount: coupon.discount,
         couponRules: coupon.couponRules,
-        maxPerUser: coupon.maxPerUser === -1 ? 1 : coupon.maxPerUser,
+        maxPerUser: 1,
         maxTotal: coupon.maxTotal === -1 ? 100 : coupon.maxTotal,
         expirationGenerationDate: new Date(coupon.expirationGenerationDate),
         expirationUseDate: new Date(coupon.expirationUseDate),
@@ -172,7 +172,7 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
     const createData: ICreateCoupon = {
       title: values.title,
       discount: String(values.discount),
-      maxPerUser: unlimitedByUser ? -1 : Number(values.maxPerUser),
+      maxPerUser: 1,
       maxTotal: couponsUnlimited ? -1 : Number(values.maxTotal),
       expirationGenerationDate: getEndOfDayByDate(
         values.expirationGenerationDate,
@@ -246,7 +246,7 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
       <Modal show={deleteModal} onCloseModal={() => setDeleteModal(false)}>
         <div className="w-full flex flex-col gap-3">
           <h2 className="font-bold text-xl w-full text-center pb-1 text-black">
-            DELETAR CUPOM
+            EXCLUIR CUPOM
           </h2>
           <p className="p-1 text-center">
             Deseja deletar permanentemente o cupom?
@@ -256,7 +256,7 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
               className="w-full !text-white !bg-generic-alertRed cursor-pointer"
               onClick={() => handleDeleteModal()}
             >
-              deletar cupom
+              Excluir cupom
             </ButtonSecondary>
           </div>
           <p className="text-xs p-2 text-center">
@@ -310,6 +310,7 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
                   label={values.discount + "%"}
                   errorMessage={errors.discount}
                   invalid={!!(errors.discount && touched.discount)}
+                  hasErrorSpacement={false}
                 >
                   <Field
                     invalid={!!(errors.discount && touched.discount)}
@@ -355,69 +356,41 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
                     className="bg-white h-20"
                   />
                 </FormItem>
-
-                <div className="grid grid-cols-2 w-full my-2">
-                  <FormItem
-                    label="Limite de cupons"
-                    errorMessage={!couponsUnlimited && errors.maxTotal}
-                    invalid={
-                      !couponsUnlimited &&
-                      !!(errors.maxTotal && touched.maxTotal)
-                    }
-                  >
-                    <Field
-                      disabled={couponsUnlimited}
+                <div className="flex items-center">
+                  <div className="flex-grow">
+                    <FormItem
+                      label="Limite de cupons"
+                      errorMessage={!couponsUnlimited && errors.maxTotal}
                       invalid={
                         !couponsUnlimited &&
                         !!(errors.maxTotal && touched.maxTotal)
                       }
-                      name="maxTotal"
-                      value={couponsUnlimited ? "Ilimitado" : values.maxTotal}
-                      type="text"
-                      label="maxTotal"
-                      component={Input}
-                      className="bg-white disabled:bg-white"
-                    />
-                  </FormItem>
-                  <FormItem
-                    label="Limite por usuário"
-                    errorMessage={!unlimitedByUser && errors.maxPerUser}
-                    invalid={
-                      !unlimitedByUser &&
-                      !!(errors.maxPerUser && touched.maxPerUser)
-                    }
-                  >
-                    <Field
-                      disabled={unlimitedByUser}
-                      invalid={
-                        !unlimitedByUser &&
-                        !!(errors.maxPerUser && touched.maxPerUser)
-                      }
-                      name="maxPerUser"
-                      value={unlimitedByUser ? "Ilimitado" : values.maxPerUser}
-                      type="text"
-                      label="maxPerUser"
-                      component={Input}
-                      className="bg-white disabled:bg-white"
-                    />
-                  </FormItem>
-                  <div>
+                    >
+                      <Field
+                        disabled={couponsUnlimited}
+                        invalid={
+                          !couponsUnlimited &&
+                          !!(errors.maxTotal && touched.maxTotal)
+                        }
+                        name="maxTotal"
+                        value={couponsUnlimited ? "Ilimitado" : values.maxTotal}
+                        type="text"
+                        label="maxTotal"
+                        component={Input}
+                        className="bg-white disabled:bg-white"
+                      />
+                    </FormItem>
+                  </div>
+                  <div className="mb-2">
                     <ToggleButton
                       onClick={() => setCouponsUnlimited(!couponsUnlimited)}
                       toggle={couponsUnlimited}
                       label="Ilimitado"
                     />
                   </div>
-                  <div>
-                    <ToggleButton
-                      onClick={() => setUnlimitedByUser(!unlimitedByUser)}
-                      toggle={unlimitedByUser}
-                      label="Ilimitado"
-                    />
-                  </div>
                 </div>
                 {!isUpdatingCoupon && (
-                  <div className="grid grid-cols-2 w-full my-2">
+                  <div className="grid grid-cols-2 w-full gap-6">
                     <FormItem
                       label="O cupom encerra em..."
                       errorMessage={errors.expirationGenerationDate}
@@ -485,7 +458,7 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
               className="m-auto w-full !hover:border-none"
               onClick={() => setDeleteModal(true)}
             >
-              deletar cupom
+              Excluir cupom
             </ButtonThird>
           )}
         </div>

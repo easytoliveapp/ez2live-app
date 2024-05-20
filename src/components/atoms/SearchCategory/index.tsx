@@ -30,7 +30,7 @@ const SearchCategory: FC<SearchCategoryProps> = ({
         placeholder="Buscar por estabelecimento / categoria"
       />
 
-      <div className="absolute right-1 h-6 w-auto bg-transparent">
+      <div className="absolute right-1 top-3 h-full flex justify-center w-auto bg-transparent">
         {isLoading ? (
           <div className="pr-5 bg-generic-background">
             <svg
@@ -59,7 +59,7 @@ const SearchCategory: FC<SearchCategoryProps> = ({
             onClick={onClick}
             src={Search}
             alt="search-icon"
-            className="h-6"
+            className="h-6 "
           />
         )}
       </div>
