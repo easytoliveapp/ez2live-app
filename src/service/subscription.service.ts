@@ -22,13 +22,6 @@ const suspendSubscription = async () => {
   });
 };
 
-const deleteSubscription = async (email: string) => {
-  return await BaseService.fetchData({
-    url: `/subscription/${email}`,
-    method: "delete",
-  });
-};
-
 const createIuguCostumer = async () => {
   return await BaseService.fetchData({
     url: "/subscription/customer",
@@ -61,7 +54,6 @@ const subscriptionService = {
   getSubscriptionInfo,
   suspendSubscription,
   createSubscription,
-  deleteSubscription,
   createIuguCostumer,
   deleteIuguCostumer,
   getInvoiceById,
