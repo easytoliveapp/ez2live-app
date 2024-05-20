@@ -79,8 +79,10 @@ export const SubscriptionTab: React.FC<SubscriptionProps> = ({
         }));
   };
   //----------------------------------------------------------------------
+  const hasSubscriptionId = session?.user.iuguSubscriptionId;
+  const hasIuguId = session?.user.iuguCustomerId !== null;
 
-  return session?.user.iuguCustomerId !== null ? (
+  return hasIuguId && hasSubscriptionId ? (
     <div className="px-4">
       <Modal
         closeOnBlur={true}

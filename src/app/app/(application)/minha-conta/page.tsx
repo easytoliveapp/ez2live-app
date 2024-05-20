@@ -31,7 +31,11 @@ const MyAccountPage = () => {
   }, []);
 
   useEffect(() => {
-    if (session?.user.iuguCustomerId && !subscriptionInfo) {
+    if (
+      session?.user.iuguCustomerId &&
+      session.user.iuguSubscriptionId &&
+      !subscriptionInfo
+    ) {
       getSubscriptionInfo()
         .then((res: any) => {
           setSubscriptionInfo(res.data);
