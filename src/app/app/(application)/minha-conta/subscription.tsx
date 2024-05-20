@@ -14,11 +14,11 @@ import { useSession } from "next-auth/react";
 import { Session } from "next-auth";
 import { getDateFormater } from "@/utils/getDateFormater";
 
-interface SignatureProps {
+interface SubscriptionProps {
   session: Session | null;
 }
 
-export const Signature: React.FC<SignatureProps> = ({ session }) => {
+export const Subscription: React.FC<SubscriptionProps> = ({ session }) => {
   const [isCancelSubscriptionModalOpen, setIsCancelSubscriptionModalOpen] =
     useState(false);
   const [loading, setLoading] = useState(false);

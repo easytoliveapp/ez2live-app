@@ -33,7 +33,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>((props, ref) => {
       mask={mask}
       ref={ref}
       type={type}
-      className={` inputRangeThumb mb-9 block w-full border-black focus:border-primary-main focus:ring focus:ring-primary-main focus:ring-opacity-50 bg-generic-background disabled:bg-neutral-200
+      className={`inputRangeThumb block w-full border-black focus:border-primary-main focus:ring focus:ring-primary-main focus:ring-opacity-50 bg-generic-background disabled:bg-neutral-200
         ${rounded}
         ${fontClass}
         ${sizeClass}

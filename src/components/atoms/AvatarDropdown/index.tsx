@@ -38,9 +38,6 @@ const AvatarDropdown = () => {
             >
               {isLoading ? (
                 <span className="relative flex items-center">
-                  <p className="absolute right-14 font-semibold text-sm text-generic-dark">
-                    desconectando
-                  </p>
                   <LoadingComponent
                     fullSize={false}
                     bgStyle="none"

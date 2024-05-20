@@ -20,3 +20,10 @@ export const subscriptionPixData = (cpfOrCnpj: string) => {
     payer_cpf_cnpj: cpfOrCnpj,
   };
 };
+
+export const SUBSCRIPTION_STATUS = {
+  TRIAL: "trial",
+  TRIAL_ENDED: "trial_ended",
+  PREMIUM: "premium",
+  COMMON: "common",
+};
