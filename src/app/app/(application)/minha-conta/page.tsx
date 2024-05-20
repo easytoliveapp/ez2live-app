@@ -14,7 +14,7 @@ const MyAccountPage = () => {
     "ACCOUNT",
   );
   const params = useSearchParams();
-  const section = params.get("secao");
+  const section = params.get("aba");
 
   useEffect(() => {
     if (section === "assinatura") setPageId("SUBSCRIPTION");

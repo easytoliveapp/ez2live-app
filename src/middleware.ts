@@ -68,7 +68,7 @@ export async function middleware(request: NextRequest) {
     request.nextUrl.pathname === "/app/pagamento"
   ) {
     return NextResponse.redirect(
-      new URL("/app/minha-conta?secao=assinatura" ?? "/app", request.url),
+      new URL("/app/minha-conta?aba=assinatura" ?? "/app", request.url),
     );
   }
 
