@@ -6,18 +6,18 @@ import { PAYMENT } from "@/constants/paymentMethods";
 
 interface PaymentMethodProps {
   SetPaymentTab: React.Dispatch<React.SetStateAction<string>>;
-  PaymentTab: string;
+  paymentTab: string;
 }
 
 const PaymentMethod: React.FC<PaymentMethodProps> = ({
   SetPaymentTab,
-  PaymentTab,
+  paymentTab,
 }) => {
   return (
     <div className="flex w-full justify-center">
       <div
         className={`cursor-pointer flex flex-col justify-center items-center w-full px-4 py-5 ${
-          PaymentTab === PAYMENT.creditCard
+          paymentTab === PAYMENT.creditCard
             ? "opacity-100 border-b-2 border-black"
             : "opacity-50 bg-generic-gray"
         }`}
@@ -34,7 +34,7 @@ const PaymentMethod: React.FC<PaymentMethodProps> = ({
       <span className="bg-generic-grayDarker z-50 w-1"></span>
       <div
         className={`cursor-pointer flex flex-col justify-center items-center w-full px-4 py-5  ${
-          PaymentTab === PAYMENT.pix
+          paymentTab === PAYMENT.pix
             ? "opacity-100 border-b-2 border-black"
             : "opacity-50 bg-generic-gray"
         }`}

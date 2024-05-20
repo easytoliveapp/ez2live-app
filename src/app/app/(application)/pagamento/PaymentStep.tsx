@@ -8,27 +8,33 @@ import {
   PaymentMethod,
 } from "@/components";
 import { PAYMENT } from "@/constants/paymentMethods";
+import { IPixResponseData } from "@/types/payment";
 
 interface IPaymentStepProps {
   setCurrentStep: React.Dispatch<React.SetStateAction<number>>;
-  PaymentTab: string;
-  SetPaymentTab: React.Dispatch<React.SetStateAction<string>>;
+  paymentTab: string;
+  setPaymentTab: React.Dispatch<React.SetStateAction<string>>;
+  setPixData: React.Dispatch<React.SetStateAction<IPixResponseData>>;
 }
 
 export const PaymentStep: React.FC<IPaymentStepProps> = ({
   setCurrentStep,
-  PaymentTab,
-  SetPaymentTab,
+  paymentTab,
+  setPaymentTab,
+  setPixData,
 }) => {
   return (
     <div>
       <OneStepToPayment />
       <SimpleModal className="!p-0">
-        <PaymentMethod PaymentTab={PaymentTab} SetPaymentTab={SetPaymentTab} />
-        {PaymentTab === PAYMENT.creditCard ? (
+        <PaymentMethod paymentTab={paymentTab} SetPaymentTab={setPaymentTab} />
+        {paymentTab === PAYMENT.creditCard ? (
           <CreditCardPayment currentStepPayment={setCurrentStep} />
         ) : (
-          <PixPayment currentStepPayment={setCurrentStep} />
+          <PixPayment
+            currentStepPayment={setCurrentStep}
+            setPixData={setPixData}
+          />
         )}
       </SimpleModal>
     </div>

@@ -9,12 +9,15 @@ import { SubscriptionTab } from "./subscription";
 import { IGetSubscriptionResponse } from "@/types/subscription/response/index";
 import subscriptionService from "@/service/subscription.service";
 import { showToastify } from "@/hooks/showToastify";
+import { useSearchParams } from "next/navigation";
 
 const MyAccountPage = () => {
   const { data: session } = useSession();
-  const [pageId, setPageId] = useState<"ACCOUNT" | "SECURITY" | "SIGNATURE">(
+  const [pageId, setPageId] = useState<"ACCOUNT" | "SECURITY" | "SUBSCRIPTION">(
     "ACCOUNT",
   );
+  const params = useSearchParams();
+  const section = params.get("aba");
   const [subscriptionInfo, setSubscriptionInfo] =
     useState<IGetSubscriptionResponse>();
 
@@ -22,6 +25,10 @@ const MyAccountPage = () => {
     const res: any = await subscriptionService.getSubscriptionInfo();
     return res;
   };
+
+  useEffect(() => {
+    if (section === "assinatura") setPageId("SUBSCRIPTION");
+  }, []);
 
   useEffect(() => {
     if (session?.user.iuguCustomerId && !subscriptionInfo) {
@@ -42,7 +49,7 @@ const MyAccountPage = () => {
     return {
       ACCOUNT: <AccountTab session={session} />,
       SECURITY: <SecurityTab session={session} />,
-      SIGNATURE: (
+      SUBSCRIPTION: (
         <SubscriptionTab
           session={session}
           subscriptionInfo={subscriptionInfo}
@@ -93,10 +100,10 @@ const MyAccountPage = () => {
               <div
                 className={classNames(
                   "font-bold cursor-pointer text-black",
-                  pageId === "SIGNATURE" ? "opacity-100" : "opacity-60",
+                  pageId === "SUBSCRIPTION" ? "opacity-100" : "opacity-60",
                 )}
                 onClick={() => {
-                  setPageId("SIGNATURE");
+                  setPageId("SUBSCRIPTION");
                 }}
               >
                 Assinatura
