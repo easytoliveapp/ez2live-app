@@ -10,7 +10,7 @@ import subscriptionService from "@/service/subscription.service";
 import { showToastify } from "@/hooks/showToastify";
 import { IPixResponseData } from "@/types/payment";
 import { useSession } from "next-auth/react";
-import { INVOICE_STATUS } from "@/constants/payment";
+import { INVOICE_STATUS, SUBSCRIPTION_STATUS } from "@/constants/payment";
 
 interface IWaitingApprovalStepProps {
   paymentTab: string;
@@ -45,6 +45,7 @@ export const WaitingApprovalStep: React.FC<IWaitingApprovalStepProps> = ({
       ...session,
       user: {
         ...session?.user,
+        subscriptionStatus: SUBSCRIPTION_STATUS.PREMIUM,
         iuguSubscriptionId: responseData.subscriptionId,
       },
     });

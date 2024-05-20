@@ -37,7 +37,7 @@ export const SubscriptionTab: React.FC<SubscriptionProps> = ({
       ...session,
       user: {
         ...session?.user,
-        subscriptionEndDate: newSubscriptionDate,
+        subscriptionTrialEndDate: newSubscriptionDate,
       },
     });
   };
@@ -65,7 +65,7 @@ export const SubscriptionTab: React.FC<SubscriptionProps> = ({
       (await userService
         .removeSubscriptionDays(session?.user.id, 30)
         .then((res: any) => {
-          updateSession(res.data.user.subscriptionEndDate);
+          updateSession(res.data.user.subscriptionTrialEndDate);
         })
         .catch(() => {
           showToastify({
@@ -160,15 +160,6 @@ export const SubscriptionTab: React.FC<SubscriptionProps> = ({
       ) : (
         <LoadingComponent size="large" fullSize={false} />
       )}
-
-      {session?.user.subscriptionEndDate !== null &&
-        session?.user.iuguCustomerId === null && (
-          <div className="mt-10">
-            <ButtonSecondary onClick={() => handleCancelFreeTrial()}>
-              Cancelar período grátis
-            </ButtonSecondary>
-          </div>
-        )}
     </div>
   ) : (
     <div className="flex flex-col items-center justify-center text-center">
@@ -186,6 +177,14 @@ export const SubscriptionTab: React.FC<SubscriptionProps> = ({
       >
         Quero os melhores descontos
       </ButtonPrimary>
+      {session?.user.subscriptionTrialEndDate !== null &&
+        session?.user.iuguCustomerId === null && (
+          <div className="mt-10">
+            <ButtonSecondary onClick={() => handleCancelFreeTrial()}>
+              Cancelar período grátis
+            </ButtonSecondary>
+          </div>
+        )}
     </div>
   );
 };

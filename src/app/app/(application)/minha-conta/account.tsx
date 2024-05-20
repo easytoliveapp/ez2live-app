@@ -31,9 +31,11 @@ export const AccountTab: React.FC<AccountProps> = ({ session }) => {
       </FormItem>
       <FormItem label="Premium">
         <div className="ml-2 text-lg font-medium text-neutral-600">
-          {session?.user.subscriptionEndDate !== null &&
-          dayjs(session?.user.subscriptionEndDate).isAfter(dayjs())
-            ? `Validade: ${getDateFormater(session?.user?.subscriptionEndDate)}`
+          {session?.user.subscriptionTrialEndDate !== null &&
+          dayjs(session?.user.subscriptionTrialEndDate).isAfter(dayjs())
+            ? `Validade: ${getDateFormater(
+                session?.user?.subscriptionTrialEndDate,
+              )}`
             : "Expirou"}
         </div>
       </FormItem>

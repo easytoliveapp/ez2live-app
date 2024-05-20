@@ -32,7 +32,7 @@ const PremiumConversionModal: React.FC<IPremiumConversionModal> = ({
       ...session,
       user: {
         ...session?.user,
-        subscriptionEndDate: newSubscriptionDate,
+        subscriptionTrialEndDate: newSubscriptionDate,
       },
     });
   };

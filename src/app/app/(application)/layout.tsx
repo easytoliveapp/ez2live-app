@@ -21,7 +21,9 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     if (session) {
-      setIsPremiumExpired(!isDateBeforeToday(session.user.subscriptionEndDate));
+      setIsPremiumExpired(
+        !isDateBeforeToday(session.user.subscriptionTrialEndDate),
+      );
     }
   }, [session]);
 
@@ -34,7 +36,7 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
       {session?.user &&
         isPremiumExpired &&
         isCommomUser &&
-        session.user.subscriptionEndDate === null && (
+        session.user.subscriptionTrialEndDate === null && (
           <PremiumConversionModal
             isPremiumExpired={isPremiumExpired}
             setIsPremiumExpired={setIsPremiumExpired}
