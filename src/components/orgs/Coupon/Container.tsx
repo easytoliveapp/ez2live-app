@@ -23,7 +23,7 @@ import { ICoupon } from "@/types/coupons";
 import isDateBeforeToday from "@/utils/isDateBeforeToday";
 import { Route } from "next";
 import { ISupplier } from "@/types/supplier";
-
+import getSubscriptionPageURL from "@/utils/getSubscriptionPageUrl";
 interface CouponContainerProps {
   couponRules: string;
   couponTitle: string;
@@ -65,6 +65,7 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
   const [couponCode, setCouponCode] = useState("");
   const [showCouponModal, setShowCouponModal] = useState(false);
   const [currentStep, setCurrentStep] = useState<number>(STEPS.SHOWING_COUPON);
+  const [loading, setLoading] = useState(false);
   const searchParams = useSearchParams();
   const couponIdParam = searchParams.get("coupon");
   const router = useRouter();
@@ -111,6 +112,8 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
         setShowCouponModal(false);
       } else {
         setShowCouponModal(true);
+        setLoading(true);
+        setTimeout(() => handleActiveCoupon(), 2000);
       }
     }
   }, [couponId, couponIdParam, session]);
@@ -132,9 +135,10 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
         />
         <ButtonPrimary
           onClick={() => handleActiveCoupon()}
+          disabled={loading}
           className="w-full mx-4 max-w-md"
         >
-          Eu quero!
+          {loading ? "Gerando cupom..." : "Eu quero!"}
         </ButtonPrimary>
         <ButtonThird
           className="w-full !text-generic-dark mx-4 max-w-md"
@@ -219,7 +223,20 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
   };
 
   const handleActiveCoupon = async () => {
+    console.log("chegou aqui");
     if (session?.user) {
+      if (isDateBeforeToday(session.user.subscriptionEndDate) === false) {
+        showToastify({
+          type: "info",
+          label:
+            "Você precisa ser premium para utilizar este cupom. Iremos lhe direcionar para página de assinatura",
+        });
+        return setTimeout(
+          () => router.push(getSubscriptionPageURL(supplierId, couponId)),
+          3000,
+        );
+      }
+
       handleNextStep(STEPS.LOADING_COUPON);
 
       activateCoupon()

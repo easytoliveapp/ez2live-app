@@ -2,8 +2,17 @@ import React, { useState } from "react";
 import isDateBeforeToday from "@/utils/isDateBeforeToday";
 import Image from "next/image";
 import EasyLogo from "@/images/easytolive/logo/logotipo-semfundoazulroxo.svg";
+import {
+  ButtonPrimary,
+  ButtonSecondary,
+  ButtonThird,
+  Modal,
+} from "@/components";
+import userService from "@/service/users.service";
+import { showToastify } from "@/hooks/showToastify";
+import { useSession } from "next-auth/react";
 import { Session } from "next-auth";
-import { ButtonPrimary, ButtonThird, Modal } from "@/components";
+import { getDateFormater } from "@/utils/getDateFormater";
 
 interface SignatureProps {
   session: Session | null;
@@ -15,13 +24,40 @@ export const Signature: React.FC<SignatureProps> = ({ session }) => {
   const [loading, setLoading] = useState(false);
   const userSubscription = isDateBeforeToday(session?.user.subscriptionEndDate);
 
+  const { update } = useSession();
+
+  const updateSession = async (newSubscriptionDate: string) => {
+    await update({
+      ...session,
+      user: {
+        ...session?.user,
+        subscriptionEndDate: newSubscriptionDate,
+      },
+    });
+  };
+
   const handleCancelSubscription = () => {
     setLoading(true);
     // TODO: CONECTAR ENDPOINT PARA CANCELAR
     setLoading(false);
   };
-
-  return userSubscription ? (
+  //TODO:REMOVE THIS CODE BEFORE IT GOES LIVE--------------------------
+  const handleCancelFreeTrial = async () => {
+    session &&
+      (await userService
+        .removeSubscriptionDays(session?.user.id, 30)
+        .then((res: any) => {
+          updateSession(res.data.user.subscriptionEndDate);
+        })
+        .catch(() => {
+          showToastify({
+            label: "Ocorreu um erro ao remover seu período grátis",
+            type: "error",
+          });
+        }));
+  };
+  //----------------------------------------------------------------------
+  return session?.user.iuguCustomerId !== null ? (
     <div className="px-4">
       <Modal
         closeOnBlur={true}
@@ -84,19 +120,28 @@ export const Signature: React.FC<SignatureProps> = ({ session }) => {
         </div>
         <div>
           <p className="font-bold">ID da assinatura</p>
-          <span>LASK001-02NDKKS-190SDKND-293KD</span>
+          <span>{session?.user.iuguSubscriptionId}</span>
         </div>
         <div>
           <p className="font-bold">Próxima cobrança</p>
-          <span>04/06/2024</span>
+          <span>{getDateFormater(session?.user.subscriptionEndDate)}</span>
         </div>
+        <ButtonThird
+          className="!text-generic-alertRed !p-0 mt-8"
+          onClick={() => setIsCancelSubscriptionModalOpen(true)}
+        >
+          Cancelar Assinatura
+        </ButtonThird>
       </div>
-      <ButtonThird
-        className="!text-generic-alertRed !p-0 mt-8"
-        onClick={() => setIsCancelSubscriptionModalOpen(true)}
-      >
-        Cancelar Assinatura
-      </ButtonThird>
+
+      {session?.user.subscriptionEndDate !== null &&
+        session?.user.iuguCustomerId === null && (
+          <div className="mt-10">
+            <ButtonSecondary onClick={() => handleCancelFreeTrial()}>
+              Cancelar período grátis
+            </ButtonSecondary>
+          </div>
+        )}
     </div>
   ) : (
     <div className="flex flex-col items-center justify-center text-center">
