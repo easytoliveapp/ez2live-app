@@ -48,6 +48,7 @@ export const WaitingApprovalStep: React.FC<IWaitingApprovalStepProps> = ({
       ...session,
       user: {
         ...session?.user,
+        iuguCustomerId: responseData.customerId,
         subscriptionStatus: SUBSCRIPTION_STATUS.PREMIUM,
         iuguSubscriptionId: responseData.subscriptionId,
       },
