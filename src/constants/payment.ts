@@ -19,3 +19,16 @@ export const SUBSCRIPTION_STATUS = {
   PREMIUM: "premium",
   COMMON: "common",
 };
+
+export const INVOICE_STATUS = {
+  PENDING: "pending",
+  PAID: "paid",
+  CANCELLED: "cancelled",
+  PARTIALLY_PAID: "partially_paid",
+  REFUNDED: "refunded",
+  EXPIRED: "expired",
+  AUTHORIZED: "authorized",
+  EXTERNALLY_PAID: "externally_paid",
+  IN_PROTEST: "in_protest",
+  CHARGEBACK: "chargeback",
+};
