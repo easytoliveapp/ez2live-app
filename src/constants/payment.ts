@@ -12,3 +12,10 @@ export const subscriptionCreditCardData = (iuguJsToken: any) => {
     token: iuguJsToken.id,
   };
 };
+
+export const SUBSCRIPTION_STATUS = {
+  TRIAL: "trial",
+  TRIAL_ENDED: "trial_ended",
+  PREMIUM: "premium",
+  COMMON: "common",
+};
