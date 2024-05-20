@@ -248,62 +248,71 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
   const handleActiveCoupon = async () => {
     if (session?.user) {
       await getUserInfo().then(async (res) => {
-        await updateSession(res.data);
+        await updateSession(res.data)
+          .then(() => {
+            if (
+              session.user.subscriptionStatus ===
+                SUBSCRIPTION_STATUS.TRIAL_ENDED ||
+              session.user.subscriptionStatus === SUBSCRIPTION_STATUS.COMMON
+            ) {
+              showToastify({
+                type: "info",
+                label:
+                  "Você precisa ser premium para utilizar este cupom. Iremos lhe direcionar para página de assinatura",
+              });
+              return setTimeout(
+                () => router.push(getSubscriptionPageURL(supplierId, couponId)),
+                3000,
+              );
+            }
+            handleNextStep(STEPS.LOADING_COUPON);
+
+            activateCoupon()
+              .then((res) => {
+                if (res?.data?.coupon?.code) {
+                  return setTimeout(() => {
+                    setCouponCode(res?.data?.coupon?.code);
+                  }, 2500);
+                }
+
+                setCurrentStep(STEPS.SHOWING_COUPON);
+                showToastify({
+                  label: "Ocorreu um erro interno. Por favor, tente novamente.",
+                  type: "error",
+                });
+              })
+              .catch((error) => {
+                setCurrentStep(STEPS.SHOWING_COUPON);
+                if (error?.response?.data?.code === 400) {
+                  showToastify({
+                    label:
+                      "O Coupon que está tentando ativar não é mais válido, atualize a página.",
+                    type: "error",
+                  });
+                }
+                if (error?.response?.data?.code === 500) {
+                  showToastify({
+                    label:
+                      "Ocorreu um erro interno. Por favor, tente novamente.",
+                    type: "error",
+                  });
+                }
+                if (error?.response?.data?.code === 404) {
+                  showToastify({
+                    label:
+                      "Nenhum dado encontrado. Por favor, tente novamente.",
+                    type: "error",
+                  });
+                }
+              });
+          })
+          .catch(() =>
+            showToastify({
+              type: "error",
+              label: "Ocorreu um erroo ao buscar dados da sessão.",
+            }),
+          );
       });
-
-      if (
-        session.user.subscriptionStatus ===
-        (SUBSCRIPTION_STATUS.TRIAL_ENDED || SUBSCRIPTION_STATUS.COMMON)
-      ) {
-        showToastify({
-          type: "info",
-          label:
-            "Você precisa ser premium para utilizar este cupom. Iremos lhe direcionar para página de assinatura",
-        });
-        return setTimeout(
-          () => router.push(getSubscriptionPageURL(supplierId, couponId)),
-          3000,
-        );
-      }
-
-      handleNextStep(STEPS.LOADING_COUPON);
-
-      activateCoupon()
-        .then((res) => {
-          if (res?.data?.coupon?.code) {
-            return setTimeout(() => {
-              setCouponCode(res?.data?.coupon?.code);
-            }, 2500);
-          }
-
-          setCurrentStep(STEPS.SHOWING_COUPON);
-          showToastify({
-            label: "Ocorreu um erro interno. Por favor, tente novamente.",
-            type: "error",
-          });
-        })
-        .catch((error) => {
-          setCurrentStep(STEPS.SHOWING_COUPON);
-          if (error?.response?.data?.code === 400) {
-            showToastify({
-              label:
-                "O Coupon que está tentando ativar não é mais válido, atualize a página.",
-              type: "error",
-            });
-          }
-          if (error?.response?.data?.code === 500) {
-            showToastify({
-              label: "Ocorreu um erro interno. Por favor, tente novamente.",
-              type: "error",
-            });
-          }
-          if (error?.response?.data?.code === 404) {
-            showToastify({
-              label: "Nenhum dado encontrado. Por favor, tente novamente.",
-              type: "error",
-            });
-          }
-        });
     } else {
       router.push(
         `/app/conta/acessar?callbackUrl=${encodeURIComponent(
