@@ -65,7 +65,7 @@ export async function middleware(request: NextRequest) {
 
   if (
     tokenInfo?.user.role === ROLES.commonUser &&
-    !tokenInfo.user.iuguSubscriptionId &&
+    tokenInfo.user.iuguSubscriptionId &&
     request.nextUrl.pathname === "/app/pagamento"
   ) {
     return NextResponse.redirect(

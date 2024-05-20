@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import EasyLogo from "@/images/easytolive/logo/logotipo-semfundoazulroxo.svg";
 import {
@@ -14,6 +14,7 @@ import { useSession } from "next-auth/react";
 import { Session } from "next-auth";
 import { getDateFormater } from "@/utils/getDateFormater";
 import { IGetSubscriptionResponse } from "@/types/subscription/response/index";
+import subscriptionService from "@/service/subscription.service";
 
 interface SubscriptionProps {
   session: Session | null;
@@ -27,6 +28,8 @@ export const SubscriptionTab: React.FC<SubscriptionProps> = ({
   const [isCancelSubscriptionModalOpen, setIsCancelSubscriptionModalOpen] =
     useState(false);
   const [loading, setLoading] = useState(false);
+  const [hasSubscriptionSuspensed, setHasSubscriptionSuspensed] =
+    useState(false);
   const { update } = useSession();
 
   const updateSession = async (newSubscriptionDate: string) => {
@@ -39,9 +42,21 @@ export const SubscriptionTab: React.FC<SubscriptionProps> = ({
     });
   };
 
+  const suspendSubscription = async () => {
+    const res = await subscriptionService.suspendSubscription();
+    return res;
+  };
+
   const handleCancelSubscription = () => {
     setLoading(true);
-    // TODO: CONECTAR ENDPOINT PARA CANCELAR
+    suspendSubscription()
+      .then(() => {
+        showToastify({
+          label: `O ciclo da sua fatura será encerrado no dia ${subscriptionInfo?.expiresAt}. Até lá você pode aproveitar nossos descontos!`,
+          type: "success",
+        });
+      })
+      .then(() => setHasSubscriptionSuspensed(true));
     setLoading(false);
   };
   //TODO:REMOVE THIS CODE BEFORE IT GOES LIVE--------------------------
@@ -60,6 +75,7 @@ export const SubscriptionTab: React.FC<SubscriptionProps> = ({
         }));
   };
   //----------------------------------------------------------------------
+
   return session?.user.iuguCustomerId !== null ? (
     <div className="px-4">
       <Modal
@@ -89,7 +105,7 @@ export const SubscriptionTab: React.FC<SubscriptionProps> = ({
             <br /> nossos melhores descontos.
           </p>
           <ButtonPrimary
-            onClick={() => handleCancelSubscription}
+            onClick={() => handleCancelSubscription()}
             className="!bg-generic-alertRed !text-xs !py-2 !px-4 font-extrabold"
           >
             {loading ? "cancelando  (...)" : "Cancelar assinatura"}
@@ -107,7 +123,7 @@ export const SubscriptionTab: React.FC<SubscriptionProps> = ({
           <div>
             <p className="font-bold">Status Assiantura</p>
             <span>
-              {!subscriptionInfo?.suspended ? (
+              {subscriptionInfo?.active ? (
                 <p className="text-generic-alertGreen font-semibold">Ativa</p>
               ) : (
                 <p className="font-semibold"> Inativa</p>
@@ -130,12 +146,16 @@ export const SubscriptionTab: React.FC<SubscriptionProps> = ({
             <p className="font-bold">Vencimento da mensalidade</p>
             <span>{getDateFormater(subscriptionInfo?.expiresAt)}</span>
           </div>
-          <ButtonThird
-            className="!text-generic-alertRed !p-0 mt-8"
-            onClick={() => setIsCancelSubscriptionModalOpen(true)}
-          >
-            Cancelar Assinatura
-          </ButtonThird>
+          {subscriptionInfo?.suspended || hasSubscriptionSuspensed ? (
+            <p className="font-bold">Sua assinatura foi suspensa </p>
+          ) : (
+            <ButtonThird
+              className="!text-generic-alertRed !p-0 mt-8"
+              onClick={() => setIsCancelSubscriptionModalOpen(true)}
+            >
+              Cancelar Assinatura
+            </ButtonThird>
+          )}
         </div>
       ) : (
         <LoadingComponent size="large" fullSize={false} />
