@@ -28,7 +28,6 @@ const MyAccountPage = () => {
       getSubscriptionInfo()
         .then((res: any) => {
           setSubscriptionInfo(res.data);
-          console.log("Subscription Info:", subscriptionInfo); // Adicione este console.log
         })
         .catch(() => {
           showToastify({
