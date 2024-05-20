@@ -54,16 +54,8 @@ export const WaitingApprovalStep: React.FC<IWaitingApprovalStepProps> = ({
       getInvoiceStatus();
     }, 30 * 1000);
 
-    const timeout = setTimeout(
-      () => {
-        setCurrentStep(3);
-      },
-      5 * 60 * 1000,
-    );
-
     return () => {
       clearInterval(interval);
-      clearTimeout(timeout);
     };
   }, []);
 
