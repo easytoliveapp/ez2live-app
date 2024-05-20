@@ -1,18 +1,30 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import CheckIcon from "@/images/easytolive/icons/checkIcon.svg";
 import { getDateFormater } from "@/utils/getDateFormater";
 import { ButtonPrimary, ButtonThird, SimpleModal } from "@/components";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
+import subscriptionService from "@/service/subscription.service";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Route } from "next";
 
 export const AcceptedPaymentStep = () => {
   const { data: session } = useSession();
+  const [expiredSubscriptionData, setExpiredSubscriptionData] = useState();
   const router = useRouter();
   const params = useSearchParams();
   const callbackUrl = params.get("callbackUrl");
   const redirectLink = callbackUrl ? callbackUrl : "/app/meus-cupons";
+
+  const getSubscriptionEndDate = async () => {
+    const subscriptionResponse: any =
+      await subscriptionService.getSubscriptionInfo();
+    return setExpiredSubscriptionData(subscriptionResponse.expiresAt);
+  };
+
+  useEffect(() => {
+    if (session?.user) getSubscriptionEndDate();
+  }, []);
 
   return (
     <div className="w-full flex flex-col items-center">
@@ -47,9 +59,7 @@ export const AcceptedPaymentStep = () => {
         <div>
           <p>Próxima cobrança</p>
           <p>
-            <strong>
-              {getDateFormater(session?.user.subscriptionEndDate)}
-            </strong>
+            <strong>{getDateFormater(expiredSubscriptionData)}</strong>
           </p>
         </div>
       </SimpleModal>

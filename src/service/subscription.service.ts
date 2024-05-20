@@ -1,5 +1,12 @@
 import { BaseService } from "./base.service";
 
+const getSubscriptionInfo = async () => {
+  return await BaseService.fetchData({
+    url: "/subscription",
+    method: "get",
+  });
+};
+
 const createSubscription = async (data: any) => {
   return await BaseService.fetchData({
     url: "/subscription",
@@ -28,11 +35,28 @@ const deleteIuguCostumer = async (email: string) => {
   });
 };
 
+const getInvoiceById = async (invoiceId: string) => {
+  return await BaseService.fetchData({
+    url: `/subscription/invoices/${invoiceId}`,
+    method: "get",
+  });
+};
+
+const getInvoices = async () => {
+  return await BaseService.fetchData({
+    url: "/subscription/invoices",
+    method: "get",
+  });
+};
+
 const subscriptionService = {
+  getSubscriptionInfo,
   createSubscription,
   deleteSubscription,
   createIuguCostumer,
   deleteIuguCostumer,
+  getInvoiceById,
+  getInvoices,
 };
 
 export default subscriptionService;
