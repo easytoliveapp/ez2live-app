@@ -5,7 +5,6 @@ import { ButtonPrimary, ButtonThird, SimpleModal } from "@/components";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
 import subscriptionService from "@/service/subscription.service";
-import subscriptionService from "@/service/subscription.service";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Route } from "next";
 
