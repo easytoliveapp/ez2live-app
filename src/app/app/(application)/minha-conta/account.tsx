@@ -33,7 +33,9 @@ export const Account: React.FC<AccountProps> = ({ session }) => {
         <div className="ml-2 text-lg font-medium text-neutral-600">
           {session?.user.subscriptionTrialEndDate !== null &&
           dayjs(session?.user.subscriptionTrialEndDate).isAfter(dayjs())
-            ? `Validade: ${getDateFormater(session?.user?.subscriptionTrialEndDate)}`
+            ? `Validade: ${getDateFormater(
+                session?.user?.subscriptionTrialEndDate,
+              )}`
             : "Expirou"}
         </div>
       </FormItem>
