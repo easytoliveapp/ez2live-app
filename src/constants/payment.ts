@@ -7,17 +7,17 @@ export interface ISubscriptionIuguService {
 
 export const subscriptionCreditCardData = (iuguJsToken: any) => {
   return {
-    plan_identifier: "ez2live_weekly",
-    payable_with: "credit_card",
+    planIdentifier: "ez2live_weekly",
+    payableWith: "credit_card",
     token: iuguJsToken.id,
   };
 };
 
 export const subscriptionPixData = (cpfOrCnpj: string) => {
   return {
-    plan_identifier: "ez2live_weekly",
-    payable_with: "pix",
-    payer_cpf_cnpj: cpfOrCnpj,
+    planIdentifier: "ez2live_weekly",
+    payableWith: "pix",
+    payerCpfCnpj: cpfOrCnpj,
   };
 };
 
