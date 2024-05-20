@@ -56,7 +56,7 @@ const MyAccountPage = () => {
         />
       ),
     };
-  }, [session]);
+  }, [session, subscriptionInfo]);
 
   return (
     <div className="nc-AccountCommonLayout container">
