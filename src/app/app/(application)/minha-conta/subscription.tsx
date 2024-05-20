@@ -15,12 +15,12 @@ import { Session } from "next-auth";
 import { getDateFormater } from "@/utils/getDateFormater";
 import { IGetSubscriptionResponse } from "@/types/auth/response";
 
-interface SignatureProps {
+interface SubscriptionProps {
   session: Session | null;
   subscriptionInfo?: IGetSubscriptionResponse;
 }
 
-export const Signature: React.FC<SignatureProps> = ({
+export const Subscription: React.FC<SubscriptionProps> = ({
   session,
   subscriptionInfo,
 }) => {

@@ -5,7 +5,7 @@ import classNames from "@/utils/classNames";
 import { useSession } from "next-auth/react";
 import { Security } from "./security";
 import { Account } from "./account";
-import { Signature } from "./subscription";
+import { Subscription } from "./subscription";
 import { IGetSubscriptionResponse } from "@/types/auth/response";
 import subscriptionService from "@/service/subscription.service";
 import { showToastify } from "@/hooks/showToastify";
@@ -44,7 +44,7 @@ const MyAccountPage = () => {
       ACCOUNT: <Account session={session} />,
       SECURITY: <Security session={session} />,
       SIGNATURE: (
-        <Signature session={session} subscriptionInfo={subscriptionInfo} />
+        <Subscription session={session} subscriptionInfo={subscriptionInfo} />
       ),
     };
   }, [session]);
