@@ -56,7 +56,8 @@ export const SubscriptionTab: React.FC<SubscriptionProps> = ({
           type: "success",
         });
       })
-      .then(() => setHasSubscriptionSuspensed(true));
+      .then(() => setHasSubscriptionSuspensed(true))
+      .then(() => setIsCancelSubscriptionModalOpen(false));
     setLoading(false);
   };
   //TODO:REMOVE THIS CODE BEFORE IT GOES LIVE--------------------------
