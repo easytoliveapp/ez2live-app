@@ -5,26 +5,26 @@ import classNames from "@/utils/classNames";
 import { useSession } from "next-auth/react";
 import { Security } from "./security";
 import { Account } from "./account";
-import { Signature } from "./subscription";
+import { Subscription } from "./subscription";
 import { useSearchParams } from "next/navigation";
 
 const MyAccountPage = () => {
   const { data: session } = useSession();
-  const [pageId, setPageId] = useState<"ACCOUNT" | "SECURITY" | "SIGNATURE">(
+  const [pageId, setPageId] = useState<"ACCOUNT" | "SECURITY" | "SUBSCRIPTION">(
     "ACCOUNT",
   );
   const params = useSearchParams();
   const section = params.get("secao");
 
   useEffect(() => {
-    if (section === "assinatura") setPageId("SIGNATURE");
+    if (section === "assinatura") setPageId("SUBSCRIPTION");
   }, []);
 
   const TabComponent = useMemo(() => {
     return {
       ACCOUNT: <Account session={session} />,
       SECURITY: <Security session={session} />,
-      SIGNATURE: <Signature session={session} />,
+      SUBSCRIPTION: <Subscription session={session} />,
     };
   }, [session]);
 
@@ -70,10 +70,10 @@ const MyAccountPage = () => {
               <div
                 className={classNames(
                   "font-bold cursor-pointer text-black",
-                  pageId === "SIGNATURE" ? "opacity-100" : "opacity-60",
+                  pageId === "SUBSCRIPTION" ? "opacity-100" : "opacity-60",
                 )}
                 onClick={() => {
-                  setPageId("SIGNATURE");
+                  setPageId("SUBSCRIPTION");
                 }}
               >
                 Assinatura
