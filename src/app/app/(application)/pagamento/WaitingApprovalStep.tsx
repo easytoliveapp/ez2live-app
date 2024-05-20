@@ -24,6 +24,21 @@ export const WaitingApprovalStep: React.FC<IWaitingApprovalStepProps> = ({
 }) => {
   const { data: session, update } = useSession();
 
+  const handleClickCopyText = (textToCopy: string) => {
+    try {
+      copyTextToClipboard(textToCopy);
+      showToastify({
+        label: "Texto copiado com sucesso para area de transferencia",
+        type: "success",
+      });
+    } catch (error) {
+      showToastify({
+        label: "Falha ao copiar texto para aréa de transferência.",
+        type: "error",
+      });
+    }
+  };
+
   const updateSession = async (responseData: any) => {
     await update({
       ...session,
@@ -97,13 +112,7 @@ export const WaitingApprovalStep: React.FC<IWaitingApprovalStepProps> = ({
             </div>
 
             <ButtonFourth
-              onClick={() => {
-                copyTextToClipboard(pixData.qrCodeValue.text);
-                showToastify({
-                  label: "Texto copiado para a área de transferência!",
-                  type: "success",
-                });
-              }}
+              onClick={() => handleClickCopyText(pixData.qrCodeValue.text)}
               className="!border-generic-limeGreen !border-[1px] !py-1 !text-xs  !text-generic-limeGreen"
             >
               Copiar Código PIX
