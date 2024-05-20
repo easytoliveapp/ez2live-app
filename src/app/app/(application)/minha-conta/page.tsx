@@ -1,17 +1,24 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import classNames from "@/utils/classNames";
 import { useSession } from "next-auth/react";
 import { Security } from "./security";
 import { Account } from "./account";
 import { Signature } from "./subscription";
+import { useSearchParams } from "next/navigation";
 
 const MyAccountPage = () => {
   const { data: session } = useSession();
   const [pageId, setPageId] = useState<"ACCOUNT" | "SECURITY" | "SIGNATURE">(
     "ACCOUNT",
   );
+  const params = useSearchParams();
+  const section = params.get("secao");
+
+  useEffect(() => {
+    if (section === "assinatura") setPageId("SIGNATURE");
+  }, []);
 
   const TabComponent = useMemo(() => {
     return {

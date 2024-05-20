@@ -49,6 +49,30 @@ export async function middleware(request: NextRequest) {
   }
 
   if (
+    tokenInfo?.user.role !== ROLES.commonUser &&
+    request.nextUrl.pathname === "/app/pagamento"
+  ) {
+    return NextResponse.redirect(
+      new URL(
+        tokenInfo?.user.role === ROLES.supplier
+          ? "/app/dashboard"
+          : "/app/admin",
+        request.url,
+      ),
+    );
+  }
+
+  if (
+    tokenInfo?.user.role === ROLES.commonUser &&
+    !tokenInfo.user.iuguSubscriptionId &&
+    request.nextUrl.pathname === "/app/pagamento"
+  ) {
+    return NextResponse.redirect(
+      new URL("/app/minha-conta?secao=assinatura" ?? "/app", request.url),
+    );
+  }
+
+  if (
     (tokenInfo?.user.role === ROLES.supplier ||
       tokenInfo?.user.role === ROLES.admin) &&
     request.nextUrl.pathname === "/app"
