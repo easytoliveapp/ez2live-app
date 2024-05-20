@@ -5,6 +5,7 @@ import LogoImage from "@/images/easytolive/logo/logotipo-semfundoazulroxo.svg";
 import { AvatarDropdown, UserSubscriptionBadge } from "@/components";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
+import { ROLES } from "@/constants/roles";
 
 interface NavBarLoggedProps {
   hasLogoImage?: boolean;
@@ -26,7 +27,9 @@ const NavBarLogged: FC<NavBarLoggedProps> = ({ hasLogoImage = true }) => {
         </Link>
       )}
       <div className="flex absolute right-2 items-center gap-3">
-        {session?.user && <UserSubscriptionBadge />}
+        {session?.user && session?.user.role === ROLES.commonUser && (
+          <UserSubscriptionBadge />
+        )}
         <AvatarDropdown />
       </div>
     </div>
