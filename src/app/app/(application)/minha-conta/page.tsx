@@ -1,23 +1,51 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import classNames from "@/utils/classNames";
 import { useSession } from "next-auth/react";
 import { Security } from "./security";
 import { Account } from "./account";
 import { Signature } from "./subscription";
+import { IGetSubscriptionResponse } from "@/types/auth/response";
+import subscriptionService from "@/service/subscription.service";
+import { showToastify } from "@/hooks/showToastify";
 
 const MyAccountPage = () => {
   const { data: session } = useSession();
   const [pageId, setPageId] = useState<"ACCOUNT" | "SECURITY" | "SIGNATURE">(
     "ACCOUNT",
   );
+  const [subscriptionInfo, setSubscriptionInfo] =
+    useState<IGetSubscriptionResponse>();
+
+  const getSubscriptionInfo = async () => {
+    const res: any = await subscriptionService.getSubscriptionInfo();
+    return res;
+  };
+
+  useEffect(() => {
+    if (session?.user.iuguCustomerId && !subscriptionInfo) {
+      getSubscriptionInfo()
+        .then((res: any) => {
+          setSubscriptionInfo(res.data);
+          console.log("Subscription Info:", subscriptionInfo); // Adicione este console.log
+        })
+        .catch(() => {
+          showToastify({
+            label: "Ocorreu um erro ao carregar dados da assinatura",
+            type: "error",
+          });
+        });
+    }
+  }, [subscriptionInfo]);
 
   const TabComponent = useMemo(() => {
     return {
       ACCOUNT: <Account session={session} />,
       SECURITY: <Security session={session} />,
-      SIGNATURE: <Signature session={session} />,
+      SIGNATURE: (
+        <Signature session={session} subscriptionInfo={subscriptionInfo} />
+      ),
     };
   }, [session]);
 

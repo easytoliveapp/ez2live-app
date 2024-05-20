@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import EasyLogo from "@/images/easytolive/logo/logotipo-semfundoazulroxo.svg";
 import {
   ButtonPrimary,
   ButtonSecondary,
   ButtonThird,
+  LoadingComponent,
   Modal,
 } from "@/components";
 import userService from "@/service/users.service";
@@ -12,28 +13,21 @@ import { showToastify } from "@/hooks/showToastify";
 import { useSession } from "next-auth/react";
 import { Session } from "next-auth";
 import { getDateFormater } from "@/utils/getDateFormater";
-import subscriptionService from "@/service/subscription.service";
 import { IGetSubscriptionResponse } from "@/types/auth/response";
 
 interface SignatureProps {
   session: Session | null;
+  subscriptionInfo?: IGetSubscriptionResponse;
 }
 
-export const Signature: React.FC<SignatureProps> = ({ session }) => {
+export const Signature: React.FC<SignatureProps> = ({
+  session,
+  subscriptionInfo,
+}) => {
   const [isCancelSubscriptionModalOpen, setIsCancelSubscriptionModalOpen] =
     useState(false);
   const [loading, setLoading] = useState(false);
-  const [subscriptionInfo, setSubscriptionInfo] = useState<IGetSubscriptionResponse>();
   const { update } = useSession();
-
-  const getSubscriptionInfo = async () => {
-    const res: any = subscriptionService.getSubscriptionInfo();
-    setSubscriptionInfo(res.data);
-  };
-
-  useEffect(() => {
-    getSubscriptionInfo();
-  });
 
   const updateSession = async (newSubscriptionDate: string) => {
     await update({
@@ -108,40 +102,44 @@ export const Signature: React.FC<SignatureProps> = ({ session }) => {
           </ButtonThird>
         </div>
       </Modal>
-      <div className=" grid grid-cols-2 items-center space-y-3">
-        <div>
-          <p className="font-bold">Status Assiantura</p>
-          <span>
-            {!subscriptionInfo?.suspended ? (
-              <p className="text-generic-alertGreen font-semibold">Ativa</p>
-            ) : (
-              <p className="font-semibold"> Inativa</p>
-            )}
-          </span>
+      {subscriptionInfo ? (
+        <div className=" grid grid-cols-2 items-center space-y-3">
+          <div>
+            <p className="font-bold">Status Assiantura</p>
+            <span>
+              {!subscriptionInfo?.suspended ? (
+                <p className="text-generic-alertGreen font-semibold">Ativa</p>
+              ) : (
+                <p className="font-semibold"> Inativa</p>
+              )}
+            </span>
+          </div>
+          <div>
+            <p className="font-bold">Última cobrança</p>
+            <span>{subscriptionInfo?.cycledAt}</span>
+          </div>
+          <div>
+            <p className="font-bold">Plano</p>
+            <span>{subscriptionInfo?.planName}</span>
+          </div>
+          <div>
+            <p className="font-bold">ID da assinatura</p>
+            <span>{subscriptionInfo?.id}</span>
+          </div>
+          <div>
+            <p className="font-bold">Vencimento da mensalidade</p>
+            <span>{getDateFormater(subscriptionInfo?.expiresAt)}</span>
+          </div>
+          <ButtonThird
+            className="!text-generic-alertRed !p-0 mt-8"
+            onClick={() => setIsCancelSubscriptionModalOpen(true)}
+          >
+            Cancelar Assinatura
+          </ButtonThird>
         </div>
-        <div>
-          <p className="font-bold">Última cobrança</p>
-          <span>{subscriptionInfo?.cycledAt}</span>
-        </div>
-        <div>
-          <p className="font-bold">Plano</p>
-          <span>{subscriptionInfo?.planName}</span>
-        </div>
-        <div>
-          <p className="font-bold">ID da assinatura</p>
-          <span>{subscriptionInfo?.id}</span>
-        </div>
-        <div>
-          <p className="font-bold">Vencimento da mensalidade</p>
-          <span>{getDateFormater(subscriptionInfo?.expiresAt)}</span>
-        </div>
-        <ButtonThird
-          className="!text-generic-alertRed !p-0 mt-8"
-          onClick={() => setIsCancelSubscriptionModalOpen(true)}
-        >
-          Cancelar Assinatura
-        </ButtonThird>
-      </div>
+      ) : (
+        <LoadingComponent size="large" fullSize={false} />
+      )}
 
       {session?.user.subscriptionEndDate !== null &&
         session?.user.iuguCustomerId === null && (
