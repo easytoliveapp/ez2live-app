@@ -13,6 +13,7 @@ import { isCreditCardExpirationValid } from "@/utils/creditCard";
 import subscriptionService from "@/service/subscription.service";
 import { useSession } from "next-auth/react";
 import { subscriptionCreditCardData } from "@/constants/payment";
+import { showToastify } from "@/hooks/showToastify";
 
 interface ICreditCardPaymentProps {
   currentStepPayment: React.Dispatch<React.SetStateAction<number>>;
@@ -114,7 +115,16 @@ const CreditCardPayment: React.FC<ICreditCardPaymentProps> = ({
         updateSession(res.data.user);
         currentStepPayment(2);
       })
-      .catch(() => currentStepPayment(3));
+      .catch((res) => {
+        if (res.status === 400) {
+          showToastify({
+            label:
+              "O pagamento foi recusado. Por favor, verifique os dados do cartão e tente novamente.",
+            type: "error",
+          });
+        }
+        currentStepPayment(0);
+      });
 
     setLoading(false);
   };
