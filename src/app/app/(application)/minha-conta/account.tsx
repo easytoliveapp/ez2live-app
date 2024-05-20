@@ -10,7 +10,7 @@ interface AccountProps {
   session: Session | null;
 }
 
-export const Account: React.FC<AccountProps> = ({ session }) => {
+export const AccountTab: React.FC<AccountProps> = ({ session }) => {
   return (
     <div className="relative h-max flex flex-col mx-auto gap-4 w-full max-w-md">
       {!useUserRoles().isCommonUser() && (

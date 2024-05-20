@@ -3,9 +3,9 @@
 import React, { useState, useMemo, useEffect } from "react";
 import classNames from "@/utils/classNames";
 import { useSession } from "next-auth/react";
-import { Security } from "./security";
-import { Account } from "./account";
-import { Subscription } from "./subscription";
+import { SecurityTab } from "./security";
+import { AccountTab } from "./account";
+import { SubscriptionTab } from "./subscription";
 import { IGetSubscriptionResponse } from "@/types/auth/response";
 import subscriptionService from "@/service/subscription.service";
 import { showToastify } from "@/hooks/showToastify";
@@ -41,10 +41,13 @@ const MyAccountPage = () => {
 
   const TabComponent = useMemo(() => {
     return {
-      ACCOUNT: <Account session={session} />,
-      SECURITY: <Security session={session} />,
+      ACCOUNT: <AccountTab session={session} />,
+      SECURITY: <SecurityTab session={session} />,
       SIGNATURE: (
-        <Subscription session={session} subscriptionInfo={subscriptionInfo} />
+        <SubscriptionTab
+          session={session}
+          subscriptionInfo={subscriptionInfo}
+        />
       ),
     };
   }, [session]);

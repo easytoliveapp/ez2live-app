@@ -20,7 +20,7 @@ interface SubscriptionProps {
   subscriptionInfo?: IGetSubscriptionResponse;
 }
 
-export const Subscription: React.FC<SubscriptionProps> = ({
+export const SubscriptionTab: React.FC<SubscriptionProps> = ({
   session,
   subscriptionInfo,
 }) => {
