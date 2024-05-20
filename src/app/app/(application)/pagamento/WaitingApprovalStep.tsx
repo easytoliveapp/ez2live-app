@@ -10,6 +10,7 @@ import subscriptionService from "@/service/subscription.service";
 import { showToastify } from "@/hooks/showToastify";
 import { IPixResponseData } from "@/types/payment";
 import { useSession } from "next-auth/react";
+import { INVOICE_STATUS } from "@/constants/payment";
 
 interface IWaitingApprovalStepProps {
   paymentTab: string;
@@ -63,9 +64,12 @@ export const WaitingApprovalStep: React.FC<IWaitingApprovalStepProps> = ({
     await subscriptionService
       .getInvoiceById(pixData.invoiceId)
       .then((res: any) => {
-        if (res.data.status === "paid") {
+        if (res.data.status === INVOICE_STATUS.PAID) {
           updateSession(res.data);
           setCurrentStep(2);
+        }
+        if (res.data.status === INVOICE_STATUS.EXPIRED) {
+          setCurrentStep(3);
         }
       })
       .catch(() => {
