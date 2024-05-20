@@ -135,15 +135,6 @@ export const Subscription: React.FC<SubscriptionProps> = ({ session }) => {
           Cancelar Assinatura
         </ButtonThird>
       </div>
-
-      {session?.user.subscriptionTrialEndDate !== null &&
-        session?.user.iuguCustomerId === null && (
-          <div className="mt-10">
-            <ButtonSecondary onClick={() => handleCancelFreeTrial()}>
-              Cancelar período grátis
-            </ButtonSecondary>
-          </div>
-        )}
     </div>
   ) : (
     <div className="flex flex-col items-center justify-center text-center">
@@ -161,6 +152,14 @@ export const Subscription: React.FC<SubscriptionProps> = ({ session }) => {
       >
         Quero os melhores descontos
       </ButtonPrimary>
+      {session?.user.subscriptionTrialEndDate !== null &&
+        session?.user.iuguCustomerId === null && (
+          <div className="mt-10">
+            <ButtonSecondary onClick={() => handleCancelFreeTrial()}>
+              Cancelar período grátis
+            </ButtonSecondary>
+          </div>
+        )}
     </div>
   );
 };

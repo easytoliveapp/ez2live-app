@@ -247,8 +247,8 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
 
   const handleActiveCoupon = async () => {
     if (session?.user) {
-      await getUserInfo().then((res) => {
-        updateSession(res.data);
+      await getUserInfo().then(async (res) => {
+        await updateSession(res.data);
       });
 
       if (
