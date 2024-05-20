@@ -31,7 +31,7 @@ const CreditCardPayment: React.FC<ICreditCardPaymentProps> = ({
       ...session,
       user: {
         ...session?.user,
-        subscriptionEndDate: responseData.subscriptionEndDate,
+        subscriptionTrialEndDate: responseData.subscriptionTrialEndDate,
         iuguCustomerId: responseData.iuguCustomerId,
         iuguPaymentMethodId: responseData.iuguPaymentMethodId,
         iuguSubscriptionId: responseData.iuguSubscriptionId,

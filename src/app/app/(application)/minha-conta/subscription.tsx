@@ -22,7 +22,9 @@ export const Subscription: React.FC<SubscriptionProps> = ({ session }) => {
   const [isCancelSubscriptionModalOpen, setIsCancelSubscriptionModalOpen] =
     useState(false);
   const [loading, setLoading] = useState(false);
-  const userSubscription = isDateBeforeToday(session?.user.subscriptionEndDate);
+  const userSubscription = isDateBeforeToday(
+    session?.user.subscriptionTrialEndDate,
+  );
 
   const { update } = useSession();
 
@@ -31,7 +33,7 @@ export const Subscription: React.FC<SubscriptionProps> = ({ session }) => {
       ...session,
       user: {
         ...session?.user,
-        subscriptionEndDate: newSubscriptionDate,
+        subscriptionTrialEndDate: newSubscriptionDate,
       },
     });
   };
@@ -47,7 +49,7 @@ export const Subscription: React.FC<SubscriptionProps> = ({ session }) => {
       (await userService
         .removeSubscriptionDays(session?.user.id, 30)
         .then((res: any) => {
-          updateSession(res.data.user.subscriptionEndDate);
+          updateSession(res.data.user.subscriptionTrialEndDate);
         })
         .catch(() => {
           showToastify({
@@ -124,7 +126,7 @@ export const Subscription: React.FC<SubscriptionProps> = ({ session }) => {
         </div>
         <div>
           <p className="font-bold">Próxima cobrança</p>
-          <span>{getDateFormater(session?.user.subscriptionEndDate)}</span>
+          <span>{getDateFormater(session?.user.subscriptionTrialEndDate)}</span>
         </div>
         <ButtonThird
           className="!text-generic-alertRed !p-0 mt-8"
@@ -134,7 +136,7 @@ export const Subscription: React.FC<SubscriptionProps> = ({ session }) => {
         </ButtonThird>
       </div>
 
-      {session?.user.subscriptionEndDate !== null &&
+      {session?.user.subscriptionTrialEndDate !== null &&
         session?.user.iuguCustomerId === null && (
           <div className="mt-10">
             <ButtonSecondary onClick={() => handleCancelFreeTrial()}>

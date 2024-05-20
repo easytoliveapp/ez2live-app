@@ -3,7 +3,7 @@ import { ISupplierInfo } from "@/types/supplier";
 export interface IUser {
   id: string;
   image: string;
-  subscriptionEndDate: string;
+  subscriptionTrialEndDate: string;
   name?: string | null;
   email?: string | null;
   role: string;
@@ -14,6 +14,7 @@ export interface IUser {
   iuguCustomerId?: string;
   iuguPaymentMethodId?: string;
   iuguSubscriptionId?: string;
+  subscriptionStatus?: string;
 }
 
 export interface ITokens {

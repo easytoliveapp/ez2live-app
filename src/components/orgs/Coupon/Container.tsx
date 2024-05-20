@@ -24,6 +24,8 @@ import isDateBeforeToday from "@/utils/isDateBeforeToday";
 import { Route } from "next";
 import { ISupplier } from "@/types/supplier";
 import getSubscriptionPageURL from "@/utils/getSubscriptionPageUrl";
+import userService from "@/service/users.service";
+import { SUBSCRIPTION_STATUS } from "@/constants/payment";
 interface CouponContainerProps {
   couponRules: string;
   couponTitle: string;
@@ -69,7 +71,7 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
   const searchParams = useSearchParams();
   const couponIdParam = searchParams.get("coupon");
   const router = useRouter();
-  const { data: session } = useSession();
+  const { data: session, update } = useSession();
 
   const {
     id: supplierId,
@@ -82,6 +84,26 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
   } = supplier;
 
   const handleNextStep = (step: number) => setCurrentStep(step);
+
+  const getUserInfo = async () => {
+    if (session && session.user.email) {
+      const res: any = await userService.getUser(session.user.email);
+      return res;
+    }
+  };
+
+  const updateSession = async (responseData: any) => {
+    return await update({
+      ...session,
+      user: {
+        ...session?.user,
+        subscriptionStatus: responseData.subscriptionStatus,
+        iuguCustomerId: responseData.iuguCustomerId,
+        iuguPaymentMethodId: responseData.iuguPaymentMethodId,
+        iuguSubscriptionId: responseData.iuguSubscriptionId,
+      },
+    });
+  };
 
   useEffect(() => {
     if (couponCode) {
@@ -106,8 +128,9 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
   useEffect(() => {
     if (couponId === couponIdParam) {
       if (
-        (session && !isDateBeforeToday(session.user.subscriptionEndDate)) ||
-        session?.user.subscriptionEndDate === null
+        (session &&
+          !isDateBeforeToday(session.user.subscriptionTrialEndDate)) ||
+        session?.user.subscriptionTrialEndDate === null
       ) {
         setShowCouponModal(false);
       } else {
@@ -224,7 +247,14 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
 
   const handleActiveCoupon = async () => {
     if (session?.user) {
-      if (isDateBeforeToday(session.user.subscriptionEndDate) === false) {
+      await getUserInfo().then((res) => {
+        updateSession(res.data);
+      });
+
+      if (
+        session.user.subscriptionStatus ===
+        (SUBSCRIPTION_STATUS.TRIAL_ENDED || SUBSCRIPTION_STATUS.COMMON)
+      ) {
         showToastify({
           type: "info",
           label:
