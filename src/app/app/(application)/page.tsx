@@ -117,7 +117,7 @@ function PageHome() {
     <div className="md:w-[600px] w-full m-auto px-5 relative">
       {session?.user && (
         <FloatButtonNav
-          label="meus cupons"
+          label="Meus cupons"
           hasCouponActive={hasCouponActived}
           backgroundStyle="secondary"
           icon={CouponPrimary}

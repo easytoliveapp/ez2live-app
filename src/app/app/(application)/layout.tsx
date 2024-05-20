@@ -31,14 +31,16 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
         <title>EasyToLive</title>
         <link rel="icon" href="/favicon.ico" />
       </head>
-      {session?.user && isPremiumExpired && isCommomUser && (
-        <PremiumConversionModal
-          isPremiumExpired={isPremiumExpired}
-          isNewUser={session.user.subscriptionEndDate === null}
-          setIsPremiumExpired={setIsPremiumExpired}
-          userId={session.user.id}
-        />
-      )}
+      {session?.user &&
+        isPremiumExpired &&
+        isCommomUser &&
+        session.user.subscriptionEndDate === null && (
+          <PremiumConversionModal
+            isPremiumExpired={isPremiumExpired}
+            setIsPremiumExpired={setIsPremiumExpired}
+            userId={session.user.id}
+          />
+        )}
       {!!(
         isUpdate ||
         (session?.user &&

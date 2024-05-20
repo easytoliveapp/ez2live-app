@@ -54,10 +54,11 @@ const addSubscriptionDays = async (userId: string, addDays: number) => {
   });
 };
 
-const removeSubscriptionDays = async (userId: string) => {
+const removeSubscriptionDays = async (userId: string, removedDays: number) => {
   return await BaseService.fetchData({
     url: `/users/${userId}/subscription-days/remove`,
     method: "post",
+    data: { days: removedDays },
   });
 };
 
