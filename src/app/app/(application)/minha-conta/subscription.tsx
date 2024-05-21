@@ -124,12 +124,6 @@ export const Subscription: React.FC<SubscriptionProps> = ({ session }) => {
           </span>
         </div>
         <div>
-          <p className="font-extrabold mb-1">ID da assinatura</p>
-          <span className="font-semibold text-generic-dark">
-            LASK001-02NDKKS-190SDKND-293KD
-          </span>
-        </div>
-        <div>
           <p className="font-bold">ID da assinatura</p>
           <span>{session?.user.iuguSubscriptionId}</span>
         </div>
