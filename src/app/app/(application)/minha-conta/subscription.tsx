@@ -132,13 +132,13 @@ export const Subscription: React.FC<SubscriptionProps> = ({ session }) => {
           <span>{getDateFormater(session?.user.subscriptionTrialEndDate)}</span>
         </div>
         <ButtonThird
-          className="!text-generic-alertRed !text-sm !py-1 !px-3 md:!bg-generic-alertRed md:!text-white"
+          className="!text-generic-alertRed !font-bold md:!font-semibold !text-sm !py-1 md:!px-3 mt-2 md:!bg-generic-alertRed md:!text-white"
           onClick={() => setIsCancelSubscriptionModalOpen(true)}
         >
           Cancelar Assinatura
         </ButtonThird>
       </div>
-      <div className="w-full mx-auto flex flex-col md:max-w-80 max-w-96 justify-center text-center items-center space-y-2 mt-12">
+      <div className="w-full mx-auto flex flex-col md:max-w-80 max-w-lg px-4 md:px-3 justify-center text-center items-center space-y-2 mt-12">
         <p className="font-bold">Meio de pagamento salvo</p>
         <p className="text-generic-grayLighter text-xs">
           Nós não salvamos dados sensíveis do cartão de crédito, apenas o dado
@@ -155,7 +155,7 @@ export const Subscription: React.FC<SubscriptionProps> = ({ session }) => {
         <ButtonThird className="!text-generic-alertRed !p-0">
           Excluir cartão principal
         </ButtonThird>
-        <p className="text-generic-grayLighter text-xs">
+        <p className="text-generic-grayLighter text-xs italic">
           Ao remover o cartão principal de pagamento, suas próximas faturas
           terão que ser pagas manualmente.
         </p>

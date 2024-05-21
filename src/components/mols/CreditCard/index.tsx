@@ -16,7 +16,7 @@ const CreditCard: React.FC<CreditCardProps> = ({
   nameOnCard,
 }) => {
   return (
-    <div className="w-full h-full rounded-xl max-w-48  space-y-2 pl-5 pt-7 pb-2 pr-3 text-white from-[#9A79F7] to-[#411CA8] bg-gradient-to-br">
+    <div className="w-full h-full rounded-2xl max-w-48  space-y-2 pl-5 pt-7 pb-3 pr-3 text-white from-[#9A79F7] to-[#411CA8] bg-gradient-to-br">
       <div className="text-xs font-black mb-1 text-start">
         **** **** ****{" "}
         {lastNumbers.length === 4 ? lastNumbers : `**** ${lastNumbers}`}
