@@ -12,7 +12,10 @@ import useIugu from "@/payment/iugu";
 import { isCreditCardExpirationValid } from "@/utils/creditCard";
 import subscriptionService from "@/service/subscription.service";
 import { useSession } from "next-auth/react";
-import { SUBSCRIPTION_STATUS } from "@/constants/payment";
+import {
+  SUBSCRIPTION_STATUS,
+  subscriptionCreditCardData,
+} from "@/constants/payment";
 
 interface ICreditCardPaymentProps {
   currentStepPayment: React.Dispatch<React.SetStateAction<number>>;
@@ -109,7 +112,7 @@ const CreditCardPayment: React.FC<ICreditCardPaymentProps> = ({
     const iuguJsToken = await Iugu.createPaymentToken(iuguData);
     currentStepPayment(1);
     await subscriptionService
-      .createSubscriptionCreditCard(iuguJsToken)
+      .createSubscription(subscriptionCreditCardData(iuguJsToken))
       .then((res: any) => {
         updateSession(res.data.user);
         currentStepPayment(2);
