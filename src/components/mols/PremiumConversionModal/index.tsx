@@ -1,7 +1,7 @@
 "use client";
 
 import React, { Dispatch, SetStateAction } from "react";
-import { ButtonPrimary, ButtonThird } from "@/components";
+import { ButtonPrimary } from "@/components";
 import Modal from "../Modal";
 import Image from "next/image";
 import LogoImage from "@/images/easytolive/logo/logotipo-semfundoazulroxo.svg";
@@ -13,12 +13,10 @@ import usersService from "@/service/users.service";
 interface IPremiumConversionModal {
   isPremiumExpired: boolean;
   setIsPremiumExpired: Dispatch<SetStateAction<boolean>>;
-  isNewUser: boolean;
   userId: string;
 }
 
 const PremiumConversionModal: React.FC<IPremiumConversionModal> = ({
-  isNewUser,
   isPremiumExpired,
   setIsPremiumExpired,
   userId,
@@ -34,7 +32,7 @@ const PremiumConversionModal: React.FC<IPremiumConversionModal> = ({
       ...session,
       user: {
         ...session?.user,
-        subscriptionEndDate: newSubscriptionDate,
+        subscriptionTrialEndDate: newSubscriptionDate,
       },
     });
   };
@@ -77,7 +75,7 @@ const PremiumConversionModal: React.FC<IPremiumConversionModal> = ({
       show={isPremiumExpired}
       onCloseModal={() => null}
     >
-      {isNewUser ? (
+      {
         <div className="flex flex-col gap-1 text-center">
           <div className="flex flex-col items-center justify-center">
             <div className="w-full flex justify-end pr-6">
@@ -88,9 +86,7 @@ const PremiumConversionModal: React.FC<IPremiumConversionModal> = ({
               />
             </div>
             <h2 className="text-2xl font-semibold">
-              {isNewUser
-                ? "FINALMENTE VOCÊ CHEGOU! 🥳"
-                : "BEM-VINDO DE VOLTA! 🥳"}
+              FINALMENTE VOCÊ CHEGOU! 🥳
             </h2>
           </div>
           <div className="flex px-4 flex-col gap-3">
@@ -101,38 +97,14 @@ const PremiumConversionModal: React.FC<IPremiumConversionModal> = ({
             </p>
             <ButtonPrimary
               onClick={() => {
-                addSubscriptionDays(28);
+                addSubscriptionDays(30);
               }}
             >
               {"RESGATAR MINHA ASSINATURA PREMIUM!"}
             </ButtonPrimary>
-            <ButtonThird onClick={() => addSubscriptionDays(14)}>
-              Prefiro perder o presente!
-            </ButtonThird>
           </div>
         </div>
-      ) : (
-        <div className="flex flex-col pb-6 min-h-[60vh] mx-2 justify-between gap-3 text-center">
-          <Image
-            className="h-14 w-auto my-4"
-            alt="easy-to-live-logo"
-            src={LogoImage}
-          />
-          <div className="flex flex-col items-center justify-center">
-            <h3 className="text-xl font-semibold">
-              Seu tempo de premium expirou {":("}
-            </h3>
-          </div>
-          <div className="flex flex-col gap-3">
-            <p className="p-2 text-center">
-              Deseja receber mais 30 dias de premium free?
-            </p>
-            <ButtonPrimary onClick={() => addSubscriptionDays(30)}>
-              Claro !
-            </ButtonPrimary>
-          </div>
-        </div>
-      )}
+      }
     </Modal>
   );
 };

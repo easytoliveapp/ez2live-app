@@ -2,26 +2,65 @@ import React, { useState } from "react";
 import isDateBeforeToday from "@/utils/isDateBeforeToday";
 import Image from "next/image";
 import EasyLogo from "@/images/easytolive/logo/logotipo-semfundoazulroxo.svg";
+import {
+  ButtonPrimary,
+  ButtonSecondary,
+  ButtonThird,
+  Modal,
+  CreditCard,
+} from "@/components";
+import userService from "@/service/users.service";
+import { showToastify } from "@/hooks/showToastify";
+import { useSession } from "next-auth/react";
 import { Session } from "next-auth";
-import { ButtonPrimary, ButtonThird, Modal, CreditCard } from "@/components";
+import { getDateFormater } from "@/utils/getDateFormater";
 
-interface SignatureProps {
+interface SubscriptionProps {
   session: Session | null;
 }
 
-export const Signature: React.FC<SignatureProps> = ({ session }) => {
+export const Subscription: React.FC<SubscriptionProps> = ({ session }) => {
   const [isCancelSubscriptionModalOpen, setIsCancelSubscriptionModalOpen] =
     useState(false);
   const [loading, setLoading] = useState(false);
-  const userSubscription = isDateBeforeToday(session?.user.subscriptionEndDate);
+  const userSubscription = isDateBeforeToday(
+    session?.user.subscriptionTrialEndDate,
+  );
+
+  const { update } = useSession();
+
+  const updateSession = async (newSubscriptionDate: string) => {
+    await update({
+      ...session,
+      user: {
+        ...session?.user,
+        subscriptionTrialEndDate: newSubscriptionDate,
+      },
+    });
+  };
 
   const handleCancelSubscription = () => {
     setLoading(true);
     // TODO: CONECTAR ENDPOINT PARA CANCELAR
     setLoading(false);
   };
-
-  return userSubscription ? (
+  //TODO:REMOVE THIS CODE BEFORE IT GOES LIVE--------------------------
+  const handleCancelFreeTrial = async () => {
+    session &&
+      (await userService
+        .removeSubscriptionDays(session?.user.id, 30)
+        .then((res: any) => {
+          updateSession(res.data.user.subscriptionTrialEndDate);
+        })
+        .catch(() => {
+          showToastify({
+            label: "Ocorreu um erro ao remover seu período grátis",
+            type: "error",
+          });
+        }));
+  };
+  //----------------------------------------------------------------------
+  return session?.user.iuguCustomerId !== null ? (
     <div className="px-4">
       <Modal
         closeOnBlur={true}
@@ -91,40 +130,26 @@ export const Signature: React.FC<SignatureProps> = ({ session }) => {
           </span>
         </div>
         <div>
-          <p className="font-extrabold mb-1">Próxima cobrança</p>
-          <span className="font-semibold text-generic-dark">04/06/2024</span>
+          <p className="font-bold">ID da assinatura</p>
+          <span>{session?.user.iuguSubscriptionId}</span>
+        </div>
+        <div>
+          <p className="font-bold">Próxima cobrança</p>
+          <span>{getDateFormater(session?.user.subscriptionTrialEndDate)}</span>
         </div>
         <ButtonThird
-          className="!text-generic-alertRed !justify-end !text-sm !font-black "
+          className="!text-generic-alertRed !p-0 mt-8"
           onClick={() => setIsCancelSubscriptionModalOpen(true)}
         >
           Cancelar Assinatura
         </ButtonThird>
       </div>
-
-      <div className="flex flex-col items-center text-center px-4 space-y-4 mt-14">
-        <h2 className="font-extrabold text-sm">Meio de pagamento salvo</h2>
-        <p className="text-xs leading-4 text-generic-grayLighter">
-          Nós não salvamos dados sensíveis do cartão de crédito, apenas o dado
-          criptografado necessário para realizar o pagamento.
-        </p>
-        <CreditCard
-          cardFlag="master-card"
-          expirationDate="10/26"
-          lastNumbers="4111"
-          nameOnCard="Felipe M F Henrique"
-        />
-      </div>
-      <div className="mt-2 text-center">
-        <ButtonThird className="!text-generic-alertRed !text-sm !font-extrabold">
-          {" "}
-          Excluir Cartão Principal
-        </ButtonThird>
-        <p className="text-xs leading-4 italic text-generic-grayLighter px-8">
-          Ao remover o cartão principal de pagamento, suas próximas faturas
-          terão que ser pagas manualmente.
-        </p>
-      </div>
+      <CreditCard
+        cardFlag="master-card"
+        expirationDate="10/26"
+        lastNumbers="4111"
+        nameOnCard="Felipe M F Henrique"
+      />
     </div>
   ) : (
     <div className="flex flex-col items-center justify-center text-center">
@@ -142,6 +167,14 @@ export const Signature: React.FC<SignatureProps> = ({ session }) => {
       >
         Quero os melhores descontos
       </ButtonPrimary>
+      {session?.user.subscriptionTrialEndDate !== null &&
+        session?.user.iuguCustomerId === null && (
+          <div className="mt-10">
+            <ButtonSecondary onClick={() => handleCancelFreeTrial()}>
+              Cancelar período grátis
+            </ButtonSecondary>
+          </div>
+        )}
     </div>
   );
 };

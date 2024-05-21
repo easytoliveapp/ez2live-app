@@ -5,14 +5,33 @@ import { Input, ButtonPrimary, FormItem } from "@/components";
 import * as Yup from "yup";
 import Image from "next/image";
 import PixImage from "@/images/easytolive/payment/pix-image.svg";
-import { IPixPayment } from "@/types/payment";
+import { IPixPayment, IPixResponseData } from "@/types/payment";
+import subscriptionService from "@/service/subscription.service";
+import { subscriptionPixData } from "@/constants/payment";
+import { useSession } from "next-auth/react";
+import { showToastify } from "@/hooks/showToastify";
 
 interface IPixPaymentProps {
   currentStepPayment: React.Dispatch<React.SetStateAction<number>>;
+  setPixData: React.Dispatch<React.SetStateAction<IPixResponseData>>;
 }
 
-const PixPayment: React.FC<IPixPaymentProps> = ({ currentStepPayment }) => {
+const PixPayment: React.FC<IPixPaymentProps> = ({
+  currentStepPayment,
+  setPixData,
+}) => {
   const [loading, setLoading] = useState(false);
+  const { data: session, update } = useSession();
+
+  const updateSession = async (responseData: any) => {
+    await update({
+      ...session,
+      user: {
+        ...session?.user,
+        iuguCustomerId: responseData.iuguCustomerId,
+      },
+    });
+  };
 
   const PixPaymentValidationSchema = Yup.object().shape({
     cpf: Yup.string().required("CPF inválido"),
@@ -26,10 +45,30 @@ const PixPayment: React.FC<IPixPaymentProps> = ({ currentStepPayment }) => {
 
   const handleSubmit = async (values: IPixPayment) => {
     setLoading(true);
-    currentStepPayment(1);
-    // TODO invoice to get if user payed pix
-    setLoading(false);
-    return values;
+    await subscriptionService
+      .createSubscription(subscriptionPixData(values.cpf))
+      .then((res: any) => {
+        updateSession(res.data.user);
+        setPixData({
+          invoiceId: res.data.subscriptionResponse.recentInvoiceId,
+          qrCodeValue: {
+            image: res.data.subscriptionResponse.pix.qrCode,
+            text: res.data.subscriptionResponse.pix.qrCodeText,
+          },
+        });
+        currentStepPayment(1);
+      })
+      .catch((res: any) => {
+        if (res.status === 400) {
+          showToastify({
+            label:
+              "Você está tentando criar uma nova assinatura, mas já possui uma ativa.",
+            type: "error",
+          });
+        } else {
+          currentStepPayment(3);
+        }
+      });
   };
 
   const initialValues: IPixPayment = {

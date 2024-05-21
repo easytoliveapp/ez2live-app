@@ -48,6 +48,31 @@ export async function middleware(request: NextRequest) {
     );
   }
 
+  //  Apenas usuários comuns e sem assinatura ativa podem visitar a página de pagamento
+  if (
+    tokenInfo?.user.role !== ROLES.commonUser &&
+    request.nextUrl.pathname === "/app/pagamento"
+  ) {
+    return NextResponse.redirect(
+      new URL(
+        tokenInfo?.user.role === ROLES.supplier
+          ? "/app/dashboard"
+          : "/app/admin",
+        request.url,
+      ),
+    );
+  }
+
+  if (
+    tokenInfo?.user.role === ROLES.commonUser &&
+    tokenInfo.user.iuguSubscriptionId &&
+    request.nextUrl.pathname === "/app/pagamento"
+  ) {
+    return NextResponse.redirect(
+      new URL("/app/minha-conta?aba=assinatura" ?? "/app", request.url),
+    );
+  }
+  //  -----------------------------------------------------------------------
   if (
     (tokenInfo?.user.role === ROLES.supplier ||
       tokenInfo?.user.role === ROLES.admin) &&

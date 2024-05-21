@@ -38,7 +38,7 @@ const widgetMenus: WidgetFooterMenu[] = [
     submenus: [
       {
         href: "/app?supplierCategory=6583288ca8101b0027ecd823",
-        label: "Restaurantes",
+        label: "Comida Saudável",
       },
       {
         href: "/app?supplierCategory=6583296aa8101b0027ecd833",
