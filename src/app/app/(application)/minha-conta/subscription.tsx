@@ -102,34 +102,36 @@ export const Subscription: React.FC<SubscriptionProps> = ({ session }) => {
           </ButtonThird>
         </div>
       </Modal>
-      <div className="text-sm grid items-center grid-cols-2 gap-3 md:flex md:flex-col md: justify-center">
+      <div className="text-sm grid items-center grid-cols-2 gap-3 md:gap-2 md:flex md:flex-col md:justify-center md:text-center">
         <div>
-          <p className="font-extrabold mb-1">Status Assiantura</p>
+          <p className="font-extrabold mb-1 md:mb-0">Status Assiantura</p>
           {userSubscription ? (
-            <span className="text-generic-limeGreen font-semibold">Ativa</span>
+            <span className="text-generic-limeGreen font-bold">Ativa</span>
           ) : (
             <span className="font-semibold text-generic-dark">Inativa</span>
           )}
         </div>
         <div>
-          <p className="font-extrabold mb-1">Última cobrança</p>
+          <p className="font-extrabold mb-1 md:mb-0">Última cobrança</p>
           <span className="font-semibold text-generic-dark">
             04/05/2024 as 10:23
           </span>
         </div>
         <div>
-          <p className="font-extrabold mb-1">Plano</p>
+          <p className="font-extrabold mb-1 md:mb-0">Plano</p>
           <span className="font-semibold text-generic-dark">
             EasyToLive Mensal
           </span>
         </div>
         <div>
-          <p className="font-bold">ID da assinatura</p>
-          <span>{session?.user.iuguSubscriptionId}</span>
+          <p className="font-extrabold mb-1 md:mb-0">ID da assinatura</p>
+          <span className="break-words font-semibold text-generic-dark">
+            {session?.user.iuguSubscriptionId}
+          </span>
         </div>
         <div>
-          <p className="font-bold">Próxima cobrança</p>
-          <span>{getDateFormater(session?.user.subscriptionTrialEndDate)}</span>
+          <p className="font-bold mb-1 md:mb-0">Próxima cobrança</p>
+          <span className="font-semibold text-generic-dark">{getDateFormater(session?.user.subscriptionTrialEndDate)}</span>
         </div>
         <ButtonThird
           className="!text-generic-alertRed !font-bold md:!font-semibold !text-sm !py-1 md:!px-3 mt-2 md:!bg-generic-alertRed md:!text-white"
