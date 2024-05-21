@@ -7,7 +7,6 @@ import Image from "next/image";
 import PixImage from "@/images/easytolive/payment/pix-image.svg";
 import { IPixPayment, IPixResponseData } from "@/types/payment";
 import subscriptionService from "@/service/subscription.service";
-import { subscriptionPixData } from "@/constants/payment";
 import { useSession } from "next-auth/react";
 import { showToastify } from "@/hooks/showToastify";
 
@@ -46,7 +45,7 @@ const PixPayment: React.FC<IPixPaymentProps> = ({
   const handleSubmit = async (values: IPixPayment) => {
     setLoading(true);
     await subscriptionService
-      .createSubscription(subscriptionPixData(values.cpf))
+      .createSubscriptionPix(values.cpf)
       .then((res: any) => {
         updateSession(res.data.user);
         setPixData({
