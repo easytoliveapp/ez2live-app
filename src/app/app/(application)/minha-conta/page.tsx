@@ -30,7 +30,7 @@ const MyAccountPage = () => {
 
   return (
     <div className="nc-AccountCommonLayout container">
-      <div className="my-8 flex items-center justify-between max-w-4xl m-auto px-2">
+      <div className="my-8 flex items-center justify-between max-w-lg m-auto px-2">
         <h2 className=" flex flex-wrap items-center text-2xl leading-[115%] md:leading-[115%] font-bold text-black justify-center">
           {session?.user?.name}
         </h2>
@@ -41,7 +41,7 @@ const MyAccountPage = () => {
         </div>
       </div>
       <div className="mt-14 sm:mt-20">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-lg mx-auto">
           <hr className="mt-10 border-slate-200 "></hr>
           <div className="mx-4 py-4 space-x-8 md:space-x-14 overflow-x-auto hiddenScrollbar">
             <div className="flex gap-6">

@@ -61,7 +61,7 @@ export const Subscription: React.FC<SubscriptionProps> = ({ session }) => {
   };
   //----------------------------------------------------------------------
   return session?.user.iuguCustomerId !== null ? (
-    <div className="px-4">
+    <div className="px-4 max-w-lg mx-auto">
       <Modal
         closeOnBlur={true}
         hasCloseButton={true}
@@ -102,7 +102,7 @@ export const Subscription: React.FC<SubscriptionProps> = ({ session }) => {
           </ButtonThird>
         </div>
       </Modal>
-      <div className="text-sm grid items-center grid-cols-2 gap-4">
+      <div className="text-sm grid items-center grid-cols-2 gap-3 md:flex md:flex-col md: justify-center">
         <div>
           <p className="font-extrabold mb-1">Status Assiantura</p>
           {userSubscription ? (
@@ -132,18 +132,34 @@ export const Subscription: React.FC<SubscriptionProps> = ({ session }) => {
           <span>{getDateFormater(session?.user.subscriptionTrialEndDate)}</span>
         </div>
         <ButtonThird
-          className="!text-generic-alertRed !p-0 mt-8"
+          className="!text-generic-alertRed !text-sm !py-1 !px-3 md:!bg-generic-alertRed md:!text-white"
           onClick={() => setIsCancelSubscriptionModalOpen(true)}
         >
           Cancelar Assinatura
         </ButtonThird>
       </div>
-      <CreditCard
-        cardFlag="master-card"
-        expirationDate="10/26"
-        lastNumbers="4111"
-        nameOnCard="Felipe M F Henrique"
-      />
+      <div className="w-full mx-auto flex flex-col md:max-w-80 max-w-96 justify-center text-center items-center space-y-2 mt-12">
+        <p className="font-bold">Meio de pagamento salvo</p>
+        <p className="text-generic-grayLighter text-xs">
+          Nós não salvamos dados sensíveis do cartão de crédito, apenas o dado
+          criptografado necessário para realizar o pagamento.
+        </p>
+        <div className="py-2 w-full flex justify-center">
+          <CreditCard
+            cardFlag="master-card"
+            expirationDate="10/26"
+            lastNumbers="4111"
+            nameOnCard="Felipe M F Henrique"
+          />
+        </div>
+        <ButtonThird className="!text-generic-alertRed !p-0">
+          Excluir cartão principal
+        </ButtonThird>
+        <p className="text-generic-grayLighter text-xs">
+          Ao remover o cartão principal de pagamento, suas próximas faturas
+          terão que ser pagas manualmente.
+        </p>
+      </div>
     </div>
   ) : (
     <div className="flex flex-col items-center justify-center text-center">
