@@ -131,7 +131,9 @@ export const Subscription: React.FC<SubscriptionProps> = ({ session }) => {
         </div>
         <div>
           <p className="font-bold mb-1 md:mb-0">Próxima cobrança</p>
-          <span className="font-semibold text-generic-dark">{getDateFormater(session?.user.subscriptionTrialEndDate)}</span>
+          <span className="font-semibold text-generic-dark">
+            {getDateFormater(session?.user.subscriptionTrialEndDate)}
+          </span>
         </div>
         <ButtonThird
           className="!text-generic-alertRed !font-bold md:!font-semibold !text-sm !py-1 md:!px-3 mt-2 md:!bg-generic-alertRed md:!text-white"
