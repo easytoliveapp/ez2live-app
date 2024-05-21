@@ -60,7 +60,7 @@ const PaymentPage = () => {
   };
 
   return (
-    <div className="bg-generic-gray h-full min-h-[calc(100vh-66px)] flex flex-col pt-14 items-center">
+    <div className="bg-generic-gray h-full min-h-[calc(100vh-66px)] px-4 flex flex-col pt-14 items-center">
       {renderStep(currentStep)}
     </div>
   );

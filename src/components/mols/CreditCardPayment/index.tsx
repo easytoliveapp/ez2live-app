@@ -228,6 +228,7 @@ const CreditCardPayment: React.FC<ICreditCardPaymentProps> = ({
                 errorMessage={null}
                 invalid={!!errors.termsOfUse && touched.termsOfUse}
                 className="flex"
+                hasErrorSpacement={false}
               >
                 <div className="flex w-full gap-1 justify-center items-center">
                   <Field
