@@ -153,6 +153,28 @@ export const SubscriptionTab: React.FC<SubscriptionProps> = ({
             <p className="font-bold">Vencimento da mensalidade</p>
             <span>{getDateFormater(subscriptionInfo?.expiresAt)}</span>
           </div>
+          <div className="w-full mx-auto flex flex-col md:max-w-80 max-w-lg px-4 md:px-3 justify-center text-center items-center space-y-2 mt-12">
+            <p className="font-bold">Meio de pagamento salvo</p>
+            <p className="text-generic-grayLighter text-xs">
+              Nós não salvamos dados sensíveis do cartão de crédito, apenas o
+              dado criptografado necessário para realizar o pagamento.
+            </p>
+            <div className="py-2 w-full flex justify-center">
+              <CreditCard
+                cardFlag="master-card"
+                expirationDate="10/26"
+                lastNumbers="4111"
+                nameOnCard="Felipe M F Henrique"
+              />
+            </div>
+            <ButtonThird className="!text-generic-alertRed !p-0">
+              Excluir cartão principal
+            </ButtonThird>
+            <p className="text-generic-grayLighter text-xs italic">
+              Ao remover o cartão principal de pagamento, suas próximas faturas
+              terão que ser pagas manualmente.
+            </p>
+          </div>
           {subscriptionInfo?.suspended || hasSubscriptionSuspensed ? (
             <p className="font-bold">Sua assinatura foi suspensa </p>
           ) : (
