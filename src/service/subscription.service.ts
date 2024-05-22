@@ -11,7 +11,7 @@ const createSubscriptionPix = async (payerDocument: string) => {
   return await BaseService.fetchData({
     url: "/subscription/pix",
     method: "post",
-    data: payerDocument,
+    data: { payerDocument },
   });
 };
 
@@ -19,7 +19,7 @@ const createSubscriptionCreditCard = async (cardToken: string) => {
   return await BaseService.fetchData({
     url: "/subscription/credit-card",
     method: "post",
-    data: cardToken,
+    data: { token: cardToken },
   });
 };
 

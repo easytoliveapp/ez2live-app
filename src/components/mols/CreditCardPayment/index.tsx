@@ -109,7 +109,7 @@ const CreditCardPayment: React.FC<ICreditCardPaymentProps> = ({
     const iuguJsToken = await Iugu.createPaymentToken(iuguData);
     currentStepPayment(1);
     await subscriptionService
-      .createSubscriptionCreditCard(iuguJsToken)
+      .createSubscriptionCreditCard(iuguJsToken.id)
       .then((res: any) => {
         updateSession(res.data.user);
         currentStepPayment(2);
