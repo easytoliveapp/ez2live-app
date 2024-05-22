@@ -8,19 +8,19 @@ import { PAYMENT } from "@/constants/paymentMethods";
 import { copyTextToClipboard } from "@/utils/copyTextToClipboard";
 import subscriptionService from "@/service/subscription.service";
 import { showToastify } from "@/hooks/showToastify";
-import { IPixResponseData } from "@/types/payment";
+import { IPaymentResponseData } from "@/types/payment";
 import { useSession } from "next-auth/react";
 import { INVOICE_STATUS, SUBSCRIPTION_STATUS } from "@/constants/payment";
 
 interface IWaitingApprovalStepProps {
   paymentTab: string;
-  pixData: IPixResponseData;
+  paymentResponseData: IPaymentResponseData;
   setCurrentStep: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export const WaitingApprovalStep: React.FC<IWaitingApprovalStepProps> = ({
   paymentTab,
-  pixData,
+  paymentResponseData,
   setCurrentStep,
 }) => {
   const { data: session, update } = useSession();
@@ -39,12 +39,16 @@ export const WaitingApprovalStep: React.FC<IWaitingApprovalStepProps> = ({
       });
     }
   };
+  useEffect(() => {
+    console.log(paymentResponseData.invoiceId);
+  }, []);
 
   const updateSession = async (responseData: any) => {
     return await update({
       ...session,
       user: {
         ...session?.user,
+        iuguCustomerId: responseData.customerId,
         subscriptionStatus: SUBSCRIPTION_STATUS.PREMIUM,
         iuguSubscriptionId: responseData.subscriptionId,
       },
@@ -52,24 +56,29 @@ export const WaitingApprovalStep: React.FC<IWaitingApprovalStepProps> = ({
   };
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      getInvoiceStatus();
-    }, 30 * 1000);
+    const interval =
+      paymentResponseData.invoiceId &&
+      setInterval(() => {
+        getInvoiceStatus();
+      }, 30 * 1000);
 
     return () => {
       clearInterval(interval);
     };
-  }, []);
+  }, [paymentResponseData.invoiceId]);
 
   const getInvoiceStatus = async () => {
     await subscriptionService
-      .getInvoiceById(pixData.invoiceId)
+      .getInvoiceById(paymentResponseData.invoiceId)
       .then((res: any) => {
         if (res.data.status === INVOICE_STATUS.PAID) {
           updateSession(res.data);
           setCurrentStep(2);
         }
         if (res.data.status === INVOICE_STATUS.EXPIRED) {
+          setCurrentStep(3);
+        }
+        if (res.data.status === INVOICE_STATUS.CANCELLED) {
           setCurrentStep(3);
         }
       })
@@ -84,7 +93,7 @@ export const WaitingApprovalStep: React.FC<IWaitingApprovalStepProps> = ({
   return (
     <div>
       <LoadingPayment paymentMethod={paymentTab} />
-      {paymentTab === PAYMENT.pix && (
+      {paymentTab === PAYMENT.pix && paymentResponseData.qrCodeValue && (
         <div>
           <SimpleModal className="pb-6">
             <div className="w-full flex justify-center my-1">
@@ -92,7 +101,7 @@ export const WaitingApprovalStep: React.FC<IWaitingApprovalStepProps> = ({
             </div>
             <p className="font-bold text-xs text-generic-dark">QR Code</p>
             <Image
-              src={pixData.qrCodeValue.image}
+              src={paymentResponseData.qrCodeValue.image}
               alt="pix-image"
               className="w-32 h-32"
               height={128}
@@ -104,12 +113,16 @@ export const WaitingApprovalStep: React.FC<IWaitingApprovalStepProps> = ({
                 Copia e Cola
               </p>
               <p className="text-xs mb-2 break-words md:max-w-[340px]">
-                {pixData.qrCodeValue.text}
+                {paymentResponseData.qrCodeValue.text}
               </p>
             </div>
 
             <ButtonFourth
-              onClick={() => handleClickCopyText(pixData.qrCodeValue.text)}
+              onClick={() => {
+                if (paymentResponseData?.qrCodeValue?.text) {
+                  handleClickCopyText(paymentResponseData.qrCodeValue.text);
+                }
+              }}
               className="!border-generic-limeGreen !border-[1px] !py-1 !text-xs  !text-generic-limeGreen"
             >
               Copiar Código PIX

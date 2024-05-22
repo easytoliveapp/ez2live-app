@@ -1,10 +1,16 @@
 import React from "react";
-import isPremiumUser from "@/utils/isPremiumUser";
-import { useSession } from "next-auth/react";
+import { SUBSCRIPTION_STATUS } from "@/constants/payment";
 
-const UserSubscriptionBadge = () => {
-  const { data: session } = useSession();
-  const hasPremium = session && isPremiumUser();
+interface IUserSubscriptionBadgeProps {
+  label: string;
+}
+
+const UserSubscriptionBadge: React.FC<IUserSubscriptionBadgeProps> = ({
+  label,
+}) => {
+  const hasPremium =
+    label === SUBSCRIPTION_STATUS.PREMIUM ||
+    label === SUBSCRIPTION_STATUS.TRIAL;
 
   return (
     <div

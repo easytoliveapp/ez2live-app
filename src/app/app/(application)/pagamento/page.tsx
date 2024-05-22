@@ -5,7 +5,7 @@ import { WaitingApprovalStep } from "./WaitingApprovalStep";
 import { AcceptedPaymentStep } from "./AcceptedPaymentStep";
 import { RejectedPaymentStep } from "./RejectedPaymentStep";
 import { PAYMENT } from "@/constants/paymentMethods";
-import { IPixResponseData } from "@/types/payment";
+import { IPaymentResponseData } from "@/types/payment";
 
 const PaymentPage = () => {
   const STEPS = {
@@ -16,14 +16,16 @@ const PaymentPage = () => {
   };
 
   const [currentStep, setCurrentStep] = useState<number>(STEPS.PAYMENT);
-  const [pixData, setPixData] = useState<IPixResponseData>({
-    invoiceId: "",
-    qrCodeValue: {
-      image: "",
-      text: "",
-    },
-  });
+  const [paymentResponseData, setPaymentResponseData] =
+    useState<IPaymentResponseData>({
+      invoiceId: "",
+      qrCodeValue: {
+        image: "",
+        text: "",
+      },
+    });
   const [paymentTab, setPaymentTab] = useState(PAYMENT.creditCard);
+
   const renderStep = (step: number) => {
     switch (step) {
       case STEPS.PAYMENT:
@@ -32,7 +34,7 @@ const PaymentPage = () => {
             paymentTab={paymentTab}
             setPaymentTab={setPaymentTab}
             setCurrentStep={setCurrentStep}
-            setPixData={setPixData}
+            setPaymentResponseData={setPaymentResponseData}
           />
         );
       case STEPS.LOADING_PAYMENT:
@@ -40,7 +42,7 @@ const PaymentPage = () => {
           <WaitingApprovalStep
             paymentTab={paymentTab}
             setCurrentStep={setCurrentStep}
-            pixData={pixData}
+            paymentResponseData={paymentResponseData}
           />
         );
       case STEPS.PAYMENT_ACCEPT:
@@ -53,7 +55,7 @@ const PaymentPage = () => {
             paymentTab={paymentTab}
             setPaymentTab={setPaymentTab}
             setCurrentStep={setCurrentStep}
-            setPixData={setPixData}
+            setPaymentResponseData={setPaymentResponseData}
           />
         );
     }
