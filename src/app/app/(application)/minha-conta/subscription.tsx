@@ -126,7 +126,7 @@ export const SubscriptionTab: React.FC<SubscriptionProps> = ({
         </div>
       </Modal>
       {subscriptionInfo ? (
-        <div className=" grid grid-cols-2 items-center space-y-3">
+        <div className="text-sm grid items-center grid-cols-2 gap-3 md:gap-2 md:flex md:flex-col md:justify-center md:text-center">
           <div>
             <p className="font-bold">Status Assiantura</p>
             <span>
@@ -139,21 +139,42 @@ export const SubscriptionTab: React.FC<SubscriptionProps> = ({
           </div>
           <div>
             <p className="font-bold">Última cobrança</p>
-            <span>{subscriptionInfo?.cycledAt}</span>
+            <span className="font-semibold text-generic-dark">
+              {subscriptionInfo?.cycledAt}
+            </span>
           </div>
           <div>
             <p className="font-bold">Plano</p>
-            <span>{subscriptionInfo?.planName}</span>
+            <span className="font-semibold text-generic-dark">
+              {subscriptionInfo?.planName}
+            </span>
           </div>
           <div>
             <p className="font-bold">ID da assinatura</p>
-            <span>{subscriptionInfo?.id}</span>
+            <span className="font-semibold text-generic-dark break-words">
+              {subscriptionInfo?.id}
+            </span>
           </div>
           <div>
-            <p className="font-bold">Vencimento da mensalidade</p>
-            <span>{getDateFormater(subscriptionInfo?.expiresAt)}</span>
+            <p className="font-bold">Próxima cobrança</p>
+            <span className="font-semibold text-generic-dark">
+              {getDateFormater(subscriptionInfo?.expiresAt)}
+            </span>
           </div>
-          <div className="w-full mx-auto flex flex-col md:max-w-80 max-w-lg px-4 md:px-3 justify-center text-center items-center space-y-2 mt-12">
+          {subscriptionInfo?.suspended || hasSubscriptionSuspensed ? (
+            <p className="font-medium text-xs italic">
+              Sua assinatura foi suspensa e não renovará automaticamente.{" "}
+            </p>
+          ) : (
+            <ButtonThird
+              className="!text-generic-alertRed !p-0 mt-8"
+              onClick={() => setIsCancelSubscriptionModalOpen(true)}
+            >
+              Cancelar Assinatura
+            </ButtonThird>
+          )}
+
+          <div className="w-full mx-auto flex col-span-2 flex-col md:max-w-80 max-w-lg px-4 md:px-3 justify-center text-center items-center space-y-2 mt-12">
             <p className="font-bold">Meio de pagamento salvo</p>
             <p className="text-generic-grayLighter text-xs">
               Nós não salvamos dados sensíveis do cartão de crédito, apenas o
@@ -175,16 +196,6 @@ export const SubscriptionTab: React.FC<SubscriptionProps> = ({
               terão que ser pagas manualmente.
             </p>
           </div>
-          {subscriptionInfo?.suspended || hasSubscriptionSuspensed ? (
-            <p className="font-bold">Sua assinatura foi suspensa </p>
-          ) : (
-            <ButtonThird
-              className="!text-generic-alertRed !p-0 mt-8"
-              onClick={() => setIsCancelSubscriptionModalOpen(true)}
-            >
-              Cancelar Assinatura
-            </ButtonThird>
-          )}
         </div>
       ) : (
         <LoadingComponent size="large" fullSize={false} />
