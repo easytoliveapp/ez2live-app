@@ -13,11 +13,7 @@ import { isCreditCardExpirationValid } from "@/utils/creditCard";
 import subscriptionService from "@/service/subscription.service";
 import { useSession } from "next-auth/react";
 import { showToastify } from "@/hooks/showToastify";
-import {
-  INVOICE_STATUS,
-  SUBSCRIPTION_STATUS,
-  subscriptionCreditCardData,
-} from "@/constants/payment";
+import { INVOICE_STATUS, SUBSCRIPTION_STATUS } from "@/constants/payment";
 
 interface ICreditCardPaymentProps {
   currentStepPayment: React.Dispatch<React.SetStateAction<number>>;
@@ -140,7 +136,7 @@ const CreditCardPayment: React.FC<ICreditCardPaymentProps> = ({
     const iuguJsToken = await Iugu.createPaymentToken(iuguData);
     currentStepPayment(1);
     await subscriptionService
-      .createSubscription(subscriptionCreditCardData(iuguJsToken))
+      .createSubscriptionCreditCard(iuguJsToken.id)
       .then((res: any) =>
         setPaymentResponseData({
           invoiceId: res.data.subscriptionResponse.recentInvoiceId,
@@ -149,7 +145,7 @@ const CreditCardPayment: React.FC<ICreditCardPaymentProps> = ({
       .then((res: any) => {
         handlePaymentStatus(res);
       })
-      .catch((res) => {
+      .catch((res: any) => {
         if (res.status === 400) {
           showToastify({
             label:

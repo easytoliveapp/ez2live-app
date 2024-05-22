@@ -5,22 +5,6 @@ export interface ISubscriptionIuguService {
   token: string;
 }
 
-export const subscriptionCreditCardData = (iuguJsToken: any) => {
-  return {
-    planIdentifier: "ez2live_weekly",
-    payableWith: "credit_card",
-    token: iuguJsToken.id,
-  };
-};
-
-export const subscriptionPixData = (cpfOrCnpj: string) => {
-  return {
-    planIdentifier: "ez2live_weekly",
-    payableWith: "pix",
-    payerCpfCnpj: cpfOrCnpj,
-  };
-};
-
 export const SUBSCRIPTION_STATUS = {
   TRIAL: "trial",
   TRIAL_ENDED: "trial_ended",
