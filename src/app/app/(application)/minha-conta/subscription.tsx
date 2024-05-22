@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import isDateBeforeToday from "@/utils/isDateBeforeToday";
 import Image from "next/image";
 import EasyLogo from "@/images/easytolive/logo/logotipo-semfundoazulroxo.svg";
 import {
   ButtonPrimary,
   ButtonSecondary,
   ButtonThird,
+  LoadingComponent,
   Modal,
   CreditCard,
 } from "@/components";
@@ -14,34 +14,51 @@ import { showToastify } from "@/hooks/showToastify";
 import { useSession } from "next-auth/react";
 import { Session } from "next-auth";
 import { getDateFormater } from "@/utils/getDateFormater";
+import { IGetSubscriptionResponse } from "@/types/subscription/response/index";
+import subscriptionService from "@/service/subscription.service";
 
 interface SubscriptionProps {
   session: Session | null;
+  subscriptionInfo?: IGetSubscriptionResponse;
 }
 
-export const Subscription: React.FC<SubscriptionProps> = ({ session }) => {
+export const SubscriptionTab: React.FC<SubscriptionProps> = ({
+  session,
+  subscriptionInfo,
+}) => {
   const [isCancelSubscriptionModalOpen, setIsCancelSubscriptionModalOpen] =
     useState(false);
   const [loading, setLoading] = useState(false);
-  const userSubscription = isDateBeforeToday(
-    session?.user.subscriptionTrialEndDate,
-  );
-
+  const [hasSubscriptionSuspensed, setHasSubscriptionSuspensed] =
+    useState(false);
   const { update } = useSession();
 
-  const updateSession = async (newSubscriptionDate: string) => {
+  const updateSession = async (newSubscriptionTrialEndDate: string) => {
     await update({
       ...session,
       user: {
         ...session?.user,
-        subscriptionTrialEndDate: newSubscriptionDate,
+        subscriptionTrialEndDate: newSubscriptionTrialEndDate,
       },
     });
   };
 
+  const suspendSubscription = async () => {
+    const res = await subscriptionService.suspendSubscription();
+    return res;
+  };
+
   const handleCancelSubscription = () => {
     setLoading(true);
-    // TODO: CONECTAR ENDPOINT PARA CANCELAR
+    suspendSubscription()
+      .then(() => {
+        showToastify({
+          label: `O ciclo da sua fatura será encerrado no dia ${subscriptionInfo?.expiresAt}. Até lá você pode aproveitar nossos descontos!`,
+          type: "success",
+        });
+      })
+      .then(() => setHasSubscriptionSuspensed(true))
+      .then(() => setIsCancelSubscriptionModalOpen(false));
     setLoading(false);
   };
   //TODO:REMOVE THIS CODE BEFORE IT GOES LIVE--------------------------
@@ -52,6 +69,9 @@ export const Subscription: React.FC<SubscriptionProps> = ({ session }) => {
         .then((res: any) => {
           updateSession(res.data.user.subscriptionTrialEndDate);
         })
+        .then(() => {
+          showToastify({ label: "Trial removido", type: "success" });
+        })
         .catch(() => {
           showToastify({
             label: "Ocorreu um erro ao remover seu período grátis",
@@ -60,8 +80,11 @@ export const Subscription: React.FC<SubscriptionProps> = ({ session }) => {
         }));
   };
   //----------------------------------------------------------------------
-  return session?.user.iuguCustomerId !== null ? (
-    <div className="px-4 max-w-lg mx-auto">
+  const hasSubscriptionId = session?.user.iuguSubscriptionId;
+  const hasIuguId = !!session?.user?.iuguCustomerId;
+
+  return hasIuguId && hasSubscriptionId ? (
+    <div className="px-4">
       <Modal
         closeOnBlur={true}
         hasCloseButton={true}
@@ -82,14 +105,14 @@ export const Subscription: React.FC<SubscriptionProps> = ({ session }) => {
           <p className="text-sm font-medium">
             Você pode cancelar a qualquer <br /> momento e encerrar a
             recorrência do <br />
-            ciclo em <strong>10/05/2025</strong>
+            ciclo em <strong>{subscriptionInfo?.expiresAt}</strong>
           </p>
           <p className="text-sm font-medium">
             <strong>Até lá, você ainda pode aproveitar</strong>
             <br /> nossos melhores descontos.
           </p>
           <ButtonPrimary
-            onClick={() => handleCancelSubscription}
+            onClick={() => handleCancelSubscription()}
             className="!bg-generic-alertRed !text-xs !py-2 !px-4 font-extrabold"
           >
             {loading ? "cancelando  (...)" : "Cancelar assinatura"}
@@ -102,68 +125,48 @@ export const Subscription: React.FC<SubscriptionProps> = ({ session }) => {
           </ButtonThird>
         </div>
       </Modal>
-      <div className="text-sm grid items-center grid-cols-2 gap-3 md:gap-2 md:flex md:flex-col md:justify-center md:text-center">
-        <div>
-          <p className="font-extrabold mb-1 md:mb-0">Status Assiantura</p>
-          {userSubscription ? (
-            <span className="text-generic-limeGreen font-bold">Ativa</span>
+      {subscriptionInfo ? (
+        <div className=" grid grid-cols-2 items-center space-y-3">
+          <div>
+            <p className="font-bold">Status Assiantura</p>
+            <span>
+              {subscriptionInfo?.active ? (
+                <p className="text-generic-alertGreen font-semibold">Ativa</p>
+              ) : (
+                <p className="font-semibold"> Inativa</p>
+              )}
+            </span>
+          </div>
+          <div>
+            <p className="font-bold">Última cobrança</p>
+            <span>{subscriptionInfo?.cycledAt}</span>
+          </div>
+          <div>
+            <p className="font-bold">Plano</p>
+            <span>{subscriptionInfo?.planName}</span>
+          </div>
+          <div>
+            <p className="font-bold">ID da assinatura</p>
+            <span>{subscriptionInfo?.id}</span>
+          </div>
+          <div>
+            <p className="font-bold">Vencimento da mensalidade</p>
+            <span>{getDateFormater(subscriptionInfo?.expiresAt)}</span>
+          </div>
+          {subscriptionInfo?.suspended || hasSubscriptionSuspensed ? (
+            <p className="font-bold">Sua assinatura foi suspensa </p>
           ) : (
-            <span className="font-semibold text-generic-dark">Inativa</span>
+            <ButtonThird
+              className="!text-generic-alertRed !p-0 mt-8"
+              onClick={() => setIsCancelSubscriptionModalOpen(true)}
+            >
+              Cancelar Assinatura
+            </ButtonThird>
           )}
         </div>
-        <div>
-          <p className="font-extrabold mb-1 md:mb-0">Última cobrança</p>
-          <span className="font-semibold text-generic-dark">
-            04/05/2024 as 10:23
-          </span>
-        </div>
-        <div>
-          <p className="font-extrabold mb-1 md:mb-0">Plano</p>
-          <span className="font-semibold text-generic-dark">
-            EasyToLive Mensal
-          </span>
-        </div>
-        <div>
-          <p className="font-extrabold mb-1 md:mb-0">ID da assinatura</p>
-          <span className="break-words font-semibold text-generic-dark">
-            {session?.user.iuguSubscriptionId}
-          </span>
-        </div>
-        <div>
-          <p className="font-bold mb-1 md:mb-0">Próxima cobrança</p>
-          <span className="font-semibold text-generic-dark">
-            {getDateFormater(session?.user.subscriptionTrialEndDate)}
-          </span>
-        </div>
-        <ButtonThird
-          className="!text-generic-alertRed !font-bold md:!font-semibold !text-sm !py-1 md:!px-3 mt-2 md:!bg-generic-alertRed md:!text-white"
-          onClick={() => setIsCancelSubscriptionModalOpen(true)}
-        >
-          Cancelar Assinatura
-        </ButtonThird>
-      </div>
-      <div className="w-full mx-auto flex flex-col md:max-w-80 max-w-lg px-4 md:px-3 justify-center text-center items-center space-y-2 mt-12">
-        <p className="font-bold">Meio de pagamento salvo</p>
-        <p className="text-generic-grayLighter text-xs">
-          Nós não salvamos dados sensíveis do cartão de crédito, apenas o dado
-          criptografado necessário para realizar o pagamento.
-        </p>
-        <div className="py-2 w-full flex justify-center">
-          <CreditCard
-            cardFlag="master-card"
-            expirationDate="10/26"
-            lastNumbers="4111"
-            nameOnCard="Felipe M F Henrique"
-          />
-        </div>
-        <ButtonThird className="!text-generic-alertRed !p-0">
-          Excluir cartão principal
-        </ButtonThird>
-        <p className="text-generic-grayLighter text-xs italic">
-          Ao remover o cartão principal de pagamento, suas próximas faturas
-          terão que ser pagas manualmente.
-        </p>
-      </div>
+      ) : (
+        <LoadingComponent size="large" fullSize={false} />
+      )}
     </div>
   ) : (
     <div className="flex flex-col items-center justify-center text-center">
