@@ -12,7 +12,7 @@ import { showToastify } from "@/hooks/showToastify";
 import { useSearchParams } from "next/navigation";
 
 const MyAccountPage = () => {
-  const { data: session } = useSession();
+  const { data: session, update } = useSession();
   const [pageId, setPageId] = useState<"ACCOUNT" | "SECURITY" | "SUBSCRIPTION">(
     "ACCOUNT",
   );
@@ -21,9 +21,23 @@ const MyAccountPage = () => {
   const [subscriptionInfo, setSubscriptionInfo] =
     useState<IGetSubscriptionResponse>();
 
+  const hasIuguCostumerId = session?.user.iuguCustomerId;
+  const hasSubscriptionId = session?.user.iuguSubscriptionId;
+
   const getSubscriptionInfo = async () => {
     const res: any = await subscriptionService.getSubscriptionInfo();
     return res;
+  };
+
+  const updateSession = async (data: any) => {
+    await update({
+      ...session,
+      user: {
+        ...session?.user,
+        iuguCustomerId: data.customerId,
+        iuguSubscriptionId: data.id,
+      },
+    });
   };
 
   useEffect(() => {
@@ -31,14 +45,11 @@ const MyAccountPage = () => {
   }, []);
 
   useEffect(() => {
-    if (
-      session?.user.iuguCustomerId &&
-      session.user.iuguSubscriptionId &&
-      !subscriptionInfo
-    ) {
+    if (hasIuguCostumerId && hasSubscriptionId && !subscriptionInfo) {
       getSubscriptionInfo()
         .then((res: any) => {
           setSubscriptionInfo(res.data);
+          updateSession(res.data);
         })
         .catch(() => {
           showToastify({

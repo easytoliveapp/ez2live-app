@@ -1,5 +1,6 @@
 export interface IGetSubscriptionResponse {
   id: string;
+  customerId: string;
   suspended: boolean;
   planIdentifier: string;
   priceCents: number;

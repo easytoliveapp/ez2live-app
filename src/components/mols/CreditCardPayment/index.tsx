@@ -55,7 +55,7 @@ const CreditCardPayment: React.FC<ICreditCardPaymentProps> = ({
       case INVOICE_STATUS.PENDING:
         currentStepPayment(1);
         break;
-      case INVOICE_STATUS.AUTHORIZED:
+      case INVOICE_STATUS.CANCELLED:
         showToastify({
           label:
             "Seu cartão foi recusado. Verifique os dados e tente novamente.",

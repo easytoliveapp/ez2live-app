@@ -32,12 +32,12 @@ export const SubscriptionTab: React.FC<SubscriptionProps> = ({
     useState(false);
   const { update } = useSession();
 
-  const updateSession = async (newSubscriptionDate: string) => {
+  const updateSession = async (newSubscriptionTrialEndDate: string) => {
     await update({
       ...session,
       user: {
         ...session?.user,
-        subscriptionTrialEndDate: newSubscriptionDate,
+        subscriptionTrialEndDate: newSubscriptionTrialEndDate,
       },
     });
   };
@@ -80,7 +80,7 @@ export const SubscriptionTab: React.FC<SubscriptionProps> = ({
   };
   //----------------------------------------------------------------------
   const hasSubscriptionId = session?.user.iuguSubscriptionId;
-  const hasIuguId = session?.user.iuguCustomerId !== null;
+  const hasIuguId = !!session?.user?.iuguCustomerId;
 
   return hasIuguId && hasSubscriptionId ? (
     <div className="px-4">
