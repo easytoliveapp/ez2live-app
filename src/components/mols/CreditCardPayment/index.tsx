@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { Formik, Form, Field } from "formik";
 import { Input, ButtonPrimary, FormItem, Select } from "@/components";
-import { ICreditCardPayment } from "@/types/payment";
+import { ICreditCardPayment, IPaymentResponseData } from "@/types/payment";
 import * as Yup from "yup";
 import valid from "card-validator";
 import Image from "next/image";
@@ -12,14 +12,19 @@ import useIugu from "@/payment/iugu";
 import { isCreditCardExpirationValid } from "@/utils/creditCard";
 import subscriptionService from "@/service/subscription.service";
 import { useSession } from "next-auth/react";
-import { SUBSCRIPTION_STATUS } from "@/constants/payment";
+import { showToastify } from "@/hooks/showToastify";
+import { INVOICE_STATUS, SUBSCRIPTION_STATUS } from "@/constants/payment";
 
 interface ICreditCardPaymentProps {
   currentStepPayment: React.Dispatch<React.SetStateAction<number>>;
+  setPaymentResponseData: React.Dispatch<
+    React.SetStateAction<IPaymentResponseData>
+  >;
 }
 
 const CreditCardPayment: React.FC<ICreditCardPaymentProps> = ({
   currentStepPayment,
+  setPaymentResponseData,
 }) => {
   const [loading, setLoading] = useState(false);
   const [formattedcreditCard, setFormattedcreditCard] = useState("");
@@ -37,6 +42,28 @@ const CreditCardPayment: React.FC<ICreditCardPaymentProps> = ({
         iuguSubscriptionId: responseData.iuguSubscriptionId,
       },
     });
+  };
+
+  const handlePaymentStatus = async (res: any) => {
+    const { paymentStatus } = res.data.subscriptionResponse;
+
+    switch (paymentStatus) {
+      case INVOICE_STATUS.PAID:
+        updateSession(res.data.user);
+        currentStepPayment(2);
+        break;
+      case INVOICE_STATUS.PENDING:
+        currentStepPayment(1);
+        break;
+      case INVOICE_STATUS.CANCELLED:
+        showToastify({
+          label:
+            "Seu cartão foi recusado. Verifique os dados e tente novamente.",
+        });
+        return currentStepPayment(0);
+      default:
+        currentStepPayment(1);
+    }
   };
 
   const CreditCardvalidationSchema = Yup.object().shape({
@@ -110,11 +137,24 @@ const CreditCardPayment: React.FC<ICreditCardPaymentProps> = ({
     currentStepPayment(1);
     await subscriptionService
       .createSubscriptionCreditCard(iuguJsToken.id)
+      .then((res: any) =>
+        setPaymentResponseData({
+          invoiceId: res.data.subscriptionResponse.recentInvoiceId,
+        }),
+      )
       .then((res: any) => {
-        updateSession(res.data.user);
-        currentStepPayment(2);
+        handlePaymentStatus(res);
       })
-      .catch(() => currentStepPayment(3));
+      .catch((res: any) => {
+        if (res.status === 400) {
+          showToastify({
+            label:
+              "O pagamento foi recusado. Por favor, verifique os dados do cartão e tente novamente.",
+            type: "error",
+          });
+        }
+        currentStepPayment(0);
+      });
 
     setLoading(false);
   };

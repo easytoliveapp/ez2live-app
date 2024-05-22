@@ -15,18 +15,18 @@ const createSubscriptionPix = async (payerDocument: string) => {
   });
 };
 
+const suspendSubscription = async () => {
+  return await BaseService.fetchData({
+    url: "/subscription",
+    method: "delete",
+  });
+};
+
 const createSubscriptionCreditCard = async (cardToken: string) => {
   return await BaseService.fetchData({
     url: "/subscription/credit-card",
     method: "post",
     data: { token: cardToken },
-  });
-};
-
-const deleteSubscription = async (email: string) => {
-  return await BaseService.fetchData({
-    url: `/subscription/${email}`,
-    method: "delete",
   });
 };
 
@@ -60,9 +60,9 @@ const getInvoices = async () => {
 
 const subscriptionService = {
   getSubscriptionInfo,
+  suspendSubscription,
   createSubscriptionPix,
   createSubscriptionCreditCard,
-  deleteSubscription,
   createIuguCostumer,
   deleteIuguCostumer,
   getInvoiceById,
