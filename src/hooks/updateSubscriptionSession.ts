@@ -8,10 +8,12 @@ const useUpdateSubscriptionSession = async (data: any) => {
     iuguCustomerId,
     iuguPaymentMethodId,
     iuguSubscriptionId,
+    subscriptionTrialEndDate,
   } = data;
 
   const updatedUser = {
     ...session?.user,
+    ...(subscriptionTrialEndDate && { subscriptionTrialEndDate }),
     ...(subscriptionStatus && { subscriptionStatus }),
     ...(iuguCustomerId && { iuguCustomerId }),
     ...(iuguPaymentMethodId && { iuguPaymentMethodId }),

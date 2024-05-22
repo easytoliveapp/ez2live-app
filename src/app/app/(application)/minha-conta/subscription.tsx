@@ -26,17 +26,6 @@ export const Subscription: React.FC<SubscriptionProps> = ({ session }) => {
     session?.user.subscriptionTrialEndDate,
   );
 
-  const { update } = useSession();
-
-  const updateSession = async (newSubscriptionDate: string) => {
-    await update({
-      ...session,
-      user: {
-        ...session?.user,
-        subscriptionTrialEndDate: newSubscriptionDate,
-      },
-    });
-  };
 
   const handleCancelSubscription = () => {
     setLoading(true);
