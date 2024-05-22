@@ -16,7 +16,7 @@ const LoadingPaymentModal: React.FC<LoadingPaymentModalComponentProps> = ({
         Aguardando Pagamento
       </p>
       {paymentMethod === PAYMENT.pix && (
-        <p className="text-center my-4">
+        <p className="text-center mb-4">
           Sua assinatura será confirmada após a identificação da transferência
           pelo nosso sistema
         </p>

@@ -112,7 +112,7 @@ export const WaitingApprovalStep: React.FC<IWaitingApprovalStepProps> = ({
               <p className="font-bold text-center pb-1 text-generic-dark mt-5 text-xs">
                 Copia e Cola
               </p>
-              <p className="text-xs max-w-[280px] mb-2 break-words md:max-w-[340px]">
+              <p className="text-xs mb-2 break-words md:max-w-[340px]">
                 {paymentResponseData.qrCodeValue.text}
               </p>
             </div>
