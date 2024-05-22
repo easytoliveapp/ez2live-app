@@ -18,7 +18,7 @@ const UserSubscriptionBadge: React.FC<IUserSubscriptionBadgeProps> = ({
         hasPremium ? "bg-primary-main" : "bg-generic-grayDarker"
       }`}
     >
-      {label}
+      {hasPremium ? "Premium" : "Free"}
     </div>
   );
 };
