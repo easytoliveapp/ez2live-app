@@ -52,14 +52,12 @@ const MyAccountPage = () => {
 
   useEffect(() => {
     if (section === "assinatura") setPageId("SUBSCRIPTION");
-    console.log(session);
   }, []);
 
   useEffect(() => {
     if (hasIuguCostumerId && !subscriptionInfo) {
       getSubscriptionInfo()
         .then((res: any) => {
-          console.log(res.data);
           setSubscriptionInfo(res.data);
           updateSession(res.data);
         })

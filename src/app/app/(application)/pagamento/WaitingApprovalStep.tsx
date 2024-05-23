@@ -39,9 +39,6 @@ export const WaitingApprovalStep: React.FC<IWaitingApprovalStepProps> = ({
       });
     }
   };
-  useEffect(() => {
-    console.log(paymentResponseData.invoiceId);
-  }, []);
 
   const updateSession = async (responseData: any) => {
     await update({
