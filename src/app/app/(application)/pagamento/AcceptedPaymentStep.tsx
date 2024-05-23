@@ -63,7 +63,7 @@ export const AcceptedPaymentStep = () => {
           </p>
         </div>
       </SimpleModal>
-      <div className="flex flex-col w-full max-w-xs md:max-w-sm">
+      <div className="flex flex-col w-full max-w-xs md:max-w-sm mt-4">
         <ButtonPrimary onClick={() => router.push(redirectLink as Route)}>
           Quero meu desconto
         </ButtonPrimary>
