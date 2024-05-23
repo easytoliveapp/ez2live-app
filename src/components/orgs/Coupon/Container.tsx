@@ -92,7 +92,7 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
   };
 
   const updateSession = async (responseData: any) => {
-    return await update({
+    await update({
       ...session,
       user: {
         ...session?.user,

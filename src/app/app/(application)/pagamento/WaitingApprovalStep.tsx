@@ -44,13 +44,13 @@ export const WaitingApprovalStep: React.FC<IWaitingApprovalStepProps> = ({
   }, []);
 
   const updateSession = async (responseData: any) => {
-    return await update({
+    await update({
       ...session,
       user: {
         ...session?.user,
         iuguCustomerId: responseData.customerId,
         subscriptionStatus: SUBSCRIPTION_STATUS.PREMIUM,
-        iuguSubscriptionId: responseData.subscriptionId,
+        iuguSubscriptionId: responseData.id,
       },
     });
   };

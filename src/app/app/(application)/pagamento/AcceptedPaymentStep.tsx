@@ -17,9 +17,9 @@ export const AcceptedPaymentStep = () => {
   const redirectLink = callbackUrl ? callbackUrl : "/app/meus-cupons";
 
   const getSubscriptionEndDate = async () => {
-    const subscriptionResponse: any =
-      await subscriptionService.getSubscriptionInfo();
-    return setExpiredSubscriptionData(subscriptionResponse.expiresAt);
+    return await subscriptionService
+      .getSubscriptionInfo()
+      .then((res: any) => setExpiredSubscriptionData(res.data.expiresAt));
   };
 
   useEffect(() => {
