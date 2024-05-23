@@ -9,8 +9,6 @@ import {
 } from "@/components";
 import { PAYMENT } from "@/constants/paymentMethods";
 import { IPaymentResponseData } from "@/types/payment";
-import { useEffect } from "react";
-import { useSession } from "next-auth/react";
 
 interface IPaymentStepProps {
   setCurrentStep: React.Dispatch<React.SetStateAction<number>>;
@@ -27,9 +25,6 @@ export const PaymentStep: React.FC<IPaymentStepProps> = ({
   setPaymentTab,
   setPaymentResponseData,
 }) => {
-  const { data: session } = useSession();
-
-  useEffect(() => console.log(session), []);
   return (
     <div>
       <OneStepToPayment />
