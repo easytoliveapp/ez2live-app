@@ -1,7 +1,6 @@
 import { ButtonBasic, FormItem } from "@/components";
+import { SUBSCRIPTION_STATUS } from "@/constants/payment";
 import useUserRoles from "@/hooks/useUserRoles";
-import { getDateFormater } from "@/utils/getDateFormater";
-import dayjs from "dayjs";
 import { Session } from "next-auth";
 import { signOut } from "next-auth/react";
 import React from "react";
@@ -11,6 +10,19 @@ interface AccountProps {
 }
 
 export const AccountTab: React.FC<AccountProps> = ({ session }) => {
+  const hasPremium = !!session?.user.iuguSubscriptionId;
+  const hasTrial =
+    session?.user.subscriptionStatus === SUBSCRIPTION_STATUS.TRIAL;
+  const getAccountType = (hasPremium?: boolean, hasTrial?: boolean) => {
+    if (hasPremium) {
+      return "Conta Premium";
+    } else if (hasTrial) {
+      return "Teste Premium";
+    } else {
+      return "Conta Gratuita";
+    }
+  };
+
   return (
     <div className="relative h-max flex flex-col mx-auto gap-4 w-full max-w-md">
       {!useUserRoles().isCommonUser() && (
@@ -31,12 +43,7 @@ export const AccountTab: React.FC<AccountProps> = ({ session }) => {
       </FormItem>
       <FormItem label="Premium">
         <div className="ml-2 text-lg font-medium text-neutral-600">
-          {session?.user.subscriptionTrialEndDate !== null &&
-          dayjs(session?.user.subscriptionTrialEndDate).isAfter(dayjs())
-            ? `Validade: ${getDateFormater(
-                session?.user?.subscriptionTrialEndDate,
-              )}`
-            : "Expirou"}
+          {getAccountType(hasPremium, hasTrial)}
         </div>
       </FormItem>
 
