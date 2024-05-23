@@ -134,15 +134,12 @@ const CreditCardPayment: React.FC<ICreditCardPaymentProps> = ({
     setLoading(true);
     Iugu.setTestMode(process.env.NEXT_PUBLIC_TEST_MODE);
     const iuguJsToken = await Iugu.createPaymentToken(iuguData);
-    currentStepPayment(1);
     await subscriptionService
       .createSubscriptionCreditCard(iuguJsToken.id)
-      .then((res: any) =>
+      .then((res: any) => {
         setPaymentResponseData({
           invoiceId: res.data.subscriptionResponse.recentInvoiceId,
-        }),
-      )
-      .then((res: any) => {
+        });
         handlePaymentStatus(res);
       })
       .catch((res: any) => {

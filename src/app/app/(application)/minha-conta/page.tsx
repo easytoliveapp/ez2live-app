@@ -33,11 +33,14 @@ const MyAccountPage = () => {
 
   const updateSession = async (data: any) => {
     const { id, customerId, active } = data;
-    const subscriptionStatus = active
-      ? SUBSCRIPTION_STATUS.PREMIUM
-      : isTrial
-        ? SUBSCRIPTION_STATUS.TRIAL
-        : SUBSCRIPTION_STATUS.COMMON;
+    let subscriptionStatus;
+    if (active) {
+      subscriptionStatus = SUBSCRIPTION_STATUS.PREMIUM;
+    } else if (isTrial) {
+      subscriptionStatus = SUBSCRIPTION_STATUS.TRIAL;
+    } else {
+      subscriptionStatus = SUBSCRIPTION_STATUS.COMMON;
+    }
 
     await update({
       ...session,
