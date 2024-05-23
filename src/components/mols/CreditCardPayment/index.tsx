@@ -32,14 +32,19 @@ const CreditCardPayment: React.FC<ICreditCardPaymentProps> = ({
   const { data: session, update } = useSession();
 
   const updateSession = async (responseData: any) => {
+    const {
+      subscriptionResponse: { subscriptionId },
+      user: { iuguCustomerId, iuguPaymentMethodId },
+    } = responseData;
+
     await update({
       ...session,
       user: {
         ...session?.user,
         subscriptionStatus: SUBSCRIPTION_STATUS.PREMIUM,
-        iuguCustomerId: responseData.iuguCustomerId,
-        iuguPaymentMethodId: responseData.iuguPaymentMethodId,
-        iuguSubscriptionId: responseData.iuguSubscriptionId,
+        iuguCustomerId,
+        iuguPaymentMethodId,
+        iuguSubscriptionId: subscriptionId,
       },
     });
   };
@@ -49,7 +54,7 @@ const CreditCardPayment: React.FC<ICreditCardPaymentProps> = ({
 
     switch (paymentStatus) {
       case INVOICE_STATUS.PAID:
-        updateSession(res.data.user);
+        updateSession(res.data);
         currentStepPayment(2);
         break;
       case INVOICE_STATUS.PENDING:
@@ -121,12 +126,13 @@ const CreditCardPayment: React.FC<ICreditCardPaymentProps> = ({
   const handleSubmit = async (values: ICreditCardPayment) => {
     const fragmentedName = values.fullName.split(" ");
     const firstName = fragmentedName[0];
-    const lastName = fragmentedName.at(-1);
+    const lastName = fragmentedName.slice(1).join(" ");
 
     const iuguData = {
       number: values.creditCard,
       first_name: firstName,
       last_name: lastName,
+      full_name: values.fullName,
       verification_value: values.cvv,
       month: values.cardMonth,
       year: values.cardYear,
