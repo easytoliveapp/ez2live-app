@@ -102,6 +102,7 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
         iuguSubscriptionId: responseData.iuguSubscriptionId,
       },
     });
+    return session;
   };
 
   useEffect(() => {
@@ -133,7 +134,14 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
       if (isPremium || isTrial) {
         setShowCouponModal(true);
         setLoading(true);
-        setTimeout(() => handleActiveCoupon(), 2000);
+        setTimeout(
+          () =>
+            handleActiveCoupon(
+              SUBSCRIPTION_STATUS.PREMIUM,
+              SUBSCRIPTION_STATUS.TRIAL,
+            ),
+          2000,
+        );
       } else {
         setShowCouponModal(false);
       }
@@ -156,7 +164,12 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
           supplierName={supplierName}
         />
         <ButtonPrimary
-          onClick={() => handleActiveCoupon()}
+          onClick={() =>
+            handleActiveCoupon(
+              SUBSCRIPTION_STATUS.PREMIUM,
+              SUBSCRIPTION_STATUS.TRIAL,
+            )
+          }
           disabled={loading}
           className="w-full mx-4 max-w-md"
         >
@@ -244,27 +257,19 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
     return res;
   };
 
-  const hasTrialEnded =
-    session?.user.subscriptionStatus === SUBSCRIPTION_STATUS.TRIAL_ENDED;
-  const hasCommomUser =
-    session?.user.subscriptionStatus === SUBSCRIPTION_STATUS.COMMON;
-
-  const handleActiveCoupon = async () => {
+  const handleActiveCoupon = async (
+    premiumStatus: string,
+    trialStatus: string,
+  ) => {
     if (session?.user) {
-      await getUserInfo().then(async (res) => {
-        await updateSession(res.data)
-          .then(() => {
-            if (hasTrialEnded || hasCommomUser) {
-              showToastify({
-                type: "info",
-                label:
-                  "Você precisa ser premium para utilizar este cupom. Iremos lhe direcionar para página de assinatura",
-              });
-              return setTimeout(
-                () => router.push(getSubscriptionPageURL(supplierId, couponId)),
-                3000,
-              );
-            }
+      await getUserInfo()
+        .then((res) => {
+          updateSession(res.data);
+
+          if (
+            res.data.subscriptionStatus === premiumStatus ||
+            res.data.subscriptionStatus === trialStatus
+          ) {
             handleNextStep(STEPS.LOADING_COUPON);
 
             activateCoupon()
@@ -305,14 +310,24 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
                   });
                 }
               });
-          })
-          .catch(() =>
+          } else {
             showToastify({
-              type: "error",
-              label: "Ocorreu um erroo ao buscar dados da sessão.",
-            }),
-          );
-      });
+              type: "info",
+              label:
+                "Você precisa ser premium para utilizar este cupom. Iremos lhe direcionar para página de assinatura",
+            });
+            return setTimeout(
+              () => router.push(getSubscriptionPageURL(supplierId, couponId)),
+              3000,
+            );
+          }
+        })
+        .catch(() =>
+          showToastify({
+            type: "error",
+            label: "Ocorreu um erro ao buscar dados da sessão.",
+          }),
+        );
     } else {
       router.push(
         `/app/conta/acessar?callbackUrl=${encodeURIComponent(
