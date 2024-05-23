@@ -106,7 +106,8 @@ export const SubscriptionTab: React.FC<SubscriptionProps> = ({
           <p className="text-sm font-medium">
             Você pode cancelar a qualquer <br /> momento e encerrar a
             recorrência do <br />
-            ciclo em <strong>{subscriptionInfo?.expiresAt}</strong>
+            ciclo em{" "}
+            <strong>{getDateFormater(subscriptionInfo?.expiresAt)}</strong>
           </p>
           <p className="text-sm font-medium">
             <strong>Até lá, você ainda pode aproveitar</strong>
@@ -140,7 +141,7 @@ export const SubscriptionTab: React.FC<SubscriptionProps> = ({
           </div>
           <div>
             <p className="font-bold">Última cobrança</p>
-            <span>{subscriptionInfo?.cycledAt}</span>
+            <span>{getDateFormater(subscriptionInfo?.cycledAt)}</span>
           </div>
           <div>
             <p className="font-bold">Plano</p>
