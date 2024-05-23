@@ -10,6 +10,8 @@ import { IGetSubscriptionResponse } from "@/types/subscription/response/index";
 import subscriptionService from "@/service/subscription.service";
 import { showToastify } from "@/hooks/showToastify";
 import { useSearchParams } from "next/navigation";
+import { SUBSCRIPTION_STATUS } from "@/constants/payment";
+import isDateBeforeToday from "@/utils/isDateBeforeToday";
 
 const MyAccountPage = () => {
   const { data: session, update } = useSession();
@@ -22,7 +24,7 @@ const MyAccountPage = () => {
     useState<IGetSubscriptionResponse>();
 
   const hasIuguCostumerId = session?.user.iuguCustomerId;
-  const hasSubscriptionId = session?.user.iuguSubscriptionId;
+  const isTrial = isDateBeforeToday(session?.user.subscriptionTrialEndDate);
 
   const getSubscriptionInfo = async () => {
     const res: any = await subscriptionService.getSubscriptionInfo();
@@ -30,12 +32,20 @@ const MyAccountPage = () => {
   };
 
   const updateSession = async (data: any) => {
+    const { id, customerId, active } = data;
+    const subscriptionStatus = active
+      ? SUBSCRIPTION_STATUS.PREMIUM
+      : isTrial
+        ? SUBSCRIPTION_STATUS.TRIAL
+        : SUBSCRIPTION_STATUS.COMMON;
+
     await update({
       ...session,
       user: {
         ...session?.user,
-        iuguCustomerId: data.customerId,
-        iuguSubscriptionId: data.id,
+        iuguCustomerId: customerId,
+        iuguSubscriptionId: id,
+        subscriptionStatus,
       },
     });
   };
@@ -45,7 +55,7 @@ const MyAccountPage = () => {
   }, []);
 
   useEffect(() => {
-    if (hasIuguCostumerId && hasSubscriptionId && !subscriptionInfo) {
+    if (hasIuguCostumerId && !subscriptionInfo) {
       getSubscriptionInfo()
         .then((res: any) => {
           setSubscriptionInfo(res.data);

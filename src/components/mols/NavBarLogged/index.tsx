@@ -6,6 +6,7 @@ import { AvatarDropdown, UserSubscriptionBadge } from "@/components";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { ROLES } from "@/constants/roles";
+import { SUBSCRIPTION_STATUS } from "@/constants/payment";
 
 interface NavBarLoggedProps {
   hasLogoImage?: boolean;
@@ -14,6 +15,9 @@ interface NavBarLoggedProps {
 const NavBarLogged: FC<NavBarLoggedProps> = ({ hasLogoImage = true }) => {
   const { data: session } = useSession();
   const isNormalUser = session?.user.role === ROLES.commonUser;
+  const hasPremium = !!session?.user.iuguSubscriptionId;
+  const hasTrial =
+    session?.user.subscriptionStatus === SUBSCRIPTION_STATUS.TRIAL;
   return (
     <div className="relative w-full p-2 flex pl-4  sm:justify-center items-center">
       <span></span>
@@ -28,7 +32,7 @@ const NavBarLogged: FC<NavBarLoggedProps> = ({ hasLogoImage = true }) => {
       )}
       <div className="flex absolute right-2 items-center gap-3">
         {isNormalUser && session.user.subscriptionStatus && (
-          <UserSubscriptionBadge label={session.user.subscriptionStatus} />
+          <UserSubscriptionBadge hasPremium={hasPremium} hasTrial={hasTrial} />
         )}
         <AvatarDropdown />
       </div>
