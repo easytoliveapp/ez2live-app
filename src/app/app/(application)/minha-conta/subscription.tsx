@@ -15,6 +15,7 @@ import { Session } from "next-auth";
 import { getDateFormater } from "@/utils/getDateFormater";
 import { IGetSubscriptionResponse } from "@/types/subscription/response/index";
 import subscriptionService from "@/service/subscription.service";
+import { SUBSCRIPTION_STATUS } from "@/constants/payment";
 
 interface SubscriptionProps {
   session: Session | null;
@@ -38,6 +39,7 @@ export const SubscriptionTab: React.FC<SubscriptionProps> = ({
       user: {
         ...session?.user,
         subscriptionTrialEndDate: newSubscriptionTrialEndDate,
+        subscriptionStatus: SUBSCRIPTION_STATUS.TRIAL_ENDED,
       },
     });
   };

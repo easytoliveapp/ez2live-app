@@ -124,12 +124,13 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
     }
   }, [currentStep]);
 
+  const isPremium =
+    session?.user.subscriptionStatus === SUBSCRIPTION_STATUS.PREMIUM;
+  const isTrial =
+    session?.user.subscriptionStatus === SUBSCRIPTION_STATUS.TRIAL;
   useEffect(() => {
     if (couponId === couponIdParam) {
-      if (
-        session?.user.subscriptionStatus === SUBSCRIPTION_STATUS.PREMIUM ||
-        session?.user.subscriptionStatus === SUBSCRIPTION_STATUS.TRIAL
-      ) {
+      if (isPremium || isTrial) {
         setShowCouponModal(true);
         setLoading(true);
         setTimeout(() => handleActiveCoupon(), 2000);
@@ -243,16 +244,17 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
     return res;
   };
 
+  const hasTrialEnded =
+    session?.user.subscriptionStatus === SUBSCRIPTION_STATUS.TRIAL_ENDED;
+  const hasCommomUser =
+    session?.user.subscriptionStatus === SUBSCRIPTION_STATUS.COMMON;
+
   const handleActiveCoupon = async () => {
     if (session?.user) {
       await getUserInfo().then(async (res) => {
         await updateSession(res.data)
           .then(() => {
-            if (
-              session.user.subscriptionStatus ===
-                SUBSCRIPTION_STATUS.TRIAL_ENDED ||
-              session.user.subscriptionStatus === SUBSCRIPTION_STATUS.COMMON
-            ) {
+            if (hasTrialEnded || hasCommomUser) {
               showToastify({
                 type: "info",
                 label:
