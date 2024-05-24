@@ -11,13 +11,16 @@ import isDateBeforeToday from "@/utils/isDateBeforeToday";
 import { useSession } from "next-auth/react";
 import useUserRoles from "@/hooks/useUserRoles";
 import { useCompleteSupplierRegister } from "@/components/mols/CompleteSupplierRegister/Context";
+import { SUBSCRIPTION_STATUS } from "@/constants/payment";
+import TrialEnded from "@/components/mols/TrialEnded";
+import { getItemByLocalStorage } from "@/utils/localStorageHelper";
 
 const AppLayout = ({ children }: { children: React.ReactNode }) => {
   const { data: session } = useSession();
   const { isUpdate } = useCompleteSupplierRegister();
   const [isPremiumExpired, setIsPremiumExpired] = useState(false);
-
   const isCommomUser = useUserRoles().isCommonUser();
+  const sawTrialEndedCTM: boolean = getItemByLocalStorage("sawTrialEndedCTM");
 
   useEffect(() => {
     if (session) {
@@ -43,6 +46,8 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
             userId={session.user.id}
           />
         )}
+      {session?.user.subscriptionStatus === SUBSCRIPTION_STATUS.TRIAL_ENDED &&
+        !sawTrialEndedCTM && <TrialEnded />}
       {!!(
         isUpdate ||
         (session?.user &&

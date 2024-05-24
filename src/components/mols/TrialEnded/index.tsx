@@ -1,11 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
+import LogoEasy from "@/images/easytolive/logo/logotipo-semfundoazulroxo.svg";
 import { ButtonPrimary } from "@/components/atoms";
+import { setItemToLocalStorage } from "@/utils/localStorageHelper";
 
 const TrialEnded = () => {
+  useEffect(() => {
+    setItemToLocalStorage("sawTrialEndedCTM", true);
+  });
+
   return (
     <div className="flex flex-col justify-center items-center text-center space-y-5">
-      <Image src={} alt="easy-logo" />
+      <Image src={LogoEasy} alt="easy-logo" className="h-12 w-auto my-6" />
       <h2 className="font-black text-base">
         Você está há 1 passo de economizar ainda mais!
       </h2>
