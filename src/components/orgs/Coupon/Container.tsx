@@ -25,6 +25,8 @@ import { ISupplier } from "@/types/supplier";
 import getSubscriptionPageURL from "@/utils/getSubscriptionPageUrl";
 import userService from "@/service/users.service";
 import { SUBSCRIPTION_STATUS } from "@/constants/payment";
+import isPremiumUser from "@/utils/isPremiumUser";
+import isTrialUser from "@/utils/isTrialUser";
 interface CouponContainerProps {
   couponRules: string;
   couponTitle: string;
@@ -125,14 +127,11 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
     }
   }, [currentStep]);
 
-  const isPremium =
-    session?.user.subscriptionStatus === SUBSCRIPTION_STATUS.PREMIUM;
-  const isTrial =
-    session?.user.subscriptionStatus === SUBSCRIPTION_STATUS.TRIAL;
   useEffect(() => {
     if (couponId === couponIdParam) {
-      if (isPremium || isTrial) {
+      if (isPremiumUser(session) || isTrialUser(session)) {
         setShowCouponModal(true);
+        setLoading(true);
         setTimeout(
           () =>
             handleActiveCoupon(
