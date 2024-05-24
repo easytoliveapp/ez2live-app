@@ -133,7 +133,6 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
     if (couponId === couponIdParam) {
       if (isPremium || isTrial) {
         setShowCouponModal(true);
-        setLoading(true);
         setTimeout(
           () =>
             handleActiveCoupon(
@@ -262,6 +261,7 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
     trialStatus: string,
   ) => {
     if (session?.user) {
+      setLoading(true);
       await getUserInfo()
         .then((res) => {
           updateSession(res.data);
@@ -327,7 +327,8 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
             type: "error",
             label: "Ocorreu um erro ao buscar dados da sessão.",
           }),
-        );
+        )
+        .finally(() => setLoading(false));
     } else {
       router.push(
         `/app/conta/acessar?callbackUrl=${encodeURIComponent(
