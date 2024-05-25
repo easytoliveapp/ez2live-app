@@ -1,7 +1,8 @@
 import { ButtonBasic, FormItem } from "@/components";
 import useUserRoles from "@/hooks/useUserRoles";
-import { getDateFormater } from "@/utils/getDateFormater";
-import dayjs from "dayjs";
+import { getAccountType } from "@/utils/getAccountType";
+import isPremiumUser from "@/utils/isPremiumUser";
+import isTrialUser from "@/utils/isTrialUser";
 import { Session } from "next-auth";
 import { signOut } from "next-auth/react";
 import React from "react";
@@ -31,12 +32,7 @@ export const AccountTab: React.FC<AccountProps> = ({ session }) => {
       </FormItem>
       <FormItem label="Premium">
         <div className="ml-2 text-lg font-medium text-neutral-600">
-          {session?.user.subscriptionTrialEndDate !== null &&
-          dayjs(session?.user.subscriptionTrialEndDate).isAfter(dayjs())
-            ? `Validade: ${getDateFormater(
-                session?.user?.subscriptionTrialEndDate,
-              )}`
-            : "Expirou"}
+          {getAccountType(isPremiumUser(session), isTrialUser(session))}
         </div>
       </FormItem>
 

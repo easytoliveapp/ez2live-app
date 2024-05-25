@@ -16,6 +16,7 @@ import { Session } from "next-auth";
 import { getDateFormater } from "@/utils/getDateFormater";
 import { IGetSubscriptionResponse } from "@/types/subscription/response/index";
 import subscriptionService from "@/service/subscription.service";
+import { SUBSCRIPTION_STATUS } from "@/constants/payment";
 
 interface SubscriptionProps {
   session: Session | null;
@@ -39,6 +40,7 @@ export const SubscriptionTab: React.FC<SubscriptionProps> = ({
       user: {
         ...session?.user,
         subscriptionTrialEndDate: newSubscriptionTrialEndDate,
+        subscriptionStatus: SUBSCRIPTION_STATUS.TRIAL_ENDED,
       },
     });
   };
@@ -105,7 +107,8 @@ export const SubscriptionTab: React.FC<SubscriptionProps> = ({
           <p className="text-sm font-medium">
             Você pode cancelar a qualquer <br /> momento e encerrar a
             recorrência do <br />
-            ciclo em <strong>{subscriptionInfo?.expiresAt}</strong>
+            ciclo em{" "}
+            <strong>{getDateFormater(subscriptionInfo?.expiresAt)}</strong>
           </p>
           <p className="text-sm font-medium">
             <strong>Até lá, você ainda pode aproveitar</strong>
@@ -140,7 +143,7 @@ export const SubscriptionTab: React.FC<SubscriptionProps> = ({
           <div>
             <p className="font-bold">Última cobrança</p>
             <span className="font-semibold text-generic-dark">
-              {subscriptionInfo?.cycledAt}
+              {getDateFormater(subscriptionInfo?.cycledAt)}
             </span>
           </div>
           <div>

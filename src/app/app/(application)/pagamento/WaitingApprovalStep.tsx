@@ -9,8 +9,7 @@ import { copyTextToClipboard } from "@/utils/copyTextToClipboard";
 import subscriptionService from "@/service/subscription.service";
 import { showToastify } from "@/hooks/showToastify";
 import { IPaymentResponseData } from "@/types/payment";
-import { useSession } from "next-auth/react";
-import { INVOICE_STATUS, SUBSCRIPTION_STATUS } from "@/constants/payment";
+import { INVOICE_STATUS } from "@/constants/payment";
 
 interface IWaitingApprovalStepProps {
   paymentTab: string;
@@ -23,8 +22,6 @@ export const WaitingApprovalStep: React.FC<IWaitingApprovalStepProps> = ({
   paymentResponseData,
   setCurrentStep,
 }) => {
-  const { data: session, update } = useSession();
-
   const handleClickCopyText = (textToCopy: string) => {
     try {
       copyTextToClipboard(textToCopy);
@@ -38,21 +35,6 @@ export const WaitingApprovalStep: React.FC<IWaitingApprovalStepProps> = ({
         type: "error",
       });
     }
-  };
-  useEffect(() => {
-    console.log(paymentResponseData.invoiceId);
-  }, []);
-
-  const updateSession = async (responseData: any) => {
-    return await update({
-      ...session,
-      user: {
-        ...session?.user,
-        iuguCustomerId: responseData.customerId,
-        subscriptionStatus: SUBSCRIPTION_STATUS.PREMIUM,
-        iuguSubscriptionId: responseData.subscriptionId,
-      },
-    });
   };
 
   useEffect(() => {
@@ -72,14 +54,13 @@ export const WaitingApprovalStep: React.FC<IWaitingApprovalStepProps> = ({
       .getInvoiceById(paymentResponseData.invoiceId)
       .then((res: any) => {
         if (res.data.status === INVOICE_STATUS.PAID) {
-          updateSession(res.data);
           setCurrentStep(2);
         }
         if (res.data.status === INVOICE_STATUS.EXPIRED) {
-          setCurrentStep(3);
+          return setCurrentStep(3);
         }
         if (res.data.status === INVOICE_STATUS.CANCELLED) {
-          setCurrentStep(3);
+          return setCurrentStep(3);
         }
       })
       .catch(() => {
@@ -112,7 +93,7 @@ export const WaitingApprovalStep: React.FC<IWaitingApprovalStepProps> = ({
               <p className="font-bold text-center pb-1 text-generic-dark mt-5 text-xs">
                 Copia e Cola
               </p>
-              <p className="text-xs max-w-[280px] mb-2 break-words md:max-w-[340px]">
+              <p className="text-xs mb-2 break-words md:max-w-[340px]">
                 {paymentResponseData.qrCodeValue.text}
               </p>
             </div>

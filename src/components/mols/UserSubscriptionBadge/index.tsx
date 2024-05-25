@@ -1,24 +1,22 @@
 import React from "react";
-import { SUBSCRIPTION_STATUS } from "@/constants/payment";
+import { getAccountType } from "@/utils/getAccountType";
 
 interface IUserSubscriptionBadgeProps {
-  label: string;
+  hasPremium: boolean;
+  hasTrial: boolean;
 }
 
 const UserSubscriptionBadge: React.FC<IUserSubscriptionBadgeProps> = ({
-  label,
+  hasPremium,
+  hasTrial,
 }) => {
-  const hasPremium =
-    label === SUBSCRIPTION_STATUS.PREMIUM ||
-    label === SUBSCRIPTION_STATUS.TRIAL;
-
   return (
     <div
       className={` rounded-3xl text-center text-white px-4 py-1.5 text-md flex justify-center items-center ${
         hasPremium ? "bg-primary-main" : "bg-generic-grayDarker"
       }`}
     >
-      {label}
+      {getAccountType(hasPremium, hasTrial)}
     </div>
   );
 };

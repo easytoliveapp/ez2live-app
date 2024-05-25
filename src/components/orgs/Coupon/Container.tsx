@@ -25,6 +25,8 @@ import { ISupplier } from "@/types/supplier";
 import getSubscriptionPageURL from "@/utils/getSubscriptionPageUrl";
 import userService from "@/service/users.service";
 import { SUBSCRIPTION_STATUS } from "@/constants/payment";
+import isPremiumUser from "@/utils/isPremiumUser";
+import isTrialUser from "@/utils/isTrialUser";
 interface CouponContainerProps {
   couponRules: string;
   couponTitle: string;
@@ -92,7 +94,7 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
   };
 
   const updateSession = async (responseData: any) => {
-    return await update({
+    await update({
       ...session,
       user: {
         ...session?.user,
@@ -102,6 +104,7 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
         iuguSubscriptionId: responseData.iuguSubscriptionId,
       },
     });
+    return session;
   };
 
   useEffect(() => {
@@ -126,18 +129,22 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
 
   useEffect(() => {
     if (couponId === couponIdParam) {
-      if (
-        session?.user.subscriptionStatus === SUBSCRIPTION_STATUS.PREMIUM ||
-        session?.user.subscriptionStatus === SUBSCRIPTION_STATUS.TRIAL
-      ) {
+      if (isPremiumUser(session) || isTrialUser(session)) {
         setShowCouponModal(true);
         setLoading(true);
-        setTimeout(() => handleActiveCoupon(), 2000);
+        setTimeout(
+          () =>
+            handleActiveCoupon(
+              SUBSCRIPTION_STATUS.PREMIUM,
+              SUBSCRIPTION_STATUS.TRIAL,
+            ),
+          2000,
+        );
       } else {
         setShowCouponModal(false);
       }
     }
-  }, [couponId, couponIdParam, session]);
+  }, [couponId, couponIdParam]);
 
   const StepOne = () => {
     return (
@@ -155,7 +162,12 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
           supplierName={supplierName}
         />
         <ButtonPrimary
-          onClick={() => handleActiveCoupon()}
+          onClick={() =>
+            handleActiveCoupon(
+              SUBSCRIPTION_STATUS.PREMIUM,
+              SUBSCRIPTION_STATUS.TRIAL,
+            )
+          }
           disabled={loading}
           className="w-full mx-4 max-w-md"
         >
@@ -243,26 +255,20 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
     return res;
   };
 
-  const handleActiveCoupon = async () => {
+  const handleActiveCoupon = async (
+    premiumStatus: string,
+    trialStatus: string,
+  ) => {
     if (session?.user) {
-      await getUserInfo().then(async (res) => {
-        await updateSession(res.data)
-          .then(() => {
-            if (
-              session.user.subscriptionStatus ===
-                SUBSCRIPTION_STATUS.TRIAL_ENDED ||
-              session.user.subscriptionStatus === SUBSCRIPTION_STATUS.COMMON
-            ) {
-              showToastify({
-                type: "info",
-                label:
-                  "Você precisa ser premium para utilizar este cupom. Iremos lhe direcionar para página de assinatura",
-              });
-              return setTimeout(
-                () => router.push(getSubscriptionPageURL(supplierId, couponId)),
-                3000,
-              );
-            }
+      setLoading(true);
+      await getUserInfo()
+        .then((res) => {
+          updateSession(res.data);
+
+          if (
+            res.data.subscriptionStatus === premiumStatus ||
+            res.data.subscriptionStatus === trialStatus
+          ) {
             handleNextStep(STEPS.LOADING_COUPON);
 
             activateCoupon()
@@ -303,14 +309,25 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
                   });
                 }
               });
-          })
-          .catch(() =>
+          } else {
             showToastify({
-              type: "error",
-              label: "Ocorreu um erroo ao buscar dados da sessão.",
-            }),
-          );
-      });
+              type: "info",
+              label:
+                "Você precisa ser premium para utilizar este cupom. Iremos lhe direcionar para página de assinatura",
+            });
+            return setTimeout(
+              () => router.push(getSubscriptionPageURL(supplierId, couponId)),
+              3000,
+            );
+          }
+        })
+        .catch(() =>
+          showToastify({
+            type: "error",
+            label: "Ocorreu um erro ao buscar dados da sessão.",
+          }),
+        )
+        .finally(() => setLoading(false));
     } else {
       router.push(
         `/app/conta/acessar?callbackUrl=${encodeURIComponent(
