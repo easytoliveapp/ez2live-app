@@ -6,7 +6,10 @@ import { useSession } from "next-auth/react";
 import { SecurityTab } from "./security";
 import { AccountTab } from "./account";
 import { SubscriptionTab } from "./subscription";
-import { IGetSubscriptionResponse } from "@/types/subscription/response/index";
+import {
+  IGetPaymentMethodResponse,
+  IGetSubscriptionResponse,
+} from "@/types/subscription/response/index";
 import subscriptionService from "@/service/subscription.service";
 import { showToastify } from "@/hooks/showToastify";
 import { useSearchParams } from "next/navigation";
@@ -22,14 +25,11 @@ const MyAccountPage = () => {
   const section = params.get("aba");
   const [subscriptionInfo, setSubscriptionInfo] =
     useState<IGetSubscriptionResponse>();
+  const [paymentMethodInfo, setPaymentMethodInfo] =
+    useState<IGetPaymentMethodResponse>();
 
   const hasIuguCostumerId = session?.user.iuguCustomerId;
   const isTrial = isDateBeforeToday(session?.user.subscriptionTrialEndDate);
-
-  const getSubscriptionInfo = async () => {
-    const res: any = await subscriptionService.getSubscriptionInfo();
-    return res;
-  };
 
   const updateSession = async (data: any) => {
     const { id, customerId, active } = data;
@@ -53,23 +53,35 @@ const MyAccountPage = () => {
     });
   };
 
+  const getSubsCriptionInfo = async () => {
+    await subscriptionService
+      .getSubscriptionInfo()
+      .then((res: any) => {
+        setSubscriptionInfo(res.data);
+        updateSession(res.data);
+      })
+      .catch(() => {
+        showToastify({
+          label: "Ocorreu um erro ao carregar dados da assinatura",
+          type: "error",
+        });
+      });
+  };
+
+  const getPaymentMethodInfo = async () => {
+    await subscriptionService.getPaymentMethod().then((res: any) => {
+      setPaymentMethodInfo(res.data);
+    });
+  };
+
   useEffect(() => {
     if (section === "assinatura") setPageId("SUBSCRIPTION");
+    getSubsCriptionInfo();
+    getPaymentMethodInfo();
   }, []);
 
   useEffect(() => {
     if (hasIuguCostumerId && !subscriptionInfo) {
-      getSubscriptionInfo()
-        .then((res: any) => {
-          setSubscriptionInfo(res.data);
-          updateSession(res.data);
-        })
-        .catch(() => {
-          showToastify({
-            label: "Ocorreu um erro ao carregar dados da assinatura",
-            type: "error",
-          });
-        });
     }
   }, [subscriptionInfo]);
 
@@ -81,6 +93,7 @@ const MyAccountPage = () => {
         <SubscriptionTab
           session={session}
           subscriptionInfo={subscriptionInfo}
+          paymentMethodInfo={paymentMethodInfo}
         />
       ),
     };

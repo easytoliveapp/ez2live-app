@@ -14,18 +14,23 @@ import { showToastify } from "@/hooks/showToastify";
 import { useSession } from "next-auth/react";
 import { Session } from "next-auth";
 import { getDateFormater } from "@/utils/getDateFormater";
-import { IGetSubscriptionResponse } from "@/types/subscription/response/index";
+import {
+  IGetPaymentMethodResponse,
+  IGetSubscriptionResponse,
+} from "@/types/subscription/response/index";
 import subscriptionService from "@/service/subscription.service";
 import { SUBSCRIPTION_STATUS } from "@/constants/payment";
 
 interface SubscriptionProps {
   session: Session | null;
   subscriptionInfo?: IGetSubscriptionResponse;
+  paymentMethodInfo?: IGetPaymentMethodResponse;
 }
 
 export const SubscriptionTab: React.FC<SubscriptionProps> = ({
   session,
   subscriptionInfo,
+  paymentMethodInfo,
 }) => {
   const [isCancelSubscriptionModalOpen, setIsCancelSubscriptionModalOpen] =
     useState(false);
@@ -176,29 +181,31 @@ export const SubscriptionTab: React.FC<SubscriptionProps> = ({
               Cancelar Assinatura
             </ButtonThird>
           )}
-
-          <div className="w-full mx-auto flex col-span-2 flex-col md:max-w-80 max-w-lg px-4 md:px-3 justify-center text-center items-center space-y-2 mt-12">
-            <p className="font-bold">Meio de pagamento salvo</p>
-            <p className="text-generic-grayLighter text-xs">
-              Nós não salvamos dados sensíveis do cartão de crédito, apenas o
-              dado criptografado necessário para realizar o pagamento.
-            </p>
-            <div className="py-2 w-full flex justify-center">
-              <CreditCard
-                cardFlag="master-card"
-                expirationDate="10/26"
-                lastNumbers="4111"
-                nameOnCard="Felipe M F Henrique"
-              />
+          {paymentMethodInfo && (
+            <div className="w-full mx-auto flex col-span-2 flex-col md:max-w-80 max-w-lg px-4 md:px-3 justify-center text-center items-center space-y-2 mt-12">
+              <p className="font-bold">Meio de pagamento salvo</p>
+              <p className="text-generic-grayLighter text-xs">
+                Nós não salvamos dados sensíveis do cartão de crédito, apenas o
+                dado criptografado necessário para realizar o pagamento.
+              </p>
+              <div className="py-2 w-full flex justify-center">
+                <CreditCard
+                  cardFlag={paymentMethodInfo.data.brand}
+                  year={paymentMethodInfo.data.year}
+                  month={paymentMethodInfo.data.month}
+                  lastNumbers={paymentMethodInfo.data.lastDigits}
+                  nameOnCard={paymentMethodInfo.data.holderName}
+                />
+              </div>
+              <ButtonThird className="!text-generic-alertRed !p-0">
+                Excluir cartão principal
+              </ButtonThird>
+              <p className="text-generic-grayLighter text-xs italic">
+                Ao remover o cartão principal de pagamento, suas próximas
+                faturas terão que ser pagas manualmente.
+              </p>
             </div>
-            <ButtonThird className="!text-generic-alertRed !p-0">
-              Excluir cartão principal
-            </ButtonThird>
-            <p className="text-generic-grayLighter text-xs italic">
-              Ao remover o cartão principal de pagamento, suas próximas faturas
-              terão que ser pagas manualmente.
-            </p>
-          </div>
+          )}
         </div>
       ) : (
         <LoadingComponent size="large" fullSize={false} />

@@ -1,17 +1,19 @@
 import React from "react";
-import MasterCardFlag from "@/images/easytolive/payment/master-card.svg";
 import Image from "next/image";
+import { getCardFlagImageByName } from "@/utils/getCardFlagImageByName";
 
 interface CreditCardProps {
   lastNumbers: string;
   nameOnCard: string;
-  expirationDate: string;
   cardFlag: string;
+  year: number;
+  month: number;
 }
 
 const CreditCard: React.FC<CreditCardProps> = ({
   cardFlag,
-  expirationDate,
+  year,
+  month,
   lastNumbers,
   nameOnCard,
 }) => {
@@ -22,11 +24,17 @@ const CreditCard: React.FC<CreditCardProps> = ({
         {lastNumbers.length === 4 ? lastNumbers : `**** ${lastNumbers}`}
       </div>
       <p className="text-xs text-start font-black">{nameOnCard}</p>
-      <p className=" text-xs text-start">{expirationDate}</p>
+      <p className=" text-xs text-start">{month + "/" + year}</p>
       <div className="w-full flex justify-end">
-        {cardFlag && (
-          <Image src={MasterCardFlag} alt="card-flag" width={18} height={14} />
-        )}
+        {
+          <Image
+            src={getCardFlagImageByName(cardFlag)}
+            alt="card-flag"
+            width={18}
+            height={14}
+            className="bg-white flex justify-center items-center rounded-sm"
+          />
+        }
       </div>
     </div>
   );

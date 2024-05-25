@@ -19,3 +19,21 @@ export interface IGetSubscriptionResponse {
   active: boolean;
   suspendOnInvoiceExpired: boolean;
 }
+
+export interface IGetPaymentMethodResponse {
+  id: string;
+  description: string;
+  itemType: string;
+  customerId: string;
+  data: {
+    brand: string;
+    holderName: string;
+    displayNumber: string;
+    bin: string;
+    year: number;
+    month: number;
+    lastDigits: string;
+    firstDigits: string;
+    maskedNumber: string;
+  };
+}
