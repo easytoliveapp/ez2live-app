@@ -78,12 +78,12 @@ const MyAccountPage = () => {
     if (section === "assinatura") setPageId("SUBSCRIPTION");
     !subscriptionInfo && getSubsCriptionInfo();
     !paymentMethodInfo && getPaymentMethodInfo();
-  }, [subscriptionInfo, paymentMethodInfo]);
+  }, []);
 
   useEffect(() => {
     if (hasIuguCostumerId && !subscriptionInfo) {
     }
-  }, [subscriptionInfo, paymentMethodInfo]);
+  }, [subscriptionInfo]);
 
   const TabComponent = useMemo(() => {
     return {
