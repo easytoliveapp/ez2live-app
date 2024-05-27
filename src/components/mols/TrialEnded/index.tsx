@@ -1,9 +1,19 @@
-import React from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import Image from "next/image";
 import LogoEasy from "@/images/easytolive/logo/logotipo-semfundoazulroxo.svg";
 import { ButtonPrimary } from "@/components/atoms";
+import { setItemToLocalStorage } from "@/utils/localStorageHelper";
 
-const TrialEnded = () => {
+interface ITrialEndedProps {
+  setShowModal: Dispatch<SetStateAction<boolean>>;
+}
+
+const TrialEnded: React.FC<ITrialEndedProps> = ({ setShowModal }) => {
+  const handleCloseModal = () => {
+    setShowModal(false);
+    return setItemToLocalStorage("sawTrialEndedCTM", true);
+  };
+
   return (
     <div className="flex flex-col justify-center items-center text-center space-y-6 sm:px-14 px-2">
       <Image src={LogoEasy} alt="easy-logo" className="h-20 w-auto" />
@@ -20,7 +30,11 @@ const TrialEnded = () => {
         app.
       </p>
       <div className="sm:px-5 w-full">
-        <ButtonPrimary href="/app/pagamento" className=" w-full">
+        <ButtonPrimary
+          href="/app/pagamento"
+          className=" w-full"
+          onClick={() => handleCloseModal()}
+        >
           {" "}
           Quero os melhores descontos
         </ButtonPrimary>

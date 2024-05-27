@@ -10,6 +10,7 @@ import Link from "next/link";
 import { showToastify } from "@/hooks/showToastify";
 import { getSession, signIn } from "next-auth/react";
 import { Route } from "next";
+import { removeItemFromLocalStorage } from "@/utils/localStorageHelper";
 
 const FormComponent = () => {
   const [loading, setLoading] = useState(false);
@@ -57,6 +58,7 @@ const FormComponent = () => {
           if (session?.user?.role === "user") {
             destination = "/app/meus-cupons";
           }
+          removeItemFromLocalStorage("sawTrialEndedCTM");
 
           router.push((callbackUrl as any) ?? (destination as Route));
         }

@@ -12,12 +12,12 @@ import isDateBeforeToday from "@/utils/isDateBeforeToday";
 import { useSession } from "next-auth/react";
 import useUserRoles from "@/hooks/useUserRoles";
 import { useCompleteSupplierRegister } from "@/components/mols/CompleteSupplierRegister/Context";
-import { SUBSCRIPTION_STATUS } from "@/constants/payment";
 import TrialEnded from "@/components/mols/TrialEnded";
 import {
   getItemByLocalStorage,
   setItemToLocalStorage,
 } from "@/utils/localStorageHelper";
+import isTrialEndedUser from "@/utils/isTrialEndedUser";
 
 const AppLayout = ({ children }: { children: React.ReactNode }) => {
   const { data: session } = useSession();
@@ -29,7 +29,16 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     session &&
       setShowModal(!isDateBeforeToday(session.user.subscriptionTrialEndDate));
-  }, [session]);
+
+    if (!sawTrialEndedCTM) {
+      setShowModal(true);
+    }
+  }, [session, sawTrialEndedCTM]);
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+    return setItemToLocalStorage("sawTrialEndedCTM", true);
+  };
 
   return (
     <div>
@@ -53,16 +62,13 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
             />
           </Modal>
         )}
-      {session?.user.subscriptionStatus === SUBSCRIPTION_STATUS.TRIAL_ENDED && (
+      {isTrialEndedUser(session) && !sawTrialEndedCTM && (
         <Modal
-          onCloseModal={() => {
-            setShowModal(false);
-            setItemToLocalStorage("sawTrialEndedCTM", true);
-          }}
+          onCloseModal={() => handleCloseModal()}
           closeOnBlur={true}
-          show={!sawTrialEndedCTM}
+          show={showModal}
         >
-          <TrialEnded />
+          <TrialEnded setShowModal={setShowModal} />
         </Modal>
       )}
       {!!(
