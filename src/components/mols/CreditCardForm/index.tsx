@@ -134,13 +134,13 @@ const CreditCardForm: React.FC<ICreditCardForm> = ({
                 !!(errors.cardMonth && touched.cardMonth)
               }
             >
-              <div className="flex justify-between gap-2 w-full">
+              <div className="flex justify-between gap-2 md:gap-5 w-full">
                 <Field
                   invalid={!!(errors.cardMonth && touched.cardMonth)}
                   name="cardMonth"
                   data-iugu="expiration_month"
                   component={Select}
-                  className="text-center pl-2 w-full max-w-[140px]"
+                  className="text-center pl-2 w-full !flex-grow-2 "
                 >
                   {MONTHS.map((eachMonth, idx) => (
                     <option value={idx + 1} key={idx}>
@@ -151,7 +151,7 @@ const CreditCardForm: React.FC<ICreditCardForm> = ({
                 <Field
                   name="cardYear"
                   component={Select}
-                  className="text-center pl-2 !w-28"
+                  className="text-center pl-2 !max-w-36"
                   data-iugu="expiration_year"
                 >
                   {Array.from(
@@ -170,7 +170,7 @@ const CreditCardForm: React.FC<ICreditCardForm> = ({
                   type="text"
                   placeholder="CVV"
                   data-iug=""
-                  className="text-center !w-24 "
+                  className="text-center !max-w-24 "
                   component={Input}
                 />
               </div>
