@@ -20,7 +20,7 @@ interface SecurityProps {
   session: Session | null;
 }
 
-export const Security: React.FC<SecurityProps> = ({ session }) => {
+export const SecurityTab: React.FC<SecurityProps> = ({ session }) => {
   const [loading, setLoading] = useState(false);
   const [isDeleteAccountOpened, setIsDeleteAccountOpened] = useState(false);
   const [sendEmailButtonText, setSendEmailButtonText] =

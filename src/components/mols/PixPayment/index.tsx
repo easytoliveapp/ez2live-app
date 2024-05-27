@@ -5,19 +5,21 @@ import { Input, ButtonPrimary, FormItem } from "@/components";
 import * as Yup from "yup";
 import Image from "next/image";
 import PixImage from "@/images/easytolive/payment/pix-image.svg";
-import { IPixPayment, IPixResponseData } from "@/types/payment";
+import { IPixPayment, IPaymentResponseData } from "@/types/payment";
 import subscriptionService from "@/service/subscription.service";
 import { useSession } from "next-auth/react";
 import { showToastify } from "@/hooks/showToastify";
 
 interface IPixPaymentProps {
   currentStepPayment: React.Dispatch<React.SetStateAction<number>>;
-  setPixData: React.Dispatch<React.SetStateAction<IPixResponseData>>;
+  setPaymentResponseData: React.Dispatch<
+    React.SetStateAction<IPaymentResponseData>
+  >;
 }
 
 const PixPayment: React.FC<IPixPaymentProps> = ({
   currentStepPayment,
-  setPixData,
+  setPaymentResponseData,
 }) => {
   const [loading, setLoading] = useState(false);
   const { data: session, update } = useSession();
@@ -48,7 +50,7 @@ const PixPayment: React.FC<IPixPaymentProps> = ({
       .createSubscriptionPix(values.cpf)
       .then((res: any) => {
         updateSession(res.data.user);
-        setPixData({
+        setPaymentResponseData({
           invoiceId: res.data.subscriptionResponse.recentInvoiceId,
           qrCodeValue: {
             image: res.data.subscriptionResponse.pix.qrCode,
@@ -120,6 +122,7 @@ const PixPayment: React.FC<IPixPaymentProps> = ({
                 errorMessage={null}
                 invalid={!!(errors.termsOfUse && touched.termsOfUse)}
                 className="flex"
+                hasErrorSpacement={false}
               >
                 <div className="flex w-full gap-1 items-center ">
                   <Field

@@ -8,6 +8,7 @@ import useService from "@/service/users.service";
 import { showToastify } from "@/hooks/showToastify";
 import { useSession } from "next-auth/react";
 import usersService from "@/service/users.service";
+import { SUBSCRIPTION_STATUS } from "@/constants/payment";
 
 interface ITrialConversionModal {
   setShowModal: Dispatch<SetStateAction<boolean>>;
@@ -30,6 +31,7 @@ const TrialConversionModal: React.FC<ITrialConversionModal> = ({
       user: {
         ...session?.user,
         subscriptionTrialEndDate: newSubscriptionDate,
+        subscriptionStatus: SUBSCRIPTION_STATUS.TRIAL,
       },
     });
   };
