@@ -30,20 +30,6 @@ const createSubscriptionCreditCard = async (cardToken: string) => {
   });
 };
 
-const createIuguCostumer = async () => {
-  return await BaseService.fetchData({
-    url: "/subscription/customer",
-    method: "post",
-  });
-};
-
-const deleteIuguCostumer = async (email: string) => {
-  return await BaseService.fetchData({
-    url: `/subscription/customer/${email}`,
-    method: "delete",
-  });
-};
-
 const getInvoiceById = async (invoiceId: string) => {
   return await BaseService.fetchData({
     url: `/subscription/invoices/${invoiceId}`,
@@ -65,16 +51,31 @@ const getPaymentMethod = async () => {
   });
 };
 
+const createPaymentMethod = async (token: string) => {
+  return await BaseService.fetchData({
+    url: "/subscription/payment-method",
+    method: "post",
+    data: { token },
+  });
+};
+
+const deletePaymentMethod = async () => {
+  return await BaseService.fetchData({
+    url: "/subscription/payment-method",
+    method: "delete",
+  });
+};
+
 const subscriptionService = {
   getSubscriptionInfo,
   suspendSubscription,
   createSubscriptionPix,
   createSubscriptionCreditCard,
-  createIuguCostumer,
-  deleteIuguCostumer,
   getInvoiceById,
   getInvoices,
   getPaymentMethod,
+  createPaymentMethod,
+  deletePaymentMethod,
 };
 
 export default subscriptionService;

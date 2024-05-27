@@ -21,7 +21,7 @@ const CreditCard: React.FC<CreditCardProps> = ({
     <div className="w-48 h-full rounded-2xl   space-y-2 pl-5 pt-7 pb-3 pr-3 text-white from-[#9A79F7] to-[#411CA8] bg-gradient-to-br">
       <div className="text-xs font-black mb-1 text-start">
         **** **** ****{" "}
-        {lastNumbers.length === 4 ? lastNumbers : `**** ${lastNumbers}`}
+        {lastNumbers?.length === 4 ? lastNumbers : `**** ${lastNumbers}`}
       </div>
       <p className="text-xs text-start font-black">{nameOnCard}</p>
       <p className=" text-xs text-start">{month + "/" + year}</p>

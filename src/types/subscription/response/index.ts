@@ -28,12 +28,12 @@ export interface IGetPaymentMethodResponse {
   data: {
     brand: string;
     holderName: string;
-    displayNumber: string;
-    bin: string;
+    displayNumber?: string;
+    bin?: string;
     year: number;
     month: number;
     lastDigits: string;
-    firstDigits: string;
-    maskedNumber: string;
+    firstDigits?: string;
+    maskedNumber?: string;
   };
 }

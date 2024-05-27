@@ -8,6 +8,7 @@ import {
   LoadingComponent,
   Modal,
   CreditCard,
+  AddPaymentMethod,
 } from "@/components";
 import userService from "@/service/users.service";
 import { showToastify } from "@/hooks/showToastify";
@@ -25,12 +26,14 @@ interface SubscriptionProps {
   session: Session | null;
   subscriptionInfo?: IGetSubscriptionResponse;
   paymentMethodInfo?: IGetPaymentMethodResponse;
+  setPaymentMethodInfo: React.Dispatch<React.SetStateAction<any>>;
 }
 
 export const SubscriptionTab: React.FC<SubscriptionProps> = ({
   session,
   subscriptionInfo,
   paymentMethodInfo,
+  setPaymentMethodInfo,
 }) => {
   const [isCancelSubscriptionModalOpen, setIsCancelSubscriptionModalOpen] =
     useState(false);
@@ -53,6 +56,25 @@ export const SubscriptionTab: React.FC<SubscriptionProps> = ({
   const suspendSubscription = async () => {
     const res = await subscriptionService.suspendSubscription();
     return res;
+  };
+
+  const handleDeletePaymentMethod = async () => {
+    await subscriptionService
+      .deletePaymentMethod()
+      .then(() => {
+        showToastify({
+          type: "success",
+          label: "Seu cartão de crédito foi removido.",
+        });
+        setPaymentMethodInfo(null);
+      })
+      .catch(() =>
+        showToastify({
+          type: "error",
+          label:
+            "Ocorreu um erro ao remover seu método de pagamento. Verifique se o mesmo já não foi removido",
+        }),
+      );
   };
 
   const handleCancelSubscription = () => {
@@ -181,31 +203,45 @@ export const SubscriptionTab: React.FC<SubscriptionProps> = ({
               Cancelar Assinatura
             </ButtonThird>
           )}
-          {paymentMethodInfo && (
+          {
             <div className="w-full mx-auto flex col-span-2 flex-col md:max-w-80 max-w-lg px-4 md:px-3 justify-center text-center items-center space-y-2 mt-12">
               <p className="font-bold">Meio de pagamento salvo</p>
               <p className="text-generic-grayLighter text-xs">
                 Nós não salvamos dados sensíveis do cartão de crédito, apenas o
                 dado criptografado necessário para realizar o pagamento.
               </p>
-              <div className="py-2 w-full flex justify-center">
-                <CreditCard
-                  cardFlag={paymentMethodInfo.data.brand}
-                  year={paymentMethodInfo.data.year}
-                  month={paymentMethodInfo.data.month}
-                  lastNumbers={paymentMethodInfo.data.lastDigits}
-                  nameOnCard={paymentMethodInfo.data.holderName}
-                />
+              <div className="w-full flex justify-center">
+                {paymentMethodInfo?.data ? (
+                  <div>
+                    <div className="py-2 w-full flex justify-center">
+                      <CreditCard
+                        cardFlag={paymentMethodInfo.data.brand}
+                        year={paymentMethodInfo.data.year}
+                        month={paymentMethodInfo.data.month}
+                        lastNumbers={paymentMethodInfo.data.lastDigits}
+                        nameOnCard={paymentMethodInfo.data.holderName}
+                      />
+                    </div>
+
+                    <ButtonThird
+                      className="!text-generic-alertRed !p-0"
+                      onClick={() => handleDeletePaymentMethod()}
+                    >
+                      Excluir cartão principal
+                    </ButtonThird>
+                    <p className="text-generic-grayLighter text-xs italic">
+                      Ao remover o cartão principal de pagamento, suas próximas
+                      faturas terão que ser pagas manualmente.
+                    </p>
+                  </div>
+                ) : (
+                  <AddPaymentMethod
+                    setPaymentMethodInfo={setPaymentMethodInfo}
+                  />
+                )}
               </div>
-              <ButtonThird className="!text-generic-alertRed !p-0">
-                Excluir cartão principal
-              </ButtonThird>
-              <p className="text-generic-grayLighter text-xs italic">
-                Ao remover o cartão principal de pagamento, suas próximas
-                faturas terão que ser pagas manualmente.
-              </p>
             </div>
-          )}
+          }
         </div>
       ) : (
         <LoadingComponent size="large" fullSize={false} />
