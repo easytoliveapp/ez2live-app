@@ -74,10 +74,17 @@ const MyAccountPage = () => {
     });
   };
 
+  const hasPaymentMethod = () => {
+    return session?.user.iuguPaymentMethodId;
+  };
+  const hasSubscription = () => {
+    return session?.user.iuguSubscriptionId;
+  };
+
   useEffect(() => {
     if (section === "assinatura") setPageId("SUBSCRIPTION");
-    !subscriptionInfo && getSubsCriptionInfo();
-    !paymentMethodInfo && getPaymentMethodInfo();
+    !subscriptionInfo && hasSubscription() && getSubsCriptionInfo();
+    !paymentMethodInfo && hasPaymentMethod() && getPaymentMethodInfo();
   }, []);
 
   useEffect(() => {
@@ -98,7 +105,7 @@ const MyAccountPage = () => {
         />
       ),
     };
-  }, [session, subscriptionInfo]);
+  }, [session, subscriptionInfo, paymentMethodInfo]);
 
   return (
     <div className="nc-AccountCommonLayout container">
