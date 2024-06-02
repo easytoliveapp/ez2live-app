@@ -7,23 +7,40 @@ import { useSession } from "next-auth/react";
 import subscriptionService from "@/service/subscription.service";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Route } from "next";
+import { SUBSCRIPTION_STATUS } from "@/constants/payment";
 
 export const AcceptedPaymentStep = () => {
-  const { data: session } = useSession();
+  const { data: session, update } = useSession();
   const [expiredSubscriptionData, setExpiredSubscriptionData] = useState();
   const router = useRouter();
   const params = useSearchParams();
   const callbackUrl = params.get("callbackUrl");
   const redirectLink = callbackUrl ? callbackUrl : "/app/meus-cupons";
 
-  const getSubscriptionEndDate = async () => {
-    return await subscriptionService
-      .getSubscriptionInfo()
-      .then((res: any) => setExpiredSubscriptionData(res.data.expiresAt));
+  const updateSession = async (
+    responseData: any,
+    subscriptionStatus: string,
+  ) => {
+    await update({
+      ...session,
+      user: {
+        ...session?.user,
+        subscriptionStatus,
+        iuguCustomerId: responseData.customerId,
+        iuguSubscriptionId: responseData.id,
+      },
+    });
+  };
+
+  const getSubscriptionInfo = async () => {
+    return await subscriptionService.getSubscriptionInfo().then((res: any) => {
+      updateSession(res.data, SUBSCRIPTION_STATUS.PREMIUM);
+      setExpiredSubscriptionData(res.data.expiresAt);
+    });
   };
 
   useEffect(() => {
-    if (session?.user) getSubscriptionEndDate();
+    if (session?.user) getSubscriptionInfo();
   }, []);
 
   return (

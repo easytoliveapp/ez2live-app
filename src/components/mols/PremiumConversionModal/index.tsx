@@ -9,6 +9,7 @@ import useService from "@/service/users.service";
 import { showToastify } from "@/hooks/showToastify";
 import { useSession } from "next-auth/react";
 import usersService from "@/service/users.service";
+import { SUBSCRIPTION_STATUS } from "@/constants/payment";
 
 interface IPremiumConversionModal {
   isPremiumExpired: boolean;
@@ -33,6 +34,7 @@ const PremiumConversionModal: React.FC<IPremiumConversionModal> = ({
       user: {
         ...session?.user,
         subscriptionTrialEndDate: newSubscriptionDate,
+        subscriptionStatus: SUBSCRIPTION_STATUS.TRIAL,
       },
     });
   };
@@ -91,7 +93,7 @@ const PremiumConversionModal: React.FC<IPremiumConversionModal> = ({
           </div>
           <div className="flex px-4 flex-col gap-3">
             <p className="text-center">
-              Para deixar sua vida mais Easy, viemos entregar gratuitamente 28
+              Para deixar sua vida mais Easy, viemos entregar gratuitamente 30
               dias de Assinatura Premium para você aproveitar os melhores
               cupons! Resgate no botão abaixo!
             </p>
