@@ -17,7 +17,7 @@ export { default as NavBarLogged } from "./NavBarLogged";
 export { default as NavidationItem } from "./Navigation/NavigationItem";
 export { default as NavidationMobile } from "./Navigation/NavMobile";
 export { default as OneStepToPayment } from "./OneStepToPayment";
-export { default as PremiumConversionModal } from "./PremiumConversionModal";
+export { default as TrialConversionModal } from "./TrialConversionModal";
 export { default as PaymentMethod } from "./PaymentMethod";
 export { default as PixPayment } from "./PixPayment";
 export { default as UserSubscriptionBadge } from "./UserSubscriptionBadge";
