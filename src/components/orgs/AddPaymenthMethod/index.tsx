@@ -5,16 +5,13 @@ import { ICreditCardPayment } from "@/types/payment";
 import useIugu from "@/payment/iugu";
 import subscriptionService from "@/service/subscription.service";
 import { showToastify } from "@/hooks/showToastify";
-import { IGetPaymentMethodResponse } from "@/types/subscription/response";
 
 interface IAddPaymentMethodProps {
-  setPaymentMethodInfo: React.Dispatch<
-    React.SetStateAction<Partial<IGetPaymentMethodResponse>>
-  >;
+  handlePaymentMethodInfo: (e: any) => void;
 }
 
 const AddPaymentMethod: React.FC<IAddPaymentMethodProps> = ({
-  setPaymentMethodInfo,
+  handlePaymentMethodInfo,
 }) => {
   const [loading, setLoading] = useState(false);
   const [openModal, setOpenModal] = useState(false);
@@ -41,7 +38,7 @@ const AddPaymentMethod: React.FC<IAddPaymentMethodProps> = ({
       .createPaymentMethod(iuguJsToken.id)
       .then(() => {
         subscriptionService.getPaymentMethod().then((res: any) => {
-          setPaymentMethodInfo({
+          handlePaymentMethodInfo({
             data: {
               brand: res.data.data.brand,
               lastDigits: res.data.data.lastDigits,

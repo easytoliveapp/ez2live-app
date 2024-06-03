@@ -81,6 +81,12 @@ const MyAccountPage = () => {
     return session?.user.iuguSubscriptionId;
   };
 
+  const handlePaymentMethodInfo = (
+    paymentMethod: IGetPaymentMethodResponse,
+  ) => {
+    setPaymentMethodInfo(paymentMethod);
+  };
+
   useEffect(() => {
     if (section === "assinatura") setPageId("SUBSCRIPTION");
     !subscriptionInfo && hasSubscription() && getSubscriptionInfo();
@@ -101,7 +107,7 @@ const MyAccountPage = () => {
           session={session}
           subscriptionInfo={subscriptionInfo}
           paymentMethodInfo={paymentMethodInfo}
-          setPaymentMethodInfo={setPaymentMethodInfo}
+          handlePaymentMethodInfo={handlePaymentMethodInfo}
         />
       ),
     };

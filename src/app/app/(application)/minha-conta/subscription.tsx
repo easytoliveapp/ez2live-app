@@ -26,14 +26,14 @@ interface SubscriptionProps {
   session: Session | null;
   subscriptionInfo?: IGetSubscriptionResponse;
   paymentMethodInfo?: IGetPaymentMethodResponse;
-  setPaymentMethodInfo: React.Dispatch<React.SetStateAction<any>>;
+  handlePaymentMethodInfo: (e: any) => void;
 }
 
 export const SubscriptionTab: React.FC<SubscriptionProps> = ({
   session,
   subscriptionInfo,
   paymentMethodInfo,
-  setPaymentMethodInfo,
+  handlePaymentMethodInfo,
 }) => {
   const [isCancelSubscriptionModalOpen, setIsCancelSubscriptionModalOpen] =
     useState(false);
@@ -66,7 +66,7 @@ export const SubscriptionTab: React.FC<SubscriptionProps> = ({
           type: "success",
           label: "Seu cartão de crédito foi removido.",
         });
-        setPaymentMethodInfo(null);
+        handlePaymentMethodInfo(null);
       })
       .catch(() =>
         showToastify({
@@ -236,7 +236,7 @@ export const SubscriptionTab: React.FC<SubscriptionProps> = ({
                   </div>
                 ) : (
                   <AddPaymentMethod
-                    setPaymentMethodInfo={setPaymentMethodInfo}
+                    handlePaymentMethodInfo={handlePaymentMethodInfo}
                   />
                 )}
               </div>
