@@ -53,7 +53,7 @@ const MyAccountPage = () => {
     });
   };
 
-  const getSubsCriptionInfo = async () => {
+  const getSubscriptionInfo = async () => {
     await subscriptionService
       .getSubscriptionInfo()
       .then((res: any) => {
@@ -83,7 +83,7 @@ const MyAccountPage = () => {
 
   useEffect(() => {
     if (section === "assinatura") setPageId("SUBSCRIPTION");
-    !subscriptionInfo && hasSubscription() && getSubsCriptionInfo();
+    !subscriptionInfo && hasSubscription() && getSubscriptionInfo();
     !paymentMethodInfo && hasPaymentMethod() && getPaymentMethodInfo();
   }, []);
 
