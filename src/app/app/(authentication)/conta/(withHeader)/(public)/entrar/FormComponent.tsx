@@ -58,7 +58,7 @@ const FormComponent = () => {
           if (session?.user?.role === "user") {
             destination = "/app/meus-cupons";
           }
-          removeItemFromLocalStorage("sawTrialEndedCTM");
+          removeItemFromLocalStorage("showTrialEndedCTA");
 
           router.push((callbackUrl as any) ?? (destination as Route));
         }

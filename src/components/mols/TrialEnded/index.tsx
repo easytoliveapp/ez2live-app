@@ -11,7 +11,7 @@ interface ITrialEndedProps {
 const TrialEnded: React.FC<ITrialEndedProps> = ({ setShowModal }) => {
   const handleCloseModal = () => {
     setShowModal(false);
-    return setItemToLocalStorage("sawTrialEndedCTM", true);
+    return setItemToLocalStorage("showTrialEndedCTA", true);
   };
 
   return (

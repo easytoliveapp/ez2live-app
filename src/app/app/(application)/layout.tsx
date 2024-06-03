@@ -24,20 +24,24 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
   const { isUpdate } = useCompleteSupplierRegister();
   const [showModal, setShowModal] = useState(false);
   const isCommomUser = useUserRoles().isCommonUser();
-  const sawTrialEndedCTM: boolean = getItemByLocalStorage("sawTrialEndedCTM");
+  const showTrialEndedCTA: boolean = getItemByLocalStorage("showTrialEndedCTA");
 
   useEffect(() => {
     session &&
       setShowModal(!isDateBeforeToday(session.user.subscriptionTrialEndDate));
 
-    if (!sawTrialEndedCTM) {
+    if (!showTrialEndedCTA) {
       setShowModal(true);
     }
-  }, [session, sawTrialEndedCTM]);
+  }, [session, showTrialEndedCTA]);
 
   const handleCloseModal = () => {
     setShowModal(false);
-    return setItemToLocalStorage("sawTrialEndedCTM", true);
+    return setItemToLocalStorage("showTrialEndedCTA", true);
+  };
+
+  const handleModal = () => {
+    return setShowModal(!showModal);
   };
 
   return (
@@ -57,12 +61,12 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
             onCloseModal={() => setShowModal(false)}
           >
             <TrialConversionModal
-              setShowModal={setShowModal}
+              handleModal={handleModal}
               userId={session.user.id}
             />
           </Modal>
         )}
-      {isTrialEndedUser(session) && !sawTrialEndedCTM && (
+      {isTrialEndedUser(session) && !showTrialEndedCTA && (
         <Modal
           onCloseModal={() => handleCloseModal()}
           closeOnBlur={true}

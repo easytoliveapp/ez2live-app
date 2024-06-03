@@ -1,6 +1,6 @@
 "use client";
 
-import React, { Dispatch, SetStateAction } from "react";
+import React from "react";
 import { ButtonPrimary } from "@/components";
 import Image from "next/image";
 import LogoImage from "@/images/easytolive/logo/logotipo-semfundoazulroxo.svg";
@@ -11,12 +11,12 @@ import usersService from "@/service/users.service";
 import { SUBSCRIPTION_STATUS } from "@/constants/payment";
 
 interface ITrialConversionModal {
-  setShowModal: Dispatch<SetStateAction<boolean>>;
+  handleModal: () => void;
   userId: string;
 }
 
 const TrialConversionModal: React.FC<ITrialConversionModal> = ({
-  setShowModal,
+  handleModal,
   userId,
 }) => {
   const { data: session, update } = useSession();
@@ -58,7 +58,7 @@ const TrialConversionModal: React.FC<ITrialConversionModal> = ({
           type: "success",
         });
 
-        setShowModal(false);
+        handleModal();
       })
       .then(() => updateUserSessionSubscriptionDate())
       .catch((err) =>
