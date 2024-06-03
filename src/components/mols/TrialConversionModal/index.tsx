@@ -1,8 +1,7 @@
 "use client";
 
-import React, { Dispatch, SetStateAction } from "react";
+import React from "react";
 import { ButtonPrimary } from "@/components";
-import Modal from "../Modal";
 import Image from "next/image";
 import LogoImage from "@/images/easytolive/logo/logotipo-semfundoazulroxo.svg";
 import useService from "@/service/users.service";
@@ -11,15 +10,13 @@ import { useSession } from "next-auth/react";
 import usersService from "@/service/users.service";
 import { SUBSCRIPTION_STATUS } from "@/constants/payment";
 
-interface IPremiumConversionModal {
-  isPremiumExpired: boolean;
-  setIsPremiumExpired: Dispatch<SetStateAction<boolean>>;
+interface ITrialConversionModal {
+  handleModal: () => void;
   userId: string;
 }
 
-const PremiumConversionModal: React.FC<IPremiumConversionModal> = ({
-  isPremiumExpired,
-  setIsPremiumExpired,
+const TrialConversionModal: React.FC<ITrialConversionModal> = ({
+  handleModal,
   userId,
 }) => {
   const { data: session, update } = useSession();
@@ -61,7 +58,7 @@ const PremiumConversionModal: React.FC<IPremiumConversionModal> = ({
           type: "success",
         });
 
-        setIsPremiumExpired(false);
+        handleModal();
       })
       .then(() => updateUserSessionSubscriptionDate())
       .catch((err) =>
@@ -70,44 +67,32 @@ const PremiumConversionModal: React.FC<IPremiumConversionModal> = ({
   };
 
   return (
-    <Modal
-      contentExtraClass="max-w-lg"
-      closeOnBlur={false}
-      hasCloseButton={false}
-      show={isPremiumExpired}
-      onCloseModal={() => null}
-    >
-      {
-        <div className="flex flex-col gap-1 text-center">
-          <div className="flex flex-col items-center justify-center">
-            <div className="w-full flex justify-end pr-6">
-              <Image
-                className="h-12 w-auto my-6"
-                alt="easy-to-live-logo"
-                src={LogoImage}
-              />
-            </div>
-            <h2 className="text-2xl font-semibold">
-              FINALMENTE VOCÊ CHEGOU! 🥳
-            </h2>
-          </div>
-          <div className="flex px-4 flex-col gap-3">
-            <p className="text-center">
-              Para deixar sua vida mais Easy, viemos entregar gratuitamente 30
-              dias de Assinatura Premium para você aproveitar os melhores
-              cupons! Resgate no botão abaixo!
-            </p>
-            <ButtonPrimary
-              onClick={() => {
-                addSubscriptionDays(30);
-              }}
-            >
-              {"RESGATAR MINHA ASSINATURA PREMIUM!"}
-            </ButtonPrimary>
-          </div>
+    <div className="flex flex-col gap-1 text-center">
+      <div className="flex flex-col items-center justify-center">
+        <div className="w-full flex justify-end pr-6">
+          <Image
+            className="h-12 w-auto my-6"
+            alt="easy-to-live-logo"
+            src={LogoImage}
+          />
         </div>
-      }
-    </Modal>
+        <h2 className="text-2xl font-semibold">FINALMENTE VOCÊ CHEGOU! 🥳</h2>
+      </div>
+      <div className="flex px-4 flex-col gap-3">
+        <p className="text-center">
+          Para deixar sua vida mais Easy, viemos entregar gratuitamente 28 dias
+          de Assinatura Premium para você aproveitar os melhores cupons! Resgate
+          no botão abaixo!
+        </p>
+        <ButtonPrimary
+          onClick={() => {
+            addSubscriptionDays(30);
+          }}
+        >
+          {"RESGATAR MINHA ASSINATURA PREMIUM!"}
+        </ButtonPrimary>
+      </div>
+    </div>
   );
 };
-export default PremiumConversionModal;
+export default TrialConversionModal;
