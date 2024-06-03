@@ -1,75 +1,26 @@
 "use client";
+
 import React, { useState } from "react";
 import { Formik, Form, Field } from "formik";
 import { Input, ButtonPrimary, FormItem, Select } from "@/components";
-import { ICreditCardPayment, IPaymentResponseData } from "@/types/payment";
 import * as Yup from "yup";
 import valid from "card-validator";
 import Image from "next/image";
 import CardFlag from "@/images/easytolive/payment/card-flag.svg";
 import { MONTHS } from "@/constants/months";
-import useIugu from "@/payment/iugu";
 import { isCreditCardExpirationValid } from "@/utils/creditCard";
-import subscriptionService from "@/service/subscription.service";
-import { useSession } from "next-auth/react";
-import { showToastify } from "@/hooks/showToastify";
-import { INVOICE_STATUS, SUBSCRIPTION_STATUS } from "@/constants/payment";
+import { ICreditCardPayment } from "@/types/payment";
 
-interface ICreditCardPaymentProps {
-  currentStepPayment: React.Dispatch<React.SetStateAction<number>>;
-  setPaymentResponseData: React.Dispatch<
-    React.SetStateAction<IPaymentResponseData>
-  >;
+interface ICreditCardForm {
+  loading: boolean;
+  handleSubmit: (values: ICreditCardPayment) => Promise<void>;
 }
 
-const CreditCardPayment: React.FC<ICreditCardPaymentProps> = ({
-  currentStepPayment,
-  setPaymentResponseData,
+const CreditCardForm: React.FC<ICreditCardForm> = ({
+  loading,
+  handleSubmit,
 }) => {
-  const [loading, setLoading] = useState(false);
   const [formattedcreditCard, setFormattedcreditCard] = useState("");
-  const Iugu = useIugu(process.env.NEXT_PUBLIC_IUGU_ID);
-  const { data: session, update } = useSession();
-
-  const updateSession = async (responseData: any) => {
-    const {
-      subscriptionResponse: { subscriptionId },
-      user: { iuguCustomerId, iuguPaymentMethodId },
-    } = responseData;
-
-    await update({
-      ...session,
-      user: {
-        ...session?.user,
-        subscriptionStatus: SUBSCRIPTION_STATUS.PREMIUM,
-        iuguCustomerId,
-        iuguPaymentMethodId,
-        iuguSubscriptionId: subscriptionId,
-      },
-    });
-  };
-
-  const handlePaymentStatus = async (res: any) => {
-    const { paymentStatus } = res.data.subscriptionResponse;
-
-    switch (paymentStatus) {
-      case INVOICE_STATUS.PAID:
-        updateSession(res.data);
-        currentStepPayment(2);
-        break;
-      case INVOICE_STATUS.PENDING:
-        currentStepPayment(1);
-        break;
-      case INVOICE_STATUS.CANCELLED:
-        showToastify({
-          label:
-            "Seu cartão foi recusado. Verifique os dados e tente novamente.",
-        });
-        return currentStepPayment(0);
-      default:
-        currentStepPayment(1);
-    }
-  };
 
   const CreditCardvalidationSchema = Yup.object().shape({
     creditCard: Yup.string()
@@ -114,6 +65,7 @@ const CreditCardPayment: React.FC<ICreditCardPaymentProps> = ({
         "Você precisa concordar com os termos de uso para prosseguir.",
       ),
   });
+
   const initialValues: ICreditCardPayment = {
     creditCard: "",
     cvv: "",
@@ -121,45 +73,6 @@ const CreditCardPayment: React.FC<ICreditCardPaymentProps> = ({
     cardMonth: "1",
     cardYear: String(new Date().getFullYear()),
     termsOfUse: true,
-  };
-
-  const handleSubmit = async (values: ICreditCardPayment) => {
-    const fragmentedName = values.fullName.split(" ");
-    const firstName = fragmentedName[0];
-    const lastName = fragmentedName.slice(1).join(" ");
-
-    const iuguData = {
-      number: values.creditCard,
-      first_name: firstName,
-      last_name: lastName,
-      full_name: values.fullName,
-      verification_value: values.cvv,
-      month: values.cardMonth,
-      year: values.cardYear,
-    };
-    setLoading(true);
-    Iugu.setTestMode(process.env.NEXT_PUBLIC_TEST_MODE);
-    const iuguJsToken = await Iugu.createPaymentToken(iuguData);
-    await subscriptionService
-      .createSubscriptionCreditCard(iuguJsToken.id)
-      .then((res: any) => {
-        setPaymentResponseData({
-          invoiceId: res.data.subscriptionResponse.recentInvoiceId,
-        });
-        handlePaymentStatus(res);
-      })
-      .catch((res: any) => {
-        if (res.status === 400) {
-          showToastify({
-            label:
-              "O pagamento foi recusado. Por favor, verifique os dados do cartão e tente novamente.",
-            type: "error",
-          });
-        }
-        currentStepPayment(0);
-      });
-
-    setLoading(false);
   };
 
   return (
@@ -221,13 +134,13 @@ const CreditCardPayment: React.FC<ICreditCardPaymentProps> = ({
                 !!(errors.cardMonth && touched.cardMonth)
               }
             >
-              <div className="flex justify-between gap-2 w-full">
+              <div className="flex justify-between gap-2 md:gap-5 w-full">
                 <Field
                   invalid={!!(errors.cardMonth && touched.cardMonth)}
                   name="cardMonth"
                   data-iugu="expiration_month"
                   component={Select}
-                  className="text-center pl-2 w-full max-w-[140px]"
+                  className="text-center pl-2 w-full !flex-grow-2 "
                 >
                   {MONTHS.map((eachMonth, idx) => (
                     <option value={idx + 1} key={idx}>
@@ -238,7 +151,7 @@ const CreditCardPayment: React.FC<ICreditCardPaymentProps> = ({
                 <Field
                   name="cardYear"
                   component={Select}
-                  className="text-center pl-2 !w-28"
+                  className="text-center pl-2 !max-w-36"
                   data-iugu="expiration_year"
                 >
                   {Array.from(
@@ -257,7 +170,7 @@ const CreditCardPayment: React.FC<ICreditCardPaymentProps> = ({
                   type="text"
                   placeholder="CVV"
                   data-iug=""
-                  className="text-center !w-24 "
+                  className="text-center !max-w-24 "
                   component={Input}
                 />
               </div>
@@ -315,4 +228,4 @@ const CreditCardPayment: React.FC<ICreditCardPaymentProps> = ({
   );
 };
 
-export default CreditCardPayment;
+export default CreditCardForm;

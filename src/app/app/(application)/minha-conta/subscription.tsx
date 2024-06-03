@@ -7,24 +7,33 @@ import {
   ButtonThird,
   LoadingComponent,
   Modal,
+  CreditCard,
+  AddPaymentMethod,
 } from "@/components";
 import userService from "@/service/users.service";
 import { showToastify } from "@/hooks/showToastify";
 import { useSession } from "next-auth/react";
 import { Session } from "next-auth";
 import { getDateFormater } from "@/utils/getDateFormater";
-import { IGetSubscriptionResponse } from "@/types/subscription/response/index";
+import {
+  IGetPaymentMethodResponse,
+  IGetSubscriptionResponse,
+} from "@/types/subscription/response/index";
 import subscriptionService from "@/service/subscription.service";
 import { SUBSCRIPTION_STATUS } from "@/constants/payment";
 
 interface SubscriptionProps {
   session: Session | null;
   subscriptionInfo?: IGetSubscriptionResponse;
+  paymentMethodInfo?: IGetPaymentMethodResponse;
+  handlePaymentMethodInfo: (e: any) => void;
 }
 
 export const SubscriptionTab: React.FC<SubscriptionProps> = ({
   session,
   subscriptionInfo,
+  paymentMethodInfo,
+  handlePaymentMethodInfo,
 }) => {
   const [isCancelSubscriptionModalOpen, setIsCancelSubscriptionModalOpen] =
     useState(false);
@@ -47,6 +56,25 @@ export const SubscriptionTab: React.FC<SubscriptionProps> = ({
   const suspendSubscription = async () => {
     const res = await subscriptionService.suspendSubscription();
     return res;
+  };
+
+  const handleDeletePaymentMethod = async () => {
+    await subscriptionService
+      .deletePaymentMethod()
+      .then(() => {
+        showToastify({
+          type: "success",
+          label: "Seu cartão de crédito foi removido.",
+        });
+        handlePaymentMethodInfo(null);
+      })
+      .catch(() =>
+        showToastify({
+          type: "error",
+          label:
+            "Ocorreu um erro ao remover seu método de pagamento. Verifique se o mesmo já não foi removido",
+        }),
+      );
   };
 
   const handleCancelSubscription = () => {
@@ -128,7 +156,7 @@ export const SubscriptionTab: React.FC<SubscriptionProps> = ({
         </div>
       </Modal>
       {subscriptionInfo ? (
-        <div className=" grid grid-cols-2 items-center space-y-3">
+        <div className="text-sm grid items-center grid-cols-2 gap-3 md:gap-2 md:flex md:flex-col md:justify-center md:text-center">
           <div>
             <p className="font-bold">Status Assiantura</p>
             <span>
@@ -141,22 +169,32 @@ export const SubscriptionTab: React.FC<SubscriptionProps> = ({
           </div>
           <div>
             <p className="font-bold">Última cobrança</p>
-            <span>{getDateFormater(subscriptionInfo?.cycledAt)}</span>
+            <span className="font-semibold text-generic-dark">
+              {getDateFormater(subscriptionInfo?.cycledAt)}
+            </span>
           </div>
           <div>
             <p className="font-bold">Plano</p>
-            <span>{subscriptionInfo?.planName}</span>
+            <span className="font-semibold text-generic-dark">
+              {subscriptionInfo?.planName}
+            </span>
           </div>
           <div>
             <p className="font-bold">ID da assinatura</p>
-            <span>{subscriptionInfo?.id}</span>
+            <span className="font-semibold text-generic-dark break-words">
+              {subscriptionInfo?.id}
+            </span>
           </div>
           <div>
-            <p className="font-bold">Vencimento da mensalidade</p>
-            <span>{getDateFormater(subscriptionInfo?.expiresAt)}</span>
+            <p className="font-bold">Próxima cobrança</p>
+            <span className="font-semibold text-generic-dark">
+              {getDateFormater(subscriptionInfo?.expiresAt)}
+            </span>
           </div>
           {subscriptionInfo?.suspended || hasSubscriptionSuspensed ? (
-            <p className="font-bold">Sua assinatura foi suspensa </p>
+            <p className="font-medium text-xs italic">
+              Sua assinatura foi suspensa e não renovará automaticamente.{" "}
+            </p>
           ) : (
             <ButtonThird
               className="!text-generic-alertRed !p-0 mt-8"
@@ -165,6 +203,45 @@ export const SubscriptionTab: React.FC<SubscriptionProps> = ({
               Cancelar Assinatura
             </ButtonThird>
           )}
+          {
+            <div className="w-full mx-auto flex col-span-2 flex-col md:max-w-80 max-w-lg px-4 md:px-3 justify-center text-center items-center space-y-2 mt-12">
+              <p className="font-bold">Meio de pagamento salvo</p>
+              <p className="text-generic-grayLighter text-xs">
+                Nós não salvamos dados sensíveis do cartão de crédito, apenas o
+                dado criptografado necessário para realizar o pagamento.
+              </p>
+              <div className="w-full flex justify-center">
+                {paymentMethodInfo?.data ? (
+                  <div>
+                    <div className="py-2 w-full flex justify-center">
+                      <CreditCard
+                        cardFlag={paymentMethodInfo.data.brand}
+                        year={paymentMethodInfo.data.year}
+                        month={paymentMethodInfo.data.month}
+                        lastNumbers={paymentMethodInfo.data.lastDigits}
+                        nameOnCard={paymentMethodInfo.data.holderName}
+                      />
+                    </div>
+
+                    <ButtonThird
+                      className="!text-generic-alertRed !p-0"
+                      onClick={() => handleDeletePaymentMethod()}
+                    >
+                      Excluir cartão principal
+                    </ButtonThird>
+                    <p className="text-generic-grayLighter text-xs italic">
+                      Ao remover o cartão principal de pagamento, suas próximas
+                      faturas terão que ser pagas manualmente.
+                    </p>
+                  </div>
+                ) : (
+                  <AddPaymentMethod
+                    handlePaymentMethodInfo={handlePaymentMethodInfo}
+                  />
+                )}
+              </div>
+            </div>
+          }
         </div>
       ) : (
         <LoadingComponent size="large" fullSize={false} />
