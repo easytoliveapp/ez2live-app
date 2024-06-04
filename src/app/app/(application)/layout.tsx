@@ -2,28 +2,47 @@
 
 import React, { useEffect, useState } from "react";
 import {
-  PremiumConversionModal,
+  TrialConversionModal,
   Header,
   HeaderLogged,
   CompleteSupplierRegister,
+  Modal,
 } from "@/components";
 import isDateBeforeToday from "@/utils/isDateBeforeToday";
 import { useSession } from "next-auth/react";
 import useUserRoles from "@/hooks/useUserRoles";
 import { useCompleteSupplierRegister } from "@/components/mols/CompleteSupplierRegister/Context";
+import TrialEnded from "@/components/mols/TrialEnded";
+import {
+  getItemByLocalStorage,
+  setItemToLocalStorage,
+} from "@/utils/localStorageHelper";
+import isTrialEndedUser from "@/utils/isTrialEndedUser";
 
 const AppLayout = ({ children }: { children: React.ReactNode }) => {
   const { data: session } = useSession();
   const { isUpdate } = useCompleteSupplierRegister();
-  const [isPremiumExpired, setIsPremiumExpired] = useState(false);
-
+  const [showModal, setShowModal] = useState(false);
   const isCommomUser = useUserRoles().isCommonUser();
+  const showTrialEndedCTA: boolean = getItemByLocalStorage("showTrialEndedCTA");
 
   useEffect(() => {
-    if (session) {
-      setIsPremiumExpired(!isDateBeforeToday(session.user.subscriptionEndDate));
+    session &&
+      setShowModal(!isDateBeforeToday(session.user.subscriptionTrialEndDate));
+
+    if (!showTrialEndedCTA) {
+      setShowModal(true);
     }
-  }, [session]);
+  }, [session, showTrialEndedCTA]);
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+    return setItemToLocalStorage("showTrialEndedCTA", true);
+  };
+
+  const handleModal = () => {
+    return setShowModal(!showModal);
+  };
 
   return (
     <div>
@@ -31,13 +50,30 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
         <title>EasyToLive</title>
         <link rel="icon" href="/favicon.ico" />
       </head>
-      {session?.user && isPremiumExpired && isCommomUser && (
-        <PremiumConversionModal
-          isPremiumExpired={isPremiumExpired}
-          isNewUser={session.user.subscriptionEndDate === null}
-          setIsPremiumExpired={setIsPremiumExpired}
-          userId={session.user.id}
-        />
+      {session?.user &&
+        isCommomUser &&
+        session.user.subscriptionTrialEndDate === null && (
+          <Modal
+            contentExtraClass="max-w-lg"
+            closeOnBlur={false}
+            hasCloseButton={false}
+            show={showModal}
+            onCloseModal={() => setShowModal(false)}
+          >
+            <TrialConversionModal
+              handleModal={handleModal}
+              userId={session.user.id}
+            />
+          </Modal>
+        )}
+      {isTrialEndedUser(session) && !showTrialEndedCTA && (
+        <Modal
+          onCloseModal={() => handleCloseModal()}
+          closeOnBlur={true}
+          show={showModal}
+        >
+          <TrialEnded setShowModal={setShowModal} />
+        </Modal>
       )}
       {!!(
         isUpdate ||

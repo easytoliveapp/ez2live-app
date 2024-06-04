@@ -1,12 +1,48 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import CheckIcon from "@/images/easytolive/icons/checkIcon.svg";
 import { getDateFormater } from "@/utils/getDateFormater";
 import { ButtonPrimary, ButtonThird, SimpleModal } from "@/components";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
+import subscriptionService from "@/service/subscription.service";
+import { useRouter, useSearchParams } from "next/navigation";
+import { Route } from "next";
+import { SUBSCRIPTION_STATUS } from "@/constants/payment";
 
 export const AcceptedPaymentStep = () => {
-  const { data: session } = useSession();
+  const { data: session, update } = useSession();
+  const [expiredSubscriptionData, setExpiredSubscriptionData] = useState();
+  const router = useRouter();
+  const params = useSearchParams();
+  const callbackUrl = params.get("callbackUrl");
+  const redirectLink = callbackUrl ? callbackUrl : "/app/meus-cupons";
+
+  const updateSession = async (
+    responseData: any,
+    subscriptionStatus: string,
+  ) => {
+    await update({
+      ...session,
+      user: {
+        ...session?.user,
+        subscriptionStatus,
+        iuguCustomerId: responseData.customerId,
+        iuguSubscriptionId: responseData.id,
+      },
+    });
+  };
+
+  const getSubscriptionInfo = async () => {
+    return await subscriptionService.getSubscriptionInfo().then((res: any) => {
+      updateSession(res.data, SUBSCRIPTION_STATUS.PREMIUM);
+      setExpiredSubscriptionData(res.data.expiresAt);
+    });
+  };
+
+  useEffect(() => {
+    if (session?.user) getSubscriptionInfo();
+  }, []);
+
   return (
     <div className="w-full flex flex-col items-center">
       <SimpleModal className="px-4">
@@ -40,14 +76,12 @@ export const AcceptedPaymentStep = () => {
         <div>
           <p>Próxima cobrança</p>
           <p>
-            <strong>
-              {getDateFormater(session?.user.subscriptionEndDate)}
-            </strong>
+            <strong>{getDateFormater(expiredSubscriptionData)}</strong>
           </p>
         </div>
       </SimpleModal>
-      <div className="flex flex-col w-full max-w-xs md:max-w-sm">
-        <ButtonPrimary href="/app/meus-cupons">
+      <div className="flex flex-col w-full max-w-xs md:max-w-sm mt-4">
+        <ButtonPrimary onClick={() => router.push(redirectLink as Route)}>
           Quero meu desconto
         </ButtonPrimary>
         <ButtonThird

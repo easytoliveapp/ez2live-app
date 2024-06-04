@@ -5,18 +5,38 @@ import { Input, ButtonPrimary, FormItem } from "@/components";
 import * as Yup from "yup";
 import Image from "next/image";
 import PixImage from "@/images/easytolive/payment/pix-image.svg";
-import { IPixPayment } from "@/types/payment";
+import { IPixPayment, IPaymentResponseData } from "@/types/payment";
+import subscriptionService from "@/service/subscription.service";
+import { useSession } from "next-auth/react";
+import { showToastify } from "@/hooks/showToastify";
 
 interface IPixPaymentProps {
   currentStepPayment: React.Dispatch<React.SetStateAction<number>>;
+  setPaymentResponseData: React.Dispatch<
+    React.SetStateAction<IPaymentResponseData>
+  >;
 }
 
-const PixPayment: React.FC<IPixPaymentProps> = ({ currentStepPayment }) => {
+const PixPayment: React.FC<IPixPaymentProps> = ({
+  currentStepPayment,
+  setPaymentResponseData,
+}) => {
   const [loading, setLoading] = useState(false);
+  const { data: session, update } = useSession();
+
+  const updateSession = async (responseData: any) => {
+    await update({
+      ...session,
+      user: {
+        ...session?.user,
+        iuguCustomerId: responseData.iuguCustomerId,
+      },
+    });
+  };
 
   const PixPaymentValidationSchema = Yup.object().shape({
     cpf: Yup.string().required("CPF inválido"),
-    TermsOfUse: Yup.boolean()
+    termsOfUse: Yup.boolean()
       .required()
       .oneOf(
         [true],
@@ -26,17 +46,35 @@ const PixPayment: React.FC<IPixPaymentProps> = ({ currentStepPayment }) => {
 
   const handleSubmit = async (values: IPixPayment) => {
     setLoading(true);
-    currentStepPayment(1);
-    setTimeout(() => {
-      currentStepPayment(3);
-    }, 5000);
-    setLoading(false);
-    return values;
+    await subscriptionService
+      .createSubscriptionPix(values.cpf)
+      .then((res: any) => {
+        updateSession(res.data.user);
+        setPaymentResponseData({
+          invoiceId: res.data.subscriptionResponse.recentInvoiceId,
+          qrCodeValue: {
+            image: res.data.subscriptionResponse.pix.qrCode,
+            text: res.data.subscriptionResponse.pix.qrCodeText,
+          },
+        });
+        currentStepPayment(1);
+      })
+      .catch((res: any) => {
+        if (res.status === 400) {
+          showToastify({
+            label:
+              "Você está tentando criar uma nova assinatura, mas já possui uma ativa.",
+            type: "error",
+          });
+        } else {
+          currentStepPayment(3);
+        }
+      });
   };
 
   const initialValues: IPixPayment = {
     cpf: "",
-    TermsOfUse: true,
+    termsOfUse: true,
   };
   return (
     <Formik
@@ -82,24 +120,28 @@ const PixPayment: React.FC<IPixPaymentProps> = ({ currentStepPayment }) => {
             <div className="flex gap-2">
               <FormItem
                 errorMessage={null}
-                invalid={!!(errors.TermsOfUse && touched.TermsOfUse)}
+                invalid={!!(errors.termsOfUse && touched.termsOfUse)}
                 className="flex"
+                hasErrorSpacement={false}
               >
                 <div className="flex w-full gap-1 items-center ">
                   <Field
-                    invalid={!!(errors.TermsOfUse && touched.TermsOfUse)}
-                    name="TermsOfUse"
+                    invalid={!!(errors.termsOfUse && touched.termsOfUse)}
+                    name="termsOfUse"
                     type="checkbox"
                     className="!w-4 !h-4 !rounded-none !p-0 !m-0"
                     component={Input}
-                    checked={values.TermsOfUse}
+                    checked={values.termsOfUse}
                     onChange={(e: any) => {
-                      setFieldValue("TermsOfUse", e.target.checked);
+                      setFieldValue("termsOfUse", e.target.checked);
                     }}
                   ></Field>
                   <label
-                    htmlFor="TermsOfUse"
+                    htmlFor="termsOfUse"
                     className="text-[10px] w-full leading-3"
+                    onClick={() =>
+                      setFieldValue("termsOfUse", !values.termsOfUse)
+                    }
                   >
                     Ao realizar a assinatura você concorda com os Termos de Uso
                   </label>

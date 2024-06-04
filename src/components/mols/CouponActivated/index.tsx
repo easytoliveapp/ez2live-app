@@ -103,13 +103,13 @@ const CouponActivated: React.FC<CouponProps> = ({
             alt="supplier-logo"
           />
           <div className="m-4 px-1">
-            <p className=" font-semibold">estabelecimento</p>
+            <p className=" font-semibold">Estabelecimento</p>
             <p className=" text-lg">{supplierName}</p>
           </div>
         </div>
         <div className="flex justify-evenly items-center gap-2 m-2 mb-6">
           <div className="flex flex-col gap-1">
-            <p className="font-semibold">categoria</p>
+            <p className="font-semibold">Categoria</p>
             <p>{supplierCategory}</p>
           </div>
           <hr className="border-neutral-100 rounded-full border-[1px] w-10 rotate-90"></hr>

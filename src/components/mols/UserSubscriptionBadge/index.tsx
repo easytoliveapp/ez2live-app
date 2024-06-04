@@ -1,18 +1,22 @@
 import React from "react";
-import isPremiumUser from "@/utils/isPremiumUser";
-import { useSession } from "next-auth/react";
+import { getAccountType } from "@/utils/getAccountType";
 
-const UserSubscriptionBadge = () => {
-  const { data: session } = useSession();
-  const hasPremium = session && isPremiumUser();
+interface IUserSubscriptionBadgeProps {
+  hasPremium: boolean;
+  hasTrial: boolean;
+}
 
+const UserSubscriptionBadge: React.FC<IUserSubscriptionBadgeProps> = ({
+  hasPremium,
+  hasTrial,
+}) => {
   return (
     <div
       className={` rounded-3xl text-center text-white px-4 py-1.5 text-md flex justify-center items-center ${
         hasPremium ? "bg-primary-main" : "bg-generic-grayDarker"
       }`}
     >
-      {hasPremium ? "Premium" : "Free"}
+      {getAccountType(hasPremium, hasTrial)}
     </div>
   );
 };

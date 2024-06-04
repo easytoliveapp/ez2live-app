@@ -5,6 +5,7 @@ import { WaitingApprovalStep } from "./WaitingApprovalStep";
 import { AcceptedPaymentStep } from "./AcceptedPaymentStep";
 import { RejectedPaymentStep } from "./RejectedPaymentStep";
 import { PAYMENT } from "@/constants/paymentMethods";
+import { IPaymentResponseData } from "@/types/payment";
 
 const PaymentPage = () => {
   const STEPS = {
@@ -15,19 +16,35 @@ const PaymentPage = () => {
   };
 
   const [currentStep, setCurrentStep] = useState<number>(STEPS.PAYMENT);
+  const [paymentResponseData, setPaymentResponseData] =
+    useState<IPaymentResponseData>({
+      invoiceId: "",
+      qrCodeValue: {
+        image: "",
+        text: "",
+      },
+    });
   const [paymentTab, setPaymentTab] = useState(PAYMENT.creditCard);
+
   const renderStep = (step: number) => {
     switch (step) {
       case STEPS.PAYMENT:
         return (
           <PaymentStep
-            PaymentTab={paymentTab}
-            SetPaymentTab={setPaymentTab}
+            paymentTab={paymentTab}
+            setPaymentTab={setPaymentTab}
             setCurrentStep={setCurrentStep}
+            setPaymentResponseData={setPaymentResponseData}
           />
         );
       case STEPS.LOADING_PAYMENT:
-        return <WaitingApprovalStep PaymentTab={paymentTab} />;
+        return (
+          <WaitingApprovalStep
+            paymentTab={paymentTab}
+            setCurrentStep={setCurrentStep}
+            paymentResponseData={paymentResponseData}
+          />
+        );
       case STEPS.PAYMENT_ACCEPT:
         return <AcceptedPaymentStep />;
       case STEPS.PAYMENT_REJECT:
@@ -35,16 +52,17 @@ const PaymentPage = () => {
       default:
         return (
           <PaymentStep
-            PaymentTab={paymentTab}
-            SetPaymentTab={setPaymentTab}
+            paymentTab={paymentTab}
+            setPaymentTab={setPaymentTab}
             setCurrentStep={setCurrentStep}
+            setPaymentResponseData={setPaymentResponseData}
           />
         );
     }
   };
 
   return (
-    <div className="bg-generic-gray h-full min-h-[calc(100vh-66px)] flex flex-col pt-14 items-center">
+    <div className="bg-generic-gray h-full min-h-[calc(100vh-66px)] px-4 flex flex-col pt-14 items-center">
       {renderStep(currentStep)}
     </div>
   );

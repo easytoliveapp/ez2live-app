@@ -23,7 +23,7 @@ const CouponsAvaible: FC<CouponsProps> = ({ couponsAvailableCount }) => {
           "text-xs font-medium text text-generic-alertGreen",
           couponsAvailableCount
             ? "text-generic-alertGreen"
-            : "text-generic-grayDarker",
+            : "text-generic-grayLighter",
         )}
       >
         {couponsAvailableCount ? (
