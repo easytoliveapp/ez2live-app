@@ -15,6 +15,7 @@ import { showToastify } from "@/hooks/showToastify";
 import { useSearchParams } from "next/navigation";
 import { SUBSCRIPTION_STATUS } from "@/constants/payment";
 import isDateBeforeToday from "@/utils/isDateBeforeToday";
+import useUserRoles from "@/hooks/useUserRoles";
 
 const MyAccountPage = () => {
   const { data: session, update } = useSession();
@@ -152,17 +153,19 @@ const MyAccountPage = () => {
               >
                 Segurança
               </div>
-              <div
-                className={classNames(
-                  "font-bold cursor-pointer text-black",
-                  pageId === "SUBSCRIPTION" ? "opacity-100" : "opacity-60",
-                )}
-                onClick={() => {
-                  setPageId("SUBSCRIPTION");
-                }}
-              >
-                Assinatura
-              </div>
+              {useUserRoles().isCommonUser() && (
+                <div
+                  className={classNames(
+                    "font-bold cursor-pointer text-black",
+                    pageId === "SUBSCRIPTION" ? "opacity-100" : "opacity-60",
+                  )}
+                  onClick={() => {
+                    setPageId("SUBSCRIPTION");
+                  }}
+                >
+                  Assinatura
+                </div>
+              )}
             </div>
           </div>
           <hr className="border-slate-200 dark:border-slate-700"></hr>
