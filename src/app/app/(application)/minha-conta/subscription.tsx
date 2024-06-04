@@ -21,6 +21,7 @@ import {
 } from "@/types/subscription/response/index";
 import subscriptionService from "@/service/subscription.service";
 import { SUBSCRIPTION_STATUS } from "@/constants/payment";
+import { useSearchParams } from "next/navigation";
 
 interface SubscriptionProps {
   session: Session | null;
@@ -40,6 +41,8 @@ export const SubscriptionTab: React.FC<SubscriptionProps> = ({
   const [loading, setLoading] = useState(false);
   const [hasSubscriptionSuspensed, setHasSubscriptionSuspensed] =
     useState(false);
+  const params = useSearchParams();
+  const trialButtonTest = params.get("trial_end_test");
   const { update } = useSession();
 
   const updateSession = async (newSubscriptionTrialEndDate: string) => {
@@ -264,7 +267,8 @@ export const SubscriptionTab: React.FC<SubscriptionProps> = ({
         Quero os melhores descontos
       </ButtonPrimary>
       {session?.user.subscriptionTrialEndDate !== null &&
-        session?.user.iuguCustomerId === null && (
+        session?.user.iuguCustomerId === null &&
+        trialButtonTest && (
           <div className="mt-10">
             <ButtonSecondary onClick={() => handleCancelFreeTrial()}>
               Cancelar período grátis
