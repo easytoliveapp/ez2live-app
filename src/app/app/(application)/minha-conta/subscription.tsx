@@ -38,6 +38,8 @@ export const SubscriptionTab: React.FC<SubscriptionProps> = ({
 }) => {
   const [isCancelSubscriptionModalOpen, setIsCancelSubscriptionModalOpen] =
     useState(false);
+  const [isDeletePaymentMethodModalOpen, setIsDeletePaymentMethodModalOpen] =
+    useState(false);
   const [loading, setLoading] = useState(false);
   const [hasSubscriptionSuspensed, setHasSubscriptionSuspensed] =
     useState(false);
@@ -70,6 +72,7 @@ export const SubscriptionTab: React.FC<SubscriptionProps> = ({
           label: "Seu cartão de crédito foi removido.",
         });
         handlePaymentMethodInfo(null);
+        setIsDeletePaymentMethodModalOpen(false);
       })
       .catch(() =>
         showToastify({
@@ -117,6 +120,31 @@ export const SubscriptionTab: React.FC<SubscriptionProps> = ({
 
   return hasIuguId && hasSubscriptionId ? (
     <div className="px-4">
+      <Modal
+        closeOnBlur={true}
+        hasCloseButton={true}
+        show={isDeletePaymentMethodModalOpen}
+        onCloseModal={() => setIsDeletePaymentMethodModalOpen(false)}
+      >
+        <div className="flex flex-col items-center justify-center space-y-3 text-center px-6 pt-6">
+          <p className="py-2 px-4">
+            Ao remover o cartão principal de pagamento, suas próximas faturas
+            terão que ser pagas manualmente.
+          </p>
+          <ButtonPrimary
+            onClick={() => handleDeletePaymentMethod()}
+            className="!bg-generic-alertRed !text-xs !py-2 !px-4 font-extrabold"
+          >
+            {loading ? "cancelando  (...)" : "Remover método de pagamento"}
+          </ButtonPrimary>
+          <ButtonThird
+            className="!text-black !mt-0 !text-sm !font-extrabold"
+            onClick={() => setIsDeletePaymentMethodModalOpen(false)}
+          >
+            cancelar
+          </ButtonThird>
+        </div>
+      </Modal>
       <Modal
         closeOnBlur={true}
         hasCloseButton={true}
@@ -228,7 +256,7 @@ export const SubscriptionTab: React.FC<SubscriptionProps> = ({
 
                     <ButtonThird
                       className="!text-generic-alertRed !p-0"
-                      onClick={() => handleDeletePaymentMethod()}
+                      onClick={() => setIsDeletePaymentMethodModalOpen(true)}
                     >
                       Excluir cartão principal
                     </ButtonThird>
