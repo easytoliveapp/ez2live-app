@@ -74,7 +74,12 @@ const AddPaymentMethod: React.FC<IAddPaymentMethodProps> = ({
         <h2 className="text-lg font-bold text-center">
           Adicionar meio de pagamento
         </h2>
-        <CreditCardForm loading={loading} handleSubmit={handleSubmit} />
+        <CreditCardForm
+          loading={loading}
+          handleSubmit={handleSubmit}
+          buttonLabel="Salvar cartão"
+          loadingButonLabel="Salvando..."
+        />
       </Modal>
       <PaymentMethodEmpty onClick={() => setOpenModal(true)} />
     </div>

@@ -14,11 +14,15 @@ import { ICreditCardPayment } from "@/types/payment";
 interface ICreditCardForm {
   loading: boolean;
   handleSubmit: (values: ICreditCardPayment) => Promise<void>;
+  buttonLabel: string;
+  loadingButonLabel: string;
 }
 
 const CreditCardForm: React.FC<ICreditCardForm> = ({
   loading,
   handleSubmit,
+  buttonLabel,
+  loadingButonLabel,
 }) => {
   const [formattedcreditCard, setFormattedcreditCard] = useState("");
 
@@ -215,7 +219,7 @@ const CreditCardForm: React.FC<ICreditCardForm> = ({
               disabled={loading}
               loading={loading}
             >
-              {loading ? "Aguardando pagamento" : "Efetuar Pagamento"}
+              {loading ? loadingButonLabel : buttonLabel}
             </ButtonPrimary>
             <p className=" text-[10px] leading-3 text-center italic">
               Os pagamentos serão realizados de forma recorrente a cada

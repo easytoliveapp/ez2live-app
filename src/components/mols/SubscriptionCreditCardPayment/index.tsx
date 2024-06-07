@@ -102,7 +102,14 @@ const CreditCardPayment: React.FC<ICreditCardPaymentProps> = ({
     setLoading(false);
   };
 
-  return <CreditCardForm loading={loading} handleSubmit={handleSubmit} />;
+  return (
+    <CreditCardForm
+      loading={loading}
+      handleSubmit={handleSubmit}
+      buttonLabel="Efetuar Pagamento"
+      loadingButonLabel="Aguardando pagamento"
+    />
+  );
 };
 
 export default CreditCardPayment;
