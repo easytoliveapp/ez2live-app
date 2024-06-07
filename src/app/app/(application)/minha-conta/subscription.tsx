@@ -209,7 +209,7 @@ export const SubscriptionTab: React.FC<SubscriptionProps> = ({
           {
             <div className="w-full mx-auto flex col-span-2 flex-col md:max-w-80 max-w-lg px-4 md:px-3 justify-center text-center items-center space-y-2 mt-12">
               <p className="font-bold">Meio de pagamento salvo</p>
-              <p className="text-generic-grayLighter text-xs">
+              <p className="text-generic-dark text-xs">
                 Nós não salvamos dados sensíveis do cartão de crédito, apenas o
                 dado criptografado necessário para realizar o pagamento.
               </p>
@@ -232,7 +232,7 @@ export const SubscriptionTab: React.FC<SubscriptionProps> = ({
                     >
                       Excluir cartão principal
                     </ButtonThird>
-                    <p className="text-generic-grayLighter text-xs italic">
+                    <p className="text-generic-dark text-xs italic">
                       Ao remover o cartão principal de pagamento, suas próximas
                       faturas terão que ser pagas manualmente.
                     </p>
