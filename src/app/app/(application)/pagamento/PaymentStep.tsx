@@ -7,8 +7,11 @@ import {
   SimpleModal,
   PaymentMethod,
 } from "@/components";
+import { INVOICE_STATUS } from "@/constants/payment";
 import { PAYMENT } from "@/constants/paymentMethods";
+import subscriptionService from "@/service/subscription.service";
 import { IPaymentResponseData } from "@/types/payment";
+import { useEffect } from "react";
 
 interface IPaymentStepProps {
   setCurrentStep: React.Dispatch<React.SetStateAction<number>>;
@@ -25,6 +28,21 @@ export const PaymentStep: React.FC<IPaymentStepProps> = ({
   setPaymentTab,
   setPaymentResponseData,
 }) => {
+  const getLastInvoiceInfo = async () => {
+    subscriptionService.getLastInvoice().then((res: any) => {
+      if (res.data.status === INVOICE_STATUS.PENDING) {
+        setCurrentStep(1);
+        setPaymentResponseData({
+          invoiceId: res.data.id,
+        });
+      }
+    });
+  };
+
+  useEffect(() => {
+    getLastInvoiceInfo();
+  }, []);
+
   return (
     <div>
       <OneStepToPayment />
