@@ -88,7 +88,9 @@ const VerifyEmail = () => {
       <ButtonPrimary
         onClick={() => {
           router.push(
-            `/app/conta/entrar${callBackUrl && "?callbackUrl=" + encodeURIComponent(callBackUrl)}`,
+            `/app/conta/entrar${
+              callBackUrl && "?callbackUrl=" + encodeURIComponent(callBackUrl)
+            }`,
           );
         }}
       >
