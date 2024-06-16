@@ -44,9 +44,7 @@ const NewSection4 = () => {
           <Section4Card icon={card.icon} key={index} label={card.label} />
         ))}
       </div>
-      <ButtonFourth href="/app/conta/acessar">
-        QUERO PARTICIPAR DA EASY TO LIVE
-      </ButtonFourth>
+      <ButtonFourth href="/app">QUERO PARTICIPAR DA EASY TO LIVE</ButtonFourth>
     </div>
   );
 };

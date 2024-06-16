@@ -22,8 +22,8 @@ const NewSection3 = () => {
         <PartnersSlider />
       </div>
       <div className="flex items-center justify-center mt-12">
-        <ButtonFourth href="/app/conta/acessar" className="px-6">
-          GARANTIR ACESSO
+        <ButtonFourth href="/app" className="px-6">
+          VISITAR SITE
         </ButtonFourth>
       </div>
     </div>
