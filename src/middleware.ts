@@ -13,9 +13,13 @@ export async function middleware(request: NextRequest) {
         : "next-auth.session-token",
   });
 
+  console.log("Token Info:", tokenInfo);
+
   const privateRequestRoute = PRIVATE_ROUTES_CONFIG.filter((routes) => {
     return routes.path === request.nextUrl.pathname;
   }).shift();
+
+  console.log("Private Request Route:", privateRequestRoute);
 
   if (!tokenInfo && privateRequestRoute && !privateRequestRoute?.isPublic) {
     return NextResponse.redirect(new URL("/app/conta/acessar", request.url));
@@ -27,6 +31,7 @@ export async function middleware(request: NextRequest) {
     !privateRequestRoute?.isPublic &&
     !privateRequestRoute?.roles.some((role) => role === tokenInfo?.user.role)
   ) {
+    console.log("Redirecting to role start URL");
     return NextResponse.redirect(
       new URL(
         ROLE_START_URL[tokenInfo?.user.role as keyof typeof ROLE_START_URL] ??
