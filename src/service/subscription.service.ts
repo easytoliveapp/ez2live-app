@@ -68,7 +68,7 @@ const deletePaymentMethod = async () => {
 
 const getLastInvoice = async () => {
   return await BaseService.fetchData({
-    url: "/subscription/invoices/last-invoice",
+    url: "/subscription/customer/last-invoice",
     method: "get",
   });
 };
