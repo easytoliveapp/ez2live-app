@@ -6,6 +6,7 @@ import Image from "next/image";
 import { ButtonPrimary, LoadingComponent } from "@/components";
 import CheckIcon from "@/images/easytolive/icons/checked-success.svg";
 import EmptyIcon from "@/images/easytolive/icons/empty-icon.svg";
+import { getItemByLocalStorage } from "@/utils/localStorageHelper";
 
 const VerifyEmail = () => {
   const router = useRouter();
@@ -29,6 +30,8 @@ const VerifyEmail = () => {
 
     setIsEmailVerified(true);
   };
+
+  const callBackUrl = getItemByLocalStorage("callbackCouponUrl");
 
   React.useEffect(() => {
     if (params) {
@@ -84,7 +87,11 @@ const VerifyEmail = () => {
 
       <ButtonPrimary
         onClick={() => {
-          router.push("/app/conta/entrar");
+          router.push(
+            `/app/conta/entrar${
+              callBackUrl && "?callbackUrl=" + encodeURIComponent(callBackUrl)
+            }`,
+          );
         }}
       >
         Entrar com email/senha
