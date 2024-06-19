@@ -25,7 +25,7 @@ const NewSection6 = () => {
           <p className="pt-4">
             Aperte no botão abaixo e finalize seu cadastro!{" "}
           </p>
-          <ButtonFourth href="/app/conta/acessar">
+          <ButtonFourth href="/app/conta/entrar">
             Começar o meu teste gratuito
           </ButtonFourth>
         </div>
