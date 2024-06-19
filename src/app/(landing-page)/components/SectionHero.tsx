@@ -26,8 +26,8 @@ const SectionHero3: FC<SectionHero3Props> = ({ className = "" }) => {
             um clique de distância!
           </p>
           <div>
-            <ButtonFourth href="/app/conta/acessar" className="text-slate-2">
-              GARANTIR ACESSO
+            <ButtonFourth href="/app" className="text-slate-2">
+              VISITAR SITE
             </ButtonFourth>
           </div>
         </div>

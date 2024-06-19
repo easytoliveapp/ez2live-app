@@ -27,6 +27,7 @@ import userService from "@/service/users.service";
 import { SUBSCRIPTION_STATUS } from "@/constants/payment";
 import isPremiumUser from "@/utils/isPremiumUser";
 import isTrialUser from "@/utils/isTrialUser";
+import { setItemToLocalStorage } from "@/utils/localStorageHelper";
 interface CouponContainerProps {
   couponRules: string;
   couponTitle: string;
@@ -329,8 +330,12 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
         )
         .finally(() => setLoading(false));
     } else {
+      setItemToLocalStorage(
+        "callbackCouponUrl",
+        `/app/parceiro/${supplierId}/?coupon=${couponId}`,
+      );
       router.push(
-        `/app/conta/acessar?callbackUrl=${encodeURIComponent(
+        `/app/conta/entrar?callbackUrl=${encodeURIComponent(
           `/app/parceiro/${supplierId}/?coupon=${couponId}`,
         )}` as Route,
       );

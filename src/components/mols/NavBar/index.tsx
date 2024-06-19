@@ -24,7 +24,7 @@ const NavBar: React.FC<NavBarProps> = ({ hasLogoImage = true }) => {
           </Link>
         )}
         <div className="absolute right-2">
-          <Link href={`/app/conta/acessar${generateCallbackUrl()}` as Route}>
+          <Link href={`/app/conta/entrar${generateCallbackUrl()}` as Route}>
             <ButtonBasic className="text-primary-lighter">Entrar</ButtonBasic>
           </Link>
         </div>
