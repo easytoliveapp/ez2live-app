@@ -31,7 +31,7 @@ const VerifyEmail = () => {
     setIsEmailVerified(true);
   };
 
-  const callBackUrl = getItemByLocalStorage("callbackCouponUrl");
+  const callBackUrl = getItemByLocalStorage("callbackCouponUrl") ?? "";
 
   React.useEffect(() => {
     if (params) {
