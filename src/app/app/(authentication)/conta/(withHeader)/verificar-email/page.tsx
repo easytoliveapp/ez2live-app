@@ -31,7 +31,7 @@ const VerifyEmail = () => {
     setIsEmailVerified(true);
   };
 
-  const callBackUrl = getItemByLocalStorage("callbackCouponUrl");
+  const callBackUrl = getItemByLocalStorage("callbackCouponUrl") ?? "";
 
   React.useEffect(() => {
     if (params) {
@@ -89,7 +89,9 @@ const VerifyEmail = () => {
         onClick={() => {
           router.push(
             `/app/conta/entrar${
-              callBackUrl && "?callbackUrl=" + encodeURIComponent(callBackUrl)
+              callBackUrl
+                ? "?callbackUrl=" + encodeURIComponent(callBackUrl)
+                : ""
             }`,
           );
         }}
