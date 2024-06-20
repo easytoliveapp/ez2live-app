@@ -145,7 +145,7 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
         setShowCouponModal(false);
       }
     }
-  }, [couponId, couponIdParam]);
+  }, [couponId, couponIdParam, session?.user.subscriptionStatus]);
 
   const StepOne = () => {
     return (
