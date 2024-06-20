@@ -1,5 +1,5 @@
 ## Easy2Live 
-v 1.1.3
+v 1.1.4
 ```bash
 npm run dev
 # or
