@@ -31,6 +31,7 @@ export const PaymentStep: React.FC<IPaymentStepProps> = ({
   const getLastInvoiceInfo = async () => {
     subscriptionService.getLastInvoice().then((res: any) => {
       if (res.data.status === INVOICE_STATUS.PENDING) {
+        setPaymentTab(res.data.paymentMethod);
         setCurrentStep(1);
         setPaymentResponseData({
           invoiceId: res.data.id,
