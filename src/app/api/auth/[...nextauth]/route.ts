@@ -68,29 +68,7 @@ export const authOptions: NextAuthOptions = {
 
   callbacks: {
     async signIn({ profile, account }) {
-      if (account?.provider !== "credentials") {
-        if (!profile?.email) return false;
-
-        const userByEmailResponse: any = await AuthService.getUserByEmail(
-          profile.email,
-        );
-
-        if (
-          !userByEmailResponse ||
-          userByEmailResponse.status !== 200 ||
-          !userByEmailResponse.data
-        ) {
-          return Promise.reject(
-            new Error(
-              "Api Response Error Http Status: " + userByEmailResponse.status,
-            ),
-          );
-        }
-
-        const { data: user } = userByEmailResponse;
-
-        return !user.isSupplier && user.active;
-      }
+      if (account?.provider !== "credentials" && !profile?.email) return false;
 
       return true;
     },
@@ -116,6 +94,10 @@ export const authOptions: NextAuthOptions = {
 
         const { data } = authSocialRes;
         const { user: userData, tokens } = data;
+
+        if (!userData.active) {
+          return Promise.reject(new Error("User is not active"));
+        }
 
         if (userData.role === ROLES.supplier) {
           return Promise.reject(new Error("User has signed with supplier yet"));
