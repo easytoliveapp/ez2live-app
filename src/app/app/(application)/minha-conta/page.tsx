@@ -14,7 +14,7 @@ import subscriptionService from "@/service/subscription.service";
 import { showToastify } from "@/hooks/showToastify";
 import { useSearchParams } from "next/navigation";
 import { SUBSCRIPTION_STATUS } from "@/constants/payment";
-import isDateBeforeToday from "@/utils/isDateBeforeToday";
+import date.isDateBeforeToday from "@/utils/date.isDateBeforeToday";
 import useUserRoles from "@/hooks/useUserRoles";
 
 const MyAccountPage = () => {
@@ -30,7 +30,7 @@ const MyAccountPage = () => {
     useState<IGetPaymentMethodResponse>();
 
   const hasIuguCostumerId = session?.user.iuguCustomerId;
-  const isTrial = isDateBeforeToday(session?.user.subscriptionTrialEndDate);
+  const isTrial = date.isDateBeforeToday(session?.user.subscriptionTrialEndDate);
 
   const updateSession = async (data: any) => {
     const { id, customerId, active } = data;

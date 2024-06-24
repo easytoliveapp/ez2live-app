@@ -3,7 +3,7 @@
 import React from "react";
 import Image, { StaticImageData } from "next/image";
 import { ButtonPrimary } from "@/components";
-import { getDateFormater } from "@/utils/getDateFormater";
+import { date.getDateFormater } from "@/utils/date.getDateFormater";
 import { getColorByDiscountValue } from "@/utils/getColorByDiscountValue";
 import whatsapp from "@/images/socials/whatsapp.svg";
 import QRCode from "react-qr-code";
@@ -115,7 +115,7 @@ const CouponActivated: React.FC<CouponProps> = ({
           <hr className="border-neutral-100 rounded-full border-[1px] w-10 rotate-90"></hr>
           <div className="flex flex-col gap-1">
             <p className="font-semibold">Validade</p>
-            <p>{getDateFormater(expirateTime)}</p>
+            <p>{date.getDateFormater(expirateTime)}</p>
           </div>
         </div>
         {supplierPhoneNumber && (

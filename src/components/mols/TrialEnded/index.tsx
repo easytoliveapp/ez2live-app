@@ -2,7 +2,7 @@ import React, { Dispatch, SetStateAction } from "react";
 import Image from "next/image";
 import LogoEasy from "@/images/easytolive/logo/logotipo-semfundoazulroxo.svg";
 import { ButtonPrimary } from "@/components/atoms";
-import { setItemToLocalStorage } from "@/utils/localStorageHelper";
+import { localStorageHandler.setItemToLocalStorage } from "@/utils/localStorageHelper";
 
 interface ITrialEndedProps {
   setShowModal: Dispatch<SetStateAction<boolean>>;
@@ -11,7 +11,7 @@ interface ITrialEndedProps {
 const TrialEnded: React.FC<ITrialEndedProps> = ({ setShowModal }) => {
   const handleCloseModal = () => {
     setShowModal(false);
-    return setItemToLocalStorage("showTrialEndedCTA", true);
+    return localStorageHandler.setItemToLocalStorage("showTrialEndedCTA", true);
   };
 
   return (

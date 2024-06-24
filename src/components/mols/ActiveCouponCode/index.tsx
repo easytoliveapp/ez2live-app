@@ -16,7 +16,7 @@ import { showToastify } from "@/hooks/showToastify";
 import CouponsService from "@/service/coupons.service";
 import cx from "classnames";
 import { useRouter } from "next/navigation";
-import { getDateFormater } from "@/utils/getDateFormater";
+import { date.getDateFormater } from "@/utils/date.getDateFormater";
 
 export interface IActiveCouponCodeProps {
   code?: string;
@@ -285,7 +285,7 @@ const ActiveCouponCode: React.FC<IActiveCouponCodeProps> = ({
                                 <div>
                                   <p className="font-semibold">Validade</p>
                                   <p>
-                                    {getDateFormater(
+                                    {date.getDateFormater(
                                       couponInfo?.coupon?.expirationUseDate,
                                     )}
                                   </p>

@@ -1,5 +1,5 @@
-import getDateDiffInDays from "@/utils/getDiffInDays";
-import getDateDiffInHours from "@/utils/getDiffInHours";
+import date.getDateDiffInDays from "@/utils/getDiffInDays";
+import date.getDateDiffInHours from "@/utils/getDiffInHours";
 
 const formatExpirationString = (value: number, unit: string) => {
   const absValue = Math.abs(value);
@@ -11,8 +11,8 @@ const formatExpirationString = (value: number, unit: string) => {
 };
 
 const getExpirateTime = (expirateDate: string) => {
-  const expirateInDay = getDateDiffInDays(expirateDate);
-  const expirateInHour = getDateDiffInHours(expirateDate);
+  const expirateInDay = date.getDateDiffInDays(expirateDate);
+  const expirateInHour = date.getDateDiffInHours(expirateDate);
   if (expirateInDay !== 0) {
     return formatExpirationString(expirateInDay, "dia");
   }

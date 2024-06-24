@@ -14,7 +14,7 @@ import userService from "@/service/users.service";
 import { showToastify } from "@/hooks/showToastify";
 import { useSession } from "next-auth/react";
 import { Session } from "next-auth";
-import { getDateFormater } from "@/utils/getDateFormater";
+import { date.getDateFormater } from "@/utils/date.getDateFormater";
 import {
   IGetPaymentMethodResponse,
   IGetSubscriptionResponse,
@@ -166,7 +166,7 @@ export const SubscriptionTab: React.FC<SubscriptionProps> = ({
             Você pode cancelar a qualquer <br /> momento e encerrar a
             recorrência do <br />
             ciclo em{" "}
-            <strong>{getDateFormater(subscriptionInfo?.expiresAt)}</strong>
+            <strong>{date.getDateFormater(subscriptionInfo?.expiresAt)}</strong>
           </p>
           <p className="text-sm font-medium">
             <strong>Até lá, você ainda pode aproveitar</strong>
@@ -201,7 +201,7 @@ export const SubscriptionTab: React.FC<SubscriptionProps> = ({
           <div>
             <p className="font-bold">Última cobrança</p>
             <span className="font-semibold text-generic-dark">
-              {getDateFormater(subscriptionInfo?.cycledAt)}
+              {date.getDateFormater(subscriptionInfo?.cycledAt)}
             </span>
           </div>
           <div>
@@ -219,7 +219,7 @@ export const SubscriptionTab: React.FC<SubscriptionProps> = ({
           <div>
             <p className="font-bold">Próxima cobrança</p>
             <span className="font-semibold text-generic-dark">
-              {getDateFormater(subscriptionInfo?.expiresAt)}
+              {date.getDateFormater(subscriptionInfo?.expiresAt)}
             </span>
           </div>
           {subscriptionInfo?.suspended || hasSubscriptionSuspensed ? (

@@ -8,14 +8,14 @@ import {
   CompleteSupplierRegister,
   Modal,
 } from "@/components";
-import isDateBeforeToday from "@/utils/isDateBeforeToday";
+import date.isDateBeforeToday from "@/utils/date.isDateBeforeToday";
 import { useSession } from "next-auth/react";
 import useUserRoles from "@/hooks/useUserRoles";
 import { useCompleteSupplierRegister } from "@/components/mols/CompleteSupplierRegister/Context";
 import TrialEnded from "@/components/mols/TrialEnded";
 import {
-  getItemByLocalStorage,
-  setItemToLocalStorage,
+  localStorageHandler.getItemByLocalStorage,
+  localStorageHandler.setItemToLocalStorage,
 } from "@/utils/localStorageHelper";
 import isTrialEndedUser from "@/utils/isTrialEndedUser";
 
@@ -24,11 +24,11 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
   const { isUpdate } = useCompleteSupplierRegister();
   const [showModal, setShowModal] = useState(false);
   const isCommomUser = useUserRoles().isCommonUser();
-  const showTrialEndedCTA: boolean = getItemByLocalStorage("showTrialEndedCTA");
+  const showTrialEndedCTA: boolean = localStorageHandler.getItemByLocalStorage("showTrialEndedCTA");
 
   useEffect(() => {
     session &&
-      setShowModal(!isDateBeforeToday(session.user.subscriptionTrialEndDate));
+      setShowModal(!date.isDateBeforeToday(session.user.subscriptionTrialEndDate));
 
     if (!showTrialEndedCTA) {
       setShowModal(true);
@@ -37,7 +37,7 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
 
   const handleCloseModal = () => {
     setShowModal(false);
-    return setItemToLocalStorage("showTrialEndedCTA", true);
+    return localStorageHandler.setItemToLocalStorage("showTrialEndedCTA", true);
   };
 
   const handleModal = () => {
