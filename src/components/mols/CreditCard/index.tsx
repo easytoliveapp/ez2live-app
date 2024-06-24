@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import { getCardFlagImageByName } from "@/utils/getCardFlagImageByName";
+import payment from "@/utils/payment";
 
 interface CreditCardProps {
   lastNumbers: string;
@@ -28,7 +28,7 @@ const CreditCard: React.FC<CreditCardProps> = ({
       <div className="w-full flex justify-end">
         {
           <Image
-            src={getCardFlagImageByName(cardFlag)}
+            src={payment.getCardFlagImageByName(cardFlag)}
             alt="card-flag"
             width={18}
             height={14}

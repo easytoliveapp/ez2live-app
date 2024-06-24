@@ -8,7 +8,7 @@ import valid from "card-validator";
 import Image from "next/image";
 import CardFlag from "@/images/easytolive/payment/card-flag.svg";
 import { MONTHS } from "@/constants/months";
-import { isCreditCardExpirationValid } from "@/utils/creditCard";
+import payment from "@/utils/payment";
 import { ICreditCardPayment } from "@/types/payment";
 
 interface ICreditCardForm {
@@ -53,7 +53,7 @@ const CreditCardForm: React.FC<ICreditCardForm> = ({
         "is-expired",
         "Verifique a validade do cartão ou CVV",
         function (value) {
-          return isCreditCardExpirationValid({
+          return payment.isCreditCardExpirationValid({
             month: value,
             year: this.parent.cardYear,
           });
