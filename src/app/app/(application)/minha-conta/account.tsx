@@ -1,8 +1,6 @@
 import { ButtonBasic, FormItem } from "@/components";
 import useUserRoles from "@/hooks/useUserRoles";
-import { user.getAccountType } from "@/utils/user.getAccountType";
-import user.isPremium from "@/utils/user.isPremium";
-import user.isTrial from "@/utils/user.isTrial";
+import user from "@/utils/user";
 import { Session } from "next-auth";
 import { signOut } from "next-auth/react";
 import React from "react";
@@ -14,7 +12,7 @@ interface AccountProps {
 export const AccountTab: React.FC<AccountProps> = ({ session }) => {
   return (
     <div className="relative h-max flex flex-col mx-auto gap-4 w-full max-w-md">
-      {!useUserRoles().user.isCommon() && (
+      {!useUserRoles().isCommon() && (
         <div className=" bg-primary-main mb-4 rounded-2xl px-4 py-1 mx-auto text-white font-semibold">
           {session?.user.role}
         </div>

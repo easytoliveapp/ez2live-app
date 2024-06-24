@@ -21,7 +21,7 @@ import couponsService from "@/service/coupons.service";
 import Image from "next/image";
 import Easy2LiveLogo from "@/images/easytolive/logo/logotipo-semfundoazulroxo.svg";
 import { ISupplier } from "@/types/supplier";
-import date.getEndOfDayByDate from "@/utils/date.getEndOfDayByDate";
+import date from "@/utils/date";
 interface ICreateOrUpdateCoupon {
   setCouponModal: React.Dispatch<React.SetStateAction<boolean>>;
   isUpdatingCoupon?: boolean;

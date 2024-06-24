@@ -11,8 +11,7 @@ import Supplier from "@/service/supplier.service";
 import { ICategoryProps } from "@/types/supplier";
 import { showToastify } from "@/hooks/showToastify";
 import { MASKS } from "@/constants/masks";
-import { validate.cnpj } from "@/utils/validateCNPJ";
-import { validate.phoneNumber } from "@/utils/validate.phoneNumber";
+import validate from "@/utils/validate";
 
 export interface IStepOneProps {
   next: (e: any) => void;

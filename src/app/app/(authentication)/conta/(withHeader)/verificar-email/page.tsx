@@ -6,7 +6,7 @@ import Image from "next/image";
 import { ButtonPrimary, LoadingComponent } from "@/components";
 import CheckIcon from "@/images/easytolive/icons/checked-success.svg";
 import EmptyIcon from "@/images/easytolive/icons/empty-icon.svg";
-import { localStorageHandler.getItemByLocalStorage } from "@/utils/localStorageHelper";
+import localStorageHandler from "@/utils/localStorageHelper";
 
 const VerifyEmail = () => {
   const router = useRouter();
@@ -31,7 +31,8 @@ const VerifyEmail = () => {
     setIsEmailVerified(true);
   };
 
-  const callBackUrl = localStorageHandler.getItemByLocalStorage("callbackCouponUrl") ?? "";
+  const callBackUrl =
+    localStorageHandler.getItemByLocalStorage("callbackCouponUrl") ?? "";
 
   React.useEffect(() => {
     if (params) {

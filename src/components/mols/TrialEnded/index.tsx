@@ -2,7 +2,7 @@ import React, { Dispatch, SetStateAction } from "react";
 import Image from "next/image";
 import LogoEasy from "@/images/easytolive/logo/logotipo-semfundoazulroxo.svg";
 import { ButtonPrimary } from "@/components/atoms";
-import { localStorageHandler.setItemToLocalStorage } from "@/utils/localStorageHelper";
+import localStorageHandler from "@/utils/localStorageHelper";
 
 interface ITrialEndedProps {
   setShowModal: Dispatch<SetStateAction<boolean>>;

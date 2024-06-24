@@ -25,9 +25,8 @@ import { ISupplier } from "@/types/supplier";
 import getSubscriptionPageURL from "@/utils/getSubscriptionPageUrl";
 import userService from "@/service/users.service";
 import { SUBSCRIPTION_STATUS } from "@/constants/payment";
-import user.isPremium from "@/utils/user.isPremium";
-import user.isTrial from "@/utils/user.isTrial";
-import { localStorageHandler.setItemToLocalStorage } from "@/utils/localStorageHelper";
+import user from "@/utils/user";
+import localStorageHandler from "@/utils/localStorageHelper";
 interface CouponContainerProps {
   couponRules: string;
   couponTitle: string;

@@ -3,7 +3,7 @@ import Image, { StaticImageData } from "next/image";
 import CouponGreen from "@/images/easytolive/icons/coupongreen.svg";
 import ClockCircleRed from "@/images/easytolive/icons/clock_circleRed.svg";
 import { AccordionInfo } from "@/components";
-import { date.getDateFormater } from "@/utils/date.getDateFormater";
+import date from "@/utils/date";
 import { getColorByDiscountValue } from "@/utils/getColorByDiscountValue";
 import getExpirateTime from "@/utils/getExpirateTime";
 import cx from "classnames";

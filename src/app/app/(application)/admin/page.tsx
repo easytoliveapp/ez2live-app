@@ -21,7 +21,7 @@ import {
   ButtonThird,
   Modal,
 } from "@/components";
-import { date.getDateFormater } from "@/utils/date.getDateFormater";
+import date from "@/utils/date";
 import userService from "@/service/users.service";
 
 interface ISupplier {

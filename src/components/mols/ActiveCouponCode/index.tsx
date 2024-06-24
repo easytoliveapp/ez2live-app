@@ -16,7 +16,7 @@ import { showToastify } from "@/hooks/showToastify";
 import CouponsService from "@/service/coupons.service";
 import cx from "classnames";
 import { useRouter } from "next/navigation";
-import { date.getDateFormater } from "@/utils/date.getDateFormater";
+import date from "@/utils/date";
 
 export interface IActiveCouponCodeProps {
   code?: string;

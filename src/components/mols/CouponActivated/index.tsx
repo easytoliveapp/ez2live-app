@@ -3,7 +3,7 @@
 import React from "react";
 import Image, { StaticImageData } from "next/image";
 import { ButtonPrimary } from "@/components";
-import { date.getDateFormater } from "@/utils/date.getDateFormater";
+import date from "@/utils/date";
 import { getColorByDiscountValue } from "@/utils/getColorByDiscountValue";
 import whatsapp from "@/images/socials/whatsapp.svg";
 import QRCode from "react-qr-code";

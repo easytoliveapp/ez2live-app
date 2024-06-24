@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import CheckIcon from "@/images/easytolive/icons/checkIcon.svg";
-import { date.getDateFormater } from "@/utils/date.getDateFormater";
+import date from "@/utils/date";
 import { ButtonPrimary, ButtonThird, SimpleModal } from "@/components";
 import Image from "next/image";
 import { useSession } from "next-auth/react";

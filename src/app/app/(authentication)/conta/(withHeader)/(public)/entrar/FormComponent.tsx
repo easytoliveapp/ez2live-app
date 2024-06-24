@@ -10,7 +10,7 @@ import Link from "next/link";
 import { showToastify } from "@/hooks/showToastify";
 import { getSession, signIn } from "next-auth/react";
 import { Route } from "next";
-import { localStorageHandler.removeItemFromLocalStorage } from "@/utils/localStorageHelper";
+import localStorageHandler from "@/utils/localStorageHelper";
 
 const FormComponent = () => {
   const [loading, setLoading] = useState(false);

@@ -6,8 +6,7 @@ import { AvatarDropdown, UserSubscriptionBadge } from "@/components";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { ROLES } from "@/constants/roles";
-import user.isTrial from "@/utils/user.isTrial";
-import user.isPremium from "@/utils/user.isPremium";
+import user from "@/utils/user";
 
 interface NavBarLoggedProps {
   hasLogoImage?: boolean;

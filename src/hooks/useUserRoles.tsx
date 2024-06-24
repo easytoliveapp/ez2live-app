@@ -7,7 +7,7 @@ const useUserRoles = () => {
 
   return {
     isSupplier: () => loggedUserRole === ROLES.supplier,
-    user.isCommon: () => loggedUserRole === ROLES.commonUser,
+    isCommon: () => loggedUserRole === ROLES.commonUser,
     isAdmin: () => loggedUserRole === ROLES.admin,
   };
 };

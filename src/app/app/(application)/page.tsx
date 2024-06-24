@@ -76,7 +76,7 @@ function PageHome() {
     return couponsLength;
   };
   //------------ get coupon codes by ser ------------------
-  const user.isCommon = useUserRoles().user.isCommon();
+  const isCommonUser = useUserRoles().isCommon();
   const [hasCouponActived, setHasCouponActived] = useState(false);
   const handleGetCouponCodesByUser = async () => {
     const res: any = await couponsService.getCouponCodesByUser();
@@ -84,7 +84,7 @@ function PageHome() {
   };
 
   useEffect(() => {
-    if (user.isCommon)
+    if (isCommonUser)
       handleGetCouponCodesByUser()
         .then((res) =>
           setHasCouponActived(
@@ -96,7 +96,7 @@ function PageHome() {
         .catch((error) =>
           showToastify({ type: "error", label: `Ocorreu um erro: ${error}` }),
         );
-  }, [user.isCommon]);
+  }, [isCommonUser]);
 
   // ----------------------------------------------
   // restore scroll position

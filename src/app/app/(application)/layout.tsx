@@ -8,27 +8,27 @@ import {
   CompleteSupplierRegister,
   Modal,
 } from "@/components";
-import date.isDateBeforeToday from "@/utils/date.isDateBeforeToday";
+import date from "@/utils/date";
 import { useSession } from "next-auth/react";
 import useUserRoles from "@/hooks/useUserRoles";
 import { useCompleteSupplierRegister } from "@/components/mols/CompleteSupplierRegister/Context";
 import TrialEnded from "@/components/mols/TrialEnded";
-import {
-  localStorageHandler.getItemByLocalStorage,
-  localStorageHandler.setItemToLocalStorage,
-} from "@/utils/localStorageHelper";
-import user.isTrialEnded from "@/utils/user.isTrialEnded";
+import localStorageHandler from "@/utils/localStorageHelper";
+import user from "@/utils/user";
 
 const AppLayout = ({ children }: { children: React.ReactNode }) => {
   const { data: session } = useSession();
   const { isUpdate } = useCompleteSupplierRegister();
   const [showModal, setShowModal] = useState(false);
-  const isCommomUser = useUserRoles().user.isCommon();
-  const showTrialEndedCTA: boolean = localStorageHandler.getItemByLocalStorage("showTrialEndedCTA");
+  const isCommomUser = useUserRoles().isCommon();
+  const showTrialEndedCTA: boolean =
+    localStorageHandler.getItemByLocalStorage("showTrialEndedCTA");
 
   useEffect(() => {
     session &&
-      setShowModal(!date.isDateBeforeToday(session.user.subscriptionTrialEndDate));
+      setShowModal(
+        !date.isDateBeforeToday(session.user.subscriptionTrialEndDate),
+      );
 
     if (!showTrialEndedCTA) {
       setShowModal(true);

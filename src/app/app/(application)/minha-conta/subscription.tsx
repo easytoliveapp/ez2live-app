@@ -14,7 +14,7 @@ import userService from "@/service/users.service";
 import { showToastify } from "@/hooks/showToastify";
 import { useSession } from "next-auth/react";
 import { Session } from "next-auth";
-import { date.getDateFormater } from "@/utils/date.getDateFormater";
+import date from "@/utils/date";
 import {
   IGetPaymentMethodResponse,
   IGetSubscriptionResponse,

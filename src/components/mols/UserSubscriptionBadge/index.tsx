@@ -1,5 +1,5 @@
 import React from "react";
-import { user.getAccountType } from "@/utils/user.getAccountType";
+import user from "@/utils/user";
 
 interface IUserSubscriptionBadgeProps {
   hasPremium: boolean;
