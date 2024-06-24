@@ -1,5 +1,5 @@
 import React from "react";
-import { getAccountType } from "@/utils/getAccountType";
+import { user.getAccountType } from "@/utils/user.getAccountType";
 
 interface IUserSubscriptionBadgeProps {
   hasPremium: boolean;
@@ -16,7 +16,7 @@ const UserSubscriptionBadge: React.FC<IUserSubscriptionBadgeProps> = ({
         hasPremium ? "bg-primary-main" : "bg-generic-grayDarker"
       }`}
     >
-      {getAccountType(hasPremium, hasTrial)}
+      {user.getAccountType(hasPremium, hasTrial)}
     </div>
   );
 };

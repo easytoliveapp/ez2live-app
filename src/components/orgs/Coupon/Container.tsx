@@ -25,8 +25,8 @@ import { ISupplier } from "@/types/supplier";
 import getSubscriptionPageURL from "@/utils/getSubscriptionPageUrl";
 import userService from "@/service/users.service";
 import { SUBSCRIPTION_STATUS } from "@/constants/payment";
-import isPremiumUser from "@/utils/isPremiumUser";
-import isTrialUser from "@/utils/isTrialUser";
+import user.isPremium from "@/utils/user.isPremium";
+import user.isTrial from "@/utils/user.isTrial";
 import { localStorageHandler.setItemToLocalStorage } from "@/utils/localStorageHelper";
 interface CouponContainerProps {
   couponRules: string;
@@ -130,7 +130,7 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
 
   useEffect(() => {
     if (couponId === couponIdParam) {
-      if (isPremiumUser(session) || isTrialUser(session)) {
+      if (user.isPremium(session) || user.isTrial(session)) {
         setShowCouponModal(true);
         setLoading(true);
         setTimeout(

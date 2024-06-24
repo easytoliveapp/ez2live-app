@@ -153,7 +153,7 @@ const MyAccountPage = () => {
               >
                 Segurança
               </div>
-              {useUserRoles().isCommonUser() && (
+              {useUserRoles().user.isCommon() && (
                 <div
                   className={classNames(
                     "font-bold cursor-pointer text-black",

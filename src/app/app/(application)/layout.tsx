@@ -17,13 +17,13 @@ import {
   localStorageHandler.getItemByLocalStorage,
   localStorageHandler.setItemToLocalStorage,
 } from "@/utils/localStorageHelper";
-import isTrialEndedUser from "@/utils/isTrialEndedUser";
+import user.isTrialEnded from "@/utils/user.isTrialEnded";
 
 const AppLayout = ({ children }: { children: React.ReactNode }) => {
   const { data: session } = useSession();
   const { isUpdate } = useCompleteSupplierRegister();
   const [showModal, setShowModal] = useState(false);
-  const isCommomUser = useUserRoles().isCommonUser();
+  const isCommomUser = useUserRoles().user.isCommon();
   const showTrialEndedCTA: boolean = localStorageHandler.getItemByLocalStorage("showTrialEndedCTA");
 
   useEffect(() => {
@@ -66,7 +66,7 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
             />
           </Modal>
         )}
-      {isTrialEndedUser(session) && !showTrialEndedCTA && (
+      {user.isTrialEnded(session) && !showTrialEndedCTA && (
         <Modal
           onCloseModal={() => handleCloseModal()}
           closeOnBlur={true}

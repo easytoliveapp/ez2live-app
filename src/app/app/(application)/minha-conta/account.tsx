@@ -1,8 +1,8 @@
 import { ButtonBasic, FormItem } from "@/components";
 import useUserRoles from "@/hooks/useUserRoles";
-import { getAccountType } from "@/utils/getAccountType";
-import isPremiumUser from "@/utils/isPremiumUser";
-import isTrialUser from "@/utils/isTrialUser";
+import { user.getAccountType } from "@/utils/user.getAccountType";
+import user.isPremium from "@/utils/user.isPremium";
+import user.isTrial from "@/utils/user.isTrial";
 import { Session } from "next-auth";
 import { signOut } from "next-auth/react";
 import React from "react";
@@ -14,7 +14,7 @@ interface AccountProps {
 export const AccountTab: React.FC<AccountProps> = ({ session }) => {
   return (
     <div className="relative h-max flex flex-col mx-auto gap-4 w-full max-w-md">
-      {!useUserRoles().isCommonUser() && (
+      {!useUserRoles().user.isCommon() && (
         <div className=" bg-primary-main mb-4 rounded-2xl px-4 py-1 mx-auto text-white font-semibold">
           {session?.user.role}
         </div>
@@ -32,7 +32,7 @@ export const AccountTab: React.FC<AccountProps> = ({ session }) => {
       </FormItem>
       <FormItem label="Premium">
         <div className="ml-2 text-lg font-medium text-neutral-600">
-          {getAccountType(isPremiumUser(session), isTrialUser(session))}
+          {user.getAccountType(user.isPremium(session), user.isTrial(session))}
         </div>
       </FormItem>
 

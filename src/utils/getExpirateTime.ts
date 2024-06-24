@@ -1,5 +1,4 @@
-import date.getDateDiffInDays from "@/utils/getDiffInDays";
-import date.getDateDiffInHours from "@/utils/getDiffInHours";
+import date from "@/utils/date";
 
 const formatExpirationString = (value: number, unit: string) => {
   const absValue = Math.abs(value);
