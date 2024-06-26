@@ -37,8 +37,8 @@ export const PaymentStep: React.FC<IPaymentStepProps> = ({
           invoiceId: res.data.id,
           ...(res.data.payableWith === PAYMENT.pix && {
             qrCodeValue: {
-              image: res.data.subscriptionResponse.pix.qrCode,
-              text: res.data.subscriptionResponse.pix.qrCodeText,
+              image: res.data.pix.qrcode,
+              text: res.data.pix.qrcodeText,
             },
           }),
         });
