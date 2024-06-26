@@ -31,10 +31,16 @@ export const PaymentStep: React.FC<IPaymentStepProps> = ({
   const getLastInvoiceInfo = async () => {
     subscriptionService.getLastInvoice().then((res: any) => {
       if (res.data.status === INVOICE_STATUS.PENDING) {
-        setPaymentTab(res.data.paymentMethod);
+        setPaymentTab(res.data.payableWith);
         setCurrentStep(1);
         setPaymentResponseData({
           invoiceId: res.data.id,
+          ...(res.data.payableWith === PAYMENT.pix && {
+            qrCodeValue: {
+              image: res.data.subscriptionResponse.pix.qrCode,
+              text: res.data.subscriptionResponse.pix.qrCodeText,
+            },
+          }),
         });
       }
     });
