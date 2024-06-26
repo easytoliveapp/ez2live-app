@@ -59,6 +59,8 @@ export const PaymentStep: React.FC<IPaymentStepProps> = ({
   return (
     <div>
       {loading ? (
+        <LoadingComponent fullSize={true} size="medium" />
+      ) : (
         <div>
           <OneStepToPayment />
           <SimpleModal className="!p-0">
@@ -79,8 +81,6 @@ export const PaymentStep: React.FC<IPaymentStepProps> = ({
             )}
           </SimpleModal>
         </div>
-      ) : (
-        <LoadingComponent fullSize={true} size="medium" />
       )}
     </div>
   );
