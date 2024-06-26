@@ -66,6 +66,13 @@ const deletePaymentMethod = async () => {
   });
 };
 
+const getLastInvoice = async () => {
+  return await BaseService.fetchData({
+    url: "/subscription/customer/last-invoice",
+    method: "get",
+  });
+};
+
 const subscriptionService = {
   getSubscriptionInfo,
   suspendSubscription,
@@ -76,6 +83,7 @@ const subscriptionService = {
   getPaymentMethod,
   createPaymentMethod,
   deletePaymentMethod,
+  getLastInvoice,
 };
 
 export default subscriptionService;
