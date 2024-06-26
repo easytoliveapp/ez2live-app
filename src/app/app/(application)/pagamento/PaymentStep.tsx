@@ -29,7 +29,7 @@ export const PaymentStep: React.FC<IPaymentStepProps> = ({
   setPaymentTab,
   setPaymentResponseData,
 }) => {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const getLastInvoiceInfo = async () => {
     subscriptionService
@@ -53,7 +53,6 @@ export const PaymentStep: React.FC<IPaymentStepProps> = ({
   };
 
   useEffect(() => {
-    setLoading(true);
     getLastInvoiceInfo();
   }, []);
 
