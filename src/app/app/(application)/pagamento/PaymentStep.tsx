@@ -6,12 +6,13 @@ import {
   PixPayment,
   SimpleModal,
   PaymentMethod,
+  LoadingComponent,
 } from "@/components";
 import { INVOICE_STATUS } from "@/constants/payment";
 import { PAYMENT } from "@/constants/paymentMethods";
 import subscriptionService from "@/service/subscription.service";
 import { IPaymentResponseData } from "@/types/payment";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 interface IPaymentStepProps {
   setCurrentStep: React.Dispatch<React.SetStateAction<number>>;
@@ -28,22 +29,28 @@ export const PaymentStep: React.FC<IPaymentStepProps> = ({
   setPaymentTab,
   setPaymentResponseData,
 }) => {
+  const [loading, setLoading] = useState(false);
+
   const getLastInvoiceInfo = async () => {
-    subscriptionService.getLastInvoice().then((res: any) => {
-      if (res.data.status === INVOICE_STATUS.PENDING) {
-        setPaymentTab(res.data.payableWith);
-        setCurrentStep(1);
-        setPaymentResponseData({
-          invoiceId: res.data.id,
-          ...(res.data.payableWith === PAYMENT.pix && {
-            qrCodeValue: {
-              image: res.data.pix.qrcode,
-              text: res.data.pix.qrcodeText,
-            },
-          }),
-        });
-      }
-    });
+    setLoading(true);
+    subscriptionService
+      .getLastInvoice()
+      .then((res: any) => {
+        if (res.data.status === INVOICE_STATUS.PENDING) {
+          setPaymentTab(res.data.payableWith);
+          setCurrentStep(1);
+          setPaymentResponseData({
+            invoiceId: res.data.id,
+            ...(res.data.payableWith === PAYMENT.pix && {
+              qrCodeValue: {
+                image: res.data.pix.qrcode,
+                text: res.data.pix.qrcodeText,
+              },
+            }),
+          });
+        }
+      })
+      .finally(() => setLoading(false));
   };
 
   useEffect(() => {
@@ -52,21 +59,30 @@ export const PaymentStep: React.FC<IPaymentStepProps> = ({
 
   return (
     <div>
-      <OneStepToPayment />
-      <SimpleModal className="!p-0">
-        <PaymentMethod paymentTab={paymentTab} SetPaymentTab={setPaymentTab} />
-        {paymentTab === PAYMENT.creditCard ? (
-          <CreditCardPayment
-            currentStepPayment={setCurrentStep}
-            setPaymentResponseData={setPaymentResponseData}
-          />
-        ) : (
-          <PixPayment
-            currentStepPayment={setCurrentStep}
-            setPaymentResponseData={setPaymentResponseData}
-          />
-        )}
-      </SimpleModal>
+      {loading ? (
+        <div>
+          <OneStepToPayment />
+          <SimpleModal className="!p-0">
+            <PaymentMethod
+              paymentTab={paymentTab}
+              SetPaymentTab={setPaymentTab}
+            />
+            {paymentTab === PAYMENT.creditCard ? (
+              <CreditCardPayment
+                currentStepPayment={setCurrentStep}
+                setPaymentResponseData={setPaymentResponseData}
+              />
+            ) : (
+              <PixPayment
+                currentStepPayment={setCurrentStep}
+                setPaymentResponseData={setPaymentResponseData}
+              />
+            )}
+          </SimpleModal>
+        </div>
+      ) : (
+        <LoadingComponent fullSize={true} size="medium" />
+      )}
     </div>
   );
 };
