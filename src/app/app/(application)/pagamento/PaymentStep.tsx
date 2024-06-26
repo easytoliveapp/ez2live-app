@@ -37,7 +37,6 @@ export const PaymentStep: React.FC<IPaymentStepProps> = ({
       .then((res: any) => {
         if (res.data.status === INVOICE_STATUS.PENDING) {
           setPaymentTab(res.data.payableWith);
-          setCurrentStep(1);
           setPaymentResponseData({
             invoiceId: res.data.id,
             ...(res.data.payableWith === PAYMENT.pix && {
@@ -47,6 +46,7 @@ export const PaymentStep: React.FC<IPaymentStepProps> = ({
               },
             }),
           });
+          setCurrentStep(1);
         }
       })
       .finally(() => setLoading(false));
