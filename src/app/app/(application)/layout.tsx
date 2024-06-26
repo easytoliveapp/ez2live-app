@@ -8,27 +8,27 @@ import {
   CompleteSupplierRegister,
   Modal,
 } from "@/components";
-import isDateBeforeToday from "@/utils/isDateBeforeToday";
+import date from "@/utils/date";
 import { useSession } from "next-auth/react";
 import useUserRoles from "@/hooks/useUserRoles";
 import { useCompleteSupplierRegister } from "@/components/mols/CompleteSupplierRegister/Context";
 import TrialEnded from "@/components/mols/TrialEnded";
-import {
-  getItemByLocalStorage,
-  setItemToLocalStorage,
-} from "@/utils/localStorageHelper";
-import isTrialEndedUser from "@/utils/isTrialEndedUser";
+import localStorageHandler from "@/utils/localStorageHelper";
+import user from "@/utils/user";
 
 const AppLayout = ({ children }: { children: React.ReactNode }) => {
   const { data: session } = useSession();
   const { isUpdate } = useCompleteSupplierRegister();
   const [showModal, setShowModal] = useState(false);
-  const isCommomUser = useUserRoles().isCommonUser();
-  const showTrialEndedCTA: boolean = getItemByLocalStorage("showTrialEndedCTA");
+  const isCommomUser = useUserRoles().isCommon();
+  const showTrialEndedCTA: boolean =
+    localStorageHandler.getItemByLocalStorage("showTrialEndedCTA");
 
   useEffect(() => {
     session &&
-      setShowModal(!isDateBeforeToday(session.user.subscriptionTrialEndDate));
+      setShowModal(
+        !date.isDateBeforeToday(session.user.subscriptionTrialEndDate),
+      );
 
     if (!showTrialEndedCTA) {
       setShowModal(true);
@@ -37,7 +37,7 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
 
   const handleCloseModal = () => {
     setShowModal(false);
-    return setItemToLocalStorage("showTrialEndedCTA", true);
+    return localStorageHandler.setItemToLocalStorage("showTrialEndedCTA", true);
   };
 
   const handleModal = () => {
@@ -66,7 +66,7 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
             />
           </Modal>
         )}
-      {isTrialEndedUser(session) && !showTrialEndedCTA && (
+      {user.isTrialEnded(session) && !showTrialEndedCTA && (
         <Modal
           onCloseModal={() => handleCloseModal()}
           closeOnBlur={true}

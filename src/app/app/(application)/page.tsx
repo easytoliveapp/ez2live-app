@@ -76,7 +76,7 @@ function PageHome() {
     return couponsLength;
   };
   //------------ get coupon codes by ser ------------------
-  const isCommonUser = useUserRoles().isCommonUser();
+  const isCommonUser = useUserRoles().isCommon();
   const [hasCouponActived, setHasCouponActived] = useState(false);
   const handleGetCouponCodesByUser = async () => {
     const res: any = await couponsService.getCouponCodesByUser();

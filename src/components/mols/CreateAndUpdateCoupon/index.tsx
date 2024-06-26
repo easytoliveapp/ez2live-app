@@ -21,7 +21,7 @@ import couponsService from "@/service/coupons.service";
 import Image from "next/image";
 import Easy2LiveLogo from "@/images/easytolive/logo/logotipo-semfundoazulroxo.svg";
 import { ISupplier } from "@/types/supplier";
-import getEndOfDayByDate from "@/utils/getEndOfDayByDate";
+import date from "@/utils/date";
 interface ICreateOrUpdateCoupon {
   setCouponModal: React.Dispatch<React.SetStateAction<boolean>>;
   isUpdatingCoupon?: boolean;
@@ -174,10 +174,10 @@ const CreateOrUpdateCoupon: React.FC<ICreateOrUpdateCoupon> = ({
       discount: String(values.discount),
       maxPerUser: 1,
       maxTotal: couponsUnlimited ? -1 : Number(values.maxTotal),
-      expirationGenerationDate: getEndOfDayByDate(
+      expirationGenerationDate: date.getEndOfDayByDate(
         values.expirationGenerationDate,
       ),
-      expirationUseDate: getEndOfDayByDate(values.expirationUseDate),
+      expirationUseDate: date.getEndOfDayByDate(values.expirationUseDate),
     };
     const updateData = {
       ...(coupon?.title !== values.title && { title: values.title }),

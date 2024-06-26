@@ -21,7 +21,7 @@ import {
   ButtonThird,
   Modal,
 } from "@/components";
-import { getDateFormater } from "@/utils/getDateFormater";
+import date from "@/utils/date";
 import userService from "@/service/users.service";
 
 interface ISupplier {
@@ -199,7 +199,7 @@ const AdminPage = () => {
             <p className="font-semibold">whatsapp da loja</p>
             <p className="">{whatsappPhoneNumber ?? "-"}</p>
             <p className="font-semibold">conta criada em:</p>
-            <p>{getDateFormater(createdAt)}</p>
+            <p>{date.getDateFormater(createdAt)}</p>
             <p className="font-semibold">status do parceiro:</p>
             <p>{isVerified ? "Verificado" : "Não verificado"}</p>
           </div>

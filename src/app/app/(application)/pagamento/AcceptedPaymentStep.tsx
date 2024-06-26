@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import CheckIcon from "@/images/easytolive/icons/checkIcon.svg";
-import { getDateFormater } from "@/utils/getDateFormater";
+import date from "@/utils/date";
 import { ButtonPrimary, ButtonThird, SimpleModal } from "@/components";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
@@ -76,7 +76,7 @@ export const AcceptedPaymentStep = () => {
         <div>
           <p>Próxima cobrança</p>
           <p>
-            <strong>{getDateFormater(expiredSubscriptionData)}</strong>
+            <strong>{date.getDateFormater(expiredSubscriptionData)}</strong>
           </p>
         </div>
       </SimpleModal>

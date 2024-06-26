@@ -25,9 +25,8 @@ import { ISupplier } from "@/types/supplier";
 import getSubscriptionPageURL from "@/utils/getSubscriptionPageUrl";
 import userService from "@/service/users.service";
 import { SUBSCRIPTION_STATUS } from "@/constants/payment";
-import isPremiumUser from "@/utils/isPremiumUser";
-import isTrialUser from "@/utils/isTrialUser";
-import { setItemToLocalStorage } from "@/utils/localStorageHelper";
+import user from "@/utils/user";
+import localStorageHandler from "@/utils/localStorageHelper";
 interface CouponContainerProps {
   couponRules: string;
   couponTitle: string;
@@ -130,7 +129,7 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
 
   useEffect(() => {
     if (couponId === couponIdParam) {
-      if (isPremiumUser(session) || isTrialUser(session)) {
+      if (user.isPremium(session) || user.isTrial(session)) {
         setShowCouponModal(true);
         setLoading(true);
         setTimeout(
@@ -330,7 +329,7 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
         )
         .finally(() => setLoading(false));
     } else {
-      setItemToLocalStorage(
+      localStorageHandler.setItemToLocalStorage(
         "callbackCouponUrl",
         `/app/parceiro/${supplierId}/?coupon=${couponId}`,
       );

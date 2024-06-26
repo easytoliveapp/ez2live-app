@@ -11,8 +11,7 @@ import Supplier from "@/service/supplier.service";
 import { ICategoryProps } from "@/types/supplier";
 import { showToastify } from "@/hooks/showToastify";
 import { MASKS } from "@/constants/masks";
-import { validateCnpj } from "@/utils/validateCNPJ";
-import { validatePhoneNumber } from "@/utils/validatePhoneNumber";
+import validate from "@/utils/validate";
 
 export interface IStepOneProps {
   next: (e: any) => void;
@@ -77,7 +76,7 @@ const FormComponent = () => {
       .required("Campo nome é obrigatório"),
     document: Yup.string()
       .required("Campo obrigatório")
-      .test("cnpj", "CNPJ Inválido", (value) => validateCnpj(value)),
+      .test("cnpj", "CNPJ Inválido", (value) => validate.cnpj(value)),
     supplierInfo: Yup.object().shape({
       supplierCategory: Yup.string()
         .nonNullable()
@@ -86,13 +85,13 @@ const FormComponent = () => {
     phoneNumber: Yup.string()
       .required("Insira um número de telefone para contato")
       .test("phone", "Telefone inválido", (value) =>
-        validatePhoneNumber(value),
+        validate.phoneNumber(value),
       ),
 
     whatsappPhoneNumber: Yup.string()
       .required("Insira um número de telefone para contato")
       .test("phone", "Telefone inválido", (value) =>
-        validatePhoneNumber(value),
+        validate.phoneNumber(value),
       ),
 
     email: Yup.string().email("Email inválido").required("Email obrigatório"),

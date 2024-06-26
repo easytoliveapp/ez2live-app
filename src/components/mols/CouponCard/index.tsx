@@ -12,7 +12,7 @@ import getExpirateTime from "@/utils/getExpirateTime";
 import { getColorByDiscountValue } from "@/utils/getColorByDiscountValue";
 
 import cx from "classnames";
-import { getDateFormater } from "@/utils/getDateFormater";
+import date from "@/utils/date";
 import { getCouponsRemaining } from "@/utils/getCouponsRemaining";
 
 interface ICouponCardProps {
@@ -86,7 +86,7 @@ const CouponCard: React.FC<ICouponCardProps> = ({
                       alt="coupon-black"
                       src={CouponGreen}
                     />
-                    utilizado em {getDateFormater(activationDate)}
+                    utilizado em {date.getDateFormater(activationDate)}
                   </p>
                 )}
                 {expirationUseDate && (
