@@ -12,7 +12,7 @@ const PageLogin = () => {
   const callbackUrl = params.get("callbackUrl");
   const errorMessage = params.get("error");
   useEffect(() => {
-    if (errorMessage === "AccessDenied") {
+    if (!!errorMessage) {
       showToastify({
         type: "error",
         label: `Ops! Parece que não foi possível concluir o seu login.
