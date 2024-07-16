@@ -16,6 +16,7 @@ import { useSearchParams } from "next/navigation";
 import { SUBSCRIPTION_STATUS } from "@/constants/payment";
 import isDateBeforeToday from "@/utils/isDateBeforeToday";
 import useUserRoles from "@/hooks/useUserRoles";
+import userService from "@/service/users.service";
 
 const MyAccountPage = () => {
   const { data: session, update } = useSession();
@@ -54,6 +55,16 @@ const MyAccountPage = () => {
     });
   };
 
+  const getUserInfoAndUpdate = async () => {
+    if (session)
+      await userService.getUser(session.user.id).then((res) => {
+        update({
+          ...session,
+          user: res.data,
+        });
+      });
+  };
+
   const getSubscriptionInfo = async () => {
     await subscriptionService
       .getSubscriptionInfo()
@@ -61,11 +72,15 @@ const MyAccountPage = () => {
         setSubscriptionInfo(res.data);
         updateSession(res.data);
       })
-      .catch(() => {
-        showToastify({
-          label: "Ocorreu um erro ao carregar dados da assinatura",
-          type: "error",
-        });
+      .catch((res) => {
+        if (res.response.status === 500) {
+          getUserInfoAndUpdate();
+        } else {
+          showToastify({
+            label: "Ocorreu um erro ao carregar dados da assinatura",
+            type: "error",
+          });
+        }
       });
   };
 
