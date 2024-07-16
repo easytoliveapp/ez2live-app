@@ -13,8 +13,6 @@ import {
 import subscriptionService from "@/service/subscription.service";
 import { showToastify } from "@/hooks/showToastify";
 import { useSearchParams } from "next/navigation";
-import { SUBSCRIPTION_STATUS } from "@/constants/payment";
-import isDateBeforeToday from "@/utils/isDateBeforeToday";
 import useUserRoles from "@/hooks/useUserRoles";
 import userService from "@/service/users.service";
 
@@ -31,57 +29,24 @@ const MyAccountPage = () => {
     useState<IGetPaymentMethodResponse>();
 
   const hasIuguCostumerId = session?.user.iuguCustomerId;
-  const isTrial = isDateBeforeToday(session?.user.subscriptionTrialEndDate);
-
-  const updateSession = async (data: any) => {
-    const { id, customerId, active } = data;
-    let subscriptionStatus;
-    if (active) {
-      subscriptionStatus = SUBSCRIPTION_STATUS.PREMIUM;
-    } else if (isTrial) {
-      subscriptionStatus = SUBSCRIPTION_STATUS.TRIAL;
-    } else {
-      subscriptionStatus = SUBSCRIPTION_STATUS.COMMON;
-    }
-
-    await update({
-      ...session,
-      user: {
-        ...session?.user,
-        iuguCustomerId: customerId,
-        iuguSubscriptionId: id,
-        subscriptionStatus,
-      },
-    });
-  };
 
   const getUserInfoAndUpdate = async () => {
     if (session)
-      await userService.getUser(session.user.id).then((res) => {
-        update({
-          ...session,
-          user: res.data,
-        });
-      });
-  };
-
-  const getSubscriptionInfo = async () => {
-    await subscriptionService
-      .getSubscriptionInfo()
-      .then((res: any) => {
-        setSubscriptionInfo(res.data);
-        updateSession(res.data);
-      })
-      .catch((res) => {
-        if (res.response.status === 500) {
-          getUserInfoAndUpdate();
-        } else {
+      await userService
+        .getUserFull(session.user.id)
+        .then((res: any) => {
+          update({
+            ...session,
+            user: res.data.user,
+          });
+          setSubscriptionInfo(res.data.subscription);
+        })
+        .catch(() => {
           showToastify({
             label: "Ocorreu um erro ao carregar dados da assinatura",
             type: "error",
           });
-        }
-      });
+        });
   };
 
   const getPaymentMethodInfo = async () => {
@@ -93,9 +58,6 @@ const MyAccountPage = () => {
   const hasPaymentMethod = () => {
     return session?.user.iuguPaymentMethodId;
   };
-  const hasSubscription = () => {
-    return session?.user.iuguSubscriptionId;
-  };
 
   const handlePaymentMethodInfo = (
     paymentMethod: IGetPaymentMethodResponse,
@@ -105,7 +67,7 @@ const MyAccountPage = () => {
 
   useEffect(() => {
     if (section === "assinatura") setPageId("SUBSCRIPTION");
-    !subscriptionInfo && hasSubscription() && getSubscriptionInfo();
+    getUserInfoAndUpdate();
     !paymentMethodInfo && hasPaymentMethod() && getPaymentMethodInfo();
   }, []);
 
