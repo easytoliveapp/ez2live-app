@@ -78,7 +78,8 @@ const CreditCardPayment: React.FC<ICreditCardPaymentProps> = ({
       year: values.cardYear,
     };
     setLoading(true);
-    Iugu.setTestMode(process.env.NEXT_PUBLIC_TEST_MODE);
+    const testMode = !!Number(process.env.NEXT_PUBLIC_TEST_MODE);
+    Iugu.setTestMode(testMode);
     const iuguJsToken = await Iugu.createPaymentToken(iuguData);
     await subscriptionService
       .createSubscriptionCreditCard(iuguJsToken.id)
