@@ -75,6 +75,10 @@ module.exports = {
           tomatoRed: customColors("--generic-tomato-red"),
           dark2: customColors("--generic-dark2"),
         },
+        main: {
+          gray: "#383839",
+          purple: "#4D1ABF",
+        },
       },
     },
   },

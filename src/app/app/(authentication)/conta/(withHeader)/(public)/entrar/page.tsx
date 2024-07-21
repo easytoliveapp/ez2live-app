@@ -22,61 +22,74 @@ const PageLogin = () => {
   });
 
   return (
-    <div className={`nc-PageLogin`} data-nc-id="PageLogin">
-      <div className="container mb-8 lg:mb-32">
-        <div className="mt-8 mb-16 flex items-center justify-between">
-          <h2 className=" pl-6 flex items-center text-2xl leading-[115%] md:text-5xl md:leading-[115%] font-bold text-black dark:text-neutral-100 justify-center">
-            Entrar
-          </h2>
-          <div>
-            <div className="relative rounded-full w-40 h-16 bg-gradient-to-r from-secondary-main to-secondary-ligther">
-              <div className="absolute top-8 right-0 rounded-full w-16 h-16 bg-gradient-to-r from-secondary-main to-secondary-ligther"></div>
-            </div>
-          </div>
-        </div>
-        <div className="max-w-md mx-auto space-y-6">
-          {/* FORM */}
-          <FormComponent />
-          <span className="block text-center text-sm text-black font-semibold dark:text-neutral-300">
-            Não tem uma conta?{" "}
-            <Link
-              className="text-primary-main font-semibold cursor-pointer"
-              href={
-                callbackUrl
-                  ? `/app/conta/cadastrar/usuario?callbackUrl=${encodeURIComponent(
-                      callbackUrl,
-                    )}`
-                  : "/app/conta/cadastrar/usuario"
-              }
-            >
-              Registrar com e-mail/senha
-            </Link>
-          </span>
-          {/* OR */}
-          <div className="relative text-center">
-            <span className="relative z-10 justify-center flex font-semibold text-sm items-center w-full dark:text-neutral-400 dark:bg-neutral-900">
-              <div className="bg-white h-0.5 w-full mr-4"></div>
-              <p className="w-4 ">OU</p>
-              <div className="bg-white h-0.5 w-full ml-4"></div>
-            </span>
-          </div>
-          {/* SOCIAL */}
-          <SocialLoginComponent />
-          {/* ==== */}
+    <section className="bg-red-100 w-screen items-center justify-center h-screen flex">
+      <main className="bg-white w-[34rem] p-8 rounded-2xl">
+        <div className="flex flex-col items-center justify-center">
+          <div className="w-[6rem] h-[7rem] bg-red-200 rounded-full"></div>
 
-          <span className=" block pt-6 text-center text-sm font-medium text-black dark:text-neutral-300">
-            <div className="bg-white h-0.5 w-auto m-auto mb-4"></div>
-            <p> Tem um estabelecimento e quer se juntar a nós? </p>
-            <Link
-              className="text-primary-main text-sm font-semibold"
-              href="/app/conta/cadastrar/parceiro"
-            >
-              Cadastre-se!
-            </Link>
+          <span>
+            <h1 className="text-4xl">Um estilo de vida </h1>
+            <h1 className="text-4xl">
+              <strong>saudável e fácil</strong>
+            </h1>
           </span>
+
+          <form className="mt-8 flex flex-col gap-4">
+            <div className="flex flex-col">
+              <label className="ml-6 mb-2 text-lg" htmlFor="email">
+                Email:
+              </label>
+              <input
+                className="border-[2px] rounded-[20px] p-3"
+                type="email"
+                id="email"
+                name="email"
+                placeholder="Digite seu email"
+              />
+            </div>
+            <div className="flex flex-col">
+              <label className="ml-6 mb-2 text-lg" htmlFor="password">
+                Senha:
+              </label>
+              <input
+                className="border-[2px] rounded-[20px] p-3"
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Digite sua senha"
+              />
+            </div>
+
+            <p className="font-bold text-lg underline">Esqueceu sua senha?</p>
+
+            <button className="text-xl font-bold text-white bg-main-purple p-3 rounded-[20px]">
+              ENTRAR
+            </button>
+
+            <span className="w-full flex items-center justify-center">
+              <p className="text-xl font-semibold">OU</p>
+            </span>
+
+            <div
+              id="social-wrapper"
+              className="bg-white w-full h-[4rem] flex rounded-full hover:cursor-pointer hover:-translate-y-2 hover:shadow-xl transition-all"
+            >
+              <div
+                id="icon-wrapper"
+                className="bg-red-100 w-[4rem] h-[4rem] rounded-full"
+              ></div>
+
+              <div
+                id="cta"
+                className="flex-1 h-full items-center justify-center flex"
+              >
+                <p className="text-lg">Continuar com o Google</p>
+              </div>
+            </div>
+          </form>
         </div>
-      </div>
-    </div>
+      </main>
+    </section>
   );
 };
 

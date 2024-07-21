@@ -27,46 +27,69 @@ const FastLoginPage = () => {
   };
 
   return (
-    <div className="m-auto relative h-full">
-      <Image
-        alt="pre login back-ground"
-        src={PreLoginImage}
-        objectFit="cover"
-        objectPosition="center"
-        fill={true}
-      />
-      <div className="absolute w-full opacity-50 h-full bg-neutral-200"></div>
-      <motion.div
-        className="flex flex-col w-full h-full justify-between pb-6  md:pb-16 px-16 xl:px-60"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: [0, 25, 50, 75, 100] }}
-        transition={{ ease: "easeIn", duration: 2 }}
-      >
-        <div className="z-50">
-          <Image
-            className="w-auto h-40 pt-12"
-            alt="easy to live logo"
-            src={Logo}
-          />
-          <div className="flex py-8 flex-col gap-5 ">
-            <p className="font-bold max-w-[350px] md:max-w-sm text-bold text-2xl">
-              Realize seu login ou crie sua conta abaixo e acesse os melhores
-              cupons criados pensando em você!
-            </p>
-          </div>
-        </div>
-        <div className="flex flex-col gap-3 mx-auto w-full sm:ml-0 sm:w-[350px]">
-          <SocialLoginComponent />
-          <ButtonPrimary
-            onClick={() => handleRedirectToLogin()}
-            loading={loadingLogin}
-            className="!p-3 hover:translate-y-[-2px]"
+    <section className="bg-red-100 w-scren h-screen select-none">
+      <aside className=" w-[34rem] h-full bg-main-purple">
+        <div className="p-16 bg-main-gray w-full h-[75%] rounded-b-[30px] flex flex-col gap-8 shadow-xl">
+          <h1 className="text-white leading-[3rem] text-[40px]">
+            <strong>Você está a 1 passo</strong> de facilitar sua rotina
+            saudável!
+          </h1>
+
+          <p className="text-xl text-white font-semibold">Continue abaixo:</p>
+
+          <div
+            id="social-wrapper"
+            className="bg-white w-full h-[5rem] flex rounded-full hover:cursor-pointer hover:-translate-y-2 hover:shadow-xl transition-all"
           >
-            Entrar com email/senha
-          </ButtonPrimary>
+            <div
+              id="icon-wrapper"
+              className="bg-red-100 w-[5rem] h-[5rem] rounded-full"
+            ></div>
+
+            <div
+              id="cta"
+              className="flex-1 h-full items-center justify-center flex"
+            >
+              <p className="text-xl">Continuar com o Google</p>
+            </div>
+          </div>
+
+          <div
+            id="social-wrapper"
+            className="bg-main-purple w-full h-[5rem] flex rounded-full hover:cursor-pointer hover:-translate-y-2 hover:shadow-xl transition-all"
+          >
+            <div
+              id="icon-wrapper"
+              className="bg-red-100 w-[5rem] h-[5rem] rounded-full"
+            ></div>
+
+            <div
+              id="cta"
+              className="flex-1 h-full items-center justify-center flex"
+            >
+              <p className="text-xl font-semibold text-white">
+                Entrar com e-mail e senha
+              </p>
+            </div>
+          </div>
+
+          <p className="text-lg text-white">
+            Ainda não possui uma conta?{" "}
+            <strong className="text-[#A47AFF] hover:cursor-pointer">
+              Clique aqui
+            </strong>
+          </p>
         </div>
-      </motion.div>
-    </div>
+
+        <div className="p-16 flex flex-col items-center justify-center gap-4">
+          <p className="text-xl text-white">Tenho uma empresa</p>
+
+          <button className="px-8 py-2 border-4 rounded-full border-white text-xl text-white hover:scale-105 transition-all">
+            <strong>QUERO SER PARCEIRO</strong>
+          </button>
+        </div>
+      </aside>
+    </section>
   );
 };
 
