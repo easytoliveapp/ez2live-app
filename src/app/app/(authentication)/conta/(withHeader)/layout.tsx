@@ -9,7 +9,15 @@ export default function AuthenticationLayout({
   params: any;
 }) {
   const pathname = usePathname();
-  const hideHeader = pathname === "/app/conta/entrar";
+  const paths = {
+    hideHeaderPaths: [
+      "/app/conta/entrar",
+      "/app/conta/cadastrar/parceiro",
+      "/yet/another/path",
+    ],
+  };
+
+  const hideHeader = paths.hideHeaderPaths.includes(pathname);
 
   return (
     <div>

@@ -1,43 +1,70 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
+import LogoImage from "@/images/easytolive/logo/logotipo-semfundoazulroxo.svg";
 import FormComponent from "./FormComponent";
 import Supplier from "@/images/easytolive/home/home_4.svg";
 
 const SupplierRegisterPage = () => {
   return (
-    <div className={`nc-PageSignUp `} data-nc-id="PageSignUp">
-      <div className="container mb-24 lg:mb-32">
-        <div className="mt-8 mb-16 flex items-baseline justify-between">
-          <h2 className=" pl-6 flex items-center text-2xl leading-[115%] md:text-5xl md:leading-[115%] font-bold text-black dark:text-neutral-100 justify-center">
-            Criar conta <br />\ estabelecimento
-          </h2>
-          <div>
-            <div className="flex rounded-full mr-2 w-16 h-16 bg-gradient-to-r from-primary-main to-primary-lighter">
-              <Image
-                src={Supplier}
-                alt="avatar anonimo"
-                className="m-auto w-8 h-auto"
+    <section className="bg-red-100 w-screen items-center justify-center h-screen flex">
+      <main className="bg-white w-[34rem] px-8 pb-16 pt-8 rounded-2xl overflow-y-scroll max-h-[90%] max-w-[90%]">
+        <div className="w-full h-fit mb-4">
+          <button className="flex items-center justify-center">
+            <Image src="/arrow.svg" alt="arrow icon" width={50} height={25} />
+          </button>
+        </div>
+        <div className="flex flex-col items-center justify-center">
+          <Image src={LogoImage} alt="logo" width={90} />
+
+          <span className="mt-10">
+            <h1 className="text-4xl">
+              <strong>Expanda seus negócios!</strong>
+            </h1>
+
+            <p className="text-center text-lg leading-[1.5rem] mt-4">
+              Ser parceiro Easy é facilitar a vida de {<br />} quem nunca te
+              abandona
+            </p>
+          </span>
+
+          <form className="mt-8 flex flex-col gap-4">
+            <div className="flex flex-col">
+              <label className="ml-6 mb-2 text-lg" htmlFor="email">
+                Email:
+              </label>
+              <input
+                className="border-[2px] rounded-[20px] p-3"
+                type="email"
+                id="email"
+                name="email"
+                placeholder="Digite seu email"
               />
             </div>
-          </div>
+            <div className="flex flex-col">
+              <label className="ml-6 mb-2 text-lg" htmlFor="password">
+                Senha:
+              </label>
+              <input
+                className="border-[2px] rounded-[20px] p-3"
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Digite sua senha"
+              />
+            </div>
+
+            <button className="text-xl mt-4 h-[3rem] font-bold text-white bg-main-purple p-3 rounded-[20px]">
+              CRIAR CONTA
+            </button>
+
+            <button className="text-md font-bold h-[3rem] text-white bg-main-gray p-3 rounded-[20px]">
+              ENTRAR EM CONTA JÁ EXISTENTE
+            </button>
+          </form>
         </div>
-        <div className="max-w-md mx-auto space-y-6 ">
-          {/* FORM */}
-          <FormComponent />
-          {/* ==== */}
-          <span className="block text-center text-black font-medium dark:text-neutral-300">
-            Voltar para{" "}
-            <Link
-              className="text-primary-main font-semibold"
-              href="/app/conta/entrar"
-            >
-              login
-            </Link>
-          </span>
-        </div>
-      </div>
-    </div>
+      </main>
+    </section>
   );
 };
 
