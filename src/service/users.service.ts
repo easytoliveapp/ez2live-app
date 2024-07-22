@@ -37,6 +37,12 @@ const getUser = async (id: string) => {
     method: "get",
   });
 };
+const getUserFull = async (id: string) => {
+  return await BaseService.fetchData({
+    url: `/users/${id}/full`,
+    method: "get",
+  });
+};
 
 const eraseUser = async (userId: string, password: string) => {
   return await BaseService.fetchData({
@@ -79,6 +85,7 @@ const userService = {
   addSubscriptionDays,
   removeSubscriptionDays,
   getSubscriptionDays,
+  getUserFull,
 };
 
 export default userService;
