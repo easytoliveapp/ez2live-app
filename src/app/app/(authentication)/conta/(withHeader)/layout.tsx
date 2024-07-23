@@ -13,7 +13,7 @@ export default function AuthenticationLayout({
     hideHeaderPaths: [
       "/app/conta/entrar",
       "/app/conta/cadastrar/parceiro",
-      "/yet/another/path",
+      "/app",
     ],
   };
 
