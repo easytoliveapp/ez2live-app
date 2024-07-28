@@ -39,6 +39,7 @@ export const PaymentStep: React.FC<IPaymentStepProps> = ({
           setPaymentTab(res.data.payableWith);
           setPaymentResponseData({
             invoiceId: res.data.id,
+            secureUrl: res.data.secureUrl,
             ...(res.data.payableWith === PAYMENT.pix && {
               qrCodeValue: {
                 image: res.data.pix.qrcode,

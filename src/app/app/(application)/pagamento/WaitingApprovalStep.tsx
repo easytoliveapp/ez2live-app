@@ -1,5 +1,10 @@
 import React, { useEffect } from "react";
-import { ButtonFourth, LoadingPayment, SimpleModal } from "@/components";
+import {
+  ButtonFourth,
+  ButtonPrimary,
+  LoadingPayment,
+  SimpleModal,
+} from "@/components";
 import Image from "next/image";
 import QrCodeSimpleIcon from "@/images/easytolive/payment/qr-code-simple-icon.svg";
 import PixSimpleIcon from "@/images/easytolive/payment/pix-simple-icon.svg";
@@ -10,6 +15,7 @@ import subscriptionService from "@/service/subscription.service";
 import { showToastify } from "@/hooks/showToastify";
 import { IPaymentResponseData } from "@/types/payment";
 import { INVOICE_STATUS } from "@/constants/payment";
+import { Route } from "next";
 
 interface IWaitingApprovalStepProps {
   paymentTab: string;
@@ -74,6 +80,17 @@ export const WaitingApprovalStep: React.FC<IWaitingApprovalStepProps> = ({
   return (
     <div>
       <LoadingPayment paymentMethod={paymentTab} />
+      {paymentTab === PAYMENT.creditCard && paymentResponseData.secureUrl && (
+        <SimpleModal>
+          Aguarde enquanto verificamos os detalhes do seu pagamento.
+          <br />
+          Caso deseje mais informações sobre sua fatura ou alterar o meio de
+          pagamento, clique no botão abaixo.
+          <ButtonPrimary href={paymentResponseData.secureUrl as Route}>
+            Ver fatura
+          </ButtonPrimary>
+        </SimpleModal>
+      )}
       {paymentTab === PAYMENT.pix && paymentResponseData.qrCodeValue && (
         <div>
           <SimpleModal className="pb-6">

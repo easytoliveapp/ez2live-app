@@ -19,6 +19,7 @@ const PaymentPage = () => {
   const [paymentResponseData, setPaymentResponseData] =
     useState<IPaymentResponseData>({
       invoiceId: "",
+      secureUrl: "",
       qrCodeValue: {
         image: "",
         text: "",
