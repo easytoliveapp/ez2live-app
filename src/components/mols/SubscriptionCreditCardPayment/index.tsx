@@ -86,6 +86,7 @@ const CreditCardPayment: React.FC<ICreditCardPaymentProps> = ({
       .then((res: any) => {
         setPaymentResponseData({
           invoiceId: res.data.subscriptionResponse.recentInvoiceId,
+          secureUrl: res.data.subscriptionResponse.invoiceUrl,
         });
         handlePaymentStatus(res);
       })
