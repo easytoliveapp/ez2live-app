@@ -80,18 +80,7 @@ export const WaitingApprovalStep: React.FC<IWaitingApprovalStepProps> = ({
   return (
     <div>
       <LoadingPayment paymentMethod={paymentTab} />
-      {paymentTab === PAYMENT.creditCard && paymentResponseData.secureUrl && (
-        <SimpleModal>
-          Aguarde enquanto verificamos os detalhes do seu pagamento.
-          <br />
-          Caso deseje mais informações sobre sua fatura ou alterar o meio de
-          pagamento, clique no botão abaixo.
-          <ButtonPrimary href={paymentResponseData.secureUrl as Route}>
-            Ver fatura
-          </ButtonPrimary>
-        </SimpleModal>
-      )}
-      {paymentTab === PAYMENT.pix && paymentResponseData.qrCodeValue && (
+      {paymentTab === PAYMENT.pix && paymentResponseData.qrCodeValue ? (
         <div>
           <SimpleModal className="pb-6">
             <div className="w-full flex justify-center my-1">
@@ -162,6 +151,27 @@ export const WaitingApprovalStep: React.FC<IWaitingApprovalStepProps> = ({
             </ol>
           </SimpleModal>
         </div>
+      ) : (
+        <SimpleModal className="text-center space-y-3 px-4">
+          <p className="font-semibold">
+            Aguarde enquanto verificamos os detalhes do seu pagamento.
+          </p>
+          <span className="text-sm">
+            Caso deseje mais informações sobre sua fatura ou alterar o meio de
+            pagamento, clique no botão abaixo.
+          </span>
+          <ButtonPrimary
+            href={paymentResponseData.secureUrl as Route}
+            targetBlank={true}
+          >
+            Ver fatura
+          </ButtonPrimary>
+          <span className="leading-3 text-[10px] italic">
+            Para concluir seu pagamento pendente, clique no botão Ver Fatura
+            acima e selecione uma nova forma de pagamento. Após concluir, você
+            poderá retornar a Easy!
+          </span>
+        </SimpleModal>
       )}
     </div>
   );
