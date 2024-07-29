@@ -52,6 +52,7 @@ const PixPayment: React.FC<IPixPaymentProps> = ({
         updateSession(res.data.user);
         setPaymentResponseData({
           invoiceId: res.data.subscriptionResponse.recentInvoiceId,
+          secureUrl: res.data.subscriptionResponse.invoiceUrl,
           qrCodeValue: {
             image: res.data.subscriptionResponse.pix.qrCode,
             text: res.data.subscriptionResponse.pix.qrCodeText,
