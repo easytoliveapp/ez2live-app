@@ -116,7 +116,7 @@ function PageHome() {
 
   return (
     <section className="bg-[#EBEBEB] w-screen h-screen flex flex-col items-center">
-      <main className=" w-full max-w-[60rem] h-[60%] pt-16">
+      <main className=" w-full max-w-[60rem] h-[55%] pt-16">
         <nav className="flex items-center ">
           <Image src="/logoblack.svg" alt="logo black" width={65} height={40} />
           <ul className="flex justify-around w-full items-center">
@@ -132,7 +132,7 @@ function PageHome() {
           </ul>
         </nav>
 
-        <div className="w-full h-full flex flex-col items-center justify-center">
+        <div className="w-full h-full flex flex-col items-center justify-evenly pb-14">
           <h1 className="text-[#383839] font-bold text-[62px] leading-[4.5rem]">
             Sua vida saudável <br /> nunca foi tão{" "}
             <b className="text-main-purple">fácil</b>
@@ -142,7 +142,29 @@ function PageHome() {
         </div>
       </main>
 
-      <div className="bg-white w-full h-[40%]"></div>
+      <div className="bg-white w-full h-[45%] flex items-center justify-center overflow-hidden gap-6">
+        <Image
+          src="/procedimentos_est.png"
+          alt="comidas fit"
+          width="540"
+          height="300"
+          className="hover:scale-105 hover:-translate-y-2 transition-all ease-in-out duration-300 cursor-pointer"
+        />
+        <Image
+          src="/comidas_fit.png"
+          alt="comidas fit"
+          width="540"
+          height="300"
+          className="hover:scale-105 hover:-translate-y-2 transition-all ease-in-out duration-300 cursor-pointer"
+        />
+        <Image
+          src="/nut_e_treinadores.png"
+          alt="comidas fit"
+          width="540"
+          height="300"
+          className="hover:scale-105 hover:-translate-y-2 transition-all ease-in-out duration-300 cursor-pointer"
+        />
+      </div>
     </section>
   );
 }
