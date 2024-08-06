@@ -16,15 +16,22 @@ import subscriptionService from "@/service/subscription.service";
 import { showToastify } from "@/hooks/showToastify";
 import { IPaymentResponseData } from "@/types/payment";
 import { INVOICE_STATUS } from "@/constants/payment";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { Route } from "next";
 
-const WaitingApprovalPage = () => {
+interface IWaitingApprovalPageProps {
+  params: {
+    id?: string;
+  };
+}
+
+const WaitingApprovalPage: React.FC<IWaitingApprovalPageProps> = ({
+  params,
+}) => {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [paymentMethod, setPaymentMethod] = useState("creditCard");
-  const params = useSearchParams();
-  const invoiceId = params.get("invoice");
+  const { id } = params;
 
   const [paymentResponseData, setPaymentResponseData] =
     useState<IPaymentResponseData>({
@@ -52,6 +59,7 @@ const WaitingApprovalPage = () => {
             },
           }),
         });
+        setLoading(false);
         break;
 
       case INVOICE_STATUS.PAID:
@@ -71,14 +79,18 @@ const WaitingApprovalPage = () => {
     subscriptionService
       .getLastInvoice()
       .then((res) => handleInvoiceResponse(res))
-      .finally(() => setLoading(false));
+      .catch(() => {
+        router.push(`/app/pagamento?step=recusado`);
+      });
   };
 
-  const getInvoiceById = async (invoiceId: any) => {
+  const getInvoiceById = async (invoiceId: string) => {
     subscriptionService
       .getInvoiceById(invoiceId)
       .then((res) => handleInvoiceResponse(res))
-      .finally(() => setLoading(false));
+      .catch(() => {
+        router.push(`/app/pagamento?step=recusado`);
+      });
   };
 
   const handleClickCopyText = (textToCopy: string) => {
@@ -98,8 +110,8 @@ const WaitingApprovalPage = () => {
 
   useEffect(() => {
     const fetchInvoice = () => {
-      if (invoiceId) {
-        getInvoiceById(invoiceId);
+      if (id) {
+        getInvoiceById(id);
       } else {
         getLastInvoice();
       }
@@ -110,7 +122,7 @@ const WaitingApprovalPage = () => {
     const interval = setInterval(fetchInvoice, 30 * 1000);
 
     return () => clearInterval(interval);
-  }, [invoiceId]);
+  }, [id]);
 
   return (
     <div className="bg-generic-gray h-full min-h-[calc(100vh-66px)] px-4 flex flex-col pt-14 items-center">

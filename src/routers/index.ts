@@ -11,6 +11,11 @@ export const PRIVATE_ROUTES_CONFIG = [
     roles: [ROLES.commonUser, ROLES.supplier],
     isPublic: false,
   },
+  {
+    path: "/app/aguardando-pagamento",
+    roles: [ROLES.commonUser, ROLES.supplier],
+    isPublic: false,
+  },
   { path: "/app/admin", roles: [ROLES.admin], isPublic: false },
   { path: "/app/dashboard", roles: [ROLES.supplier], isPublic: false },
   { path: "/app/dashboard/parceiro", roles: [ROLES.supplier], isPublic: false },
