@@ -8,6 +8,7 @@ import subscriptionService from "@/service/subscription.service";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Route } from "next";
 import { SUBSCRIPTION_STATUS } from "@/constants/payment";
+import { removeItemFromLocalStorage } from "@/utils/localStorageHelper";
 
 export const AcceptedPaymentStep = () => {
   const { data: session, update } = useSession();
@@ -41,6 +42,7 @@ export const AcceptedPaymentStep = () => {
 
   useEffect(() => {
     if (session?.user) getSubscriptionInfo();
+    removeItemFromLocalStorage("paymentPending");
   }, []);
 
   return (

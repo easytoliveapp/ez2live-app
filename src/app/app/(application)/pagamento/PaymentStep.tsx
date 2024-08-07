@@ -11,6 +11,10 @@ import {
 import { INVOICE_STATUS } from "@/constants/payment";
 import { PAYMENT } from "@/constants/paymentMethods";
 import subscriptionService from "@/service/subscription.service";
+import {
+  removeItemFromLocalStorage,
+  setItemToLocalStorage,
+} from "@/utils/localStorageHelper";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -33,7 +37,10 @@ export const PaymentStep: React.FC<IPaymentStepProps> = ({
       .getLastInvoice()
       .then((res: any) => {
         if (res.data.status === INVOICE_STATUS.PENDING) {
+          setItemToLocalStorage("paymentPending", true);
           route.push("/app/aguardando-pagamento");
+        } else {
+          removeItemFromLocalStorage("paymentPending");
         }
       })
       .finally(() => setLoading(false));
