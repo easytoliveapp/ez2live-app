@@ -8,8 +8,8 @@ import { useSession } from "next-auth/react";
 import { ROLES } from "@/constants/roles";
 import isTrialUser from "@/utils/isTrialUser";
 import isPremiumUser from "@/utils/isPremiumUser";
-import { getItemByLocalStorage } from "@/utils/localStorageHelper";
 import PaymentPending from "../PaymentPending";
+import { usePaymentInvoiceContext } from "@/providers/paymentInvoice";
 
 interface NavBarLoggedProps {
   hasLogoImage?: boolean;
@@ -18,7 +18,7 @@ interface NavBarLoggedProps {
 const NavBarLogged: FC<NavBarLoggedProps> = ({ hasLogoImage = true }) => {
   const { data: session } = useSession();
   const isNormalUser = session?.user.role === ROLES.commonUser;
-  const hasPaymentPending = getItemByLocalStorage("paymentPending");
+  const { hasPaymentPending } = usePaymentInvoiceContext();
 
   useEffect(() => {
     hasPaymentPending;
