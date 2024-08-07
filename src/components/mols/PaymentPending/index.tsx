@@ -26,4 +26,3 @@ const PaymentPending = () => {
 };
 
 export default PaymentPending;
-
