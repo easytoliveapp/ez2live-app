@@ -1,5 +1,5 @@
 "use client";
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 import Image from "next/image";
 import LogoImage from "@/images/easytolive/logo/logotipo-semfundoazulroxo.svg";
 import { AvatarDropdown, UserSubscriptionBadge } from "@/components";
@@ -20,6 +20,10 @@ const NavBarLogged: FC<NavBarLoggedProps> = ({ hasLogoImage = true }) => {
   const isNormalUser = session?.user.role === ROLES.commonUser;
   const hasPaymentPending = getItemByLocalStorage("paymentPending");
 
+  useEffect(() => {
+    hasPaymentPending;
+  }, [hasPaymentPending]);
+
   return (
     <div className="relative w-full p-2 flex pl-4  sm:justify-center items-center">
       <span></span>
@@ -33,7 +37,7 @@ const NavBarLogged: FC<NavBarLoggedProps> = ({ hasLogoImage = true }) => {
         </Link>
       )}
       <div className="flex absolute right-2 items-center gap-3">
-        {hasPaymentPending && <PaymentPending />}
+        {!!hasPaymentPending && <PaymentPending />}
         {isNormalUser && (
           <UserSubscriptionBadge
             hasPremium={isPremiumUser(session)}
