@@ -17,7 +17,7 @@ const PaymentPending = () => {
           alt="payment-warning-icon"
           className="cursor-pointer h-4 w-auto"
         />
-        <span className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 w-40 bg-black text-white text-center text-sm rounded py-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+        <span className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 w-40 bg-gray-400 text-black text-center text-sm rounded py-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
           Você possui faturas em aberto.
         </span>
       </div>
@@ -26,3 +26,4 @@ const PaymentPending = () => {
 };
 
 export default PaymentPending;
+
