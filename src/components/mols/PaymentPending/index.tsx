@@ -8,14 +8,14 @@ const PaymentPending = () => {
 
   return (
     <div
-      className="relative flex justify-center items-center"
+      className="relative flex justify-center items-center px-2"
       onClick={() => route.push("/app/aguardando-pagamento")}
     >
       <div className="group">
         <Image
           src={InvoiceWarningIcon}
           alt="payment-warning-icon"
-          className="cursor-pointer"
+          className="cursor-pointer h-4 w-auto"
         />
         <span className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 w-40 bg-black text-white text-center text-sm rounded py-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
           Você possui faturas em aberto.
