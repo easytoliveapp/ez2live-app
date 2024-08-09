@@ -20,10 +20,6 @@ const NavBarLogged: FC<NavBarLoggedProps> = ({ hasLogoImage = true }) => {
   const isNormalUser = session?.user.role === ROLES.commonUser;
   const { hasPaymentPending } = usePaymentInvoiceContext();
 
-  useEffect(() => {
-    hasPaymentPending;
-  }, [hasPaymentPending]);
-
   return (
     <div className="relative w-full p-2 flex pl-4  sm:justify-center items-center">
       <span></span>
