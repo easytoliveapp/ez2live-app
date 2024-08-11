@@ -99,35 +99,36 @@ const CreditCardForm: React.FC<ICreditCardForm> = ({
 
         return (
           <Form onSubmit={handleSubmit} className="px-4 my-4">
-            <div className="w-full flex justify-center mb-5">
-              <Image alt="Card Flags" src={CardFlag} />
-            </div>
-            <FormItem
-              errorMessage={errors.fullName}
-              invalid={!!(errors.fullName && touched.fullName)}
-            >
-              <Field
-                invalid={!!(errors.fullName && touched.fullName)}
-                name="fullName"
-                data-iugu="fullName"
-                type="text"
-                placeholder="Nome do titular"
-                component={Input}
-              />
-            </FormItem>
             <FormItem
               errorMessage={errors.creditCard}
               invalid={!!(errors.creditCard && touched.creditCard)}
             >
+              <p className="mb-2"> Número do Cartão </p>
               <Field
                 invalid={!!(errors.creditCard && touched.creditCard)}
                 name="creditCard"
                 maxLength={23}
                 type="text"
-                placeholder="Número do cartão"
                 data-iugu="number"
                 onChange={handlecreditCardChange}
                 value={formattedcreditCard}
+                component={Input}
+              />
+              <div className="w-full -ml-2 flex">
+                <Image alt="Card Flags" src={CardFlag} />
+              </div>
+            </FormItem>
+            <FormItem
+              errorMessage={errors.fullName}
+              invalid={!!(errors.fullName && touched.fullName)}
+            >
+              <p className="mb-2"> Nome do titular</p>
+              <Field
+                invalid={!!(errors.fullName && touched.fullName)}
+                name="fullName"
+                data-iugu="fullName"
+                type="text"
+                placeholder=""
                 component={Input}
               />
             </FormItem>

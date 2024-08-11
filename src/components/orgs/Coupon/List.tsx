@@ -122,17 +122,6 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
         </div>
       </Modal>
 
-      {supplier.supplierInfo.supplierBanner ? (
-        <div
-          style={{
-            backgroundImage: `url(${supplier.supplierInfo.supplierBanner})`,
-          }}
-          className="bg-cover bg-center w-full bg-no-repeat h-44"
-        ></div>
-      ) : (
-        <div className="h-40 pb-6max-h-80 w-full mx-auto flex justify-center bg-cover bg-gradient-to-r from-primary-lighter to-primary-main"></div>
-      )}
-
       <Link
         prefetch={true}
         className="absolute flex items-center justify-center rounded-full top-4 left-4 cursor-pointer h-8 w-8 bg-neutral-400 opacity-75 rotate-180"
@@ -195,7 +184,7 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
               )}
             </div>
           </div>
-          <h2 className=" text-xl font-semibold">{supplier?.name}</h2>
+          <h2 className=" text-xl font-semibold">{supplier?.name} xxx</h2>
           {supplier.supplierInfo.supplierDescription && (
             <p className="pt-2 text-xs text-gray-400">
               {supplier.supplierInfo.supplierDescription}

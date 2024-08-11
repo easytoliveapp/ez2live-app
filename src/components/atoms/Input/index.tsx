@@ -19,7 +19,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>((props, ref) => {
     className = "",
     sizeClass = "h-11 px-4 py-3",
     fontClass = "text-base font-medium",
-    rounded = "rounded-3xl",
+    rounded = "rounded-xl",
     type = "text",
     field,
     invalid,
@@ -33,12 +33,12 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>((props, ref) => {
       mask={mask}
       ref={ref}
       type={type}
-      className={`inputRangeThumb block w-full border-black focus:border-primary-main focus:ring focus:ring-primary-main focus:ring-opacity-50 bg-generic-background disabled:bg-neutral-200
+      className={`inputRangeThumb block w-full border-[#c4c4c4] focus:border-primary-main focus:ring focus:ring-primary-main focus:ring-opacity-50 bg-generic-background disabled:bg-neutral-200
         ${rounded}
         ${fontClass}
         ${sizeClass}
         ${className}
-        ${invalid ? "border-rose-500" : "border-black"}`}
+        ${invalid ? "border-rose-500" : "border-[#c4c4c4]"}`}
       {...field}
       {...rest}
     />

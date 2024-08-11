@@ -14,6 +14,10 @@ import { getColorByDiscountValue } from "@/utils/getColorByDiscountValue";
 import cx from "classnames";
 import { getDateFormater } from "@/utils/getDateFormater";
 import { getCouponsRemaining } from "@/utils/getCouponsRemaining";
+import {
+  InformationCircleIcon,
+  ShoppingCartIcon,
+} from "@heroicons/react/24/solid";
 
 interface ICouponCardProps {
   isOwnSupplier?: boolean;
@@ -41,66 +45,42 @@ const CouponCard: React.FC<ICouponCardProps> = ({
   return (
     <div
       onClick={() => setShowCouponModal && setShowCouponModal(true)}
-      className={cx(
-        getColorByDiscountValue(discount),
-
-        "h-auto pl-5 rounded-full flex items-center gap-2 cursor-pointer",
-      )}
+      className="h-auto  rounded-2xl flex items-center justify-between gap-2 cursor-pointer bg-gradient-to-r from-[#CCEF16] to-[#B0CB04]"
     >
-      <h2 className="text-white font-semibold text-md sm:text-xl drop-shadow-sm">
-        {discount}%
-      </h2>
+      <div className="w-[15%] flex items-center flex-col">
+        <h2 className="text-white font-semibold text-4xl drop-shadow-sm">
+          {discount}%
+        </h2>
+        <p className="text-white text-4xl">OFF</p>
+      </div>
       <div
         className={classNames(
-          "rounded-full bg-white w-full py-2.5 gap-1 -m-[1px] bg-primary hover:shadow-md",
+          "rounded-2xl px-4 py-6 bg-white w-[85%] hover:w-[80%] transition-all gap-1 -m-[1px] bg-primary hover:shadow-md",
         )}
       >
         <div className="rounded-full flex items-center gap-3 pr-4 pl-3 w-full">
-          <Image
-            className="h-6 w-auto"
-            alt="Coupons Image"
-            src={mainImage ?? CouponPrimary}
-          />
-          <span className="bg-gray-300 w-[1px] h-14"></span>
           <div className="flex-auto">
             <div className="flex items-center justify-between gap-3">
               <div className="flex flex-col sm:gap-0.5 text-[10px] sm:text-xs">
-                <p className="text-xs font-semibold text-black">
-                  {couponTitle}
-                </p>
+                <p className="text-xl font-bold text-black">{couponTitle}</p>
                 {remainingUnits !== undefined && !isNaN(remainingUnits) && (
-                  <p className="flex font-semibold items-center text-generic-alertGreen">
-                    <Image
-                      className="h-3.5 pr-2 w-auto"
-                      alt="coupon-black"
-                      src={ShoppingCartGreen}
-                      color="white"
-                    />
+                  <p className="flex  items-center text-black">
+                    <ShoppingCartIcon className="w-6 mr-2" />
                     {getCouponsRemaining(remainingUnits, isOwnSupplier)}
                   </p>
                 )}
                 {activationDate && (
                   <p className="flex font-semibold items-center text-generic-alertGreen">
-                    <Image
-                      className="h-auto pr-2 w-7"
-                      alt="coupon-black"
-                      src={CouponGreen}
-                    />
                     utilizado em {getDateFormater(activationDate)}
                   </p>
                 )}
                 {expirationUseDate && (
-                  <p className="flex font-semibold items-center text-generic-alertRed">
-                    <Image
-                      className="h-3.5 pr-2 w-auto"
-                      alt="coupon-black"
-                      src={ClockCircleRed}
-                    />
+                  <p className="flex items-center text-[#a6a6a6]">
+                    <InformationCircleIcon className="w-6 mr-2" />
                     {getExpirateTime(expirationUseDate)}
                   </p>
                 )}
               </div>
-              <Image className="h-6 w-auto" alt="arrow right" src={icon} />
             </div>
           </div>
         </div>

@@ -7,6 +7,7 @@ import ArrowRight from "@/images/easytolive/icons/arrow-next-right-black.svg";
 import { useRouter } from "next/navigation";
 
 interface SupplierCardProps {
+  minimalSupplierCard?: boolean;
   couponsAvailableCount: number;
   supplierCategory: string;
   supplierImage: string;
@@ -17,6 +18,7 @@ interface SupplierCardProps {
 }
 
 const SupplierCard: FC<SupplierCardProps> = ({
+  minimalSupplierCard = false,
   couponsAvailableCount,
   supplierCategory,
   name,
@@ -30,6 +32,27 @@ const SupplierCard: FC<SupplierCardProps> = ({
   function handleClick(e: string) {
     saveLastPagePosition?.();
     router.push(`/app/parceiro/${e}`);
+  }
+
+  if (minimalSupplierCard) {
+    return (
+      <div
+        className="w-full h-auto gap-2 mr-4 cursor-pointer"
+        onClick={() => handleClick(id)}
+      >
+        <div className="flex flex-col items-center justify-center w-14 h-auto">
+          <Image
+            width={80}
+            height={80}
+            className="rounded-full max-h-14"
+            alt="Supplier-logo"
+            src={supplierImage}
+          />
+
+          <p className="text-center overflow-hidden">{name}</p>
+        </div>
+      </div>
+    );
   }
 
   return (

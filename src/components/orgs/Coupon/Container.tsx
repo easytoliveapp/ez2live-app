@@ -149,7 +149,7 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
 
   const StepOne = () => {
     return (
-      <div className="flex flex-col h-auto items-center">
+      <div className="flex p-6 flex-col h-auto items-center">
         <Coupon
           couponRules={couponRules}
           isOwnSupplier={isOwnSupplier}
@@ -162,24 +162,26 @@ const CouponContainer: React.FC<CouponContainerProps> = ({
           supplierLogo={supplierLogo ?? ""}
           supplierName={supplierName}
         />
-        <ButtonPrimary
+        <button
           onClick={() =>
             handleActiveCoupon(
               SUBSCRIPTION_STATUS.PREMIUM,
               SUBSCRIPTION_STATUS.TRIAL,
             )
           }
-          disabled={loading}
-          className="w-full mx-4 max-w-md"
+          className="w-full min-h-[2rem] bg-main-purple p-4 mt-2 rounded-2xl text-white font-bold text-lg"
         >
-          {loading ? "Gerando cupom..." : "Eu quero!"}
-        </ButtonPrimary>
-        <ButtonThird
-          className="w-full !text-generic-dark mx-4 max-w-md"
+          {loading
+            ? "Gerando cupom...".toUpperCase()
+            : "Eu quero!".toUpperCase()}
+        </button>
+
+        <button
           onClick={() => setShowCouponModal(false)}
+          className="w-full min-h-[2rem] bg-[#9C9C9F] mt-4 p-4 rounded-2xl text-white font-bold text-lg"
         >
-          Não quero agora
-        </ButtonThird>
+          {"Não quero agora".toUpperCase()}
+        </button>
       </div>
     );
   };
