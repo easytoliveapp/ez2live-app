@@ -10,43 +10,35 @@ import {
 } from "@/components";
 import { INVOICE_STATUS } from "@/constants/payment";
 import { PAYMENT } from "@/constants/paymentMethods";
+import { usePaymentInvoiceContext } from "@/providers/paymentInvoice";
 import subscriptionService from "@/service/subscription.service";
-import { IPaymentResponseData } from "@/types/payment";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 interface IPaymentStepProps {
   setCurrentStep: React.Dispatch<React.SetStateAction<number>>;
   paymentTab: string;
   setPaymentTab: React.Dispatch<React.SetStateAction<string>>;
-  setPaymentResponseData: React.Dispatch<
-    React.SetStateAction<IPaymentResponseData>
-  >;
 }
 
 export const PaymentStep: React.FC<IPaymentStepProps> = ({
   setCurrentStep,
   paymentTab,
   setPaymentTab,
-  setPaymentResponseData,
 }) => {
   const [loading, setLoading] = useState(true);
+  const route = useRouter();
+  const { setHasPaymentPending } = usePaymentInvoiceContext();
 
   const getLastInvoiceInfo = async () => {
     subscriptionService
       .getLastInvoice()
       .then((res: any) => {
         if (res.data.status === INVOICE_STATUS.PENDING) {
-          setPaymentTab(res.data.payableWith);
-          setPaymentResponseData({
-            invoiceId: res.data.id,
-            ...(res.data.payableWith === PAYMENT.pix && {
-              qrCodeValue: {
-                image: res.data.pix.qrcode,
-                text: res.data.pix.qrcodeText,
-              },
-            }),
-          });
-          setCurrentStep(1);
+          setHasPaymentPending(true);
+          route.push("/app/aguardando-pagamento");
+        } else {
+          setHasPaymentPending(false);
         }
       })
       .finally(() => setLoading(false));
@@ -69,15 +61,9 @@ export const PaymentStep: React.FC<IPaymentStepProps> = ({
               SetPaymentTab={setPaymentTab}
             />
             {paymentTab === PAYMENT.creditCard ? (
-              <CreditCardPayment
-                currentStepPayment={setCurrentStep}
-                setPaymentResponseData={setPaymentResponseData}
-              />
+              <CreditCardPayment currentStepPayment={setCurrentStep} />
             ) : (
-              <PixPayment
-                currentStepPayment={setCurrentStep}
-                setPaymentResponseData={setPaymentResponseData}
-              />
+              <PixPayment currentStepPayment={setCurrentStep} />
             )}
           </SimpleModal>
         </div>
