@@ -32,7 +32,14 @@ const FastLoginPage = () => {
   };
 
   return (
-    <section className="bg-red-100 w-scren h-screen select-none">
+    <section
+      className="bg-red-100 w-screen h-screen select-none"
+      style={{
+        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(${PreLoginImage.src})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
       <aside className="w-full lg:w-[34rem] flex flex-col justify-between h-full bg-main-purple">
         <motion.div
           initial="hidden"

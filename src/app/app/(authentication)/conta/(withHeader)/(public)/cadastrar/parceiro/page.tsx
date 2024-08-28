@@ -7,7 +7,7 @@ import Supplier from "@/images/easytolive/home/home_4.svg";
 
 const SupplierRegisterPage = () => {
   return (
-    <section className="bg-red-100 w-screen items-center justify-center h-screen flex">
+    <section className="bg-red-100 w-screen items-center justify-center h-screen flex bg-[url('/background-4th-tela.png')] bg-cover bg-center">
       <main className="bg-white w-[34rem] px-8 pb-16 pt-8 rounded-2xl overflow-y-scroll max-h-[90%] max-w-[90%]">
         <div className="w-full h-fit mb-4">
           <button className="flex items-center justify-center">
