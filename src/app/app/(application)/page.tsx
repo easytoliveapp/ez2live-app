@@ -113,7 +113,7 @@ function PageHome() {
 
 	const BigCard = ({ title, imgSrc }: ICardProps) => {
 		return (
-			<div className="bg-[#f1f1f1] overflow-hidden w-full rounded-xl p-4 h-full relative flex flex-col justify-between">
+			<div className="bg-[#f1f1f1] overflow-hidden w-full rounded-xl p-4 h-full relative flex flex-col justify-between cursor-pointer">
 				<h2 className="text-lg  text-gray-800">{title}</h2>
 				<div
 					className="absolute -bottom-3 right-0 w-[45%] h-full bg-contain bg-no-repeat bg-right-bottom"
@@ -126,7 +126,7 @@ function PageHome() {
 	};
 	const SmallCard = ({ title, imgSrc }: ICardProps) => {
 		return (
-			<div className="w-full rounded-2xl bg-[#f1f1f1] flex h-full flex-col items-center justify-center p-4 box-border">
+			<div className="w-full rounded-2xl bg-[#f1f1f1] flex h-full flex-col items-center justify-center p-4 box-border cursor-pointer">
 				{title === "Ver mais" ? (
 					<h1 className="text-6xl">+</h1>
 				) : (
@@ -280,7 +280,7 @@ function PageHome() {
 					</div>
 				</section>
 			) : (
-				<section className="bg-[#EBEBEB] w-screen h-screen flex flex-col items-center">
+				<section className="bg-[#EBEBEB] w-screen h-screen flex flex-col items-center overflow-hidden">
 					<div
 						className="relative w-full h-[55%] flex items-center justify-center"
 						id="wrapper"
@@ -348,31 +348,76 @@ function PageHome() {
 						</main>
 					</div>
 
-					<div className="bg-white w-full h-[45%] flex items-center justify-center overflow-hidden gap-6">
-						<Image
-							src="/procedimentos_est.png"
-							alt="comidas fit"
-							width="540"
-							objectFit="cover"
-							height="300"
-							className="hover:scale-105 hover:-translate-y-2 transition-all ease-in-out duration-300 cursor-pointer"
+					<div
+						id="categories_images"
+						className="bg-white w-full h-[45%] flex items-center justify-start overflow-x-auto overflow-y-hidden gap-6 whitespace-nowrap px-12 relative"
+						style={{ scrollBehavior: "smooth" }}
+						onScroll={(e) => {
+							const container = e.currentTarget;
+							if (
+								container.scrollLeft + container.clientWidth >=
+								container.scrollWidth
+							) {
+								container.scrollLeft = 0;
+							}
+						}}
+					>
+						<div
+							id="scroll_trigger"
+							className="fixed right-0 bottom-0 w-24 h-[45%] bg-gradient-to-l from-white to-transparent z-10"
+							onMouseEnter={(e) => {
+								const container = e.currentTarget.parentElement;
+								if (container) {
+									let isScrollingDisabled = false;
+									const scrollAmount = 200;
+									const scrollInterval = setInterval(() => {
+										if (!isScrollingDisabled) {
+											container.scrollLeft += scrollAmount;
+											if (
+												container.scrollLeft + container.clientWidth >=
+												container.scrollWidth
+											) {
+												container.scrollLeft = 0;
+												isScrollingDisabled = true;
+												setTimeout(() => {
+													isScrollingDisabled = false;
+												}, 2000); // Disable scrolling for 2 seconds
+											}
+										}
+									}, 16);
+									e.currentTarget.addEventListener(
+										"mouseleave",
+										() => {
+											clearInterval(scrollInterval);
+										},
+										{ once: true },
+									);
+								}
+							}}
 						/>
-						<Image
-							src="/comidas_fit.png"
-							alt="comidas fit"
-							width="540"
-							objectFit="cover"
-							height="300"
-							className="hover:scale-105 hover:-translate-y-2 transition-all ease-in-out duration-300 cursor-pointer"
-						/>
-						<Image
-							src="/nut_e_treinadores.png"
-							alt="comidas fit"
-							width="540"
-							objectFit="cover"
-							height="300"
-							className="hover:scale-105 hover:-translate-y-2 transition-all ease-in-out duration-300 cursor-pointer"
-						/>
+						{[
+							{ src: "/procedimentos_est.png", alt: "procedimentos estéticos" },
+							{ src: "/comidas_fit.png", alt: "comidas fit" },
+							{
+								src: "/nut_e_treinadores.png",
+								alt: "nutricionistas e treinadores",
+							},
+							{ src: "/academias.png", alt: "academias" },
+							{ src: "/evento_fit.png", alt: "evento fit" },
+							{ src: "/farm_map.png", alt: "farmácias" },
+							{ src: "/procedimentos.png", alt: "procedimentos" },
+							{ src: "/suplementos.png", alt: "suplementos" },
+						].map((image, index) => (
+							<Image
+								key={index}
+								src={image.src}
+								alt={image.alt}
+								width={540}
+								objectFit="cover"
+								height={300}
+								className="hover:scale-105 hover:-translate-y-2 transition-all ease-in-out duration-300 cursor-pointer"
+							/>
+						))}
 					</div>
 				</section>
 			)}
