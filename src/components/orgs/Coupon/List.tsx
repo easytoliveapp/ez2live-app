@@ -184,7 +184,7 @@ const CouponList: React.FC<ICouponListProps> = ({ supplierId }) => {
               )}
             </div>
           </div>
-          <h2 className=" text-xl font-semibold">{supplier?.name} xxx</h2>
+          <h2 className=" text-xl font-semibold">{supplier?.name}</h2>
           {supplier.supplierInfo.supplierDescription && (
             <p className="pt-2 text-xs text-gray-400">
               {supplier.supplierInfo.supplierDescription}

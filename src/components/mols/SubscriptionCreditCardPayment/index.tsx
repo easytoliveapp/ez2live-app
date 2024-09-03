@@ -107,7 +107,7 @@ const CreditCardPayment: React.FC<ICreditCardPaymentProps> = ({
     <CreditCardForm
       loading={loading}
       handleSubmit={handleSubmit}
-      buttonLabel="Efetuar Pagamento"
+      buttonLabel="COMPRAR AGORA"
       loadingButonLabel="Aguardando pagamento"
     />
   );

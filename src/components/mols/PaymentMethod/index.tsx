@@ -16,32 +16,19 @@ const PaymentMethod: React.FC<PaymentMethodProps> = ({
   return (
     <div className="flex w-full justify-center">
       <div
-        className={`cursor-pointer flex flex-col justify-center items-center w-full px-4 py-5 ${
+        className={`cursor-pointer bg-main-purple rounded-t-[20px] flex flex-col justify-center items-center w-full px-4 py-5 ${
           paymentTab === PAYMENT.creditCard
-            ? "opacity-100 border-b-2 border-black"
-            : "opacity-50 bg-generic-gray"
         }`}
         onClick={() => SetPaymentTab(PAYMENT.creditCard)}
       >
-        <Image
-          alt="credit-card-icon"
-          src={CreditCardIcon}
-          width={16}
-          height={13}
-        />
-        <p className="text-xs font-bold">Cartão de créditooo</p>
-      </div>
-      <span className="bg-generic-grayDarker z-50 w-1"></span>
-      <div
-        className={`cursor-pointer flex flex-col justify-center items-center w-full px-4 py-5  ${
-          paymentTab === PAYMENT.pix
-            ? "opacity-100 border-b-2 border-black"
-            : "opacity-50 bg-generic-gray"
-        }`}
-        onClick={() => SetPaymentTab(PAYMENT.pix)}
-      >
-        <Image alt="pix-icon" src={PixIcon} width={16} height={13} />
-        <p className="text-xs font-bold">PIXxxxx</p>
+        <span className="text-white flex flex-col items-center">
+          <h1 className="text-3xl font-bold">Quase lá</h1>
+
+          <p className="mt-4">Seja Easy por apenas</p>
+          <p>
+            <strong className="text-4xl">R$ 29,90</strong>/mês
+          </p>
+        </span>
       </div>
     </div>
   );

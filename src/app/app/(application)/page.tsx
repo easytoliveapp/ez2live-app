@@ -1,24 +1,13 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import {
-  CategoryCard,
-  EmptyCoupons,
-  FloatButtonNav,
-  Input,
-  SearchCategory,
-  SupplierCard,
-} from "@/components";
+import { EmptyCoupons, SearchCategory, SupplierCard } from "@/components";
 import couponsService from "@/service/coupons.service";
-import CouponPrimary from "@/images/easytolive/icons/couponPrimary.svg";
-import imageCategory from "@/images/easytolive/icons/categorie-example.svg";
 import { ISupplier } from "@/types/supplier";
 import { ICategorieProps } from "@/components/atoms/CategoryCard";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useSession } from "next-auth/react";
 import { useSearchParams } from "next/navigation";
-import SkeletonSuppliersCards from "@/skeleton/SuppliersCards";
-import SkeletonCategoriesCards from "@/skeleton/CategoriesCards";
 import { useSupplierContext } from "@/providers/SuppliersProvider";
 import EmptyIcon from "@/images/easytolive/icons/empty-icon.svg";
 import { ICouponCodesByUser } from "@/types/coupons";
@@ -255,28 +244,38 @@ function PageHome() {
             )}
           </InfiniteScroll>
 
-          <div className="w-full flex items-center justify-center overflow-hidden gap-4">
-            <Image
-              src="/procedimentos_est.png"
-              alt="comidas fit"
-              width="200"
-              objectFit="cover"
-              height="90"
-            />
-            <Image
-              src="/comidas_fit.png"
-              alt="comidas fit"
-              width="200"
-              objectFit="cover"
-              height="90"
-            />
-            <Image
-              src="/nut_e_treinadores.png"
-              alt="comidas fit"
-              width="200"
-              objectFit="cover"
-              height="90"
-            />
+          <div
+            className="w-full overflow-x-auto whitespace-nowrap py-4"
+            style={{ scrollBehavior: "smooth" }}
+          >
+            <div className="inline-flex gap-4 px-4">
+              {[
+                {
+                  src: "/procedimentos_est.png",
+                  alt: "procedimentos estéticos",
+                },
+                { src: "/comidas_fit.png", alt: "comidas fit" },
+                {
+                  src: "/nut_e_treinadores.png",
+                  alt: "nutricionistas e treinadores",
+                },
+                { src: "/academias.png", alt: "academias" },
+                { src: "/evento_fit.png", alt: "evento fit" },
+                { src: "/farm_map.png", alt: "farmácias" },
+                { src: "/procedimentos.png", alt: "procedimentos" },
+                { src: "/suplementos.png", alt: "suplementos" },
+              ].map((image, index) => (
+                <Image
+                  key={index}
+                  src={image.src}
+                  alt={image.alt}
+                  width={200}
+                  height={90}
+                  objectFit="cover"
+                  className="rounded-lg"
+                />
+              ))}
+            </div>
           </div>
         </section>
       ) : (
