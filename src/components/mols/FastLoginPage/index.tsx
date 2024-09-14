@@ -2,9 +2,7 @@
 
 import { ButtonPrimary, SocialLoginComponent } from "@/components";
 import React, { useState } from "react";
-import PreLoginImage from "@/images/easytolive/home/fast-login-background.jpeg";
 import Image from "next/image";
-// import Logo from "logobranca";
 import { useRouter, useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
 
@@ -35,7 +33,7 @@ const FastLoginPage = () => {
 		<section
 			className="w-screen h-screen select-none flex items-center justify-center"
 			style={{
-				backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(${PreLoginImage.src})`,
+				backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(/pessoas_correndo.png)`,
 				backgroundSize: "cover",
 				backgroundPosition: "center",
 			}}
@@ -66,7 +64,7 @@ const FastLoginPage = () => {
 					<ButtonPrimary
 						onClick={() => handleRedirectToLogin()}
 						loading={loadingLogin}
-						className="!p-3 hover:translate-y-[-2px] transition-all"
+						className="!p-3 hover:translate-y-[-2px] transition-all "
 					>
 						Entrar com email/senha
 					</ButtonPrimary>
@@ -79,14 +77,34 @@ const FastLoginPage = () => {
 					</p>
 				</motion.div>
 
-				<div className="p-8 h-full lg:p-16 flex flex-col items-center justify-center gap-4">
-					<p className="text-xl text-white">Tenho uma empresa</p>
+				<div className="p-8 h-full lg:p-16 flex flex-col items-center  gap-4">
+					<p className="text-2xl text-white">Tenho uma empresa</p>
 
-					<button className="px-8 py-2 border-4 rounded-full border-white text-xl text-white hover:scale-105 transition-all">
+					<button className="px-12 py-4 rounded-full bg-[#00AD1A] text-2xl text-white hover:scale-105 transition-all">
 						<strong>QUERO SER PARCEIRO</strong>
 					</button>
 				</div>
 			</main>
+
+			<div
+				className="w-full h-fit flex flex-col py-6 absolute bottom-0"
+				style={{
+					background: "linear-gradient(to top, black, transparent)",
+					paddingTop: "4rem",
+				}}
+			>
+				<div
+					id="brands"
+					className="w-full h-[3rem]"
+					style={{
+						backgroundImage: "url(/marcas.png)",
+						backgroundRepeat: "repeat-x",
+						backgroundSize: "auto 100%",
+						backgroundPosition: "2rem 0",
+						paddingLeft: "2rem",
+					}}
+				></div>
+			</div>
 		</section>
 	);
 };
