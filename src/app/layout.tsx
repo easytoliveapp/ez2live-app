@@ -1,5 +1,4 @@
 import React from "react";
-import { Poppins } from "next/font/google";
 import { Kanit } from "next/font/google";
 import { getServerSession } from "next-auth";
 
@@ -19,16 +18,10 @@ import { authOptions } from "./api/auth/[...nextauth]/route";
 import CommonClient from "./CommonClient";
 import { CompleteSupplierRegisterProvider } from "@/components/mols/CompleteSupplierRegister/Context";
 
-const poppins = Poppins({
-	subsets: ["latin"],
-	display: "swap",
-	weight: ["300", "400", "500", "600", "700"],
-});
-
 const kanit = Kanit({
 	subsets: ["latin"],
-	display: "swap",
-	weight: ["300", "400", "500", "600", "700"],
+	display: "auto",
+	weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
 });
 
 export default async function RootLayout({
