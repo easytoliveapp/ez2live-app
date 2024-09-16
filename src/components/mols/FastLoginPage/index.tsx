@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 const FastLoginPage = () => {
 	const [loadingLogin, setLoadingLogin] = useState(false);
@@ -71,18 +72,24 @@ const FastLoginPage = () => {
 
 					<p className="text-lg text-white text-center">
 						Ainda não possui uma conta?{" "}
-						<strong className="text-[#A47AFF] hover:cursor-pointer">
+						<Link
+							href="/app/conta/cadastrar/usuario"
+							className="text-[#A47AFF] hover:cursor-pointer"
+						>
 							Clique aqui
-						</strong>
+						</Link>
 					</p>
 				</motion.div>
 
 				<div className="p-8 h-full lg:p-16 flex flex-col items-center  gap-4">
 					<p className="text-2xl text-white">Tenho uma empresa</p>
 
-					<button className="px-12 py-4 rounded-full bg-[#00AD1A] text-2xl text-white hover:scale-105 transition-all">
+					<Link
+						className="px-12 py-4 rounded-full bg-[#00AD1A] text-2xl text-white hover:scale-105 transition-all"
+						href="/app/conta/cadastrar/parceiro"
+					>
 						<strong>QUERO SER PARCEIRO</strong>
-					</button>
+					</Link>
 				</div>
 			</main>
 
