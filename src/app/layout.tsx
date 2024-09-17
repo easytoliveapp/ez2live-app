@@ -19,37 +19,37 @@ import CommonClient from "./CommonClient";
 import { CompleteSupplierRegisterProvider } from "@/components/mols/CompleteSupplierRegister/Context";
 
 const kanit = Kanit({
-	subsets: ["latin"],
-	display: "auto",
-	weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+  subsets: ["latin"],
+  display: "auto",
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
 });
 
 export default async function RootLayout({
-	children,
+  children,
 }: {
-	children: React.ReactNode;
-	params: any;
+  children: React.ReactNode;
+  params: any;
 }) {
-	const session = await getServerSession(authOptions);
+  const session = await getServerSession(authOptions);
 
-	return (
-		<html lang="en" className={kanit.className}>
-			<head>
-				<title>EasyToLive</title>
-				<link rel="icon" href="/favicon.ico" />
-			</head>
-			<body className="bg-generic-background text-base dark:bg-neutral-900 text-neutral-900 dark:text-neutral-200">
-				<ToastProvider>
-					<AuthProvider session={session}>
-						<SupplierProvider>
-							<CompleteSupplierRegisterProvider>
-								{children}
-							</CompleteSupplierRegisterProvider>
-						</SupplierProvider>
-						<CommonClient />
-					</AuthProvider>
-				</ToastProvider>
-			</body>
-		</html>
-	);
+  return (
+    <html lang="en" className={kanit.className}>
+      <head>
+        <title>EasyToLive</title>
+        <link rel="icon" href="/favicon.ico" />
+      </head>
+      <body className="bg-generic-background text-base dark:bg-neutral-900 text-neutral-900 dark:text-neutral-200">
+        <ToastProvider>
+          <AuthProvider session={session}>
+            <SupplierProvider>
+              <CompleteSupplierRegisterProvider>
+                {children}
+              </CompleteSupplierRegisterProvider>
+            </SupplierProvider>
+            <CommonClient />
+          </AuthProvider>
+        </ToastProvider>
+      </body>
+    </html>
+  );
 }
