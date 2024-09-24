@@ -251,12 +251,12 @@ function PageHome() {
             <div className="inline-flex gap-4 px-4">
               {[
                 { src: "/academias.png", alt: "academias" },
-                { src: "/suplementos.png", alt: "suplementos" },
                 { src: "/produtos_naturais.png", alt: "produtos naturais" },
                 {
                   src: "/procedimentos_est.png",
                   alt: "procedimentos estéticos",
                 },
+                { src: "/suplementos.png", alt: "suplementos" },
                 { src: "/evento_fit.png", alt: "evento fit" },
                 { src: "/comidas_fit.png", alt: "comidas fit" },
               ].map((image, index) => (
@@ -395,12 +395,12 @@ function PageHome() {
             />
             {[
               { src: "/academias.png", alt: "academias" },
-              { src: "/suplementos.png", alt: "suplementos" },
               { src: "/produtos_naturais.png", alt: "produtos naturais" },
               {
                 src: "/procedimentos_est.png",
                 alt: "procedimentos estéticos",
               },
+              { src: "/suplementos.png", alt: "suplementos" },
               { src: "/evento_fit.png", alt: "evento fit" },
               { src: "/comidas_fit.png", alt: "comidas fit" },
             ].map((image, index) => (
