@@ -250,20 +250,15 @@ function PageHome() {
           >
             <div className="inline-flex gap-4 px-4">
               {[
+                { src: "/academias.png", alt: "academias" },
+                { src: "/suplementos.png", alt: "suplementos" },
+                { src: "/produtos_naturais.png", alt: "produtos naturais" },
                 {
                   src: "/procedimentos_est.png",
                   alt: "procedimentos estéticos",
                 },
-                { src: "/comidas_fit.png", alt: "comidas fit" },
-                {
-                  src: "/nut_e_treinadores.png",
-                  alt: "nutricionistas e treinadores",
-                },
-                { src: "/academias.png", alt: "academias" },
                 { src: "/evento_fit.png", alt: "evento fit" },
-                { src: "/farm_map.png", alt: "farmácias" },
-                { src: "/procedimentos.png", alt: "procedimentos" },
-                { src: "/suplementos.png", alt: "suplementos" },
+                { src: "/comidas_fit.png", alt: "comidas fit" },
               ].map((image, index) => (
                 <Image
                   key={index}
@@ -399,17 +394,15 @@ function PageHome() {
               }}
             />
             {[
-              { src: "/procedimentos_est.png", alt: "procedimentos estéticos" },
-              { src: "/comidas_fit.png", alt: "comidas fit" },
-              {
-                src: "/nut_e_treinadores.png",
-                alt: "nutricionistas e treinadores",
-              },
               { src: "/academias.png", alt: "academias" },
-              { src: "/evento_fit.png", alt: "evento fit" },
-              { src: "/farm_map.png", alt: "farmácias" },
-              { src: "/procedimentos.png", alt: "procedimentos" },
               { src: "/suplementos.png", alt: "suplementos" },
+              { src: "/produtos_naturais.png", alt: "produtos naturais" },
+              {
+                src: "/procedimentos_est.png",
+                alt: "procedimentos estéticos",
+              },
+              { src: "/evento_fit.png", alt: "evento fit" },
+              { src: "/comidas_fit.png", alt: "comidas fit" },
             ].map((image, index) => (
               <Image
                 key={index}
