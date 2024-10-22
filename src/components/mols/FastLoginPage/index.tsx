@@ -2,11 +2,10 @@
 
 import { ButtonPrimary, SocialLoginComponent } from "@/components";
 import React, { useState } from "react";
-import PreLoginImage from "@/images/easytolive/home/fast-login-background.jpeg";
 import Image from "next/image";
-import Logo from "@/images/easytolive/logo/logotipo-semfundoazulroxo.svg";
 import { useRouter, useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 const FastLoginPage = () => {
   const [loadingLogin, setLoadingLogin] = useState(false);
@@ -26,47 +25,94 @@ const FastLoginPage = () => {
     }, 1500);
   };
 
+  const variants = {
+    hidden: { opacity: 0, y: -100 },
+    visible: { opacity: 1, y: 0 },
+  };
+
   return (
-    <div className="m-auto relative h-full">
-      <Image
-        alt="pre login back-ground"
-        src={PreLoginImage}
-        objectFit="cover"
-        objectPosition="center"
-        fill={true}
-      />
-      <div className="absolute w-full opacity-50 h-full bg-neutral-200"></div>
-      <motion.div
-        className="flex flex-col w-full h-full justify-between pb-6  md:pb-16 px-16 xl:px-60"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: [0, 25, 50, 75, 100] }}
-        transition={{ ease: "easeIn", duration: 2 }}
-      >
-        <div className="z-50">
+    <section
+      className="w-screen h-screen select-none flex items-center justify-center"
+      style={{
+        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(/pessoas_correndo.png)`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
+      <main className="w-full lg:w-[34rem] flex flex-col justify-between h-full bg-main-purple">
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          variants={variants}
+          transition={{ duration: 0.5 }}
+          className="p-8 lg:p-16 bg-main-gray w-full h-[80%] lg:h-[75%] rounded-b-[30px] flex flex-col gap-8 shadow-xl"
+        >
           <Image
-            className="w-auto h-40 pt-12"
-            alt="easy to live logo"
-            src={Logo}
+            src="/logobranca.svg"
+            alt="logo branca"
+            width={90}
+            height={80}
           />
-          <div className="flex py-8 flex-col gap-5 ">
-            <p className="font-bold max-w-[350px] md:max-w-sm text-bold text-2xl">
-              Realize seu login ou crie sua conta abaixo e acesse os melhores
-              cupons criados pensando em você!
-            </p>
-          </div>
-        </div>
-        <div className="flex flex-col gap-3 mx-auto w-full sm:ml-0 sm:w-[350px]">
+          <h1 className="text-white leading-[2.5rem] text-[32px]">
+            <b className="font-extrabold">Você está a 1 passo</b> <br /> de
+            facilitar sua rotina saudável!
+          </h1>
+
+          <p className="text-xl text-white font-semibold">Continue abaixo:</p>
+
           <SocialLoginComponent />
+
           <ButtonPrimary
             onClick={() => handleRedirectToLogin()}
             loading={loadingLogin}
-            className="!p-3 hover:translate-y-[-2px]"
+            className="!p-3 hover:translate-y-[-2px] transition-all "
           >
             Entrar com email/senha
           </ButtonPrimary>
+
+          <p className="text-lg text-white text-center">
+            Ainda não possui uma conta?{" "}
+            <Link
+              href="/app/conta/cadastrar/usuario"
+              className="text-[#A47AFF] hover:cursor-pointer"
+            >
+              Clique aqui
+            </Link>
+          </p>
+        </motion.div>
+
+        <div className="p-8 h-full lg:p-16 flex flex-col items-center  gap-4">
+          <p className="text-2xl text-white">Tenho uma empresa</p>
+
+          <Link
+            className="px-12 py-4 rounded-full bg-[#00AD1A] text-2xl text-white hover:scale-105 transition-all"
+            href="/app/conta/cadastrar/parceiro"
+          >
+            <strong>QUERO SER PARCEIRO</strong>
+          </Link>
         </div>
-      </motion.div>
-    </div>
+      </main>
+
+      <div
+        className="w-full h-fit flex flex-col py-6 absolute bottom-0"
+        style={{
+          background: "linear-gradient(to top, black, transparent)",
+          paddingTop: "4rem",
+        }}
+      >
+        <div
+          id="brands"
+          className="w-full h-[3rem]"
+          style={{
+            backgroundImage: "url(/marcas.png)",
+            backgroundRepeat: "repeat-x",
+            backgroundSize: "auto 100%",
+            backgroundPosition: "2rem 0",
+            paddingLeft: "2rem",
+          }}
+        ></div>
+      </div>
+    </section>
   );
 };
 

@@ -1,4 +1,6 @@
+"use client";
 import { Header } from "@/components";
+import { usePathname } from "next/navigation";
 
 export default function AuthenticationLayout({
   children,
@@ -6,13 +8,24 @@ export default function AuthenticationLayout({
   children: React.ReactNode;
   params: any;
 }) {
+  const pathname = usePathname();
+  const paths = {
+    hideHeaderPaths: [
+      "/app/conta/entrar",
+      "/app/conta/cadastrar/parceiro",
+      "/app",
+    ],
+  };
+
+  const hideHeader = paths.hideHeaderPaths.includes(pathname);
+
   return (
     <div>
       <head>
         <title>EasyToLive</title>
         <link rel="icon" href="/favicon.ico" />
       </head>
-      <Header />
+      {!hideHeader && <Header />}
       <div className="auth-layout_container">{children}</div>
     </div>
   );

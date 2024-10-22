@@ -10,6 +10,7 @@ interface SearchCategoryProps {
   onSubmit?: (e: any) => void;
   value?: string | number | readonly string[];
   isLoading?: boolean;
+  placeholder?: string;
 }
 
 const SearchCategory: FC<SearchCategoryProps> = ({
@@ -18,6 +19,7 @@ const SearchCategory: FC<SearchCategoryProps> = ({
   onClick,
   onSubmit,
   isLoading = false,
+  placeholder = "Buscar por estabelecimento / categoria",
 }) => {
   return (
     <div className="relative m-auto my-4 flex items-center w-full">
@@ -27,10 +29,10 @@ const SearchCategory: FC<SearchCategoryProps> = ({
         onSubmit={onSubmit}
         onChange={onChange}
         value={value}
-        placeholder="Buscar por estabelecimento / categoria"
+        placeholder={placeholder}
       />
 
-      <div className="absolute right-1 top-3 h-full flex justify-center w-auto bg-transparent">
+      <div className="absolute left-1 top-5 h-full flex justify-center w-auto bg-transparent">
         {isLoading ? (
           <div className="pr-5 bg-generic-background">
             <svg

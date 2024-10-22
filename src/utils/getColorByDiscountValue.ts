@@ -9,7 +9,7 @@ export function getColorByDiscountValue(discount: string): string {
 
   const selectedColor = colorOptions.find(
     ({ value }) => discountValue >= value,
-  ) || { color: "bg-generic-skyBlue" };
+  ) || { color: "text-generic-skyBlue border-generic-skyBlue" };
 
   return selectedColor.color;
 }

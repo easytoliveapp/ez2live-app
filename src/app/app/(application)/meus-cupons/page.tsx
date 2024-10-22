@@ -99,7 +99,7 @@ const MyCouponsPage = () => {
     );
 
   return (
-    <div className="relative md:w-[500px] h-full w-full mx-auto">
+    <div className="relative md:w-[700px] h-full w-full mx-auto">
       <FloatButtonNav
         href="/app"
         icon={Shop}

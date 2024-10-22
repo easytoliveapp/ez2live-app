@@ -5,61 +5,46 @@ import FormComponent from "./FormComponent";
 import Avatar from "@/images/easytolive/user/user_circle_color_primary.svg";
 import { SocialLoginComponent } from "@/components";
 
+import LogoImage from "@/images/easytolive/logo/logotipo-semfundoazulroxo.svg";
+
 const UserRegisterPage = () => {
   return (
-    <div className={`nc-PageSignUp `} data-nc-id="PageSignUp">
-      <div className="container mb-8 lg:mb-32">
-        <div className="mt-8 mb-16 flex items-baseline justify-between">
-          <h2 className=" pl-6 flex items-center text-2xl leading-[115%] md:text-5xl md:leading-[115%] font-bold text-black justify-center">
-            Criar conta <br />\ usuário
-          </h2>
-          <div>
-            <div className="flex rounded-full w-16 h-16 bg-gradient-to-r mr-2 from-secondary-main to-secondary-lighter">
-              <Image
-                src={Avatar}
-                alt="avatar anonimo"
-                className="m-auto w-8 h-auto"
-              />
-            </div>
-          </div>
+    <section
+      className={`nc-PageSignUp flex items-center justify-center`}
+      data-nc-id="PageSignUp"
+      style={{
+        backgroundImage: `url('/background-3th-tela.png')`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        minHeight: "100vh",
+      }}
+    >
+      <div className="bg-white w-[30rem] min-h-[3rem] p-12 rounded-[20px]">
+        <div className="mb-12 mt-4 flex items-center gap-8 flex-col">
+          <Image src={LogoImage} alt="logo" width={80} />
+          <h1 className="text-center text-3xl">
+            <strong>Você está a 1 passo</strong> de,
+            <br />
+            economizar ainda mais!
+          </h1>
         </div>
-        <div className="max-w-md mx-auto space-y-6 ">
-          {/* FORM */}
-          <FormComponent />
-          <span className="block text-center text-sm font-medium text-black">
-            Voltar para{" "}
-            <Link
-              className="text-primary-main text-sm font-semibold"
-              href="/app/conta/entrar"
-            >
-              login
-            </Link>
-          </span>
-          {/* OR */}
-          <div className="relative text-center">
-            <span className="relative z-10 justify-center flex font-semibold text-sm items-center w-full">
-              <div className="bg-white h-0.5 w-full mr-4"></div>
-              <p className="bg-generic-background w-4 ">OU</p>
-              <div className="bg-white h-0.5 w-full ml-4"></div>
-            </span>
-          </div>
-          <div className="pt-2 grid gap-3">
+        <FormComponent />
+        <div className="w-full flex flex-col items-center gap-4 mt-4">
+          <p>OU</p>
+
+          <div className="w-full">
             <SocialLoginComponent />
           </div>
-          {/* ==== */}
-          <span className=" block text-center text-sm font-medium text-black">
-            <div className="bg-white h-0.5 w-auto m-auto mb-4"></div>
-            <p> Tem um estabelecimento e quer se juntar a nós? </p>
-            <Link
-              className="text-primary-main text-sm font-semibold"
-              href="/app/conta/cadastrar/parceiro"
-            >
-              Cadastre-se!
+          <hr className="w-full border-t border-[#383839]/40" />
+          <p className="text-main-purple">
+            Já tem uma conta?{" "}
+            <Link href="/app/conta/entrar">
+              <strong>Entrar</strong>
             </Link>
-          </span>
+          </p>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

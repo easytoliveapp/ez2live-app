@@ -98,89 +98,130 @@ const CreditCardForm: React.FC<ICreditCardForm> = ({
         };
 
         return (
-          <Form onSubmit={handleSubmit} className="px-4 my-4">
-            <div className="w-full flex justify-center mb-5">
-              <Image alt="Card Flags" src={CardFlag} />
-            </div>
-            <FormItem
-              errorMessage={errors.fullName}
-              invalid={!!(errors.fullName && touched.fullName)}
-            >
-              <Field
-                invalid={!!(errors.fullName && touched.fullName)}
-                name="fullName"
-                data-iugu="fullName"
-                type="text"
-                placeholder="Nome do titular"
-                component={Input}
-              />
-            </FormItem>
+          <Form onSubmit={handleSubmit} className="px-8 my-4">
             <FormItem
               errorMessage={errors.creditCard}
               invalid={!!(errors.creditCard && touched.creditCard)}
             >
+              <p className="mb-2"> Número do Cartão </p>
               <Field
                 invalid={!!(errors.creditCard && touched.creditCard)}
                 name="creditCard"
                 maxLength={23}
                 type="text"
-                placeholder="Número do cartão"
+                className="rounded-[10px]"
                 data-iugu="number"
                 onChange={handlecreditCardChange}
                 value={formattedcreditCard}
                 component={Input}
               />
+              <div className="w-full -ml-2 flex">
+                <Image alt="Card Flags" src={CardFlag} />
+              </div>
             </FormItem>
+
             <FormItem
               errorMessage={errors.cvv || errors.cardMonth}
               invalid={
                 !!(errors.cvv && touched.cvv) ||
                 !!(errors.cardMonth && touched.cardMonth)
               }
+              className="-mt-4"
             >
-              <div className="flex justify-between gap-2 md:gap-5 w-full">
-                <Field
-                  invalid={!!(errors.cardMonth && touched.cardMonth)}
-                  name="cardMonth"
-                  data-iugu="expiration_month"
-                  component={Select}
-                  className="text-center pl-2 w-full !flex-grow-2 "
-                >
-                  {MONTHS.map((eachMonth, idx) => (
-                    <option value={idx + 1} key={idx}>
-                      {(idx + 1).toString().concat(" - ").concat(eachMonth)}
-                    </option>
-                  ))}
-                </Field>
-                <Field
-                  name="cardYear"
-                  component={Select}
-                  className="text-center pl-2 !max-w-36"
-                  data-iugu="expiration_year"
-                >
-                  {Array.from(
-                    { length: 20 },
-                    (_, index) => new Date().getFullYear() + index,
-                  ).map((year) => (
-                    <option key={year} value={year}>
-                      {year}
-                    </option>
-                  ))}
-                </Field>
-
-                <Field
-                  invalid={!!errors.cvv && touched.cvv}
-                  name="cvv"
-                  type="text"
-                  placeholder="CVV"
-                  data-iug=""
-                  className="text-center !max-w-24 "
-                  component={Input}
-                />
+              <div className="grid grid-cols-3 gap-2 md:gap-4 w-full">
+                <div className="flex flex-col">
+                  <label htmlFor="cardMonth" className="mb-2">
+                    Mês
+                  </label>
+                  <Field
+                    invalid={!!(errors.cardMonth && touched.cardMonth)}
+                    name="cardMonth"
+                    id="cardMonth"
+                    data-iugu="expiration_month"
+                    component={Select}
+                    className="text-center pl-2 w-full rounded-[10px] border-[#a6a6a6]"
+                  >
+                    {MONTHS.map((eachMonth, idx) => (
+                      <option value={idx + 1} key={idx}>
+                        {(idx + 1).toString().concat(" - ").concat(eachMonth)}
+                      </option>
+                    ))}
+                  </Field>
+                </div>
+                <div className="flex flex-col">
+                  <label htmlFor="cardYear" className="mb-2">
+                    Ano
+                  </label>
+                  <Field
+                    name="cardYear"
+                    id="cardYear"
+                    component={Select}
+                    className="text-center pl-2 w-full rounded-[10px]"
+                    data-iugu="expiration_year"
+                  >
+                    {Array.from(
+                      { length: 20 },
+                      (_, index) => new Date().getFullYear() + index,
+                    ).map((year) => (
+                      <option key={year} value={year}>
+                        {year}
+                      </option>
+                    ))}
+                  </Field>
+                </div>
+                <div className="flex flex-col">
+                  <label htmlFor="cvv" className="mb-2">
+                    CVV
+                  </label>
+                  <Field
+                    invalid={!!errors.cvv && touched.cvv}
+                    name="cvv"
+                    id="cvv"
+                    type="text"
+                    placeholder="CVV"
+                    data-iug=""
+                    className="text-center w-full rounded-[10px]"
+                    component={Input}
+                  />
+                </div>
               </div>
             </FormItem>
+            <FormItem
+              className="-mt-8"
+              errorMessage={errors.fullName}
+              invalid={!!(errors.fullName && touched.fullName)}
+            >
+              <p className="mb-2"> Nome do titular</p>
+              <Field
+                invalid={!!(errors.fullName && touched.fullName)}
+                name="fullName"
+                data-iugu="fullName"
+                type="text"
+                placeholder=""
+                className="rounded-[10px]"
+                component={Input}
+              />
+            </FormItem>
 
-            <div className="flex gap-2">
+            <div className="mb-4">
+              <p>Detalhes da compra</p>
+              <hr className="mt-2 mb-3" />
+              <span className="w-full justify-between flex">
+                <strong className="text-sm">Assinatura Easy to Live</strong>
+                <small>R$ 29,00/mês</small>
+              </span>
+            </div>
+
+            <ButtonPrimary
+              type="submit"
+              className="w-full my-2 rounded-[10px] bg-[#00AD1A] "
+              disabled={loading}
+              loading={loading}
+            >
+              {loading ? loadingButonLabel : buttonLabel}
+            </ButtonPrimary>
+
+            <div className="flex gap-2 mb-2">
               <FormItem
                 errorMessage={null}
                 invalid={!!errors.termsOfUse && touched.termsOfUse}
@@ -213,18 +254,6 @@ const CreditCardForm: React.FC<ICreditCardForm> = ({
                 </div>
               </FormItem>
             </div>
-            <ButtonPrimary
-              type="submit"
-              className="w-full my-2"
-              disabled={loading}
-              loading={loading}
-            >
-              {loading ? loadingButonLabel : buttonLabel}
-            </ButtonPrimary>
-            <p className=" text-[10px] leading-3 text-center italic">
-              Os pagamentos serão realizados de forma recorrente a cada
-              renovoção. Você poderá cancelar a qualquer momento em seu perfil.
-            </p>
           </Form>
         );
       }}

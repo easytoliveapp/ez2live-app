@@ -54,7 +54,6 @@ export const PaymentStep: React.FC<IPaymentStepProps> = ({
         <LoadingComponent fullSize={true} size="medium" />
       ) : (
         <div>
-          <OneStepToPayment />
           <SimpleModal className="!p-0">
             <PaymentMethod
               paymentTab={paymentTab}

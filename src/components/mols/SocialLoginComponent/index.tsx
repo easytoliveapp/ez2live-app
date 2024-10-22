@@ -46,7 +46,7 @@ const SocialLoginComponent = () => {
       {loginSocials.map((item, index) => (
         <button
           key={index}
-          className="flex w-full rounded-full bg-white dark:bg-neutral-800 px-4 py-3 transform transition-transform sm:px-6 hover:translate-y-[-2px]"
+          className="flex w-full rounded-full bg-white border border-[#a6a6a6] dark:bg-neutral-800 px-4 py-3 transform transition-transform sm:px-6 hover:translate-y-[-2px]"
           onClick={() => nextAuthLoginBasedOnProvider(item.provider)}
           disabled={loading}
         >

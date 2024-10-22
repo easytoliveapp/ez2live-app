@@ -81,7 +81,7 @@ const FormComponent = () => {
       onSubmit={handleFormSubmit}
     >
       {({ errors, touched, handleSubmit }) => (
-        <Form onSubmit={handleSubmit} className="flex flex-col gap-3">
+        <Form onSubmit={handleSubmit} className="flex flex-col">
           <FormItem
             label="Nome"
             errorMessage={errors.name}
@@ -123,11 +123,12 @@ const FormComponent = () => {
           </FormItem>
           <ButtonPrimary
             type="submit"
-            className="w-full mt-6"
+            className="w-full"
+            rounded="rounded-[20px]"
             disabled={loading}
             loading={loading}
           >
-            Cadastrar
+            CADASTRAR CONTA
           </ButtonPrimary>
         </Form>
       )}

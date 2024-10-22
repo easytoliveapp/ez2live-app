@@ -1,5 +1,5 @@
 import React from "react";
-import { Poppins } from "next/font/google";
+import { Kanit } from "next/font/google";
 import { getServerSession } from "next-auth";
 
 import "./globals.css";
@@ -19,10 +19,10 @@ import { authOptions } from "./api/auth/[...nextauth]/route";
 import CommonClient from "./CommonClient";
 import { CompleteSupplierRegisterProvider } from "@/components/mols/CompleteSupplierRegister/Context";
 
-const poppins = Poppins({
+const kanit = Kanit({
   subsets: ["latin"],
-  display: "swap",
-  weight: ["300", "400", "500", "600", "700"],
+  display: "auto",
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
 });
 
 export default async function RootLayout({
@@ -34,7 +34,7 @@ export default async function RootLayout({
   const session = await getServerSession(authOptions);
 
   return (
-    <html lang="en" className={poppins.className}>
+    <html lang="en" className={kanit.className}>
       <head>
         <title>EasyToLive</title>
         <link rel="icon" href="/favicon.ico" />
